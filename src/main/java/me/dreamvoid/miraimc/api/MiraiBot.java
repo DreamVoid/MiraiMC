@@ -8,13 +8,19 @@ import net.mamoe.mirai.utils.LoggerAdapters;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 public class MiraiBot {
 
     private static final YamlConfiguration config = Config.config;
+    private final Logger GlobalLogger;
 
-    public MiraiBot() { }
+    public MiraiBot(Logger globalLogger) {
+        this.GlobalLogger=globalLogger;
+    }
 
     /**
      * 登录一个机器人账号
@@ -34,8 +40,22 @@ public class MiraiBot {
      * @param Account 机器人账号
      */
     public void doBotLogout(long Account) {
-        Bot bot = Bot.getInstance(Account);
-        bot.close();
+        Bot bot = Bot.getInstanceOrNull(Account);
+        if(isBotExist(bot)){
+            assert bot != null;
+            bot.close();
+        }
+    }
+    /**
+     * 登出一个机器人账号
+     * [!] 尚未完善多机器人管理。目前，不建议插件开发者在发行版插件中调用此接口
+     * @param Bot 机器人
+     */
+    public void doBotLogout(Bot Bot) {
+        if(isBotExist(bot)){
+            assert bot != null;
+            bot.close();
+        }
     }
 
     /**
@@ -43,11 +63,19 @@ public class MiraiBot {
      * @param BotAccount 机器人账号
      * @param FriendID 好友QQ号
      * @param Message 消息内容
+     * @return 成功返回true，失败返回false (此方法若返回false，则指定的机器人账号不存在)
      */
-    public void sendFriendMessage(long BotAccount, long FriendID, String Message){
-        Bot bot = Bot.getInstance(BotAccount);
-        bot.getLogger().info("Send friend message to " + FriendID);
-        bot.getFriendOrFail(FriendID).sendMessage(Message);
+    public boolean sendFriendMessage(long BotAccount, long FriendID, String Message){
+        Bot bot = Bot.getInstanceOrNull(BotAccount);
+        if(isBotExist(bot)) {
+            assert bot != null;
+            GlobalLogger.info("Send friend message to " + FriendID);
+            bot.getFriendOrFail(FriendID).sendMessage(Message);
+            return true;
+        } else {
+            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            return false;
+        }
     }
 
     /**
@@ -55,23 +83,37 @@ public class MiraiBot {
      * @param BotAccount 机器人账号
      * @param GroupID 群号
      * @param Message 消息内容
+     * @return 成功返回true，失败返回false (此方法若返回false，则指定的机器人账号不存在)
      */
-    public void sendGroupMessage(long BotAccount, long GroupID, String Message){
-        Bot bot = Bot.getInstance(BotAccount);
-        bot.getLogger().info("Send group message to "+GroupID);
-        bot.getGroupOrFail(GroupID).sendMessage(Message);
+    public boolean sendGroupMessage(long BotAccount, long GroupID, String Message){
+        Bot bot = Bot.getInstanceOrNull(BotAccount);
+        if(isBotExist(bot)){
+            GlobalLogger.info("Send group message to "+GroupID);
+            assert bot != null;
+            bot.getGroupOrFail(GroupID).sendMessage(Message);
+            return true;
+        } else {
+            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            return false;
+        }
     }
 
     /**
      * 向指定好友发送戳一戳
      * @param BotAccount 机器人账号
      * @param FriendID 好友QQ号
-     * @return
+     * @return 成功返回true，失败返回false
      */
     public boolean sendFriendNudge(long BotAccount, long FriendID){
-        Bot bot = Bot.getInstance(BotAccount);
-        bot.getLogger().info("Send friend nudge to " + FriendID);
-        return(bot.nudge().sendTo(Bot.getInstance(BotAccount).getFriendOrFail(FriendID)));
+        Bot bot = Bot.getInstanceOrNull(BotAccount);
+        if(isBotExist(bot)){
+            assert bot != null;
+            GlobalLogger.info("Send friend nudge to " + FriendID);
+            return(bot.nudge().sendTo(bot.getFriendOrFail(FriendID)));
+        } else {
+            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            return false;
+        }
     }
 
     /**
@@ -79,12 +121,13 @@ public class MiraiBot {
      * (!) 未经测试
      * @param BotAccount 机器人账号
      * @param GroupID 群号
-     * @return
+     * @return 成功返回true，失败返回false
      */
     public boolean sendGroupNudge(long BotAccount, long GroupID){
-        Bot bot = Bot.getInstance(BotAccount);
-        bot.getLogger().info("Send group nudge to " + GroupID);
-        return(bot.nudge().sendTo(Bot.getInstance(BotAccount).getGroupOrFail(GroupID)));
+        Bot bot = Bot.getInstanceOrNull(BotAccount);
+        assert bot != null;
+        GlobalLogger.info("Send group nudge to " + GroupID);
+        return(bot.nudge().sendTo(bot.getGroupOrFail(GroupID)));
     }
 
     /**
@@ -93,11 +136,19 @@ public class MiraiBot {
      * @param GroupID 群号
      * @param TargetID 被操作群员QQ号
      * @param Time 时间(秒)
+     * @return 成功返回true，失败返回false (此方法若返回false，则指定的机器人账号不存在)
      */
-    public void setGroupMemberMute(long BotAccount, long GroupID, long TargetID, int Time){
-        Bot bot = Bot.getInstance(BotAccount);
-        bot.getLogger().info("Mute group member \""+GroupID+"\"/"+TargetID+"\" for "+Time+" second(s)");
-        bot.getGroupOrFail(GroupID).getOrFail(TargetID).mute(Time);
+    public boolean setGroupMemberMute(long BotAccount, long GroupID, long TargetID, int Time){
+        Bot bot = Bot.getInstanceOrNull(BotAccount);
+        if(isBotExist(bot)){
+            assert bot != null;
+            GlobalLogger.info("Mute group member \""+GroupID+"\"/"+TargetID+"\" for "+Time+" second(s)");
+            bot.getGroupOrFail(GroupID).getOrFail(TargetID).mute(Time);
+            return true;
+        } else {
+            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            return false;
+        }
     }
 
     /**
@@ -105,11 +156,19 @@ public class MiraiBot {
      * @param BotAccount 机器人账号
      * @param GroupID 群号
      * @param TargetID 被操作群员QQ号
+     * @return 成功返回true，失败返回false (此方法若返回false，则指定的机器人账号不存在)
      */
-    public void setGroupMemberUnmute(long BotAccount, long GroupID, long TargetID){
-        Bot bot = Bot.getInstance(BotAccount);
-        bot.getLogger().info("Unmute group member \""+GroupID+"\"/"+TargetID+"\"");
-        bot.getGroupOrFail(GroupID).getOrFail(TargetID).unmute();
+    public boolean setGroupMemberUnmute(long BotAccount, long GroupID, long TargetID){
+        Bot bot = Bot.getInstanceOrNull(BotAccount);
+        if(isBotExist(bot)){
+            assert bot != null;
+            GlobalLogger.info("Unmute group member \""+GroupID+"\"/"+TargetID+"\"");
+            bot.getGroupOrFail(GroupID).getOrFail(TargetID).unmute();
+            return true;
+        } else {
+            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            return false;
+        }
     }
 
     /**
@@ -117,10 +176,17 @@ public class MiraiBot {
      * @param BotAccount 机器人账号
      * @param GroupID 群号
      * @param TargetID 被操作群员QQ号
-     * @return
+     * @return 被禁言返回true，未被禁言false
      */
     public boolean isGroupMemberMuted(long BotAccount, long GroupID, long TargetID){
-        return Bot.getInstance(BotAccount).getGroupOrFail(GroupID).getOrFail(TargetID).isMuted();
+        Bot bot = Bot.getInstanceOrNull(BotAccount);
+        if(isBotExist(bot)){
+            assert bot != null;
+            return bot.getGroupOrFail(GroupID).getOrFail(TargetID).isMuted();
+        } else {
+            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            return false;
+        }
     }
 
     /**
@@ -129,12 +195,66 @@ public class MiraiBot {
      * @param GroupID 群号
      * @param TargetID 被操作群员QQ号
      * @param Reason 理由
+     * @return 成功返回true，失败返回false (此方法若返回false，则指定的机器人账号不存在)
      */
-    public void setGroupMemberKick(long BotAccount, long GroupID, long TargetID, String Reason){
-        Bot bot = Bot.getInstance(BotAccount);
-        bot.getLogger().info("Kick group member \""+GroupID+"\"/"+TargetID+"\"");
-        bot.getGroupOrFail(GroupID).getOrFail(TargetID).kick(Reason);
+    public boolean setGroupMemberKick(long BotAccount, long GroupID, long TargetID, String Reason){
+        Bot bot = Bot.getInstanceOrNull(BotAccount);
+        if(isBotExist(bot)){
+            assert bot != null;
+            GlobalLogger.info("Kick group member \""+GroupID+"\"/"+TargetID+"\"");
+            bot.getGroupOrFail(GroupID).getOrFail(TargetID).kick(Reason);
+            return true;
+        } else {
+            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            return false;
+        }
     }
+
+    /**
+     * 判断机器人是否在线
+     * @param Account 机器人账号
+     * @return 在线返回true，离线返回false
+     */
+    public boolean isBotOnline(long Account){
+        Bot bot=Bot.getInstanceOrNull(Account);
+        if(isBotExist(bot)){
+            assert bot != null;
+            return bot.isOnline();
+        } else {
+            GlobalLogger.warning("Bot account \""+Account+"\" doesn't exist!");
+            return false;
+        }
+    }
+
+    /**
+     * 获取所有在线的机器人
+     * @return 机器人账号列表
+     */
+    public List<Long> getOnlineBots(){
+        List<Long> BotList = new ArrayList<>();
+        for (Bot bot : Bot.getInstances()) {
+            BotList.add(bot.getId());
+        }
+        return BotList;
+    }
+
+    /**
+     * 判断机器人是否存在
+     * @param Account 机器人账号
+     * @return 存在返回true，不存在返回false
+     */
+    public boolean isBotExist(long Account){
+        return !(Objects.equals(Bot.getInstanceOrNull(Account), null));
+    }
+    /**
+     * 判断机器人是否存在
+     * @param bot 机器人
+     * @return 存在返回true，不存在返回false
+     */
+    public boolean isBotExist(Bot bot){
+        return !(Objects.equals(bot, null));
+    }
+
 
     private void privateBotLogin(int Account, String Password, BotConfiguration.MiraiProtocol Protocol, Logger Logger){
 
