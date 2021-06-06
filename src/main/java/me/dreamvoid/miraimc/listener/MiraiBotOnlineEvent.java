@@ -67,5 +67,5 @@ public class MiraiBotOnlineEvent extends Event {
         for(Group Groups : GroupListOrigin){ GroupList.add(Groups.getId()); }
         return GroupList;
     }
-    
+
 }

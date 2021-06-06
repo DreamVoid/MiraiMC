@@ -1,21 +1,19 @@
 package me.dreamvoid.miraimc.listener;
 
-import net.mamoe.mirai.event.events.FriendMessageEvent;
-
+import net.mamoe.mirai.event.events.StrangerMessageEvent;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-
 import org.jetbrains.annotations.NotNull;
 
-public final class MiraiFriendMessageEvent extends Event {
+public class MiraiStrangerMessageEvent extends Event {
 
-    public MiraiFriendMessageEvent(FriendMessageEvent event) {
+    public MiraiStrangerMessageEvent(StrangerMessageEvent event) {
         super(true);
         this.event = event;
     }
 
     private static final HandlerList handlers = new HandlerList();
-    private final FriendMessageEvent event;
+    private final StrangerMessageEvent event;
 
     public @NotNull HandlerList getHandlers() { return handlers; }
     public static HandlerList getHandlerList() { return handlers; }
@@ -56,6 +54,7 @@ public final class MiraiFriendMessageEvent extends Event {
      * 返回接收到这条信息的时间
      * @return 发送时间
      */
-    public int getTime(){ return event.getTime(); }
-
+    public int getTime(){
+        return event.getTime();
+    }
 }
