@@ -4,7 +4,6 @@ import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Config;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,7 +21,7 @@ public class CommandHandler implements CommandExecutor {
 
     public CommandHandler(BukkitPlugin plugin) {
         this.plugin = plugin;
-        this.mirai = new MiraiBot(plugin.getLogger());
+        this.mirai = new MiraiBot(plugin.getLogger(), plugin);
     }
 
     @Override
@@ -50,7 +49,7 @@ public class CommandHandler implements CommandExecutor {
                                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&e可用的协议类型: ANDROID_PHONE, ANDROID_PAD, ANDROID_WATCH."));
                                         Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
                                     }
-                                    mirai.doBotLogin(Integer.parseInt(args[1]),args[2], Protocol, Bukkit.getLogger());
+                                    mirai.doBotLogin(Integer.parseInt(args[1]),args[2], Protocol);
                                 }
                             }.runTaskAsynchronously(plugin);
                         } else {
