@@ -52,9 +52,9 @@ public class MiraiBot {
      * @param Bot 机器人
      */
     public void doBotLogout(Bot Bot) {
-        if(isBotExist(bot)){
-            assert bot != null;
-            bot.close();
+        if(isBotExist(Bot)){
+            assert Bot != null;
+            Bot.close();
         }
     }
 

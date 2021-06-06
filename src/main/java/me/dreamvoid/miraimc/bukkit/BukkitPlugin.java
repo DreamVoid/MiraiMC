@@ -26,21 +26,27 @@ public class BukkitPlugin extends JavaPlugin {
     public void onEnable() {
         Config.LoadConfig();
 
-        Bukkit.getLogger().info("Starting bot event listener.");
+        getLogger().info("Starting bot event listener.");
         BotEvent.startListenEvent();
 
+        getLogger().info("Registering commands.");
         Objects.requireNonNull(Bukkit.getPluginCommand("mirai")).setExecutor(new CommandHandler(this));
         Objects.requireNonNull(Bukkit.getPluginCommand("miraimc")).setExecutor(new CommandHandler(this));
+
+        getLogger().info("All tasks done. Welcome to use MiraiMC!");
     }
 
     @Override // 禁用插件
     public void onDisable() {
         Bukkit.getLogger().info("Stopping bot event listener.");
         BotEvent.stopListenEvent();
+
+        Bukkit.getLogger().info("Closing all bots");
         List<Long> BotList = MiraiBot.getOnlineBots();
-        for (Long bots : BotList){
-            MiraiBot.doBotLogout(Bot.getInstance(bots));
-        }
+        for (Long bots : BotList){ MiraiBot.doBotLogout(Bot.getInstance(bots)); }
+
+        getLogger().info("All tasks done. Thanks for use MiraiMC!");
+
 
     }
 
