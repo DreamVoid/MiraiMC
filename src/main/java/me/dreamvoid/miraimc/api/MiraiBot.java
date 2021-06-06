@@ -99,8 +99,8 @@ public class MiraiBot {
             if(config.getBoolean("bot.disable-bot-logs",false)) { noBotLog(); }
 
             // 是否使用Bukkit的Logger接管Mirai的Logger
-            if(config.getBoolean("bot.new-logger.bot-logs",true)) { setBotLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(Logger)); }
-            if(config.getBoolean("bot.new-logger.network-logs",true)) { setNetworkLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(Logger)); }
+            if(config.getBoolean("bot.use-bukkit-logger.bot-logs",true)) { setBotLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(Logger)); }
+            if(config.getBoolean("bot.use-bukkit-logger.network-logs",true)) { setNetworkLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(Logger)); }
 
             // 是否使用缓存——对于开发者，请启用；对于用户，请禁用。详见 https://github.com/mamoe/mirai/blob/dev/docs/Bots.md#%E5%90%AF%E7%94%A8%E5%88%97%E8%A1%A8%E7%BC%93%E5%AD%98
             getContactListCache().setFriendListCacheEnabled(config.getBoolean("bot.contact-cache.enable-friend-list-cache",false));

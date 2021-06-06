@@ -4,9 +4,10 @@ general:
 bot:
   disable-network-logs: false
   disable-bot-logs: false
-  new-logger:
+  use-bukkit-logger:
     bot-logs: true
     network-logs: true
+  log-events: true
   contact-cache:
     enable-friend-list-cache: false
     enable-group-member-list-cache: false

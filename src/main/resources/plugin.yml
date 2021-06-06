@@ -8,12 +8,12 @@ prefix: DreamVoidPlugin
 webside: https://github.com/DreamVoid/MiraiMC
 commands:
   mirai:
-    description: MiraiBot MiraiBot Command.
-    permission: MiraiBot.command.MiraiBot
-    usage: For help, type /MiraiBot help
+    description: MiraiBot Bot Command.
+    permission: miraimc.command.mirai
+    usage: For help, type /mirai help
   miraimc:
     description: MiraiBot Plugin Command.
-    permission: MiraiBot.command.miraimc
+    permission: miraimc.command.miraimc
     usage: For help, type /miraimc help
 permissions:
   mirai.command.mirai:
