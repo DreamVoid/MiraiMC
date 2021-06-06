@@ -15,7 +15,7 @@ public class BukkitPlugin extends JavaPlugin {
     @Override // 加载插件
     public void onLoad() {
         Config config = new Config(this);
-        this.BotEvent =new BotEvent(this);
+        this.BotEvent = new BotEvent(this);
     }
 
     @Override // 启用插件

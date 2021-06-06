@@ -57,4 +57,5 @@ public final class MiraiFriendMessageEvent extends Event {
     public int getTime(){
         return event.getTime();
     }
+
 }

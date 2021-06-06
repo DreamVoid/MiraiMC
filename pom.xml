@@ -6,7 +6,7 @@
 
     <groupId>groupId</groupId>
     <artifactId>MiraiMC</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <repositories>
         <!-- This adds the Spigot Maven repository to the build -->
         <repository>
