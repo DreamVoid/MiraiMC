@@ -1,21 +1,18 @@
 package me.dreamvoid.miraimc.listener;
 
-import net.mamoe.mirai.event.events.FriendMessageEvent;
-
+import net.mamoe.mirai.event.events.GroupTempMessageEvent;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-
 import org.jetbrains.annotations.NotNull;
 
-public final class MiraiFriendMessageEvent extends Event {
+public class MiraiGroupTempMessageEvent extends Event {
 
-    public MiraiFriendMessageEvent(FriendMessageEvent event) {
+    public MiraiGroupTempMessageEvent(GroupTempMessageEvent event) {
         super(true);
         this.event = event;
     }
-
     private static final HandlerList handlers = new HandlerList();
-    private final FriendMessageEvent event;
+    private final GroupTempMessageEvent event;
 
     public @NotNull HandlerList getHandlers() { return handlers; }
     public static HandlerList getHandlerList() { return handlers; }
@@ -29,6 +26,22 @@ public final class MiraiFriendMessageEvent extends Event {
     }
 
     /**
+     * 返回接收到这条信息的群号
+     * @return 群号
+     */
+    public long getGroupID(){
+        return event.getGroup().getId();
+    }
+
+    /**
+     * 返回接收到这条信息的群名称
+     * @return 群名称
+     */
+    public String getGroupName(){
+        return event.getGroup().getName();
+    }
+
+    /**
      * 返回发送这条信息的发送者ID
      * @return 发送者ID
      */
@@ -37,11 +50,11 @@ public final class MiraiFriendMessageEvent extends Event {
     }
 
     /**
-     * 返回发送这条信息的发送者昵称
-     * @return 发送者昵称
+     * 返回发送这条信息的发送者群名片
+     * @return 发送者群名片
      */
-    public String getSenderNick(){
-        return event.getSender().getNick();
+    public String getSenderNameCard(){
+        return event.getSender().getNameCard();
     }
 
     /**
@@ -56,6 +69,8 @@ public final class MiraiFriendMessageEvent extends Event {
      * 返回接收到这条信息的时间
      * @return 发送时间
      */
-    public int getTime(){ return event.getTime(); }
+    public int getTime(){
+        return event.getTime();
+    }
 
 }
