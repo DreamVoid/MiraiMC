@@ -37,7 +37,7 @@ public class Config {
             Bukkit.getLogger().warning("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
 
-        if(!(config.getBoolean("bot.log-events",true))){
+        if(config.getBoolean("bot.log-events",true)){
             Bukkit.getPluginManager().registerEvents(new PluginEventHandler(), plugin);
         }
     }

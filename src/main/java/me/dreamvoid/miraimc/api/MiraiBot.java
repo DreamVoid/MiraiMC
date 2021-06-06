@@ -16,59 +16,124 @@ public class MiraiBot {
 
     public MiraiBot() { }
 
+    /**
+     * 登录一个机器人账号
+     * [!] 尚未完善多机器人管理。目前，不建议插件开发者在发行版插件中调用此接口
+     * @param Account 机器人账号
+     * @param Password 机器人密码
+     * @param Protocol 协议类型
+     * @param Logger 日志方法 —— 使用 Bukkit.getLogger()
+     */
     public void doBotLogin(int Account, String Password, BotConfiguration.MiraiProtocol Protocol, Logger Logger) {
         privateBotLogin(Account, Password, Protocol, Logger);
     }
 
+    /**
+     * 登出一个机器人账号
+     * [!] 尚未完善多机器人管理。目前，不建议插件开发者在发行版插件中调用此接口
+     * @param Account 机器人账号
+     */
     public void doBotLogout(long Account) {
         Bot bot = Bot.getInstance(Account);
         bot.close();
     }
 
+    /**
+     * 向指定好友发送消息
+     * @param BotAccount 机器人账号
+     * @param FriendID 好友QQ号
+     * @param Message 消息内容
+     */
     public void sendFriendMessage(long BotAccount, long FriendID, String Message){
         Bot bot = Bot.getInstance(BotAccount);
         bot.getLogger().info("Send friend message to " + FriendID);
         bot.getFriendOrFail(FriendID).sendMessage(Message);
     }
 
+    /**
+     * 向指定群发送消息
+     * @param BotAccount 机器人账号
+     * @param GroupID 群号
+     * @param Message 消息内容
+     */
     public void sendGroupMessage(long BotAccount, long GroupID, String Message){
         Bot bot = Bot.getInstance(BotAccount);
         bot.getLogger().info("Send group message to "+GroupID);
         bot.getGroupOrFail(GroupID).sendMessage(Message);
     }
 
+    /**
+     * 向指定好友发送戳一戳
+     * @param BotAccount 机器人账号
+     * @param FriendID 好友QQ号
+     * @return
+     */
     public boolean sendFriendNudge(long BotAccount, long FriendID){
         Bot bot = Bot.getInstance(BotAccount);
         bot.getLogger().info("Send friend nudge to " + FriendID);
         return(bot.nudge().sendTo(Bot.getInstance(BotAccount).getFriendOrFail(FriendID)));
     }
 
+    /**
+     * 向指定群发送戳一戳
+     * (!) 未经测试
+     * @param BotAccount 机器人账号
+     * @param GroupID 群号
+     * @return
+     */
     public boolean sendGroupNudge(long BotAccount, long GroupID){
         Bot bot = Bot.getInstance(BotAccount);
         bot.getLogger().info("Send group nudge to " + GroupID);
         return(bot.nudge().sendTo(Bot.getInstance(BotAccount).getGroupOrFail(GroupID)));
     }
 
+    /**
+     * 在指定群禁言指定成员(要求机器人为管理员或群主)
+     * @param BotAccount 机器人账号
+     * @param GroupID 群号
+     * @param TargetID 被操作群员QQ号
+     * @param Time 时间(秒)
+     */
     public void setGroupMemberMute(long BotAccount, long GroupID, long TargetID, int Time){
         Bot bot = Bot.getInstance(BotAccount);
         bot.getLogger().info("Mute group member \""+GroupID+"\"/"+TargetID+"\" for "+Time+" second(s)");
         bot.getGroupOrFail(GroupID).getOrFail(TargetID).mute(Time);
     }
 
+    /**
+     * 在指定群解除禁言指定成员(要求机器人为管理员或群主)
+     * @param BotAccount 机器人账号
+     * @param GroupID 群号
+     * @param TargetID 被操作群员QQ号
+     */
     public void setGroupMemberUnmute(long BotAccount, long GroupID, long TargetID){
         Bot bot = Bot.getInstance(BotAccount);
         bot.getLogger().info("Unmute group member \""+GroupID+"\"/"+TargetID+"\"");
         bot.getGroupOrFail(GroupID).getOrFail(TargetID).unmute();
     }
 
+    /**
+     * 判断指定群的指定成员是否被禁言
+     * @param BotAccount 机器人账号
+     * @param GroupID 群号
+     * @param TargetID 被操作群员QQ号
+     * @return
+     */
     public boolean isGroupMemberMuted(long BotAccount, long GroupID, long TargetID){
         return Bot.getInstance(BotAccount).getGroupOrFail(GroupID).getOrFail(TargetID).isMuted();
     }
 
-    public void setGroupMemberKick(long BotAccount, long GroupID, long TargetID, String reason){
+    /**
+     * 踢出指定群的指定成员
+     * @param BotAccount 机器人账号
+     * @param GroupID 群号
+     * @param TargetID 被操作群员QQ号
+     * @param Reason 理由
+     */
+    public void setGroupMemberKick(long BotAccount, long GroupID, long TargetID, String Reason){
         Bot bot = Bot.getInstance(BotAccount);
         bot.getLogger().info("Kick group member \""+GroupID+"\"/"+TargetID+"\"");
-        bot.getGroupOrFail(GroupID).getOrFail(TargetID).kick(reason);
+        bot.getGroupOrFail(GroupID).getOrFail(TargetID).kick(Reason);
     }
 
     private void privateBotLogin(int Account, String Password, BotConfiguration.MiraiProtocol Protocol, Logger Logger){

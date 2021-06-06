@@ -19,8 +19,12 @@ public class BotEvent {
     private Listener FriendMessageListener;
 
     public void startListenEvent(){
-        GroupMessageListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupMessageEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMessageEvent(event)));
-        FriendMessageListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendMessageEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendMessageEvent(event)));
+        GroupMessageListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupMessageEvent.class, event -> {
+            Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMessageEvent(event));
+        });
+        FriendMessageListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendMessageEvent.class, event -> {
+            Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendMessageEvent(event));
+        });
     }
 
     public void stopListenEvent(){
