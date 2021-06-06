@@ -67,7 +67,7 @@ public class CommandHandler implements CommandExecutor {
                         return true;
                     }
                     case "sendgroupmessage":{
-                        if(args.length>=4){
+                        if(args.length >= 4){
                             mirai.sendGroupMessage(Long.parseLong(args[1]), Long.parseLong(args[2]),args[3]);
                         } else {
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai sendgroupmessage <账号> <群号> <消息>"));
@@ -75,7 +75,7 @@ public class CommandHandler implements CommandExecutor {
                         return true;
                     }
                     case "sendgroupnudge":{
-                        if(args.length>=4){
+                        if(args.length >= 3){
                             mirai.sendGroupNudge(Long.parseLong(args[1]), Long.parseLong(args[2]));
                         } else {
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai sendgroupnudge <账号> <群号>"));
@@ -83,7 +83,7 @@ public class CommandHandler implements CommandExecutor {
                         return true;
                     }
                     case "sendfriendmessage":{
-                        if(args.length>=4){
+                        if(args.length >= 4){
                             mirai.sendFriendMessage(Long.parseLong(args[1]), Long.parseLong(args[2]),args[3]);
                         } else {
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai sendfriendmessage <账号> <好友> <消息>"));
@@ -91,7 +91,7 @@ public class CommandHandler implements CommandExecutor {
                         return true;
                     }
                     case "sendfriendnudge":{
-                        if(args.length>=4){
+                        if(args.length >= 3){
                             mirai.sendFriendNudge(Long.parseLong(args[1]), Long.parseLong(args[2]));
                         } else {
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai sendfriendnudge <账号> <好友>"));
@@ -108,7 +108,7 @@ public class CommandHandler implements CommandExecutor {
                         return true;
                     }
                     case "checkonline":{
-                        if(args.length>=2){
+                        if(args.length >= 2){
                             if(mirai.isBotOnline(Long.parseLong(args[1]))){
                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a当前机器人在线"));
                             } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&e当前机器人不在线"));
