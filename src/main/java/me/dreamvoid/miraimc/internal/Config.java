@@ -43,4 +43,11 @@ public class Config {
     }
 
 
+    public boolean getBoolean(String s, boolean b) {
+        return config.getBoolean(s,b);
+    }
+
+    public long getLong(String s, int i) {
+        return config.getLong(s,i);
+    }
 }

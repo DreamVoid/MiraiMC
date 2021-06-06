@@ -1,11 +1,11 @@
 package me.dreamvoid.miraimc.api;
 
+import me.dreamvoid.miraimc.bukkit.BukkitPlugin;
 import me.dreamvoid.miraimc.internal.Config;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
 import net.mamoe.mirai.utils.BotConfiguration;
 import net.mamoe.mirai.utils.LoggerAdapters;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,11 +15,12 @@ import java.util.logging.Logger;
 
 public class MiraiBot {
 
-    private static final YamlConfiguration config = Config.config;
+    private static Config config;
     private final Logger GlobalLogger;
 
-    public MiraiBot(Logger globalLogger) {
-        this.GlobalLogger=globalLogger;
+    public MiraiBot(Logger GlobalLogger, BukkitPlugin plugin) {
+        this.GlobalLogger = GlobalLogger;
+        config = new Config(plugin);
     }
 
     /**
@@ -28,10 +29,9 @@ public class MiraiBot {
      * @param Account 机器人账号
      * @param Password 机器人密码
      * @param Protocol 协议类型
-     * @param Logger 日志方法 —— 使用 Bukkit.getLogger()
      */
-    public void doBotLogin(int Account, String Password, BotConfiguration.MiraiProtocol Protocol, Logger Logger) {
-        privateBotLogin(Account, Password, Protocol, Logger);
+    public void doBotLogin(int Account, String Password, BotConfiguration.MiraiProtocol Protocol) {
+        privateBotLogin(Account, Password, Protocol);
     }
 
     /**
@@ -256,21 +256,21 @@ public class MiraiBot {
     }
 
 
-    private void privateBotLogin(int Account, String Password, BotConfiguration.MiraiProtocol Protocol, Logger Logger){
+    private void privateBotLogin(int Account, String Password, BotConfiguration.MiraiProtocol Protocol){
 
-        Logger.info("Preparing for bot account login: "+ Account+", Protocol: "+ Protocol.name());
+        GlobalLogger.info("Preparing for bot account login: "+ Account+", Protocol: "+ Protocol.name());
 
         // 建立mirai数据文件夹
         File MiraiDir = new File(String.valueOf(Config.PluginDir),"MiraiBot");
-        if(!(MiraiDir.exists())){ if(!(MiraiDir.mkdir())) { Logger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
+        if(!(MiraiDir.exists())){ if(!(MiraiDir.mkdir())) { GlobalLogger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
 
         // 建立机器人账号文件夹
         File BotDir = new File(String.valueOf(MiraiDir),"bots");
-        if(!(BotDir.exists())){ if(!(BotDir.mkdir())) { Logger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
+        if(!(BotDir.exists())){ if(!(BotDir.mkdir())) { GlobalLogger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
 
         // 建立当前机器人账号配置文件夹和相应的配置
         File BotConfig = new File(String.valueOf(BotDir), String.valueOf(Account));
-        if(!(BotConfig.exists())){ if(!(BotConfig.mkdir())) { Logger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
+        if(!(BotConfig.exists())){ if(!(BotConfig.mkdir())) { GlobalLogger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
 
         // 登录前的准备工作
         Bot bot = BotFactory.INSTANCE.newBot(Account, Password, new BotConfiguration(){{
@@ -284,8 +284,8 @@ public class MiraiBot {
             if(config.getBoolean("bot.disable-bot-logs",false)) { noBotLog(); }
 
             // 是否使用Bukkit的Logger接管Mirai的Logger
-            if(config.getBoolean("bot.use-bukkit-logger.bot-logs",true)) { setBotLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(Logger)); }
-            if(config.getBoolean("bot.use-bukkit-logger.network-logs",true)) { setNetworkLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(Logger)); }
+            if(config.getBoolean("bot.use-bukkit-logger.bot-logs",true)) { setBotLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(GlobalLogger)); }
+            if(config.getBoolean("bot.use-bukkit-logger.network-logs",true)) { setNetworkLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(GlobalLogger)); }
 
             // 是否使用缓存——对于开发者，请启用；对于用户，请禁用。详见 https://github.com/mamoe/mirai/blob/dev/docs/Bots.md#%E5%90%AF%E7%94%A8%E5%88%97%E8%A1%A8%E7%BC%93%E5%AD%98
             getContactListCache().setFriendListCacheEnabled(config.getBoolean("bot.contact-cache.enable-friend-list-cache",false));
