@@ -1,8 +1,10 @@
 package me.dreamvoid.miraimc.listener;
 
 import net.mamoe.mirai.event.events.FriendMessageEvent;
+
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+
 import org.jetbrains.annotations.NotNull;
 
 public final class MiraiFriendMessageEvent extends Event {
