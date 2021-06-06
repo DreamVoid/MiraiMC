@@ -38,10 +38,10 @@ public class BukkitPlugin extends JavaPlugin {
 
     @Override // 禁用插件
     public void onDisable() {
-        Bukkit.getLogger().info("Stopping bot event listener.");
+        getLogger().info("Stopping bot event listener.");
         BotEvent.stopListenEvent();
 
-        Bukkit.getLogger().info("Closing all bots");
+        getLogger().info("Closing all bots");
         List<Long> BotList = MiraiBot.getOnlineBots();
         for (Long bots : BotList){ MiraiBot.doBotLogout(Bot.getInstance(bots)); }
 
