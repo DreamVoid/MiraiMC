@@ -54,7 +54,7 @@ public class MiraiGroupMemberJoinEvent extends Event{
     public long getInviterID(){
         if(eventInvite != null){
             return eventInvite.getInvitor().getId();
-        } else return 0L;
+        } else return 0;
     }
 
 }
