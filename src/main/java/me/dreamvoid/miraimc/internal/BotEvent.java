@@ -33,6 +33,10 @@ public class BotEvent {
 
     private Listener BotLeaveActiveEventListener;
     private Listener BotLeaveKickEventListener;
+    private Listener BotGroupPermissionChangeEventListener;
+    private Listener BotMuteEventListener;
+    private Listener BotUnmuteEventListener;
+    private Listener BotJoinGroupEventListener;
 
     public void startListenEvent(){
         // Bot
@@ -62,6 +66,10 @@ public class BotEvent {
         // 群
         BotLeaveActiveEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotLeaveEvent.Active.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupBotLeaveEvent(event, event)));
         BotLeaveKickEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotLeaveEvent.Kick.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupBotLeaveEvent(event, event)));
+        BotGroupPermissionChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotGroupPermissionChangeEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupBotPermissionChangeEvent(event)));
+        BotMuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotMuteEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupBotMuteEvent(event)));
+        BotUnmuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotUnmuteEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupBotUnmuteEvent(event)));
+        BotJoinGroupEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotJoinGroupEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupBotJoinGroupEvent(event)));
     }
 
     public void stopListenEvent(){
@@ -88,6 +96,10 @@ public class BotEvent {
 
         BotLeaveActiveEventListener.complete();
         BotLeaveKickEventListener.complete();
+        BotGroupPermissionChangeEventListener.complete();
+        BotMuteEventListener.complete();
+        BotUnmuteEventListener.complete();
+        BotJoinGroupEventListener.complete();
     }
 
 }
