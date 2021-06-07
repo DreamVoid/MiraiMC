@@ -4,6 +4,8 @@ import me.dreamvoid.miraimc.bukkit.BukkitPlugin;
 import me.dreamvoid.miraimc.internal.Config;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
+import net.mamoe.mirai.message.code.MiraiCode;
+import net.mamoe.mirai.message.data.PlainText;
 import net.mamoe.mirai.utils.BotConfiguration;
 import net.mamoe.mirai.utils.LoggerAdapters;
 
@@ -190,7 +192,7 @@ public class MiraiBot {
     }
 
     /**
-     * 踢出指定群的指定成员
+     * 踢出指定群的指定成员(要求机器人为管理员或群主)
      * @param BotAccount 机器人账号
      * @param GroupID 群号
      * @param TargetID 被操作群员QQ号
@@ -209,6 +211,65 @@ public class MiraiBot {
             return false;
         }
     }
+
+    /**
+     * 向指定群的指定成员发送消息
+     * @param BotAccount 机器人账号
+     * @param GroupID 群号
+     * @param TargetID 群成员QQ号
+     * @param Message 消息内容
+     * @return 成功返回true，失败返回false (此方法若返回false，则指定的机器人不在线)
+     */
+    public boolean sendGroupMemberMessage(long BotAccount, long GroupID, long TargetID, String Message){
+        if(isBotOnline(BotAccount)){
+            Bot bot = Bot.getInstanceOrNull(BotAccount);
+            assert bot != null;
+            bot.getGroupOrFail(GroupID).getOrFail(TargetID).sendMessage(Message);
+            return true;
+        } else return false;
+    }
+
+    /**
+     * 获取指定好友的昵称
+     * 如果好友不存在，则返回空文本
+     * @param BotAccount 机器人账号
+     * @param Friend 好友QQ
+     * @return 好友昵称
+     */
+    public String getFriendNick(long BotAccount, long Friend){
+        if(isBotOnline(BotAccount)){
+            Bot bot = Bot.getInstanceOrNull(BotAccount);
+            assert bot != null;
+            return bot.getFriendOrFail(Friend).getNick();
+        } else return "";
+    }
+
+    /**
+     * 获取指定好友的备注
+     * 如果好友不存在或没有好友备注，则返回空文本
+     * @param BotAccount 机器人账号
+     * @param Friend 好友QQ
+     * @return 好友备注
+     */
+    public String getFriendRemark(long BotAccount, long Friend){
+        if(isBotOnline(BotAccount)){
+            Bot bot = Bot.getInstanceOrNull(BotAccount);
+            assert bot != null;
+            return bot.getFriendOrFail(Friend).getRemark();
+        } else return "";
+    }
+
+    /**
+     * 获取@全体成员的消息码用于发送消息
+     * @return [mirai:atall]
+     */
+    public String at(){ return MiraiCode.serializeToMiraiCode(new PlainText("[mirai:atall]")); }
+
+    /**
+     * 获取@<成员>的消息码用于发送消息
+     * @return [mirai:at:<成员]
+     */
+    public String at(long TargetID){ return MiraiCode.serializeToMiraiCode(new PlainText("[mirai:at:"+TargetID+"]")); }
 
     /**
      * 判断机器人是否在线
@@ -243,18 +304,13 @@ public class MiraiBot {
      * @param Account 机器人账号
      * @return 存在返回true，不存在返回false
      */
-    public boolean isBotExist(long Account){
-        return !(Objects.equals(Bot.getInstanceOrNull(Account), null));
-    }
+    public boolean isBotExist(long Account){ return !(Objects.equals(Bot.getInstanceOrNull(Account), null)); }
     /**
      * 判断机器人是否存在
      * @param bot 机器人
      * @return 存在返回true，不存在返回false
      */
-    public boolean isBotExist(Bot bot){
-        return !(Objects.equals(bot, null));
-    }
-
+    public boolean isBotExist(Bot bot) { return !(Objects.equals(bot, null)); }
 
     private void privateBotLogin(int Account, String Password, BotConfiguration.MiraiProtocol Protocol){
 
