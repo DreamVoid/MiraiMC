@@ -54,5 +54,15 @@ public class MiraiGroupBotInvitedJoinGroupRequestEvent extends Event{
      */
     public long getEventID(){ return event.getEventId(); }
 
+    /**
+     * 同意请求
+     */
+    public void setAccept(){ event.accept(); return;}
+
+    /**
+     * 忽略请求
+     */
+    public void setIgnore(){ event.ignore(); return;}
+
 
 }

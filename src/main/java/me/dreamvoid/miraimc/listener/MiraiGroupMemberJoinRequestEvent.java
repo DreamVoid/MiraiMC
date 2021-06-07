@@ -65,6 +65,16 @@ public class MiraiGroupMemberJoinRequestEvent extends Event{
      */
     public String getMessage(){ return event.getMessage(); }
 
+    /**
+     * 同意请求
+     */
+    public void setAccept(){ event.accept(); return;}
+
+    /**
+     * 忽略请求
+     * @param setBlacklist 是否拒绝目标再次申请加群
+     */
+    public void setIgnore(boolean setBlacklist){ event.ignore(setBlacklist); return;}
 
 
 }
