@@ -50,8 +50,8 @@ public class MiraiBotOnlineEvent extends Event {
      * @return 好友列表数组
      */
     public List<Long> getFriendList() {
-        ContactList<Friend> FriendListOrigin = event.getBot().getFriends();
-        List<Long> FriendList = new ArrayList<>();
+        ContactList<Friend> FriendListOrigin = event.getBot().getFriends(); // 原始数组
+        List<Long> FriendList = new ArrayList<>(); // 创建用于返回数据的数组
         for(Friend Friends : FriendListOrigin){ FriendList.add(Friends.getId()); }
         return FriendList;
     }
@@ -62,9 +62,9 @@ public class MiraiBotOnlineEvent extends Event {
      * @return 群列表数组
      */
     public List<Long> getGroupList() {
-        ContactList<Group> GroupListOrigin = event.getBot().getGroups();
-        List<Long> GroupList = new ArrayList<>();
-        for(Group Groups : GroupListOrigin){ GroupList.add(Groups.getId()); }
+        ContactList<Group> GroupListOrigin = event.getBot().getGroups(); // 原始数组
+        List<Long> GroupList = new ArrayList<>(); // 创建用于返回数据的数组
+        for(Group Groups : GroupListOrigin){ GroupList.add(Groups.getId()); } // 为返回的数组加入成员
         return GroupList;
     }
 
