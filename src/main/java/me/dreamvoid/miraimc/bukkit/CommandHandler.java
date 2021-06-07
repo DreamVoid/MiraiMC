@@ -30,89 +30,105 @@ public class CommandHandler implements CommandExecutor {
             if(!(args.length == 0)){
                 switch (args[0].toLowerCase()){
                     case "login": {
-                        if(args.length >= 3) {
-                            new BukkitRunnable(){
+                        if(sender.hasPermission("miraimc.command.mirai.login")){
+                            if(args.length >= 3) {
+                                new BukkitRunnable(){
 
-                                @Override
-                                public void run() {
-                                    BotConfiguration.MiraiProtocol Protocol;
-                                    if(args.length == 3){
-                                        Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
-                                    } else if (args[3].equalsIgnoreCase("android_phone")) {
-                                        Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
-                                    } else if(args[3].equalsIgnoreCase("android_pad")){
-                                        Protocol= BotConfiguration.MiraiProtocol.ANDROID_PAD;
-                                    } else if (args[3].equalsIgnoreCase("android_watch")) {
-                                        Protocol = BotConfiguration.MiraiProtocol.ANDROID_WATCH;
-                                    } else {
-                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&e无效的协议类型，已自动选择 ANDROID_PHONE."));
-                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&e可用的协议类型: ANDROID_PHONE, ANDROID_PAD, ANDROID_WATCH."));
-                                        Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
+                                    @Override
+                                    public void run() {
+                                        BotConfiguration.MiraiProtocol Protocol;
+                                        if(args.length == 3){
+                                            Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
+                                        } else if (args[3].equalsIgnoreCase("android_phone")) {
+                                            Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
+                                        } else if(args[3].equalsIgnoreCase("android_pad")){
+                                            Protocol= BotConfiguration.MiraiProtocol.ANDROID_PAD;
+                                        } else if (args[3].equalsIgnoreCase("android_watch")) {
+                                            Protocol = BotConfiguration.MiraiProtocol.ANDROID_WATCH;
+                                        } else {
+                                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&e无效的协议类型，已自动选择 ANDROID_PHONE."));
+                                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&e可用的协议类型: ANDROID_PHONE, ANDROID_PAD, ANDROID_WATCH."));
+                                            Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
+                                        }
+                                        mirai.doBotLogin(Integer.parseInt(args[1]),args[2], Protocol);
                                     }
-                                    mirai.doBotLogin(Integer.parseInt(args[1]),args[2], Protocol);
-                                }
-                            }.runTaskAsynchronously(plugin);
-                        } else {
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai login <账号> <密码> [协议]"));
-                        }
+                                }.runTaskAsynchronously(plugin);
+                            } else {
+                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai login <账号> <密码> [协议]"));
+                            }
+                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
                         return true;
                     }
                     case "logout":{
-                        if(args.length >= 2) {
+                        if(sender.hasPermission("miraimc.command.mirai.logout")){
+                            if(args.length >= 2) {
                             mirai.doBotLogout(Long.parseLong(args[1]));
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a已关闭指定机器人进程！"));
                         } else {
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai logout <账号>"));
                         }
+                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
                         return true;
                     }
                     case "sendgroupmessage":{
-                        if(args.length >= 4){
+                        if(sender.hasPermission("miraimc.command.mirai.sendgroupmessage")){
+                            if(args.length >= 4){
                             mirai.sendGroupMessage(Long.parseLong(args[1]), Long.parseLong(args[2]),args[3]);
                         } else {
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai sendgroupmessage <账号> <群号> <消息>"));
                         }
+                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
                         return true;
                     }
                     case "sendgroupnudge":{
-                        if(args.length >= 3){
+                        if(sender.hasPermission("miraimc.command.mirai.sendgroupnudge")){
+                            if(args.length >= 3){
                             mirai.sendGroupNudge(Long.parseLong(args[1]), Long.parseLong(args[2]));
                         } else {
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai sendgroupnudge <账号> <群号>"));
                         }
+                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
                         return true;
                     }
                     case "sendfriendmessage":{
-                        if(args.length >= 4){
+                        if(sender.hasPermission("miraimc.command.mirai.sendfriendmessage")){
+                            if(args.length >= 4){
                             mirai.sendFriendMessage(Long.parseLong(args[1]), Long.parseLong(args[2]),args[3]);
                         } else {
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai sendfriendmessage <账号> <好友> <消息>"));
                         }
+                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
                         return true;
                     }
                     case "sendfriendnudge":{
-                        if(args.length >= 3){
+                        if(sender.hasPermission("miraimc.command.mirai.sendfriendnudge")){
+                            if(args.length >= 3){
                             mirai.sendFriendNudge(Long.parseLong(args[1]), Long.parseLong(args[2]));
                         } else {
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai sendfriendnudge <账号> <好友>"));
                         }
+                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
                         return true;
                     }
                     case "list":{
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a当前在线的机器人: "));
-                        List<Long> BotList = mirai.getOnlineBots();
-                        for (long bots : BotList){
-                            Bot bot=Bot.getInstance(bots);
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b"+bot.getId() + "&r &7-&r &6"+Bot.getInstance(bots).getNick()));
-                        }
+                        if(sender.hasPermission("miraimc.command.mirai.list")){
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a当前在线的机器人: "));
+                            List<Long> BotList = mirai.getOnlineBots();
+                            for (long bots : BotList){
+                                Bot bot=Bot.getInstance(bots);
+                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b"+bot.getId() + "&r &7-&r &6"+Bot.getInstance(bots).getNick()));
+                            }
+                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
                         return true;
                     }
                     case "checkonline":{
-                        if(args.length >= 2){
-                            if(mirai.isBotOnline(Long.parseLong(args[1]))){
-                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a当前机器人在线"));
-                            } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&e当前机器人不在线"));
-                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai checkonline <账号>"));
+                        if(sender.hasPermission("miraimc.command.mirai.checkonline")){
+                            if(args.length >= 2){
+                                if(mirai.isBotOnline(Long.parseLong(args[1]))){
+                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a当前机器人在线"));
+                                } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&e当前机器人不在线"));
+                            } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai checkonline <账号>"));
+                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
                         return true;
                     }
                     case "help":{
@@ -141,8 +157,10 @@ public class CommandHandler implements CommandExecutor {
             if(!(args.length == 0)) {
                 switch (args[0].toLowerCase()) {
                     case "reload": {
-                        Config.LoadConfig();
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a配置文件已经重新加载！"));
+                        if(sender.hasPermission("miraimc.command.miraimc.reload")){
+                            Config.LoadConfig();
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a配置文件已经重新加载！"));
+                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
                         return true;
                     }
                     case "help":{
