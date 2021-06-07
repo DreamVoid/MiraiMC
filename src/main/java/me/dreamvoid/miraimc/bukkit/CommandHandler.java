@@ -21,7 +21,7 @@ public class CommandHandler implements CommandExecutor {
 
     public CommandHandler(BukkitPlugin plugin) {
         this.plugin = plugin;
-        this.mirai = new MiraiBot(plugin.getLogger(), plugin);
+        this.mirai = new MiraiBot();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.api;
 
-import me.dreamvoid.miraimc.bukkit.BukkitPlugin;
 import me.dreamvoid.miraimc.internal.Config;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
@@ -8,6 +7,7 @@ import net.mamoe.mirai.message.code.MiraiCode;
 import net.mamoe.mirai.message.data.PlainText;
 import net.mamoe.mirai.utils.BotConfiguration;
 import net.mamoe.mirai.utils.LoggerAdapters;
+import org.bukkit.Bukkit;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,13 +17,9 @@ import java.util.logging.Logger;
 
 public class MiraiBot {
 
-    private static Config config;
     private final Logger GlobalLogger;
 
-    public MiraiBot(Logger GlobalLogger, BukkitPlugin plugin) {
-        this.GlobalLogger = GlobalLogger;
-        config = new Config(plugin);
-    }
+    public MiraiBot() { this.GlobalLogger = Bukkit.getLogger(); }
 
     /**
      * 登录一个机器人账号
@@ -337,17 +333,17 @@ public class MiraiBot {
             fileBasedDeviceInfo();
 
             // 是否关闭日志输出（不建议开发者关闭）
-            if(config.getBoolean("bot.disable-network-logs",false)) { noNetworkLog(); }
-            if(config.getBoolean("bot.disable-bot-logs",false)) { noBotLog(); }
+            if(Config.config.getBoolean("bot.disable-network-logs",false)) { noNetworkLog(); }
+            if(Config.config.getBoolean("bot.disable-bot-logs",false)) { noBotLog(); }
 
             // 是否使用Bukkit的Logger接管Mirai的Logger
-            if(config.getBoolean("bot.use-bukkit-logger.bot-logs",true)) { setBotLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(GlobalLogger)); }
-            if(config.getBoolean("bot.use-bukkit-logger.network-logs",true)) { setNetworkLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(GlobalLogger)); }
+            if(Config.config.getBoolean("bot.use-bukkit-logger.bot-logs",true)) { setBotLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(GlobalLogger)); }
+            if(Config.config.getBoolean("bot.use-bukkit-logger.network-logs",true)) { setNetworkLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(GlobalLogger)); }
 
             // 是否使用缓存——对于开发者，请启用；对于用户，请禁用。详见 https://github.com/mamoe/mirai/blob/dev/docs/Bots.md#%E5%90%AF%E7%94%A8%E5%88%97%E8%A1%A8%E7%BC%93%E5%AD%98
-            getContactListCache().setFriendListCacheEnabled(config.getBoolean("bot.contact-cache.enable-friend-list-cache",false));
-            getContactListCache().setGroupMemberListCacheEnabled(config.getBoolean("bot.contact-cache.enable-group-member-list-cache",false));
-            getContactListCache().setSaveIntervalMillis(config.getLong("bot.contact-cache.save-interval-millis",60000));
+            getContactListCache().setFriendListCacheEnabled(Config.config.getBoolean("bot.contact-cache.enable-friend-list-cache",false));
+            getContactListCache().setGroupMemberListCacheEnabled(Config.config.getBoolean("bot.contact-cache.enable-group-member-list-cache",false));
+            getContactListCache().setSaveIntervalMillis(Config.config.getLong("bot.contact-cache.save-interval-millis",60000));
 
         }});
 
