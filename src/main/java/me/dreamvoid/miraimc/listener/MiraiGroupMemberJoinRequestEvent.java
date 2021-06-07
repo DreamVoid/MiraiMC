@@ -61,7 +61,7 @@ public class MiraiGroupMemberJoinRequestEvent extends Event{
 
     /**
      * 获取加群时填写的附言
-     * @return 事件ID
+     * @return 附言
      */
     public String getMessage(){ return event.getMessage(); }
 
