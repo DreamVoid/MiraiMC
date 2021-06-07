@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.listener;
 
 import net.mamoe.mirai.contact.ContactList;
-import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupMessagePostSendEvent;
 import org.bukkit.event.Event;
@@ -31,12 +30,6 @@ public class MiraiGroupMessagePostSendEvent extends Event {
     public long getBotID(){
         return event.getBot().getId();
     }
-
-    /**
-     * 返回目标群的群实例
-     * @return 群
-     */
-    public Group getGroup(){ return event.getTarget(); }
 
     /**
      * 返回目标群的群号
@@ -73,7 +66,7 @@ public class MiraiGroupMessagePostSendEvent extends Event {
 
     /**
      * 获取目标群的群成员列表
-     * 此方法只返回QQ号，如需原始数组，请调用 getGroup() 方法
+     * 此方法只返回QQ号
      * @return 群成员列表
      */
     public List<Long> getGroupMemberList(){

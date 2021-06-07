@@ -22,6 +22,9 @@ public class BotEvent {
     private Listener StrangerMessageEventListener;
 
     private Listener GroupMessagePreSendEventListener;
+    private Listener FriendMessagePreSendEventListener;
+    private Listener GroupTempMessagePreSendEventListener;
+    private Listener StrangerMessagePreSendEventListener;
 
     private Listener GroupMessagePostSendEventListener;
 
@@ -41,6 +44,9 @@ public class BotEvent {
         StrangerMessageEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(StrangerMessageEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiStrangerMessageEvent(event)));
         // - 主动前
         GroupMessagePreSendEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupMessagePreSendEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMessagePreSendEvent(event)));
+        FriendMessagePreSendEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendMessagePreSendEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendMessagePreSendEvent(event)));
+        GroupTempMessagePreSendEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupTempMessagePreSendEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupTempMessagePreSendEvent(event)));
+        StrangerMessagePreSendEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(StrangerMessagePreSendEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiStrangerMessagePreSendEvent(event)));
         // - 主动后
         GroupMessagePostSendEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupMessagePostSendEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMessagePostSendEvent(event)));
 
@@ -59,6 +65,9 @@ public class BotEvent {
         StrangerMessageEventListener.complete();
 
         GroupMessagePreSendEventListener.complete();
+        FriendMessagePreSendEventListener.complete();
+        GroupTempMessagePreSendEventListener.complete();
+        StrangerMessagePreSendEventListener.complete();
 
         GroupMessagePostSendEventListener.complete();
     }

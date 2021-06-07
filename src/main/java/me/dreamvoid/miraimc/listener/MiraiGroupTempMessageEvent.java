@@ -58,6 +58,14 @@ public class MiraiGroupTempMessageEvent extends Event {
     }
 
     /**
+     * 返回发送这条信息的发送者昵称
+     * @return 发送者昵称
+     */
+    public String getSenderNick(){
+        return event.getSender().getNick();
+    }
+
+    /**
      * 返回接收到的消息内容
      * @return 消息内容
      */
