@@ -260,14 +260,15 @@ public class MiraiBot {
     }
 
     /**
-     * 获取@全体成员的消息码用于发送消息
+     * 获取 @全体成员 的消息码用于发送消息
      * @return [mirai:atall]
      */
     public String at(){ return MiraiCode.serializeToMiraiCode(new PlainText("[mirai:atall]")); }
 
     /**
-     * 获取@<成员>的消息码用于发送消息
-     * @return [mirai:at:<成员]
+     * 获取 @成员 的消息码用于发送消息
+     * @param TargetID 成员QQ号
+     * @return [mirai:at:成员]
      */
     public String at(long TargetID){ return MiraiCode.serializeToMiraiCode(new PlainText("[mirai:at:"+TargetID+"]")); }
 
