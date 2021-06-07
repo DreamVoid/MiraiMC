@@ -10,15 +10,19 @@ public class BotEvent {
 
     public BotEvent() { }
 
-    private Listener GroupMessageListener;
-    private Listener FriendMessageListener;
     private Listener BotOnlineListener;
     private Listener BotOfflineActiveListener;
     private Listener BotOfflineForceListener;
     private Listener BotOfflineDroppedListener;
     private Listener BotOfflineRequireReconnectListener;
+
+    private Listener GroupMessageListener;
+    private Listener FriendMessageListener;
     private Listener GroupTempMessageEventListener;
     private Listener StrangerMessageEventListener;
+
+    private Listener GroupMessagePreSendEventListener;
+
     private Listener GroupMessagePostSendEventListener;
 
     public void startListenEvent(){
@@ -36,7 +40,10 @@ public class BotEvent {
         GroupTempMessageEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupTempMessageEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupTempMessageEvent(event)));
         StrangerMessageEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(StrangerMessageEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiStrangerMessageEvent(event)));
         // - 主动前
+        GroupMessagePreSendEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupMessagePreSendEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMessagePreSendEvent(event)));
+        // - 主动后
         GroupMessagePostSendEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupMessagePostSendEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMessagePostSendEvent(event)));
+
     }
 
     public void stopListenEvent(){
@@ -50,6 +57,8 @@ public class BotEvent {
         FriendMessageListener.complete();
         GroupTempMessageEventListener.complete();
         StrangerMessageEventListener.complete();
+
+        GroupMessagePreSendEventListener.complete();
 
         GroupMessagePostSendEventListener.complete();
     }
