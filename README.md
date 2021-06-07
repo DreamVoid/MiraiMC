@@ -37,7 +37,7 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 
 
 ## 下一步的目标
-- [X] 实现CoreAPI的基础功能
-- [ ] 完善插件和权限系统
-- [X] 完善API接口供其他插件开发者调用
+- [X] 初步实现CoreAPI的基础功能
+- [X] 初步完善指令和权限系统
+- [X] 初步完善API接口供其他插件开发者调用
 - [ ] 像mirai console一样加载mirai console插件
