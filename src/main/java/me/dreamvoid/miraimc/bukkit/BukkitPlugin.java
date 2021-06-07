@@ -19,7 +19,7 @@ public class BukkitPlugin extends JavaPlugin {
     public void onLoad() {
         Config config = new Config(this);
         this.BotEvent = new BotEvent();
-        this.MiraiBot = new MiraiBot(this.getLogger(), this);
+        this.MiraiBot = new MiraiBot();
     }
 
     @Override // 启用插件

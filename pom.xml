@@ -6,7 +6,7 @@
 
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
-    <version>1.1-rc1</version>
+    <version>1.1-rc2</version>
     <repositories>
         <!-- This adds the Spigot Maven repository to the build -->
         <repository>
