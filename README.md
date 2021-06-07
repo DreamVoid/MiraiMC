@@ -12,7 +12,7 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 * 下载插件，并将插件文件放入plugins文件夹
 * [可选] 下载基于MiraiMC开发的其他插件（如果有的话），并将这些插件放入plugins文件夹
 * 启动服务端（如果尚未启动）或使用诸如PlugMan的插件加载插件
-* 使用指令“/mirai login <账号> <密码>”登录你的机器人账号
+* 使用指令“**/mirai login <账号> <密码>**”登录你的机器人账号
 * [额外] 如果你同时使用了基于MiraiMC开发的插件，请在这些插件的配置文件中调整有关MiraiMC的配置
 * 享受优雅的QQ机器人服务！
 
