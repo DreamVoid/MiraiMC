@@ -6,7 +6,7 @@
 
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
-    <version>1.1-rc3</version>
+    <version>1.1-rc4</version>
 
     <name>MiraiMC</name>
     <description>Mirai for Minecraft server</description>
