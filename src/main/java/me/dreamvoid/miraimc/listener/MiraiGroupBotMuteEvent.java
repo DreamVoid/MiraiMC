@@ -44,7 +44,7 @@ public class MiraiGroupBotMuteEvent extends Event{
      * 返回执行禁言操作的管理员。
      * @return 管理员QQ
      */
-    public long getNewPermssion() {
+    public long getNewPermission() {
         return event.getOperator().getId();
     }
 }
