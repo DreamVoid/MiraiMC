@@ -30,7 +30,7 @@ public class MiraiFriendMessagePostSendEvent extends Event {
      * 返回目标好友的QQ号
      * @return 好友QQ号
      */
-    public Long getFriendID(){
+    public long getFriendID(){
         return event.getTarget().getId();
     }
 

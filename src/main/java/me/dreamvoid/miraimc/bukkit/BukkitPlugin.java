@@ -43,7 +43,7 @@ public class BukkitPlugin extends JavaPlugin {
 
         getLogger().info("Closing all bots");
         List<Long> BotList = MiraiBot.getOnlineBots();
-        for (Long bots : BotList){ MiraiBot.doBotLogout(Bot.getInstance(bots)); }
+        for (long bots : BotList){ MiraiBot.doBotLogout(Bot.getInstance(bots)); }
 
         getLogger().info("All tasks done. Thanks for use MiraiMC!");
 

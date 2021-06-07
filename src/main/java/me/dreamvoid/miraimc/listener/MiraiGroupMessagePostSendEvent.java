@@ -35,7 +35,7 @@ public class MiraiGroupMessagePostSendEvent extends Event {
      * 返回目标群的群号
      * @return 群号
      */
-    public Long getGroupID(){
+    public long getGroupID(){
         return event.getTarget().getId();
     }
 
