@@ -27,6 +27,9 @@ public class BotEvent {
     private Listener StrangerMessagePreSendEventListener;
 
     private Listener GroupMessagePostSendEventListener;
+    private Listener FriendMessagePostSendEventListener;
+    private Listener GroupTempMessagePostSendEventListener;
+    private Listener StrangerMessagePostSendEventListener;
 
     public void startListenEvent(){
         // Bot
@@ -49,6 +52,9 @@ public class BotEvent {
         StrangerMessagePreSendEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(StrangerMessagePreSendEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiStrangerMessagePreSendEvent(event)));
         // - 主动后
         GroupMessagePostSendEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupMessagePostSendEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMessagePostSendEvent(event)));
+        FriendMessagePostSendEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendMessagePostSendEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendMessagePostSendEvent(event)));
+        GroupTempMessagePostSendEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupTempMessagePostSendEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupTempMessagePostSendEvent(event)));
+        StrangerMessagePostSendEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(StrangerMessagePostSendEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiStrangerMessagePostSendEvent(event)));
 
     }
 
@@ -70,6 +76,9 @@ public class BotEvent {
         StrangerMessagePreSendEventListener.complete();
 
         GroupMessagePostSendEventListener.complete();
+        FriendMessagePostSendEventListener.complete();
+        GroupTempMessagePostSendEventListener.complete();
+        StrangerMessagePostSendEventListener.complete();
     }
 
 }
