@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.listener;
 
 import net.mamoe.mirai.event.events.MemberJoinRequestEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -68,13 +69,13 @@ public class MiraiGroupMemberJoinRequestEvent extends Event{
     /**
      * 同意请求
      */
-    public void setAccept(){ event.accept(); return;}
+    public void setAccept(){ event.accept(); Bukkit.getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+ getRequestMemberID() +"|"+getInviterID()+") <- Accept"); return;}
 
     /**
      * 忽略请求
      * @param setBlacklist 是否拒绝目标再次申请加群
      */
-    public void setIgnore(boolean setBlacklist){ event.ignore(setBlacklist); return;}
+    public void setIgnore(boolean setBlacklist){ event.ignore(setBlacklist);Bukkit.getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny"); return;}
 
 
 }
