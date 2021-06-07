@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.listener;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.NormalMember;
-import net.mamoe.mirai.event.events.GroupMessagePostSendEvent;
+import net.mamoe.mirai.event.events.GroupMessagePreSendEvent;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -11,15 +11,15 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MiraiGroupMessagePostSendEvent extends Event {
+public class MiraiGroupMessagePreSendEvent extends Event {
 
-    public MiraiGroupMessagePostSendEvent(GroupMessagePostSendEvent event) {
+    public MiraiGroupMessagePreSendEvent(GroupMessagePreSendEvent event) {
         super(true);
         this.event = event;
     }
 
     private static final HandlerList handlers = new HandlerList();
-    private final GroupMessagePostSendEvent event;
+    private final GroupMessagePreSendEvent event;
 
     public @NotNull HandlerList getHandlers() { return handlers; }
     public static HandlerList getHandlerList() { return handlers; }
@@ -53,11 +53,11 @@ public class MiraiGroupMessagePostSendEvent extends Event {
     public String getGroupName(){ return event.getTarget().getName(); }
 
     /**
-     * 返回发送的消息内容
+     * 返回将发送的消息内容
      * @return 消息内容
      */
     public String getMessage(){
-        return event.getMessage().serializeToMiraiCode();
+        return event.getMessage().contentToString();
     }
 
     /**
