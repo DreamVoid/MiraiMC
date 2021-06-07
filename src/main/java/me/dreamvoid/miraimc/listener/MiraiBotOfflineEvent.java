@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.listener;
 
-import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.event.events.BotOfflineEvent;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -38,12 +37,6 @@ public class MiraiBotOfflineEvent extends Event {
      * [!]
      */
     public void close() { event.getBot().close(); }
-
-    /**
-     * 获取机器人实例
-     * @return 机器人
-     */
-    public Bot getBot() { return event.getBot(); }
 
     /**
      * 获取机器人账号

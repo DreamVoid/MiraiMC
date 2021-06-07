@@ -2,31 +2,30 @@ package me.dreamvoid.miraimc.listener;
 
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.NormalMember;
-import net.mamoe.mirai.event.events.GroupMessageEvent;
-
+import net.mamoe.mirai.event.events.GroupTempMessagePreSendEvent;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class MiraiGroupMessageEvent extends Event {
+public class MiraiGroupTempMessagePreSendEvent extends Event {
 
-    public MiraiGroupMessageEvent(GroupMessageEvent event) {
+    public MiraiGroupTempMessagePreSendEvent(GroupTempMessagePreSendEvent event) {
         super(true);
         this.event = event;
     }
 
     private static final HandlerList handlers = new HandlerList();
-    private final GroupMessageEvent event;
+    private final GroupTempMessagePreSendEvent event;
 
     public @NotNull HandlerList getHandlers() { return handlers; }
     public static HandlerList getHandlerList() { return handlers; }
 
+    // 所有事件公有方法
     /**
-     * 返回接收到这条信息的机器人ID
+     * 返回接收这条信息的机器人ID
      * @return 机器人ID
      */
     public long getBotID(){
@@ -34,71 +33,63 @@ public final class MiraiGroupMessageEvent extends Event {
     }
 
     /**
-     * 返回接收到这条信息的群号
-     * @return 群号
+     * 返回目标好友的QQ号
+     * @return 好友QQ号
      */
-    public long getGroupID(){
-        return event.getGroup().getId();
+    public Long getSenderID(){
+        return event.getTarget().getId();
     }
 
     /**
-     * 返回接收到这条信息的群名称
-     * @return 群名称
+     * 返回目标群成员的昵称
+     * @return 昵称
      */
-    public String getGroupName(){
-        return event.getGroup().getName();
-    }
+    public String getSenderNickName(){ return event.getTarget().getNick(); }
 
     /**
-     * 返回发送这条信息的发送者ID
-     * @return 发送者ID
+     * 返回目标群成员的群名片
+     * @return 群名片
      */
-    public long getSenderID(){
-        return event.getSender().getId();
-    }
+    public String getSenderNameCard(){ return event.getTarget().getNameCard(); }
 
     /**
-     * 返回发送这条信息的发送者群名片
-     * @return 发送者群名片
+     * 返回目标群成员的备注名
+     * @return 备注名
      */
-    public String getSenderNameCard(){
-        return event.getSender().getNameCard();
-    }
+    public String getRemark(){ return event.getTarget().getRemark(); }
 
     /**
-     * 返回接收到的消息内容
+     * 返回将发送的消息内容
      * @return 消息内容
      */
-    public String getMessage(){
-        return event.getMessage().serializeToMiraiCode();
-    }
+    public String getMessage(){ return event.getMessage().contentToString(); }
 
     /**
-     * 返回接收到这条信息的时间
-     * @return 发送时间
+     * 返回目标群成员解除禁言的剩余时间(如果已被禁言)
+     * 此方法会同时判断目标群是否开启全员禁言，如果开启，则返回 -1
+     * @return 时间(秒)
      */
-    public int getTime(){
-        return event.getTime();
+    public int getMemberMuteRemainTime(){
+        if(isMuteAll() && getMemberPermission() == 0) {
+            return -1;
+        } else return event.getTarget().getMuteTimeRemaining();
     }
 
     /**
-     * 获取发送者在目标群的管理权限
+     * 获取目标群成员在目标群的管理权限
      * @return 0 - 普通成员 | 1 - 管理员 | 2 - 群主
      */
-    public int getSenderPermission(){
-        return event.getSender().getPermission().getLevel();
+    public int getMemberPermission(){
+        return event.getTarget().getPermission().getLevel();
     }
 
+    // 群事件公有方法
     /**
      * 返回机器人解除禁言的剩余时间(如果已被禁言)
      * 此方法会同时判断目标群是否开启全员禁言，如果开启，则返回 -1
      * @return 禁言时间(秒) - 全员禁言返回 -1
      */
-    public int getBotMuteRemainTime() {
-        if(isMuteAll() && getBotPermission() == 0) {
-            return -1;
-        } else return event.getGroup().getBotMuteRemaining();
-    }
+    public int getBotMuteRemainTime(){ return event.getGroup().getBotAsMember().getMuteTimeRemaining(); }
 
     /**
      * 获取目标群的群成员列表
@@ -151,6 +142,5 @@ public final class MiraiGroupMessageEvent extends Event {
     public boolean isAutoApproveEnabled(){
         return event.getGroup().getSettings().isAutoApproveEnabled();
     }
-
 
 }

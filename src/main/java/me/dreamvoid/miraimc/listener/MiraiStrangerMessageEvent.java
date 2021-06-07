@@ -57,4 +57,5 @@ public class MiraiStrangerMessageEvent extends Event {
     public int getTime(){
         return event.getTime();
     }
+
 }
