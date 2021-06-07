@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.listener;
 
 import net.mamoe.mirai.event.events.BotJoinGroupEvent;
-import net.mamoe.mirai.event.events.BotLeaveEvent;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
