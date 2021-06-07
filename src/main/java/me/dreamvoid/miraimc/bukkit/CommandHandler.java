@@ -101,7 +101,7 @@ public class CommandHandler implements CommandExecutor {
                     case "list":{
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a当前在线的机器人: "));
                         List<Long> BotList = mirai.getOnlineBots();
-                        for (Long bots : BotList){
+                        for (long bots : BotList){
                             Bot bot=Bot.getInstance(bots);
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b"+bot.getId() + "&r &7-&r &6"+Bot.getInstance(bots).getNick()));
                         }

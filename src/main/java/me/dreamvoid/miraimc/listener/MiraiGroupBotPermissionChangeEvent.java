@@ -24,13 +24,13 @@ public class MiraiGroupBotPermissionChangeEvent extends Event{
      * 获取机器人账号
      * @return 机器人账号
      */
-    public Long getBotID() { return event.getBot().getId(); }
+    public long getBotID() { return event.getBot().getId(); }
 
     /**
      * 返回目标群的群号
      * @return 群号
      */
-    public Long getGroupID() { return event.getGroupId(); }
+    public long getGroupID() { return event.getGroupId(); }
 
     /**
      * 返回机器人的原有权限。

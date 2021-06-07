@@ -22,12 +22,12 @@ public class MiraiGroupBotJoinGroupEvent extends Event{
      * 获取机器人账号
      * @return 机器人账号
      */
-    public Long getBotID() { return event.getBot().getId(); }
+    public long getBotID() { return event.getBot().getId(); }
 
     /**
      * 返回加入群的群号
      * @return 群号
      */
-    public Long getGroupID() { return event.getGroupId(); }
+    public long getGroupID() { return event.getGroupId(); }
 
 }

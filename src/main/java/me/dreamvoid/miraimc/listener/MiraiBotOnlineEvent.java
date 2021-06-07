@@ -28,7 +28,7 @@ public class MiraiBotOnlineEvent extends Event {
      * 获取机器人账号
      * @return 机器人账号
      */
-    public Long getID() { return event.getBot().getId(); }
+    public long getID() { return event.getBot().getId(); }
 
     /**
      * 获取机器人昵称
