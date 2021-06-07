@@ -28,7 +28,7 @@ public class MiraiBot {
      * @param Password 机器人密码
      * @param Protocol 协议类型
      */
-    public void doBotLogin(int Account, String Password, BotConfiguration.MiraiProtocol Protocol) {
+    public void doBotLogin(long Account, String Password, BotConfiguration.MiraiProtocol Protocol) {
         privateBotLogin(Account, Password, Protocol);
     }
 
@@ -309,7 +309,7 @@ public class MiraiBot {
      */
     public boolean isBotExist(Bot bot) { return !(Objects.equals(bot, null)); }
 
-    private void privateBotLogin(int Account, String Password, BotConfiguration.MiraiProtocol Protocol){
+    private void privateBotLogin(long Account, String Password, BotConfiguration.MiraiProtocol Protocol){
 
         GlobalLogger.info("Preparing for bot account login: "+ Account+", Protocol: "+ Protocol.name());
 
