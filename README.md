@@ -29,7 +29,7 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
     <!--请确保版本为Github上的最新版本-->
-    <version>1.1-rc3</version>
+    <version>1.1-rc4</version>
 </dependency>
 ```
 * 参照[Javadoc](https://docs.miraimc.dreamvoid.ml)或[MiraiMC开发模板](https://github.com/DreamVoid/MiraiMC-Template)编写相关的代码
