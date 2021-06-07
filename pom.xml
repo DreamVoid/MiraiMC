@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>groupId</groupId>
+    <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
-    <version>1.1-pre2</version>
+    <version>1.1-rc1</version>
     <repositories>
         <!-- This adds the Spigot Maven repository to the build -->
         <repository>
@@ -14,6 +14,18 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
+
+    <name>MiraiMC</name>
+    <description>Mirai for Minecraft server</description>
+    <url>https://github.com/DreamVoid/MiraiMC</url>
+
+    <licenses>
+        <license>
+            <name>GNU General Public License v3.0</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0.zh-cn.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
