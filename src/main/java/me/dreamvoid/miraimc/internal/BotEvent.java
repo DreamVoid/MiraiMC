@@ -43,6 +43,7 @@ public class BotEvent {
     private Listener MemberLeaveKickEventListener;
     private Listener MemberLeaveQuitEventListener;
     private Listener MemberJoinRequestEventListener;
+    private Listener BotInvitedJoinGroupRequestEventListener;
 
     public void startListenEvent(){
         // Bot
@@ -83,6 +84,7 @@ public class BotEvent {
         MemberLeaveKickEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberLeaveEvent.Kick.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMemberLeaveEvent(event, event)));
         MemberLeaveQuitEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberLeaveEvent.Quit.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMemberLeaveEvent(event, event)));
         MemberJoinRequestEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinRequestEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMemberJoinRequestEvent(event)));
+        BotInvitedJoinGroupRequestEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotInvitedJoinGroupRequestEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupBotInvitedJoinGroupRequestEvent(event)));
 
 
     }
@@ -121,6 +123,7 @@ public class BotEvent {
         MemberLeaveKickEventListener.complete();
         MemberLeaveQuitEventListener.complete();
         MemberJoinRequestEventListener.complete();
+        BotInvitedJoinGroupRequestEventListener.complete();
     }
 
 }
