@@ -38,6 +38,9 @@ public class BotEvent {
     private Listener BotUnmuteEventListener;
     private Listener BotJoinGroupEventListener;
 
+    private Listener MemberJoinInviteEventListener;
+    private Listener MemberJoinActiveEventListener;
+
     public void startListenEvent(){
         // Bot
         BotOnlineListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOnlineEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOnlineEvent(event)));
@@ -70,6 +73,12 @@ public class BotEvent {
         BotMuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotMuteEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupBotMuteEvent(event)));
         BotUnmuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotUnmuteEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupBotUnmuteEvent(event)));
         BotJoinGroupEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotJoinGroupEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupBotJoinGroupEvent(event)));
+        // - 群成员
+        // -- 成员列表变更
+        MemberJoinInviteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinEvent.Invite.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMemberJoinEvent(event, event)));
+        MemberJoinActiveEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinEvent.Active.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMemberJoinEvent(event, event)));
+
+
     }
 
     public void stopListenEvent(){
@@ -100,6 +109,9 @@ public class BotEvent {
         BotMuteEventListener.complete();
         BotUnmuteEventListener.complete();
         BotJoinGroupEventListener.complete();
+
+        MemberJoinInviteEventListener.complete();
+        MemberJoinActiveEventListener.complete();
     }
 
 }
