@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.api;
 import me.dreamvoid.miraimc.internal.Config;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
-import net.mamoe.mirai.message.data.AtAll;
+import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.utils.BotConfiguration;
 import net.mamoe.mirai.utils.LoggerAdapters;
@@ -67,7 +67,7 @@ public class MiraiBot {
         Bot bot = Bot.getInstanceOrNull(BotAccount);
         if(isBotExist(bot)) {
             assert bot != null;
-            GlobalLogger.info("[FriendMessageSend/"+BotAccount+"] "+ FriendID +" <- "+Message);
+            bot.getLogger().verbose("[MessageSend/"+BotAccount+"] "+ "Friend("+FriendID + ") <- "+Message);
             bot.getFriendOrFail(FriendID).sendMessage(Message);
             return true;
         } else {
@@ -86,7 +86,7 @@ public class MiraiBot {
         Bot bot = Bot.getInstanceOrNull(BotAccount);
         if(isBotExist(bot)) {
             assert bot != null;
-            GlobalLogger.info("[FriendMessageSend/"+BotAccount+"] "+ FriendID +" <- "+MessageChain.serializeToMiraiCode());
+            bot.getLogger().verbose("[MessageSend/"+BotAccount+"] "+ "Friend("+FriendID +") <- "+MessageChain.serializeToMiraiCode());
             bot.getFriendOrFail(FriendID).sendMessage(MessageChain);
             return true;
         } else {
@@ -105,8 +105,8 @@ public class MiraiBot {
     public boolean sendGroupMessage(long BotAccount, long GroupID, String Message){
         Bot bot = Bot.getInstanceOrNull(BotAccount);
         if(isBotExist(bot)){
-            GlobalLogger.info("[GroupMessageSend/"+BotAccount+"] "+ GroupID +" <- "+Message);
             assert bot != null;
+            bot.getLogger().verbose("[MessageSend/"+BotAccount+"] "+ "Group("+GroupID +") <- "+Message);
             bot.getGroupOrFail(GroupID).sendMessage(Message);
             return true;
         } else {
@@ -125,8 +125,8 @@ public class MiraiBot {
     public boolean sendGroupMessage(long BotAccount, long GroupID, MessageChain MessageChain){
         Bot bot = Bot.getInstanceOrNull(BotAccount);
         if(isBotExist(bot)){
-            GlobalLogger.info("[GroupMessageSend/"+BotAccount+"] "+ GroupID +" <- "+MessageChain.contentToString());
             assert bot != null;
+            bot.getLogger().verbose("[MessageSend/"+BotAccount+"] "+ "Group("+GroupID +") <- "+MessageChain.contentToString());
             bot.getGroupOrFail(GroupID).sendMessage(MessageChain);
             return true;
         } else {
@@ -145,7 +145,7 @@ public class MiraiBot {
         Bot bot = Bot.getInstanceOrNull(BotAccount);
         if(isBotExist(bot)){
             assert bot != null;
-            GlobalLogger.info("[FriendNudgeSend/"+BotAccount+"] "+ FriendID +" <- ");
+            bot.getLogger().verbose("[NudgeSend/"+BotAccount+"] "+ "Friend("+FriendID + ") <- ");
             return(bot.nudge().sendTo(bot.getFriendOrFail(FriendID)));
         } else {
             GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
@@ -161,10 +161,10 @@ public class MiraiBot {
      * @return 成功返回true，失败返回false
      */
     public boolean sendGroupNudge(long BotAccount, long GroupID){
-        if(isBotOnline(BotAccount)) {
+        if(isBotExist(BotAccount)) {
             Bot bot = Bot.getInstanceOrNull(BotAccount);
             assert bot != null;
-            GlobalLogger.info("[GroupNudgeSend/" + BotAccount + "] " + GroupID + " <- ");
+            bot.getLogger().verbose("[NudgeSend/" + BotAccount + "] " + "Group("+GroupID + ") <- ");
             return (bot.nudge().sendTo(bot.getGroupOrFail(GroupID)));
         } else {
             GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
@@ -184,8 +184,9 @@ public class MiraiBot {
         Bot bot = Bot.getInstanceOrNull(BotAccount);
         if(isBotExist(bot)){
             assert bot != null;
-            GlobalLogger.info("Mute group member \""+GroupID+"\"/"+TargetID+"\" for "+Time+" second(s)");
-            bot.getGroupOrFail(GroupID).getOrFail(TargetID).mute(Time);
+            Group group = bot.getGroupOrFail(GroupID);
+            bot.getLogger().verbose("[GroupMute/"+BotAccount+"] " +"Group("+GroupID+") Target(" + TargetID + ")"+" <- Mute ("+Time+"s)");
+            group.getOrFail(TargetID).mute(Time);
             return true;
         } else {
             GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
@@ -204,27 +205,9 @@ public class MiraiBot {
         Bot bot = Bot.getInstanceOrNull(BotAccount);
         if(isBotExist(bot)){
             assert bot != null;
-            GlobalLogger.info("Unmute group member \""+GroupID+"\"/"+TargetID+"\"");
+            bot.getLogger().verbose("[GroupMute/"+BotAccount+"] " +"Group("+GroupID+") Target(" + TargetID + ")"+" <- Unmute");
             bot.getGroupOrFail(GroupID).getOrFail(TargetID).unmute();
             return true;
-        } else {
-            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
-            return false;
-        }
-    }
-
-    /**
-     * 判断指定群的指定成员是否被禁言
-     * @param BotAccount 机器人账号
-     * @param GroupID 群号
-     * @param TargetID 被操作群员QQ号
-     * @return 被禁言返回true，未被禁言false
-     */
-    public boolean isGroupMemberMuted(long BotAccount, long GroupID, long TargetID){
-        Bot bot = Bot.getInstanceOrNull(BotAccount);
-        if(isBotExist(bot)){
-            assert bot != null;
-            return bot.getGroupOrFail(GroupID).getOrFail(TargetID).isMuted();
         } else {
             GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
             return false;
@@ -243,7 +226,7 @@ public class MiraiBot {
         Bot bot = Bot.getInstanceOrNull(BotAccount);
         if(isBotExist(bot)){
             assert bot != null;
-            GlobalLogger.info("Kick group member \""+GroupID+"\"/"+TargetID+"\"");
+            bot.getLogger().verbose("[GroupKick/"+BotAccount+"] " +"Group("+GroupID+") Target(" + TargetID + ")"+" <- "+Reason);
             bot.getGroupOrFail(GroupID).getOrFail(TargetID).kick(Reason);
             return true;
         } else {
@@ -264,7 +247,7 @@ public class MiraiBot {
         if(isBotOnline(BotAccount)){
             Bot bot = Bot.getInstanceOrNull(BotAccount);
             assert bot != null;
-            GlobalLogger.info("[GroupTempMessageSend/"+BotAccount+"] "+ GroupID+"("+TargetID +") <- "+Message);
+            bot.getLogger().verbose("[MessageSend/"+BotAccount+"] " +"Group("+GroupID+") Target(" + TargetID + ")"+" <- " + Message);
             bot.getGroupOrFail(GroupID).getOrFail(TargetID).sendMessage(Message);
             return true;
         } else return false;
@@ -298,6 +281,24 @@ public class MiraiBot {
             assert bot != null;
             return bot.getFriendOrFail(Friend).getRemark();
         } else return "";
+    }
+
+    /**
+     * 判断指定群的指定成员是否被禁言
+     * @param BotAccount 机器人账号
+     * @param GroupID 群号
+     * @param TargetID 被操作群员QQ号
+     * @return 被禁言返回true，未被禁言false
+     */
+    public boolean isGroupMemberMuted(long BotAccount, long GroupID, long TargetID){
+        Bot bot = Bot.getInstanceOrNull(BotAccount);
+        if(isBotExist(bot)){
+            assert bot != null;
+            return bot.getGroupOrFail(GroupID).getOrFail(TargetID).isMuted();
+        } else {
+            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            return false;
+        }
     }
 
     /**
@@ -343,7 +344,7 @@ public class MiraiBot {
 
     private void privateBotLogin(long Account, String Password, BotConfiguration.MiraiProtocol Protocol){
 
-        GlobalLogger.info("Preparing for bot account login: "+ Account+", Protocol: "+ Protocol.name());
+        Bukkit.getLogger().info("[Mirai] 登录新的机器人账号: "+ Account+", 协议: "+ Protocol.name());
 
         // 建立mirai数据文件夹
         File MiraiDir = new File(String.valueOf(Config.PluginDir),"MiraiBot");
@@ -381,6 +382,7 @@ public class MiraiBot {
 
         // 开始登录
         bot.login();
+        Bukkit.getLogger().info("[Mirai] "+bot.getNick()+"("+bot.getId()+") 登录成功");
 
 
     }
