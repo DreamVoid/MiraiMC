@@ -347,7 +347,12 @@ public class MiraiBot {
         Bukkit.getLogger().info("[Mirai] 登录新的机器人账号: "+ Account+", 协议: "+ Protocol.name());
 
         // 建立mirai数据文件夹
-        File MiraiDir = new File(String.valueOf(Config.PluginDir),"MiraiBot");
+        File MiraiDir;
+        if(!(Config.config.getString("general.mirai-working-dir","default") == "default")){
+            MiraiDir = new File(Config.config.getString("general.mirai-working-dir", "default"));
+        } else {
+            MiraiDir = new File(String.valueOf(Config.PluginDir),"MiraiBot");
+        }
         if(!(MiraiDir.exists())){ if(!(MiraiDir.mkdir())) { GlobalLogger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
 
         // 建立机器人账号文件夹

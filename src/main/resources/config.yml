@@ -1,6 +1,7 @@
 general:
   allow-bStats: true
   disable-safe-warning-message: false
+  mirai-working-dir: default
 bot:
   disable-network-logs: false
   disable-bot-logs: false
