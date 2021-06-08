@@ -348,7 +348,7 @@ public class MiraiBot {
 
         // 建立mirai数据文件夹
         File MiraiDir;
-        if(!(Config.config.getString("general.mirai-working-dir","default") == "default")){
+        if(!(Config.config.getString("general.mirai-working-dir", "default").equals("default"))){
             MiraiDir = new File(Config.config.getString("general.mirai-working-dir", "default"));
         } else {
             MiraiDir = new File(String.valueOf(Config.PluginDir),"MiraiBot");
