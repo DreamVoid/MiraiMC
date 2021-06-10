@@ -1,7 +1,7 @@
 package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.internal.BotEvent;
+import me.dreamvoid.miraimc.internal.MiraiEvent;
 import me.dreamvoid.miraimc.internal.Config;
 import net.mamoe.mirai.Bot;
 import org.bukkit.Bukkit;
@@ -12,13 +12,13 @@ import java.util.Objects;
 
 public class BukkitPlugin extends JavaPlugin {
 
-    private BotEvent BotEvent;
+    private MiraiEvent MiraiEvent;
     private MiraiBot MiraiBot;
 
     @Override // 加载插件
     public void onLoad() {
         Config config = new Config(this);
-        this.BotEvent = new BotEvent();
+        this.MiraiEvent = new MiraiEvent();
         this.MiraiBot = new MiraiBot();
     }
 
@@ -27,7 +27,7 @@ public class BukkitPlugin extends JavaPlugin {
         Config.LoadConfig();
 
         getLogger().info("Starting bot event listener.");
-        BotEvent.startListenEvent();
+        MiraiEvent.startListenEvent();
 
         getLogger().info("Registering commands.");
         Objects.requireNonNull(Bukkit.getPluginCommand("mirai")).setExecutor(new CommandHandler(this));
@@ -39,7 +39,7 @@ public class BukkitPlugin extends JavaPlugin {
     @Override // 禁用插件
     public void onDisable() {
         getLogger().info("Stopping bot event listener.");
-        BotEvent.stopListenEvent();
+        MiraiEvent.stopListenEvent();
 
         getLogger().info("Closing all bots");
         List<Long> BotList = MiraiBot.getOnlineBots();
