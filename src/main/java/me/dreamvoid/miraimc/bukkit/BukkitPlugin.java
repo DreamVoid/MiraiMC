@@ -24,7 +24,7 @@ public class BukkitPlugin extends JavaPlugin {
 
     @Override // 启用插件
     public void onEnable() {
-        Config.LoadConfig();
+        Config.loadConfig();
 
         getLogger().info("Starting bot event listener.");
         MiraiEvent.startListenEvent();
@@ -46,8 +46,6 @@ public class BukkitPlugin extends JavaPlugin {
         for (long bots : BotList){ MiraiBot.doBotLogout(Bot.getInstance(bots)); }
 
         getLogger().info("All tasks done. Thanks for use MiraiMC!");
-
-
     }
 
 

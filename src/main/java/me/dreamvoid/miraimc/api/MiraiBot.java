@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.api;
 
 import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
 import net.mamoe.mirai.contact.Group;
@@ -19,7 +20,7 @@ public class MiraiBot {
 
     private final Logger GlobalLogger;
 
-    public MiraiBot() { this.GlobalLogger = Bukkit.getLogger(); }
+    public MiraiBot() { this.GlobalLogger = new Utils().getLogger(); }
 
     /**
      * 登录一个机器人账号

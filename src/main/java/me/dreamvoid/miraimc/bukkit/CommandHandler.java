@@ -158,8 +158,8 @@ public class CommandHandler implements CommandExecutor {
                 switch (args[0].toLowerCase()) {
                     case "reload": {
                         if(sender.hasPermission("miraimc.command.miraimc.reload")){
-                            Config.LoadConfig();
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a配置文件已经重新加载！"));
+                            Config.reloadConfig();
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a配置文件已经重新加载，部分配置可能需要重新启动服务器才能生效！"));
                         } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
                         return true;
                     }
