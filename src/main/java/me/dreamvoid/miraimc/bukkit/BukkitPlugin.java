@@ -39,6 +39,9 @@ public class BukkitPlugin extends JavaPlugin {
         Objects.requireNonNull(Bukkit.getPluginCommand("mirai")).setExecutor(new CommandHandler(this));
         Objects.requireNonNull(Bukkit.getPluginCommand("miraimc")).setExecutor(new CommandHandler(this));
 
+        getLogger().info("Loading auto-login file.");
+        MiraiAutoLogin.loadFile();
+
         getLogger().info("All tasks done. Welcome to use MiraiMC!");
     }
 

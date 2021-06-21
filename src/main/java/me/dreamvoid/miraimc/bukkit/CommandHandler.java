@@ -2,14 +2,19 @@ package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
+import org.apache.logging.log4j.core.config.json.JsonConfiguration;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
+import org.yaml.snakeyaml.Yaml;
 
 import java.util.List;
 
@@ -174,7 +179,10 @@ public class CommandHandler implements CommandExecutor {
                             sender.sendMessage("Done.");
                         }
                         if(args[1].equalsIgnoreCase("testAutoLogin")){
-                            sender.sendMessage(plugin.MiraiAutoLogin.loadAutoLoginList());
+                            // TO DO: 整活数组获取
+                            for(Object line : plugin.MiraiAutoLogin.loadAutoLoginList()){
+                                sender.sendMessage("A line " + line.toString());
+                            }
                         }
                         break;
                     }
