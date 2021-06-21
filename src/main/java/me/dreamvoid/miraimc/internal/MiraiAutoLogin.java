@@ -3,6 +3,7 @@ package me.dreamvoid.miraimc.internal;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class MiraiAutoLogin {
@@ -23,19 +24,21 @@ public class MiraiAutoLogin {
         }
         if(!(MiraiDir.exists())){ if(!(MiraiDir.mkdir())) { logger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
 
-        // 建立机器人账号文件夹
+        // 建立配置文件夹
         File ConfigDir = new File(String.valueOf(MiraiDir),"config");
         if(!(ConfigDir.exists())){ if(!(ConfigDir.mkdir())) { logger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
 
-        // 建立当前机器人账号配置文件夹和相应的配置
+        // 建立控制台文件夹
         File ConsoleDir = new File(String.valueOf(ConfigDir), "Console");
         if(!(ConsoleDir.exists())){ if(!(ConsoleDir.mkdir())) { logger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
 
+        // 建立自动登录文件
         File AutoLoginFile = new File(ConsoleDir, "AutoLogin.yml");
         autologin = YamlConfiguration.loadConfiguration(AutoLoginFile);
     }
 
-    public String loadAutoLoginList(){
-        return autologin.getList("accounts").toString();
+    public List<?> loadAutoLoginList() {
+        // TO DO: 整活数组获取
+        return autologin.getList("accounts");
     }
 }
