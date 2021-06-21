@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.bukkit;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.listener.MiraiFriendMessageEvent;
 import me.dreamvoid.miraimc.listener.MiraiGroupMessageEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
