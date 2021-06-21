@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
+import me.dreamvoid.miraimc.internal.MiraiAutoLogin;
 import me.dreamvoid.miraimc.internal.MiraiEvent;
 import me.dreamvoid.miraimc.internal.Config;
 import net.mamoe.mirai.Bot;
@@ -14,17 +15,22 @@ public class BukkitPlugin extends JavaPlugin {
 
     private MiraiEvent MiraiEvent;
     private MiraiBot MiraiBot;
+    private Config Config;
+    public MiraiAutoLogin MiraiAutoLogin;
 
     @Override // 加载插件
     public void onLoad() {
-        Config config = new Config(this);
+        this.Config = new Config(this);
         this.MiraiEvent = new MiraiEvent();
         this.MiraiBot = new MiraiBot();
+        this.MiraiAutoLogin = new MiraiAutoLogin();
     }
 
     @Override // 启用插件
     public void onEnable() {
         Config.loadConfig();
+
+        getLogger().info("Mirai working dir: " + Config.config.getString("general.mirai-working-dir", "default"));
 
         getLogger().info("Starting bot event listener.");
         MiraiEvent.startListenEvent();
@@ -42,8 +48,7 @@ public class BukkitPlugin extends JavaPlugin {
         MiraiEvent.stopListenEvent();
 
         getLogger().info("Closing all bots");
-        List<Long> BotList = MiraiBot.getOnlineBots();
-        for (long bots : BotList){ MiraiBot.doBotLogout(Bot.getInstance(bots)); }
+        for (long bots : MiraiBot.getOnlineBots()){ MiraiBot.doBotLogout(Bot.getInstance(bots)); }
 
         getLogger().info("All tasks done. Thanks for use MiraiMC!");
     }

@@ -20,7 +20,7 @@ public class Config {
         logger = new Utils().getLogger();
     }
 
-    public static void loadConfig() {
+    public void loadConfig() {
         PluginDir = plugin.getDataFolder();
         File configure = new File(PluginDir, "config.yml");
         if(!(configure.exists())){ plugin.saveDefaultConfig(); }
