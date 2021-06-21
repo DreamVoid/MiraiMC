@@ -107,6 +107,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
                 <configuration>
                     <source>8</source>
                     <target>8</target>
@@ -148,6 +149,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <excludePackageNames>me.dreamvoid.miraimc.bukkit:me.dreamvoid.miraimc.bukkit.*:me.dreamvoid.miraimc.bukkit.utils.*:me.dreamvoid.miraimc.internal:me.dreamvoid.miraimc.internal.*:</excludePackageNames>
+                </configuration>
             </plugin>
             
             <plugin>
@@ -163,17 +167,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.7</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
             </plugin>
 
         </plugins>
