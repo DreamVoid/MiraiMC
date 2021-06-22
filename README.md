@@ -76,4 +76,5 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 - [X] 初步完善指令和权限系统
 - [X] 初步完善API接口供其他插件开发者调用
 - [ ] 加入自动登录机器人的功能
+- [ ] 完全兼容mirai console的结构供已在使用mirai的服主使用
 - [ ] 像mirai console一样加载mirai console插件
