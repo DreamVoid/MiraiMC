@@ -20,7 +20,7 @@ public class MiraiBot {
 
     private final Logger GlobalLogger;
 
-    public MiraiBot() { this.GlobalLogger = new Utils().getLogger(); }
+    public MiraiBot() { this.GlobalLogger = Utils.getLogger(); }
 
     /**
      * 登录一个机器人账号

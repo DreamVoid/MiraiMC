@@ -17,7 +17,7 @@ public class Config {
 
     public Config(BukkitPlugin plugin){
         Config.plugin = plugin;
-        logger = new Utils().getLogger();
+        logger = Utils.getLogger();
     }
 
     public void loadConfig() {
