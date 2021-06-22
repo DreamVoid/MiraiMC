@@ -5,7 +5,7 @@ import org.bukkit.Bukkit;
 import java.util.logging.Logger;
 
 public class Utils {
-    public Logger getLogger(){
+    public static Logger getLogger(){
         return Bukkit.getPluginManager().getPlugin("MiraiMC").getLogger();
     }
 }
