@@ -61,7 +61,7 @@ public class MiraiAutoLogin {
                     String Password = password.get("value").toString();
                     BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString());
 
-                    logger.info("[AutoLogin] Auto login bot account: " + Password + " Protocol: " + Protocol.name());
+                    logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
                     new MiraiBot().doBotLogin(Account, Password, Protocol);
                 }
             }
