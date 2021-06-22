@@ -11,12 +11,12 @@ public class PluginEventHandler implements Listener {
 
     @EventHandler
     public void onMiraiGroupMessageReceived(MiraiGroupMessageEvent e){
-        new Utils().getLogger().info("[GroupMessage/"+e.getBotID()+"] ["+e.getGroupName()+"("+e.getGroupID()+")] "+e.getSenderNameCard()+"("+e.getSenderID()+") -> "+e.getMessage());
+        Utils.getLogger().info("[GroupMessage/"+e.getBotID()+"] ["+e.getGroupName()+"("+e.getGroupID()+")] "+e.getSenderNameCard()+"("+e.getSenderID()+") -> "+e.getMessage());
     }
 
     @EventHandler
     public void onMiraiFriendMessageReceived(MiraiFriendMessageEvent e){
-        new Utils().getLogger().info("[FriendMessage/"+e.getBotID()+"] "+e.getSenderNick()+"("+e.getSenderID()+") -> "+e.getMessage());
+        Utils.getLogger().info("[FriendMessage/"+e.getBotID()+"] "+e.getSenderNick()+"("+e.getSenderID()+") -> "+e.getMessage());
     }
 
 }
