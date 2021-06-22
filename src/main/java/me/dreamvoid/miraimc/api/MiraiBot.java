@@ -345,7 +345,7 @@ public class MiraiBot {
 
     private void privateBotLogin(long Account, String Password, BotConfiguration.MiraiProtocol Protocol){
 
-        Bukkit.getLogger().info("[Mirai] 登录新的机器人账号: "+ Account+", 协议: "+ Protocol.name());
+        GlobalLogger.info("登录新的机器人账号: "+ Account+", 协议: "+ Protocol.name());
 
         // 建立mirai数据文件夹
         File MiraiDir;
@@ -388,7 +388,7 @@ public class MiraiBot {
 
         // 开始登录
         bot.login();
-        Bukkit.getLogger().info("[Mirai] "+bot.getNick()+"("+bot.getId()+") 登录成功");
+        GlobalLogger.info(bot.getNick()+"("+bot.getId()+") 登录成功");
 
 
     }
