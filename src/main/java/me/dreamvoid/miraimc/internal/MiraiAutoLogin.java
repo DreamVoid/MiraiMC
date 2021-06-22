@@ -1,17 +1,25 @@
 package me.dreamvoid.miraimc.internal;
 
+import me.dreamvoid.miraimc.api.MiraiBot;
+import me.dreamvoid.miraimc.bukkit.BukkitPlugin;
+import net.mamoe.mirai.utils.BotConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class MiraiAutoLogin {
 
-    public MiraiAutoLogin() {
-        this.logger = new Utils().getLogger();
+    public MiraiAutoLogin(BukkitPlugin plugin) {
+        this.plugin = plugin;
+        this.logger = Utils.getLogger();
     }
 
+    private final BukkitPlugin plugin;
     private YamlConfiguration autologin;
     private final Logger logger;
 
@@ -37,8 +45,27 @@ public class MiraiAutoLogin {
         autologin = YamlConfiguration.loadConfiguration(AutoLoginFile);
     }
 
-    public List<?> loadAutoLoginList() {
-        // TO DO: 整活数组获取
-        return autologin.getList("accounts");
+    public List<Map<?, ?>> loadAutoLoginList() {
+        FileConfiguration data = autologin;
+        return data.getMapList("accounts");
+    }
+
+    public void doStartUpAutoLogin() {
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                for(Map<?,?> map : loadAutoLoginList()){
+                    Map<?,?> password = (Map<?, ?>) map.get("password");
+                    Map<?,?> configuration = (Map<?, ?>) map.get("configuration");
+                    Integer Account = (Integer) map.get("account");
+                    String Password = password.get("value").toString();
+                    BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString());
+
+                    logger.info("[AutoLogin] Auto login bot account: " + Password + " Protocol: " + Protocol.name());
+                    new MiraiBot().doBotLogin(Account, Password, Protocol);
+                }
+            }
+        }.runTaskAsynchronously(plugin);
+
     }
 }

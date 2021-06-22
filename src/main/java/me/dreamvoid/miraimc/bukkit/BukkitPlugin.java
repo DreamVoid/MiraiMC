@@ -1,34 +1,33 @@
 package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
+import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiAutoLogin;
 import me.dreamvoid.miraimc.internal.MiraiEvent;
-import me.dreamvoid.miraimc.internal.Config;
 import net.mamoe.mirai.Bot;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.List;
 import java.util.Objects;
 
 public class BukkitPlugin extends JavaPlugin {
 
     private MiraiEvent MiraiEvent;
     private MiraiBot MiraiBot;
-    private Config Config;
+    private Config config;
     public MiraiAutoLogin MiraiAutoLogin;
 
     @Override // 加载插件
     public void onLoad() {
-        this.Config = new Config(this);
+        this.config = new Config(this);
         this.MiraiEvent = new MiraiEvent();
         this.MiraiBot = new MiraiBot();
-        this.MiraiAutoLogin = new MiraiAutoLogin();
+        this.MiraiAutoLogin = new MiraiAutoLogin(this);
     }
 
     @Override // 启用插件
     public void onEnable() {
-        Config.loadConfig();
+        config.loadConfig();
 
         getLogger().info("Mirai working dir: " + Config.config.getString("general.mirai-working-dir", "default"));
 
@@ -41,6 +40,9 @@ public class BukkitPlugin extends JavaPlugin {
 
         getLogger().info("Loading auto-login file.");
         MiraiAutoLogin.loadFile();
+
+        getLogger().info("Starting auto-bot task.");
+        MiraiAutoLogin.doStartUpAutoLogin();
 
         getLogger().info("All tasks done. Welcome to use MiraiMC!");
     }
