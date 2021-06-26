@@ -8,7 +8,6 @@ import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.utils.BotConfiguration;
 import net.mamoe.mirai.utils.LoggerAdapters;
-import org.bukkit.Bukkit;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,9 +17,9 @@ import java.util.logging.Logger;
 
 public class MiraiBot {
 
-    private final Logger GlobalLogger;
+    private final Logger Logger;
 
-    public MiraiBot() { this.GlobalLogger = Utils.getLogger(); }
+    public MiraiBot() { this.Logger = Utils.getLogger(); }
 
     /**
      * 登录一个机器人账号
@@ -72,7 +71,7 @@ public class MiraiBot {
             bot.getFriendOrFail(FriendID).sendMessage(Message);
             return true;
         } else {
-            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            Logger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
             return false;
         }
     }
@@ -91,7 +90,7 @@ public class MiraiBot {
             bot.getFriendOrFail(FriendID).sendMessage(MessageChain);
             return true;
         } else {
-            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            Logger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
             return false;
         }
     }
@@ -111,7 +110,7 @@ public class MiraiBot {
             bot.getGroupOrFail(GroupID).sendMessage(Message);
             return true;
         } else {
-            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            Logger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
             return false;
         }
     }
@@ -131,7 +130,7 @@ public class MiraiBot {
             bot.getGroupOrFail(GroupID).sendMessage(MessageChain);
             return true;
         } else {
-            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            Logger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
             return false;
         }
     }
@@ -149,7 +148,7 @@ public class MiraiBot {
             bot.getLogger().verbose("[NudgeSend/"+BotAccount+"] "+ "Friend("+FriendID + ") <- ");
             return(bot.nudge().sendTo(bot.getFriendOrFail(FriendID)));
         } else {
-            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            Logger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
             return false;
         }
     }
@@ -168,7 +167,7 @@ public class MiraiBot {
             bot.getLogger().verbose("[NudgeSend/" + BotAccount + "] " + "Group("+GroupID + ") <- ");
             return (bot.nudge().sendTo(bot.getGroupOrFail(GroupID)));
         } else {
-            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            Logger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
             return false;
         }
     }
@@ -190,7 +189,7 @@ public class MiraiBot {
             group.getOrFail(TargetID).mute(Time);
             return true;
         } else {
-            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            Logger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
             return false;
         }
     }
@@ -210,7 +209,7 @@ public class MiraiBot {
             bot.getGroupOrFail(GroupID).getOrFail(TargetID).unmute();
             return true;
         } else {
-            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            Logger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
             return false;
         }
     }
@@ -231,7 +230,7 @@ public class MiraiBot {
             bot.getGroupOrFail(GroupID).getOrFail(TargetID).kick(Reason);
             return true;
         } else {
-            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            Logger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
             return false;
         }
     }
@@ -297,7 +296,7 @@ public class MiraiBot {
             assert bot != null;
             return bot.getGroupOrFail(GroupID).getOrFail(TargetID).isMuted();
         } else {
-            GlobalLogger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
+            Logger.warning("Bot account \""+BotAccount+"\" doesn't exist!");
             return false;
         }
     }
@@ -313,7 +312,7 @@ public class MiraiBot {
             assert bot != null;
             return bot.isOnline();
         } else {
-            GlobalLogger.warning("Bot account \""+Account+"\" doesn't exist!");
+            Logger.warning("Bot account \""+Account+"\" doesn't exist!");
             return false;
         }
     }
@@ -345,7 +344,7 @@ public class MiraiBot {
 
     private void privateBotLogin(long Account, String Password, BotConfiguration.MiraiProtocol Protocol){
 
-        GlobalLogger.info("登录新的机器人账号: "+ Account+", 协议: "+ Protocol.name());
+        Logger.info("登录新的机器人账号: "+ Account+", 协议: "+ Protocol.name());
 
         // 建立mirai数据文件夹
         File MiraiDir;
@@ -354,15 +353,15 @@ public class MiraiBot {
         } else {
             MiraiDir = new File(String.valueOf(Config.PluginDir),"MiraiBot");
         }
-        if(!(MiraiDir.exists())){ if(!(MiraiDir.mkdir())) { GlobalLogger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
+        if(!(MiraiDir.exists())){ if(!(MiraiDir.mkdir())) { Logger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
 
         // 建立机器人账号文件夹
         File BotDir = new File(String.valueOf(MiraiDir),"bots");
-        if(!(BotDir.exists())){ if(!(BotDir.mkdir())) { GlobalLogger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
+        if(!(BotDir.exists())){ if(!(BotDir.mkdir())) { Logger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
 
         // 建立当前机器人账号配置文件夹和相应的配置
         File BotConfig = new File(String.valueOf(BotDir), String.valueOf(Account));
-        if(!(BotConfig.exists())){ if(!(BotConfig.mkdir())) { GlobalLogger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
+        if(!(BotConfig.exists())){ if(!(BotConfig.mkdir())) { Logger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
 
         // 登录前的准备工作
         Bot bot = BotFactory.INSTANCE.newBot(Account, Password, new BotConfiguration(){{
@@ -376,8 +375,8 @@ public class MiraiBot {
             if(Config.config.getBoolean("bot.disable-bot-logs",false)) { noBotLog(); }
 
             // 是否使用Bukkit的Logger接管Mirai的Logger
-            if(Config.config.getBoolean("bot.use-bukkit-logger.bot-logs",true)) { setBotLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(GlobalLogger)); }
-            if(Config.config.getBoolean("bot.use-bukkit-logger.network-logs",true)) { setNetworkLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(GlobalLogger)); }
+            if(Config.config.getBoolean("bot.use-bukkit-logger.bot-logs",true)) { setBotLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(Logger)); }
+            if(Config.config.getBoolean("bot.use-bukkit-logger.network-logs",true)) { setNetworkLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(Logger)); }
 
             // 是否使用缓存——对于开发者，请启用；对于用户，请禁用。详见 https://github.com/mamoe/mirai/blob/dev/docs/Bots.md#%E5%90%AF%E7%94%A8%E5%88%97%E8%A1%A8%E7%BC%93%E5%AD%98
             getContactListCache().setFriendListCacheEnabled(Config.config.getBoolean("bot.contact-cache.enable-friend-list-cache",false));
@@ -388,7 +387,7 @@ public class MiraiBot {
 
         // 开始登录
         bot.login();
-        GlobalLogger.info(bot.getNick()+"("+bot.getId()+") 登录成功");
+        Logger.info(bot.getNick()+"("+bot.getId()+") 登录成功");
 
 
     }
