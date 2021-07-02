@@ -2,6 +2,7 @@ package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.MiraiAutoLogin;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.bukkit.ChatColor;
@@ -166,6 +167,10 @@ public class CommandHandler implements CommandExecutor {
                     case "help":{
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6&lMiraiMC&r &b插件帮助菜单"));
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/miraimc reload:&r 重新加载插件"));
+                        break;
+                    }
+                    case "debug":{
+                        plugin.MiraiAutoLogin.addAutoLoginBot(12345678,"sad");
                         break;
                     }
                     default:{
