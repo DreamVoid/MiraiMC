@@ -2,6 +2,7 @@ package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.MiraiAutoLogin;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.bukkit.ChatColor;
@@ -12,15 +13,18 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Map;
 
 public class CommandHandler implements CommandExecutor {
 
     private final BukkitPlugin plugin;
     private final MiraiBot mirai;
+    MiraiAutoLogin MiraiAutoLogin;
 
     public CommandHandler(BukkitPlugin plugin) {
         this.plugin = plugin;
         this.mirai = new MiraiBot();
+        this.MiraiAutoLogin = new MiraiAutoLogin(plugin);
     }
 
     @Override
@@ -130,6 +134,49 @@ public class CommandHandler implements CommandExecutor {
                         } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
                         break;
                     }
+                    case "autologin":{
+                        if(sender.hasPermission("miraimc.command.mirai.autologin")){
+                            if(args.length>=2){
+                                switch (args[1]){
+                                    case "add":{
+                                        boolean result;
+                                        if(args.length>=4){
+                                            if(args.length == 5){
+                                                result = MiraiAutoLogin.addAutoLoginBot(Long.parseLong(args[2]), args[3], args[4]);
+                                            } else result = MiraiAutoLogin.addAutoLoginBot(Long.parseLong(args[2]), args[3], "ANDROID_PHONE");
+                                            if(result){
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a新的自动登录机器人添加成功！"));
+                                            } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c新的自动登录机器人添加失败，请检查控制台错误输出！"));
+                                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai autologin add <账号> <密码> [协议]"));
+                                        break;
+                                    }
+                                    case "remove":{
+                                        boolean result;
+                                        if(args.length>=3){
+                                            result = MiraiAutoLogin.delAutoLoginBot(Long.parseLong(args[2]));
+                                            if(result){
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a删除自动登录机器人成功！"));
+                                            } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c删除自动登录机器人失败，请检查控制台错误输出！"));
+                                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai autologin remove <账号>"));
+                                        break;
+                                    }
+                                    case "list":{
+                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a存在的自动登录机器人: "));
+                                        List<Map<?,?>> AutoLoginBotList = MiraiAutoLogin.loadAutoLoginList();
+                                        for (Map<?,?> bots : AutoLoginBotList){
+                                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b"+bots.get("account")));
+                                        }
+                                        break;
+                                    }
+                                    default:{
+                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c未知或不完整的命令，请输入 /mirai help 查看帮助！"));
+                                        break;
+                                    }
+                                }
+                            } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c未知或不完整的命令，请输入 /mirai help 查看帮助！"));
+                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
+                        break;
+                    }
                     case "help":{
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6&lMiraiMC&r &b机器人帮助菜单"));
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/mirai login <账号> <密码> [协议]:&r 登录一个机器人"));
@@ -140,6 +187,9 @@ public class CommandHandler implements CommandExecutor {
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/mirai sendfriendnudge <账号> <好友>:&r 向指定好友发送戳一戳"));
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/mirai sendgroupnudge <账号> <群号>:&r 向指定群发送戳一戳"));
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/mirai checkonline <账号>:&r 检查指定的机器人是否在线"));
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/mirai autologin add <账号> <密码> [协议]:&r 添加一个自动登录账号"));
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/mirai autologin list:&r 查看自动登录账号列表"));
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/mirai autoLogin remove <账号>:&r 删除一个自动登录账号"));
                         break;
                     }
                     default:{
