@@ -149,7 +149,15 @@ public class CommandHandler implements CommandExecutor {
                                         } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai autologin add <账号> <密码> [协议]"));
                                         break;
                                     }
-                                    case "del":
+                                    case "del":{
+                                        boolean result;
+                                        if(args.length>=3){
+                                            result = MiraiAutoLogin.delAutoLoginBot(Long.parseLong(args[2]));
+                                            if(result){
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a删除自动登录机器人成功！"));
+                                            } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c删除自动登录机器人失败，请检查控制台错误输出！"));
+                                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai autologin del <账号>"));
+                                    }
                                     default:{
                                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c未知或不完整的命令，请输入 /mirai help 查看帮助！"));
                                         break;
