@@ -6,7 +6,7 @@
 
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
-    <version>1.2-pre1</version>
+    <version>1.2-pre2</version>
 
     <name>MiraiMC</name>
     <description>Mirai for Minecraft server</description>
@@ -82,6 +82,7 @@
     </dependencies>
 
     <build>
+        <finalName>${artifactId}</finalName>
         <plugins>
             <!--maven-assembly-plugins-->
             <plugin>
