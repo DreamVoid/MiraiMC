@@ -15,7 +15,7 @@ public class Test {
     @org.junit.jupiter.api.Test
     public void Test(){
         // 在这里添加用于测试的代码
-        autobottest:{
+        /*autobottest:{
             // 获取现有的机器人列表
             FileConfiguration data = YamlConfiguration.loadConfiguration(new File("F:/mirai/config/Console/AutoLogin.yml"));
             List<Map<?, ?>> list = data.getMapList("accounts");
@@ -55,7 +55,7 @@ public class Test {
                 e.printStackTrace();
                 System.exit(1);
             }
-        }
+        }*/
         delbottest:{
             // 获取现有的机器人列表
             File file = new File("F:/mirai/config/Console/AutoLogin.yml");
@@ -70,6 +70,8 @@ public class Test {
                     break;
                 }
             }
+
+            data.set("accounts", list);
             System.out.println("Removed: " + list);
 
             System.out.println(data.getCurrentPath());
