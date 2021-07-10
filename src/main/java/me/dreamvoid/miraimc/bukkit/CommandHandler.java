@@ -18,10 +18,12 @@ public class CommandHandler implements CommandExecutor {
 
     private final BukkitPlugin plugin;
     private final MiraiBot mirai;
+    MiraiAutoLogin MiraiAutoLogin;
 
     public CommandHandler(BukkitPlugin plugin) {
         this.plugin = plugin;
         this.mirai = new MiraiBot();
+        this.MiraiAutoLogin = new MiraiAutoLogin(plugin);
     }
 
     @Override
@@ -131,6 +133,32 @@ public class CommandHandler implements CommandExecutor {
                         } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
                         break;
                     }
+                    case "autologin":{
+                        if(sender.hasPermission("miraimc.command.mirai.autologin")){
+                            if(args.length>=2){
+                                switch (args[1]){
+                                    case "add":{
+                                        boolean result;
+                                        if(args.length>=4){
+                                            if(args.length == 5){
+                                                result = MiraiAutoLogin.addAutoLoginBot(Long.parseLong(args[2]), args[3], args[4]);
+                                            } else result = MiraiAutoLogin.addAutoLoginBot(Long.parseLong(args[2]), args[3], "ANDROID_PHONE");
+                                            if(result){
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a新的自动登录机器人添加成功！"));
+                                            } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c新的自动登录机器人添加失败，请检查控制台错误输出！"));
+                                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai autologin add <账号> <密码> [协议]"));
+                                        break;
+                                    }
+                                    case "del":
+                                    default:{
+                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c未知或不完整的命令，请输入 /mirai help 查看帮助！"));
+                                        break;
+                                    }
+                                }
+                            } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c未知或不完整的命令，请输入 /mirai help 查看帮助！"));
+                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
+                        break;
+                    }
                     case "help":{
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6&lMiraiMC&r &b机器人帮助菜单"));
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/mirai login <账号> <密码> [协议]:&r 登录一个机器人"));
@@ -167,10 +195,6 @@ public class CommandHandler implements CommandExecutor {
                     case "help":{
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6&lMiraiMC&r &b插件帮助菜单"));
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/miraimc reload:&r 重新加载插件"));
-                        break;
-                    }
-                    case "debug":{
-                        plugin.MiraiAutoLogin.addAutoLoginBot(12345678,"sad");
                         break;
                     }
                     default:{
