@@ -56,6 +56,31 @@ public class Test {
                 System.exit(1);
             }
         }
+        delbottest:{
+            // 获取现有的机器人列表
+            File file = new File("F:/mirai/config/Console/AutoLogin.yml");
+            FileConfiguration data = YamlConfiguration.loadConfiguration(file);
+            List<Map<?, ?>> list = data.getMapList("accounts");
+
+            System.out.println("Origin: " + list);// 调试输出
+
+            for(Map<?,?> bots : list){
+                if((Integer) bots.get("account") == 123456789){
+                    list.remove(bots);
+                    break;
+                }
+            }
+            System.out.println("Removed: " + list);
+
+            System.out.println(data.getCurrentPath());
+            try {
+                data.save(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+
+        }
 
     }
 }
