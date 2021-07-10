@@ -121,4 +121,26 @@ public class MiraiAutoLogin {
         }
         return true;
     }
+
+    public boolean delAutoLoginBot(long Account){
+        FileConfiguration data = YamlConfiguration.loadConfiguration(AutoLoginFile);
+        List<Map<?, ?>> list = data.getMapList("accounts");
+
+        for(Map<?,?> bots : list){
+            if((Integer) bots.get("account") == Account){
+                list.remove(bots);
+                break;
+            }
+        }
+
+        data.set("accounts", list);
+
+        try {
+            data.save(AutoLoginFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }
