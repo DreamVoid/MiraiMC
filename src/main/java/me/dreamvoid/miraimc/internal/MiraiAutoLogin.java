@@ -21,7 +21,6 @@ public class MiraiAutoLogin {
     }
 
     private final BukkitPlugin plugin;
-    private YamlConfiguration AutoLogin;
     private final Logger Logger;
     private static File AutoLoginFile;
 
@@ -59,11 +58,10 @@ public class MiraiAutoLogin {
                 e.printStackTrace();
             }
         }
-        AutoLogin = YamlConfiguration.loadConfiguration(AutoLoginFile);
     }
 
     public List<Map<?, ?>> loadAutoLoginList() {
-        FileConfiguration data = AutoLogin;
+        FileConfiguration data = YamlConfiguration.loadConfiguration(AutoLoginFile);
         return data.getMapList("accounts");
     }
 
