@@ -9,6 +9,7 @@ import net.mamoe.mirai.Bot;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class BukkitPlugin extends JavaPlugin {
@@ -38,8 +39,7 @@ public class BukkitPlugin extends JavaPlugin {
         MiraiEvent.startListenEvent();
 
         Logger.info("Registering commands.");
-        Objects.requireNonNull(Bukkit.getPluginCommand("mirai")).setExecutor(new CommandHandler(this));
-        Objects.requireNonNull(Bukkit.getPluginCommand("miraimc")).setExecutor(new CommandHandler(this));
+        for (String s : Arrays.asList("mirai", "miraimc")) { Objects.requireNonNull(getCommand(s)).setExecutor(new CommandHandler(this)); }
 
         Logger.info("Loading auto-login file.");
         MiraiAutoLogin.loadFile();

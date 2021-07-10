@@ -82,6 +82,7 @@
     </dependencies>
 
     <build>
+        <finalName>${artifactId}</finalName>
         <plugins>
             <!--maven-assembly-plugins-->
             <plugin>

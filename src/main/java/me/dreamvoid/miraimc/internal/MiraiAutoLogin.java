@@ -7,8 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +21,9 @@ public class MiraiAutoLogin {
     }
 
     private final BukkitPlugin plugin;
-    private YamlConfiguration autologin;
+    private YamlConfiguration AutoLogin;
     private final Logger Logger;
-    private File AutoLoginFile;
+    private static File AutoLoginFile;
 
     public void loadFile() {
         File MiraiDir;
@@ -45,11 +44,26 @@ public class MiraiAutoLogin {
 
         // 建立自动登录文件
         AutoLoginFile = new File(ConsoleDir, "AutoLogin.yml");
-        autologin = YamlConfiguration.loadConfiguration(AutoLoginFile);
+        if(!AutoLoginFile.exists()) {
+            try {
+                AutoLoginFile.createNewFile();
+                String defaulttext = "accounts: "+System.getProperty("line.separator");
+                File writeName = AutoLoginFile;
+                try (FileWriter writer = new FileWriter(writeName);
+                     BufferedWriter out = new BufferedWriter(writer)
+                ) {
+                    out.write(defaulttext);
+                    out.flush();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        AutoLogin = YamlConfiguration.loadConfiguration(AutoLoginFile);
     }
 
     public List<Map<?, ?>> loadAutoLoginList() {
-        FileConfiguration data = autologin;
+        FileConfiguration data = AutoLogin;
         return data.getMapList("accounts");
     }
 
@@ -72,15 +86,39 @@ public class MiraiAutoLogin {
         }.runTaskAsynchronously(plugin);
     }
 
-    public void addAutoLoginBot(long Account, String Password){
-        FileConfiguration data = autologin;
-        Map<String, Long> account = new HashMap<>();
-        account.put("account",Account);
-        data.getMapList("accounts").add(account);
+    public boolean addAutoLoginBot(long Account, String Password, String Protocol){
+        // 获取现有的机器人列表
+        FileConfiguration data = YamlConfiguration.loadConfiguration(AutoLoginFile);
+        List<Map<?, ?>> list = data.getMapList("accounts");
+
+        // 新建用于添加进去的Map
+        Map<Object, Object> account = new HashMap<>();
+
+        // account 节点
+        account.put("account", Account);
+
+        // password 节点
+        Map<Object, Object> password = new HashMap<>();
+        password.put("kind","PLAIN");
+        password.put("value",Password);
+        account.put("password",password);
+
+        // configuration 节点
+        Map<Object, Object> configuration = new HashMap<>();
+        configuration.put("protocol", Protocol);
+        configuration.put("device", "device.json");
+        account.put("configuration",configuration);
+
+        // 添加
+        list.add(account);
+        data.set("accounts", list);
         try {
+            Logger.info("save");
             data.save(AutoLoginFile);
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
 }
