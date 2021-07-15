@@ -78,7 +78,7 @@ public class MiraiAutoLogin {
                     BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString());
 
                     Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
-                    new MiraiBot().doBotLogin(Account, Password, Protocol);
+                    MiraiBot.getInstance().doBotLogin(Account, Password, Protocol);
                 }
             }
         }.runTaskAsynchronously(plugin);
