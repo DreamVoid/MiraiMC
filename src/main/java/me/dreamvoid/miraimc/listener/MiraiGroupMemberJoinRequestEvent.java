@@ -69,13 +69,15 @@ public class MiraiGroupMemberJoinRequestEvent extends Event{
     /**
      * 同意请求
      */
-    public void setAccept(){ event.accept(); Bukkit.getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+ getRequestMemberID() +"|"+getInviterID()+") <- Accept"); return;}
+    public void setAccept(){ event.accept(); Bukkit.getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+ getRequestMemberID() +"|"+getInviterID()+") <- Accept");
+    }
 
     /**
      * 忽略请求
      * @param setBlacklist 是否拒绝目标再次申请加群
      */
-    public void setIgnore(boolean setBlacklist){ event.ignore(setBlacklist);Bukkit.getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny"); return;}
+    public void setIgnore(boolean setBlacklist){ event.ignore(setBlacklist);Bukkit.getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny");
+    }
 
 
 }
