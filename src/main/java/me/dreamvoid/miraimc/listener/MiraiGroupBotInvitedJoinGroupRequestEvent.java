@@ -58,12 +58,14 @@ public class MiraiGroupBotInvitedJoinGroupRequestEvent extends Event{
     /**
      * 同意请求
      */
-    public void setAccept(){ event.accept(); Bukkit.getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getBotID() +"|"+getInviterID()+") <- Accept"); return;}
+    public void setAccept(){ event.accept(); Bukkit.getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getBotID() +"|"+getInviterID()+") <- Accept");
+    }
 
     /**
      * 忽略请求
      */
-    public void setIgnore(){ event.ignore(); Bukkit.getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getBotID() +"|"+getInviterID()+") <- Ignore"); return;}
+    public void setIgnore(){ event.ignore(); Bukkit.getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getBotID() +"|"+getInviterID()+") <- Ignore");
+    }
 
 
 }

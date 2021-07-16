@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.listener;
 
-import net.mamoe.mirai.event.events.FriendMessageEvent;
 import net.mamoe.mirai.event.events.OtherClientMessageEvent;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

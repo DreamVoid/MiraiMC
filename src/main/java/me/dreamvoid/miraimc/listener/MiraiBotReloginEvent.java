@@ -1,15 +1,9 @@
 package me.dreamvoid.miraimc.listener;
 
-import net.mamoe.mirai.contact.ContactList;
-import net.mamoe.mirai.contact.Friend;
-import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.event.events.BotReloginEvent;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MiraiBotReloginEvent extends Event {
 

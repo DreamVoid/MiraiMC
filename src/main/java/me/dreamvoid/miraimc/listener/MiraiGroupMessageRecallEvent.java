@@ -4,7 +4,6 @@ import net.mamoe.mirai.event.events.MessageRecallEvent;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class MiraiGroupMessageRecallEvent extends Event {
 

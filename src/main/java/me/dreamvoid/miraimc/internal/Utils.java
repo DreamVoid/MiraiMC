@@ -1,16 +1,15 @@
 package me.dreamvoid.miraimc.internal;
 
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
+import me.dreamvoid.miraimc.bukkit.BukkitPlugin;
 
 import java.util.logging.Logger;
 
 public class Utils {
-    public static Logger getLogger(){
-        if (Bukkit.getPluginManager().getPlugin("MiraiMC") != null) {
-            Plugin plugin = Bukkit.getPluginManager().getPlugin("MiraiMC");
-            assert plugin != null;
-            return plugin.getLogger();
-        } else return Bukkit.getLogger();
+    public static Utils Instance;
+    public static Logger Logger;
+
+    public Utils(BukkitPlugin plugin){
+        Instance = this;
+        Logger = plugin.getLogger();
     }
 }

@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.listener;
 
-import net.mamoe.mirai.event.events.BeforeImageUploadEvent;
 import net.mamoe.mirai.event.events.ImageUploadEvent;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

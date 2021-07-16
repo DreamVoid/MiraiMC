@@ -19,7 +19,7 @@ public class CommandHandler implements CommandExecutor {
 
     private final BukkitPlugin plugin;
     private final MiraiBot mirai;
-    MiraiAutoLogin MiraiAutoLogin;
+    private final MiraiAutoLogin MiraiAutoLogin;
 
     public CommandHandler(BukkitPlugin plugin) {
         this.plugin = plugin;

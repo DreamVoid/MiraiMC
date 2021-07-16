@@ -66,7 +66,7 @@ public class MiraiGroupMemberLeaveEvent extends Event{
      * @return 操作者ID
      */
     public long getOperator() {
-        if(eventKick != null){
+        if(eventKick != null && eventKick.getOperator() != null){
             return eventKick.getOperator().getId();
         } else return 0;
     }
