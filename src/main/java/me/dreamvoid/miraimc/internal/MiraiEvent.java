@@ -15,11 +15,15 @@ public class MiraiEvent {
     private Listener BotOfflineForceListener;
     private Listener BotOfflineDroppedListener;
     private Listener BotOfflineRequireReconnectListener;
+    private Listener BotReloginEventListener;
+    private Listener BotAvatarChangedEventListener;
+    private Listener BotNickChangedEventListener;
 
     private Listener GroupMessageListener;
     private Listener FriendMessageListener;
     private Listener GroupTempMessageEventListener;
     private Listener StrangerMessageEventListener;
+    private Listener OtherClientMessageEventListener;
 
     private Listener GroupMessagePreSendEventListener;
     private Listener FriendMessagePreSendEventListener;
@@ -30,6 +34,14 @@ public class MiraiEvent {
     private Listener FriendMessagePostSendEventListener;
     private Listener GroupTempMessagePostSendEventListener;
     private Listener StrangerMessagePostSendEventListener;
+
+    private Listener FriendMessageRecallEventListener;
+    private Listener GroupMessageRecallEventListener;
+
+    private Listener BeforeImageUploadEventListener;
+    private Listener ImageUploadSucceedEventListener;
+    private Listener ImageUploadFailedEventListener;
+    private Listener NudgeEventListener;
 
     private Listener BotLeaveActiveEventListener;
     private Listener BotLeaveKickEventListener;
@@ -52,6 +64,9 @@ public class MiraiEvent {
         BotOfflineForceListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Force.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOfflineEvent(event, "Force")));
         BotOfflineDroppedListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Dropped.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOfflineEvent(event, "Dropped")));
         BotOfflineRequireReconnectListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.RequireReconnect.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOfflineEvent(event, "RequireReconnect")));
+        BotReloginEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotReloginEvent.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotReloginEvent(event)));
+        BotAvatarChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotAvatarChangedEvent.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotAvatarChangedEvent(event)));
+        BotNickChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotNickChangedEvent.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotNickChangedEvent(event)));
 
         // 消息
         // - 被动
@@ -59,6 +74,7 @@ public class MiraiEvent {
         FriendMessageListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendMessageEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendMessageEvent(event)));
         GroupTempMessageEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupTempMessageEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupTempMessageEvent(event)));
         StrangerMessageEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(StrangerMessageEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiStrangerMessageEvent(event)));
+        OtherClientMessageEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(OtherClientMessageEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiOtherClientMessageEvent(event)));
         // - 主动前
         GroupMessagePreSendEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupMessagePreSendEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMessagePreSendEvent(event)));
         FriendMessagePreSendEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendMessagePreSendEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendMessagePreSendEvent(event)));
@@ -69,6 +85,17 @@ public class MiraiEvent {
         FriendMessagePostSendEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendMessagePostSendEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendMessagePostSendEvent(event)));
         GroupTempMessagePostSendEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupTempMessagePostSendEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupTempMessagePostSendEvent(event)));
         StrangerMessagePostSendEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(StrangerMessagePostSendEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiStrangerMessagePostSendEvent(event)));
+        // - 撤回
+        FriendMessageRecallEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MessageRecallEvent.FriendRecall.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendMessageRecallEvent(event)));
+        GroupMessageRecallEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MessageRecallEvent.GroupRecall.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMessageRecallEvent(event)));
+        // - 图片上传
+        // -- 图片上传前
+        BeforeImageUploadEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BeforeImageUploadEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBeforeImageUploadEvent(event)));
+        // -- 图片上传完成
+        ImageUploadSucceedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(ImageUploadEvent.Succeed.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiImageUploadSucceedEvent(event)));
+        ImageUploadFailedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(ImageUploadEvent.Failed.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiImageUploadFailedEvent(event)));
+        // - 戳一戳
+        NudgeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(NudgeEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiNudgeEvent(event)));
 
         // 群
         BotLeaveActiveEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotLeaveEvent.Active.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupBotLeaveEvent(event, event)));
@@ -95,11 +122,15 @@ public class MiraiEvent {
         BotOfflineForceListener.complete();
         BotOfflineDroppedListener.complete();
         BotOfflineRequireReconnectListener.complete();
+        BotReloginEventListener.complete();
+        BotAvatarChangedEventListener.complete();
+        BotNickChangedEventListener.complete();
 
         GroupMessageListener.complete();
         FriendMessageListener.complete();
         GroupTempMessageEventListener.complete();
         StrangerMessageEventListener.complete();
+        OtherClientMessageEventListener.complete();
 
         GroupMessagePreSendEventListener.complete();
         FriendMessagePreSendEventListener.complete();
@@ -110,6 +141,15 @@ public class MiraiEvent {
         FriendMessagePostSendEventListener.complete();
         GroupTempMessagePostSendEventListener.complete();
         StrangerMessagePostSendEventListener.complete();
+
+        FriendMessageRecallEventListener.complete();
+        GroupMessageRecallEventListener.complete();
+
+        BeforeImageUploadEventListener.complete();
+        ImageUploadSucceedEventListener.complete();
+        ImageUploadFailedEventListener.complete();
+
+        NudgeEventListener.complete();
 
         BotLeaveActiveEventListener.complete();
         BotLeaveKickEventListener.complete();
