@@ -18,19 +18,14 @@ import java.util.logging.Logger;
 public class MiraiBot {
 
     private final Logger Logger;
-    private static MiraiBot instance;
+    /**
+     * MiraiBot 实例
+     */
+    public static MiraiBot Instance;
 
     public MiraiBot() {
-        this.Logger = Utils.Logger;
-        instance = this;
-    }
-
-    /**
-     * 获取MiraiBot实例
-     * @return MiraiBot 实例
-     */
-    public static MiraiBot getInstance(){
-        return instance;
+        this.Logger = Utils.Instance.getLogger();
+        Instance = this;
     }
 
     /**

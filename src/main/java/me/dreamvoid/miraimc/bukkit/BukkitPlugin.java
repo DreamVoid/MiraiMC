@@ -15,12 +15,12 @@ public class BukkitPlugin extends JavaPlugin {
 
     private MiraiEvent MiraiEvent;
     private MiraiBot MiraiBot;
-    private Config config;
+    private Config Config;
     public MiraiAutoLogin MiraiAutoLogin;
 
     @Override // 加载插件
     public void onLoad() {
-        this.config = new Config(this);
+        this.Config = new Config(this);
         this.MiraiEvent = new MiraiEvent();
         this.MiraiBot = new MiraiBot();
         this.MiraiAutoLogin = new MiraiAutoLogin(this);
@@ -29,7 +29,7 @@ public class BukkitPlugin extends JavaPlugin {
 
     @Override // 启用插件
     public void onEnable() {
-        config.loadConfig();
+        Config.loadConfig();
 
         getLogger().info("Mirai working dir: " + Config.config.getString("general.mirai-working-dir", "default"));
 
