@@ -23,7 +23,7 @@ public class CommandHandler implements CommandExecutor {
 
     public CommandHandler(BukkitPlugin plugin) {
         this.plugin = plugin;
-        this.mirai = new MiraiBot();
+        this.mirai = MiraiBot.getInstance();
         this.MiraiAutoLogin = new MiraiAutoLogin(plugin);
     }
 
@@ -53,7 +53,7 @@ public class CommandHandler implements CommandExecutor {
                                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&e可用的协议类型: ANDROID_PHONE, ANDROID_PAD, ANDROID_WATCH."));
                                             Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
                                         }
-                                        mirai.doBotLogin(Integer.parseInt(args[1]),args[2], Protocol);
+                                        mirai.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
                                     }
                                 }.runTaskAsynchronously(plugin);
                             } else {

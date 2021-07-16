@@ -18,8 +18,20 @@ import java.util.logging.Logger;
 public class MiraiBot {
 
     private final Logger Logger;
+    private static MiraiBot instance;
 
-    public MiraiBot() { this.Logger = Utils.getLogger(); }
+    public MiraiBot() {
+        this.Logger = Utils.getLogger();
+        instance = this;
+    }
+
+    /**
+     * 获取MiraiBot实例
+     * @return MiraiBot 实例
+     */
+    public static MiraiBot getInstance(){
+        return instance;
+    }
 
     /**
      * 登录一个机器人账号
