@@ -13,11 +13,11 @@ public class Config {
     public static YamlConfiguration config;
     public static File PluginDir;
     private static BukkitPlugin plugin;
-    private static Logger logger;
+    private static Logger Logger;
 
     public Config(BukkitPlugin plugin){
         Config.plugin = plugin;
-        logger = Utils.Logger;
+        Logger = Utils.Instance.getLogger();
     }
 
     public void loadConfig() {
@@ -36,8 +36,8 @@ public class Config {
 
         // 安全警告
         if(!(config.getBoolean("general.disable-safe-warning-message",false))){
-            logger.warning("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
-            logger.warning("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
+            Logger.warning("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
+            Logger.warning("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
 
         if(config.getBoolean("bot.log-events",true)){

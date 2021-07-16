@@ -6,10 +6,12 @@ import java.util.logging.Logger;
 
 public class Utils {
     public static Utils Instance;
-    public static Logger Logger;
+    private final Logger Logger;
 
     public Utils(BukkitPlugin plugin){
         Instance = this;
-        Logger = plugin.getLogger();
+        this.Logger = plugin.getLogger();
     }
+
+    public Logger getLogger(){ return Logger; }
 }
