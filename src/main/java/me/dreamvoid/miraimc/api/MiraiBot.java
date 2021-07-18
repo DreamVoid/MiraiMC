@@ -46,8 +46,7 @@ public class MiraiBot {
      */
     public void doBotLogout(long Account) {
         Bot bot = Bot.getInstanceOrNull(Account);
-        if(isBotExist(bot)){
-            assert bot != null;
+        if(bot != null){
             bot.close();
         }
     }
@@ -57,8 +56,7 @@ public class MiraiBot {
      * @param Bot 机器人
      */
     public void doBotLogout(Bot Bot) {
-        if(isBotExist(Bot)){
-            assert Bot != null;
+        if(Bot != null){
             Bot.close();
         }
     }
@@ -71,9 +69,8 @@ public class MiraiBot {
      * @return 成功返回true，失败返回false (此方法若返回false，则指定的机器人账号不存在)
      */
     public boolean sendFriendMessage(long BotAccount, long FriendID, String Message){
-        Bot bot = Bot.getInstanceOrNull(BotAccount);
-        if(isBotExist(bot)) {
-            assert bot != null;
+        if(isBotOnline(BotAccount)) {
+            Bot bot = Bot.getInstance(BotAccount);
             bot.getLogger().verbose("[MessageSend/"+BotAccount+"] "+ "Friend("+FriendID + ") <- "+Message);
             bot.getFriendOrFail(FriendID).sendMessage(Message);
             return true;
@@ -90,9 +87,8 @@ public class MiraiBot {
      * @return 成功返回true，失败返回false (此方法若返回false，则指定的机器人账号不存在)
      */
     public boolean sendFriendMessage(long BotAccount, long FriendID, MessageChain MessageChain){
-        Bot bot = Bot.getInstanceOrNull(BotAccount);
-        if(isBotExist(bot)) {
-            assert bot != null;
+        if(isBotOnline(BotAccount)) {
+            Bot bot = Bot.getInstance(BotAccount);
             bot.getLogger().verbose("[MessageSend/"+BotAccount+"] "+ "Friend("+FriendID +") <- "+MessageChain.serializeToMiraiCode());
             bot.getFriendOrFail(FriendID).sendMessage(MessageChain);
             return true;
@@ -110,9 +106,8 @@ public class MiraiBot {
      * @return 成功返回true，失败返回false (此方法若返回false，则指定的机器人账号不存在)
      */
     public boolean sendGroupMessage(long BotAccount, long GroupID, String Message){
-        Bot bot = Bot.getInstanceOrNull(BotAccount);
-        if(isBotExist(bot)){
-            assert bot != null;
+        if(isBotOnline(BotAccount)){
+            Bot bot = Bot.getInstance(BotAccount);
             bot.getLogger().verbose("[MessageSend/"+BotAccount+"] "+ "Group("+GroupID +") <- "+Message);
             bot.getGroupOrFail(GroupID).sendMessage(Message);
             return true;
@@ -130,9 +125,8 @@ public class MiraiBot {
      * @return 成功返回true，失败返回false (此方法若返回false，则指定的机器人账号不存在)
      */
     public boolean sendGroupMessage(long BotAccount, long GroupID, MessageChain MessageChain){
-        Bot bot = Bot.getInstanceOrNull(BotAccount);
-        if(isBotExist(bot)){
-            assert bot != null;
+        if(isBotOnline(BotAccount)){
+            Bot bot = Bot.getInstance(BotAccount);
             bot.getLogger().verbose("[MessageSend/"+BotAccount+"] "+ "Group("+GroupID +") <- "+MessageChain.contentToString());
             bot.getGroupOrFail(GroupID).sendMessage(MessageChain);
             return true;
@@ -149,9 +143,8 @@ public class MiraiBot {
      * @return 成功返回true，失败返回false
      */
     public boolean sendFriendNudge(long BotAccount, long FriendID){
-        Bot bot = Bot.getInstanceOrNull(BotAccount);
-        if(isBotExist(bot)){
-            assert bot != null;
+        if(isBotOnline(BotAccount)){
+            Bot bot = Bot.getInstance(BotAccount);
             bot.getLogger().verbose("[NudgeSend/"+BotAccount+"] "+ "Friend("+FriendID + ") <- ");
             return(bot.nudge().sendTo(bot.getFriendOrFail(FriendID)));
         } else {
@@ -188,9 +181,8 @@ public class MiraiBot {
      * @return 成功返回true，失败返回false (此方法若返回false，则指定的机器人账号不存在)
      */
     public boolean setGroupMemberMute(long BotAccount, long GroupID, long TargetID, int Time){
-        Bot bot = Bot.getInstanceOrNull(BotAccount);
-        if(isBotExist(bot)){
-            assert bot != null;
+        if(isBotOnline(BotAccount)){
+            Bot bot = Bot.getInstance(BotAccount);
             Group group = bot.getGroupOrFail(GroupID);
             bot.getLogger().verbose("[GroupMute/"+BotAccount+"] " +"Group("+GroupID+") Target(" + TargetID + ")"+" <- Mute ("+Time+"s)");
             group.getOrFail(TargetID).mute(Time);
@@ -209,9 +201,8 @@ public class MiraiBot {
      * @return 成功返回true，失败返回false (此方法若返回false，则指定的机器人账号不存在)
      */
     public boolean setGroupMemberUnmute(long BotAccount, long GroupID, long TargetID){
-        Bot bot = Bot.getInstanceOrNull(BotAccount);
-        if(isBotExist(bot)){
-            assert bot != null;
+        if(isBotOnline(BotAccount)){
+            Bot bot = Bot.getInstance(BotAccount);
             bot.getLogger().verbose("[GroupMute/"+BotAccount+"] " +"Group("+GroupID+") Target(" + TargetID + ")"+" <- Unmute");
             bot.getGroupOrFail(GroupID).getOrFail(TargetID).unmute();
             return true;
@@ -230,9 +221,8 @@ public class MiraiBot {
      * @return 成功返回true，失败返回false (此方法若返回false，则指定的机器人账号不存在)
      */
     public boolean setGroupMemberKick(long BotAccount, long GroupID, long TargetID, String Reason){
-        Bot bot = Bot.getInstanceOrNull(BotAccount);
-        if(isBotExist(bot)){
-            assert bot != null;
+        if(isBotOnline(BotAccount)){
+            Bot bot = Bot.getInstance(BotAccount);
             bot.getLogger().verbose("[GroupKick/"+BotAccount+"] " +"Group("+GroupID+") Target(" + TargetID + ")"+" <- "+Reason);
             bot.getGroupOrFail(GroupID).getOrFail(TargetID).kick(Reason);
             return true;
@@ -252,8 +242,7 @@ public class MiraiBot {
      */
     public boolean sendGroupMemberMessage(long BotAccount, long GroupID, long TargetID, String Message){
         if(isBotOnline(BotAccount)){
-            Bot bot = Bot.getInstanceOrNull(BotAccount);
-            assert bot != null;
+            Bot bot = Bot.getInstance(BotAccount);
             bot.getLogger().verbose("[MessageSend/"+BotAccount+"] " +"Group("+GroupID+") Target(" + TargetID + ")"+" <- " + Message);
             bot.getGroupOrFail(GroupID).getOrFail(TargetID).sendMessage(Message);
             return true;
@@ -269,8 +258,7 @@ public class MiraiBot {
      */
     public String getFriendNick(long BotAccount, long Friend){
         if(isBotOnline(BotAccount)){
-            Bot bot = Bot.getInstanceOrNull(BotAccount);
-            assert bot != null;
+            Bot bot = Bot.getInstance(BotAccount);
             return bot.getFriendOrFail(Friend).getNick();
         } else return "";
     }
@@ -284,8 +272,7 @@ public class MiraiBot {
      */
     public String getFriendRemark(long BotAccount, long Friend){
         if(isBotOnline(BotAccount)){
-            Bot bot = Bot.getInstanceOrNull(BotAccount);
-            assert bot != null;
+            Bot bot = Bot.getInstance(BotAccount);
             return bot.getFriendOrFail(Friend).getRemark();
         } else return "";
     }
@@ -350,7 +337,6 @@ public class MiraiBot {
     public boolean isBotExist(Bot bot) { return !(Objects.equals(bot, null)); }
 
     private void privateBotLogin(long Account, String Password, BotConfiguration.MiraiProtocol Protocol){
-
         Logger.info("登录新的机器人账号: "+ Account+", 协议: "+ Protocol.name());
 
         // 建立mirai数据文件夹

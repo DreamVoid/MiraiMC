@@ -7,9 +7,6 @@ import net.mamoe.mirai.event.events.*;
 import org.bukkit.Bukkit;
 
 public class MiraiEvent {
-
-    public MiraiEvent() { }
-
     private Listener BotOnlineListener;
     private Listener BotOfflineActiveListener;
     private Listener BotOfflineForceListener;
