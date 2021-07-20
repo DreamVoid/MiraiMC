@@ -24,7 +24,6 @@ public class BukkitPlugin extends JavaPlugin {
         this.MiraiEvent = new MiraiEvent();
         this.MiraiBot = new MiraiBot();
         this.MiraiAutoLogin = new MiraiAutoLogin(this);
-        new Utils(this);
     }
 
     @Override // 启用插件

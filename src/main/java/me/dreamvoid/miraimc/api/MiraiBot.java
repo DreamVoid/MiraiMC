@@ -25,7 +25,7 @@ public class MiraiBot {
     public static MiraiBot Instance;
 
     public MiraiBot() {
-        this.Logger = Utils.Instance.getLogger();
+        this.Logger = Utils.getLogger();
         Instance = this;
     }
 

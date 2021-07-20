@@ -5,13 +5,13 @@ import me.dreamvoid.miraimc.bukkit.BukkitPlugin;
 import java.util.logging.Logger;
 
 public class Utils {
-    public static Utils Instance;
-    private final Logger Logger;
+    public static BukkitPlugin plugin;
 
     public Utils(BukkitPlugin plugin){
-        Instance = this;
-        this.Logger = plugin.getLogger();
+        Utils.plugin = plugin;
     }
 
-    public Logger getLogger(){ return Logger; }
+    public static Logger getLogger() {
+        return plugin.getLogger();
+    }
 }

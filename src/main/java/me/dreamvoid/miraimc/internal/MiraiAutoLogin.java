@@ -17,7 +17,7 @@ public class MiraiAutoLogin {
 
     public MiraiAutoLogin(BukkitPlugin plugin) {
         this.plugin = plugin;
-        this.Logger = Utils.Instance.getLogger();
+        this.Logger = Utils.getLogger();
     }
 
     private final BukkitPlugin plugin;
