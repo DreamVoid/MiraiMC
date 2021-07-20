@@ -83,4 +83,4 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 - [ ] 添加剩余未添加的Mirai事件
 - [ ] 完全兼容mirai console的结构供已在使用mirai的服主使用
 - [ ] 像mirai console一样加载mirai console插件
-- [ ] 重写登录流程以适应Bukkit
+- [ ] 重写登录流程以适应Bukkit（和未来支持的Bungee，甚至Sponge）
