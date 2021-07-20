@@ -47,12 +47,26 @@ public class MiraiEvent {
     private Listener BotUnmuteEventListener;
     private Listener BotJoinGroupEventListener;
 
+    private Listener GroupNameChangeEventListener;
+    private Listener GroupEntranceAnnouncementChangeEventListener;
+    private Listener GroupMuteAllEventListener;
+    private Listener GroupAllowAnonymousChatEventListener;
+    private Listener GroupAllowMemberInviteEventListener;
+
     private Listener MemberJoinInviteEventListener;
     private Listener MemberJoinActiveEventListener;
     private Listener MemberLeaveKickEventListener;
     private Listener MemberLeaveQuitEventListener;
     private Listener MemberJoinRequestEventListener;
     private Listener BotInvitedJoinGroupRequestEventListener;
+
+    private Listener MemberCardChangeEventListener;
+    private Listener MemberSpecialTitleChangeEventListener;
+
+    private Listener MemberPermissionChangeEventListener;
+
+    private Listener MemberMuteEventListener;
+    private Listener MemberUnmuteEventListener;
 
     private Listener FriendRemarkChangeEventListener;
     private Listener FriendAddEventListener;
@@ -109,6 +123,12 @@ public class MiraiEvent {
         BotMuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotMuteEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupBotMuteEvent(event)));
         BotUnmuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotUnmuteEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupBotUnmuteEvent(event)));
         BotJoinGroupEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotJoinGroupEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupBotJoinGroupEvent(event)));
+        // - 群设置
+        GroupNameChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupNameChangeEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupNameChangeEvent(event)));
+        GroupEntranceAnnouncementChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupEntranceAnnouncementChangeEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupEntranceAnnouncementChangeEvent(event)));
+        GroupMuteAllEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupMuteAllEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMuteAllEvent(event)));
+        GroupAllowAnonymousChatEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupAllowAnonymousChatEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupAllowAnonymousChatEvent(event)));
+        GroupAllowMemberInviteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupAllowMemberInviteEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupAllowMemberInviteEvent(event)));
         // - 群成员
         // -- 成员列表变更
         MemberJoinInviteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinEvent.Invite.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMemberJoinEvent(event, event)));
@@ -117,6 +137,14 @@ public class MiraiEvent {
         MemberLeaveQuitEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberLeaveEvent.Quit.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMemberLeaveEvent(event, event)));
         MemberJoinRequestEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinRequestEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMemberJoinRequestEvent(event)));
         BotInvitedJoinGroupRequestEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotInvitedJoinGroupRequestEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupBotInvitedJoinGroupRequestEvent(event)));
+        // -- 名片和头衔
+        MemberCardChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberCardChangeEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMemberCardChangeEvent(event)));
+        MemberSpecialTitleChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberSpecialTitleChangeEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMemberSpecialTitleChangeEvent(event)));
+        // -- 成员权限
+        MemberPermissionChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberPermissionChangeEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMemberPermissionChangeEvent(event)));
+        // -- 动作
+        MemberMuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberMuteEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMemberMuteEvent(event)));
+        MemberUnmuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberUnmuteEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMemberUnmuteEvent(event)));
 
         // 好友
         FriendRemarkChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendRemarkChangeEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendRemarkChangeEvent(event)));
@@ -170,12 +198,26 @@ public class MiraiEvent {
         BotUnmuteEventListener.complete();
         BotJoinGroupEventListener.complete();
 
+        GroupNameChangeEventListener.complete();
+        GroupEntranceAnnouncementChangeEventListener.complete();
+        GroupMuteAllEventListener.complete();
+        GroupAllowAnonymousChatEventListener.complete();
+        GroupAllowMemberInviteEventListener.complete();
+
         MemberJoinInviteEventListener.complete();
         MemberJoinActiveEventListener.complete();
         MemberLeaveKickEventListener.complete();
         MemberLeaveQuitEventListener.complete();
         MemberJoinRequestEventListener.complete();
         BotInvitedJoinGroupRequestEventListener.complete();
+
+        MemberCardChangeEventListener.complete();
+        MemberSpecialTitleChangeEventListener.complete();
+
+        MemberPermissionChangeEventListener.complete();
+
+        MemberMuteEventListener.complete();
+        MemberUnmuteEventListener.complete();
 
         FriendRemarkChangeEventListener.complete();
         FriendAddEventListener.complete();
