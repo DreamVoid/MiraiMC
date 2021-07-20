@@ -27,7 +27,13 @@ public class EventTemplate extends Event {
      * 获取机器人账号
      * @return 机器人账号
      */
-    public long getID() { return event.getBot().getId(); }
+    public long getBotID() { return event.getBot().getId(); }
 
-
+    /**
+     * 获取哈希值
+     * @return 哈希值
+     */
+    public int getHashCode() {
+        return event.hashCode();
+    }
 }

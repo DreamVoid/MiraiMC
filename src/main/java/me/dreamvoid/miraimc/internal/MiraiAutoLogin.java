@@ -35,17 +35,17 @@ public class MiraiAutoLogin {
 
         // 建立配置文件夹
         File ConfigDir = new File(String.valueOf(MiraiDir),"config");
-        if(!(ConfigDir.exists())){ if(!(ConfigDir.mkdir())) { Logger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
+        if(!(ConfigDir.exists())){ if(!(ConfigDir.mkdir())) { Logger.warning("Unable to create folder: \"" + ConfigDir.getPath()+"\", make sure you have enough permission."); } }
 
         // 建立控制台文件夹
         File ConsoleDir = new File(String.valueOf(ConfigDir), "Console");
-        if(!(ConsoleDir.exists())){ if(!(ConsoleDir.mkdir())) { Logger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
+        if(!(ConsoleDir.exists())){ if(!(ConsoleDir.mkdir())) { Logger.warning("Unable to create folder: \"" + ConsoleDir.getPath()+"\", make sure you have enough permission."); } }
 
         // 建立自动登录文件
         AutoLoginFile = new File(ConsoleDir, "AutoLogin.yml");
         if(!AutoLoginFile.exists()) {
             try {
-                AutoLoginFile.createNewFile();
+                if(!AutoLoginFile.createNewFile()){ throw new IOException(); }
                 String defaulttext = "accounts: "+System.getProperty("line.separator");
                 File writeName = AutoLoginFile;
                 try (FileWriter writer = new FileWriter(writeName);
@@ -78,7 +78,7 @@ public class MiraiAutoLogin {
                     BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString());
 
                     Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
-                    MiraiBot.getInstance().doBotLogin(Account, Password, Protocol);
+                    MiraiBot.Instance.doBotLogin(Account, Password, Protocol);
                 }
             }
         }.runTaskAsynchronously(plugin);
