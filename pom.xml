@@ -6,7 +6,7 @@
 
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
-    <version>1.2-pre3</version>
+    <version>1.2-rc1</version>
 
     <name>MiraiMC</name>
     <description>Mirai for Minecraft server</description>
@@ -45,7 +45,12 @@
         </repository>
     </distributionManagement>
 
-    <properties><project.build.sourceEncoding>UTF-8</project.build.sourceEncoding></properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
     <repositories>
         <!-- This adds the Spigot Maven repository to the build -->
         <repository>
@@ -53,12 +58,13 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
+
     <dependencies>
         <!--This adds the Spigot API artifact to the build -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <version>1.13-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -106,15 +112,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
                 <version>1.6.7</version>
@@ -154,7 +151,6 @@
                     <excludePackageNames>me.dreamvoid.miraimc.bukkit:me.dreamvoid.miraimc.bukkit.*:me.dreamvoid.miraimc.bukkit.utils.*:me.dreamvoid.miraimc.internal:me.dreamvoid.miraimc.internal.*:</excludePackageNames>
                 </configuration>
             </plugin>
-            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
@@ -169,7 +165,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
 
         <resources>
