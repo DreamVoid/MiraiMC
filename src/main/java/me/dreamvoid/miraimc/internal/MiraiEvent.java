@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.internal;
 
-import me.dreamvoid.miraimc.listener.*;
+import me.dreamvoid.miraimc.event.*;
 import net.mamoe.mirai.event.GlobalEventChannel;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.event.events.*;
@@ -53,6 +53,14 @@ public class MiraiEvent {
     private Listener MemberLeaveQuitEventListener;
     private Listener MemberJoinRequestEventListener;
     private Listener BotInvitedJoinGroupRequestEventListener;
+
+    private Listener FriendRemarkChangeEventListener;
+    private Listener FriendAddEventListener;
+    private Listener FriendDeleteEventListener;
+    private Listener NewFriendRequestEventListener;
+    private Listener FriendAvatarChangedEventListener;
+    private Listener FriendNickChangedEventListener;
+    private Listener FriendInputStatusChangedEventListener;
 
     public void startListenEvent(){
         // Bot
@@ -110,7 +118,14 @@ public class MiraiEvent {
         MemberJoinRequestEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinRequestEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupMemberJoinRequestEvent(event)));
         BotInvitedJoinGroupRequestEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotInvitedJoinGroupRequestEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiGroupBotInvitedJoinGroupRequestEvent(event)));
 
-
+        // 好友
+        FriendRemarkChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendRemarkChangeEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendRemarkChangeEvent(event)));
+        FriendAddEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendAddEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendAddEvent(event)));
+        FriendDeleteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendDeleteEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendDeleteEvent(event)));
+        NewFriendRequestEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(NewFriendRequestEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiNewFriendRequestEvent(event)));
+        FriendAvatarChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendAvatarChangedEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendAvatarChangedEvent(event)));
+        FriendNickChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendNickChangedEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendNickChangedEvent(event)));
+        FriendInputStatusChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendInputStatusChangedEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendInputStatusChangedEvent(event)));
     }
 
     public void stopListenEvent(){
@@ -161,6 +176,14 @@ public class MiraiEvent {
         MemberLeaveQuitEventListener.complete();
         MemberJoinRequestEventListener.complete();
         BotInvitedJoinGroupRequestEventListener.complete();
+
+        FriendRemarkChangeEventListener.complete();
+        FriendAddEventListener.complete();
+        FriendDeleteEventListener.complete();
+        NewFriendRequestEventListener.complete();
+        FriendAvatarChangedEventListener.complete();
+        FriendNickChangedEventListener.complete();
+        FriendInputStatusChangedEventListener.complete();
     }
 
 }
