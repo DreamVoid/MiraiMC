@@ -11,6 +11,7 @@ import net.mamoe.mirai.utils.LoggerAdapters;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -37,7 +38,14 @@ public class MiraiBot {
      * @param Protocol 协议类型
      */
     public void doBotLogin(long Account, String Password, BotConfiguration.MiraiProtocol Protocol) {
-        privateBotLogin(Account, Password.getBytes(StandardCharsets.UTF_8), Protocol);
+        try {
+            MessageDigest m = MessageDigest.getInstance("MD5");
+            m.update(Password.getBytes(StandardCharsets.UTF_8));
+            byte[] md5 = m.digest();
+            privateBotLogin(Account, md5, Protocol);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
