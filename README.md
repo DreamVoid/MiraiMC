@@ -10,10 +10,10 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 
 请按下面的步骤开始使用MiraiMC：
 * 下载插件，并将插件文件放入plugins文件夹
-* [可选] 下载基于MiraiMC开发的其他插件（如果有的话），并将这些插件放入plugins文件夹
+* 下载基于MiraiMC开发的其他插件（如果有的话），并将这些插件放入plugins文件夹
 * 启动服务端（如果尚未启动）或使用诸如PlugMan的插件加载插件
 * 使用指令“**/mirai login <账号> <密码>**”登录你的机器人账号
-* [额外] 如果你同时使用了基于MiraiMC开发的插件，请在这些插件的配置文件中调整有关MiraiMC的配置
+* 如果你同时使用了基于MiraiMC开发的插件，请在这些插件的配置文件中调整有关MiraiMC的配置
 * 享受优雅的QQ机器人服务！
 
 可以在这里找到更为详细的使用教程：https://wiki.miraimc.dreamvoid.ml/
@@ -25,13 +25,14 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 
 你也可以为现有插件引入MiraiMC，只需按照以下步骤即可接入MiraiMC：
 
-* 将下面的代码复制到pom.xml的dependencies项或直接将插件jar文件作为外部库导入
+* 将下面的代码复制到pom.xml的```dependencies```项或直接将插件jar文件作为外部库导入
 ```
 <dependency>
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
     <!--请确保版本为Github上的最新版本-->
-    <version>1.2-pre3</version>
+    <version>1.2</version>
+    <scope>provided</scope>
 </dependency>
 ```
 * 参照[Javadoc](https://docs.miraimc.dreamvoid.ml)或[MiraiMC开发模板](https://github.com/DreamVoid/MiraiMC-Template)编写相关的代码
@@ -80,7 +81,7 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 - [X] 初步完善指令和权限系统
 - [X] 初步完善API接口供其他插件开发者调用
 - [X] 加入自动登录机器人的功能
-- [ ] 添加剩余未添加的Mirai事件
+- [X] 添加剩余未添加的Mirai事件
 - [ ] 完全兼容mirai console的结构供已在使用mirai的服主使用
 - [ ] 像mirai console一样加载mirai console插件
 - [ ] 重写登录流程以适应Bukkit（和未来支持的Bungee，甚至Sponge）
