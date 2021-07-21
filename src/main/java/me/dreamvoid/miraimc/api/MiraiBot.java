@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.api;
 
 import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
@@ -452,6 +453,8 @@ public class MiraiBot {
             getContactListCache().setGroupMemberListCacheEnabled(Config.config.getBoolean("bot.contact-cache.enable-group-member-list-cache",false));
             getContactListCache().setSaveIntervalMillis(Config.config.getLong("bot.contact-cache.save-interval-millis",60000));
 
+            // 使用自己的验证解决器
+            //setLoginSolver(new MiraiLoginSolver());
         }});
 
         // 开始登录
