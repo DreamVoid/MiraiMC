@@ -14,54 +14,60 @@ commands:
     description: MiraiBot Plugin Command.
     permission: miraimc.command.miraimc
     usage: For help, type /miraimc help
+  miraiverify:
+    description: MiraiBot LoginVerify Command.
+    permission: miraimc.command.miraiverify
+    usage: For help, type /mirai help
 permissions:
-  mirai.command.mirai:
-    description: Allow use /miria
-    default: op
-  miraimc.command.mirai.*:
-    description: Allow use all /mirai child commands.
+  miraimc.*:
+    description: All permissions of MiraiMC
     default: op
     children:
-    - miraimc.command.mirai.login
-    - miraimc.command.mirai.logout
-    - miraimc.command.mirai.list
-    - miraimc.command.mirai.sendfriendmessage
-    - miraimc.command.mirai.sendfriendnudge
-    - miraimc.command.mirai.sendgroupmessage
-    - miraimc.command.mirai.sendgroupnudge
-    - miraimc.command.mirai.checkonline
-  miraimc.command.mirai.login:
-    description: Allow use /mirai login
-    default: op
-  miraimc.command.mirai.logout:
-    description: Allow use /mirai logout
-    default: op
-  miraimc.command.mirai.list:
-    description: Allow use /mirai list
-    default: op
-  miraimc.command.mirai.sendfriendmessage:
-    description: Allow use /mirai sendfriendmessage
-    default: op
-  miraimc.command.mirai.sendfriendnudge:
-    description: Allow use /mirai sendfriendnudge
-    default: op
-  miraimc.command.mirai.sendgroupmessage:
-    description: Allow use /mirai sendgroupmessage
-    default: op
-  miraimc.command.mirai.sendgroupnudge:
-    description: Allow use /mirai sendgroupnudge
-    default: op
-  miraimc.command.mirai.checkonline:
-    description: Allow use /mirai checkonline
-    default: op
-  mirai.command.miraimc:
-    description: Allow use /miriamc
-    default: op
-  miraimc.command.miraimc.*:
-    description: Allow use all /miraimc child commands.
-    default: op
-    children:
-      - miraimc.command.miraimc.reload
-  mirai.command.miraimc.reload:
-    description: Allow use /miriamc reload
-    default: op
+      miraimc.command.*:
+        description: All permissions of MiraiMC's commands
+        default: op
+        children:
+          miraimc.command.mirai:
+            description: Allow use /miria
+            default: op
+          miraimc.command.mirai.*:
+            description: Allow use all /mirai child commands.
+            default: op
+            children:
+              miraimc.command.mirai.login:
+                description: Allow use /mirai login
+                default: op
+              miraimc.command.mirai.logout:
+                description: Allow use /mirai logout
+                default: op
+              miraimc.command.mirai.list:
+                description: Allow use /mirai list
+                default: op
+              miraimc.command.mirai.sendfriendmessage:
+                description: Allow use /mirai sendfriendmessage
+                default: op
+              miraimc.command.mirai.sendfriendnudge:
+                description: Allow use /mirai sendfriendnudge
+                default: op
+              miraimc.command.mirai.sendgroupmessage:
+                description: Allow use /mirai sendgroupmessage
+                default: op
+              miraimc.command.mirai.sendgroupnudge:
+                description: Allow use /mirai sendgroupnudge
+                default: op
+              miraimc.command.mirai.checkonline:
+                description: Allow use /mirai checkonline
+                default: op
+          miraimc.command.miraimc:
+            description: Allow use /miriamc
+            default: op
+          miraimc.command.miraimc.*:
+             description: Allow use all /miraimc child commands.
+             default: op
+             children:
+               miraimc.command.miraimc.reload:
+                 description: Allow use /miriamc reload
+                 default: op
+          miraimc.command.miraiverify:
+            description: Allow use /miraiverify
+            default: op

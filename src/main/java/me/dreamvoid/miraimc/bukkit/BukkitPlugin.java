@@ -4,7 +4,6 @@ import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiAutoLogin;
 import me.dreamvoid.miraimc.internal.MiraiEvent;
-import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.Bot;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -36,7 +35,7 @@ public class BukkitPlugin extends JavaPlugin {
         MiraiEvent.startListenEvent();
 
         getLogger().info("Registering commands.");
-        for (String s : Arrays.asList("mirai", "miraimc")) { Objects.requireNonNull(getCommand(s)).setExecutor(new CommandHandler(this)); }
+        for (String s : Arrays.asList("mirai", "miraimc", "miraiverify")) { Objects.requireNonNull(getCommand(s)).setExecutor(new CommandHandler(this)); }
 
         getLogger().info("Loading auto-login file.");
         MiraiAutoLogin.loadFile();
