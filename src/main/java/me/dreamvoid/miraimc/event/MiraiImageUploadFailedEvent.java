@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * 图片上传失败
+ */
 public class MiraiImageUploadFailedEvent extends Event {
 
     public MiraiImageUploadFailedEvent(ImageUploadEvent.Failed event) {

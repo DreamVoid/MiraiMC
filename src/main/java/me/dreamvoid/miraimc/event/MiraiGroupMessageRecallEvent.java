@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * 消息撤回 - 群消息
+ */
 public class MiraiGroupMessageRecallEvent extends Event {
 
     public MiraiGroupMessageRecallEvent(MessageRecallEvent.GroupRecall event) {

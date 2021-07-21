@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * 戳一戳
+ */
 public class MiraiNudgeEvent extends Event {
 
     public MiraiNudgeEvent(NudgeEvent event) {

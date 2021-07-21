@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * 机器人在群里的权限被改变
+ */
 public class MiraiGroupBotPermissionChangeEvent extends Event{
 
     // 主动退群

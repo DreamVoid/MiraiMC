@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * 被动收到消息 - 陌生人消息
+ */
 public class MiraiStrangerMessageEvent extends Event {
 
     public MiraiStrangerMessageEvent(StrangerMessageEvent event) {

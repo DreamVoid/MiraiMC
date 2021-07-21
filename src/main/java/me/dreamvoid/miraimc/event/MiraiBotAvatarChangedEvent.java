@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Bot 头像改变
+ */
 public class MiraiBotAvatarChangedEvent extends Event {
 
     public MiraiBotAvatarChangedEvent(BotAvatarChangedEvent event) {

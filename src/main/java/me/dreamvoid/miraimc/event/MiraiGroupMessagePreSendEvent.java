@@ -10,6 +10,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 主动发送消息前 - 群消息
+ */
 public class MiraiGroupMessagePreSendEvent extends Event {
 
     public MiraiGroupMessagePreSendEvent(GroupMessagePreSendEvent event) {

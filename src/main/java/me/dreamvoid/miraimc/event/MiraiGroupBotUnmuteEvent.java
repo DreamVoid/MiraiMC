@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * 机器人被取消禁言
+ */
 public class MiraiGroupBotUnmuteEvent extends Event{
 
     // 主动退群

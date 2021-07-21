@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * 机器人成功加入了一个新群
+ */
 public class MiraiGroupBotJoinGroupEvent extends Event{
 
     public MiraiGroupBotJoinGroupEvent(BotJoinGroupEvent event) {

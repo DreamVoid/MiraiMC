@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * 图片上传成功
+ */
 public class MiraiImageUploadSucceedEvent extends Event {
 
     public MiraiImageUploadSucceedEvent(ImageUploadEvent.Succeed event) {

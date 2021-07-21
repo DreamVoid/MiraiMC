@@ -6,10 +6,7 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * 快速创建Mirai事件
- * 基于已经完成的BotOnlineEvent制作
- * 所有Mirai事件均有方法getBot，因此使用子方法getId作为基础方法
- * @author DreamVoid
+ * 群设置 - 匿名聊天状态改变
  */
 public class MiraiGroupAllowAnonymousChatEvent extends Event {
     public MiraiGroupAllowAnonymousChatEvent(GroupAllowAnonymousChatEvent event) {

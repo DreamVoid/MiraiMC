@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Bot 重新登录
+ */
 public class MiraiBotReloginEvent extends Event {
 
     public MiraiBotReloginEvent(BotReloginEvent event) {

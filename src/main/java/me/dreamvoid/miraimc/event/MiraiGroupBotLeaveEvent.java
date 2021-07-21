@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * 机器人被踢出群或在其他客户端主动退出一个群
+ */
 public class MiraiGroupBotLeaveEvent extends Event{
 
     // 主动退群

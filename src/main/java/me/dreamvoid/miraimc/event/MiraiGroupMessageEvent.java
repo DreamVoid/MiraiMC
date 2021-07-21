@@ -12,6 +12,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 被动收到消息 - 群消息
+ */
 public final class MiraiGroupMessageEvent extends Event {
 
     public MiraiGroupMessageEvent(GroupMessageEvent event) {

@@ -7,6 +7,9 @@ import org.bukkit.event.HandlerList;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * 被动收到消息 - 好友消息
+ */
 public final class MiraiFriendMessageEvent extends Event {
 
     public MiraiFriendMessageEvent(FriendMessageEvent event) {
