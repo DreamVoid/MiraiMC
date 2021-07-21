@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * 群成员 - 成员列表变更 - 成员已经离开群
+ */
 public class MiraiGroupMemberLeaveEvent extends Event{
 
     // 主动退群

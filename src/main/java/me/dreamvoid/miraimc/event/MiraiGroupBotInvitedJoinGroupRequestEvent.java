@@ -6,6 +6,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * 群成员 - 成员列表变更 - 机器人被邀请加入群
+ */
 public class MiraiGroupBotInvitedJoinGroupRequestEvent extends Event{
 
     public MiraiGroupBotInvitedJoinGroupRequestEvent(BotInvitedJoinGroupRequestEvent event) {

@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * 主动发送消息前 - 陌生人消息
+ */
 public class MiraiStrangerMessagePreSendEvent extends Event {
 
     public MiraiStrangerMessagePreSendEvent(StrangerMessagePreSendEvent event) {

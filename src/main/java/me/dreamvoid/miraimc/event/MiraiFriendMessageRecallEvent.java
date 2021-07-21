@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * 消息撤回 - 好友撤回
+ */
 public class MiraiFriendMessageRecallEvent extends Event {
 
     public MiraiFriendMessageRecallEvent(MessageRecallEvent.FriendRecall event) {

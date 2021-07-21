@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Bot 离线
+ */
 public class MiraiBotOfflineEvent extends Event {
 
     public MiraiBotOfflineEvent(BotOfflineEvent event, String type) {

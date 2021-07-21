@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * 图片上传前
+ */
 public class MiraiBeforeImageUploadEvent extends Event {
 
     public MiraiBeforeImageUploadEvent(BeforeImageUploadEvent event) {

@@ -11,6 +11,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Bot 登录完成
+ */
 public class MiraiBotOnlineEvent extends Event {
 
     public MiraiBotOnlineEvent(BotOnlineEvent event) {

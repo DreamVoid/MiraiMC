@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * 群成员 - 成员权限 - 成员权限改变
+ */
 public class MiraiGroupMemberPermissionChangeEvent extends Event{
 
     // 主动退群

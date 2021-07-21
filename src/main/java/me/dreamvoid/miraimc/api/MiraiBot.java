@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+/**
+ * Mirai-Core 接口
+ */
 public class MiraiBot {
 
     private final Logger Logger;
