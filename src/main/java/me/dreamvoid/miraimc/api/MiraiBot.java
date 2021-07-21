@@ -454,7 +454,7 @@ public class MiraiBot {
             getContactListCache().setSaveIntervalMillis(Config.config.getLong("bot.contact-cache.save-interval-millis",60000));
 
             // 使用自己的验证解决器
-            //setLoginSolver(new MiraiLoginSolver());
+            setLoginSolver(new MiraiLoginSolver());
         }});
 
         // 开始登录
