@@ -19,7 +19,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 /**
- * Mirai-Core 接口
+ * Mirai 核心接口
  */
 public class MiraiBot {
 
