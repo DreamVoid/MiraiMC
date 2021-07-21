@@ -6,17 +6,28 @@ import net.mamoe.mirai.utils.BotConfiguration;
 
 import java.io.File;
 
+/**
+ * 如果想测试滑动验证码，在运行配置的VM选项加一个“-Dmirai.slider.captcha.supported”
+ * @author DreamVoid
+ */
 public class Login {
+    static File BaseDir = null;
+
     public static void main(String[] args) {
+        if(args.length>=4){ BaseDir = new File(args[3]); }
         privateBotLogin(Long.parseLong(args[0]), args[1], BotConfiguration.MiraiProtocol.valueOf(args[2]));
     }
 
     private static void privateBotLogin(long Account, String Password, BotConfiguration.MiraiProtocol Protocol){
+        if(BaseDir == null) {
+            BaseDir = new File(System.getProperty("user.dir"));
+        }
+        System.out.println("BaseDir: " + BaseDir.getPath());
         System.out.println("登录新的机器人账号: "+ Account+", 协议: "+ Protocol.name());
 
         // 建立mirai数据文件夹
         File MiraiDir;
-        MiraiDir = new File(System.getProperty("user.dir"),"MiraiBot");
+        MiraiDir = new File(BaseDir,"MiraiBot");
 
         if(!(MiraiDir.exists())){ if(!(MiraiDir.mkdir())) { System.out.println("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
 
