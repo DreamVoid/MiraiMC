@@ -2,6 +2,9 @@ package MiraiMC.LoginSolverTest;
 
 import kotlin.coroutines.Continuation;
 import net.mamoe.mirai.Bot;
+import net.mamoe.mirai.network.CustomLoginFailedException;
+import net.mamoe.mirai.network.LoginFailedException;
+import net.mamoe.mirai.network.UnsupportedSMSLoginException;
 import net.mamoe.mirai.utils.LoginSolver;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -27,10 +30,16 @@ public class MyLoginSolver extends LoginSolver {
         } catch (IOException e) { e.printStackTrace(); }
 
         // 先睡六秒钟
-        try { Thread.sleep(6000); } catch (InterruptedException e) { e.printStackTrace(); }
+        //try { Thread.sleep(6000); } catch (InterruptedException e) { e.printStackTrace(); }
+        throw new CustomLoginFailedException(true,"用户终止登录") {
+            @Override
+            public String getMessage() {
+                return super.getMessage();
+            }
+        };
 
         // 读取验证码
-        String str;
+        /*String str;
         try {
             BufferedReader in = new BufferedReader(new FileReader(new File(Login.BaseDir,"verify.txt")));
             str = in.readLine();
@@ -38,7 +47,7 @@ public class MyLoginSolver extends LoginSolver {
             return str;
         } catch (IOException e) { e.printStackTrace(); }
         bot.getLogger().verbose("向服务器发送null");
-        return null;
+        return null;*/
     }
 
     @Nullable
