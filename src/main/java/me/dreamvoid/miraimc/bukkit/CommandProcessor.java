@@ -2,7 +2,6 @@ package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Config;
-import me.dreamvoid.miraimc.internal.MiraiAutoLogin;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
@@ -16,13 +15,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Map;
 
-public class CommandHandler implements CommandExecutor {
+public class CommandProcessor implements CommandExecutor {
 
     private final BukkitPlugin plugin;
     private final MiraiBot Mirai;
     private final MiraiAutoLogin MiraiAutoLogin;
 
-    public CommandHandler(BukkitPlugin plugin) {
+    public CommandProcessor(BukkitPlugin plugin) {
         this.plugin = plugin;
         this.Mirai = MiraiBot.Instance;
         this.MiraiAutoLogin = new MiraiAutoLogin(plugin);

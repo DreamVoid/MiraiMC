@@ -1,35 +1,48 @@
 package me.dreamvoid.miraimc.internal;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.bukkit.BukkitPlugin;
 import net.mamoe.mirai.utils.BotConfiguration;
+import net.md_5.bungee.config.Configuration;
+import net.md_5.bungee.config.ConfigurationProvider;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+@Deprecated
 public class MiraiAutoLogin {
 
-    public MiraiAutoLogin(BukkitPlugin plugin) {
+    public MiraiAutoLogin(me.dreamvoid.miraimc.bukkit.BukkitPlugin plugin) {
         this.plugin = plugin;
-        this.Logger = Utils.getLogger();
+        this.Logger = Utils.Logger;
+        Instance = this;
     }
 
-    private final BukkitPlugin plugin;
+    private me.dreamvoid.miraimc.bukkit.BukkitPlugin plugin;
+    private me.dreamvoid.miraimc.bungee.BungeePlugin bungee;
     private final Logger Logger;
     private static File AutoLoginFile;
+    public static MiraiAutoLogin Instance;
+
+    public MiraiAutoLogin(me.dreamvoid.miraimc.bungee.BungeePlugin bungee) {
+        this.bungee = bungee;
+        this.Logger = Utils.Logger;
+        Instance = this;
+    }
 
     public void loadFile() {
         File MiraiDir;
-        if(!(Config.config.getString("general.mirai-working-dir", "default").equals("default"))){
-            MiraiDir = new File(Config.config.getString("general.mirai-working-dir", "default"));
+        if(!(Config.Gen_MiraiWorkingDir.equals("default"))){
+            MiraiDir = new File(Config.Gen_MiraiWorkingDir);
         } else {
-            MiraiDir = new File(String.valueOf(Config.PluginDir),"MiraiBot");
+            MiraiDir = new File(Config.PluginDir.getPath(),"MiraiBot");
         }
         if(!(MiraiDir.exists())){ if(!(MiraiDir.mkdir())) { Logger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
 
@@ -61,84 +74,104 @@ public class MiraiAutoLogin {
     }
 
     public List<Map<?, ?>> loadAutoLoginList() {
-        FileConfiguration data = YamlConfiguration.loadConfiguration(AutoLoginFile);
-        return data.getMapList("accounts");
+        if(plugin != null){
+            FileConfiguration data = YamlConfiguration.loadConfiguration(AutoLoginFile);
+            return data.getMapList("accounts");
+        } else if(bungee != null){
+            try {
+                Configuration data = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(AutoLoginFile);
+                // TO DO: 增加BungeeCord环境下的配置读取
+                //return data.getMapList("accounts");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        } else
+            return null;
     }
 
     public void doStartUpAutoLogin() {
-        new BukkitRunnable(){
-            @Override
-            public void run() {
-                Logger.info("[AutoLogin] Starting auto-bot task.");
-                for(Map<?,?> map : loadAutoLoginList()){
-                    Map<?,?> password = (Map<?, ?>) map.get("password");
-                    Map<?,?> configuration = (Map<?, ?>) map.get("configuration");
-                    Integer Account = (Integer) map.get("account");
-                    String Password = password.get("value").toString();
-                    BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString());
+        Runnable thread = () -> {
+            Logger.info("[AutoLogin] Starting auto-bot task.");
+            for(Map<?,?> map : loadAutoLoginList()){
+                Map<?,?> password = (Map<?, ?>) map.get("password");
+                Map<?,?> configuration = (Map<?, ?>) map.get("configuration");
+                Integer Account = (Integer) map.get("account");
+                String Password = password.get("value").toString();
+                BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString());
 
-                    Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
-                    MiraiBot.Instance.doBotLogin(Account, Password, Protocol);
-                }
+                Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
+                MiraiBot.Instance.doBotLogin(Account, Password, Protocol);
             }
-        }.runTaskAsynchronously(plugin);
+        };
+        if(plugin != null){
+            plugin.getServer().getScheduler().runTaskAsynchronously(plugin, thread);
+        } else if(bungee != null){
+            bungee.getProxy().getScheduler().runAsync(bungee, thread);
+        }
     }
 
     public boolean addAutoLoginBot(long Account, String Password, String Protocol){
-        // 获取现有的机器人列表
-        FileConfiguration data = YamlConfiguration.loadConfiguration(AutoLoginFile);
-        List<Map<?, ?>> list = data.getMapList("accounts");
+        if(plugin != null) {
+            // 获取现有的机器人列表
+            FileConfiguration data = YamlConfiguration.loadConfiguration(AutoLoginFile);
+            List<Map<?, ?>> list = data.getMapList("accounts");
 
-        // 新建用于添加进去的Map
-        Map<Object, Object> account = new HashMap<>();
+            // 新建用于添加进去的Map
+            Map<Object, Object> account = new HashMap<>();
 
-        // account 节点
-        account.put("account", Account);
+            // account 节点
+            account.put("account", Account);
 
-        // password 节点
-        Map<Object, Object> password = new HashMap<>();
-        password.put("kind","PLAIN");
-        password.put("value",Password);
-        account.put("password",password);
+            // password 节点
+            Map<Object, Object> password = new HashMap<>();
+            password.put("kind", "PLAIN");
+            password.put("value", Password);
+            account.put("password", password);
 
-        // configuration 节点
-        Map<Object, Object> configuration = new HashMap<>();
-        configuration.put("protocol", Protocol);
-        configuration.put("device", "device.json");
-        account.put("configuration",configuration);
+            // configuration 节点
+            Map<Object, Object> configuration = new HashMap<>();
+            configuration.put("protocol", Protocol);
+            configuration.put("device", "device.json");
+            account.put("configuration", configuration);
 
-        // 添加
-        list.add(account);
-        data.set("accounts", list);
-        try {
-            Logger.info("save");
-            data.save(AutoLoginFile);
-        } catch (IOException e) {
-            e.printStackTrace();
+            // 添加
+            list.add(account);
+            data.set("accounts", list);
+            try {
+                Logger.info("save");
+                data.save(AutoLoginFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        } else // TO DO: 增加BungeeCord环境下的配置读取
             return false;
-        }
-        return true;
     }
 
     public boolean delAutoLoginBot(long Account){
-        FileConfiguration data = YamlConfiguration.loadConfiguration(AutoLoginFile);
-        List<Map<?, ?>> list = data.getMapList("accounts");
+        if(plugin != null) {
+            FileConfiguration data = YamlConfiguration.loadConfiguration(AutoLoginFile);
+            List<Map<?, ?>> list = data.getMapList("accounts");
 
-        for(Map<?,?> bots : list){
-            if((Integer) bots.get("account") == Account){
-                list.remove(bots);
-                break;
+            for (Map<?, ?> bots : list) {
+                if ((Integer) bots.get("account") == Account) {
+                    list.remove(bots);
+                    break;
+                }
             }
-        }
 
-        data.set("accounts", list);
+            data.set("accounts", list);
 
-        try {
-            data.save(AutoLoginFile);
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                data.save(AutoLoginFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        } else // TO DO: 增加BungeeCord环境下的配置读取
             return false;
-        }
-        return true;
     }
 }

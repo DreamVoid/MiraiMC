@@ -1,4 +1,4 @@
-package me.dreamvoid.miraimc.internal;
+package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.event.*;
 import net.mamoe.mirai.event.GlobalEventChannel;
@@ -227,5 +227,4 @@ public class MiraiEvent {
         FriendNickChangedEventListener.complete();
         FriendInputStatusChangedEventListener.complete();
     }
-
 }

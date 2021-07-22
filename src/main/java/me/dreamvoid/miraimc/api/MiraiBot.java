@@ -30,7 +30,7 @@ public class MiraiBot {
     public static MiraiBot Instance;
 
     public MiraiBot() {
-        this.Logger = Utils.getLogger();
+        this.Logger = Utils.Logger;
         Instance = this;
     }
 
@@ -366,8 +366,8 @@ public class MiraiBot {
 
         // 建立mirai数据文件夹
         File MiraiDir;
-        if(!(Config.config.getString("general.mirai-working-dir", "default").equals("default"))){
-            MiraiDir = new File(Config.config.getString("general.mirai-working-dir", "default"));
+        if(!(Config.Gen_MiraiWorkingDir.equals("default"))){
+            MiraiDir = new File(Config.Gen_MiraiWorkingDir);
         } else {
             MiraiDir = new File(String.valueOf(Config.PluginDir),"MiraiBot");
         }
@@ -389,21 +389,22 @@ public class MiraiBot {
             fileBasedDeviceInfo();
 
             // 是否关闭日志输出（不建议开发者关闭）。如果不关闭，是否使用Bukkit的Logger接管Mirai的Logger
-            if(Config.config.getBoolean("bot.disable-network-logs",false)) {
+            
+            if(Config.Bot_DisableNetworkLogs) {
                 noNetworkLog();
-            } else if(Config.config.getBoolean("bot.use-bukkit-logger.network-logs",true)) {
+            } else if(Config.Bot_UseBukkitLogger_NetworkLogs) {
                 setNetworkLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(Logger));
             }
-            if(Config.config.getBoolean("bot.disable-bot-logs",false)) {
+            if(Config.Bot_DisableBotLogs) {
                 noBotLog();
-            } else if(Config.config.getBoolean("bot.use-bukkit-logger.bot-logs",true)) {
+            } else if(Config.Bot_UseBukkitLogger_BotLogs) {
                 setBotLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(Logger));
             }
 
             // 是否使用缓存——对于开发者，请启用；对于用户，请禁用。详见 https://github.com/mamoe/mirai/blob/dev/docs/Bots.md#%E5%90%AF%E7%94%A8%E5%88%97%E8%A1%A8%E7%BC%93%E5%AD%98
-            getContactListCache().setFriendListCacheEnabled(Config.config.getBoolean("bot.contact-cache.enable-friend-list-cache",false));
-            getContactListCache().setGroupMemberListCacheEnabled(Config.config.getBoolean("bot.contact-cache.enable-group-member-list-cache",false));
-            getContactListCache().setSaveIntervalMillis(Config.config.getLong("bot.contact-cache.save-interval-millis",60000));
+            getContactListCache().setFriendListCacheEnabled(Config.Bot_ContactCache_EnableFriendListCache);
+            getContactListCache().setGroupMemberListCacheEnabled(Config.Bot_ContactCache_EnableGroupMemberListCache);
+            getContactListCache().setSaveIntervalMillis(Config.Bot_ContactCache_SaveIntervalMillis);
 
         }});
 
@@ -417,8 +418,8 @@ public class MiraiBot {
 
         // 建立mirai数据文件夹
         File MiraiDir;
-        if(!(Config.config.getString("general.mirai-working-dir", "default").equals("default"))){
-            MiraiDir = new File(Config.config.getString("general.mirai-working-dir", "default"));
+        if(!(Config.Gen_MiraiWorkingDir.equals("default"))){
+            MiraiDir = new File(Config.Gen_MiraiWorkingDir);
         } else {
             MiraiDir = new File(String.valueOf(Config.PluginDir),"MiraiBot");
         }
@@ -440,21 +441,21 @@ public class MiraiBot {
             fileBasedDeviceInfo();
 
             // 是否关闭日志输出（不建议开发者关闭）。如果不关闭，是否使用Bukkit的Logger接管Mirai的Logger
-            if(Config.config.getBoolean("bot.disable-network-logs",false)) {
+            if(Config.Bot_DisableNetworkLogs) {
                 noNetworkLog();
-            } else if(Config.config.getBoolean("bot.use-bukkit-logger.network-logs",true)) {
+            } else if(Config.Bot_UseBukkitLogger_NetworkLogs) {
                 setNetworkLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(Logger));
             }
-            if(Config.config.getBoolean("bot.disable-bot-logs",false)) {
+            if(Config.Bot_DisableBotLogs) {
                 noBotLog();
-            } else if(Config.config.getBoolean("bot.use-bukkit-logger.bot-logs",true)) {
+            } else if(Config.Bot_UseBukkitLogger_BotLogs) {
                 setBotLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(Logger));
             }
 
             // 是否使用缓存——对于开发者，请启用；对于用户，请禁用。详见 https://github.com/mamoe/mirai/blob/dev/docs/Bots.md#%E5%90%AF%E7%94%A8%E5%88%97%E8%A1%A8%E7%BC%93%E5%AD%98
-            getContactListCache().setFriendListCacheEnabled(Config.config.getBoolean("bot.contact-cache.enable-friend-list-cache",false));
-            getContactListCache().setGroupMemberListCacheEnabled(Config.config.getBoolean("bot.contact-cache.enable-group-member-list-cache",false));
-            getContactListCache().setSaveIntervalMillis(Config.config.getLong("bot.contact-cache.save-interval-millis",60000));
+            getContactListCache().setFriendListCacheEnabled(Config.Bot_ContactCache_EnableFriendListCache);
+            getContactListCache().setGroupMemberListCacheEnabled(Config.Bot_ContactCache_EnableGroupMemberListCache);
+            getContactListCache().setSaveIntervalMillis(Config.Bot_ContactCache_SaveIntervalMillis);
 
             // 使用自己的验证解决器
             setLoginSolver(new MiraiLoginSolver());
