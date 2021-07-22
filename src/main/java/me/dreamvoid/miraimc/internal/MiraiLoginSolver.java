@@ -2,6 +2,7 @@ package me.dreamvoid.miraimc.internal;
 
 import kotlin.coroutines.Continuation;
 import net.mamoe.mirai.Bot;
+import net.mamoe.mirai.network.CustomLoginFailedException;
 import net.mamoe.mirai.utils.LoginSolver;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -14,12 +15,19 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 public class MiraiLoginSolver extends LoginSolver {
-    private static Thread threads;
+    private Thread threads;
 
     private static final HashMap<Bot,Boolean> deviceVerifyContinue = new HashMap<>();
     private static final HashMap<Bot,Boolean> deviceVerifyCanceled = new HashMap<>();
 
     private static final HashMap<Bot,String> deviceVerifyCode = new HashMap<>();
+
+    private final CustomLoginFailedException loginCancelException = new CustomLoginFailedException(true,"用户终止登录") {
+        @Override
+        public String getMessage() {
+            return super.getMessage();
+        }
+    };
 
     /**
      * @param bot 机器人实例
@@ -67,7 +75,7 @@ public class MiraiLoginSolver extends LoginSolver {
         if(!deviceVerifyCanceled.containsKey(bot) || deviceVerifyCanceled.get(bot)){
             deviceVerifyCanceled.remove(bot);
             deviceVerifyContinue.remove(bot);
-            throw new IllegalThreadStateException("用户终止登录");
+            throw loginCancelException;
         } else return deviceVerifyCode.get(bot);
     }
 
@@ -105,7 +113,7 @@ public class MiraiLoginSolver extends LoginSolver {
         if(!deviceVerifyCanceled.containsKey(bot) || deviceVerifyCanceled.get(bot)){
             deviceVerifyCanceled.remove(bot);
             deviceVerifyContinue.remove(bot);
-            throw new IllegalThreadStateException("用户终止登录");
+            throw loginCancelException;
         } else return deviceVerifyCode.get(bot);
     }
 
@@ -117,7 +125,7 @@ public class MiraiLoginSolver extends LoginSolver {
      */
     @Nullable
     @Override
-    public Object onSolveUnsafeDeviceLoginVerify(@NotNull Bot bot, @NotNull String verifyUrl, @NotNull Continuation<? super String> continuation) throws IllegalThreadStateException {
+    public Object onSolveUnsafeDeviceLoginVerify(@NotNull Bot bot, @NotNull String verifyUrl, @NotNull Continuation<? super String> continuation){
         deviceVerifyCanceled.put(bot,false);
         threads = new Thread(() -> {
             deviceVerifyContinue.put(bot,false);
@@ -143,7 +151,7 @@ public class MiraiLoginSolver extends LoginSolver {
         if(!deviceVerifyCanceled.containsKey(bot) || deviceVerifyCanceled.get(bot)){
             deviceVerifyCanceled.remove(bot);
             deviceVerifyContinue.remove(bot);
-            throw new IllegalThreadStateException("用户终止登录");
+            throw loginCancelException;
         } else return null;
     }
 
@@ -160,5 +168,15 @@ public class MiraiLoginSolver extends LoginSolver {
         deviceVerifyContinue.put(Bot.getInstance(BotAccount),true);
         deviceVerifyCanceled.put(Bot.getInstance(BotAccount),false);
         deviceVerifyCode.put(Bot.getInstance(BotAccount),ticket);
+    }
+
+    public static void solvePicCaptcha(long BotAccount, boolean Canceled) throws NoSuchElementException {
+        deviceVerifyContinue.put(Bot.getInstance(BotAccount),true);
+        deviceVerifyCanceled.put(Bot.getInstance(BotAccount),Canceled);
+    }
+    public static void solvePicCaptcha(long BotAccount, String Captcha) throws NoSuchElementException {
+        deviceVerifyContinue.put(Bot.getInstance(BotAccount),true);
+        deviceVerifyCanceled.put(Bot.getInstance(BotAccount),false);
+        deviceVerifyCode.put(Bot.getInstance(BotAccount),Captcha);
     }
 }
