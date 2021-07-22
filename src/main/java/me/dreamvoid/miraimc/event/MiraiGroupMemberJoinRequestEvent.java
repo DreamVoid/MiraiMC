@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.event;
 
 import net.mamoe.mirai.event.events.MemberJoinRequestEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -72,27 +71,27 @@ public class MiraiGroupMemberJoinRequestEvent extends Event{
     /**
      * 同意请求
      */
-    public void setAccept(){ event.accept(); Bukkit.getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+ getRequestMemberID() +"|"+getInviterID()+") <- Accept");
+    public void setAccept(){ event.accept(); event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+ getRequestMemberID() +"|"+getInviterID()+") <- Accept");
     }
 
     /**
      * 忽略请求
      * @param setBlacklist 是否拒绝目标再次申请加群
      */
-    public void setIgnore(boolean setBlacklist){ event.ignore(setBlacklist);Bukkit.getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny");
+    public void setIgnore(boolean setBlacklist){ event.ignore(setBlacklist);event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny");
     }
 
     /**
      * 拒绝请求
      * @param setBlacklist 是否拒绝目标再次申请加群
      */
-    public void setDeny(boolean setBlacklist){ event.reject(setBlacklist);Bukkit.getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny");
+    public void setDeny(boolean setBlacklist){ event.reject(setBlacklist);event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny");
     }
 
     /**
      * 拒绝请求
      */
-    public void setDeny(){ event.reject();Bukkit.getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny");
+    public void setDeny(){ event.reject();event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny");
     }
 
 

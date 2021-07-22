@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.event;
 
 import net.mamoe.mirai.event.events.BotInvitedJoinGroupRequestEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -61,13 +60,13 @@ public class MiraiGroupBotInvitedJoinGroupRequestEvent extends Event{
     /**
      * 同意请求
      */
-    public void setAccept(){ event.accept(); Bukkit.getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getBotID() +"|"+getInviterID()+") <- Accept");
+    public void setAccept(){ event.accept(); event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getBotID() +"|"+getInviterID()+") <- Accept");
     }
 
     /**
      * 忽略请求
      */
-    public void setIgnore(){ event.ignore(); Bukkit.getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getBotID() +"|"+getInviterID()+") <- Ignore");
+    public void setIgnore(){ event.ignore(); event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getBotID() +"|"+getInviterID()+") <- Ignore");
     }
 
 
