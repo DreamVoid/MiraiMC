@@ -40,10 +40,9 @@ public class BungeePlugin extends Plugin {
         //MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
 
         // bStats统计
-        //if(Config.Gen_AllowBstats) {
-        if(false) {
-            int pluginId = 11534;
-            new Metrics(this, pluginId);
+        if(Config.Gen_AllowBstats) {
+            int pluginId = 12154;
+            Metrics metrics = new Metrics(this, pluginId);
         }
 
         // 安全警告
