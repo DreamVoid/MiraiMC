@@ -14,6 +14,7 @@ import java.util.Objects;
 public class BukkitPlugin extends JavaPlugin {
 
     private MiraiEvent MiraiEvent;
+    private MiraiEventOld MiraiEventOld;
     private MiraiBot MiraiBot;
     private Config PluginConfig;
     public MiraiAutoLogin MiraiAutoLogin;
@@ -23,6 +24,7 @@ public class BukkitPlugin extends JavaPlugin {
         new Utils(this);
         this.PluginConfig = new Config(this);
         this.MiraiEvent = new MiraiEvent();
+        this.MiraiEventOld = new MiraiEventOld();
         this.MiraiBot = new MiraiBot();
         this.MiraiAutoLogin = new MiraiAutoLogin(this);
     }
@@ -35,6 +37,7 @@ public class BukkitPlugin extends JavaPlugin {
 
         getLogger().info("Starting bot event listener.");
         MiraiEvent.startListenEvent();
+        MiraiEventOld.startListenEvent();
 
         getLogger().info("Registering commands.");
         for (String s : Arrays.asList("mirai", "miraimc", "miraiverify")) { Objects.requireNonNull(getCommand(s)).setExecutor(new CommandProcessor(this)); }
