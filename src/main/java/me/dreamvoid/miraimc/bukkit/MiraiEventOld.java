@@ -1,12 +1,13 @@
 package me.dreamvoid.miraimc.bukkit;
 
-import me.dreamvoid.miraimc.bukkit.event.*;
+import me.dreamvoid.miraimc.event.*;
 import net.mamoe.mirai.event.GlobalEventChannel;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.event.events.*;
 import org.bukkit.Bukkit;
 
-public class MiraiEvent {
+@Deprecated
+public class MiraiEventOld {
     private Listener BotOnlineListener;
     private Listener BotOfflineActiveListener;
     private Listener BotOfflineForceListener;
