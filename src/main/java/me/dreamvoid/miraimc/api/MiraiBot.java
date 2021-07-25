@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.logging.Logger;
 
@@ -22,6 +23,22 @@ import java.util.logging.Logger;
  * Mirai 核心接口
  */
 public class MiraiBot {
+    private final Bot bot;
+
+    public MiraiBot(long BotAccount) throws NoSuchElementException {
+        this.Logger = Utils.Logger;
+        bot = Bot.getInstance(BotAccount);
+    }
+
+    public MiraiFriend getFriend(long FriendAccount){
+        return new MiraiFriend(bot, FriendAccount);
+    }
+
+    public MiraiGroup getGroup(long GroupID){
+        return new MiraiGroup(bot, GroupID);
+    }
+
+    // === 以下准备弃用，让写代码更舒服 ===
 
     private final Logger Logger;
     /**
@@ -32,6 +49,7 @@ public class MiraiBot {
     public MiraiBot() {
         this.Logger = Utils.Logger;
         Instance = this;
+        this.bot = null;
     }
 
     /**
