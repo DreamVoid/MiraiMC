@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 public class MiraiBot {
     private final Bot bot;
 
-    public MiraiBot(long BotAccount) throws NoSuchElementException {
+    private MiraiBot(long BotAccount) throws NoSuchElementException {
         this.Logger = Utils.Logger;
         bot = Bot.getInstance(BotAccount);
     }
