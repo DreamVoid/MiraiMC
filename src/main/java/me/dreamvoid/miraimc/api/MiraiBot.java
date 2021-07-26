@@ -30,6 +30,15 @@ public class MiraiBot {
         bot = Bot.getInstance(BotAccount);
     }
 
+    public static MiraiBot getInstance(long BotAccount) throws NoSuchElementException{
+        return new MiraiBot(BotAccount);
+    }
+
+    /**
+     * 获取机器人指定好友的实例
+     * @param FriendAccount 好友QQ号
+     * @return MiraiMC 好友实例
+     */
     public MiraiFriend getFriend(long FriendAccount){
         return new MiraiFriend(bot, FriendAccount);
     }
@@ -109,7 +118,9 @@ public class MiraiBot {
      * @param FriendID 好友QQ号
      * @param Message 消息内容
      * @return 成功返回true，失败返回false (此方法若返回false，则指定的机器人账号不存在)
+     * @see MiraiFriend
      */
+    @Deprecated
     public boolean sendFriendMessage(long BotAccount, long FriendID, String Message){
         if(isBotOnline(BotAccount)) {
             Bot bot = Bot.getInstance(BotAccount);
@@ -127,7 +138,9 @@ public class MiraiBot {
      * @param FriendID 好友QQ号
      * @param MessageChain 消息链内容
      * @return 成功返回true，失败返回false (此方法若返回false，则指定的机器人账号不存在)
+     * @see MiraiFriend
      */
+    @Deprecated
     public boolean sendFriendMessage(long BotAccount, long FriendID, MessageChain MessageChain){
         if(isBotOnline(BotAccount)) {
             Bot bot = Bot.getInstance(BotAccount);
@@ -183,7 +196,9 @@ public class MiraiBot {
      * @param BotAccount 机器人账号
      * @param FriendID 好友QQ号
      * @return 成功返回true，失败返回false
+     * @see MiraiFriend
      */
+    @Deprecated
     public boolean sendFriendNudge(long BotAccount, long FriendID){
         if(isBotOnline(BotAccount)){
             Bot bot = Bot.getInstance(BotAccount);
@@ -297,7 +312,9 @@ public class MiraiBot {
      * @param BotAccount 机器人账号
      * @param Friend 好友QQ
      * @return 好友昵称
+     * @see MiraiFriend
      */
+    @Deprecated
     public String getFriendNick(long BotAccount, long Friend){
         if(isBotOnline(BotAccount)){
             Bot bot = Bot.getInstance(BotAccount);
@@ -311,7 +328,9 @@ public class MiraiBot {
      * @param BotAccount 机器人账号
      * @param Friend 好友QQ
      * @return 好友备注
+     * @see MiraiFriend
      */
+    @Deprecated
     public String getFriendRemark(long BotAccount, long Friend){
         if(isBotOnline(BotAccount)){
             Bot bot = Bot.getInstance(BotAccount);
