@@ -7,6 +7,7 @@ import me.dreamvoid.miraimc.internal.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -32,19 +33,34 @@ public class BukkitPlugin extends JavaPlugin {
 
         getLogger().info("Mirai working dir: " + Config.Gen_MiraiWorkingDir);
 
-        getLogger().info("Starting bot event listener.");
+        getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();
         MiraiEventOld.startListenEvent();
-
-        getLogger().info("Registering commands.");
-        for (String s : Arrays.asList("mirai", "miraimc", "miraiverify")) { Objects.requireNonNull(getCommand(s)).setExecutor(new CommandProcessor(this)); }
 
         getLogger().info("Loading auto-login file.");
         MiraiAutoLogin.loadFile();
         MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
 
+        getLogger().info("Registering commands.");
+        for (String s : Arrays.asList("mirai", "miraimc", "miraiverify")) { Objects.requireNonNull(getCommand(s)).setExecutor(new CommandProcessor(this)); }
+
+        if(Config.Bot_LogEvents){
+            getLogger().info("Registering events.");
+            Bukkit.getPluginManager().registerEvents(new EventsProcessor(), this);
+        }
+
+        if(Config.DB_Type.equalsIgnoreCase("sqlite")){
+            getLogger().info("Initializing SQLite database.");
+            try {
+                Utils.initializeSQLite();
+            } catch (SQLException | ClassNotFoundException e) {
+                getLogger().severe("Failed to initialize SQLite database!");
+                getLogger().severe("Reason: "+e.getLocalizedMessage());
+            }
+        }
         // bStats统计
         if(Config.Gen_AllowBstats) {
+            getLogger().info("Initializing bStats metrics.");
             int pluginId = 11534;
             new Metrics(this, pluginId);
         }
@@ -53,10 +69,6 @@ public class BukkitPlugin extends JavaPlugin {
         if(!(Config.Gen_DisableSafeWarningMessage)){
             getLogger().warning("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
             getLogger().warning("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
-        }
-
-        if(Config.Bot_LogEvents){
-            Bukkit.getPluginManager().registerEvents(new EventsProcessor(), this);
         }
 
         getLogger().info("All tasks done. Welcome to use MiraiMC!");
@@ -71,9 +83,17 @@ public class BukkitPlugin extends JavaPlugin {
         getLogger().info("Closing all bots");
         for (long bots : MiraiBot.getOnlineBots()){
             MiraiBot.getBot(bots).doLogout();
-            //MiraiBot.doBotLogout(Bot.getInstance(bots));
         }
 
+        if(Config.DB_Type.equalsIgnoreCase("sqlite")) {
+            getLogger().info("Closing SQLite database.");
+            try {
+                Utils.closeSQLite();
+            } catch (SQLException e) {
+                getLogger().severe("Failed to close SQLite database!");
+                getLogger().severe("Reason: " + e.getLocalizedMessage());
+            }
+        }
         getLogger().info("All tasks done. Thanks for use MiraiMC!");
     }
 

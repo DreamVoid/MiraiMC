@@ -31,7 +31,8 @@ public class Config {
     public static boolean Bot_ContactCache_EnableFriendListCache;
     public static boolean Bot_ContactCache_EnableGroupMemberListCache;
     public static long Bot_ContactCache_SaveIntervalMillis;
-    
+
+    public static String DB_Type;
 
     public Config(BukkitPlugin plugin){
         BukkitPlugin = plugin;
@@ -60,6 +61,8 @@ public class Config {
         Bot_ContactCache_EnableFriendListCache = BukkitPlugin.getConfig().getBoolean("bot.contact-cache.enable-friend-list-cache",false);
         Bot_ContactCache_EnableGroupMemberListCache = BukkitPlugin.getConfig().getBoolean("bot.contact-cache.enable-group-member-list-cache",false);
         Bot_ContactCache_SaveIntervalMillis = BukkitPlugin.getConfig().getLong("bot.contact-cache.save-interval-millis",60000);
+
+        DB_Type = BukkitPlugin.getConfig().getString("database.type","sqlite").toLowerCase();
     }
     public void loadConfigBungee() {
         try {
