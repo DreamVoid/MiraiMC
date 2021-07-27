@@ -6,6 +6,7 @@ import net.mamoe.mirai.message.data.MessageChain;
 
 /**
  * MiraiMC 好友
+ * @author DreamVoid
  */
 public class MiraiFriend {
     private final Friend friend;
@@ -49,9 +50,10 @@ public class MiraiFriend {
     public String getNick(){
         return friend.getNick();
     }
+
     /**
-     * 获取好友昵称
-     * @return 昵称
+     * 获取好友备注
+     * @return 备注
      */
     public String getRemark(){
         return friend.getRemark();

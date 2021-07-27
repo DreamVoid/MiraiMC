@@ -11,6 +11,10 @@ public class MiraiGroup {
         group = bot.getGroup(groupID);
     }
 
+    public MiraiNormalMember getMember(long memberAccount){
+        return new MiraiNormalMember(group, memberAccount);
+    }
+
     /**
      * 向群发送消息
      * @param message 消息内容

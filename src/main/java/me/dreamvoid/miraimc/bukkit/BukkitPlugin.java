@@ -4,7 +4,6 @@ import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
-import net.mamoe.mirai.Bot;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -15,7 +14,6 @@ public class BukkitPlugin extends JavaPlugin {
 
     private MiraiEvent MiraiEvent;
     private MiraiEventOld MiraiEventOld;
-    private MiraiBot MiraiBot;
     private Config PluginConfig;
     public MiraiAutoLogin MiraiAutoLogin;
 
@@ -25,7 +23,6 @@ public class BukkitPlugin extends JavaPlugin {
         this.PluginConfig = new Config(this);
         this.MiraiEvent = new MiraiEvent();
         this.MiraiEventOld = new MiraiEventOld();
-        this.MiraiBot = new MiraiBot();
         this.MiraiAutoLogin = new MiraiAutoLogin(this);
     }
 
@@ -69,9 +66,13 @@ public class BukkitPlugin extends JavaPlugin {
     public void onDisable() {
         getLogger().info("Stopping bot event listener.");
         MiraiEvent.stopListenEvent();
+        MiraiEventOld.stopListenEvent();
 
         getLogger().info("Closing all bots");
-        for (long bots : MiraiBot.getOnlineBots()){ MiraiBot.doBotLogout(Bot.getInstance(bots)); }
+        for (long bots : MiraiBot.getOnlineBots()){
+            MiraiBot.getBot(bots).doLogout();
+            //MiraiBot.doBotLogout(Bot.getInstance(bots));
+        }
 
         getLogger().info("All tasks done. Thanks for use MiraiMC!");
     }
