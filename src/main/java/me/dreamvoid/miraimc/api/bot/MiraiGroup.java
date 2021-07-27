@@ -16,6 +16,11 @@ public class MiraiGroup {
         group = bot.getGroup(groupID);
     }
 
+    /**
+     * 获取指定群成员的实例
+     * @param memberAccount 群成员QQ号
+     * @return MiraiMC 群成员实例
+     */
     public MiraiNormalMember getMember(long memberAccount){
         return new MiraiNormalMember(group, memberAccount);
     }
