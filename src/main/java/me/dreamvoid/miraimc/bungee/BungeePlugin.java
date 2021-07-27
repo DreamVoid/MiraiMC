@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.bungee;
 
-import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bungee.commands.MiraiCommand;
 import me.dreamvoid.miraimc.bungee.utils.Metrics;
 import me.dreamvoid.miraimc.internal.Config;
@@ -10,7 +9,6 @@ import net.md_5.bungee.api.plugin.Plugin;
 
 public class BungeePlugin extends Plugin {
     private MiraiEvent MiraiEvent;
-    private MiraiBot MiraiBot;
     private Config PluginConfig;
     private me.dreamvoid.miraimc.bukkit.MiraiAutoLogin MiraiAutoLogin;
 
@@ -19,7 +17,6 @@ public class BungeePlugin extends Plugin {
         new Utils(this);
         this.PluginConfig = new Config(this);
         this.MiraiEvent = new MiraiEvent();
-        this.MiraiBot = new MiraiBot();
         //this.MiraiAutoLogin = new MiraiAutoLogin(this); // TO DO: 这里载入有问题，要修复
     }
 

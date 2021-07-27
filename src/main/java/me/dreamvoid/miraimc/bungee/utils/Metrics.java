@@ -32,6 +32,7 @@ import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class Metrics {
 
     private final Plugin plugin;

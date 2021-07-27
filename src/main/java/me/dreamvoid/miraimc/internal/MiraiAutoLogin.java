@@ -21,7 +21,7 @@ public class MiraiAutoLogin {
 
     public MiraiAutoLogin(me.dreamvoid.miraimc.bukkit.BukkitPlugin plugin) {
         this.plugin = plugin;
-        this.Logger = Utils.Logger;
+        this.Logger = Utils.logger;
         Instance = this;
     }
 
@@ -33,7 +33,7 @@ public class MiraiAutoLogin {
 
     public MiraiAutoLogin(me.dreamvoid.miraimc.bungee.BungeePlugin bungee) {
         this.bungee = bungee;
-        this.Logger = Utils.Logger;
+        this.Logger = Utils.logger;
         Instance = this;
     }
 
