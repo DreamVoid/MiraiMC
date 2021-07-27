@@ -1,4 +1,4 @@
-package me.dreamvoid.miraimc.api;
+package me.dreamvoid.miraimc.api.bot;
 
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Friend;
