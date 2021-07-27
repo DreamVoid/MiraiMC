@@ -31,7 +31,7 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
     <!--请确保版本为Github上的最新版本-->
-    <version>1.3-pre1</version>
+    <version>1.3-pre3</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -51,7 +51,6 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 | /mirai sendfriendmessage <账号> <好友> <消息> | 向指定好友发送消息 | miraimc.command.mirai.sendfriendmessage |
 | /mirai sendfriendnudge <账号> <好友> | 向指定好友发送戳一戳 | miraimc.command.mirai.sendfriendnudge |
 | /mirai sendfgroupmessage <账号> <群号> <消息> | 向指定群发送消息 | miraimc.command.mirai.sendgroupmessage |
-| /mirai sendgroupnudge <账号> <群号> | 向指定群发送戳一戳 | miraimc.command.mirai.sendgroupnudge |
 | /mirai checkonline <账号> | 检查指定机器人是否在线 | miraimc.command.mirai.checkonline |
 | /mirai autologin add <账号> <密码> [协议] | 添加一个自动登录机器人账号 | miraimc.command.mirai.autologin |
 | /mirai autologin remove <账号> | 移除一个自动登录机器人账号 | miraimc.command.mirai.autologin |
@@ -69,7 +68,6 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 | miraimc.command.mirai.sendfriendmessage | 允许使用 /mirai sendfriendmessage | OP |
 | miraimc.command.mirai.sendfriendnudge | 允许使用 /mirai sendfriendnudge | OP |
 | miraimc.command.mirai.sendgroupmessage | 允许使用 /mirai sendgroupmessage | OP |
-| miraimc.command.mirai.sendgroupnudge | 允许使用 /mirai sendgroupnudge | OP |
 | miraimc.command.mirai.checkonline | 允许使用 /mirai checkonline | OP |
 | miraimc.command.mirai.autologin | 允许使用 /mirai autologin | OP |
 | miraimc.command.miraimc | 允许使用 /miraimc | OP |
