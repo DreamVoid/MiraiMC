@@ -5,6 +5,10 @@ import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.message.data.MessageChain;
 
+/**
+ * MiraiMC 群
+ * @author DreamVoid
+ */
 public class MiraiGroup {
     private final Group group;
 
