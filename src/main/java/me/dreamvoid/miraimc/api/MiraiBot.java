@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  */
 public class MiraiBot {
     private final Bot bot;
-    private final Logger logger;
+    private static Logger logger;
     /**
      * MiraiBot 实例
      * [!] 即将转为private
@@ -44,7 +44,7 @@ public class MiraiBot {
      */
     private MiraiBot(long BotAccount) throws NoSuchElementException {
         Instance = this;
-        this.logger = Utils.logger;
+        logger = Utils.logger;
         bot = Bot.getInstance(BotAccount);
     }
 
@@ -99,7 +99,7 @@ public class MiraiBot {
             MessageDigest m = MessageDigest.getInstance("MD5");
             m.update(Password.getBytes(StandardCharsets.UTF_8));
             byte[] md5 = m.digest();
-            Instance.privateBotLogin(Account, md5, Protocol);
+            privateBotLogin(Account, md5, Protocol);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -113,7 +113,7 @@ public class MiraiBot {
      * @param Protocol 协议类型
      */
     public static void doBotLogin(long Account, byte[] PasswordMD5, BotConfiguration.MiraiProtocol Protocol) {
-        Instance.privateBotLogin(Account, PasswordMD5, Protocol);
+        privateBotLogin(Account, PasswordMD5, Protocol);
     }
 
     /**
@@ -144,7 +144,8 @@ public class MiraiBot {
      */
     public boolean isExist() { return !(Objects.equals(bot, null)); }
 
-    private void privateBotLogin(long Account, byte[] Password, BotConfiguration.MiraiProtocol Protocol){
+    private static void privateBotLogin(long Account, byte[] Password, BotConfiguration.MiraiProtocol Protocol){
+        logger = Utils.logger;
         logger.info("登录新的机器人账号: "+ Account+", 协议: "+ Protocol.name());
 
         // 建立mirai数据文件夹
@@ -520,5 +521,4 @@ public class MiraiBot {
             return false;
         }
     }
-
 }
