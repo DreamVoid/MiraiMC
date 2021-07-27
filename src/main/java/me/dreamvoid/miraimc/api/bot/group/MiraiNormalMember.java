@@ -1,4 +1,4 @@
-package me.dreamvoid.miraimc.api;
+package me.dreamvoid.miraimc.api.bot.group;
 
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.NormalMember;

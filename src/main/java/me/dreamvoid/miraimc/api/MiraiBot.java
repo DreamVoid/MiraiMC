@@ -1,5 +1,8 @@
 package me.dreamvoid.miraimc.api;
 
+import me.dreamvoid.miraimc.api.bot.MiraiFriend;
+import me.dreamvoid.miraimc.api.bot.MiraiGroup;
+import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;

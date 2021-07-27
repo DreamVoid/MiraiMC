@@ -1,5 +1,6 @@
-package me.dreamvoid.miraimc.api;
+package me.dreamvoid.miraimc.api.bot;
 
+import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.message.data.MessageChain;
