@@ -20,7 +20,7 @@ public class MiraiAutoLogin {
 
     public MiraiAutoLogin(BukkitPlugin plugin) {
         this.plugin = plugin;
-        this.Logger = Utils.Logger;
+        this.Logger = Utils.logger;
         Instance = this;
     }
 
@@ -81,7 +81,7 @@ public class MiraiAutoLogin {
                 BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString());
 
                 Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
-                MiraiBot.Instance.doBotLogin(Account, Password, Protocol);
+                MiraiBot.doBotLogin(Account, Password, Protocol);
             }
         };
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, thread);
