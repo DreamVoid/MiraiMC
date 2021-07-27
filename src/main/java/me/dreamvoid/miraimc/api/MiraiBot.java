@@ -23,7 +23,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 /**
- * Mirai 核心接口
+ * Mirai Core 核心接口
  * @author DreamVoid
  */
 public class MiraiBot {
