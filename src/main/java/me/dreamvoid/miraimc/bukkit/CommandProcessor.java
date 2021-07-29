@@ -211,46 +211,71 @@ public class CommandProcessor implements CommandExecutor {
                                     switch (args[1].toLowerCase()){
                                         case "add": {
                                             if(args.length>=4){
-                                                String uuid = Bukkit.getOfflinePlayer(args[2]).getUniqueId().toString();
-                                                long qqid = Long.parseLong(args[3]);
-                                                MiraiMC.addBinding(uuid,qqid);
-                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a已添加绑定！"));
+                                                new BukkitRunnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        String uuid = Bukkit.getOfflinePlayer(args[2]).getUniqueId().toString();
+                                                        long qqid = Long.parseLong(args[3]);
+                                                        MiraiMC.addBinding(uuid,qqid);
+                                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a已添加绑定！"));
+                                                    }
+                                                }.runTaskAsynchronously(plugin);
                                             } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /miraimc bind add <玩家名> <QQ号>"));
                                             break;
                                         }
                                         case "removeplayer":{
                                             if(args.length>=3){
-                                                String uuid = Bukkit.getOfflinePlayer(args[2]).getUniqueId().toString();
-                                                MiraiMC.removeBinding(uuid);
-                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a已移除相应绑定！"));
+                                                new BukkitRunnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        String uuid = Bukkit.getOfflinePlayer(args[2]).getUniqueId().toString();
+                                                        MiraiMC.removeBinding(uuid);
+                                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a已移除相应绑定！"));
+                                                    }
+                                                }.runTaskAsynchronously(plugin);
                                             } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /miraimc bind removeplayer <玩家名>"));
                                             break;
                                         }
                                         case "removeqq":{
                                             if(args.length>=3){
-                                                long qqid = Long.parseLong(args[2]);
-                                                MiraiMC.removeBinding(qqid);
-                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a已移除相应绑定！"));
+                                                new BukkitRunnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        long qqid = Long.parseLong(args[2]);
+                                                        MiraiMC.removeBinding(qqid);
+                                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a已移除相应绑定！"));
+                                                    }
+                                                }.runTaskAsynchronously(plugin);
                                             } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /miraimc bind removeqq <QQ号>"));
                                             break;
                                         }
                                         case "getplayer":{
                                             if(args.length>=3){
-                                                String uuid = Bukkit.getOfflinePlayer(args[2]).getUniqueId().toString();
-                                                long qqId = MiraiMC.getBinding(uuid);
-                                                if(qqId!=0){
-                                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a绑定的QQ号："+qqId));
-                                                } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c未找到符合条件的记录！"));
+                                                new BukkitRunnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        String uuid = Bukkit.getOfflinePlayer(args[2]).getUniqueId().toString();
+                                                        long qqId = MiraiMC.getBinding(uuid);
+                                                        if(qqId!=0){
+                                                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a绑定的QQ号："+qqId));
+                                                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c未找到符合条件的记录！"));
+                                                    }
+                                                }.runTaskAsynchronously(plugin);
                                             } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /miraimc bind getplayer <玩家名>"));
                                             break;
                                         }
                                         case "getqq":{
                                             if(args.length>=3){
-                                                long qqid = Long.parseLong(args[2]);
-                                                String playerName = MiraiMC.getBindingName(qqid);
-                                                if(!playerName.equals("")){
-                                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a绑定的玩家名："+playerName));
-                                                } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c未找到符合条件的记录！"));
+                                                new BukkitRunnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        long qqid = Long.parseLong(args[2]);
+                                                        String playerName = MiraiMC.getBindingName(qqid);
+                                                        if(!playerName.equals("")){
+                                                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a绑定的玩家名："+playerName));
+                                                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c未找到符合条件的记录！"));
+                                                    }
+                                                }.runTaskAsynchronously(plugin);
                                             } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /miraimc bind getqq <QQ号>"));
                                             break;
                                         }

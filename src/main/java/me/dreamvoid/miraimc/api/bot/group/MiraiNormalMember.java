@@ -68,4 +68,84 @@ public class MiraiNormalMember{
     public void sendMessage(String message){
         member.sendMessage(message);
     }
+
+    /**
+     * 获取成员昵称
+     * @return 昵称
+     */
+    public String getNick(){
+        return member.getNick();
+    }
+
+    /**
+     * 获取成员备注
+     * @return 备注
+     */
+    public String getRemark(){
+        return member.getRemark();
+    }
+
+    /**
+     * 获取成员特殊头衔内容
+     * @return 头衔
+     */
+    public String getSpecialTitle(){
+        return member.getSpecialTitle();
+    }
+
+    /**
+     * 获取群员加群时间
+     * @return 时间戳
+     */
+    public int getJoinTimestamp(){
+        return member.getJoinTimestamp();
+    }
+
+    /**
+     * 获取群员最后发言时间
+     * @return 时间戳
+     */
+    public int getLastSpeakTimestamp(){
+        return member.getLastSpeakTimestamp();
+    }
+
+    /**
+     * 设置群员特殊头衔
+     * @param specialTitle 头衔内容
+     */
+    public void setSpecialTitle(String specialTitle){
+        member.setNameCard(specialTitle);
+    }
+
+    /**
+     * 设置群员名片
+     * @param nameCard 名片内容
+     */
+    public void setNameCard(String nameCard){
+        member.setNameCard(nameCard);
+    }
+
+    /**
+     * 设置成员管理权限
+     * @param setAdmin 为true设置为管理员，为false取消管理员
+     */
+    public void modifyAdmin(boolean setAdmin){
+        member.modifyAdmin(setAdmin);
+    }
+
+    /**
+     * 获取成员管理权限
+     * @return 0 - 普通成员 | 1 - 管理员 | 2 - 群主
+     */
+    public int getPermission(){
+        return member.getPermission().getLevel();
+    }
+
+    /**
+     * 获取成员头像链接
+     * @return Url
+     */
+    public String getAvatarUrl(){
+        return member.getAvatarUrl();
+    }
 }
