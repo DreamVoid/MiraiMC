@@ -21,11 +21,11 @@ commands:
 permissions:
   miraimc.*:
     description: All permissions of MiraiMC
-    default: op
+    default: false
     children:
       miraimc.command.*:
         description: All permissions of MiraiMC's commands
-        default: op
+        default: false
         children:
           miraimc.command.mirai:
             description: Allow use /miria
@@ -65,6 +65,9 @@ permissions:
              description: Allow use all /miraimc child commands.
              default: op
              children:
+               miraimc.command.miraimc.bind:
+                 description: Allow use /miraimc bind
+                 default: op
                miraimc.command.miraimc.reload:
                  description: Allow use /miriamc reload
                  default: op

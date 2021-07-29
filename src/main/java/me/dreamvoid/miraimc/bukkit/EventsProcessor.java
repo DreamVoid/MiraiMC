@@ -1,8 +1,8 @@
 package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.event.MiraiFriendMessageEvent;
-import me.dreamvoid.miraimc.event.MiraiGroupMessageEvent;
+import me.dreamvoid.miraimc.bukkit.event.MiraiFriendMessageEvent;
+import me.dreamvoid.miraimc.bukkit.event.MiraiGroupMessageEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
