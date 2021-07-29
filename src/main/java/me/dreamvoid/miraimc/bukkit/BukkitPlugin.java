@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.api.MiraiMC;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
@@ -21,7 +20,6 @@ public class BukkitPlugin extends JavaPlugin {
     @Override // 加载插件
     public void onLoad() {
         new Utils(this);
-        new MiraiMC(this);
         this.PluginConfig = new Config(this);
         this.MiraiEvent = new MiraiEvent();
         this.MiraiAutoLogin = new MiraiAutoLogin(this);
@@ -48,15 +46,25 @@ public class BukkitPlugin extends JavaPlugin {
             Bukkit.getPluginManager().registerEvents(new EventsProcessor(), this);
         }
 
-        if(Config.DB_Type.equalsIgnoreCase("sqlite")){
-            getLogger().info("Initializing SQLite database.");
-            try {
-                Utils.initializeSQLite();
-            } catch (SQLException | ClassNotFoundException e) {
-                getLogger().severe("Failed to initialize SQLite database!");
-                getLogger().severe("Reason: "+e.getLocalizedMessage());
+        switch (Config.DB_Type.toLowerCase()){
+            case "sqlite":
+            default: {
+                getLogger().info("Initializing SQLite database.");
+                try {
+                    Utils.initializeSQLite();
+                } catch (SQLException | ClassNotFoundException e) {
+                    getLogger().severe("Failed to initialize SQLite database!");
+                    getLogger().severe("Reason: "+e.getLocalizedMessage());
+                }
+                break;
+            }
+            case "mysql": {
+                getLogger().info("Initializing MySQL database.");
+                Utils.initializeMySQL();
+                break;
             }
         }
+
         // bStats统计
         if(Config.Gen_AllowBstats) {
             getLogger().info("Initializing bStats metrics.");
@@ -83,17 +91,25 @@ public class BukkitPlugin extends JavaPlugin {
             MiraiBot.getBot(bots).doLogout();
         }
 
-        if(Config.DB_Type.equalsIgnoreCase("sqlite")) {
-            getLogger().info("Closing SQLite database.");
-            try {
-                Utils.closeSQLite();
-            } catch (SQLException e) {
-                getLogger().severe("Failed to close SQLite database!");
-                getLogger().severe("Reason: " + e.getLocalizedMessage());
+        switch (Config.DB_Type.toLowerCase()){
+            case "sqlite":
+            default: {
+                getLogger().info("Closing SQLite database.");
+                try {
+                    Utils.closeSQLite();
+                } catch (SQLException e) {
+                    getLogger().severe("Failed to close SQLite database!");
+                    getLogger().severe("Reason: " + e.getLocalizedMessage());
+                }
+                break;
+            }
+            case "mysql": {
+                getLogger().info("Closing MySQL database.");
+                Utils.closeMySQL();
+                break;
             }
         }
+
         getLogger().info("All tasks done. Thanks for use MiraiMC!");
     }
-
-
 }

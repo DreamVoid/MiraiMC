@@ -193,7 +193,7 @@ public class MiraiBot {
     // 弃用的方法
     @Deprecated
     public MiraiBot() {
-        this.logger = Utils.logger;
+        logger = Utils.logger;
         this.bot = null;
     }
     /**

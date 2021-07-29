@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.bungee;
 
+import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bungee.commands.MiraiCommand;
 import me.dreamvoid.miraimc.bungee.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.bungee.utils.Metrics;
@@ -7,6 +8,8 @@ import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
+
+import java.sql.SQLException;
 
 public class BungeePlugin extends Plugin {
     private MiraiEvent MiraiEvent;
@@ -27,7 +30,7 @@ public class BungeePlugin extends Plugin {
 
         getLogger().info("Mirai working dir: " + Config.Gen_MiraiWorkingDir);
 
-        getLogger().info("Starting bot event listener.");
+        getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();
 
         getLogger().info("Registering commands.");
@@ -38,8 +41,28 @@ public class BungeePlugin extends Plugin {
         //MiraiAutoLogin.loadFile();
         //MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
 
+        switch (Config.DB_Type.toLowerCase()){
+            case "sqlite":
+            default: {
+                getLogger().info("Initializing SQLite database.");
+                try {
+                    Utils.initializeSQLite();
+                } catch (SQLException | ClassNotFoundException e) {
+                    getLogger().severe("Failed to initialize SQLite database!");
+                    getLogger().severe("Reason: "+e.getLocalizedMessage());
+                }
+                break;
+            }
+            case "mysql": {
+                getLogger().info("Initializing MySQL database.");
+                Utils.initializeMySQL();
+                break;
+            }
+        }
+
         // bStats统计
         if(Config.Gen_AllowBstats) {
+            getLogger().info("Initializing bStats metrics.");
             int pluginId = 12154;
             new Metrics(this, pluginId);
         }
@@ -55,5 +78,38 @@ public class BungeePlugin extends Plugin {
 
     @Override
     public void onDisable() {
+        getLogger().info("Stopping bot event listener.");
+        MiraiEvent.stopListenEvent();
+
+        getLogger().info("Closing all bots");
+        for (long bots : MiraiBot.getOnlineBots()){
+            MiraiBot.getBot(bots).doLogout();
+        }
+
+        getLogger().info("Closing all bots");
+        for (long bots : MiraiBot.getOnlineBots()){
+            MiraiBot.getBot(bots).doLogout();
+        }
+
+        switch (Config.DB_Type.toLowerCase()){
+            case "sqlite":
+            default: {
+                getLogger().info("Closing SQLite database.");
+                try {
+                    Utils.closeSQLite();
+                } catch (SQLException e) {
+                    getLogger().severe("Failed to close SQLite database!");
+                    getLogger().severe("Reason: " + e.getLocalizedMessage());
+                }
+                break;
+            }
+            case "mysql": {
+                getLogger().info("Closing MySQL database.");
+                Utils.closeMySQL();
+                break;
+            }
+        }
+
+        getLogger().info("All tasks done. Thanks for use MiraiMC!");
     }
 }

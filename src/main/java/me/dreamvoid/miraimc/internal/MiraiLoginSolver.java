@@ -37,7 +37,7 @@ public class MiraiLoginSolver extends LoginSolver {
      */
     @Nullable
     @Override
-    public String onSolvePicCaptcha(@NotNull Bot bot, @NotNull byte[] imageData, @NotNull Continuation<? super String> continuation) {
+    public String onSolvePicCaptcha(@NotNull Bot bot, byte[] imageData, @NotNull Continuation<? super String> continuation) {
         deviceVerifyCanceled.put(bot,false);
 
         // 建立机器人账号文件夹
