@@ -31,7 +31,7 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
     <!--请确保版本为Github上的最新版本-->
-    <version>1.3-pre3</version>
+    <version>1.3</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -54,9 +54,15 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 | /mirai checkonline <账号> | 检查指定机器人是否在线 | miraimc.command.mirai.checkonline |
 | /mirai autologin add <账号> <密码> [协议] | 添加一个自动登录机器人账号 | miraimc.command.mirai.autologin |
 | /mirai autologin remove <账号> | 移除一个自动登录机器人账号 | miraimc.command.mirai.autologin |
-| /mirai autologin list> | 查看自动登录机器人账号列表 | miraimc.command.mirai.autologin |
+| /mirai autologin list | 查看自动登录机器人账号列表 | miraimc.command.mirai.autologin |
 | /miraimc | MiraiMC 插件主命令 | miraimc.command.miraimc |
+| /miraimc bind add <玩家名> <QQ号> | 为玩家和QQ号添加绑定 | miraimc.command.miraimc.bind |
+| /miraimc bind getplayer <玩家名> | 获取指定玩家名绑定的QQ号 | miraimc.command.miraimc.bind |
+| /miraimc bind getqq <QQ号> | 获取指定QQ号绑定的玩家名 | miraimc.command.miraimc.bind |
+| /miraimc bind removeplayer <玩家名> | 删除一个玩家的绑定 | miraimc.command.miraimc.bind |
+| /miraimc bind removeqq <QQ号> | 删除一个QQ号的绑定 | miraimc.command.miraimc.bind |
 | /miraimc reload | 重新加载配置文件 | miraimc.command.miraimc.reload |
+
 ### 权限
 | 权限节点 | 描述 | 默认 |
 | ---------------------------- | ---------------------- | ---------- |
@@ -72,6 +78,7 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 | miraimc.command.mirai.autologin | 允许使用 /mirai autologin | OP |
 | miraimc.command.miraimc | 允许使用 /miraimc | OP |
 | miraimc.command.miraimc.* | 允许使用 /miraimc 的所有子命令 | OP |
+| miraimc.command.miraimc.bind | 允许使用 /miraimc bind 及下属子命令 | OP |
 | miraimc.command.miraimc.reload | 允许使用 /miraimc reload | OP |
 
 ## 下一步的目标
