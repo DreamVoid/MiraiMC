@@ -7,14 +7,12 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Logger;
 
 public class Utils {
     public static Logger logger;
 
     public static Connection connection;
-    public static Statement statement;
 
     public Utils(BukkitPlugin plugin){
         logger = plugin.getLogger();
@@ -26,11 +24,9 @@ public class Utils {
     public static void initializeSQLite() throws SQLException, ClassNotFoundException{
         Class.forName("org.sqlite.JDBC");
         connection = DriverManager.getConnection("jdbc:sqlite:" + new File(Config.PluginDir,"database.db").getPath());
-        statement = connection.createStatement();
     }
 
     public static void closeSQLite() throws SQLException {
-        statement.close();
         connection.close();
     }
 }
