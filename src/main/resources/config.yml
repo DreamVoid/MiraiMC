@@ -19,8 +19,11 @@ database:
     address: localhost
     username: miraimc
     password: miraimc
+    database: miraimc
     pool:
       connectionTimeout: 30000
       idleTimeout: 600000
       maxLifetime: 1800000
       maximumPoolSize: 15
+      keepaliveTime: 0
+      minimumIdle: 5

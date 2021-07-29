@@ -33,6 +33,16 @@ public class Config {
     public static long Bot_ContactCache_SaveIntervalMillis;
 
     public static String DB_Type;
+    public static String DB_MySQL_Address;
+    public static String DB_MySQL_Username;
+    public static String DB_MySQL_Password;
+    public static String DB_MySQL_Database;
+    public static int DB_MySQL_Poll_ConnectionTimeout;
+    public static int DB_MySQL_Poll_IdleTimeout;
+    public static int DB_MySQL_Poll_MaxLifetime;
+    public static int DB_MySQL_Poll_MaximumPoolSize;
+    public static int DB_MySQL_Poll_KeepaliveTime;
+    public static int DB_MySQL_Poll_MinimumIdle;
 
     public Config(BukkitPlugin plugin){
         BukkitPlugin = plugin;
@@ -63,6 +73,16 @@ public class Config {
         Bot_ContactCache_SaveIntervalMillis = BukkitPlugin.getConfig().getLong("bot.contact-cache.save-interval-millis",60000);
 
         DB_Type = BukkitPlugin.getConfig().getString("database.type","sqlite").toLowerCase();
+        DB_MySQL_Address = BukkitPlugin.getConfig().getString("database.mysql.address","localhost");
+        DB_MySQL_Username = BukkitPlugin.getConfig().getString("database.mysql.username", "miraimc");
+        DB_MySQL_Password = BukkitPlugin.getConfig().getString("database.mysql.password", "miraimc");
+        DB_MySQL_Database = BukkitPlugin.getConfig().getString("database.mysql.database", "miraimc");
+        DB_MySQL_Poll_ConnectionTimeout = BukkitPlugin.getConfig().getInt("database.mysql.pool.connectionTimeout",30000);
+        DB_MySQL_Poll_IdleTimeout = BukkitPlugin.getConfig().getInt("database.mysql.pool.connectionTimeout",600000);
+        DB_MySQL_Poll_MaxLifetime = BukkitPlugin.getConfig().getInt("database.mysql.pool.maxLifetime",1800000);
+        DB_MySQL_Poll_MaximumPoolSize = BukkitPlugin.getConfig().getInt("database.mysql.pool.maximumPoolSize",15);
+        DB_MySQL_Poll_KeepaliveTime = BukkitPlugin.getConfig().getInt("database.mysql.pool.keepaliveTime",0);
+        DB_MySQL_Poll_MinimumIdle = BukkitPlugin.getConfig().getInt("database.mysql.pool.minimumIdle",0);
     }
     public void loadConfigBungee() {
         try {
@@ -95,6 +115,17 @@ public class Config {
         Bot_ContactCache_EnableGroupMemberListCache = bungeeConfig.getBoolean("bot.contact-cache.enable-group-member-list-cache",false);
         Bot_ContactCache_SaveIntervalMillis = bungeeConfig.getLong("bot.contact-cache.save-interval-millis",60000);
 
+        DB_Type = bungeeConfig.getString("database.type","sqlite").toLowerCase();
+        DB_MySQL_Address = bungeeConfig.getString("database.mysql.address", "localhost");
+        DB_MySQL_Username = bungeeConfig.getString("database.mysql.username", "miraimc");
+        DB_MySQL_Password = bungeeConfig.getString("database.mysql.password", "miraimc");
+        DB_MySQL_Database = bungeeConfig.getString("database.mysql.database", "miraimc");
+        DB_MySQL_Poll_ConnectionTimeout = bungeeConfig.getInt("database.mysql.pool.connectionTimeout",30000);
+        DB_MySQL_Poll_IdleTimeout = bungeeConfig.getInt("database.mysql.pool.connectionTimeout",600000);
+        DB_MySQL_Poll_MaxLifetime = bungeeConfig.getInt("database.mysql.pool.maxLifetime",1800000);
+        DB_MySQL_Poll_MaximumPoolSize = bungeeConfig.getInt("database.mysql.pool.maximumPoolSize",15);
+        DB_MySQL_Poll_KeepaliveTime = BukkitPlugin.getConfig().getInt("database.mysql.pool.keepaliveTime",0);
+        DB_MySQL_Poll_MinimumIdle = BukkitPlugin.getConfig().getInt("database.mysql.pool.minimumIdle",0);
     }
 
     public static void reloadConfig() {
