@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bungee;
 
 import me.dreamvoid.miraimc.bungee.commands.MiraiCommand;
+import me.dreamvoid.miraimc.bungee.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.bungee.utils.Metrics;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
@@ -10,7 +11,7 @@ import net.md_5.bungee.api.plugin.Plugin;
 public class BungeePlugin extends Plugin {
     private MiraiEvent MiraiEvent;
     private Config PluginConfig;
-    private me.dreamvoid.miraimc.bukkit.MiraiAutoLogin MiraiAutoLogin;
+    //private MiraiAutoLogin MiraiAutoLogin;
 
     @Override
     public void onLoad() {
@@ -31,6 +32,7 @@ public class BungeePlugin extends Plugin {
 
         getLogger().info("Registering commands.");
         ProxyServer.getInstance().getPluginManager().registerCommand(this,new MiraiCommand(this,"mirai"));
+        ProxyServer.getInstance().getPluginManager().registerCommand(this,new MiraiMcCommand(this,"miraimc"));
 
         //getLogger().info("Loading auto-login file.");
         //MiraiAutoLogin.loadFile();
@@ -39,7 +41,7 @@ public class BungeePlugin extends Plugin {
         // bStats统计
         if(Config.Gen_AllowBstats) {
             int pluginId = 12154;
-            Metrics metrics = new Metrics(this, pluginId);
+            new Metrics(this, pluginId);
         }
 
         // 安全警告

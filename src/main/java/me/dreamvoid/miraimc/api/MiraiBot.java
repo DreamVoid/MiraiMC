@@ -29,13 +29,6 @@ import java.util.logging.Logger;
 public class MiraiBot {
     private final Bot bot;
     private static Logger logger;
-    /**
-     * MiraiBot 实例
-     * [!] 即将转为private
-     * @deprecated
-     */
-    @Deprecated
-    public static MiraiBot Instance;
 
     /**
      * 初始化
@@ -43,7 +36,6 @@ public class MiraiBot {
      * @throws NoSuchElementException 不存在机器人抛出
      */
     private MiraiBot(long BotAccount) throws NoSuchElementException {
-        Instance = this;
         logger = Utils.logger;
         bot = Bot.getInstance(BotAccount);
     }
@@ -202,7 +194,6 @@ public class MiraiBot {
     @Deprecated
     public MiraiBot() {
         this.logger = Utils.logger;
-        Instance = this;
         this.bot = null;
     }
     /**
