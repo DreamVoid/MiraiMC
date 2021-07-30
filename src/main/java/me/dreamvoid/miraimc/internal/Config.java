@@ -124,8 +124,8 @@ public class Config {
         DB_MySQL_Poll_IdleTimeout = bungeeConfig.getInt("database.mysql.pool.connectionTimeout",600000);
         DB_MySQL_Poll_MaxLifetime = bungeeConfig.getInt("database.mysql.pool.maxLifetime",1800000);
         DB_MySQL_Poll_MaximumPoolSize = bungeeConfig.getInt("database.mysql.pool.maximumPoolSize",15);
-        DB_MySQL_Poll_KeepaliveTime = BukkitPlugin.getConfig().getInt("database.mysql.pool.keepaliveTime",0);
-        DB_MySQL_Poll_MinimumIdle = BukkitPlugin.getConfig().getInt("database.mysql.pool.minimumIdle",0);
+        DB_MySQL_Poll_KeepaliveTime = bungeeConfig.getInt("database.mysql.pool.keepaliveTime",0);
+        DB_MySQL_Poll_MinimumIdle = bungeeConfig.getInt("database.mysql.pool.minimumIdle",0);
     }
 
     public static void reloadConfig() {

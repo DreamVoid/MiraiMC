@@ -3,6 +3,7 @@ package me.dreamvoid.miraimc.bungee;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bungee.commands.MiraiCommand;
 import me.dreamvoid.miraimc.bungee.commands.MiraiMcCommand;
+import me.dreamvoid.miraimc.bungee.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.bungee.utils.Metrics;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
@@ -36,6 +37,7 @@ public class BungeePlugin extends Plugin {
         getLogger().info("Registering commands.");
         ProxyServer.getInstance().getPluginManager().registerCommand(this,new MiraiCommand(this,"mirai"));
         ProxyServer.getInstance().getPluginManager().registerCommand(this,new MiraiMcCommand(this,"miraimc"));
+        ProxyServer.getInstance().getPluginManager().registerCommand(this,new MiraiVerifyCommand("miraiverify"));
 
         //getLogger().info("Loading auto-login file.");
         //MiraiAutoLogin.loadFile();
