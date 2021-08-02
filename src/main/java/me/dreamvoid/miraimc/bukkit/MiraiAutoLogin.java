@@ -51,12 +51,12 @@ public class MiraiAutoLogin {
         if(!AutoLoginFile.exists()) {
             try {
                 if(!AutoLoginFile.createNewFile()){ throw new IOException(); }
-                String defaulttext = "accounts: "+System.getProperty("line.separator");
+                String defaultText = "accounts: "+System.getProperty("line.separator");
                 File writeName = AutoLoginFile;
                 try (FileWriter writer = new FileWriter(writeName);
                      BufferedWriter out = new BufferedWriter(writer)
                 ) {
-                    out.write(defaulttext);
+                    out.write(defaultText);
                     out.flush();
                 }
             } catch (IOException e) {
@@ -72,16 +72,18 @@ public class MiraiAutoLogin {
 
     public void doStartUpAutoLogin() {
         Runnable thread = () -> {
-            Logger.info("[AutoLogin] Starting auto-bot task.");
+            Logger.info("[AutoLogin] Starting auto login task.");
             for(Map<?,?> map : loadAutoLoginList()){
                 Map<?,?> password = (Map<?, ?>) map.get("password");
                 Map<?,?> configuration = (Map<?, ?>) map.get("configuration");
                 long Account = (Long) map.get("account");
-                String Password = password.get("value").toString();
-                BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString());
+                if(Account != 123456){
+                    String Password = password.get("value").toString();
+                    BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString());
 
-                Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
-                MiraiBot.doBotLogin(Account, Password, Protocol);
+                    Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
+                    MiraiBot.doBotLogin(Account, Password, Protocol);
+                }
             }
         };
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, thread);
@@ -114,7 +116,6 @@ public class MiraiAutoLogin {
         list.add(account);
         data.set("accounts", list);
         try {
-            Logger.info("save");
             data.save(AutoLoginFile);
         } catch (IOException e) {
             e.printStackTrace();
@@ -128,7 +129,7 @@ public class MiraiAutoLogin {
         List<Map<?, ?>> list = data.getMapList("accounts");
 
         for (Map<?, ?> bots : list) {
-            if ((Integer) bots.get("account") == Account) {
+            if ((Long) bots.get("account") == Account) {
                 list.remove(bots);
                 break;
             }
