@@ -76,7 +76,7 @@ public class MiraiAutoLogin {
             for(Map<?,?> map : loadAutoLoginList()){
                 Map<?,?> password = (Map<?, ?>) map.get("password");
                 Map<?,?> configuration = (Map<?, ?>) map.get("configuration");
-                Integer Account = (Integer) map.get("account");
+                long Account = (Long) map.get("account");
                 String Password = password.get("value").toString();
                 BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString());
 
