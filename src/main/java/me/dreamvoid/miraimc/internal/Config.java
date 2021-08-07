@@ -22,7 +22,8 @@ public class Config {
     public static boolean Gen_AllowBstats;
     public static boolean Gen_DisableSafeWarningMessage;
     public static String Gen_MiraiWorkingDir;
-    
+    public static boolean Gen_DoNotAddMiraiProperties;
+
     public static boolean Bot_DisableNetworkLogs;
     public static boolean Bot_DisableBotLogs;
     public static boolean Bot_UseBukkitLogger_BotLogs;
@@ -62,7 +63,8 @@ public class Config {
         Gen_AllowBstats = BukkitPlugin.getConfig().getBoolean("general.allow-bStats",true);
         Gen_DisableSafeWarningMessage = BukkitPlugin.getConfig().getBoolean("general.disable-safe-warning-message",false);
         Gen_MiraiWorkingDir = BukkitPlugin.getConfig().getString("general.mirai-working-dir","default");
-        
+        Gen_DoNotAddMiraiProperties = BukkitPlugin.getConfig().getBoolean("general.do-not-add-mirai-properties",false);
+
         Bot_DisableNetworkLogs = BukkitPlugin.getConfig().getBoolean("bot.disable-network-logs",false);
         Bot_DisableBotLogs = BukkitPlugin.getConfig().getBoolean("bot.disable-bot-logs",false);
         Bot_UseBukkitLogger_BotLogs = BukkitPlugin.getConfig().getBoolean("bot.use-bukkit-logger.bot-logs",true);
@@ -105,6 +107,7 @@ public class Config {
         Gen_AllowBstats = bungeeConfig.getBoolean("general.allow-bStats",true);
         Gen_DisableSafeWarningMessage = bungeeConfig.getBoolean("general.disable-safe-warning-message",false);
         Gen_MiraiWorkingDir = bungeeConfig.getString("general.mirai-working-dir","default");
+        Gen_DoNotAddMiraiProperties = bungeeConfig.getBoolean("general.do-not-add-mirai-properties",false);
 
         Bot_DisableNetworkLogs = bungeeConfig.getBoolean("bot.disable-network-logs",false);
         Bot_DisableBotLogs = bungeeConfig.getBoolean("bot.disable-bot-logs",false);

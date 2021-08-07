@@ -31,6 +31,13 @@ public class BukkitPlugin extends JavaPlugin {
 
         getLogger().info("Mirai working dir: " + Config.Gen_MiraiWorkingDir);
 
+        if(!Config.Gen_DoNotAddMiraiProperties){
+            getLogger().info("Setting mirai properties.");
+            // 设置两个 Mirai Core 不默认添加但经常使用的参数
+            System.setProperty("mirai.no-desktop","MiraiMC");
+            System.setProperty("mirai.slider.captcha.supported","MiraiMC");
+        }
+
         getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();
 

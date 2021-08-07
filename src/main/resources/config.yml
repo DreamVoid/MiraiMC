@@ -2,6 +2,7 @@ general:
   allow-bStats: true
   disable-safe-warning-message: false
   mirai-working-dir: default
+  do-not-add-mirai-properties: false
 bot:
   disable-network-logs: false
   disable-bot-logs: false
