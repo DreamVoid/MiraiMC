@@ -1,7 +1,7 @@
 # MiraiMC
 Mirai QQ robots for Minecraft servers
 
-[中文（简体）](https://github.com/DreamVoid/MiraiMC/blob/main/README.md) [English](https://github.com/DreamVoid/MiraiMC/blob/main/README_en.md)
+[中文（简体）](https://github.com/DreamVoid/MiraiMC/blob/main/README.md) | [English](https://github.com/DreamVoid/MiraiMC/blob/main/README_en.md) | [中文（繁體）](https://github.com/DreamVoid/MiraiMC/blob/main/README_zh-TC.md)
 
 ## Introduction
 MiraiMC is a [Mirai](https://github.com/mamoe/mirai)-based Bukkit plugin that allows you to use the QQ robot on the Minecraft server. It also provides some APIs to help developers simply call the robot interface to implement various functions for their plugins.
@@ -47,18 +47,18 @@ A more detailed development tutorial can be found here:https://wiki.miraimc.drea
 | Command | Description | Permission |
 | ---------------------------- | ---------------------- | ---------- |
 | /mirai  | MiraiMC Robot Command | miraimc.command.mirai |
-| /mirai login \<account> \<password> [protocol] | Login a robot (can execute multiple times to login multiple robots) | miraimc.command.mirai.login |
+| /mirai login \<account> \<password> \[protocol] | Login a robot (can execute multiple times to login multiple robots) | miraimc.command.mirai.login |
 | /mirai logout \<account> | Exit and close a robot | miraimc.command.mirai.logout |
 | /mirai list | List currently online robots | miraimc.command.mirai.list |
 | /mirai sendfriendmessage \<account> \<friend> \<message> | Send message to friend | miraimc.command.mirai.sendfriendmessage |
 | /mirai sendfriendnudge \<account> \<friend> | Send nudge to friend | miraimc.command.mirai.sendfriendnudge |
 | /mirai sendfgroupmessage \<account> \<group> <message> | Send message to group | miraimc.command.mirai.sendgroupmessage |
 | /mirai checkonline \<account> | Check if robot is online | miraimc.command.mirai.checkonline |
-| /mirai autologin add \<account> \<password> [protocol] | Add an auto-login robot account | miraimc.command.mirai.autologin |
+| /mirai autologin add \<account> \<password> \[protocol] | Add an auto-login robot account | miraimc.command.mirai.autologin |
 | /mirai autologin remove \<account> | Remove an auto-login robot account | miraimc.command.mirai.autologin |
 | /mirai autologin list | List auto-login robot accounts | miraimc.command.mirai.autologin |
 | /miraimc | MiraiMC Plugin Command | miraimc.command.miraimc |
-| /miraimc bind add \<player> <QQ> | Add bindings for players and QQ numbers | miraimc.command.miraimc.bind |
+| /miraimc bind add \<player> \<QQ> | Add bindings for players and QQ numbers | miraimc.command.miraimc.bind |
 | /miraimc bind getplayer \<player> | Get QQ numbers bound to the player | miraimc.command.miraimc.bind |
 | /miraimc bind getqq \<QQ> | Get player bound to the QQ numbers | miraimc.command.miraimc.bind |
 | /miraimc bind removeplayer \<player> | Delete a player's binding | miraimc.command.miraimc.bind |
