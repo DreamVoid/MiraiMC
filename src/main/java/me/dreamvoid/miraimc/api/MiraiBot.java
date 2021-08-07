@@ -78,7 +78,6 @@ public class MiraiBot {
 
     /**
      * 登录一个机器人账号
-     * [!] 尚未完善多机器人管理。目前，不建议插件开发者在发行版插件中调用此接口
      * @param Account 机器人账号
      * @param Password 机器人密码
      * @param Protocol 协议类型
@@ -96,7 +95,6 @@ public class MiraiBot {
 
     /**
      * 登录一个机器人账号
-     * [!] 尚未完善多机器人管理。目前，不建议插件开发者在发行版插件中调用此接口
      * @param Account 机器人账号
      * @param PasswordMD5 机器人密码MD5
      * @param Protocol 协议类型
