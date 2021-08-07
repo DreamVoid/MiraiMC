@@ -22,7 +22,8 @@ public class Config {
     public static boolean Gen_AllowBstats;
     public static boolean Gen_DisableSafeWarningMessage;
     public static String Gen_MiraiWorkingDir;
-    public static boolean Gen_DoNotAddMiraiProperties;
+    public static boolean Gen_AddProperties_MiraiNoDesktop;
+    public static boolean Gen_AddProperties_MiraiSliderCaptchaSupported;
 
     public static boolean Bot_DisableNetworkLogs;
     public static boolean Bot_DisableBotLogs;
@@ -63,7 +64,8 @@ public class Config {
         Gen_AllowBstats = BukkitPlugin.getConfig().getBoolean("general.allow-bStats",true);
         Gen_DisableSafeWarningMessage = BukkitPlugin.getConfig().getBoolean("general.disable-safe-warning-message",false);
         Gen_MiraiWorkingDir = BukkitPlugin.getConfig().getString("general.mirai-working-dir","default");
-        Gen_DoNotAddMiraiProperties = BukkitPlugin.getConfig().getBoolean("general.do-not-add-mirai-properties",false);
+        Gen_AddProperties_MiraiNoDesktop = BukkitPlugin.getConfig().getBoolean("general.add-properties.mirai.no-desktop",true);
+        Gen_AddProperties_MiraiSliderCaptchaSupported = BukkitPlugin.getConfig().getBoolean("general.add-properties.mirai.slider.captcha.supported",true);
 
         Bot_DisableNetworkLogs = BukkitPlugin.getConfig().getBoolean("bot.disable-network-logs",false);
         Bot_DisableBotLogs = BukkitPlugin.getConfig().getBoolean("bot.disable-bot-logs",false);
@@ -107,7 +109,8 @@ public class Config {
         Gen_AllowBstats = bungeeConfig.getBoolean("general.allow-bStats",true);
         Gen_DisableSafeWarningMessage = bungeeConfig.getBoolean("general.disable-safe-warning-message",false);
         Gen_MiraiWorkingDir = bungeeConfig.getString("general.mirai-working-dir","default");
-        Gen_DoNotAddMiraiProperties = bungeeConfig.getBoolean("general.do-not-add-mirai-properties",false);
+        Gen_AddProperties_MiraiNoDesktop = bungeeConfig.getBoolean("general.add-properties.mirai.no-desktop",true);
+        Gen_AddProperties_MiraiSliderCaptchaSupported = bungeeConfig.getBoolean("general.add-properties.mirai.slider.captcha.supported",true);
 
         Bot_DisableNetworkLogs = bungeeConfig.getBoolean("bot.disable-network-logs",false);
         Bot_DisableBotLogs = bungeeConfig.getBoolean("bot.disable-bot-logs",false);
