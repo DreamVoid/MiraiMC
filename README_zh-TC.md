@@ -1,7 +1,7 @@
 # MiraiMC
 適用於Minecraft服務器的Mirai機器人
 
-Language: [中文（简体）](https://github.com/DreamVoid/MiraiMC/blob/main/README.md) | [English](https://github.com/DreamVoid/MiraiMC/blob/main/README_en.md) | [中文（繁體）](https://github.com/DreamVoid/MiraiMC/blob/main/README_zh-TC.md)
+[English](https://github.com/DreamVoid/MiraiMC/blob/main/README_en.md) | [中文（简体）](https://github.com/DreamVoid/MiraiMC/blob/main/README_zh-CN.md) | [中文（繁體）](https://github.com/DreamVoid/MiraiMC/blob/main/README_zh-TC.md)
 
 ## 介紹
 MiraiMC 是一個基於[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，能夠讓你在Minecraft服務器上使用Mirai QQ機器人程序，同時提供一些API幫助開發者簡單的調用機器人接口為自己的插件實現多樣的功能。
