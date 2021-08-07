@@ -84,12 +84,12 @@ A more detailed development tutorial can be found here:https://wiki.miraimc.drea
 | miraimc.command.miraimc.reload | Allow use /miraimc reload | OP |
 
 ## Next goal
--[X] Initial implementation of the basic functions of CoreAPI
--[X] Preliminary improvement of the instruction and authority system
--[X] Initially improve the API interface for other plug-in developers to call
--[X] Added the function of automatically logging in to the robot
--[X] Added remaining unadded Mirai events
--[X] Rewrite the login process to adapt to Bukkit (and future Bungee, even Sponge)
--[X] Support BungeeCord
--[ ] Fully compatible with the structure of mirai console for service owners who are already using mirai
--[ ] Load the mirai console plugin like mirai console
+- [X] Initial implementation of the basic functions of CoreAPI
+- [X] Preliminary improvement of the instruction and authority system
+- [X] Initially improve the API interface for other plug-in developers to call
+- [X] Added the function of automatically logging in to the robot
+- [X] Added remaining unadded Mirai events
+- [X] Rewrite the login process to adapt to Bukkit (and future Bungee, even Sponge)
+- [X] Support BungeeCord
+- [ ] Fully compatible with the structure of mirai console for service owners who are already using mirai
+- [ ] Load the mirai console plugin like mirai console
