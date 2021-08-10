@@ -1,7 +1,7 @@
 # MiraiMC
 Mirai QQ robots for Minecraft servers
 
-[English](https://github.com/DreamVoid/MiraiMC/blob/main/README.md) | [中文（简体）](https://github.com/DreamVoid/MiraiMC/blob/main/README_zh-CN.md) | [中文（繁體）](https://github.com/DreamVoid/MiraiMC/blob/main/README_zh-TC.md)
+[English](https://github.com/DreamVoid/MiraiMC/blob/main/README.md) | [中文（简体）](https://github.com/DreamVoid/MiraiMC/blob/main/README_zh-Hans.md) | [中文（繁體）](https://github.com/DreamVoid/MiraiMC/blob/main/README_zh-Hant.md)
 
 ## Introduction
 MiraiMC is a [Mirai](https://github.com/mamoe/mirai)-based Bukkit plugin that allows you to use the QQ robot on the Minecraft server. It also provides some APIs to help developers simply call the robot interface to implement various functions for their plugins.
