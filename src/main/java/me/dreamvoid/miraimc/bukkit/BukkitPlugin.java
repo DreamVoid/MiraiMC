@@ -73,7 +73,7 @@ public class BukkitPlugin extends JavaPlugin {
         }
 
         // bStats统计
-        if(Config.Gen_AllowBstats) {
+        if(Config.Gen_AllowBstats && !getDescription().getVersion().contains("dev")) {
             getLogger().info("Initializing bStats metrics.");
             int pluginId = 11534;
             new Metrics(this, pluginId);
