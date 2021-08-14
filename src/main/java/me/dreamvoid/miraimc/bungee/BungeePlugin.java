@@ -70,7 +70,7 @@ public class BungeePlugin extends Plugin {
         }
 
         // bStats统计
-        if(Config.Gen_AllowBstats) {
+        if(Config.Gen_AllowBstats && !getDescription().getVersion().contains("dev")) {
             getLogger().info("Initializing bStats metrics.");
             int pluginId = 12154;
             new Metrics(this, pluginId);
