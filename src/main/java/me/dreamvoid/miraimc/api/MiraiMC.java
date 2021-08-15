@@ -179,6 +179,7 @@ public class MiraiMC {
      * 获取Minecraft账号绑定的QQ号
      * 如果不存在，返回0
      * @param uuid 玩家UUID
+     * @return QQ号
      */
     public static long getBinding(String uuid){
         long account = 0L;
@@ -230,6 +231,7 @@ public class MiraiMC {
      * 此方法返回数据库记录的UUID
      * 如果不存在，返回空文本
      * @param account 玩家QQ号
+     * @return UUID
      */
     public static String getBinding(long account){
         String uuid = "";
@@ -281,6 +283,7 @@ public class MiraiMC {
      * 此方法返回通过UUID获取的玩家名
      * 如果不存在，返回空文本
      * @param account 玩家QQ号
+     * @return 玩家名
      */
     public static String getBindingName(long account){
         String uuid = "";
