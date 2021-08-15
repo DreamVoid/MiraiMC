@@ -6,6 +6,13 @@
 ## 介绍
 MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，能够让你在Minecraft服务器上使用Mirai QQ机器人程序，同时提供一些API帮助开发者简单的调用机器人接口为自己的插件实现多样的功能。
 
+## 下载
+* 稳定版本
+  * [Github 发布页](https://github.com/DreamVoid/MiraiMC/releases)
+  * [Gitee 发布页](https://gitee.com/dreamvoid/MiraiMC/releases) (中国)
+* 开发版本
+  * [Jenkins CI](https://ci.dreamvoid.ml/job/MiraiMC/)
+
 ## 开始使用
 ### 服主
 如果你是服主，正在被接入QQ机器人所困扰（尤其是Linux和面板服），那么只需要下载本插件即可方便快捷的接入并使用QQ机器人且无需使用额外的软件。

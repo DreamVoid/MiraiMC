@@ -11,6 +11,13 @@ Like using Discord bots and [Telegram bots](https://core.telegram.org/bots), Mir
 
 Although Tencent QQ runs best in China, Tencent is also developing Tencent QQ globally, so MiraiMC still works normally.
 
+## Download
+* Stable Version
+  * [Github Releases](https://github.com/DreamVoid/MiraiMC/releases)
+  * [Gitee Releases](https://gitee.com/dreamvoid/MiraiMC/releases) (China)
+* Dev Version
+  * [Jenkins CI](https://ci.dreamvoid.ml/job/MiraiMC/)
+
 ## Get starting
 ### Server owner
 If you are a server owner and are bothered by accessing QQ robots (especially Linux and panel servers), then you only need to download this plugin to access and use QQ robots conveniently and without additional software.
