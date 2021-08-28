@@ -76,7 +76,7 @@ public class MiraiAutoLogin {
             for(Map<?,?> map : loadAutoLoginList()){
                 Map<?,?> password = (Map<?, ?>) map.get("password");
                 Map<?,?> configuration = (Map<?, ?>) map.get("configuration");
-                long Account = (Long) map.get("account");
+                long Account = Long.parseLong(String.valueOf(map.get("account")));
                 if(Account != 123456){
                     String Password = password.get("value").toString();
                     BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString());
@@ -129,7 +129,7 @@ public class MiraiAutoLogin {
         List<Map<?, ?>> list = data.getMapList("accounts");
 
         for (Map<?, ?> bots : list) {
-            if ((Long) bots.get("account") == Account) {
+            if (Long.parseLong(String.valueOf(bots.get("account"))) == Account) {
                 list.remove(bots);
                 break;
             }
