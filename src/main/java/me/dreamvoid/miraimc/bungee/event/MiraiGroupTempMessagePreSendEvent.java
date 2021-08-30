@@ -55,10 +55,22 @@ public class MiraiGroupTempMessagePreSendEvent extends Event {
     public String getRemark(){ return event.getTarget().getRemark(); }
 
     /**
-     * 返回将发送的消息内容
-     * @return 消息内容
+     * 返回接收到的消息内容<br>
+     * 此方法使用 toString()
+     * @return 原始消息内容
      */
-    public String getMessage(){ return event.getMessage().contentToString(); }
+    public String getMessage(){
+        return event.getMessage().toString();
+    }
+
+    /**
+     * 返回接收到的消息内容转换到字符串的结果<br>
+     * 此方法使用 contentToString()，这一般和 toString() 的工作方式相同
+     * @return 转换字符串后的消息内容
+     */
+    public String getMessageContent(){
+        return event.getMessage().contentToString();
+    }
 
     /**
      * 返回目标群成员解除禁言的剩余时间(如果已被禁言)
