@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event;
 
 import net.mamoe.mirai.event.events.StrangerMessagePreSendEvent;
+import net.mamoe.mirai.message.data.MessageChainBuilder;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -52,11 +53,20 @@ public class MiraiStrangerMessagePreSendEvent extends Event {
     public String getFriendRemark(){ return event.getTarget().getRemark(); }
 
     /**
-     * 返回将发送的消息内容
-     * @return 消息内容
+     * 返回接收到的消息内容<br>
+     * 此方法使用 toString()
+     * @return 原始消息内容
      */
     public String getMessage(){
-        return event.getMessage().contentToString();
+        return event.getMessage().toString();
     }
 
+    /**
+     * 返回接收到的消息内容转换到字符串的结果<br>
+     * 此方法使用 contentToString()，这一般和 toString() 的工作方式相同
+     * @return 转换字符串后的消息内容
+     */
+    public String getMessageContent(){
+        return event.getMessage().contentToString();
+    }
 }
