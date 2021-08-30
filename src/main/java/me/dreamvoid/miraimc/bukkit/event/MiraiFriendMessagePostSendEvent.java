@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event;
 
 import net.mamoe.mirai.event.events.FriendMessagePostSendEvent;
+import net.mamoe.mirai.message.data.MessageSource;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -74,6 +75,22 @@ public class MiraiFriendMessagePostSendEvent extends Event {
      */
     public String getMessageToMiraiCode(){
         return event.getMessage().serializeToMiraiCode();
+    }
+
+    /**
+     * 撤回这条消息
+     */
+    public void recall() {
+        MessageSource.recall(event.getMessage());
+    }
+
+    /**
+     * 等待指定时间后撤回这条消息<br>
+     * 此方法执行异步(Async)任务
+     * @param delayTime 延迟时间（毫秒）
+     */
+    public void recall(long delayTime){
+        MessageSource.recallIn(event.getMessage(), delayTime);
     }
 
 }
