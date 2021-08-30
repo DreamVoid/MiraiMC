@@ -3,6 +3,7 @@ package me.dreamvoid.miraimc.bukkit.event;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupMessagePostSendEvent;
+import net.mamoe.mirai.message.data.MessageSource;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -136,6 +137,22 @@ public class MiraiGroupMessagePostSendEvent extends Event {
      */
     public boolean isAutoApproveEnabled(){
         return event.getTarget().getSettings().isAutoApproveEnabled();
+    }
+
+    /**
+     * 撤回这条消息
+     */
+    public void recall() {
+        MessageSource.recall(event.getMessage());
+    }
+
+    /**
+     * 等待指定时间后撤回这条消息<br>
+     * 此方法执行异步(Async)任务
+     * @param delayTime 延迟时间（毫秒）
+     */
+    public void recall(long delayTime){
+        MessageSource.recallIn(event.getMessage(), delayTime);
     }
 
 }
