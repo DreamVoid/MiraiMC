@@ -58,7 +58,7 @@ public class MiraiLoginSolver extends LoginSolver {
             bot.getLogger().warning(imageFile.getPath());
             bot.getLogger().warning("识别完成后，请输入指令 /miraiverify piccaptcha "+bot.getId()+" <验证码>");
             bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify piccaptchacancel "+bot.getId());
-            bot.getLogger().warning("如需帮助，请参阅: https://github.com/DreamVoid/MiraiMC");
+            bot.getLogger().warning("如需帮助，请参阅: https://wiki.miraimc.dreamvoid.ml/troubleshoot/verify-guide#word-captcha");
             while(true){
                 if(deviceVerifyContinue.get(bot)){
                     break;
@@ -96,7 +96,7 @@ public class MiraiLoginSolver extends LoginSolver {
             bot.getLogger().warning(verifyUrl);
             bot.getLogger().warning("验证完成后，请输入指令 /miraiverify slidercaptcha "+bot.getId()+" <ticket>");
             bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify slidercaptchacancel "+bot.getId());
-            bot.getLogger().warning("如需帮助，请参阅: https://github.com/DreamVoid/MiraiMC");
+            bot.getLogger().warning("如需帮助，请参阅: https://wiki.miraimc.dreamvoid.ml/troubleshoot/verify-guide#slide-captcha");
             while(true){
                 if(deviceVerifyContinue.get(bot)){
                     break;
@@ -134,7 +134,7 @@ public class MiraiLoginSolver extends LoginSolver {
             bot.getLogger().warning(verifyUrl);
             bot.getLogger().warning("验证完成后，请输入指令 /miraiverify unsafedevice "+bot.getId());
             bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify unsafedevicecancel "+bot.getId());
-            bot.getLogger().warning("如需帮助，请参阅: https://github.com/DreamVoid/MiraiMC");
+            bot.getLogger().warning("如需帮助，请参阅: https://wiki.miraimc.dreamvoid.ml/troubleshoot/verify-guide#device-locker");
             while(true){
                 if(deviceVerifyContinue.get(bot)){
                     break;
