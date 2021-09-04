@@ -181,7 +181,11 @@ public class MiraiBot {
         }});
 
         // 开始登录
-        bot.login();
-        logger.info(bot.getNick()+"("+bot.getId()+") 登录成功");
+        try{
+            bot.login();
+            logger.info(bot.getNick()+"("+bot.getId()+") 登录成功");
+        } catch (Exception e){
+            logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+        }
     }
 }
