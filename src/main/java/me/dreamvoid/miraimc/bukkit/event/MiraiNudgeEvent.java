@@ -25,7 +25,7 @@ public class MiraiNudgeEvent extends Event {
      * 获取机器人账号
      * @return 机器人账号
      */
-    public long getID() { return event.getBot().getId(); }
+    public long getBotID() { return event.getBot().getId(); }
 
     /**
      * 获取发送者ID
