@@ -2,6 +2,11 @@ package me.dreamvoid.miraimc.api.bot.group;
 
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.NormalMember;
+import net.mamoe.mirai.message.code.MiraiCode;
+import net.mamoe.mirai.message.data.Image;
+import net.mamoe.mirai.utils.ExternalResource;
+
+import java.io.File;
 
 /**
  * MiraiMC 群成员
@@ -67,6 +72,15 @@ public class MiraiNormalMember{
      */
     public void sendMessage(String message){
         member.sendMessage(message);
+    }
+
+    /**
+     * 发送消息<br>
+     * 此方法将自动转换为Mirai Code，可用于发送图片等特殊消息
+     * @param message Mirai Code格式的消息文本
+     */
+    public void sendMessageMirai(String message){
+        member.sendMessage(MiraiCode.deserializeMiraiCode(message));
     }
 
     /**
@@ -147,5 +161,15 @@ public class MiraiNormalMember{
      */
     public String getAvatarUrl(){
         return member.getAvatarUrl();
+    }
+
+    /**
+     * 上传一个图片，返回图片ID用于发送消息
+     * @param imageFile 图片文件
+     * @return 图片ID
+     */
+    public String uploadImage(File imageFile) {
+        Image i = ExternalResource.uploadAsImage(imageFile, member);
+        return i.getImageId();
     }
 }

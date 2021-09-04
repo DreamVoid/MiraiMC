@@ -10,6 +10,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.plugin.Command;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class MiraiCommand extends Command {
 
@@ -55,8 +56,12 @@ public class MiraiCommand extends Command {
                 case "logout":{
                     if(sender.hasPermission("miraimc.command.mirai.logout")){
                         if(args.length >= 2) {
-                            MiraiBot.getBot(Long.parseLong(args[1])).doLogout();
-                            sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&a已关闭指定机器人进程！")).create());
+                            try {
+                                MiraiBot.getBot(Long.parseLong(args[1])).doLogout();
+                                sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&', "&a已退出指定机器人！")).create());
+                            } catch (NoSuchElementException e){
+                                sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&', "&c指定的机器人不存在！")).create());
+                            }
                         } else {
                             sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai logout <账号>")).create());
                         }
@@ -95,11 +100,15 @@ public class MiraiCommand extends Command {
                 }
                 case "list":{
                     if(sender.hasPermission("miraimc.command.mirai.list")){
-                        sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&a当前在线的机器人: ")).create());
+                        sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&a存在的机器人: ")).create());
                         List<Long> BotList = MiraiBot.getOnlineBots();
                         for (long bots : BotList){
-                            Bot bot=Bot.getInstance(bots);
-                            sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&', "&b"+bot.getId() + "&r &7-&r &6"+Bot.getInstance(bots).getNick())).create());
+                            Bot bot = Bot.getInstance(bots);
+                            if(bot.isOnline()) {
+                                sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&', "&b" + bot.getId() + "&r &7-&r &6" + Bot.getInstance(bots).getNick())).create());
+                            } else {
+                                sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&', "&b" + bot.getId() + "&r &7-&r &c离线")).create());
+                            }
                         }
                     } else sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！")).create());
                     break;
@@ -162,15 +171,15 @@ public class MiraiCommand extends Command {
                 case "help":{
                     sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&6&lMiraiMC&r &b机器人帮助菜单")).create());
                     sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&6/mirai login <账号> <密码> [协议]:&r 登录一个机器人")).create());
-                    sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&6/mirai logout <账号>:&r 关闭一个机器人线程")).create());
-                    sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&6/mirai list:&r 查看当前在线的机器人")).create());
+                    sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&6/mirai logout <账号>:&r 退出一个机器人")).create());
+                    sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&6/mirai list:&r 查看当前存在的机器人")).create());
                     sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&6/mirai sendfriendmessage <账号> <好友> <消息>:&r 向指定好友发送私聊消息")).create());
                     sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&6/mirai sendgroupmessage <账号> <群号> <消息>:&r 向指定群发送群聊消息")).create());
                     sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&6/mirai sendfriendnudge <账号> <好友>:&r 向指定好友发送戳一戳")).create());
                     sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&6/mirai checkonline <账号>:&r 检查指定的机器人是否在线")).create());
                     sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&6/mirai autologin add <账号> <密码> [协议]:&r 添加一个自动登录账号")).create());
                     sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&6/mirai autologin list:&r 查看自动登录账号列表")).create());
-                    sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&6/mirai autoLogin remove <账号>:&r 删除一个自动登录账号")).create());
+                    sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&6/mirai autologin remove <账号>:&r 删除一个自动登录账号")).create());
                     break;
                 }
                 default:{

@@ -2,7 +2,12 @@ package me.dreamvoid.miraimc.api.bot;
 
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Friend;
+import net.mamoe.mirai.message.code.MiraiCode;
+import net.mamoe.mirai.message.data.Image;
 import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.utils.ExternalResource;
+
+import java.io.File;
 
 /**
  * MiraiMC 好友
@@ -31,9 +36,20 @@ public class MiraiFriend {
     /**
      * 向好友发送消息
      * @param messageChain 消息链
+     * @deprecated
      */
+    @Deprecated
     public void sendMessage(MessageChain messageChain){
         friend.sendMessage(messageChain);
+    }
+
+    /**
+     * 向好友发送消息<br>
+     * 此方法将自动转换为Mirai Code，可用于发送图片等特殊消息
+     * @param message Mirai Code格式的消息文本
+     */
+    public void sendMessageMirai(String message){
+        friend.sendMessage(MiraiCode.deserializeMiraiCode(message));
     }
 
     /**
@@ -80,5 +96,15 @@ public class MiraiFriend {
      */
     public String getAvatarUrl(){
         return friend.getAvatarUrl();
+    }
+
+    /**
+     * 上传一个图片，返回图片ID用于发送消息
+     * @param imageFile 图片文件
+     * @return 图片ID
+     */
+    public String uploadImage(File imageFile) {
+        Image i = ExternalResource.uploadAsImage(imageFile, friend);
+        return i.getImageId();
     }
 }

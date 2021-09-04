@@ -6,6 +6,7 @@ import me.dreamvoid.miraimc.bungee.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.bungee.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.bungee.utils.Metrics;
 import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -91,6 +92,7 @@ public class BungeePlugin extends Plugin {
         MiraiEvent.stopListenEvent();
 
         getLogger().info("Closing all bots");
+        MiraiLoginSolver.closeAllVerifyThreads();
         for (long bots : MiraiBot.getOnlineBots()){
             MiraiBot.getBot(bots).doLogout();
         }

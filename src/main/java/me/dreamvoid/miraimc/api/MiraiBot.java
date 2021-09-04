@@ -133,6 +133,21 @@ public class MiraiBot {
 
     private static void privateBotLogin(long Account, byte[] Password, BotConfiguration.MiraiProtocol Protocol){
         logger = Utils.logger;
+
+        Bot existBot = Bot.getInstanceOrNull(Account);
+        if(existBot != null){
+            logger.info("另一个机器人进程已经存在，正在尝试关闭这个进程");
+            MiraiLoginSolver.solvePicCaptcha(Account,true);
+            MiraiLoginSolver.solveSliderCaptcha(Account, true);
+            MiraiLoginSolver.solveUnsafeDeviceLoginVerify(Account, true);
+            existBot.close();
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                logger.warning("线程出现异常，原因: "+e.getLocalizedMessage());
+            }
+        }
+
         logger.info("登录新的机器人账号: "+ Account+", 协议: "+ Protocol.name());
 
         // 建立mirai数据文件夹
@@ -181,7 +196,11 @@ public class MiraiBot {
         }});
 
         // 开始登录
-        bot.login();
-        logger.info(bot.getNick()+"("+bot.getId()+") 登录成功");
+        try{
+            bot.login();
+            logger.info(bot.getNick()+"("+bot.getId()+") 登录成功");
+        } catch (Exception e){
+            logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+        }
     }
 }
