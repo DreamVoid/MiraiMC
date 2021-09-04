@@ -66,4 +66,11 @@ public class MiraiGroupMessageRecallEvent extends Event {
      */
     public int[] getMessageIds() { return event.getMessageIds(); }
 
+    /**
+     * 获取群号
+     * @return 群号
+     */
+    public long getGroupID(){
+        return event.getGroup().getId();
+    }
 }
