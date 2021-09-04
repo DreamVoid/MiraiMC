@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class CommandProcessor implements CommandExecutor {
 
@@ -68,8 +69,12 @@ public class CommandProcessor implements CommandExecutor {
                         case "logout":{
                             if(sender.hasPermission("miraimc.command.mirai.logout")){
                                 if(args.length >= 2) {
-                                    MiraiBot.getBot(Long.parseLong(args[1])).doLogout();
-                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a已关闭指定机器人进程！"));
+                                    try {
+                                        MiraiBot.getBot(Long.parseLong(args[1])).doLogout();
+                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a已退出指定机器人！"));
+                                    } catch (NoSuchElementException e){
+                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c指定的机器人不存在！"));
+                                    }
                                 } else {
                                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai logout <账号>"));
                                 }
@@ -177,7 +182,7 @@ public class CommandProcessor implements CommandExecutor {
                         case "help":{
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6&lMiraiMC&r &b机器人帮助菜单"));
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/mirai login <账号> <密码> [协议]:&r 登录一个机器人"));
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/mirai logout <账号>:&r 关闭一个机器人"));
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/mirai logout <账号>:&r 退出一个机器人"));
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/mirai list:&r 查看当前存在的机器人"));
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/mirai sendfriendmessage <账号> <好友> <消息>:&r 向指定好友发送私聊消息"));
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/mirai sendgroupmessage <账号> <群号> <消息>:&r 向指定群发送群聊消息"));
