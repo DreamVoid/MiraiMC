@@ -17,9 +17,18 @@ import java.util.NoSuchElementException;
 public class MiraiLoginSolver extends LoginSolver {
     private Thread threads;
 
+    /**
+     * 是否继续线程（用于判断用户侧是否完成验证）
+     */
     private static final HashMap<Bot,Boolean> deviceVerifyContinue = new HashMap<>();
+    /**
+     * 是否取消线程（用于判断用户是否决定终止验证）
+     */
     private static final HashMap<Bot,Boolean> deviceVerifyCanceled = new HashMap<>();
 
+    /**
+     * 验证码（用户提供的验证码或ticket）
+     */
     private static final HashMap<Bot,String> deviceVerifyCode = new HashMap<>();
 
     private final CustomLoginFailedException loginCancelException = new CustomLoginFailedException(true,"用户终止登录") {
@@ -49,7 +58,9 @@ public class MiraiLoginSolver extends LoginSolver {
         try (OutputStream fos = new FileOutputStream(imageFile)) {
             fos.write(imageData);
             fos.flush();
-        } catch (IOException e) { e.printStackTrace(); }
+        } catch (IOException e) {
+            bot.getLogger().warning("保存验证码图片文件时出现异常，原因: "+e.getLocalizedMessage());
+        }
 
         threads = new Thread(() -> {
             deviceVerifyContinue.put(bot,false);
@@ -69,14 +80,21 @@ public class MiraiLoginSolver extends LoginSolver {
         try {
             threads.join();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            bot.getLogger().warning("启动验证线程时出现异常，原因: "+e.getLocalizedMessage());
         }
 
         if(!deviceVerifyCanceled.containsKey(bot) || deviceVerifyCanceled.get(bot)){
             deviceVerifyCanceled.remove(bot);
             deviceVerifyContinue.remove(bot);
+            deviceVerifyCode.remove(bot);
             throw loginCancelException;
-        } else return deviceVerifyCode.get(bot);
+        } else {
+            String result = deviceVerifyCode.get(bot);
+            deviceVerifyCanceled.remove(bot);
+            deviceVerifyContinue.remove(bot);
+            deviceVerifyCode.remove(bot);
+            return result;
+        }
     }
 
     /**
@@ -107,14 +125,21 @@ public class MiraiLoginSolver extends LoginSolver {
         try {
             threads.join();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            bot.getLogger().warning("启动验证线程时出现异常，原因: "+e.getLocalizedMessage());
         }
 
         if(!deviceVerifyCanceled.containsKey(bot) || deviceVerifyCanceled.get(bot)){
             deviceVerifyCanceled.remove(bot);
             deviceVerifyContinue.remove(bot);
+            deviceVerifyCode.remove(bot);
             throw loginCancelException;
-        } else return deviceVerifyCode.get(bot);
+        } else {
+            String result = deviceVerifyCode.get(bot);
+            deviceVerifyCanceled.remove(bot);
+            deviceVerifyContinue.remove(bot);
+            deviceVerifyCode.remove(bot);
+            return result;
+        }
     }
 
     /**
@@ -145,14 +170,20 @@ public class MiraiLoginSolver extends LoginSolver {
         try {
             threads.join();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            bot.getLogger().warning("启动验证线程时出现异常，原因: "+e.getLocalizedMessage());
         }
 
         if(!deviceVerifyCanceled.containsKey(bot) || deviceVerifyCanceled.get(bot)){
             deviceVerifyCanceled.remove(bot);
             deviceVerifyContinue.remove(bot);
+            deviceVerifyCode.remove(bot);
             throw loginCancelException;
-        } else return null;
+        } else {
+            deviceVerifyCanceled.remove(bot);
+            deviceVerifyContinue.remove(bot);
+            deviceVerifyCode.remove(bot);
+            return null;
+        }
     }
 
     public static void solveUnsafeDeviceLoginVerify(long BotAccount, boolean Canceled) throws NoSuchElementException {
