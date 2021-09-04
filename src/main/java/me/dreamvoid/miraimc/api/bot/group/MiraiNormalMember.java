@@ -3,6 +3,10 @@ package me.dreamvoid.miraimc.api.bot.group;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.message.code.MiraiCode;
+import net.mamoe.mirai.message.data.Image;
+import net.mamoe.mirai.utils.ExternalResource;
+
+import java.io.File;
 
 /**
  * MiraiMC 群成员
@@ -157,5 +161,15 @@ public class MiraiNormalMember{
      */
     public String getAvatarUrl(){
         return member.getAvatarUrl();
+    }
+
+    /**
+     * 上传一个图片，返回图片ID用于发送消息
+     * @param imageFile 图片文件
+     * @return 图片ID
+     */
+    public String uploadImage(File imageFile) {
+        Image i = ExternalResource.uploadAsImage(imageFile, member);
+        return i.getImageId();
     }
 }
