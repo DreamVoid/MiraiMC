@@ -3,6 +3,7 @@ package me.dreamvoid.miraimc.bukkit;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
 import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -94,6 +95,7 @@ public class BukkitPlugin extends JavaPlugin {
         MiraiEvent.stopListenEvent();
 
         getLogger().info("Closing all bots");
+        MiraiLoginSolver.closeAllVerifyThreads();
         for (long bots : MiraiBot.getOnlineBots()){
             MiraiBot.getBot(bots).doLogout();
         }

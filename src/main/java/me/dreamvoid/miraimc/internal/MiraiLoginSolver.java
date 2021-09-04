@@ -1,7 +1,9 @@
 package me.dreamvoid.miraimc.internal;
 
 import kotlin.coroutines.Continuation;
+import me.dreamvoid.miraimc.api.MiraiBot;
 import net.mamoe.mirai.Bot;
+import net.mamoe.mirai.BotFactory;
 import net.mamoe.mirai.network.CustomLoginFailedException;
 import net.mamoe.mirai.utils.LoginSolver;
 import org.jetbrains.annotations.NotNull;
@@ -71,7 +73,11 @@ public class MiraiLoginSolver extends LoginSolver {
             bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify piccaptchacancel "+bot.getId());
             bot.getLogger().warning("如需帮助，请参阅: https://wiki.miraimc.dreamvoid.ml/troubleshoot/verify-guide#word-captcha");
             while(true){
-                if(deviceVerifyContinue.get(bot)){
+                try {
+                    if (!deviceVerifyContinue.containsKey(bot) || deviceVerifyContinue.get(bot)) {
+                        break;
+                    }
+                } catch (NullPointerException e){
                     break;
                 }
             }
@@ -116,7 +122,11 @@ public class MiraiLoginSolver extends LoginSolver {
             bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify slidercaptchacancel "+bot.getId());
             bot.getLogger().warning("如需帮助，请参阅: https://wiki.miraimc.dreamvoid.ml/troubleshoot/verify-guide#slide-captcha");
             while(true){
-                if(deviceVerifyContinue.get(bot)){
+                try {
+                    if (!deviceVerifyContinue.containsKey(bot) || deviceVerifyContinue.get(bot)) {
+                        break;
+                    }
+                } catch (NullPointerException e){
                     break;
                 }
             }
@@ -161,7 +171,11 @@ public class MiraiLoginSolver extends LoginSolver {
             bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify unsafedevicecancel "+bot.getId());
             bot.getLogger().warning("如需帮助，请参阅: https://wiki.miraimc.dreamvoid.ml/troubleshoot/verify-guide#device-locker");
             while(true){
-                if(deviceVerifyContinue.get(bot)){
+                try {
+                    if (!deviceVerifyContinue.containsKey(bot) || deviceVerifyContinue.get(bot)) {
+                        break;
+                    }
+                } catch (NullPointerException e){
                     break;
                 }
             }
@@ -209,5 +223,11 @@ public class MiraiLoginSolver extends LoginSolver {
         deviceVerifyContinue.put(Bot.getInstance(BotAccount),true);
         deviceVerifyCanceled.put(Bot.getInstance(BotAccount),false);
         deviceVerifyCode.put(Bot.getInstance(BotAccount),Captcha);
+    }
+
+    public static void closeAllVerifyThreads(){
+        deviceVerifyContinue.clear();
+        deviceVerifyCanceled.clear();
+        deviceVerifyCode.clear();
     }
 }
