@@ -3,6 +3,7 @@ package me.dreamvoid.miraimc.api.bot;
 import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Group;
+import net.mamoe.mirai.message.code.MiraiCode;
 import net.mamoe.mirai.message.data.MessageChain;
 
 /**
@@ -36,9 +37,20 @@ public class MiraiGroup {
     /**
      * 向群发送消息
      * @param messageChain 消息内容
+     * @deprecated
      */
+    @Deprecated
     public void sendMessage(MessageChain messageChain){
         group.sendMessage(messageChain);
+    }
+
+    /**
+     * 向群发送消息<br>
+     * 此方法将自动转换为Mirai Code，可用于发送图片等特殊消息
+     * @param message Mirai Code格式的消息文本
+     */
+    public void sendMessageMirai(String message){
+        group.sendMessage(MiraiCode.deserializeMiraiCode(message));
     }
 
     /**

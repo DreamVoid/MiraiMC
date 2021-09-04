@@ -2,6 +2,7 @@ package me.dreamvoid.miraimc.api.bot.group;
 
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.NormalMember;
+import net.mamoe.mirai.message.code.MiraiCode;
 
 /**
  * MiraiMC 群成员
@@ -67,6 +68,15 @@ public class MiraiNormalMember{
      */
     public void sendMessage(String message){
         member.sendMessage(message);
+    }
+
+    /**
+     * 发送消息<br>
+     * 此方法将自动转换为Mirai Code，可用于发送图片等特殊消息
+     * @param message Mirai Code格式的消息文本
+     */
+    public void sendMessageMirai(String message){
+        member.sendMessage(MiraiCode.deserializeMiraiCode(message));
     }
 
     /**
