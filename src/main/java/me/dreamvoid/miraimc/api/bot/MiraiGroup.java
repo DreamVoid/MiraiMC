@@ -4,7 +4,11 @@ import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.message.code.MiraiCode;
+import net.mamoe.mirai.message.data.Image;
 import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.utils.ExternalResource;
+
+import java.io.File;
 
 /**
  * MiraiMC 群
@@ -92,5 +96,15 @@ public class MiraiGroup {
      */
     public int getBotPermission(){
         return group.getBotPermission().getLevel();
+    }
+
+    /**
+     * 上传一个图片，返回图片ID用于发送消息
+     * @param imageFile 图片文件
+     * @return 图片ID
+     */
+    public String uploadImage(File imageFile) {
+        Image i = ExternalResource.uploadAsImage(imageFile, group);
+        return i.getImageId();
     }
 }

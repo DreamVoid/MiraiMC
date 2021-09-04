@@ -3,8 +3,11 @@ package me.dreamvoid.miraimc.api.bot;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.message.code.MiraiCode;
+import net.mamoe.mirai.message.data.Image;
 import net.mamoe.mirai.message.data.MessageChain;
-import net.mamoe.mirai.message.data.PlainText;
+import net.mamoe.mirai.utils.ExternalResource;
+
+import java.io.File;
 
 /**
  * MiraiMC 好友
@@ -93,5 +96,15 @@ public class MiraiFriend {
      */
     public String getAvatarUrl(){
         return friend.getAvatarUrl();
+    }
+
+    /**
+     * 上传一个图片，返回图片ID用于发送消息
+     * @param imageFile 图片文件
+     * @return 图片ID
+     */
+    public String uploadImage(File imageFile) {
+        Image i = ExternalResource.uploadAsImage(imageFile, friend);
+        return i.getImageId();
     }
 }
