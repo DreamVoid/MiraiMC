@@ -2,25 +2,29 @@ package me.dreamvoid.miraimc.bungee.commands;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bungee.BungeePlugin;
+import me.dreamvoid.miraimc.bungee.MiraiAutoLogin;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.config.Configuration;
+import net.md_5.bungee.config.ConfigurationProvider;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public class MiraiCommand extends Command {
 
     private final BungeePlugin bungee;
-    //private final MiraiAutoLogin MiraiAutoLogin; // TO DO: 增加BungeeCord环境下的配置读取
+    private final MiraiAutoLogin MiraiAutoLogin;
 
     public MiraiCommand(BungeePlugin bungee, String name) {
         super(name);
         this.bungee = bungee;
-        //this.MiraiAutoLogin = me.dreamvoid.miraimc.internal.MiraiAutoLogin.Instance; // TO DO: 增加BungeeCord环境下的配置读取
+        this.MiraiAutoLogin = me.dreamvoid.miraimc.bungee.MiraiAutoLogin.Instance;
     }
 
     @Override
@@ -125,11 +129,11 @@ public class MiraiCommand extends Command {
                 }
                 case "autologin":{
                     if(sender.hasPermission("miraimc.command.mirai.autologin")){
-                        sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&c此功能在当前环境(BungeeCord)下不可用，请等待未来的版本！")).create());
-                        break;
-                        /*if(args.length>=2){
+                        if(args.length>=2){
                             switch (args[1]){
                                 case "add":{
+                                    sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&c此功能在当前环境(BungeeCord)下不可用，请等待未来的版本！")).create());
+                                    /*
                                     boolean result;
                                     if(args.length>=4){
                                         if(args.length == 5){
@@ -139,6 +143,7 @@ public class MiraiCommand extends Command {
                                             sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&a新的自动登录机器人添加成功！")).create());
                                         } else sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&c新的自动登录机器人添加失败，请检查控制台错误输出！")).create());
                                     } else sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai autologin add <账号> <密码> [协议]")).create());
+                                    */
                                     break;
                                 }
                                 case "remove":{
@@ -153,9 +158,17 @@ public class MiraiCommand extends Command {
                                 }
                                 case "list":{
                                     sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&a存在的自动登录机器人: ")).create());
-                                    List<Map<?,?>> AutoLoginBotList = MiraiAutoLogin.loadAutoLoginList();
-                                    for (Map<?,?> bots : AutoLoginBotList){
-                                        sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&', "&b"+bots.get("account"))).create());
+                                    try {
+                                        for(Object list : MiraiAutoLogin.loadAutoLoginList()){
+                                            Configuration data = ConfigurationProvider.getProvider(net.md_5.bungee.config.JsonConfiguration.class).load(list.toString());
+
+                                            long Account = data.getLong("account");
+                                            if(Account != 123456){
+                                                sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&', "&b"+Account)).create());
+                                            }
+                                        }
+                                    } catch (IOException e) {
+                                        sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&', "&c执行自动登录时出现异常，原因: "+e.getLocalizedMessage())).create());
                                     }
                                     break;
                                 }
@@ -164,7 +177,7 @@ public class MiraiCommand extends Command {
                                     break;
                                 }
                             }
-                        } else sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&c未知或不完整的命令，请输入 /mirai help 查看帮助！")).create());*/
+                        } else sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&c未知或不完整的命令，请输入 /mirai help 查看帮助！")).create());
                     } else sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！")).create());
                     break;
                 }
