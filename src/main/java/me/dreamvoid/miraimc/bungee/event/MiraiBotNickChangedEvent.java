@@ -31,4 +31,13 @@ public class MiraiBotNickChangedEvent extends Event {
      * @return 机器人更换后的昵称
      */
     public String getNewNick() { return event.getTo(); }
+
+    /**
+     * 获取原始事件内容<br>
+     * [!] 不推荐使用
+     * @return 原始事件内容
+     */
+    public String eventToString() {
+        return event.toString();
+    }
 }
