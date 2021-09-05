@@ -74,4 +74,13 @@ public class MiraiImageUploadFailedEvent extends Event {
      * @return 失败ID
      */
     public int getErrorID(){return event.getErrno();}
+
+    /**
+     * 获取原始事件内容<br>
+     * [!] 不推荐使用
+     * @return 原始事件内容
+     */
+    public String eventToString() {
+        return event.toString();
+    }
 }

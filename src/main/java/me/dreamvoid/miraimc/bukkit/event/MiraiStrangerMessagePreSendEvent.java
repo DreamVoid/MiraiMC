@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bukkit.event;
 
 import net.mamoe.mirai.event.events.StrangerMessagePreSendEvent;
-import net.mamoe.mirai.message.data.MessageChainBuilder;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -71,5 +70,14 @@ public class MiraiStrangerMessagePreSendEvent extends Event {
      */
     public String getMessageContent(){
         return event.getMessage().contentToString();
+    }
+
+    /**
+     * 获取原始事件内容<br>
+     * [!] 不推荐使用
+     * @return 原始事件内容
+     */
+    public String eventToString() {
+        return event.toString();
     }
 }

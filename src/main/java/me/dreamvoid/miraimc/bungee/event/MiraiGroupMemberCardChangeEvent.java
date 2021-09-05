@@ -50,4 +50,13 @@ public class MiraiGroupMemberCardChangeEvent extends Event {
     public long getMemberID(){
         return event.getMember().getId();
     }
+
+    /**
+     * 获取原始事件内容<br>
+     * [!] 不推荐使用
+     * @return 原始事件内容
+     */
+    public String eventToString() {
+        return event.toString();
+    }
 }

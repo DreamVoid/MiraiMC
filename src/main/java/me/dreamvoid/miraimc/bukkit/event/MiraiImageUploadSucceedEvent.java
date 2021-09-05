@@ -69,4 +69,12 @@ public class MiraiImageUploadSucceedEvent extends Event {
      */
     public String getMiraiMsg(){return event.getImage().serializeToMiraiCode();}
 
+    /**
+     * 获取原始事件内容<br>
+     * [!] 不推荐使用
+     * @return 原始事件内容
+     */
+    public String eventToString() {
+        return event.toString();
+    }
 }

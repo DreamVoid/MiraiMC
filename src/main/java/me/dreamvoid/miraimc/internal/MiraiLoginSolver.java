@@ -1,9 +1,7 @@
 package me.dreamvoid.miraimc.internal;
 
 import kotlin.coroutines.Continuation;
-import me.dreamvoid.miraimc.api.MiraiBot;
 import net.mamoe.mirai.Bot;
-import net.mamoe.mirai.BotFactory;
 import net.mamoe.mirai.network.CustomLoginFailedException;
 import net.mamoe.mirai.utils.LoginSolver;
 import org.jetbrains.annotations.NotNull;

@@ -32,7 +32,16 @@ public class MiraiGroupBotUnmuteEvent extends Event{
      * 返回执行解除禁言操作的管理员。
      * @return 管理员QQ
      */
-    public long getNewPermssion() {
+    public long getNewPermission() {
         return event.getOperator().getId();
+    }
+
+    /**
+     * 获取原始事件内容<br>
+     * [!] 不推荐使用
+     * @return 原始事件内容
+     */
+    public String eventToString() {
+        return event.toString();
     }
 }
