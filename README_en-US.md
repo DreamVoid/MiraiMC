@@ -45,7 +45,7 @@ Copy the following code to the ```dependencies``` of pom.xml or directly import 
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
     <!--Make sure it is the latest version-->
-    <version>1.4-pre2</version>
+    <version>1.4</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -104,4 +104,5 @@ A more detailed development tutorial can be found here: https://en.wiki.miraimc.
 - [X] Rewrite the login process to adapt to Bukkit (and future Bungee, even Sponge)
 - [X] Support BungeeCord
 - [ ] Fully compatible with the structure of mirai console for service owners who are already using mirai
+- [ ] Support Sponge
 - [ ] Load the mirai console plugin like mirai console

@@ -40,7 +40,7 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
     <!--请确保版本为Github上的最新版本-->
-    <version>1.4-pre2</version>
+    <version>1.4</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -54,14 +54,14 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 | 命令 | 描述 | 权限 |
 | ---------------------------- | ---------------------- | ---------- |
 | /mirai  | MiraiMC 机器人主命令 | miraimc.command.mirai |
-| /mirai login <账号> <密码> [协议] | 登录一个机器人（可多次执行此命令以登录多个机器人） | miraimc.command.mirai.login |
+| /mirai login <账号> <密码> \[协议] | 登录一个机器人（可多次执行此命令以登录多个机器人） | miraimc.command.mirai.login |
 | /mirai logout <账号> | 退出并关闭一个机器人 | miraimc.command.mirai.logout |
 | /mirai list | 列出当前在线的机器人 | miraimc.command.mirai.list |
 | /mirai sendfriendmessage <账号> <好友> <消息> | 向指定好友发送消息 | miraimc.command.mirai.sendfriendmessage |
 | /mirai sendfriendnudge <账号> <好友> | 向指定好友发送戳一戳 | miraimc.command.mirai.sendfriendnudge |
 | /mirai sendfgroupmessage <账号> <群号> <消息> | 向指定群发送消息 | miraimc.command.mirai.sendgroupmessage |
 | /mirai checkonline <账号> | 检查指定机器人是否在线 | miraimc.command.mirai.checkonline |
-| /mirai autologin add <账号> <密码> [协议] | 添加一个自动登录机器人账号 | miraimc.command.mirai.autologin |
+| /mirai autologin add <账号> <密码> \[协议] | 添加一个自动登录机器人账号 | miraimc.command.mirai.autologin |
 | /mirai autologin remove <账号> | 移除一个自动登录机器人账号 | miraimc.command.mirai.autologin |
 | /mirai autologin list | 查看自动登录机器人账号列表 | miraimc.command.mirai.autologin |
 | /miraimc | MiraiMC 插件主命令 | miraimc.command.miraimc |
@@ -98,5 +98,6 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 - [X] 添加剩余未添加的Mirai事件
 - [X] 重写登录流程以适应Bukkit（和未来支持的Bungee，甚至Sponge）
 - [X] 支持BungeeCord
-- [ ] 完全兼容mirai console的结构供已在使用mirai的服主使用
+- [X] 完全兼容mirai console的结构供已在使用mirai的服主使用
+- [ ] 支持Sponge
 - [ ] 像mirai console一样加载mirai console插件

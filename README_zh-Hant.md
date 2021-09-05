@@ -40,7 +40,7 @@ MiraiMC 是一個基於[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
     <!--請確保版本為Github上的最新版本-->
-    <version>1.4-pre2</version>
+    <version>1.4</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -99,4 +99,5 @@ MiraiMC 是一個基於[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 - [X] 重寫登錄流程以適應Bukkit（和未來支持的Bungee，甚至Sponge）
 - [X] 支持BungeeCord
 - [ ] 完全兼容mirai console的結構供已在使用mirai的服主使用
+- [ ] 支持Sponge
 - [ ] 像mirai console一樣加載mirai console插件
