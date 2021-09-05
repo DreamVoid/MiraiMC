@@ -63,4 +63,12 @@ public class MiraiFriendMessagePreSendEvent extends Event {
         return event.getMessage().contentToString();
     }
 
+    /**
+     * 获取原始事件内容<br>
+     * [!] 不推荐使用
+     * @return 原始事件内容
+     */
+    public String eventToString() {
+        return event.toString();
+    }
 }

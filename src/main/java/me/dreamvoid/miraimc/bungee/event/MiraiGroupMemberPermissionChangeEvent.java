@@ -40,7 +40,7 @@ public class MiraiGroupMemberPermissionChangeEvent extends Event{
      * 返回成员的新权限。
      * @return 0 - 普通成员 | 1 - 管理员 | 2 - 群主
      */
-    public int getNewPermssion() {
+    public int getNewPermission() {
         return event.getNew().getLevel();
     }
 
@@ -58,5 +58,14 @@ public class MiraiGroupMemberPermissionChangeEvent extends Event{
      */
     public int getHashCode(){
         return event.hashCode();
+    }
+
+    /**
+     * 获取原始事件内容<br>
+     * [!] 不推荐使用
+     * @return 原始事件内容
+     */
+    public String eventToString() {
+        return event.toString();
     }
 }
