@@ -37,7 +37,7 @@ public class MiraiNewFriendRequestEvent extends Event {
     /**
      * 接受请求
      */
-    public void setAcceptRequset(){
+    public void setAcceptRequest(){
         event.accept();
     }
 
@@ -91,5 +91,14 @@ public class MiraiNewFriendRequestEvent extends Event {
      */
     public int getHashCode(){
         return event.hashCode();
+    }
+
+    /**
+     * 获取原始事件内容<br>
+     * [!] 不推荐使用
+     * @return 原始事件内容
+     */
+    public String eventToString() {
+        return event.toString();
     }
 }

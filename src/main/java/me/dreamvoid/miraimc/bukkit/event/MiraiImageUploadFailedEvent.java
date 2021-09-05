@@ -25,7 +25,7 @@ public class MiraiImageUploadFailedEvent extends Event {
      * 获取机器人账号
      * @return 机器人账号
      */
-    public long getID() { return event.getBot().getId(); }
+    public long getBotID() { return event.getBot().getId(); }
 
     /**
      * 获取接收此图片的ID
@@ -74,4 +74,13 @@ public class MiraiImageUploadFailedEvent extends Event {
      * @return 失败ID
      */
     public int getErrorID(){return event.getErrno();}
+
+    /**
+     * 获取原始事件内容<br>
+     * [!] 不推荐使用
+     * @return 原始事件内容
+     */
+    public String eventToString() {
+        return event.toString();
+    }
 }

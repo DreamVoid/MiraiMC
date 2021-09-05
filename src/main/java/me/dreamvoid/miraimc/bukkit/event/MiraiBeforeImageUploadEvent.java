@@ -25,7 +25,7 @@ public class MiraiBeforeImageUploadEvent extends Event {
      * 获取机器人账号
      * @return 机器人账号
      */
-    public long getID() { return event.getBot().getId(); }
+    public long getBotID() { return event.getBot().getId(); }
 
     /**
      * 获取接收此图片的ID
@@ -63,4 +63,12 @@ public class MiraiBeforeImageUploadEvent extends Event {
      */
     public long getImageSize() { return event.getSource().getSize(); }
 
+    /**
+     * 获取原始事件内容<br>
+     * [!] 不推荐使用
+     * @return 原始事件内容
+     */
+    public String eventToString() {
+        return event.toString();
+    }
 }
