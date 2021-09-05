@@ -6,7 +6,13 @@
 
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
+    <packaging>pom</packaging>
     <version>1.4</version>
+    <modules>
+        <module>MiraiMC-Base</module>
+        <module>MiraiMC-Bukkit</module>
+        <module>MiraiMC-Bungee</module>
+    </modules>
 
     <name>MiraiMC</name>
     <description>Mirai for Minecraft server</description>
@@ -64,28 +70,6 @@
     </repositories>
 
     <dependencies>
-        <!--This adds the Spigot API artifact to the build -->
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.13-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- BungeeCord API -->
-        <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-api</artifactId>
-            <version>1.17-R0.1-SNAPSHOT</version>
-            <type>jar</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-api</artifactId>
-            <version>1.17-R0.1-SNAPSHOT</version>
-            <type>javadoc</type>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>net.mamoe</groupId>
             <artifactId>mirai-core-jvm</artifactId>
@@ -128,7 +112,7 @@
                 <version>3.3.0</version>
                 <configuration>
                     <descriptors>
-                        <descriptor>src/main/resources/assembly.xml</descriptor>
+                        <descriptor>MiraiMC-Base/src/main/resources/assembly.xml</descriptor>
                     </descriptors>
                 </configuration>
                 <executions>

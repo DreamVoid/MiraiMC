@@ -2,13 +2,12 @@ package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.api.MiraiMC;
-import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -18,20 +17,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-public class CommandProcessor implements CommandExecutor {
+public class Commands implements CommandExecutor {
 
     private final BukkitPlugin plugin;
     //private final MiraiBot Mirai;
     private final MiraiAutoLogin MiraiAutoLogin;
 
-    public CommandProcessor(BukkitPlugin plugin) {
+    public Commands(BukkitPlugin plugin) {
         this.plugin = plugin;
         //this.Mirai = MiraiBot.Instance;
         this.MiraiAutoLogin = new MiraiAutoLogin(plugin);
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String s, @NotNull String[] args) {
         switch (command.getName().toLowerCase()){
             case "mirai" : {
                 if(!(args.length == 0)){
@@ -209,7 +208,7 @@ public class CommandProcessor implements CommandExecutor {
                     switch (args[0].toLowerCase()) {
                         case "reload": {
                             if(sender.hasPermission("miraimc.command.miraimc.reload")){
-                                Config.reloadConfig();
+                                BukkitConfig.reloadConfig();
                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a配置文件已经重新加载，部分配置可能需要重新启动服务器才能生效！"));
                             } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
                             break;
@@ -279,9 +278,10 @@ public class CommandProcessor implements CommandExecutor {
                                                     @Override
                                                     public void run() {
                                                         long qqid = Long.parseLong(args[2]);
-                                                        String playerName = MiraiMC.getBindingName(qqid);
-                                                        if(!playerName.equals("")){
-                                                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a绑定的玩家名："+playerName));
+                                                        String UUID = MiraiMC.getBinding(qqid);
+                                                        if(!UUID.equals("")){
+                                                            OfflinePlayer player = Bukkit.getOfflinePlayer(UUID); // 对于此方法来说，任何玩家都存在. 亲测是真的
+                                                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a绑定的玩家名："+player.getName()));
                                                         } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c未找到符合条件的记录！"));
                                                     }
                                                 }.runTaskAsynchronously(plugin);

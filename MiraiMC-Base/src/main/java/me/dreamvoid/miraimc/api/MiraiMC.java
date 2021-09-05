@@ -2,11 +2,11 @@ package me.dreamvoid.miraimc.api;
 
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 
-import java.sql.*;
-import java.util.UUID;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * MiraiMC 插件接口
@@ -278,6 +278,7 @@ public class MiraiMC {
         }
         return uuid;
     }
+
     /**
      * 获取QQ号绑定的Minecraft账号
      * 此方法返回通过UUID获取的玩家名
@@ -285,6 +286,7 @@ public class MiraiMC {
      * @param account 玩家QQ号
      * @return 玩家名
      */
+    /*
     public static String getBindingName(long account){
         String uuid = "";
 
@@ -333,5 +335,5 @@ public class MiraiMC {
             return player.getName();
         }
         return "";
-    }
+    }*/
 }

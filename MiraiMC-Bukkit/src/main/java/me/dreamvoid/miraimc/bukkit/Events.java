@@ -5,7 +5,7 @@ import me.dreamvoid.miraimc.internal.Utils;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class EventsProcessor implements Listener {
+public class Events implements Listener {
     @EventHandler
     public void onMiraiGroupMessageReceived(MiraiGroupMessageEvent e){
         Utils.logger.info("[GroupMessage/"+e.getBotID()+"] ["+e.getGroupName()+"("+e.getGroupID()+")] "+e.getSenderNameCard()+"("+e.getSenderID()+") -> "+e.getMessage());

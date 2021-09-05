@@ -2,7 +2,6 @@ package me.dreamvoid.miraimc.bungee.commands;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bungee.BungeePlugin;
-import me.dreamvoid.miraimc.bungee.MiraiAutoLogin;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
 import net.md_5.bungee.api.ChatColor;
@@ -19,7 +18,7 @@ import java.util.NoSuchElementException;
 public class MiraiCommand extends Command {
 
     private final BungeePlugin bungee;
-    private final MiraiAutoLogin MiraiAutoLogin;
+    private final me.dreamvoid.miraimc.bungee.MiraiAutoLogin MiraiAutoLogin;
 
     public MiraiCommand(BungeePlugin bungee, String name) {
         super(name);

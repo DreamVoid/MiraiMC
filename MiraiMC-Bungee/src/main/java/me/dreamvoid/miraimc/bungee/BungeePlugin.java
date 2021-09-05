@@ -10,30 +10,25 @@ import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
-import net.md_5.bungee.config.Configuration;
-import net.md_5.bungee.config.ConfigurationProvider;
-import net.md_5.bungee.config.JsonConfiguration;
 
-import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 public class BungeePlugin extends Plugin {
     private MiraiEvent MiraiEvent;
-    private Config PluginConfig;
+    private BungeeConfig PluginConfig;
     private MiraiAutoLogin MiraiAutoLogin;
 
     @Override
     public void onLoad() {
-        new Utils(this);
-        this.PluginConfig = new Config(this);
+        Utils.initUtils(this.getLogger());
+        this.PluginConfig = new BungeeConfig(this);
         this.MiraiEvent = new MiraiEvent();
         this.MiraiAutoLogin = new MiraiAutoLogin(this);
     }
 
     @Override
     public void onEnable() {
-        PluginConfig.loadConfigBungee();
+        PluginConfig.loadConfig();
 
         getLogger().info("Mirai working dir: " + Config.Gen_MiraiWorkingDir);
 
