@@ -2,12 +2,14 @@ package me.dreamvoid.miraimc.bungee.commands;
 
 import me.dreamvoid.miraimc.api.MiraiMC;
 import me.dreamvoid.miraimc.bungee.BungeePlugin;
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.bungee.BungeeConfig;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
+
+import java.util.UUID;
 
 public class MiraiMcCommand extends Command {
     private final BungeePlugin bungee;
@@ -23,7 +25,7 @@ public class MiraiMcCommand extends Command {
             switch (args[0].toLowerCase()) {
                 case "reload": {
                     if(sender.hasPermission("miraimc.command.miraimc.reload")){
-                        Config.reloadConfig();
+                        BungeeConfig.reloadConfig();
                         sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&', "&a配置文件已经重新加载，部分配置可能需要重新启动服务器才能生效！")).create());
                     } else sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！")).create());
                     break;
@@ -88,9 +90,9 @@ public class MiraiMcCommand extends Command {
                                     if(args.length>=3){
                                         bungee.getProxy().getScheduler().runAsync(bungee, () -> {
                                             long qqid = Long.parseLong(args[2]);
-                                            String playerName = MiraiMC.getBindingName(qqid);
+                                            String playerName = MiraiMC.getBinding(qqid);
                                             if(!playerName.equals("")){
-                                                sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&a绑定的玩家名："+playerName)).create());
+                                                sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&a绑定的玩家名："+bungee.getProxy().getPlayer(UUID.fromString(playerName)).getDisplayName())).create());
                                             } else sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&c未找到符合条件的记录！")).create());
                                         });
                                     } else sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /miraimc bind getqq <QQ号>")).create());

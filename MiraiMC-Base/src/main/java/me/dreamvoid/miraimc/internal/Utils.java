@@ -2,8 +2,6 @@ package me.dreamvoid.miraimc.internal;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import me.dreamvoid.miraimc.bukkit.BukkitPlugin;
-import me.dreamvoid.miraimc.bungee.BungeePlugin;
 
 import java.io.File;
 import java.sql.Connection;
@@ -17,11 +15,8 @@ public class Utils {
     public static Connection connection; // SQLite
     public static HikariDataSource ds; // MySQL
 
-    public Utils(BukkitPlugin plugin){
-        logger = plugin.getLogger();
-    }
-    public Utils(BungeePlugin bungee){
-        logger = bungee.getLogger();
+    public static void initUtils(Logger logger){
+        Utils.logger = logger;
     }
 
     public static void initializeSQLite() throws SQLException, ClassNotFoundException{

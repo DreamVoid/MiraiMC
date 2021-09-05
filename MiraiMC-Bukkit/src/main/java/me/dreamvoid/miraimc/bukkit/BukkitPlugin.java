@@ -15,13 +15,13 @@ import java.util.Objects;
 public class BukkitPlugin extends JavaPlugin {
 
     private MiraiEvent MiraiEvent;
-    private Config PluginConfig;
+    private BukkitConfig PluginConfig;
     public MiraiAutoLogin MiraiAutoLogin;
 
     @Override // 加载插件
     public void onLoad() {
-        new Utils(this);
-        this.PluginConfig = new Config(this);
+        Utils.initUtils(this.getLogger());
+        this.PluginConfig = new BukkitConfig(this);
         this.MiraiEvent = new MiraiEvent();
         this.MiraiAutoLogin = new MiraiAutoLogin(this);
     }
@@ -47,11 +47,11 @@ public class BukkitPlugin extends JavaPlugin {
         MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
 
         getLogger().info("Registering commands.");
-        for (String s : Arrays.asList("mirai", "miraimc", "miraiverify")) { Objects.requireNonNull(getCommand(s)).setExecutor(new CommandProcessor(this)); }
+        for (String s : Arrays.asList("mirai", "miraimc", "miraiverify")) { Objects.requireNonNull(getCommand(s)).setExecutor(new Commands(this)); }
 
         if(Config.Bot_LogEvents){
             getLogger().info("Registering events.");
-            Bukkit.getPluginManager().registerEvents(new EventsProcessor(), this);
+            Bukkit.getPluginManager().registerEvents(new Events(), this);
         }
 
         switch (Config.DB_Type.toLowerCase()){

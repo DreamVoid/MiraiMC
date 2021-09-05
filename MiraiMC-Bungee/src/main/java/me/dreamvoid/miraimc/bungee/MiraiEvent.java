@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bungee;
 
 import me.dreamvoid.miraimc.bungee.event.*;
+import me.dreamvoid.miraimc.bungee.event.*;
 import net.mamoe.mirai.event.GlobalEventChannel;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.event.events.*;
