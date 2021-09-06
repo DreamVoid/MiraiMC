@@ -57,41 +57,13 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
-    <repositories>
-        <!-- This adds the Spigot Maven repository to the build -->
-        <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-        <repository>
-            <id>bungeecord-repo</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </repository>
-    </repositories>
-
     <dependencies>
-        <dependency>
-            <groupId>net.mamoe</groupId>
-            <artifactId>mirai-core-jvm</artifactId>
-            <version>2.7-M2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <version>3.3.0</version>
-            <scope>provided</scope>
-        </dependency>
         <!--很明显没有下面这个就别想编译通过，虽然我没有调用任何相关代码-->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>2.14.1</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>4.0.3</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/versions-maven-plugin -->
         <dependency>
@@ -104,27 +76,6 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!--maven-assembly-plugins-->
-            <plugin>
-                <!--加这个是为了把mirai的库打包进jar，这样Bukkit加载的时候就不会报找不到类了
-                至于为什么不像mcl一样下载外部文件，因为我懒，不想搞，可能以后会搞-->
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <descriptors>
-                        <descriptor>MiraiMC-Base/src/main/resources/assembly.xml</descriptor>
-                    </descriptors>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <!-- 一键更新子模块版本号 -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
