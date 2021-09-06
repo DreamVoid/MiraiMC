@@ -4,6 +4,7 @@ import java.io.File;
 
 public class Config {
     public static File PluginDir;
+    public static ClassLoader ClassLoader;
 
     public static boolean Gen_AllowBstats;
     public static boolean Gen_DisableSafeWarningMessage;
