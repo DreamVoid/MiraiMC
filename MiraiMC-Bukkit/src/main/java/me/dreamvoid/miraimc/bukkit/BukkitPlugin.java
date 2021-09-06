@@ -3,6 +3,7 @@ package me.dreamvoid.miraimc.bukkit;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
 import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.MiraiClassLoader;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import org.bukkit.Bukkit;
@@ -15,21 +16,20 @@ import java.util.Objects;
 public class BukkitPlugin extends JavaPlugin {
 
     private MiraiEvent MiraiEvent;
-    private BukkitConfig PluginConfig;
     public MiraiAutoLogin MiraiAutoLogin;
 
     @Override // 加载插件
     public void onLoad() {
         Utils.initUtils(this.getLogger());
-        this.PluginConfig = new BukkitConfig(this);
+        new BukkitConfig(this).loadConfig();
+
+        MiraiClassLoader.loadMiraiCore();
         this.MiraiEvent = new MiraiEvent();
         this.MiraiAutoLogin = new MiraiAutoLogin(this);
     }
 
     @Override // 启用插件
     public void onEnable() {
-        PluginConfig.loadConfig();
-
         getLogger().info("Mirai working dir: " + Config.Gen_MiraiWorkingDir);
 
         if(Config.Gen_AddProperties_MiraiNoDesktop){
