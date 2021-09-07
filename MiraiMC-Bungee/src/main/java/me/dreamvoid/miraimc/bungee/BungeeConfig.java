@@ -39,7 +39,7 @@ public class BungeeConfig {
             e.printStackTrace();
         }
 
-        Gen_AllowBstats = bungeeConfig.getBoolean("general.allow-bStats",true);
+        Gen_AllowBStats = bungeeConfig.getBoolean("general.allow-bStats",true);
         Gen_DisableSafeWarningMessage = bungeeConfig.getBoolean("general.disable-safe-warning-message",false);
         Gen_MiraiWorkingDir = bungeeConfig.getString("general.mirai-working-dir","default");
         Gen_AddProperties_MiraiNoDesktop = bungeeConfig.getBoolean("general.add-properties.mirai.no-desktop",true);

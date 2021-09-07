@@ -9,6 +9,7 @@ import me.dreamvoid.miraimc.internal.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Objects;
@@ -24,7 +25,11 @@ public class BukkitPlugin extends JavaPlugin {
         Utils.setClassLoader(this.getClassLoader());
         new BukkitConfig(this).loadConfig();
 
-        MiraiLoader.loadMiraiCore();
+        try {
+            MiraiLoader.loadMiraiCore();
+        } catch (IOException e) {
+            getLogger().severe("Failed to load Mirai Core, Reason: " + e.getLocalizedMessage());
+        }
         this.MiraiEvent = new MiraiEvent();
         this.MiraiAutoLogin = new MiraiAutoLogin(this);
     }
@@ -75,7 +80,7 @@ public class BukkitPlugin extends JavaPlugin {
         }
 
         // bStats统计
-        if(Config.Gen_AllowBstats && !getDescription().getVersion().contains("dev")) {
+        if(Config.Gen_AllowBStats && !getDescription().getVersion().contains("dev")) {
             getLogger().info("Initializing bStats metrics.");
             int pluginId = 11534;
             new Metrics(this, pluginId);
