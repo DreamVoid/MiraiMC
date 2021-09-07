@@ -15,7 +15,7 @@ public class BukkitConfig {
     public void loadConfig() {
         plugin.saveDefaultConfig();
 
-        Gen_AllowBstats = plugin.getConfig().getBoolean("general.allow-bStats",true);
+        Gen_AllowBStats = plugin.getConfig().getBoolean("general.allow-bStats",true);
         Gen_DisableSafeWarningMessage = plugin.getConfig().getBoolean("general.disable-safe-warning-message",false);
         Gen_MiraiWorkingDir = plugin.getConfig().getString("general.mirai-working-dir","default");
         Gen_AddProperties_MiraiNoDesktop = plugin.getConfig().getBoolean("general.add-properties.mirai.no-desktop",true);

@@ -163,19 +163,19 @@ public class MiraiBot {
             MiraiDir = new File(Config.PluginDir,"MiraiBot");
         }
         if(!MiraiDir.exists() &&!MiraiDir.mkdir()) {
-            throw new IOException("Failed to create folder " + MiraiDir.getPath());
+            throw new RuntimeException("Failed to create folder " + MiraiDir.getPath());
         }
 
         // 建立机器人账号文件夹
         File BotDir = new File(MiraiDir,"bots");
         if(!BotDir.exists() &&!BotDir.mkdir()) {
-            throw new IOException("Failed to create folder " + BotDir.getPath());
+            throw new RuntimeException("Failed to create folder " + BotDir.getPath());
         }
 
         // 建立当前机器人账号配置文件夹和相应的配置
         File BotConfig = new File(BotDir, String.valueOf(Account));
         if(!BotConfig.exists() && !BotConfig.mkdir()) {
-            throw new IOException("Failed to create folder " + BotConfig.getPath());
+            throw new RuntimeException("Failed to create folder " + BotConfig.getPath());
         }
 
         // 登录前的准备工作
