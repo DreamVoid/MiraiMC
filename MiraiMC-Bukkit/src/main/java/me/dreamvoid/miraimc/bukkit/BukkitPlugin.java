@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.bukkit;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
 import me.dreamvoid.miraimc.internal.Config;
-import me.dreamvoid.miraimc.internal.MiraiClassLoader;
+import me.dreamvoid.miraimc.internal.MiraiLoader;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import org.bukkit.Bukkit;
@@ -20,10 +20,11 @@ public class BukkitPlugin extends JavaPlugin {
 
     @Override // 加载插件
     public void onLoad() {
-        Utils.initUtils(this.getLogger());
+        Utils.setLogger(this.getLogger());
+        Utils.setClassLoader(this.getClassLoader());
         new BukkitConfig(this).loadConfig();
 
-        MiraiClassLoader.loadMiraiCore();
+        MiraiLoader.loadMiraiCore();
         this.MiraiEvent = new MiraiEvent();
         this.MiraiAutoLogin = new MiraiAutoLogin(this);
     }

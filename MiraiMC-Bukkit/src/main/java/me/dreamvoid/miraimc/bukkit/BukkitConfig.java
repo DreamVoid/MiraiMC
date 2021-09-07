@@ -10,7 +10,6 @@ public class BukkitConfig {
         Instance = this;
         this.plugin = plugin;
         PluginDir = plugin.getDataFolder();
-        ClassLoader = plugin.getClass().getClassLoader();
     }
 
     public void loadConfig() {
