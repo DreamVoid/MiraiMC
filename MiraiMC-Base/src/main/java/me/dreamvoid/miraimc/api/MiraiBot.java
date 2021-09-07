@@ -11,6 +11,7 @@ import net.mamoe.mirai.utils.BotConfiguration;
 import net.mamoe.mirai.utils.LoggerAdapters;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
@@ -89,7 +90,7 @@ public class MiraiBot {
             byte[] md5 = m.digest();
             privateBotLogin(Account, md5, Protocol);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
         }
     }
 
@@ -100,7 +101,11 @@ public class MiraiBot {
      * @param Protocol 协议类型
      */
     public static void doBotLogin(long Account, byte[] PasswordMD5, BotConfiguration.MiraiProtocol Protocol) {
-        privateBotLogin(Account, PasswordMD5, Protocol);
+        try {
+            privateBotLogin(Account, PasswordMD5, Protocol);
+        } catch (IOException e) {
+            logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+        }
     }
 
     /**
@@ -131,7 +136,7 @@ public class MiraiBot {
      */
     public boolean isExist() { return !(Objects.equals(bot, null)); }
 
-    private static void privateBotLogin(long Account, byte[] Password, BotConfiguration.MiraiProtocol Protocol){
+    private static void privateBotLogin(long Account, byte[] Password, BotConfiguration.MiraiProtocol Protocol) throws IOException {
         logger = Utils.logger;
 
         Bot existBot = Bot.getInstanceOrNull(Account);
@@ -155,17 +160,23 @@ public class MiraiBot {
         if(!(Config.Gen_MiraiWorkingDir.equals("default"))){
             MiraiDir = new File(Config.Gen_MiraiWorkingDir);
         } else {
-            MiraiDir = new File(String.valueOf(Config.PluginDir),"MiraiBot");
+            MiraiDir = new File(Config.PluginDir,"MiraiBot");
         }
-        if(!(MiraiDir.exists())){ if(!(MiraiDir.mkdir())) { logger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
+        if(!MiraiDir.exists() &&!MiraiDir.mkdir()) {
+            throw new IOException("Failed to create folder " + MiraiDir.getPath());
+        }
 
         // 建立机器人账号文件夹
-        File BotDir = new File(String.valueOf(MiraiDir),"bots");
-        if(!(BotDir.exists())){ if(!(BotDir.mkdir())) { logger.warning("Unable to create folder: \"" + BotDir.getPath()+"\", make sure you have enough permission."); } }
+        File BotDir = new File(MiraiDir,"bots");
+        if(!BotDir.exists() &&!BotDir.mkdir()) {
+            throw new IOException("Failed to create folder " + BotDir.getPath());
+        }
 
         // 建立当前机器人账号配置文件夹和相应的配置
-        File BotConfig = new File(String.valueOf(BotDir), String.valueOf(Account));
-        if(!(BotConfig.exists())){ if(!(BotConfig.mkdir())) { logger.warning("Unable to create folder: \"" + BotConfig.getPath()+"\", make sure you have enough permission."); } }
+        File BotConfig = new File(BotDir, String.valueOf(Account));
+        if(!BotConfig.exists() && !BotConfig.mkdir()) {
+            throw new IOException("Failed to create folder " + BotConfig.getPath());
+        }
 
         // 登录前的准备工作
         Bot bot = BotFactory.INSTANCE.newBot(Account, Password, new BotConfiguration(){{

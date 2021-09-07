@@ -20,16 +20,16 @@ public class BungeePlugin extends Plugin {
 
     @Override
     public void onLoad() {
-        Utils.initUtils(this.getLogger());
-        this.PluginConfig = new BungeeConfig(this);
+        Utils.setLogger(this.getLogger());
+        Utils.setClassLoader(this.getClass().getClassLoader());
+        new BungeeConfig(this).loadConfig();
+
         this.MiraiEvent = new MiraiEvent();
         this.MiraiAutoLogin = new MiraiAutoLogin(this);
     }
 
     @Override
     public void onEnable() {
-        PluginConfig.loadConfig();
-
         getLogger().info("Mirai working dir: " + Config.Gen_MiraiWorkingDir);
 
         if(Config.Gen_AddProperties_MiraiNoDesktop){
