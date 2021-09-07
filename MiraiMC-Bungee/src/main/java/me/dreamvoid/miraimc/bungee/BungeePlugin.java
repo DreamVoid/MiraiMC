@@ -15,7 +15,6 @@ import java.sql.SQLException;
 
 public class BungeePlugin extends Plugin {
     private MiraiEvent MiraiEvent;
-    private BungeeConfig PluginConfig;
     private MiraiAutoLogin MiraiAutoLogin;
 
     @Override
