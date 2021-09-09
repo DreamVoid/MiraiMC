@@ -11,9 +11,9 @@ import net.mamoe.mirai.utils.BotConfiguration;
 import net.mamoe.mirai.utils.LoggerAdapters;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -83,14 +83,14 @@ public class MiraiBot {
      * @param Password 机器人密码
      * @param Protocol 协议类型
      */
-    public static void doBotLogin(long Account, String Password, BotConfiguration.MiraiProtocol Protocol) {
+    public static void doBotLogin(long Account, String Password, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException{
         try {
             MessageDigest m = MessageDigest.getInstance("MD5");
             m.update(Password.getBytes(StandardCharsets.UTF_8));
             byte[] md5 = m.digest();
             privateBotLogin(Account, md5, Protocol);
-        } catch (Exception e) {
-            logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+        } catch (NoSuchAlgorithmException e) {
+            logger.warning("加密密码时出现异常，原因: " + e.getLocalizedMessage());
         }
     }
 
@@ -100,12 +100,8 @@ public class MiraiBot {
      * @param PasswordMD5 机器人密码MD5
      * @param Protocol 协议类型
      */
-    public static void doBotLogin(long Account, byte[] PasswordMD5, BotConfiguration.MiraiProtocol Protocol) {
-        try {
-            privateBotLogin(Account, PasswordMD5, Protocol);
-        } catch (IOException e) {
-            logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
-        }
+    public static void doBotLogin(long Account, byte[] PasswordMD5, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException{
+        privateBotLogin(Account, PasswordMD5, Protocol);
     }
 
     /**
@@ -136,7 +132,7 @@ public class MiraiBot {
      */
     public boolean isExist() { return !(Objects.equals(bot, null)); }
 
-    private static void privateBotLogin(long Account, byte[] Password, BotConfiguration.MiraiProtocol Protocol) throws IOException {
+    private static void privateBotLogin(long Account, byte[] Password, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException {
         logger = Utils.logger;
 
         Bot existBot = Bot.getInstanceOrNull(Account);
@@ -146,11 +142,7 @@ public class MiraiBot {
             MiraiLoginSolver.solveSliderCaptcha(Account, true);
             MiraiLoginSolver.solveUnsafeDeviceLoginVerify(Account, true);
             existBot.close();
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                logger.warning("线程出现异常，原因: "+e.getLocalizedMessage());
-            }
+            Thread.sleep(500);
         }
 
         logger.info("登录新的机器人账号: "+ Account+", 协议: "+ Protocol.name());
