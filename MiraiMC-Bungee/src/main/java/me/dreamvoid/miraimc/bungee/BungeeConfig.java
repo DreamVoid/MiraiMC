@@ -12,7 +12,7 @@ import static me.dreamvoid.miraimc.internal.Config.*;
 
 public class BungeeConfig {
     private Configuration bungeeConfig;
-    private BungeePlugin BungeePlugin;
+    private final BungeePlugin BungeePlugin;
     private static BungeeConfig Instance;
 
     public BungeeConfig(BungeePlugin bungee) {

@@ -3,6 +3,7 @@ package me.dreamvoid.miraimc.bukkit;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.api.MiraiMC;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
+import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.bukkit.Bukkit;
@@ -56,7 +57,12 @@ public class Commands implements CommandExecutor {
                                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&e可用的协议类型: ANDROID_PHONE, ANDROID_PAD, ANDROID_WATCH."));
                                                 Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
                                             }
-                                            MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
+                                            try {
+                                                MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
+                                            } catch (InterruptedException e) {
+                                                Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，请检查控制台输出！"));
+                                            }
                                         }
                                     }.runTaskAsynchronously(plugin);
                                 } else {
