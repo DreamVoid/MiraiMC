@@ -33,15 +33,21 @@ public class MiraiAutoLogin {
         } else {
             MiraiDir = new File(Config.PluginDir.getPath(),"MiraiBot");
         }
-        if(!(MiraiDir.exists())){ if(!(MiraiDir.mkdir())) { Logger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
+        if(!MiraiDir.exists() &&!MiraiDir.mkdir()) {
+            throw new RuntimeException("Failed to create folder " + MiraiDir.getPath());
+        }
 
         // 建立配置文件夹
-        File ConfigDir = new File(String.valueOf(MiraiDir),"config");
-        if(!(ConfigDir.exists())){ if(!(ConfigDir.mkdir())) { Logger.warning("Unable to create folder: \"" + ConfigDir.getPath()+"\", make sure you have enough permission."); } }
+        File ConfigDir = new File(MiraiDir,"config");
+        if(!ConfigDir.exists() &&!ConfigDir.mkdir()) {
+            throw new RuntimeException("Failed to create folder " + ConfigDir.getPath());
+        }
 
         // 建立控制台文件夹
-        File ConsoleDir = new File(String.valueOf(ConfigDir), "Console");
-        if(!(ConsoleDir.exists())){ if(!(ConsoleDir.mkdir())) { Logger.warning("Unable to create folder: \"" + ConsoleDir.getPath()+"\", make sure you have enough permission."); } }
+        File ConsoleDir = new File(ConfigDir, "Console");
+        if(!ConsoleDir.exists() &&!ConsoleDir.mkdir()) {
+            throw new RuntimeException("Failed to create folder " + ConsoleDir.getPath());
+        }
 
         // 建立自动登录文件
         AutoLoginFile = new File(ConsoleDir, "AutoLogin.yml");

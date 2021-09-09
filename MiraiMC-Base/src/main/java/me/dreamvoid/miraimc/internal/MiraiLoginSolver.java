@@ -50,8 +50,10 @@ public class MiraiLoginSolver extends LoginSolver {
         deviceVerifyCanceled.put(bot,false);
 
         // 建立机器人账号文件夹
-        File ImageDir = new File(String.valueOf(Config.PluginDir),"verifyimage");
-        if(!(ImageDir.exists())){ if(!(ImageDir.mkdir())) { bot.getLogger().warning("Unable to create folder: \"" + ImageDir.getPath()+"\", make sure you have enough permission."); } }
+        File ImageDir = new File(Config.PluginDir,"verifyimage");
+        if(!ImageDir.exists() &&!ImageDir.mkdir()) {
+            throw new RuntimeException("Failed to create folder " + ImageDir.getPath());
+        }
 
         // 验证码保存到本地
         File imageFile = new File(ImageDir,bot.getId()+"-verify.png");
