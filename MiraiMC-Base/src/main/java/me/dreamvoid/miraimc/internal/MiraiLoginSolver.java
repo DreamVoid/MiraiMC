@@ -37,6 +37,12 @@ public class MiraiLoginSolver extends LoginSolver {
             return super.getMessage();
         }
     };
+    private final CustomLoginFailedException loginErrorException = new CustomLoginFailedException(true,"登录时出现严重错误") {
+        @Override
+        public String getMessage() {
+            return super.getMessage();
+        }
+    };
 
     /**
      * @param bot 机器人实例
@@ -87,6 +93,7 @@ public class MiraiLoginSolver extends LoginSolver {
             threads.join();
         } catch (InterruptedException e) {
             bot.getLogger().warning("启动验证线程时出现异常，原因: "+e.getLocalizedMessage());
+            throw loginErrorException;
         }
 
         if(!deviceVerifyCanceled.containsKey(bot) || deviceVerifyCanceled.get(bot)){
@@ -136,6 +143,7 @@ public class MiraiLoginSolver extends LoginSolver {
             threads.join();
         } catch (InterruptedException e) {
             bot.getLogger().warning("启动验证线程时出现异常，原因: "+e.getLocalizedMessage());
+            throw loginErrorException;
         }
 
         if(!deviceVerifyCanceled.containsKey(bot) || deviceVerifyCanceled.get(bot)){
@@ -185,6 +193,7 @@ public class MiraiLoginSolver extends LoginSolver {
             threads.join();
         } catch (InterruptedException e) {
             bot.getLogger().warning("启动验证线程时出现异常，原因: "+e.getLocalizedMessage());
+            throw loginErrorException;
         }
 
         if(!deviceVerifyCanceled.containsKey(bot) || deviceVerifyCanceled.get(bot)){
