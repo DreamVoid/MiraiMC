@@ -12,6 +12,7 @@
         <module>MiraiMC-Base</module>
         <module>MiraiMC-Bukkit</module>
         <module>MiraiMC-Bungee</module>
+        <module>MiraiMC-Nukkit</module>
     </modules>
 
     <name>MiraiMC</name>
