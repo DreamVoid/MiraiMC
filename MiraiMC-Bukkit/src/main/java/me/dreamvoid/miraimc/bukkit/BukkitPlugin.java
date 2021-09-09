@@ -21,17 +21,17 @@ public class BukkitPlugin extends JavaPlugin {
 
     @Override // 加载插件
     public void onLoad() {
-        Utils.setLogger(this.getLogger());
-        Utils.setClassLoader(this.getClassLoader());
-        new BukkitConfig(this).loadConfig();
-
         try {
+            Utils.setLogger(this.getLogger());
+            Utils.setClassLoader(this.getClassLoader());
+            new BukkitConfig(this).loadConfig();
+
             MiraiLoader.loadMiraiCore();
+            this.MiraiEvent = new MiraiEvent();
+            this.MiraiAutoLogin = new MiraiAutoLogin(this);
         } catch (IOException e) {
-            getLogger().severe("Failed to load Mirai Core, Reason: " + e.getLocalizedMessage());
+            getLogger().severe("An error occurred while loading plugin, reason: " + e.getLocalizedMessage());
         }
-        this.MiraiEvent = new MiraiEvent();
-        this.MiraiAutoLogin = new MiraiAutoLogin(this);
     }
 
     @Override // 启用插件
