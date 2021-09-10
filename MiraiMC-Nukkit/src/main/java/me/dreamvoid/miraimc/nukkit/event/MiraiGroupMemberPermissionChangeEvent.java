@@ -1,7 +1,9 @@
 package me.dreamvoid.miraimc.nukkit.event;
 
+import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.MemberPermissionChangeEvent;
 import cn.nukkit.event.Event;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 群成员 - 成员权限 - 成员权限改变
@@ -13,8 +15,11 @@ public class MiraiGroupMemberPermissionChangeEvent extends Event{
         this.event = event;
     }
 
-
     private final MemberPermissionChangeEvent event;
+
+    private static final HandlerList handlers = new HandlerList();
+    public static HandlerList getHandlers() { return handlers; }
+    //public static HandlerList getHandlerList() { return handlers; }
 
     /**
      * 获取机器人账号

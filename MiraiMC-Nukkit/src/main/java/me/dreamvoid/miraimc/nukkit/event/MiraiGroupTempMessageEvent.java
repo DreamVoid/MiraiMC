@@ -1,7 +1,9 @@
 package me.dreamvoid.miraimc.nukkit.event;
 
+import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.GroupTempMessageEvent;
 import cn.nukkit.event.Event;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 被动收到消息 - 群临时会话消息
@@ -12,6 +14,10 @@ public class MiraiGroupTempMessageEvent extends Event {
         this.event = event;
     }
     private final GroupTempMessageEvent event;
+
+    private static final HandlerList handlers = new HandlerList();
+    public static HandlerList getHandlers() { return handlers; }
+    //public static HandlerList getHandlerList() { return handlers; }
 
     /**
      * 返回接收到这条信息的机器人ID

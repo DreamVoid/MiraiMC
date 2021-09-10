@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.nukkit;
 
 import cn.nukkit.plugin.PluginLogger;
+import cn.nukkit.scheduler.AsyncTask;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Config;
 import net.mamoe.mirai.utils.BotConfiguration;
@@ -9,7 +10,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MiraiAutoLogin {
 
@@ -66,23 +69,24 @@ public class MiraiAutoLogin {
         }
     }
 
-    public List<?> loadAutoLoginList() throws IOException{
-        Configuration data = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(AutoLoginFile);
-        return data.getList("accounts");
+    public List<Map> loadAutoLoginList() {
+        cn.nukkit.utils.Config data = new cn.nukkit.utils.Config(AutoLoginFile, cn.nukkit.utils.Config.YAML);
+        return data.getMapList("accounts");
     }
 
     public void doStartUpAutoLogin() {
-        Runnable thread = () -> {
-            Logger.info("[AutoLogin] Starting auto login task.");
+        plugin.getServer().getScheduler().scheduleAsyncTask(plugin, new AsyncTask() {
+            @Override
+            public void onRun() {
+                Logger.info("[AutoLogin] Starting auto login task.");
 
-            try {
-                for(Object list : loadAutoLoginList()){
-                    Configuration data = ConfigurationProvider.getProvider(net.md_5.bungee.config.JsonConfiguration.class).load(list.toString());
-
-                    long Account = data.getLong("account");
+                for(Map<?,?> map : loadAutoLoginList()){
+                    Map<?,?> password = (Map<?, ?>) map.get("password");
+                    Map<?,?> configuration = (Map<?, ?>) map.get("configuration");
+                    long Account = Long.parseLong(String.valueOf(map.get("account")));
                     if(Account != 123456){
-                        String Password = data.getString("password.value");
-                        BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(data.getString("configuration.protocol"));
+                        String Password = password.get("value").toString();
+                        BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString());
 
                         Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
                         try {
@@ -92,64 +96,54 @@ public class MiraiAutoLogin {
                         }
                     }
                 }
-            } catch (IOException e) {
-                Logger.severe("执行自动登录时出现异常，原因: "+e.getLocalizedMessage());
             }
-        };
-        plugin.getProxy().getScheduler().runAsync(plugin, thread);
+        });
     }
 
     public boolean addAutoLoginBot(long Account, String Password, String Protocol){
-        try {
-            // 获取自动登录文件
-            Configuration data = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(AutoLoginFile);
-            List<?> list = data.getList("accounts");
+        // 获取自动登录文件
+        cn.nukkit.utils.Config data = new cn.nukkit.utils.Config(AutoLoginFile, cn.nukkit.utils.Config.YAML);
+        List<Map> list = data.getMapList("accounts");
 
-            // 创建一个Yaml用来添加自动登录机器人
-            // 我除了这个方案想不出别的方案了
-            Configuration tempConf = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load("");
+        // 新建用于添加进去的Map
+        Map<Object, Object> account = new HashMap<>();
 
-            tempConf.set("account",Account);
+        // account 节点
+        account.put("account", Account);
 
-            tempConf.set("password.kind", "PLAIN");
-            tempConf.set("password.value", Password);
+        // password 节点
+        Map<Object, Object> password = new HashMap<>();
+        password.put("kind", "PLAIN");
+        password.put("value", Password);
+        account.put("password", password);
 
-            tempConf.set("configuration.protocol", Protocol);
-            tempConf.set("configuration.device", "device.json");
+        // configuration 节点
+        Map<Object, Object> configuration = new HashMap<>();
+        configuration.put("protocol", Protocol);
+        configuration.put("device", "device.json");
+        account.put("configuration", configuration);
 
-            // 保存
-            ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).save(data, AutoLoginFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+        // 添加
+        list.add(account);
+        data.set("accounts", list);
+        data.save(AutoLoginFile);
         return true;
     }
 
     public boolean delAutoLoginBot(long Account){
-        try {
-            // 获取自动登录文件
-            Configuration data = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(AutoLoginFile);
-            List<?> list = data.getList("accounts");
+        // 获取自动登录文件
+        cn.nukkit.utils.Config data = new cn.nukkit.utils.Config(AutoLoginFile, cn.nukkit.utils.Config.YAML);
+        List<Map> list = data.getMapList("accounts");
 
-            // 循环判断所有机器人
-            for (Object bots : list) {
-                // 获取机器人信息
-                Configuration bot = ConfigurationProvider.getProvider(net.md_5.bungee.config.JsonConfiguration.class).load(bots.toString());
-
-                // 判断账号是否相同
-                if (bot.getLong("account") == Account) {
-                    list.remove(bots);
-                    break;
-                }
+        for (Map<?, ?> bots : list) {
+            if (Long.parseLong(String.valueOf(bots.get("account"))) == Account) {
+                list.remove(bots);
+                break;
             }
-
-            // 保存
-            ConfigurationProvider.getProvider(net.md_5.bungee.config.JsonConfiguration.class).save(data,AutoLoginFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
         }
+        data.set("accounts", list);
+
+        data.save(AutoLoginFile);
         return true;
     }
 }

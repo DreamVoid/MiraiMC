@@ -1,7 +1,9 @@
 package me.dreamvoid.miraimc.nukkit.event;
 
+import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.BotLeaveEvent;
 import cn.nukkit.event.Event;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 机器人被踢出群或在其他客户端主动退出一个群
@@ -25,6 +27,10 @@ public class MiraiGroupBotLeaveEvent extends Event{
     private final BotLeaveEvent event;
     private final BotLeaveEvent.Active eventActive;
     private final BotLeaveEvent.Kick eventKick;
+
+    private static final HandlerList handlers = new HandlerList();
+    public static HandlerList getHandlers() { return handlers; }
+    //public static HandlerList getHandlerList() { return handlers; }
 
     /**
      * 获取机器人账号
