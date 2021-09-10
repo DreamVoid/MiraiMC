@@ -1,7 +1,9 @@
 package me.dreamvoid.miraimc.nukkit.event;
 
+import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.BotReloginEvent;
 import cn.nukkit.event.Event;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Bot 重新登录
@@ -13,6 +15,10 @@ public class MiraiBotReloginEvent extends Event {
     }
 
     private final BotReloginEvent event;
+
+    private static final HandlerList handlers = new HandlerList();
+    public static HandlerList getHandlers() { return handlers; }
+    //public static HandlerList getHandlerList() { return handlers; }
 
     /**
      * 获取机器人账号

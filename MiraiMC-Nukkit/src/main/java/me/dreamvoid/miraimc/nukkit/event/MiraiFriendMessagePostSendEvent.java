@@ -1,7 +1,9 @@
 package me.dreamvoid.miraimc.nukkit.event;
 
+import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.FriendMessagePostSendEvent;
 import cn.nukkit.event.Event;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 主动发送消息后 - 好友消息
@@ -13,6 +15,10 @@ public class MiraiFriendMessagePostSendEvent extends Event {
     }
 
     private final FriendMessagePostSendEvent event;
+
+    private static final HandlerList handlers = new HandlerList();
+    public static HandlerList getHandlers() { return handlers; }
+    //public static HandlerList getHandlerList() { return handlers; }
 
     /**
      * 返回发送这条信息的机器人ID

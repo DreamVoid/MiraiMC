@@ -1,7 +1,9 @@
 package me.dreamvoid.miraimc.nukkit.event;
 
+import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.MemberCardChangeEvent;
 import cn.nukkit.event.Event;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 群成员 - 名片和头衔 - 成员群名片改动
@@ -12,6 +14,10 @@ public class MiraiGroupMemberCardChangeEvent extends Event {
     }
 
     private final MemberCardChangeEvent event;
+
+    private static final HandlerList handlers = new HandlerList();
+    public static HandlerList getHandlers() { return handlers; }
+    //public static HandlerList getHandlerList() { return handlers; }
 
     /**
      * 获取机器人账号

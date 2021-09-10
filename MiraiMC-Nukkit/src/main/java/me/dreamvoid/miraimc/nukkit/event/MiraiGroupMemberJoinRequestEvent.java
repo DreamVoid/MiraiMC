@@ -1,7 +1,9 @@
 package me.dreamvoid.miraimc.nukkit.event;
 
+import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.MemberJoinRequestEvent;
 import cn.nukkit.event.Event;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 群成员 - 成员列表变更 - 一个账号请求加入群
@@ -13,6 +15,10 @@ public class MiraiGroupMemberJoinRequestEvent extends Event{
     }
 
     private final MemberJoinRequestEvent event;
+
+    private static final HandlerList handlers = new HandlerList();
+    public static HandlerList getHandlers() { return handlers; }
+    //public static HandlerList getHandlerList() { return handlers; }
 
     /**
      * 获取机器人账号

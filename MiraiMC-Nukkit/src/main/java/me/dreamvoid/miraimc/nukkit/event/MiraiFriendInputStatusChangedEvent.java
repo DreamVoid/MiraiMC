@@ -1,7 +1,9 @@
 package me.dreamvoid.miraimc.nukkit.event;
 
+import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.FriendInputStatusChangedEvent;
 import cn.nukkit.event.Event;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 好友输入状态改变
@@ -12,6 +14,10 @@ public class MiraiFriendInputStatusChangedEvent extends Event {
     }
 
     private final FriendInputStatusChangedEvent event;
+
+    private static final HandlerList handlers = new HandlerList();
+    public static HandlerList getHandlers() { return handlers; }
+    //public static HandlerList getHandlerList() { return handlers; }
 
     /**
      * 获取机器人账号
