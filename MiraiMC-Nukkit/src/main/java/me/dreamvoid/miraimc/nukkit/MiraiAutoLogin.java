@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.nukkit;
 import cn.nukkit.plugin.PluginLogger;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Config;
-import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.utils.BotConfiguration;
 
 import java.io.BufferedWriter;
@@ -11,7 +10,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class MiraiAutoLogin {
 
@@ -31,7 +29,7 @@ public class MiraiAutoLogin {
         if(!(Config.Gen_MiraiWorkingDir.equals("default"))){
             MiraiDir = new File(Config.Gen_MiraiWorkingDir);
         } else {
-            MiraiDir = new File(Config.PluginDir.getPath(),"MiraiBot");
+            MiraiDir = new File(Config.PluginDir,"MiraiBot");
         }
         if(!MiraiDir.exists() &&!MiraiDir.mkdir()) {
             throw new RuntimeException("Failed to create folder " + MiraiDir.getPath());
@@ -53,7 +51,7 @@ public class MiraiAutoLogin {
         AutoLoginFile = new File(ConsoleDir, "AutoLogin.yml");
         if(!AutoLoginFile.exists()) {
             try {
-                if(!AutoLoginFile.createNewFile()){ throw new IOException(); }
+                if(!AutoLoginFile.createNewFile()){ throw new RuntimeException("Failed to create folder " + AutoLoginFile.getPath()); }
                 String defaultText = "accounts: "+System.getProperty("line.separator");
                 File writeName = AutoLoginFile;
                 try (FileWriter writer = new FileWriter(writeName);

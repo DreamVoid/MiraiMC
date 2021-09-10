@@ -32,7 +32,7 @@ public class MiraiAutoLogin {
         if(!(Config.Gen_MiraiWorkingDir.equals("default"))){
             MiraiDir = new File(Config.Gen_MiraiWorkingDir);
         } else {
-            MiraiDir = new File(Config.PluginDir.getPath(),"MiraiBot");
+            MiraiDir = new File(Config.PluginDir,"MiraiBot");
         }
         if(!MiraiDir.exists() &&!MiraiDir.mkdir()) {
             throw new RuntimeException("Failed to create folder " + MiraiDir.getPath());
@@ -54,7 +54,7 @@ public class MiraiAutoLogin {
         AutoLoginFile = new File(ConsoleDir, "AutoLogin.yml");
         if(!AutoLoginFile.exists()) {
             try {
-                if(!AutoLoginFile.createNewFile()){ throw new IOException(); }
+                if(!AutoLoginFile.createNewFile()){ throw new RuntimeException("Failed to create folder " + AutoLoginFile.getPath()); }
                 String defaultText = "accounts: "+System.getProperty("line.separator");
                 File writeName = AutoLoginFile;
                 try (FileWriter writer = new FileWriter(writeName);
