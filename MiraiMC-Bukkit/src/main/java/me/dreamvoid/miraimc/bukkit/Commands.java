@@ -9,6 +9,7 @@ import net.mamoe.mirai.utils.BotConfiguration;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -21,17 +22,15 @@ import java.util.NoSuchElementException;
 public class Commands implements CommandExecutor {
 
     private final BukkitPlugin plugin;
-    //private final MiraiBot Mirai;
     private final MiraiAutoLogin MiraiAutoLogin;
 
     public Commands(BukkitPlugin plugin) {
         this.plugin = plugin;
-        //this.Mirai = MiraiBot.Instance;
         this.MiraiAutoLogin = new MiraiAutoLogin(plugin);
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String s, @NotNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         switch (command.getName().toLowerCase()){
             case "mirai" : {
                 if(!(args.length == 0)){
