@@ -23,9 +23,7 @@ public class BungeeConfig {
 
     public void loadConfig() {
         try {
-            if (!BungeePlugin.getDataFolder().exists()) {
-                if(!BungeePlugin.getDataFolder().mkdir()) throw new IOException();
-            }
+            if (!BungeePlugin.getDataFolder().exists() && !BungeePlugin.getDataFolder().mkdir()) throw new RuntimeException("Failed to create folder " + BungeePlugin.getDataFolder().getPath());
             File file = new File(BungeePlugin.getDataFolder(), "config.yml");
             if (!file.exists()) {
                 try (InputStream in = BungeePlugin.getResourceAsStream("config.yml")) {
