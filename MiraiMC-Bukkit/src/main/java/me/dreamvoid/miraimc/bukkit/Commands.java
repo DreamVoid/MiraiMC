@@ -3,11 +3,13 @@ package me.dreamvoid.miraimc.bukkit;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.api.MiraiMC;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
+import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -20,17 +22,15 @@ import java.util.NoSuchElementException;
 public class Commands implements CommandExecutor {
 
     private final BukkitPlugin plugin;
-    //private final MiraiBot Mirai;
     private final MiraiAutoLogin MiraiAutoLogin;
 
     public Commands(BukkitPlugin plugin) {
         this.plugin = plugin;
-        //this.Mirai = MiraiBot.Instance;
         this.MiraiAutoLogin = new MiraiAutoLogin(plugin);
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String s, @NotNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         switch (command.getName().toLowerCase()){
             case "mirai" : {
                 if(!(args.length == 0)){
@@ -56,7 +56,12 @@ public class Commands implements CommandExecutor {
                                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&e可用的协议类型: ANDROID_PHONE, ANDROID_PAD, ANDROID_WATCH."));
                                                 Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
                                             }
-                                            MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
+                                            try {
+                                                MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
+                                            } catch (InterruptedException e) {
+                                                Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，请检查控制台输出！"));
+                                            }
                                         }
                                     }.runTaskAsynchronously(plugin);
                                 } else {

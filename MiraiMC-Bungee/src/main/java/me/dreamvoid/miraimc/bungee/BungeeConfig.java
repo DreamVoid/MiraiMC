@@ -12,7 +12,7 @@ import static me.dreamvoid.miraimc.internal.Config.*;
 
 public class BungeeConfig {
     private Configuration bungeeConfig;
-    private BungeePlugin BungeePlugin;
+    private final BungeePlugin BungeePlugin;
     private static BungeeConfig Instance;
 
     public BungeeConfig(BungeePlugin bungee) {
@@ -23,9 +23,7 @@ public class BungeeConfig {
 
     public void loadConfig() {
         try {
-            if (!BungeePlugin.getDataFolder().exists()) {
-                if(!BungeePlugin.getDataFolder().mkdir()) throw new IOException();
-            }
+            if (!BungeePlugin.getDataFolder().exists() && !BungeePlugin.getDataFolder().mkdir()) throw new RuntimeException("Failed to create folder " + BungeePlugin.getDataFolder().getPath());
             File file = new File(BungeePlugin.getDataFolder(), "config.yml");
             if (!file.exists()) {
                 try (InputStream in = BungeePlugin.getResourceAsStream("config.yml")) {
@@ -39,7 +37,7 @@ public class BungeeConfig {
             e.printStackTrace();
         }
 
-        Gen_AllowBstats = bungeeConfig.getBoolean("general.allow-bStats",true);
+        Gen_AllowBStats = bungeeConfig.getBoolean("general.allow-bStats",true);
         Gen_DisableSafeWarningMessage = bungeeConfig.getBoolean("general.disable-safe-warning-message",false);
         Gen_MiraiWorkingDir = bungeeConfig.getString("general.mirai-working-dir","default");
         Gen_AddProperties_MiraiNoDesktop = bungeeConfig.getBoolean("general.add-properties.mirai.no-desktop",true);

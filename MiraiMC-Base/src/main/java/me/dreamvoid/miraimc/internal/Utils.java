@@ -11,12 +11,17 @@ import java.util.logging.Logger;
 
 public class Utils {
     public static Logger logger;
+    public static ClassLoader classLoader;
 
     public static Connection connection; // SQLite
     public static HikariDataSource ds; // MySQL
 
-    public static void initUtils(Logger logger){
+    public static void setLogger(Logger logger){
         Utils.logger = logger;
+    }
+
+    public static void setClassLoader(ClassLoader classLoader) {
+        Utils.classLoader = classLoader;
     }
 
     public static void initializeSQLite() throws SQLException, ClassNotFoundException{

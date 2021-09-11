@@ -75,7 +75,7 @@ public class MiraiMC {
                 }
             }
         } catch (SQLException e){
-            e.printStackTrace();
+            Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e.getLocalizedMessage());
         }
     }
 
@@ -123,7 +123,7 @@ public class MiraiMC {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e.getLocalizedMessage());
         }
     }
     /**
@@ -170,8 +170,8 @@ public class MiraiMC {
                     break;
                 }
             }
-            } catch (SQLException e) {
-                e.printStackTrace();
+        } catch (SQLException e) {
+            Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e.getLocalizedMessage());
         }
     }
 
@@ -221,8 +221,8 @@ public class MiraiMC {
                     break;
                 }
             }
-            } catch (SQLException e) {
-                e.printStackTrace();
+        } catch (SQLException e) {
+            Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e.getLocalizedMessage());
         }
         return account;
     }
@@ -233,7 +233,7 @@ public class MiraiMC {
      * @param account 玩家QQ号
      * @return UUID
      */
-    public static String getBinding(long account){
+    public static String getBinding(long account) {
         String uuid = "";
 
         String createTable = "CREATE TABLE IF NOT EXISTS miraimc_binding (uuid TINYTEXT NOT NULL, qqid long NOT NULL);";
@@ -273,8 +273,8 @@ public class MiraiMC {
                     break;
                 }
             }
-            } catch (SQLException e) {
-                e.printStackTrace();
+        } catch (SQLException e) {
+            Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e.getLocalizedMessage());
         }
         return uuid;
     }

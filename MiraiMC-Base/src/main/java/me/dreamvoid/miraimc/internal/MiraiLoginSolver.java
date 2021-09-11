@@ -37,6 +37,12 @@ public class MiraiLoginSolver extends LoginSolver {
             return super.getMessage();
         }
     };
+    private final CustomLoginFailedException loginErrorException = new CustomLoginFailedException(true,"登录时出现严重错误") {
+        @Override
+        public String getMessage() {
+            return super.getMessage();
+        }
+    };
 
     /**
      * @param bot 机器人实例
@@ -50,8 +56,10 @@ public class MiraiLoginSolver extends LoginSolver {
         deviceVerifyCanceled.put(bot,false);
 
         // 建立机器人账号文件夹
-        File ImageDir = new File(String.valueOf(Config.PluginDir),"verifyimage");
-        if(!(ImageDir.exists())){ if(!(ImageDir.mkdir())) { bot.getLogger().warning("Unable to create folder: \"" + ImageDir.getPath()+"\", make sure you have enough permission."); } }
+        File ImageDir = new File(Config.PluginDir,"verifyimage");
+        if(!ImageDir.exists() &&!ImageDir.mkdir()) {
+            throw new RuntimeException("Failed to create folder " + ImageDir.getPath());
+        }
 
         // 验证码保存到本地
         File imageFile = new File(ImageDir,bot.getId()+"-verify.png");
@@ -85,6 +93,7 @@ public class MiraiLoginSolver extends LoginSolver {
             threads.join();
         } catch (InterruptedException e) {
             bot.getLogger().warning("启动验证线程时出现异常，原因: "+e.getLocalizedMessage());
+            throw loginErrorException;
         }
 
         if(!deviceVerifyCanceled.containsKey(bot) || deviceVerifyCanceled.get(bot)){
@@ -134,6 +143,7 @@ public class MiraiLoginSolver extends LoginSolver {
             threads.join();
         } catch (InterruptedException e) {
             bot.getLogger().warning("启动验证线程时出现异常，原因: "+e.getLocalizedMessage());
+            throw loginErrorException;
         }
 
         if(!deviceVerifyCanceled.containsKey(bot) || deviceVerifyCanceled.get(bot)){
@@ -183,6 +193,7 @@ public class MiraiLoginSolver extends LoginSolver {
             threads.join();
         } catch (InterruptedException e) {
             bot.getLogger().warning("启动验证线程时出现异常，原因: "+e.getLocalizedMessage());
+            throw loginErrorException;
         }
 
         if(!deviceVerifyCanceled.containsKey(bot) || deviceVerifyCanceled.get(bot)){

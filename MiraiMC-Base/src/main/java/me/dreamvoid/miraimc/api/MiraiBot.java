@@ -13,6 +13,7 @@ import net.mamoe.mirai.utils.LoggerAdapters;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -82,14 +83,14 @@ public class MiraiBot {
      * @param Password 机器人密码
      * @param Protocol 协议类型
      */
-    public static void doBotLogin(long Account, String Password, BotConfiguration.MiraiProtocol Protocol) {
+    public static void doBotLogin(long Account, String Password, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException{
         try {
             MessageDigest m = MessageDigest.getInstance("MD5");
             m.update(Password.getBytes(StandardCharsets.UTF_8));
             byte[] md5 = m.digest();
             privateBotLogin(Account, md5, Protocol);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            logger.warning("加密密码时出现异常，原因: " + e.getLocalizedMessage());
         }
     }
 
@@ -99,7 +100,7 @@ public class MiraiBot {
      * @param PasswordMD5 机器人密码MD5
      * @param Protocol 协议类型
      */
-    public static void doBotLogin(long Account, byte[] PasswordMD5, BotConfiguration.MiraiProtocol Protocol) {
+    public static void doBotLogin(long Account, byte[] PasswordMD5, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException{
         privateBotLogin(Account, PasswordMD5, Protocol);
     }
 
@@ -131,7 +132,7 @@ public class MiraiBot {
      */
     public boolean isExist() { return !(Objects.equals(bot, null)); }
 
-    private static void privateBotLogin(long Account, byte[] Password, BotConfiguration.MiraiProtocol Protocol){
+    private static void privateBotLogin(long Account, byte[] Password, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException {
         logger = Utils.logger;
 
         Bot existBot = Bot.getInstanceOrNull(Account);
@@ -141,11 +142,7 @@ public class MiraiBot {
             MiraiLoginSolver.solveSliderCaptcha(Account, true);
             MiraiLoginSolver.solveUnsafeDeviceLoginVerify(Account, true);
             existBot.close();
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                logger.warning("线程出现异常，原因: "+e.getLocalizedMessage());
-            }
+            Thread.sleep(500);
         }
 
         logger.info("登录新的机器人账号: "+ Account+", 协议: "+ Protocol.name());
@@ -155,17 +152,23 @@ public class MiraiBot {
         if(!(Config.Gen_MiraiWorkingDir.equals("default"))){
             MiraiDir = new File(Config.Gen_MiraiWorkingDir);
         } else {
-            MiraiDir = new File(String.valueOf(Config.PluginDir),"MiraiBot");
+            MiraiDir = new File(Config.PluginDir,"MiraiBot");
         }
-        if(!(MiraiDir.exists())){ if(!(MiraiDir.mkdir())) { logger.warning("Unable to create folder: \"" + MiraiDir.getPath()+"\", make sure you have enough permission."); } }
+        if(!MiraiDir.exists() &&!MiraiDir.mkdir()) {
+            throw new RuntimeException("Failed to create folder " + MiraiDir.getPath());
+        }
 
         // 建立机器人账号文件夹
-        File BotDir = new File(String.valueOf(MiraiDir),"bots");
-        if(!(BotDir.exists())){ if(!(BotDir.mkdir())) { logger.warning("Unable to create folder: \"" + BotDir.getPath()+"\", make sure you have enough permission."); } }
+        File BotDir = new File(MiraiDir,"bots");
+        if(!BotDir.exists() &&!BotDir.mkdir()) {
+            throw new RuntimeException("Failed to create folder " + BotDir.getPath());
+        }
 
         // 建立当前机器人账号配置文件夹和相应的配置
-        File BotConfig = new File(String.valueOf(BotDir), String.valueOf(Account));
-        if(!(BotConfig.exists())){ if(!(BotConfig.mkdir())) { logger.warning("Unable to create folder: \"" + BotConfig.getPath()+"\", make sure you have enough permission."); } }
+        File BotConfig = new File(BotDir, String.valueOf(Account));
+        if(!BotConfig.exists() && !BotConfig.mkdir()) {
+            throw new RuntimeException("Failed to create folder " + BotConfig.getPath());
+        }
 
         // 登录前的准备工作
         Bot bot = BotFactory.INSTANCE.newBot(Account, Password, new BotConfiguration(){{
