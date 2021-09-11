@@ -5,7 +5,7 @@ import java.io.File;
 public class Config {
     public static File PluginDir;
 
-    public static boolean Gen_AllowBstats;
+    public static boolean Gen_AllowBStats;
     public static boolean Gen_DisableSafeWarningMessage;
     public static String Gen_MiraiWorkingDir;
     public static boolean Gen_AddProperties_MiraiNoDesktop;

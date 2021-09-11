@@ -3,11 +3,13 @@ package me.dreamvoid.miraimc.bukkit;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
 import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.MiraiLoader;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Objects;
@@ -15,21 +17,25 @@ import java.util.Objects;
 public class BukkitPlugin extends JavaPlugin {
 
     private MiraiEvent MiraiEvent;
-    private BukkitConfig PluginConfig;
     public MiraiAutoLogin MiraiAutoLogin;
 
     @Override // 加载插件
     public void onLoad() {
-        Utils.initUtils(this.getLogger());
-        this.PluginConfig = new BukkitConfig(this);
-        this.MiraiEvent = new MiraiEvent();
-        this.MiraiAutoLogin = new MiraiAutoLogin(this);
+        try {
+            Utils.setLogger(this.getLogger());
+            Utils.setClassLoader(this.getClassLoader());
+            new BukkitConfig(this).loadConfig();
+
+            MiraiLoader.loadMiraiCore();
+            this.MiraiEvent = new MiraiEvent();
+            this.MiraiAutoLogin = new MiraiAutoLogin(this);
+        } catch (IOException e) {
+            getLogger().severe("An error occurred while loading plugin, reason: " + e.getLocalizedMessage());
+        }
     }
 
     @Override // 启用插件
     public void onEnable() {
-        PluginConfig.loadConfig();
-
         getLogger().info("Mirai working dir: " + Config.Gen_MiraiWorkingDir);
 
         if(Config.Gen_AddProperties_MiraiNoDesktop){
@@ -74,7 +80,7 @@ public class BukkitPlugin extends JavaPlugin {
         }
 
         // bStats统计
-        if(Config.Gen_AllowBstats && !getDescription().getVersion().contains("dev")) {
+        if(Config.Gen_AllowBStats && !getDescription().getVersion().contains("dev")) {
             getLogger().info("Initializing bStats metrics.");
             int pluginId = 11534;
             new Metrics(this, pluginId);
