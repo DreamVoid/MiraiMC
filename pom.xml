@@ -130,7 +130,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <excludePackageNames>me.dreamvoid.miraimc.bukkit:me.dreamvoid.miraimc.bukkit.*:me.dreamvoid.miraimc.bukkit.utils.*:me.dreamvoid.miraimc.internal:me.dreamvoid.miraimc.internal.*:</excludePackageNames>
+                    <excludePackageNames>me.dreamvoid.miraimc.bukkit:me.dreamvoid.miraimc.bukkit.utils:me.dreamvoid.miraimc.bukkit.utils.*:me.dreamvoid.miraimc.internal:me.dreamvoid.miraimc.internal.*:</excludePackageNames>
                 </configuration>
             </plugin>
             <plugin>
