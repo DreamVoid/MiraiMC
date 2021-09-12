@@ -8,7 +8,9 @@ import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -29,8 +31,9 @@ public class BukkitPlugin extends JavaPlugin {
             MiraiLoader.loadMiraiCore();
             this.MiraiEvent = new MiraiEvent();
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
-        } catch (IOException e) {
-            getLogger().severe("An error occurred while loading plugin, reason: " + e.getLocalizedMessage());
+        } catch (IOException | ParserConfigurationException | SAXException e) {
+            getLogger().warning("An error occurred while loading plugin");
+            e.printStackTrace();
         }
     }
 

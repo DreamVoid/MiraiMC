@@ -15,7 +15,9 @@ import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.nukkit.utils.MetricsLite;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -37,7 +39,7 @@ public class NukkitPlugin extends PluginBase {
             MiraiLoader.loadMiraiCore();
             this.MiraiEvent = new MiraiEvent(this);
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
-        } catch (IOException e) {
+        } catch (IOException | ParserConfigurationException | SAXException e) {
             getLogger().error("An error occurred while loading plugin, reason: " + e.getLocalizedMessage());
         }
     }
