@@ -65,7 +65,7 @@ public class MiraiLoader {
 
         Utils.logger.info("Verifying "+ name);
         if (!saveLocation.exists() || !DigestUtils.md5Hex(new FileInputStream(saveLocation)).equals(new String(Files.readAllBytes(jarMD5.toPath()), StandardCharsets.UTF_8))) {
-            if (saveLocation.exists() && !saveLocation.delete()) {
+            if (saveLocation.exists() && !saveLocation.delete()) { // TODO: 删除文件有问题
                 throw new RuntimeException("Failed to delete " + saveLocation.getPath());
             }
 
