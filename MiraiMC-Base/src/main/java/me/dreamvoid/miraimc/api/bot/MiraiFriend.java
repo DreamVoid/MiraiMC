@@ -33,15 +33,6 @@ public class MiraiFriend {
     public void sendMessage(String message){
         friend.sendMessage(message);
     }
-    /**
-     * 向好友发送消息
-     * @param messageChain 消息链
-     * @deprecated
-     */
-    @Deprecated
-    public void sendMessage(MessageChain messageChain){
-        friend.sendMessage(messageChain);
-    }
 
     /**
      * 向好友发送消息<br>
