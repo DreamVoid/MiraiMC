@@ -147,28 +147,10 @@ public class MiraiBot {
 
         logger.info("登录新的机器人账号: "+ Account+", 协议: "+ Protocol.name());
 
-        // 建立mirai数据文件夹
-        File MiraiDir;
-        if(!(Config.Gen_MiraiWorkingDir.equals("default"))){
-            MiraiDir = new File(Config.Gen_MiraiWorkingDir);
-        } else {
-            MiraiDir = new File(Config.PluginDir,"MiraiBot");
-        }
-        if(!MiraiDir.exists() &&!MiraiDir.mkdir()) {
-            throw new RuntimeException("Failed to create folder " + MiraiDir.getPath());
-        }
+        File MiraiDir; if(!(Config.Gen_MiraiWorkingDir.equals("default"))) MiraiDir = new File(Config.Gen_MiraiWorkingDir); else MiraiDir = new File(Config.PluginDir,"MiraiBot"); // mirai数据文件夹
+        File BotConfig = new File(MiraiDir, "bots/" + Account); // 当前机器人账号配置文件夹和相应的配置
 
-        // 建立机器人账号文件夹
-        File BotDir = new File(MiraiDir,"bots");
-        if(!BotDir.exists() &&!BotDir.mkdir()) {
-            throw new RuntimeException("Failed to create folder " + BotDir.getPath());
-        }
-
-        // 建立当前机器人账号配置文件夹和相应的配置
-        File BotConfig = new File(BotDir, String.valueOf(Account));
-        if(!BotConfig.exists() && !BotConfig.mkdir()) {
-            throw new RuntimeException("Failed to create folder " + BotConfig.getPath());
-        }
+        if(!BotConfig.exists() && !BotConfig.mkdirs()) throw new RuntimeException("Failed to create folder " + BotConfig.getPath());
 
         // 登录前的准备工作
         Bot bot = BotFactory.INSTANCE.newBot(Account, Password, new BotConfiguration(){{

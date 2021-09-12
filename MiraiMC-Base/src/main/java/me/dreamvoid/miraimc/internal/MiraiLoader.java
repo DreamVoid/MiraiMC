@@ -13,33 +13,10 @@ import java.util.function.Supplier;
 public class MiraiLoader {
 
     // 把lucko的代码偷过来 XD
-    private static final Supplier<URLClassLoaderAccess> URL_INJECTOR = Suppliers.memoize(() -> URLClassLoaderAccess.create((URLClassLoader) Utils.classLoader))::get;
+    private static final Supplier<URLClassLoaderAccess> LOADER = Suppliers.memoize(() -> URLClassLoaderAccess.create((URLClassLoader) Utils.classLoader))::get;
 
     public static void loadMiraiCore() throws RuntimeException, IOException {
-        // Mirai工作文件夹
-        File MiraiDir;
-        if (Config.Gen_MiraiWorkingDir.equals("default")) {
-            MiraiDir = new File(Config.PluginDir,"MiraiBot");
-        } else {
-            MiraiDir = new File(Config.Gen_MiraiWorkingDir);
-        }
-        if(!MiraiDir.exists() && !MiraiDir.mkdir()) throw new RuntimeException("Failed to create folder " + MiraiDir.getPath());
-
-        // 库文件夹
-        File LibrariesDir = new File(MiraiDir,"libs");
-        if(!LibrariesDir.exists() && !LibrariesDir.mkdir()) throw new RuntimeException("Failed to create folder " + LibrariesDir.getPath());
-
-        downloadLibrary("net.mamoe","mirai-core-all","2.8-M1","https://repo1.maven.org/maven2","-all");
-
-        // 获取所有的.jar和.zip文件
-        File[] jarFiles = LibrariesDir.listFiles((dir, name) -> name.endsWith(".jar") || name.endsWith(".zip"));
-
-        if (jarFiles != null) {
-            for (File file : jarFiles) {
-                Utils.logger.info("Loading library "+file.getName());
-                URL_INJECTOR.get().addURL(file.toURI().toURL());
-            }
-        }
+        classLoadLibrary("net.mamoe", "mirai-core-all", "2.8-M1", "https://repo1.maven.org/maven2", "-all");
     }
 
     /**
@@ -49,27 +26,21 @@ public class MiraiLoader {
      * @param repoUrl 仓库地址
      * @param extraArgs 额外参数
      */
-    public static void downloadLibrary(String groupId, String artifactId, String version, String repoUrl, String extraArgs) throws RuntimeException, IOException {
+    public static void classLoadLibrary(String groupId, String artifactId, String version, String repoUrl, String extraArgs) throws RuntimeException, IOException {
         // 文件夹
-        File MiraiDir;
-        if (Config.Gen_MiraiWorkingDir.equals("default")) {
-            MiraiDir = new File(Config.PluginDir,"MiraiBot");
-        } else {
-            MiraiDir = new File(Config.Gen_MiraiWorkingDir);
-        }
-        if(!MiraiDir.exists() && !MiraiDir.mkdir()) throw new RuntimeException("Failed to create " + MiraiDir.getPath());
+        File MiraiDir; if (Config.Gen_MiraiWorkingDir.equals("default")) MiraiDir = new File(Config.PluginDir,"MiraiBot"); else MiraiDir = new File(Config.Gen_MiraiWorkingDir);
+        File LibrariesDir = new File(MiraiDir,"libs");
+        if(!LibrariesDir.exists() && !LibrariesDir.mkdirs()) throw new RuntimeException("Failed to create " + LibrariesDir.getPath());
 
-        File libPath = new File(MiraiDir,"libs");
-        if(!libPath.exists() && !libPath.mkdir()) throw new RuntimeException("Failed to create " + libPath.getPath());
+        String name = artifactId + "-" + version + ".jar"; // 文件名
 
-        String name = artifactId + "-" + version; // 文件名
-
+        // -- 下载开始 --
         if (!repoUrl.endsWith("/")) repoUrl += "/";
-        repoUrl += "%s/%s/%s/%s-%s%s.jar"; // 下载地址
+        repoUrl += "%s/%s/%s/%s-%s%s.jar"; // 下载地址格式
 
         String jarUrl = String.format(repoUrl, groupId.replace(".", "/"), artifactId, version, artifactId, version, extraArgs); // 格式化后的下载地址
 
-        File saveLocation = new File(libPath, name + ".jar");
+        File saveLocation = new File(LibrariesDir, name);
         if (!saveLocation.exists()) {
             Utils.logger.info("Downloading "+ jarUrl);
             URL url = new URL(jarUrl);
@@ -78,11 +49,13 @@ public class MiraiLoader {
                 Files.copy(is, saveLocation.toPath());
             }
 
-            Utils.logger.info(name + " successfully downloaded.");
+            if(saveLocation.exists()){
+                Utils.logger.info(name + " successfully downloaded.");
+            } else throw new RuntimeException("Failed to download " + jarUrl);
         }
 
-        if (!saveLocation.exists()) {
-            throw new RuntimeException("Failed to download " + jarUrl);
-        }
+        // -- 加载开始 --
+        Utils.logger.info("Loading library " + name);
+        LOADER.get().addURL(saveLocation.toURI().toURL());
     }
 }

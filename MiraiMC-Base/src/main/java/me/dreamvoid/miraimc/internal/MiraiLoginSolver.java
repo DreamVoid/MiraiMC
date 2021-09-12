@@ -57,7 +57,7 @@ public class MiraiLoginSolver extends LoginSolver {
 
         // 建立机器人账号文件夹
         File ImageDir = new File(Config.PluginDir,"verifyimage");
-        if(!ImageDir.exists() &&!ImageDir.mkdir()) {
+        if(!ImageDir.exists() &&!ImageDir.mkdirs()) {
             throw new RuntimeException("Failed to create folder " + ImageDir.getPath());
         }
 
