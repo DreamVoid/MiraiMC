@@ -1,9 +1,10 @@
 ---
 name: 问题报告
 about: 如果你想反馈 Bug，请使用此模板
-title: ""
+title: ''
 labels: 漏洞
 assignees: DreamVoid
+
 ---
 
 <strong>问题描述</strong>
