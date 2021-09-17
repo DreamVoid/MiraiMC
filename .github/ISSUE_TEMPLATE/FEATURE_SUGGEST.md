@@ -1,8 +1,10 @@
 ---
 name: 功能建议
 about: 如果你想建议一些新的功能，请使用此模板
-title: ""
+title: ''
 labels: 功能
+assignees: ''
+
 ---
 
 <strong>功能描述</strong>
