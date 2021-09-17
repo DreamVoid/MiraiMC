@@ -26,6 +26,9 @@ public class MiraiLoader {
     public static void loadMiraiCore() throws RuntimeException, IOException, ParserConfigurationException, SAXException {
         loadLibraryClass("net.mamoe", "mirai-core-all", "https://repo1.maven.org/maven2", "-all");
     }
+    public static void loadMiraiCore(String version) throws RuntimeException, IOException, ParserConfigurationException, SAXException {
+        loadLibraryClass("net.mamoe", "mirai-core-all", version, "https://repo1.maven.org/maven2", "-all");
+    }
 
     private static void loadLibraryClass(String groupId, String artifactId, String repoUrl, String extraArgs) throws RuntimeException, IOException, ParserConfigurationException, SAXException {
         loadLibraryClass(groupId, artifactId, getLibraryMeta(groupId,artifactId,repoUrl,"release"), repoUrl, extraArgs);
