@@ -21,7 +21,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Hub Mirror Action.
-        uses: Yikun/hub-mirror-action@1.1
+        uses: Yikun/hub-mirror-action@master
         with:
           src: github/DreamVoid
           dst: gitee/dreamvoid
