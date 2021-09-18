@@ -20,8 +20,8 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Black list
-        uses: Yikun/hub-mirror-action@master
+      - name: Hub Mirror Action.
+        uses: Yikun/hub-mirror-action@1.1
         with:
           src: github/DreamVoid
           dst: gitee/dreamvoid
