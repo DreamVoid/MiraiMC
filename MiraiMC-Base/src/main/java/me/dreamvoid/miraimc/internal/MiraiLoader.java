@@ -19,22 +19,30 @@ import java.nio.file.Files;
 import java.util.function.Supplier;
 
 public class MiraiLoader {
-
     // 把lucko的代码偷过来 XD
     private static final Supplier<URLClassLoaderAccess> LOADER = Suppliers.memoize(() -> URLClassLoaderAccess.create((URLClassLoader) Utils.classLoader))::get;
 
+    /**
+     * 加载最新版Mirai Core
+     */
     public static void loadMiraiCore() throws RuntimeException, IOException, ParserConfigurationException, SAXException {
         loadLibraryClass("net.mamoe", "mirai-core-all", "https://repo1.maven.org/maven2", "-all");
     }
-    public static void loadMiraiCore(String version) throws RuntimeException, IOException, ParserConfigurationException, SAXException {
+
+    /**
+     * 加载指定版本的Mirai Core
+     * @param version 版本
+     */
+    public static void loadMiraiCore(String version) throws RuntimeException, IOException {
         loadLibraryClass("net.mamoe", "mirai-core-all", version, "https://repo1.maven.org/maven2", "-all");
     }
 
     private static void loadLibraryClass(String groupId, String artifactId, String repoUrl, String extraArgs) throws RuntimeException, IOException, ParserConfigurationException, SAXException {
-        loadLibraryClass(groupId, artifactId, getLibraryMeta(groupId,artifactId,repoUrl,"release"), repoUrl, extraArgs);
+        loadLibraryClass(groupId, artifactId, getLibraryVetsionMaven(groupId,artifactId,repoUrl,"release"), repoUrl, extraArgs);
     }
 
     /**
+     * 加载依赖库
      * @param groupId 组ID
      * @param artifactId 构件ID
      * @param version 版本
@@ -43,89 +51,138 @@ public class MiraiLoader {
      */
     private static void loadLibraryClass(String groupId, String artifactId, String version, String repoUrl, String extraArgs) throws RuntimeException, IOException {
         // 文件夹
-        File MiraiDir; if (Config.Gen_MiraiWorkingDir.equals("default")) MiraiDir = new File(Config.PluginDir,"MiraiBot"); else MiraiDir = new File(Config.Gen_MiraiWorkingDir);
+        File MiraiDir;
+        if (Config.Gen_MiraiWorkingDir.equals("default")) {
+            MiraiDir = new File(Config.PluginDir,"MiraiBot");
+        } else {
+            MiraiDir = new File(Config.Gen_MiraiWorkingDir);
+        }
         File LibrariesDir = new File(MiraiDir,"libs");
-        if(!LibrariesDir.exists() && !LibrariesDir.mkdirs()) throw new RuntimeException("Failed to create " + LibrariesDir.getPath());
+        if(!LibrariesDir.exists() && !LibrariesDir.mkdirs()) {
+            throw new RuntimeException("Failed to create " + LibrariesDir.getPath());
+        }
 
         String name = artifactId + "-" + version + ".jar"; // 文件名
 
-        // -- 下载开始 --
-        if (!repoUrl.endsWith("/")) repoUrl += "/";
-        repoUrl += "%s/%s/%s/%s-%s%s.jar"; // 下载地址格式
-        String format = String.format(repoUrl, groupId.replace(".", "/"), artifactId, version, artifactId, version, extraArgs);
-
-        // md5
-        File jarMD5 = new File(LibrariesDir, name + ".md5"); if(jarMD5.exists()) if(!jarMD5.delete()) throw new RuntimeException("Failed to delete " + jarMD5.getPath());
-        String md5Url = format + ".md5";
-        URL md5UrlA = new URL(md5Url);
-        try (InputStream is = md5UrlA.openStream()) {
-            Files.copy(is, jarMD5.toPath());
-        }
-        if(!jarMD5.exists()) throw new RuntimeException("Failed to download " + md5Url);
-
         // jar
         File saveLocation = new File(LibrariesDir, name);
-
         Utils.logger.info("Verifying "+ name);
-        if (!saveLocation.exists() || !DigestUtils.md5Hex(new FileInputStream(saveLocation)).equals(new String(Files.readAllBytes(jarMD5.toPath()), StandardCharsets.UTF_8))) {
-            if (saveLocation.exists() && !saveLocation.delete()) { // TODO: 删除文件有问题
-                throw new RuntimeException("Failed to delete " + saveLocation.getPath());
-            }
-
-            Utils.logger.info("Downloading "+ format);
-            URL url = new URL(format);
-
-            try (InputStream is = url.openStream()) {
-                Files.copy(is, saveLocation.toPath());
-            }
-
-            if(saveLocation.exists()){
-                Utils.logger.info(name + " successfully downloaded.");
-            } else throw new RuntimeException("Failed to download " + format);
+        if(!downloadLibraryMaven(groupId,artifactId,version,repoUrl,extraArgs,saveLocation,true)){
+            throw new RuntimeException("Failed to load libraries!");
         }
+
 
         // -- 加载开始 --
         Utils.logger.info("Loading library " + name);
         LOADER.get().addURL(saveLocation.toURI().toURL());
     }
 
-    public static String getLibraryMeta(String groupId, String artifactId, String repoUrl, String tag) throws IOException, ParserConfigurationException, SAXException {
-        File CacheDir = new File(Config.PluginDir,"cache"); if(!CacheDir.exists() && !CacheDir.mkdirs()) throw new RuntimeException("Failed to create " + CacheDir.getPath());
-
-        String metaName = "maven-metadata-" + groupId + "." + artifactId + ".xml";
+    public static String getLibraryVetsionMaven(String groupId, String artifactId, String repoUrl, String xmlTag) throws IOException, ParserConfigurationException, SAXException {
+        File CacheDir = new File(Config.PluginDir,"cache");
+        if(!CacheDir.exists() && !CacheDir.mkdirs()) {
+            throw new RuntimeException("Failed to create " + CacheDir.getPath());
+        }
+        String metaFileName = "maven-metadata-" + groupId + "." + artifactId + ".xml";
+        File metaFile = new File(CacheDir, metaFileName);
 
         if (!repoUrl.endsWith("/")) repoUrl += "/";
         repoUrl += "%s/%s/"; // 根目录格式
-        repoUrl = String.format(repoUrl, groupId.replace(".", "/"), artifactId); // 格式化后的根目录
+        String repoFormat = String.format(repoUrl, groupId.replace(".", "/"), artifactId); // 格式化后的根目录
 
         // MD5
-        File metaMD5 = new File(CacheDir, metaName + ".md5"); if(metaMD5.exists() && !metaMD5.delete()) throw new RuntimeException("Failed to delete " + metaMD5.getPath());
+        File metaFileMD5 = new File(CacheDir, metaFileName + ".md5");
+        if(metaFileMD5.exists() && !metaFileMD5.delete()) throw new RuntimeException("Failed to delete " + metaFileMD5.getPath());
 
-        URL metaMD5Url = new URL(repoUrl + "maven-metadata.xml.md5");
+        URL metaFileMD5Url = new URL(repoFormat + "maven-metadata.xml.md5");
 
-        try (InputStream is = metaMD5Url.openStream()) {
-            Files.copy(is, metaMD5.toPath());
-        }
+        downloadFile(metaFileMD5,metaFileMD5Url);
 
-        if(!metaMD5.exists()) throw new RuntimeException("Failed to download " + metaMD5Url);
+        if(!metaFileMD5.exists()) throw new RuntimeException("Failed to download " + metaFileMD5Url);
 
         // 验证meta文件
-        File metaFile = new File(CacheDir, metaName);
-        Utils.logger.info("Verifying " + metaName);
-        if(!metaFile.exists() || !DigestUtils.md5Hex(new FileInputStream(metaFile)).equals(new String(Files.readAllBytes(metaMD5.toPath()), StandardCharsets.UTF_8))) {
-            URL metaFileUrl = new URL(repoUrl + "maven-metadata.xml");
+        Utils.logger.info("Verifying " + metaFileName);
+        if (metaFile.exists()) {
+            try (FileInputStream fis = new FileInputStream(metaFile)) {
+                if (!DigestUtils.md5Hex(fis).equals(new String(Files.readAllBytes(metaFileMD5.toPath()), StandardCharsets.UTF_8))) {
+                    fis.close();
 
-            try (InputStream is = metaFileUrl.openStream()) {
-                Files.copy(is, metaFile.toPath());
+                    URL metaFileUrl = new URL(repoFormat + "maven-metadata.xml");
+                    downloadFile(metaFile, metaFileUrl);
+                    if (!metaFileMD5.exists()) throw new RuntimeException("Failed to download " + metaFileUrl);
+                }
             }
-
-            if(!metaMD5.exists()) throw new RuntimeException("Failed to download " + metaFileUrl);
+        } else {
+            URL metaFileUrl = new URL(repoFormat + "maven-metadata.xml");
+            Utils.logger.info("Downloading "+ metaFileUrl);
+            downloadFile(metaFile, metaFileUrl);
+            if (!metaFileMD5.exists()) throw new RuntimeException("Failed to download " + metaFileUrl);
         }
 
         // 读取内容
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(metaFile);
-        return doc.getElementsByTagName(tag).item(0).getFirstChild().getNodeValue();
+        return doc.getElementsByTagName(xmlTag).item(0).getFirstChild().getNodeValue();
+    }
+
+    private static void downloadFile(File file, URL url) throws IOException {
+        try (InputStream is = url.openStream()) {
+            Files.copy(is, file.toPath());
+        }
+    }
+
+    /**
+     * 从Maven仓库下载依赖
+     * @param groupId 组ID
+     * @param artifactId 构建ID
+     * @param version 版本
+     * @param repo 仓库地址
+     * @param extraArgs 额外参数
+     * @param saveFile 保存文件
+     * @param checkMD5 是否检查MD5
+     * @return 是否下载成功
+     */
+    public static boolean downloadLibraryMaven(String groupId, String artifactId, String version, String repo, String extraArgs, File saveFile, boolean checkMD5) throws IOException {
+        // 创建文件夹
+        if(!saveFile.getParentFile().exists() && !saveFile.getParentFile().mkdirs()) throw new RuntimeException("Failed to create " + saveFile.getParentFile().getPath());
+
+        // 下载地址格式
+        if (!repo.endsWith("/")) repo += "/";
+        repo += "%s/%s/%s/%s-%s%s.jar";
+        String saveFileUrl = String.format(repo, groupId.replace(".", "/"), artifactId, version, artifactId, version, extraArgs); // 下载地址
+        String saveFileName = artifactId + "-" + version + ".jar"; // 文件名
+
+        // 检查MD5
+        if(checkMD5) {
+            File saveFileMD5 = new File(saveFile.getParentFile(), saveFileName + ".md5");
+            String saveFileMD5Url = saveFileUrl + ".md5";
+            URL saveFileMD5UrlFormat = new URL(saveFileMD5Url);
+
+            if (saveFileMD5.exists() && !saveFileMD5.delete()) {
+                throw new RuntimeException("Failed to delete " + saveFileMD5.getPath());
+            }
+            downloadFile(saveFileMD5,saveFileMD5UrlFormat);
+
+            if(!saveFileMD5.exists()) throw new RuntimeException("Failed to download " + saveFileMD5Url);
+
+            if(saveFile.exists()){
+                FileInputStream fis = new FileInputStream(saveFile);
+                boolean isSame = DigestUtils.md5Hex(fis).equals(new String(Files.readAllBytes(saveFileMD5.toPath()), StandardCharsets.UTF_8));
+                if(!isSame){
+                    fis.close();
+                    if(!saveFile.delete()) throw new RuntimeException("Failed to delete " + saveFile.getPath());
+                }
+            }
+        } else if (saveFile.exists() && !saveFile.delete()) {
+            throw new RuntimeException("Failed to delete " + saveFile.getPath());
+        }
+
+        // 下载依赖文件
+        if (!saveFile.exists()) {
+            Utils.logger.info("Downloading "+ saveFileUrl);
+            downloadFile(saveFile, new URL(saveFileUrl));
+        }
+
+        return saveFile.exists();
     }
 }
