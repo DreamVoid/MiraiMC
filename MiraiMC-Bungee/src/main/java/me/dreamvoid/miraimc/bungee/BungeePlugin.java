@@ -58,7 +58,7 @@ public class BungeePlugin extends Plugin {
                     Utils.initializeSQLite();
                 } catch (SQLException | ClassNotFoundException e) {
                     getLogger().severe("Failed to initialize SQLite database!");
-                    getLogger().severe("Reason: "+e.getLocalizedMessage());
+                    getLogger().severe("Reason: "+e);
                 }
                 break;
             }
@@ -109,7 +109,7 @@ public class BungeePlugin extends Plugin {
                     Utils.closeSQLite();
                 } catch (SQLException e) {
                     getLogger().severe("Failed to close SQLite database!");
-                    getLogger().severe("Reason: " + e.getLocalizedMessage());
+                    getLogger().severe("Reason: " + e);
                 }
                 break;
             }

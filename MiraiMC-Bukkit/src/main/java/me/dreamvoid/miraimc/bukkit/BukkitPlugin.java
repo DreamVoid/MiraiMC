@@ -32,8 +32,8 @@ public class BukkitPlugin extends JavaPlugin {
             this.MiraiEvent = new MiraiEvent();
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
         } catch (IOException | ParserConfigurationException | SAXException e) {
-            getLogger().warning("An error occurred while loading plugin");
-            e.printStackTrace();
+            getLogger().severe("An error occurred while loading plugin.");
+            getLogger().severe(e.toString());
         }
     }
 
@@ -71,7 +71,7 @@ public class BukkitPlugin extends JavaPlugin {
                     Utils.initializeSQLite();
                 } catch (SQLException | ClassNotFoundException e) {
                     getLogger().severe("Failed to initialize SQLite database!");
-                    getLogger().severe("Reason: "+e.getLocalizedMessage());
+                    getLogger().severe("Reason: "+e);
                 }
                 break;
             }
@@ -117,7 +117,7 @@ public class BukkitPlugin extends JavaPlugin {
                     Utils.closeSQLite();
                 } catch (SQLException e) {
                     getLogger().severe("Failed to close SQLite database!");
-                    getLogger().severe("Reason: " + e.getLocalizedMessage());
+                    getLogger().severe("Reason: " + e);
                 }
                 break;
             }

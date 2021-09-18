@@ -80,7 +80,7 @@ public class NukkitPlugin extends PluginBase {
                     Utils.initializeSQLite();
                 } catch (SQLException | ClassNotFoundException e) {
                     getLogger().error("Failed to initialize SQLite database!");
-                    getLogger().error("Reason: "+e.getLocalizedMessage());
+                    getLogger().error("Reason: "+e);
                 }
                 break;
             }
@@ -126,7 +126,7 @@ public class NukkitPlugin extends PluginBase {
                     Utils.closeSQLite();
                 } catch (SQLException e) {
                     getLogger().error("Failed to close SQLite database!");
-                    getLogger().error("Reason: " + e.getLocalizedMessage());
+                    getLogger().error("Reason: " + e);
                 }
                 break;
             }
