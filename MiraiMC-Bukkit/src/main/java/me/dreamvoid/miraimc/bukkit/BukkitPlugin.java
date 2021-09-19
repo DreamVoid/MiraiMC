@@ -8,10 +8,7 @@ import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Objects;
@@ -28,12 +25,16 @@ public class BukkitPlugin extends JavaPlugin {
             Utils.setClassLoader(this.getClassLoader());
             new BukkitConfig(this).loadConfig();
 
-            MiraiLoader.loadMiraiCore();
+            if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("latest")) {
+                MiraiLoader.loadMiraiCore();
+            } else {
+                MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
+            }
             this.MiraiEvent = new MiraiEvent();
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
-        } catch (IOException | ParserConfigurationException | SAXException e) {
-            getLogger().severe("An error occurred while loading plugin.");
-            getLogger().severe(e.toString());
+        } catch (Exception e) {
+            getLogger().warning("An error occurred while loading plugin.");
+            e.printStackTrace();
         }
     }
 
@@ -41,12 +42,8 @@ public class BukkitPlugin extends JavaPlugin {
     public void onEnable() {
         getLogger().info("Mirai working dir: " + Config.Gen_MiraiWorkingDir);
 
-        if(Config.Gen_AddProperties_MiraiNoDesktop){
-            System.setProperty("mirai.no-desktop","MiraiMC");
-        }
-        if(Config.Gen_AddProperties_MiraiSliderCaptchaSupported){
-            System.setProperty("mirai.slider.captcha.supported","MiraiMC");
-        }
+        if(Config.Gen_AddProperties_MiraiNoDesktop) System.setProperty("mirai.no-desktop", "MiraiMC");
+        if(Config.Gen_AddProperties_MiraiSliderCaptchaSupported) System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
 
         getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();

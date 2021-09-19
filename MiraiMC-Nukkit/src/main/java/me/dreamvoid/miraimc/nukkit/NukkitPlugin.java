@@ -15,10 +15,7 @@ import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.nukkit.utils.MetricsLite;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -39,8 +36,9 @@ public class NukkitPlugin extends PluginBase {
             MiraiLoader.loadMiraiCore();
             this.MiraiEvent = new MiraiEvent(this);
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
-        } catch (IOException | ParserConfigurationException | SAXException e) {
-            getLogger().error("An error occurred while loading plugin, reason: " + e.getLocalizedMessage());
+        } catch (Exception e) {
+            getLogger().warning("An error occurred while loading plugin." );
+            e.printStackTrace();
         }
     }
 
@@ -61,11 +59,6 @@ public class NukkitPlugin extends PluginBase {
         getLogger().info("Loading auto-login file.");
         MiraiAutoLogin.loadFile();
         MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
-
-        /*getLogger().info("Registering commands.");
-        for (String s : Arrays.asList("mirai", "miraimc", "miraiverify")) {
-            new PluginCommand<>(s, this).setExecutor(new Commands(this));
-        }*/
 
         if(Config.Bot_LogEvents){
             getLogger().info("Registering events.");

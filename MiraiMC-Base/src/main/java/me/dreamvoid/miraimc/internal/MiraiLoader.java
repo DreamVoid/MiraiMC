@@ -8,10 +8,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
@@ -26,7 +23,35 @@ public class MiraiLoader {
      * 加载最新版Mirai Core
      */
     public static void loadMiraiCore() throws RuntimeException, IOException, ParserConfigurationException, SAXException {
-        loadLibraryClass("net.mamoe", "mirai-core-all", "https://repo1.maven.org/maven2", "-all");
+        String version = getLibraryVersionMaven("net.mamoe", "mirai-core-all", Config.Gen_MavenRepoUrl,"release");
+        try {
+            loadLibraryClass("net.mamoe", "mirai-core-all", version, Config.Gen_MavenRepoUrl, "-all");
+            File writeName = new File(Config.PluginDir, "cache/core-ver");
+            try (FileWriter writer = new FileWriter(writeName);
+                 BufferedWriter out = new BufferedWriter(writer)
+            ) {
+                out.write(version);
+                out.flush();
+            }
+        } catch (Exception e){
+            Utils.logger.warning("Unable to download mirai core from remote server, try to use local core.");
+            File writeName = new File(Config.PluginDir, "cache/core-ver");
+            if(writeName.exists()) {
+                String content = new String(Files.readAllBytes(writeName.toPath()), StandardCharsets.UTF_8);
+                if(!content.equals("")){
+                    String name = "mirai-core-all" + "-" + content + ".jar"; // 文件名
+                    File MiraiDir;
+                    if (Config.Gen_MiraiWorkingDir.equals("default")) {
+                        MiraiDir = new File(Config.PluginDir,"MiraiBot");
+                    } else {
+                        MiraiDir = new File(Config.Gen_MiraiWorkingDir);
+                    }
+                    File LibrariesDir = new File(MiraiDir,"libs");
+                    File coreFile = new File(LibrariesDir, name);
+                    LOADER.get().addURL(coreFile.toURI().toURL());
+                } else throw e;
+            } else throw e;
+        }
     }
 
     /**
@@ -34,11 +59,34 @@ public class MiraiLoader {
      * @param version 版本
      */
     public static void loadMiraiCore(String version) throws RuntimeException, IOException {
-        loadLibraryClass("net.mamoe", "mirai-core-all", version, "https://repo1.maven.org/maven2", "-all");
-    }
-
-    private static void loadLibraryClass(String groupId, String artifactId, String repoUrl, String extraArgs) throws RuntimeException, IOException, ParserConfigurationException, SAXException {
-        loadLibraryClass(groupId, artifactId, getLibraryVetsionMaven(groupId,artifactId,repoUrl,"release"), repoUrl, extraArgs);
+        try {
+            loadLibraryClass("net.mamoe", "mirai-core-all", version, Config.Gen_MavenRepoUrl, "-all");
+            File writeName = new File(Config.PluginDir, "cache/core-ver");
+            try (FileWriter writer = new FileWriter(writeName);
+                 BufferedWriter out = new BufferedWriter(writer)
+            ) {
+                out.write(version);
+                out.flush();
+            }
+        } catch (Exception e){
+            Utils.logger.warning("Unable to download mirai core from remote server, try to use local core.");
+            File writeName = new File(Config.PluginDir, "cache/core-ver");
+            if(writeName.exists()) {
+                String content = new String(Files.readAllBytes(writeName.toPath()), StandardCharsets.UTF_8);
+                if(!content.equals("")){
+                    String name = "mirai-core-all" + "-" + content + ".jar"; // 文件名
+                    File MiraiDir;
+                    if (Config.Gen_MiraiWorkingDir.equals("default")) {
+                        MiraiDir = new File(Config.PluginDir,"MiraiBot");
+                    } else {
+                        MiraiDir = new File(Config.Gen_MiraiWorkingDir);
+                    }
+                    File LibrariesDir = new File(MiraiDir,"libs");
+                    File coreFile = new File(LibrariesDir, name);
+                    LOADER.get().addURL(coreFile.toURI().toURL());
+                } else throw e;
+            } else throw e;
+        }
     }
 
     /**
@@ -77,7 +125,7 @@ public class MiraiLoader {
         LOADER.get().addURL(saveLocation.toURI().toURL());
     }
 
-    public static String getLibraryVetsionMaven(String groupId, String artifactId, String repoUrl, String xmlTag) throws IOException, ParserConfigurationException, SAXException {
+    public static String getLibraryVersionMaven(String groupId, String artifactId, String repoUrl, String xmlTag) throws RuntimeException, IOException, ParserConfigurationException, SAXException {
         File CacheDir = new File(Config.PluginDir,"cache");
         if(!CacheDir.exists() && !CacheDir.mkdirs()) {
             throw new RuntimeException("Failed to create " + CacheDir.getPath());
@@ -142,7 +190,7 @@ public class MiraiLoader {
      * @param checkMD5 是否检查MD5
      * @return 是否下载成功
      */
-    public static boolean downloadLibraryMaven(String groupId, String artifactId, String version, String repo, String extraArgs, File saveFile, boolean checkMD5) throws IOException {
+    public static boolean downloadLibraryMaven(String groupId, String artifactId, String version, String repo, String extraArgs, File saveFile, boolean checkMD5) throws RuntimeException, IOException {
         // 创建文件夹
         if(!saveFile.getParentFile().exists() && !saveFile.getParentFile().mkdirs()) throw new RuntimeException("Failed to create " + saveFile.getParentFile().getPath());
 
