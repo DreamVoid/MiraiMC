@@ -12,6 +12,7 @@ public class Config {
     public static boolean Gen_AddProperties_MiraiSliderCaptchaSupported;
     public static String Gen_MiraiCoreVersion;
     public static String Gen_MavenRepoUrl;
+    public static boolean Gen_FriendlyException;
 
     public static boolean Bot_DisableNetworkLogs;
     public static boolean Bot_DisableBotLogs;

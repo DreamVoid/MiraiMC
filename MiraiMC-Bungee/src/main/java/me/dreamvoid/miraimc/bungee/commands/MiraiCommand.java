@@ -2,6 +2,7 @@ package me.dreamvoid.miraimc.bungee.commands;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bungee.BungeePlugin;
+import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
@@ -52,7 +53,9 @@ public class MiraiCommand extends Command {
                                 try {
                                     MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
                                 } catch (InterruptedException e) {
-                                    Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+                                    if(Config.Gen_FriendlyException){
+                                        Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+                                    } else e.printStackTrace();
                                     sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，请检查控制台输出！")));
                                 }
                             });
@@ -173,6 +176,9 @@ public class MiraiCommand extends Command {
                                             }
                                         }
                                     } catch (IOException e) {
+                                        if(!Config.Gen_FriendlyException) {
+                                            e.printStackTrace();
+                                        }
                                         sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', "&c执行自动登录时出现异常，原因: "+e.getLocalizedMessage())));
                                     }
                                     break;

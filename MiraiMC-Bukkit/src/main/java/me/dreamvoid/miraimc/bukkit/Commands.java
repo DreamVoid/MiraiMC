@@ -2,6 +2,7 @@ package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.api.MiraiMC;
+import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.Bot;
@@ -59,7 +60,9 @@ public class Commands implements CommandExecutor {
                                             try {
                                                 MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
                                             } catch (InterruptedException e) {
-                                                Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+                                                if(Config.Gen_FriendlyException) {
+                                                    Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+                                                } else e.printStackTrace();
                                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，请检查控制台输出！"));
                                             }
                                         }

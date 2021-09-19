@@ -67,8 +67,9 @@ public class BukkitPlugin extends JavaPlugin {
                 try {
                     Utils.initializeSQLite();
                 } catch (SQLException | ClassNotFoundException e) {
-                    getLogger().severe("Failed to initialize SQLite database!");
-                    getLogger().severe("Reason: "+e);
+                    if(Config.Gen_FriendlyException) {
+                        getLogger().warning("Failed to initialize SQLite database, reason: " + e);
+                    } else e.printStackTrace();
                 }
                 break;
             }

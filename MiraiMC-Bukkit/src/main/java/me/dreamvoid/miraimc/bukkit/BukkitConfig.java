@@ -22,6 +22,7 @@ public class BukkitConfig {
         Gen_AddProperties_MiraiSliderCaptchaSupported = plugin.getConfig().getBoolean("general.add-properties.mirai.slider.captcha.supported",true);
         Gen_MiraiCoreVersion = plugin.getConfig().getString("general.mirai-core-version","latest");
         Gen_MavenRepoUrl = plugin.getConfig().getString("general.maven-repo-url","https://repo1.maven.org/maven2");
+        Gen_FriendlyException = plugin.getConfig().getBoolean("general.friendly-exception",true);
 
         Bot_DisableNetworkLogs = plugin.getConfig().getBoolean("bot.disable-network-logs",false);
         Bot_DisableBotLogs = plugin.getConfig().getBoolean("bot.disable-bot-logs",false);

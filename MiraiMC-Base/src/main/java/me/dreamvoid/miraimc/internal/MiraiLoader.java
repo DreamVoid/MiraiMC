@@ -23,9 +23,9 @@ public class MiraiLoader {
      * 加载最新版Mirai Core
      */
     public static void loadMiraiCore() throws RuntimeException, IOException, ParserConfigurationException, SAXException {
-        String version = getLibraryVersionMaven("net.mamoe", "mirai-core-all", Config.Gen_MavenRepoUrl,"release");
+        String version = getLibraryVersionMaven("net.mamoe", "mirai-core-all", Config.Gen_MavenRepoUrl.replace("http://","https://"),"release");
         try {
-            loadLibraryClass("net.mamoe", "mirai-core-all", version, Config.Gen_MavenRepoUrl, "-all");
+            loadLibraryClass("net.mamoe", "mirai-core-all", version, Config.Gen_MavenRepoUrl.replace("http://","https://"), "-all");
             File writeName = new File(Config.PluginDir, "cache/core-ver");
             try (FileWriter writer = new FileWriter(writeName);
                  BufferedWriter out = new BufferedWriter(writer)
@@ -60,7 +60,7 @@ public class MiraiLoader {
      */
     public static void loadMiraiCore(String version) throws RuntimeException, IOException {
         try {
-            loadLibraryClass("net.mamoe", "mirai-core-all", version, Config.Gen_MavenRepoUrl, "-all");
+            loadLibraryClass("net.mamoe", "mirai-core-all", version, Config.Gen_MavenRepoUrl.replace("http://","https://"), "-all");
             File writeName = new File(Config.PluginDir, "cache/core-ver");
             try (FileWriter writer = new FileWriter(writeName);
                  BufferedWriter out = new BufferedWriter(writer)
@@ -153,6 +153,7 @@ public class MiraiLoader {
             try (FileInputStream fis = new FileInputStream(metaFile)) {
                 if (!DigestUtils.md5Hex(fis).equals(new String(Files.readAllBytes(metaFileMD5.toPath()), StandardCharsets.UTF_8))) {
                     fis.close();
+                    if(!metaFile.delete()) throw new RuntimeException("Failed to delete " + metaFile.getPath());
 
                     URL metaFileUrl = new URL(repoFormat + "maven-metadata.xml");
                     downloadFile(metaFile, metaFileUrl);

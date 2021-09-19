@@ -72,8 +72,9 @@ public class NukkitPlugin extends PluginBase {
                 try {
                     Utils.initializeSQLite();
                 } catch (SQLException | ClassNotFoundException e) {
-                    getLogger().error("Failed to initialize SQLite database!");
-                    getLogger().error("Reason: "+e);
+                    if(Config.Gen_FriendlyException) {
+                        getLogger().warning("Failed to initialize SQLite database, reason: " + e);
+                    } else e.printStackTrace();
                 }
                 break;
             }
@@ -164,7 +165,9 @@ public class NukkitPlugin extends PluginBase {
                                             try {
                                                 MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
                                             } catch (InterruptedException e) {
-                                                Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+                                                if(Config.Gen_FriendlyException) {
+                                                    Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+                                                } else e.printStackTrace();
                                                 sender.sendMessage(TextFormat.colorize('&',"&c登录机器人时出现异常，请检查控制台输出！"));
                                             }
                                         }
