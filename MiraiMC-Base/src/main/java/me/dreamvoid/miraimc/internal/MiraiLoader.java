@@ -33,7 +33,7 @@ public class MiraiLoader {
                 out.write(version);
                 out.flush();
             }
-        } catch (Exception e){
+        } catch (Exception e) { // TODO: 捕获报错有问题
             Utils.logger.warning("Unable to download mirai core from remote server, try to use local core.");
             File writeName = new File(Config.PluginDir, "cache/core-ver");
             if(writeName.exists()) {
@@ -68,7 +68,7 @@ public class MiraiLoader {
                 out.write(version);
                 out.flush();
             }
-        } catch (Exception e){
+        } catch (Exception e) { // TODO: 捕获报错有问题
             Utils.logger.warning("Unable to download mirai core from remote server, try to use local core.");
             File writeName = new File(Config.PluginDir, "cache/core-ver");
             if(writeName.exists()) {
