@@ -58,8 +58,6 @@
         <plugins>
             <!--maven-assembly-plugins-->
             <plugin>
-                <!--加这个是为了把mirai的库打包进jar，这样Bukkit加载的时候就不会报找不到类了
-                至于为什么不像mcl一样下载外部文件，因为我懒，不想搞，可能以后会搞-->
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
