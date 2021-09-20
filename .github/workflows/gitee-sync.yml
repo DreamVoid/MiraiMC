@@ -5,6 +5,8 @@ name: Gitee-Repo Auto Sync
 # Controls when the workflow will run
 on: 
   push:
+    branches: 
+     - '**'
   workflow_dispatch:
   release:
     types: # This configuration does not affect the page_build event above
