@@ -1,6 +1,6 @@
 ---
-name: 问题报告 / Bug Report
-about: 如果你想反馈 Bug，请使用此模板 / If you want to report a bug, use this template.
+name: 问题报告
+about: 如果你想反馈 Bug，请使用此模板
 title: ''
 labels: 漏洞
 assignees: DreamVoid
