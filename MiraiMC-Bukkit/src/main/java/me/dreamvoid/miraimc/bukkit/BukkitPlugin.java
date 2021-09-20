@@ -44,6 +44,7 @@ public class BukkitPlugin extends JavaPlugin {
         if(new File("cauldron.yml").exists()){
             getLogger().severe("MiraiMC不支持Cauldron及任何下游服务端，请更换其他服务端使用！（如果你并没有在使用，请删除服务端根目录下的cauldron.yml文件）");
             getLogger().severe("请不要反馈你遇到的任何问题，作者将永远不会解决！");
+            getLogger().severe("兼容性报告: https://wiki.miraimc.dreamvoid.ml/troubleshoot/compatibility-report/cauldron");
         }
         getLogger().info("Mirai working dir: " + Config.Gen_MiraiWorkingDir);
 
