@@ -23,8 +23,8 @@ public class MiraiLoader {
      * 加载最新版Mirai Core
      */
     public static void loadMiraiCore() throws RuntimeException, IOException, ParserConfigurationException, SAXException {
-        String version = getLibraryVersionMaven("net.mamoe", "mirai-core-all", Config.Gen_MavenRepoUrl.replace("http://","https://"),"release");
         try {
+            String version = getLibraryVersionMaven("net.mamoe", "mirai-core-all", Config.Gen_MavenRepoUrl.replace("http://","https://"),"release");
             loadLibraryClass("net.mamoe", "mirai-core-all", version, Config.Gen_MavenRepoUrl.replace("http://","https://"), "-all");
             File writeName = new File(Config.PluginDir, "cache/core-ver");
             try (FileWriter writer = new FileWriter(writeName);
@@ -33,8 +33,8 @@ public class MiraiLoader {
                 out.write(version);
                 out.flush();
             }
-        } catch (Exception e) { // TODO: 捕获报错有问题
-            Utils.logger.warning("Unable to download mirai core from remote server, try to use local core.");
+        } catch (Exception e) {
+            Utils.logger.warning("Unable to download mirai core from remote server("+e+"), try to use local core.");
             File writeName = new File(Config.PluginDir, "cache/core-ver");
             if(writeName.exists()) {
                 String content = new String(Files.readAllBytes(writeName.toPath()), StandardCharsets.UTF_8);
@@ -68,8 +68,8 @@ public class MiraiLoader {
                 out.write(version);
                 out.flush();
             }
-        } catch (Exception e) { // TODO: 捕获报错有问题
-            Utils.logger.warning("Unable to download mirai core from remote server, try to use local core.");
+        } catch (Exception e) {
+            Utils.logger.warning("Unable to download mirai core from remote server("+e+"), try to use local core.");
             File writeName = new File(Config.PluginDir, "cache/core-ver");
             if(writeName.exists()) {
                 String content = new String(Files.readAllBytes(writeName.toPath()), StandardCharsets.UTF_8);
