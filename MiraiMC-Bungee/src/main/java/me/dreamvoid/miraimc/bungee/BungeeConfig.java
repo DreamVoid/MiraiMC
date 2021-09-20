@@ -28,8 +28,6 @@ public class BungeeConfig {
             if (!file.exists()) {
                 try (InputStream in = BungeePlugin.getResourceAsStream("config.yml")) {
                     Files.copy(in, file.toPath());
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
             bungeeConfig = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(new File(BungeePlugin.getDataFolder(), "config.yml"));
