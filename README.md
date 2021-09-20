@@ -38,9 +38,9 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 ```
 <dependency>
     <groupId>io.github.dreamvoid</groupId>
-    <artifactId>MiraiMC</artifactId>
+    <artifactId>MiraiMC-Integration</artifactId>
     <!--请确保版本为Github上的最新版本-->
-    <version>1.4</version>
+    <version>1.5</version>
     <scope>provided</scope>
 </dependency>
 ```
