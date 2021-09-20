@@ -31,18 +31,8 @@ public class MiraiLoginSolver extends LoginSolver {
      */
     private static final HashMap<Bot,String> deviceVerifyCode = new HashMap<>();
 
-    private final CustomLoginFailedException loginCancelException = new CustomLoginFailedException(true,"用户终止登录") {
-        @Override
-        public String getMessage() {
-            return super.getMessage();
-        }
-    };
-    private final CustomLoginFailedException loginErrorException = new CustomLoginFailedException(true,"登录时出现严重错误") {
-        @Override
-        public String getMessage() {
-            return super.getMessage();
-        }
-    };
+    private final CustomLoginFailedException loginCancelException = new CustomLoginFailedException(true,"用户终止登录") {};
+    private final CustomLoginFailedException loginErrorException = new CustomLoginFailedException(true,"登录时出现严重错误") {};
 
     /**
      * @param bot 机器人实例
