@@ -111,7 +111,12 @@ public class MiraiAutoLogin {
         // 添加
         list.add(account);
         data.set("accounts", list);
-        data.save(AutoLoginFile);
+        try {
+            data.save(AutoLoginFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 
@@ -128,7 +133,12 @@ public class MiraiAutoLogin {
         }
         data.set("accounts", list);
 
-        data.save(AutoLoginFile);
+        try {
+            data.save(AutoLoginFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 }
