@@ -32,16 +32,16 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <version>3.3.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.spongepowered</groupId>
             <artifactId>spongeapi</artifactId>
             <version>7.2.0</version>
             <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>4.0.3</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

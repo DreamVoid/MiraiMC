@@ -1,9 +1,10 @@
-package me.dreamvoid.miraimc.sponge; // TODO: 打包以后要把META-INF/versions/11/的文件弄掉，要不然加载不了 https://www.cnblogs.com/hejunhong/p/10696978.html
+package me.dreamvoid.miraimc.sponge;
 
 import com.google.inject.Inject;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoader;
 import me.dreamvoid.miraimc.internal.Utils;
+import org.slf4j.Logger;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
@@ -13,12 +14,13 @@ import org.spongepowered.api.plugin.PluginContainer;
 
 import java.io.File;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
 @Plugin(id = "miraimc", name = "MiraiMC", description = "MiraiBot for Minecraft server",version = "1.5-pre2", url = "https://github.com/DreamVoid/MiraiMC", authors = {"DreamVoid"})
 public class SpongePlugin {
     @Inject
     private Logger logger;
+
+    private java.util.logging.Logger log4j;
 
     @Inject
     @ConfigDir(sharedRoot = false)
@@ -33,9 +35,10 @@ public class SpongePlugin {
      * 触发 GamePreInitializationEvent 时，插件准备进行初始化，这时默认的 Logger 已经准备好被调用，同时你也可以开始引用配置文件中的内容。
      */
     @Listener
-    public void onPluginLoad(GamePreInitializationEvent e) {
+    public void onLoad(GamePreInitializationEvent e) {
         try {
-            Utils.setLogger(logger);
+            log4j = new NukkitLogger("MiraiMC",null,this);
+            Utils.setLogger(log4j);
             Utils.setClassLoader(this.getClass().getClassLoader());
             new SpongeConfig(this).loadConfig();
 
@@ -47,7 +50,7 @@ public class SpongePlugin {
             MiraiEvent = new MiraiEvent(this);
             //this.MiraiAutoLogin = new MiraiAutoLogin(this);
         } catch (Exception ex) {
-            getLogger().warning("An error occurred while loading plugin.");
+            getLogger().warn("An error occurred while loading plugin.");
             ex.printStackTrace();
         }
     }
@@ -56,7 +59,7 @@ public class SpongePlugin {
      * 触发 GameInitializationEvent 时，插件应该完成他所需功能的所有应该完成的准备工作，你应该在这个事件发生时注册监听事件。
      */
     @Listener
-    public void onPluginLoad(GameInitializationEvent e) {
+    public void onEnable(GameInitializationEvent e) {
         getLogger().info("Mirai working dir: " + Config.Gen_MiraiWorkingDir);
 
         if(Config.Gen_AddProperties_MiraiNoDesktop) System.setProperty("mirai.no-desktop", "MiraiMC");
@@ -89,7 +92,7 @@ public class SpongePlugin {
                     Utils.initializeSQLite();
                 } catch (SQLException | ClassNotFoundException ex) {
                     if(Config.Gen_FriendlyException) {
-                        getLogger().warning("Failed to initialize SQLite database, reason: " + e);
+                        getLogger().warn("Failed to initialize SQLite database, reason: " + e);
                     } else ex.printStackTrace();
                 }
                 break;
@@ -110,8 +113,8 @@ public class SpongePlugin {
 
         // 安全警告
         if(!(Config.Gen_DisableSafeWarningMessage)){
-            getLogger().warning("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
-            getLogger().warning("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
+            getLogger().warn("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
+            getLogger().warn("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
 
         getLogger().info("All tasks done. Welcome to use MiraiMC!");
@@ -127,5 +130,9 @@ public class SpongePlugin {
 
     public PluginContainer getPluginContainer() {
         return pluginContainer;
+    }
+
+    public java.util.logging.Logger getLog4j() {
+        return log4j;
     }
 }
