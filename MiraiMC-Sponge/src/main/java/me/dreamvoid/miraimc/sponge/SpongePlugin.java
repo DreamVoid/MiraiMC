@@ -4,13 +4,16 @@ import com.google.inject.Inject;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoader;
 import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.sponge.utils.Metrics;
 import org.slf4j.Logger;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
+import org.spongepowered.api.util.metric.MetricsConfigManager;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -20,8 +23,6 @@ public class SpongePlugin {
     @Inject
     private Logger logger;
 
-    private java.util.logging.Logger log4j;
-
     @Inject
     @ConfigDir(sharedRoot = false)
     private File dataFolder;
@@ -29,7 +30,11 @@ public class SpongePlugin {
     @Inject
     private PluginContainer pluginContainer;
 
+    @Inject
+    private MetricsConfigManager metricsConfigManager;
+
     private MiraiEvent MiraiEvent;
+    //private MiraiAutoLogin MiraiAutoLogin;
 
     /**
      * 触发 GamePreInitializationEvent 时，插件准备进行初始化，这时默认的 Logger 已经准备好被调用，同时你也可以开始引用配置文件中的内容。
@@ -37,7 +42,7 @@ public class SpongePlugin {
     @Listener
     public void onLoad(GamePreInitializationEvent e) {
         try {
-            log4j = new NukkitLogger("MiraiMC",null,this);
+            java.util.logging.Logger log4j = new NukkitLogger("MiraiMC", null, this);
             Utils.setLogger(log4j);
             Utils.setClassLoader(this.getClass().getClassLoader());
             new SpongeConfig(this).loadConfig();
@@ -68,21 +73,21 @@ public class SpongePlugin {
         getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();
 
-        /*
-        getLogger().info("Loading auto-login file.");
-        MiraiAutoLogin.loadFile();
-        MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
-        */
 
-        //getLogger().info("Registering commands.");
+        //getLogger().info("Loading auto-login file.");
+        //MiraiAutoLogin.loadFile();
+        //MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
+
+
+        getLogger().info("Registering commands.");
         //for (String s : Arrays.asList("mirai", "miraimc", "miraiverify")) { Objects.requireNonNull(getCommand(s)).setExecutor(new Commands(this)); }
 
-        /*
+
         if(Config.Bot_LogEvents){
             getLogger().info("Registering events.");
-            Bukkit.getPluginManager().registerEvents(new Events(), this);
+            Sponge.getEventManager().registerListeners(this, new Events());
         }
-        */
+
 
         switch (Config.DB_Type.toLowerCase()){
             case "sqlite":
@@ -105,11 +110,18 @@ public class SpongePlugin {
         }
 
         // bStats统计
-        /*if(Config.Gen_AllowBStats) {
-            getLogger().info("Initializing bStats metrics.");
-            int pluginId = ;
-            new Metrics(this, pluginId);
-        }*/
+        if(Config.Gen_AllowBStats) {
+            if(this.metricsConfigManager.getCollectionState(this.pluginContainer).asBoolean()){
+                getLogger().info("Initializing bStats metrics.");
+                getLogger().info("If you do not want bStats to collect data, please execute command /sponge metrics miraimc disable");
+                int pluginId = 12847;
+                new Metrics(this.pluginContainer,getLogger(), getDataFolder().toPath(), pluginId);
+            } else {
+                getLogger().warn("You enabled bStats in config, but MetricsConfigManager returns that MiraiMC does not allow collect information, so bStats is disabled.");
+                getLogger().warn("To enable bStats, please execute command /sponge metrics miraimc enable");
+                getLogger().warn("Or disable bStats in config.yml file to hide this warning.");
+            }
+        }
 
         // 安全警告
         if(!(Config.Gen_DisableSafeWarningMessage)){
@@ -130,9 +142,5 @@ public class SpongePlugin {
 
     public PluginContainer getPluginContainer() {
         return pluginContainer;
-    }
-
-    public java.util.logging.Logger getLog4j() {
-        return log4j;
     }
 }
