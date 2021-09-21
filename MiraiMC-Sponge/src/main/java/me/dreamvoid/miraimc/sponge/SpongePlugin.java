@@ -28,7 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@Plugin(id = "miraimc", name = "MiraiMC", description = "MiraiBot for Minecraft server",version = "1.5-pre2", url = "https://github.com/DreamVoid/MiraiMC", authors = {"DreamVoid"})
+@Plugin(id = "miraimc", name = "MiraiMC", description = "MiraiBot for Minecraft server",version = "1.5-rc1", url = "https://github.com/DreamVoid/MiraiMC", authors = {"DreamVoid"})
 public class SpongePlugin {
     @Inject
     private Logger logger;
