@@ -4,15 +4,22 @@ import com.google.inject.Inject;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoader;
 import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.sponge.commands.MiraiCommand;
+import me.dreamvoid.miraimc.sponge.commands.MiraiMcCommand;
+import me.dreamvoid.miraimc.sponge.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.sponge.utils.Metrics;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.command.args.GenericArguments;
+import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
+import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
+import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.metric.MetricsConfigManager;
 
 import java.io.File;
@@ -73,15 +80,9 @@ public class SpongePlugin {
         getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();
 
-
         //getLogger().info("Loading auto-login file.");
         //MiraiAutoLogin.loadFile();
         //MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
-
-
-        getLogger().info("Registering commands.");
-        //for (String s : Arrays.asList("mirai", "miraimc", "miraiverify")) { Objects.requireNonNull(getCommand(s)).setExecutor(new Commands(this)); }
-
 
         if(Config.Bot_LogEvents){
             getLogger().info("Registering events.");
@@ -129,8 +130,31 @@ public class SpongePlugin {
             getLogger().warn("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
 
+        getLogger().info("Some initialization tasks will continue to run afterwards.");
         getLogger().info("All tasks done. Welcome to use MiraiMC!");
 
+    }
+
+    /**
+     * 触发 GameStartingServerEvent 时，服务器初始化和世界载入都已经完成，你应该在这时注册插件命令。
+     */
+    @Listener
+    public void onServerLoaded(GameStartingServerEvent e) {
+        getLogger().info("Registering commands.");
+
+        CommandSpec mirai = CommandSpec.builder().description(Text.of("MiraiMC Bot Command.")).permission("miraimc.command.mirai").executor(new MiraiCommand(this))
+                .arguments(GenericArguments.remainingJoinedStrings((Text.of("args"))))
+                .build();
+        CommandSpec miraimc = CommandSpec.builder().description(Text.of("MiraiMC Plugin Command.")).permission("miraimc.command.miraimc").executor(new MiraiMcCommand(this))
+                .arguments(GenericArguments.remainingJoinedStrings((Text.of("args"))))
+                .build();
+        CommandSpec miraiverify = CommandSpec.builder().description(Text.of("MiraiMC LoginVerify Command.")).permission("miraimc.command.miraiverify").executor(new MiraiVerifyCommand(this))
+                .arguments(GenericArguments.remainingJoinedStrings((Text.of("args"))))
+                .build();
+
+        Sponge.getCommandManager().register(this, mirai, "mirai");
+        Sponge.getCommandManager().register(this, miraimc, "miraimc");
+        Sponge.getCommandManager().register(this, miraiverify, "miraiverify");
     }
     public Logger getLogger() {
         return logger;
