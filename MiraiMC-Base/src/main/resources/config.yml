@@ -13,7 +13,7 @@ general:
     mirai.no-desktop: true
     mirai.slider.captcha.supported: true
   mirai-core-version: "latest"
-  maven-repo-url: "http://maven.aliyun.com/nexus/content/groups/public/"
+  maven-repo-url: "https://maven.aliyun.com/nexus/content/groups/public/"
   friendly-exception: true
 bot:
   disable-network-logs: false

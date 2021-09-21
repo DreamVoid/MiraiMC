@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -35,50 +36,51 @@ public class SpongeConfig {
         InputStream inputStream = new FileInputStream(file);
         Map<String, Object> obj = (Map<String, Object>) yaml.load(inputStream);
 
-        Map<String, Object> general = (Map<String, Object>) obj.get("general");
-        Gen_AllowBStats = (Boolean) general.get("allow-bStats");
-        Gen_DisableSafeWarningMessage = (Boolean) general.get("disable-safe-warning-message");
-        Gen_MiraiWorkingDir = String.valueOf(general.get("mirai-working-dir"));
+        Map<String, Object> general = !Objects.isNull(obj.get("general")) ? (Map<String, Object>) obj.get("general") : new HashMap<>();
+        Gen_AllowBStats = !Objects.isNull(general.get("allow-bStats")) ? (Boolean) general.get("allow-bStats") : false;
+        Gen_CheckUpdate = !Objects.isNull(general.get("check-update")) ? (Boolean) general.get("check-update") : false;
+        Gen_DisableSafeWarningMessage = !Objects.isNull(general.get("disable-safe-warning-message")) ? (Boolean) general.get("disable-safe-warning-message") : false;
+        Gen_MiraiWorkingDir = !Objects.isNull(general.get("mirai-working-dir")) ? String.valueOf(general.get("mirai-working-dir")) : "default";
 
-        Map<String, Object> addProperties = (Map<String, Object>) general.get("add-properties");
-        Gen_AddProperties_MiraiNoDesktop = (Boolean) addProperties.get("mirai.no-desktop");
-        Gen_AddProperties_MiraiSliderCaptchaSupported = (Boolean) addProperties.get("mirai.slider.captcha.supported");
+        Map<String, Object> addProperties = !Objects.isNull(general.get("add-properties")) ? (Map<String, Object>) general.get("add-properties") : new HashMap<>();
+        Gen_AddProperties_MiraiNoDesktop = !Objects.isNull(addProperties.get("mirai.no-desktop")) ? (Boolean) addProperties.get("mirai.no-desktop") : true;
+        Gen_AddProperties_MiraiSliderCaptchaSupported = !Objects.isNull(addProperties.get("mirai.slider.captcha.supported")) ? (Boolean) addProperties.get("mirai.slider.captcha.supported") : true;
 
-        Gen_MiraiCoreVersion = String.valueOf(general.get("mirai-core-version"));
-        Gen_MavenRepoUrl = String.valueOf(general.get("maven-repo-url"));
-        Gen_FriendlyException = (Boolean) general.get("friendly-exception");
+        Gen_MiraiCoreVersion = !Objects.isNull(general.get("mirai-core-version")) ? String.valueOf(general.get("mirai-core-version")) : "latest";
+        Gen_MavenRepoUrl = !Objects.isNull(general.get("maven-repo-url")) ? String.valueOf(general.get("maven-repo-url")) : "https://maven.aliyun.com/nexus/content/groups/public/";
+        Gen_FriendlyException = !Objects.isNull(general.get("friendly-exception")) ? (Boolean) general.get("friendly-exception") : true;
 
-        Map<String, Object> bot = (Map<String, Object>) obj.get("bot");
-        Bot_DisableNetworkLogs = (Boolean) bot.get("disable-network-logs");
-        Bot_DisableBotLogs = (Boolean) bot.get("disable-bot-logs");
+        Map<String, Object> bot = !Objects.isNull(obj.get("bot")) ? (Map<String, Object>) obj.get("bot") : new HashMap<>();
+        Bot_DisableNetworkLogs = !Objects.isNull(bot.get("disable-network-logs")) ? (Boolean) bot.get("disable-network-logs") : false;
+        Bot_DisableBotLogs = !Objects.isNull(bot.get("disable-bot-logs")) ? (Boolean) bot.get("disable-bot-logs") : false;
 
-        Map<String, Object> useBukkitLogger = (Map<String, Object>) bot.get("use-bukkit-logger");
-        Bot_UseBukkitLogger_BotLogs = (Boolean) useBukkitLogger.get("bot-logs");
-        Bot_UseBukkitLogger_NetworkLogs = (Boolean) useBukkitLogger.get("network-logs");
+        Map<String, Object> useBukkitLogger = !Objects.isNull(bot.get("use-bukkit-logger")) ? (Map<String, Object>) bot.get("use-bukkit-logger") : new HashMap<>();
+        Bot_UseBukkitLogger_BotLogs = !Objects.isNull(useBukkitLogger.get("bot-logs")) ? (Boolean) useBukkitLogger.get("bot-logs") : true;
+        Bot_UseBukkitLogger_NetworkLogs = !Objects.isNull(useBukkitLogger.get("network-logs")) ? (Boolean) useBukkitLogger.get("network-logs") : true;
 
-        Bot_LogEvents = (Boolean) bot.get("log-events");
+        Bot_LogEvents = !Objects.isNull(bot.get("log-events")) ? (Boolean) bot.get("log-events") : true;
 
-        Map<String, Object> contactCache = (Map<String, Object>) bot.get("contact-cache");
-        Bot_ContactCache_EnableFriendListCache = (Boolean) contactCache.get("enable-friend-list-cache");
-        Bot_ContactCache_EnableGroupMemberListCache = (Boolean) contactCache.get("enable-group-member-list-cache");
-        Bot_ContactCache_SaveIntervalMillis = Long.parseLong(String.valueOf(contactCache.get("save-interval-millis")));
+        Map<String, Object> contactCache = !Objects.isNull(bot.get("contact-cache")) ? (Map<String, Object>) bot.get("contact-cache") : new HashMap<>();
+        Bot_ContactCache_EnableFriendListCache = !Objects.isNull(contactCache.get("enable-friend-list-cache")) ? (Boolean) contactCache.get("enable-friend-list-cache") : false;
+        Bot_ContactCache_EnableGroupMemberListCache = !Objects.isNull(contactCache.get("enable-group-member-list-cache")) ? (Boolean) contactCache.get("enable-group-member-list-cache") : false;
+        Bot_ContactCache_SaveIntervalMillis = !Objects.isNull(contactCache.get("save-interval-millis")) ? Long.parseLong(String.valueOf(contactCache.get("save-interval-millis"))) : 60000;
 
-        Map<String, Object> database = (Map<String, Object>) obj.get("database");
-        DB_Type = String.valueOf(database.get("type")).toLowerCase();
+        Map<String, Object> database = !Objects.isNull(obj.get("database")) ? (Map<String, Object>) obj.get("database") : new HashMap<>();
+        DB_Type = !Objects.isNull(database.get("type")) ? String.valueOf(database.get("type")).toLowerCase() : "sqlite";
 
-        Map<String, Object> mysql = (Map<String, Object>) database.get("mysql");
-        DB_MySQL_Address = String.valueOf(mysql.get("address"));
-        DB_MySQL_Username = String.valueOf(mysql.get("username"));
-        DB_MySQL_Password = String.valueOf(mysql.get("password"));
-        DB_MySQL_Database = String.valueOf(mysql.get("database"));
+        Map<String, Object> mysql = !Objects.isNull(database.get("mysql")) ? (Map<String, Object>) database.get("mysql") : new HashMap<>();
+        DB_MySQL_Address = !Objects.isNull(mysql.get("address")) ? String.valueOf(mysql.get("address")) : "localhost";
+        DB_MySQL_Username = !Objects.isNull(mysql.get("username")) ? String.valueOf(mysql.get("username")) : "miraimc";
+        DB_MySQL_Password = !Objects.isNull(mysql.get("password")) ? String.valueOf(mysql.get("password")) : "miraimc";
+        DB_MySQL_Database = !Objects.isNull(mysql.get("database")) ? String.valueOf(mysql.get("database")) : "miraimc";
 
-        Map<String, Object> pool = (Map<String, Object>) mysql.get("pool");
-        DB_MySQL_Poll_ConnectionTimeout = (Integer) pool.get("connectionTimeout");
-        DB_MySQL_Poll_IdleTimeout = (Integer) pool.get("connectionTimeout");
-        DB_MySQL_Poll_MaxLifetime = (Integer) pool.get("maxLifetime");
-        DB_MySQL_Poll_MaximumPoolSize = (Integer) pool.get("maximumPoolSize");
-        DB_MySQL_Poll_KeepaliveTime = (Integer) pool.get("keepaliveTime");
-        DB_MySQL_Poll_MinimumIdle = (Integer) pool.get("minimumIdle");
+        Map<String, Object> pool = !Objects.isNull(mysql.get("pool")) ? (Map<String, Object>) mysql.get("pool") : new HashMap<>();
+        DB_MySQL_Poll_ConnectionTimeout = !Objects.isNull(pool.get("connectionTimeout")) ? (Integer) pool.get("connectionTimeout") : 30000;
+        DB_MySQL_Poll_IdleTimeout = !Objects.isNull(pool.get("connectionTimeout")) ? (Integer) pool.get("connectionTimeout") : 600000;
+        DB_MySQL_Poll_MaxLifetime = !Objects.isNull(pool.get("maxLifetime")) ? (Integer) pool.get("maxLifetime") : 1800000;
+        DB_MySQL_Poll_MaximumPoolSize = !Objects.isNull(pool.get("maximumPoolSize")) ? (Integer) pool.get("maximumPoolSize") : 15;
+        DB_MySQL_Poll_KeepaliveTime = !Objects.isNull(pool.get("keepaliveTime")) ? (Integer) pool.get("keepaliveTime") : 0;
+        DB_MySQL_Poll_MinimumIdle = !Objects.isNull(pool.get("minimumIdle")) ? (Integer) pool.get("minimumIdle") : 5;
     }
 
     public static void reloadConfig() throws IOException{
