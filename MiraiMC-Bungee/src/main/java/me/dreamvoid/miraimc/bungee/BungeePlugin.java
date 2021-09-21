@@ -6,6 +6,7 @@ import me.dreamvoid.miraimc.bungee.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.bungee.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.bungee.utils.Metrics;
 import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.MiraiLoader;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.md_5.bungee.api.ProxyServer;
@@ -19,12 +20,22 @@ public class BungeePlugin extends Plugin {
 
     @Override
     public void onLoad() {
-        Utils.setLogger(this.getLogger());
-        Utils.setClassLoader(this.getClass().getClassLoader());
-        new BungeeConfig(this).loadConfig();
+        try {
+            Utils.setLogger(this.getLogger());
+            Utils.setClassLoader(this.getClass().getClassLoader());
+            new BungeeConfig(this).loadConfig();
 
-        this.MiraiEvent = new MiraiEvent();
-        this.MiraiAutoLogin = new MiraiAutoLogin(this);
+            if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("latest")) {
+                MiraiLoader.loadMiraiCore();
+            } else {
+                MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
+            }
+            this.MiraiEvent = new MiraiEvent();
+            this.MiraiAutoLogin = new MiraiAutoLogin(this);
+        } catch (Exception e) {
+            getLogger().warning("An error occurred while loading plugin.");
+            e.printStackTrace();
+        }
     }
 
     @Override
