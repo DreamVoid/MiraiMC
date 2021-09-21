@@ -1,7 +1,5 @@
 package me.dreamvoid.miraimc.sponge;
 
-import ninja.leaping.configurate.commented.CommentedConfigurationNode;
-import ninja.leaping.configurate.loader.ConfigurationLoader;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
@@ -10,14 +8,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.Map;
+import java.util.Objects;
 
 import static me.dreamvoid.miraimc.internal.Config.*;
 
 public class SpongeConfig {
     private final SpongePlugin plugin;
     private static SpongeConfig Instance;
-
-    public static ConfigurationLoader<CommentedConfigurationNode> loader;
 
     public SpongeConfig(SpongePlugin plugin){
         Instance = this;
@@ -42,11 +39,11 @@ public class SpongeConfig {
         Gen_AllowBStats = (Boolean) general.get("allow-bStats");
         Gen_DisableSafeWarningMessage = (Boolean) general.get("disable-safe-warning-message");
         Gen_MiraiWorkingDir = String.valueOf(general.get("mirai-working-dir"));
-        
+
         Map<String, Object> addProperties = (Map<String, Object>) general.get("add-properties");
         Gen_AddProperties_MiraiNoDesktop = (Boolean) addProperties.get("mirai.no-desktop");
         Gen_AddProperties_MiraiSliderCaptchaSupported = (Boolean) addProperties.get("mirai.slider.captcha.supported");
-        
+
         Gen_MiraiCoreVersion = String.valueOf(general.get("mirai-core-version"));
         Gen_MavenRepoUrl = String.valueOf(general.get("maven-repo-url"));
         Gen_FriendlyException = (Boolean) general.get("friendly-exception");

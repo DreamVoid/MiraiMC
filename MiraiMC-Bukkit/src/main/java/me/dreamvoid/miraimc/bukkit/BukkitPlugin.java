@@ -2,14 +2,13 @@ package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
-import me.dreamvoid.miraimc.internal.Config;
-import me.dreamvoid.miraimc.internal.MiraiLoader;
-import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
-import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.internal.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Objects;
@@ -91,6 +90,24 @@ public class BukkitPlugin extends JavaPlugin {
             getLogger().info("Initializing bStats metrics.");
             int pluginId = 11534;
             new Metrics(this, pluginId);
+        }
+
+        if(Config.Gen_CheckUpdate && !getDescription().getVersion().contains("dev")){
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    getLogger().info("正在检查更新...");
+                    try {
+                        String version = PluginUpdate.getVersion();
+                        if(getDescription().getVersion()!=version){
+                            getLogger().info("已找到新的插件更新，最新版本: " + version);
+                            getLogger().info("从Github下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
+                        } else getLogger().info("你使用的是最新版本");
+                    } catch (IOException e) {
+                        getLogger().warning("An error occurred while fetching the latest version, reason: " + e);
+                    }
+                }
+            }.runTaskAsynchronously(this);
         }
 
         // 安全警告

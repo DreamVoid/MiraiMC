@@ -6,6 +6,7 @@
 
 general:
   allow-bStats: true
+  check-update: true
   disable-safe-warning-message: false
   mirai-working-dir: default
   add-properties:

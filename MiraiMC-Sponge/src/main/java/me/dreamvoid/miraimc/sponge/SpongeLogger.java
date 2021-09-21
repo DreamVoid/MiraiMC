@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 import java.util.function.Supplier;
 import java.util.logging.*;
 
-public class NukkitLogger extends Logger {
+public class SpongeLogger extends Logger {
     private final org.slf4j.Logger logger;
     /**
      * Protected method to construct a logger for a named subsystem.
@@ -24,7 +24,7 @@ public class NukkitLogger extends Logger {
      * @throws MissingResourceException if the resourceBundleName is non-null and
      *                                  no corresponding resource can be found.
      */
-    protected NukkitLogger(String name, String resourceBundleName, SpongePlugin plugin) {
+    protected SpongeLogger(String name, String resourceBundleName, SpongePlugin plugin) {
         super(name, resourceBundleName);
         this.logger = plugin.getLogger();
     }
