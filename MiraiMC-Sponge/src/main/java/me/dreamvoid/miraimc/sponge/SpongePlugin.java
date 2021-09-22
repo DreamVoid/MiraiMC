@@ -117,13 +117,12 @@ public class SpongePlugin {
         if(Config.Gen_AllowBStats) {
             if(this.metricsConfigManager.getCollectionState(this.pluginContainer).asBoolean()){
                 getLogger().info("Initializing bStats metrics.");
-                getLogger().info("If you do not want bStats to collect data, please execute command /sponge metrics miraimc disable");
                 int pluginId = 12847;
                 new Metrics(this.pluginContainer,getLogger(), getDataFolder().toPath(), pluginId);
             } else {
-                getLogger().warn("You enabled bStats in config, but MetricsConfigManager returns that MiraiMC does not allow collect information, so bStats is disabled.");
-                getLogger().warn("To enable bStats, please execute command /sponge metrics miraimc enable");
-                getLogger().warn("Or disable bStats in config.yml file to hide this warning.");
+                getLogger().warn("你在配置文件中启用了bStats，但是MetricsConfigManager告知MiraiMC不允许收集信息，因此bStats已关闭");
+                getLogger().warn("要启用bStats，请执行命令 /sponge metrics miraimc enable");
+                getLogger().warn("或者在配置文件中禁用bStats隐藏此警告");
             }
         }
 
