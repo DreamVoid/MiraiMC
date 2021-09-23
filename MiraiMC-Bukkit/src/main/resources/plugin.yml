@@ -7,15 +7,15 @@ api-version: 1.13
 webside: https://github.com/DreamVoid/MiraiMC
 commands:
   mirai:
-    description: MiraiBot Bot Command.
+    description: MiraiMC Bot Command.
     permission: miraimc.command.mirai
     usage: For help, type /mirai help
   miraimc:
-    description: MiraiBot Plugin Command.
+    description: MiraiMC Plugin Command.
     permission: miraimc.command.miraimc
     usage: For help, type /miraimc help
   miraiverify:
-    description: MiraiBot LoginVerify Command.
+    description: MiraiMC LoginVerify Command.
     permission: miraimc.command.miraiverify
     usage: For help, type /mirai help
 permissions:

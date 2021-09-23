@@ -48,23 +48,8 @@ public class NukkitLogger extends Logger {
     }
 
     @Override
-    public ResourceBundle getResourceBundle() {
-        return super.getResourceBundle();
-    }
-
-    @Override
-    public String getResourceBundleName() {
-        return super.getResourceBundleName();
-    }
-
-    @Override
     public void setFilter(Filter newFilter) throws SecurityException {
         super.setFilter(newFilter);
-    }
-
-    @Override
-    public Filter getFilter() {
-        return super.getFilter();
     }
 
     @Override
@@ -305,18 +290,8 @@ public class NukkitLogger extends Logger {
     }
 
     @Override
-    public Level getLevel() {
-        return super.getLevel();
-    }
-
-    @Override
     public boolean isLoggable(Level level) {
         return super.isLoggable(level);
-    }
-
-    @Override
-    public String getName() {
-        return super.getName();
     }
 
     @Override
@@ -330,28 +305,13 @@ public class NukkitLogger extends Logger {
     }
 
     @Override
-    public Handler[] getHandlers() {
-        return super.getHandlers();
-    }
-
-    @Override
     public void setUseParentHandlers(boolean useParentHandlers) {
         super.setUseParentHandlers(useParentHandlers);
     }
 
     @Override
-    public boolean getUseParentHandlers() {
-        return super.getUseParentHandlers();
-    }
-
-    @Override
     public void setResourceBundle(ResourceBundle bundle) {
         super.setResourceBundle(bundle);
-    }
-
-    @Override
-    public Logger getParent() {
-        return super.getParent();
     }
 
     @Override

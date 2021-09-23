@@ -6,10 +6,14 @@ public class Config {
     public static File PluginDir;
 
     public static boolean Gen_AllowBStats;
+    public static boolean Gen_CheckUpdate;
     public static boolean Gen_DisableSafeWarningMessage;
     public static String Gen_MiraiWorkingDir;
     public static boolean Gen_AddProperties_MiraiNoDesktop;
     public static boolean Gen_AddProperties_MiraiSliderCaptchaSupported;
+    public static String Gen_MiraiCoreVersion;
+    public static String Gen_MavenRepoUrl;
+    public static boolean Gen_FriendlyException;
 
     public static boolean Bot_DisableNetworkLogs;
     public static boolean Bot_DisableBotLogs;

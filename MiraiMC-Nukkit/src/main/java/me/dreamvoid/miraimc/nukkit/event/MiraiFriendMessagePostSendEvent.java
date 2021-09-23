@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.nukkit.event;
 import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.FriendMessagePostSendEvent;
 import cn.nukkit.event.Event;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * 主动发送消息后 - 好友消息
@@ -51,8 +50,10 @@ public class MiraiFriendMessagePostSendEvent extends Event {
     /**
      * 返回接收到的消息内容<br>
      * 此方法使用 toString()<br>
-     * Java 对象的 toString()，会尽可能包含多的信息用于调试作用，行为可能不确定
+     * Java 对象的 toString()，会尽可能包含多的信息用于调试作用，行为可能不确定<br>
+     * 如需处理常规消息内容，请使用 {@link #getMessageContent()}
      * @return 原始消息内容
+     * @see #getMessageContent()  
      */
     public String getMessage(){
         return event.getMessage().toString();

@@ -5,7 +5,6 @@ import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.message.code.MiraiCode;
 import net.mamoe.mirai.message.data.Image;
-import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.utils.ExternalResource;
 
 import java.io.File;
@@ -36,16 +35,6 @@ public class MiraiGroup {
      */
     public void sendMessage(String message){
         group.sendMessage(message);
-    }
-
-    /**
-     * 向群发送消息
-     * @param messageChain 消息内容
-     * @deprecated
-     */
-    @Deprecated
-    public void sendMessage(MessageChain messageChain){
-        group.sendMessage(messageChain);
     }
 
     /**

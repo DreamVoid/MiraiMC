@@ -8,10 +8,7 @@ import cn.nukkit.scheduler.AsyncTask;
 import cn.nukkit.utils.TextFormat;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.api.MiraiMC;
-import me.dreamvoid.miraimc.internal.Config;
-import me.dreamvoid.miraimc.internal.MiraiLoader;
-import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
-import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.internal.*;
 import me.dreamvoid.miraimc.nukkit.utils.MetricsLite;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
@@ -37,8 +34,9 @@ public class NukkitPlugin extends PluginBase {
             MiraiLoader.loadMiraiCore();
             this.MiraiEvent = new MiraiEvent(this);
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
-        } catch (IOException e) {
-            getLogger().error("An error occurred while loading plugin, reason: " + e.getLocalizedMessage());
+        } catch (Exception e) {
+            getLogger().warning("An error occurred while loading plugin." );
+            e.printStackTrace();
         }
     }
 
@@ -60,11 +58,6 @@ public class NukkitPlugin extends PluginBase {
         MiraiAutoLogin.loadFile();
         MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
 
-        /*getLogger().info("Registering commands.");
-        for (String s : Arrays.asList("mirai", "miraimc", "miraiverify")) {
-            new PluginCommand<>(s, this).setExecutor(new Commands(this));
-        }*/
-
         if(Config.Bot_LogEvents){
             getLogger().info("Registering events.");
             this.getServer().getPluginManager().registerEvents(new Events(this), this);
@@ -77,8 +70,9 @@ public class NukkitPlugin extends PluginBase {
                 try {
                     Utils.initializeSQLite();
                 } catch (SQLException | ClassNotFoundException e) {
-                    getLogger().error("Failed to initialize SQLite database!");
-                    getLogger().error("Reason: "+e.getLocalizedMessage());
+                    if(Config.Gen_FriendlyException) {
+                        getLogger().warning("Failed to initialize SQLite database, reason: " + e);
+                    } else e.printStackTrace();
                 }
                 break;
             }
@@ -102,6 +96,22 @@ public class NukkitPlugin extends PluginBase {
             getLogger().warning("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
 
+        getServer().getScheduler().scheduleAsyncTask(this, new AsyncTask() {
+            @Override
+            public void onRun() {
+                getLogger().info("正在检查更新...");
+                try {
+                    String version = PluginUpdate.getVersion();
+                    if(getDescription().getVersion()!=version){
+                        getLogger().info("已找到新的插件更新，最新版本: " + version);
+                        getLogger().info("从Github下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
+                    } else getLogger().info("你使用的是最新版本");
+                } catch (IOException e) {
+                    getLogger().warning("An error occurred while fetching the latest version, reason: " + e);
+                }
+            }
+        });
+
         getLogger().info("All tasks done. Welcome to use MiraiMC!");
     }
 
@@ -124,7 +134,7 @@ public class NukkitPlugin extends PluginBase {
                     Utils.closeSQLite();
                 } catch (SQLException e) {
                     getLogger().error("Failed to close SQLite database!");
-                    getLogger().error("Reason: " + e.getLocalizedMessage());
+                    getLogger().error("Reason: " + e);
                 }
                 break;
             }
@@ -169,7 +179,9 @@ public class NukkitPlugin extends PluginBase {
                                             try {
                                                 MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
                                             } catch (InterruptedException e) {
-                                                Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+                                                if(Config.Gen_FriendlyException) {
+                                                    Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+                                                } else e.printStackTrace();
                                                 sender.sendMessage(TextFormat.colorize('&',"&c登录机器人时出现异常，请检查控制台输出！"));
                                             }
                                         }

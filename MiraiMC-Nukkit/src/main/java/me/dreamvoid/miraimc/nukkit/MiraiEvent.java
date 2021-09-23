@@ -8,74 +8,79 @@ import net.mamoe.mirai.event.events.*;
 public class MiraiEvent {
     private final NukkitPlugin plugin;
     
-    private Listener BotOnlineListener;
-    private Listener BotOfflineActiveListener;
-    private Listener BotOfflineForceListener;
-    private Listener BotOfflineDroppedListener;
-    private Listener BotOfflineRequireReconnectListener;
-    private Listener BotReloginEventListener;
-    private Listener BotAvatarChangedEventListener;
-    private Listener BotNickChangedEventListener;
+    private Listener<BotOnlineEvent> BotOnlineListener;
+    private Listener<BotOfflineEvent.Active> BotOfflineActiveListener;
+    private Listener<BotOfflineEvent.Force> BotOfflineForceListener;
+    private Listener<BotOfflineEvent.Dropped> BotOfflineDroppedListener;
+    private Listener<BotOfflineEvent.RequireReconnect> BotOfflineRequireReconnectListener;
+    // TODO: BotOfflineEvent.MsfOffline
+    // TODO: BotOfflineEvent.CauseAware
+    private Listener<BotReloginEvent> BotReloginEventListener;
+    private Listener<BotAvatarChangedEvent> BotAvatarChangedEventListener;
+    private Listener<BotNickChangedEvent> BotNickChangedEventListener;
 
-    private Listener GroupMessageListener;
-    private Listener FriendMessageListener;
-    private Listener GroupTempMessageEventListener;
-    private Listener StrangerMessageEventListener;
-    private Listener OtherClientMessageEventListener;
+    private Listener<GroupMessageEvent> GroupMessageListener;
+    private Listener<FriendMessageEvent> FriendMessageListener;
+    private Listener<GroupTempMessageEvent> GroupTempMessageEventListener;
+    private Listener<StrangerMessageEvent> StrangerMessageEventListener;
+    private Listener<OtherClientMessageEvent> OtherClientMessageEventListener;
 
-    private Listener GroupMessagePreSendEventListener;
-    private Listener FriendMessagePreSendEventListener;
-    private Listener GroupTempMessagePreSendEventListener;
-    private Listener StrangerMessagePreSendEventListener;
+    private Listener<GroupMessagePreSendEvent> GroupMessagePreSendEventListener;
+    private Listener<FriendMessagePreSendEvent> FriendMessagePreSendEventListener;
+    private Listener<GroupTempMessagePreSendEvent> GroupTempMessagePreSendEventListener;
+    private Listener<StrangerMessagePreSendEvent> StrangerMessagePreSendEventListener;
 
-    private Listener GroupMessagePostSendEventListener;
-    private Listener FriendMessagePostSendEventListener;
-    private Listener GroupTempMessagePostSendEventListener;
-    private Listener StrangerMessagePostSendEventListener;
+    private Listener<GroupMessagePostSendEvent> GroupMessagePostSendEventListener;
+    private Listener<FriendMessagePostSendEvent> FriendMessagePostSendEventListener;
+    private Listener<GroupTempMessagePostSendEvent> GroupTempMessagePostSendEventListener;
+    private Listener<StrangerMessagePostSendEvent> StrangerMessagePostSendEventListener;
 
-    private Listener FriendMessageRecallEventListener;
-    private Listener GroupMessageRecallEventListener;
+    private Listener<MessageRecallEvent.FriendRecall> FriendMessageRecallEventListener;
+    private Listener<MessageRecallEvent.GroupRecall> GroupMessageRecallEventListener;
 
-    private Listener BeforeImageUploadEventListener;
-    private Listener ImageUploadSucceedEventListener;
-    private Listener ImageUploadFailedEventListener;
-    private Listener NudgeEventListener;
+    private Listener<BeforeImageUploadEvent> BeforeImageUploadEventListener;
+    private Listener<ImageUploadEvent.Succeed> ImageUploadSucceedEventListener;
+    private Listener<ImageUploadEvent.Failed> ImageUploadFailedEventListener;
+    private Listener<NudgeEvent> NudgeEventListener;
 
-    private Listener BotLeaveActiveEventListener;
-    private Listener BotLeaveKickEventListener;
-    private Listener BotGroupPermissionChangeEventListener;
-    private Listener BotMuteEventListener;
-    private Listener BotUnmuteEventListener;
-    private Listener BotJoinGroupEventListener;
+    private Listener<BotLeaveEvent.Active> BotLeaveActiveEventListener;
+    private Listener<BotLeaveEvent.Kick> BotLeaveKickEventListener;
+    private Listener<BotGroupPermissionChangeEvent> BotGroupPermissionChangeEventListener;
+    private Listener<BotMuteEvent> BotMuteEventListener;
+    private Listener<BotUnmuteEvent> BotUnmuteEventListener;
+    private Listener<BotJoinGroupEvent> BotJoinGroupEventListener; // TODO: BotJoinGroupEvent.Active
+    // TODO: BotJoinGroupEvent.Invite
+    // TODO: BotJoinGroupEvent.Retrieve
 
-    private Listener GroupNameChangeEventListener;
-    private Listener GroupEntranceAnnouncementChangeEventListener;
-    private Listener GroupMuteAllEventListener;
-    private Listener GroupAllowAnonymousChatEventListener;
-    private Listener GroupAllowMemberInviteEventListener;
+    private Listener<GroupNameChangeEvent> GroupNameChangeEventListener;
+    private Listener<GroupEntranceAnnouncementChangeEvent> GroupEntranceAnnouncementChangeEventListener;
+    private Listener<GroupMuteAllEvent> GroupMuteAllEventListener;
+    private Listener<GroupAllowAnonymousChatEvent> GroupAllowAnonymousChatEventListener;
+    private Listener<GroupAllowMemberInviteEvent> GroupAllowMemberInviteEventListener;
 
-    private Listener MemberJoinInviteEventListener;
-    private Listener MemberJoinActiveEventListener;
-    private Listener MemberLeaveKickEventListener;
-    private Listener MemberLeaveQuitEventListener;
-    private Listener MemberJoinRequestEventListener;
-    private Listener BotInvitedJoinGroupRequestEventListener;
+    private Listener<MemberJoinEvent.Invite> MemberJoinInviteEventListener;
+    private Listener<MemberJoinEvent.Active> MemberJoinActiveEventListener;
+    // TODO: MemberJoinEvent.Retrieve
+    private Listener<MemberLeaveEvent.Kick> MemberLeaveKickEventListener;
+    private Listener<MemberLeaveEvent.Quit> MemberLeaveQuitEventListener;
+    private Listener<MemberJoinRequestEvent> MemberJoinRequestEventListener; // TODO: MemberJoinRequestEvent.Companion // 这两个如果没差别就不整
+    private Listener<BotInvitedJoinGroupRequestEvent> BotInvitedJoinGroupRequestEventListener;
 
-    private Listener MemberCardChangeEventListener;
-    private Listener MemberSpecialTitleChangeEventListener;
+    private Listener<MemberCardChangeEvent> MemberCardChangeEventListener;
+    private Listener<MemberSpecialTitleChangeEvent> MemberSpecialTitleChangeEventListener;
 
-    private Listener MemberPermissionChangeEventListener;
+    private Listener<MemberPermissionChangeEvent> MemberPermissionChangeEventListener;
 
-    private Listener MemberMuteEventListener;
-    private Listener MemberUnmuteEventListener;
+    private Listener<MemberMuteEvent> MemberMuteEventListener;
+    private Listener<MemberUnmuteEvent> MemberUnmuteEventListener;
 
-    private Listener FriendRemarkChangeEventListener;
-    private Listener FriendAddEventListener;
-    private Listener FriendDeleteEventListener;
-    private Listener NewFriendRequestEventListener;
-    private Listener FriendAvatarChangedEventListener;
-    private Listener FriendNickChangedEventListener;
-    private Listener FriendInputStatusChangedEventListener;
+    private Listener<FriendRemarkChangeEvent> FriendRemarkChangeEventListener;
+    private Listener<FriendAddEvent> FriendAddEventListener;
+    private Listener<FriendDeleteEvent> FriendDeleteEventListener;
+    private Listener<NewFriendRequestEvent> NewFriendRequestEventListener;
+    private Listener<FriendAvatarChangedEvent> FriendAvatarChangedEventListener;
+    private Listener<FriendNickChangedEvent> FriendNickChangedEventListener;
+    private Listener<FriendInputStatusChangedEvent> FriendInputStatusChangedEventListener;
 
     public MiraiEvent(NukkitPlugin plugin){
         this.plugin = plugin;

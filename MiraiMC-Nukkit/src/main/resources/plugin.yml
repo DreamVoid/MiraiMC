@@ -3,7 +3,7 @@ author: DreamVoid
 description: MiraiBot for Minecraft server
 main: me.dreamvoid.miraimc.nukkit.NukkitPlugin
 version: ${project.version}
-api-version: 1.0
+api: ["1.0.13"]
 website: https://github.com/DreamVoid/MiraiMC
 commands:
   mirai:

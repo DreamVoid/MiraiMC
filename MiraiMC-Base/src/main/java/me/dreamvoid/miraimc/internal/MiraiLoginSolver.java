@@ -31,18 +31,8 @@ public class MiraiLoginSolver extends LoginSolver {
      */
     private static final HashMap<Bot,String> deviceVerifyCode = new HashMap<>();
 
-    private final CustomLoginFailedException loginCancelException = new CustomLoginFailedException(true,"用户终止登录") {
-        @Override
-        public String getMessage() {
-            return super.getMessage();
-        }
-    };
-    private final CustomLoginFailedException loginErrorException = new CustomLoginFailedException(true,"登录时出现严重错误") {
-        @Override
-        public String getMessage() {
-            return super.getMessage();
-        }
-    };
+    private final CustomLoginFailedException loginCancelException = new CustomLoginFailedException(true,"用户终止登录") {};
+    private final CustomLoginFailedException loginErrorException = new CustomLoginFailedException(true,"登录时出现严重错误") {};
 
     /**
      * @param bot 机器人实例
@@ -57,7 +47,7 @@ public class MiraiLoginSolver extends LoginSolver {
 
         // 建立机器人账号文件夹
         File ImageDir = new File(Config.PluginDir,"verifyimage");
-        if(!ImageDir.exists() &&!ImageDir.mkdir()) {
+        if(!ImageDir.exists() &&!ImageDir.mkdirs()) {
             throw new RuntimeException("Failed to create folder " + ImageDir.getPath());
         }
 
@@ -67,7 +57,9 @@ public class MiraiLoginSolver extends LoginSolver {
             fos.write(imageData);
             fos.flush();
         } catch (IOException e) {
-            bot.getLogger().warning("保存验证码图片文件时出现异常，原因: "+e.getLocalizedMessage());
+            if(Config.Gen_FriendlyException){
+                bot.getLogger().warning("保存验证码图片文件时出现异常，原因: "+e.getLocalizedMessage());
+            } else e.printStackTrace();
         }
 
         threads = new Thread(() -> {
@@ -92,7 +84,9 @@ public class MiraiLoginSolver extends LoginSolver {
         try {
             threads.join();
         } catch (InterruptedException e) {
-            bot.getLogger().warning("启动验证线程时出现异常，原因: "+e.getLocalizedMessage());
+            if(Config.Gen_FriendlyException) {
+                bot.getLogger().warning("启动验证线程时出现异常，原因: " + e.getLocalizedMessage());
+            } else e.printStackTrace();
             throw loginErrorException;
         }
 
@@ -142,7 +136,9 @@ public class MiraiLoginSolver extends LoginSolver {
         try {
             threads.join();
         } catch (InterruptedException e) {
-            bot.getLogger().warning("启动验证线程时出现异常，原因: "+e.getLocalizedMessage());
+            if(Config.Gen_FriendlyException) {
+                bot.getLogger().warning("启动验证线程时出现异常，原因: " + e.getLocalizedMessage());
+            } else e.printStackTrace();
             throw loginErrorException;
         }
 
@@ -192,7 +188,9 @@ public class MiraiLoginSolver extends LoginSolver {
         try {
             threads.join();
         } catch (InterruptedException e) {
-            bot.getLogger().warning("启动验证线程时出现异常，原因: "+e.getLocalizedMessage());
+            if(Config.Gen_FriendlyException) {
+                bot.getLogger().warning("启动验证线程时出现异常，原因: " + e.getLocalizedMessage());
+            } else e.printStackTrace();
             throw loginErrorException;
         }
 

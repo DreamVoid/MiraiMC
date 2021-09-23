@@ -23,13 +23,11 @@ public class BungeeConfig {
 
     public void loadConfig() {
         try {
-            if (!BungeePlugin.getDataFolder().exists() && !BungeePlugin.getDataFolder().mkdir()) throw new RuntimeException("Failed to create folder " + BungeePlugin.getDataFolder().getPath());
+            if (!BungeePlugin.getDataFolder().exists() && !BungeePlugin.getDataFolder().mkdirs()) throw new RuntimeException("Failed to create folder " + BungeePlugin.getDataFolder().getPath());
             File file = new File(BungeePlugin.getDataFolder(), "config.yml");
             if (!file.exists()) {
                 try (InputStream in = BungeePlugin.getResourceAsStream("config.yml")) {
                     Files.copy(in, file.toPath());
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
             bungeeConfig = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(new File(BungeePlugin.getDataFolder(), "config.yml"));
@@ -38,10 +36,14 @@ public class BungeeConfig {
         }
 
         Gen_AllowBStats = bungeeConfig.getBoolean("general.allow-bStats",true);
+        Gen_CheckUpdate = bungeeConfig.getBoolean("general.check-update",true);
         Gen_DisableSafeWarningMessage = bungeeConfig.getBoolean("general.disable-safe-warning-message",false);
         Gen_MiraiWorkingDir = bungeeConfig.getString("general.mirai-working-dir","default");
         Gen_AddProperties_MiraiNoDesktop = bungeeConfig.getBoolean("general.add-properties.mirai.no-desktop",true);
         Gen_AddProperties_MiraiSliderCaptchaSupported = bungeeConfig.getBoolean("general.add-properties.mirai.slider.captcha.supported",true);
+        Gen_MiraiCoreVersion = bungeeConfig.getString("general.mirai-core-version","latest");
+        Gen_MavenRepoUrl = bungeeConfig.getString("general.maven-repo-url","https://repo1.maven.org/maven2");
+        Gen_FriendlyException = bungeeConfig.getBoolean("general.friendly-exception",true);
 
         Bot_DisableNetworkLogs = bungeeConfig.getBoolean("bot.disable-network-logs",false);
         Bot_DisableBotLogs = bungeeConfig.getBoolean("bot.disable-bot-logs",false);

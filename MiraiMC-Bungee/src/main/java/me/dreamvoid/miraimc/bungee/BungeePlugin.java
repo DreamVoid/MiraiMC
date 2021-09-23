@@ -5,12 +5,11 @@ import me.dreamvoid.miraimc.bungee.commands.MiraiCommand;
 import me.dreamvoid.miraimc.bungee.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.bungee.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.bungee.utils.Metrics;
-import me.dreamvoid.miraimc.internal.Config;
-import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
-import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.internal.*;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class BungeePlugin extends Plugin {
@@ -19,12 +18,22 @@ public class BungeePlugin extends Plugin {
 
     @Override
     public void onLoad() {
-        Utils.setLogger(this.getLogger());
-        Utils.setClassLoader(this.getClass().getClassLoader());
-        new BungeeConfig(this).loadConfig();
+        try {
+            Utils.setLogger(this.getLogger());
+            Utils.setClassLoader(this.getClass().getClassLoader());
+            new BungeeConfig(this).loadConfig();
 
-        this.MiraiEvent = new MiraiEvent();
-        this.MiraiAutoLogin = new MiraiAutoLogin(this);
+            if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("latest")) {
+                MiraiLoader.loadMiraiCore();
+            } else {
+                MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
+            }
+            this.MiraiEvent = new MiraiEvent();
+            this.MiraiAutoLogin = new MiraiAutoLogin(this);
+        } catch (Exception e) {
+            getLogger().warning("An error occurred while loading plugin.");
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -57,8 +66,9 @@ public class BungeePlugin extends Plugin {
                 try {
                     Utils.initializeSQLite();
                 } catch (SQLException | ClassNotFoundException e) {
-                    getLogger().severe("Failed to initialize SQLite database!");
-                    getLogger().severe("Reason: "+e.getLocalizedMessage());
+                    if(Config.Gen_FriendlyException) {
+                        getLogger().warning("Failed to initialize SQLite database, reason: " + e);
+                    } else e.printStackTrace();
                 }
                 break;
             }
@@ -80,6 +90,21 @@ public class BungeePlugin extends Plugin {
         if(!(Config.Gen_DisableSafeWarningMessage)){
             getLogger().warning("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
             getLogger().warning("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
+        }
+
+        if(Config.Gen_CheckUpdate && !getDescription().getVersion().contains("dev")){
+            getProxy().getScheduler().runAsync(this, () -> {
+                getLogger().info("正在检查更新...");
+                try {
+                    String version = PluginUpdate.getVersion();
+                    if(getDescription().getVersion()!=version){
+                        getLogger().info("已找到新的插件更新，最新版本: " + version);
+                        getLogger().info("从Github下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
+                    } else getLogger().info("你使用的是最新版本");
+                } catch (IOException e) {
+                    getLogger().warning("An error occurred while fetching the latest version, reason: " + e);
+                }
+            });
         }
 
         getLogger().info("All tasks done. Welcome to use MiraiMC!");
@@ -109,7 +134,7 @@ public class BungeePlugin extends Plugin {
                     Utils.closeSQLite();
                 } catch (SQLException e) {
                     getLogger().severe("Failed to close SQLite database!");
-                    getLogger().severe("Reason: " + e.getLocalizedMessage());
+                    getLogger().severe("Reason: " + e);
                 }
                 break;
             }
