@@ -103,6 +103,9 @@ A more detailed development tutorial can be found here: https://en.wiki.miraimc.
 - [X] Added remaining unadded Mirai events
 - [X] Rewrite the login process to adapt to Bukkit (and future Bungee, even Sponge)
 - [X] Support BungeeCord
-- [ ] Fully compatible with the structure of mirai console for service owners who are already using mirai
-- [ ] Support Sponge
-- [ ] Load the mirai console plugin like mirai console
+- [X] Fully compatible with the structure of mirai console for service owners who are already using mirai
+- [X] Support Sponge
+- [X] Support NukkitX
+- [X] Support PlaceholderAPI
+- [ ] Support Mirai-Http-API mode to connect to mirai-console (Expected to be implemented in 1.6)
+- [ ] Load the mirai console plugin like mirai console(Far away, PR welcome)
