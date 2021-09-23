@@ -2,6 +2,7 @@ package me.dreamvoid.miraimc.bukkit.papi;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.dreamvoid.miraimc.api.MiraiBot;
+import me.dreamvoid.miraimc.api.MiraiMC;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
@@ -58,9 +59,11 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
                 break;
             }
             case "friendcounts":{
-                MiraiBot miraiBot = MiraiBot.getBot(Long.parseLong(args[1]));
-                if (miraiBot.isExist() && miraiBot.isOnline()) {
-                    return String.valueOf(miraiBot.getFriendList().toArray().length);
+                if(args.length>=2) {
+                    MiraiBot miraiBot = MiraiBot.getBot(Long.parseLong(args[1]));
+                    if (miraiBot.isExist() && miraiBot.isOnline()) {
+                        return String.valueOf(miraiBot.getFriendList().toArray().length);
+                    }
                 }
                 break;
             }
@@ -68,6 +71,24 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
                 MiraiBot miraiBot = MiraiBot.getBot(Long.parseLong(args[1]));
                 if (miraiBot.isExist() && miraiBot.isOnline()) {
                     return String.valueOf(miraiBot.getGroupList().toArray().length);
+                }
+                break;
+            }
+            case "bindqq": {
+                if (args.length >= 2) {
+                    OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
+                    return String.valueOf(MiraiMC.getBinding(player.getUniqueId().toString()));
+                } else return String.valueOf(MiraiMC.getBinding(p.getUniqueId().toString()));
+            }
+            case "binduuid":{
+                if(args.length >= 2) {
+                    return MiraiMC.getBinding(Long.parseLong(args[1]));
+                }
+                break;
+            }
+            case "bindname":{
+                if(args.length >= 2) {
+                    return Bukkit.getOfflinePlayer(MiraiMC.getBinding(Long.parseLong(args[1]))).getName();
                 }
                 break;
             }
