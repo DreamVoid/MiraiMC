@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.sponge;
 import com.google.inject.Inject;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoader;
-import me.dreamvoid.miraimc.internal.PluginUpdate;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.sponge.commands.MiraiCommand;
 import me.dreamvoid.miraimc.sponge.commands.MiraiMcCommand;
@@ -20,12 +19,10 @@ import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
-import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.metric.MetricsConfigManager;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
 
 @Plugin(id = "miraimc", name = "MiraiMC", description = "MiraiBot for Minecraft server",version = "1.5-rc1", url = "https://github.com/DreamVoid/MiraiMC", authors = {"DreamVoid"})
@@ -132,22 +129,8 @@ public class SpongePlugin {
             getLogger().warn("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
 
-        Task.builder().async().execute(() -> {
-            getLogger().info("正在检查更新...");
-            try {
-                String version = PluginUpdate.getVersion();
-                if(!pluginContainer.getVersion().get().equals(version)){
-                    getLogger().info("已找到新的插件更新，最新版本: " + version);
-                    getLogger().info("从Github下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
-                } else getLogger().info("你使用的是最新版本");
-            } catch (IOException e1) {
-                getLogger().warn("An error occurred while fetching the latest version, reason: " + e1);
-            }
-        }).submit(this);
-
         getLogger().info("Some initialization tasks will continue to run afterwards.");
         getLogger().info("All tasks done. Welcome to use MiraiMC!");
-
     }
 
     /**
