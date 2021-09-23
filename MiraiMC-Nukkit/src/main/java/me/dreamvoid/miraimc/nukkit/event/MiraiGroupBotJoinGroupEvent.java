@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.nukkit.event;
 import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.BotJoinGroupEvent;
 import cn.nukkit.event.Event;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * 机器人成功加入了一个新群

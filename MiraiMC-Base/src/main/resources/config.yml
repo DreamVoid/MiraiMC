@@ -6,11 +6,15 @@
 
 general:
   allow-bStats: true
+  check-update: true
   disable-safe-warning-message: false
   mirai-working-dir: default
   add-properties:
     mirai.no-desktop: true
     mirai.slider.captcha.supported: true
+  mirai-core-version: "latest"
+  maven-repo-url: "https://maven.aliyun.com/nexus/content/groups/public/"
+  friendly-exception: true
 bot:
   disable-network-logs: false
   disable-bot-logs: false

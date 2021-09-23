@@ -2,13 +2,12 @@ package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
-import me.dreamvoid.miraimc.internal.Config;
-import me.dreamvoid.miraimc.internal.MiraiLoader;
-import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
-import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.internal.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -26,24 +25,30 @@ public class BukkitPlugin extends JavaPlugin {
             Utils.setClassLoader(this.getClassLoader());
             new BukkitConfig(this).loadConfig();
 
-            MiraiLoader.loadMiraiCore();
+            if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("latest")) {
+                MiraiLoader.loadMiraiCore();
+            } else {
+                MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
+            }
             this.MiraiEvent = new MiraiEvent();
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
-        } catch (IOException e) {
-            getLogger().severe("An error occurred while loading plugin, reason: " + e.getLocalizedMessage());
+        } catch (Exception e) {
+            getLogger().warning("An error occurred while loading plugin.");
+            e.printStackTrace();
         }
     }
 
     @Override // 启用插件
     public void onEnable() {
+        if(new File("cauldron.yml").exists()){
+            getLogger().severe("MiraiMC不支持Cauldron及任何下游服务端，请更换其他服务端使用！（如果你并没有在使用，请删除服务端根目录下的cauldron.yml文件）");
+            getLogger().severe("请不要反馈你遇到的任何问题，作者将永远不会解决！");
+            getLogger().severe("兼容性报告: https://wiki.miraimc.dreamvoid.ml/troubleshoot/compatibility-report/cauldron");
+        }
         getLogger().info("Mirai working dir: " + Config.Gen_MiraiWorkingDir);
 
-        if(Config.Gen_AddProperties_MiraiNoDesktop){
-            System.setProperty("mirai.no-desktop","MiraiMC");
-        }
-        if(Config.Gen_AddProperties_MiraiSliderCaptchaSupported){
-            System.setProperty("mirai.slider.captcha.supported","MiraiMC");
-        }
+        if(Config.Gen_AddProperties_MiraiNoDesktop) System.setProperty("mirai.no-desktop", "MiraiMC");
+        if(Config.Gen_AddProperties_MiraiSliderCaptchaSupported) System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
 
         getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();
@@ -67,8 +72,9 @@ public class BukkitPlugin extends JavaPlugin {
                 try {
                     Utils.initializeSQLite();
                 } catch (SQLException | ClassNotFoundException e) {
-                    getLogger().severe("Failed to initialize SQLite database!");
-                    getLogger().severe("Reason: "+e.getLocalizedMessage());
+                    if(Config.Gen_FriendlyException) {
+                        getLogger().warning("Failed to initialize SQLite database, reason: " + e);
+                    } else e.printStackTrace();
                 }
                 break;
             }
@@ -84,6 +90,24 @@ public class BukkitPlugin extends JavaPlugin {
             getLogger().info("Initializing bStats metrics.");
             int pluginId = 11534;
             new Metrics(this, pluginId);
+        }
+
+        if(Config.Gen_CheckUpdate && !getDescription().getVersion().contains("dev")){
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    getLogger().info("正在检查更新...");
+                    try {
+                        String version = PluginUpdate.getVersion();
+                        if(getDescription().getVersion()!=version){
+                            getLogger().info("已找到新的插件更新，最新版本: " + version);
+                            getLogger().info("从Github下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
+                        } else getLogger().info("你使用的是最新版本");
+                    } catch (IOException e) {
+                        getLogger().warning("An error occurred while fetching the latest version, reason: " + e);
+                    }
+                }
+            }.runTaskAsynchronously(this);
         }
 
         // 安全警告
@@ -114,7 +138,7 @@ public class BukkitPlugin extends JavaPlugin {
                     Utils.closeSQLite();
                 } catch (SQLException e) {
                     getLogger().severe("Failed to close SQLite database!");
-                    getLogger().severe("Reason: " + e.getLocalizedMessage());
+                    getLogger().severe("Reason: " + e);
                 }
                 break;
             }

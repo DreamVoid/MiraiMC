@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.nukkit.event;
 import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.BotUnmuteEvent;
 import cn.nukkit.event.Event;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * 机器人被取消禁言

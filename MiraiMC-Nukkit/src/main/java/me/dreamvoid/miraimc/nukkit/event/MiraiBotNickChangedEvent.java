@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.nukkit.event;
 import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.BotNickChangedEvent;
 import cn.nukkit.event.Event;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Bot 昵称改变

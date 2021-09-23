@@ -5,7 +5,7 @@
     <parent>
         <artifactId>MiraiMC</artifactId>
         <groupId>io.github.dreamvoid</groupId>
-        <version>1.5-pre1</version>
+        <version>1.5</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -65,8 +65,6 @@
         <plugins>
             <!--maven-assembly-plugins-->
             <plugin>
-                <!--加这个是为了把mirai的库打包进jar，这样Bukkit加载的时候就不会报找不到类了
-                至于为什么不像mcl一样下载外部文件，因为我懒，不想搞，可能以后会搞-->
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
@@ -83,6 +81,18 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
+                </configuration>
             </plugin>
         </plugins>
     </build>

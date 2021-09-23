@@ -28,27 +28,10 @@ public class MiraiAutoLogin {
     public static MiraiAutoLogin Instance;
 
     public void loadFile() {
-        File MiraiDir;
-        if(!(Config.Gen_MiraiWorkingDir.equals("default"))){
-            MiraiDir = new File(Config.Gen_MiraiWorkingDir);
-        } else {
-            MiraiDir = new File(Config.PluginDir,"MiraiBot");
-        }
-        if(!MiraiDir.exists() &&!MiraiDir.mkdir()) {
-            throw new RuntimeException("Failed to create folder " + MiraiDir.getPath());
-        }
-
-        // 建立配置文件夹
-        File ConfigDir = new File(MiraiDir,"config");
-        if(!ConfigDir.exists() &&!ConfigDir.mkdir()) {
-            throw new RuntimeException("Failed to create folder " + ConfigDir.getPath());
-        }
-
         // 建立控制台文件夹
-        File ConsoleDir = new File(ConfigDir, "Console");
-        if(!ConsoleDir.exists() &&!ConsoleDir.mkdir()) {
-            throw new RuntimeException("Failed to create folder " + ConsoleDir.getPath());
-        }
+        File MiraiDir; if(!(Config.Gen_MiraiWorkingDir.equals("default"))) MiraiDir = new File(Config.Gen_MiraiWorkingDir); else MiraiDir = new File(Config.PluginDir,"MiraiBot");
+        File ConsoleDir = new File(MiraiDir, "config/Console");
+        if(!ConsoleDir.exists() &&!ConsoleDir.mkdirs()) throw new RuntimeException("Failed to create folder " + ConsoleDir.getPath());
 
         // 建立自动登录文件
         AutoLoginFile = new File(ConsoleDir, "AutoLogin.yml");
@@ -91,12 +74,16 @@ public class MiraiAutoLogin {
                         try {
                             MiraiBot.doBotLogin(Account, Password, Protocol);
                         } catch (InterruptedException e) {
-                            Logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+                            if(Config.Gen_FriendlyException) {
+                                Logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+                            } else e.printStackTrace();
                         }
                     }
                 }
             } catch (IOException e) {
-                Logger.severe("执行自动登录时出现异常，原因: "+e.getLocalizedMessage());
+                if(Config.Gen_FriendlyException) {
+                    Logger.severe("执行自动登录时出现异常，原因: " + e.getLocalizedMessage());
+                } else e.printStackTrace();
             }
         };
         plugin.getProxy().getScheduler().runAsync(plugin, thread);
