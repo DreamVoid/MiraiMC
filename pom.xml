@@ -11,6 +11,7 @@
     <modules>
         <module>MiraiMC-Base</module>
         <module>MiraiMC-Bukkit</module>
+        <module>MiraiMC-Bukkit-PlaceholderAPI</module>
         <module>MiraiMC-Bungee</module>
         <module>MiraiMC-Sponge</module>
         <module>MiraiMC-Nukkit</module>
