@@ -7,6 +7,9 @@ import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
+import net.mamoe.mirai.contact.Friend;
+import net.mamoe.mirai.contact.Group;
+import net.mamoe.mirai.contact.Stranger;
 import net.mamoe.mirai.utils.BotConfiguration;
 import net.mamoe.mirai.utils.LoggerAdapters;
 
@@ -133,6 +136,58 @@ public class MiraiBot {
      * @return 存在返回true，不存在返回false
      */
     public boolean isExist() { return !(Objects.equals(bot, null)); }
+
+    /**
+     * 获取机器人昵称
+     * @return 昵称
+     */
+    public String getNick() {
+        return bot.getNick();
+    }
+
+    /**
+     * 获取机器人QQ号
+     * @return QQ号
+     */
+    public long getID() {
+        return bot.getId();
+    }
+
+    /**
+     * 获取机器人所有好友
+     * @return 好友QQ号列表
+     */
+    public List<Long> getFriendList() {
+        List<Long> result = new ArrayList<>();
+        for(Friend friend : bot.getFriends()){
+            result.add(friend.getId());
+        }
+        return result;
+    }
+
+    /**
+     * 获取机器人加入的所有群
+     * @return 群号列表
+     */
+    public List<Long> getGroupList() {
+        List<Long> result = new ArrayList<>();
+        for(Group group : bot.getGroups()){
+            result.add(group.getId());
+        }
+        return result;
+    }
+
+    /**
+     * 获取机器人所有陌生人
+     * @return 陌生人QQ号列表
+     */
+    public List<Long> getStrangersList() {
+        List<Long> result = new ArrayList<>();
+        for(Stranger stranger : bot.getStrangers()){
+            result.add(stranger.getId());
+        }
+        return result;
+    }
 
     private static void privateBotLogin(long Account, byte[] Password, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException {
         logger = Utils.logger;
