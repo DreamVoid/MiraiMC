@@ -37,6 +37,12 @@
         </dependency>
         <dependency>
             <groupId>io.github.dreamvoid</groupId>
+            <artifactId>MiraiMC-Sponge</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.dreamvoid</groupId>
             <artifactId>MiraiMC-Nukkit</artifactId>
             <version>${project.parent.version}</version>
             <scope>compile</scope>
