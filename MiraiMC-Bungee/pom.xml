@@ -61,21 +61,35 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!--maven-assembly-plugins-->
             <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.3.0</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
                 <configuration>
-                    <descriptors>
-                        <descriptor>MiraiMC-Base/src/main/resources/assembly.xml</descriptor>
-                    </descriptors>
+                    <relocations>
+                        <relocation>
+                            <pattern>com.zaxxer</pattern>
+                            <shadedPattern>me.dreamvoid.miraimc.libraries.zaxxer</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.google.gson</pattern>
+                            <shadedPattern>me.dreamvoid.miraimc.libraries.gson</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.apache.commons.codec</pattern>
+                            <shadedPattern>me.dreamvoid.miraimc.libraries.codec</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.slf4j</pattern><!-- ？？？怎么会有slf4j？？？-->
+                            <shadedPattern>me.dreamvoid.miraimc.libraries.slf4j</shadedPattern>
+                        </relocation>
+                    </relocations>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>make-assembly</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>shade</goal>
                         </goals>
                     </execution>
                 </executions>
