@@ -55,21 +55,23 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!--maven-assembly-plugins-->
             <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.3.0</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
                 <configuration>
-                    <descriptors>
-                        <descriptor>MiraiMC-Base/src/main/resources/assembly.xml</descriptor>
-                    </descriptors>
+                    <relocations>
+                        <relocation>
+                            <pattern>org.apache.commons.codec</pattern>
+                            <shadedPattern>me.dreamvoid.miraimc.libraries.codec</shadedPattern>
+                        </relocation>
+                    </relocations>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>make-assembly</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>shade</goal>
                         </goals>
                     </execution>
                 </executions>
