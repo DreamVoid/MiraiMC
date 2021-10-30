@@ -1,6 +1,8 @@
 # MiraiMC
 Mirai QQ robots for Minecraft servers
 
+**For global users:** I am preparing to internationalize and will be released to SpigotMC after completion. If your native language is English and understands basic Chinese, please tell me through Issues. The current Readme may not be the latest, but I will soon update.
+
 [中文（简体）](https://github.com/DreamVoid/MiraiMC/blob/main/README.md) | [中文（繁體）](https://github.com/DreamVoid/MiraiMC/blob/main/README_zh-Hant.md) | [English](https://github.com/DreamVoid/MiraiMC/blob/main/README_en-US.md)
 
 ## Introduction
