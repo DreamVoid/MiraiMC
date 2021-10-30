@@ -5,6 +5,7 @@ import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.api.MiraiMC;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.plugin.Plugin;
 
 public class PlaceholderAPIExpansion extends PlaceholderExpansion {
 
@@ -30,7 +31,8 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
 
     @Override
     public boolean canRegister() {
-        return Bukkit.getPluginManager().getPlugin(getRequiredPlugin()) != null;
+        Plugin plugin = Bukkit.getPluginManager().getPlugin(getRequiredPlugin());
+        return plugin != null && plugin.isEnabled();
     }
 
     @Override
