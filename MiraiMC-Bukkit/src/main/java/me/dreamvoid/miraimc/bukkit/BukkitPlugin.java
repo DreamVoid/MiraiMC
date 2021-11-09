@@ -4,6 +4,7 @@ import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
 import me.dreamvoid.miraimc.internal.*;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -96,13 +97,14 @@ public class BukkitPlugin extends JavaPlugin {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    getLogger().info("正在检查更新...");
+                    getLogger().info("Checking update...");
                     try {
-                        String version = PluginUpdate.getVersion();
-                        if(getDescription().getVersion()!=version){
+                        PluginUpdate fetch = new PluginUpdate();
+                        String version = !getDescription().getVersion().contains("-") ? fetch.getLatestRelease() : fetch.getLatestPreRelease();
+                        if(!getDescription().getVersion().equals(version)){
                             getLogger().info("已找到新的插件更新，最新版本: " + version);
                             getLogger().info("从Github下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
-                        } else getLogger().info("你使用的是最新版本");
+                        } else getLogger().info("You are using the latest version!");
                     } catch (IOException e) {
                         getLogger().warning("An error occurred while fetching the latest version, reason: " + e);
                     }
