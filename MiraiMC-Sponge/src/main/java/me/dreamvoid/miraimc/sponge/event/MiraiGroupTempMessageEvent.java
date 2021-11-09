@@ -1,6 +1,9 @@
 package me.dreamvoid.miraimc.sponge.event;
 
 import net.mamoe.mirai.event.events.GroupTempMessageEvent;
+import net.mamoe.mirai.message.code.MiraiCode;
+import net.mamoe.mirai.message.data.MessageChainBuilder;
+import net.mamoe.mirai.message.data.QuoteReply;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.EventContext;
@@ -132,5 +135,25 @@ public class MiraiGroupTempMessageEvent extends AbstractEvent {
     @Override
     public @NotNull Cause getCause() {
         return cause;
+    }
+
+    /**
+     * 回复这条消息（支持 Mirai Code）
+     * @param message 消息内容
+     */
+    public void reply(String message) {
+        event.getSender().sendMessage(new MessageChainBuilder()
+                .append(new QuoteReply(event.getMessage()))
+                .append(MiraiCode.deserializeMiraiCode(message))
+                .build()
+        );
+    }
+
+    /**
+     * 向发送来源发送消息（支持 Mirai Code）
+     * @param message 消息内容
+     */
+    public void sendMessage(String message) {
+        event.getSender().sendMessage(MiraiCode.deserializeMiraiCode(message));
     }
 }

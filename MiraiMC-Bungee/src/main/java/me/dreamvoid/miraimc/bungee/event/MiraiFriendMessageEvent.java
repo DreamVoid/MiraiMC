@@ -1,6 +1,9 @@
 package me.dreamvoid.miraimc.bungee.event;
 
 import net.mamoe.mirai.event.events.FriendMessageEvent;
+import net.mamoe.mirai.message.code.MiraiCode;
+import net.mamoe.mirai.message.data.MessageChainBuilder;
+import net.mamoe.mirai.message.data.QuoteReply;
 import net.md_5.bungee.api.plugin.Event;
 
 /**
@@ -97,5 +100,25 @@ public final class MiraiFriendMessageEvent extends Event {
      */
     public String eventToString() {
         return event.toString();
+    }
+
+    /**
+     * 回复这条消息（支持 Mirai Code）
+     * @param message 消息内容
+     */
+    public void reply(String message) {
+        event.getSender().sendMessage(new MessageChainBuilder()
+                .append(new QuoteReply(event.getMessage()))
+                .append(MiraiCode.deserializeMiraiCode(message))
+                .build()
+        );
+    }
+
+    /**
+     * 向发送来源发送消息（支持 Mirai Code）
+     * @param message 消息内容
+     */
+    public void sendMessage(String message) {
+        event.getSender().sendMessage(MiraiCode.deserializeMiraiCode(message));
     }
 }
