@@ -54,10 +54,6 @@
                             <shadedPattern>me.dreamvoid.miraimc.libraries.zaxxer</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>com.google.gson</pattern>
-                            <shadedPattern>me.dreamvoid.miraimc.libraries.gson</shadedPattern>
-                        </relocation>
-                        <relocation>
                             <pattern>org.apache.commons.codec</pattern>
                             <shadedPattern>me.dreamvoid.miraimc.libraries.codec</shadedPattern>
                         </relocation>

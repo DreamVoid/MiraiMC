@@ -1,13 +1,13 @@
 package test;
 
-import java.io.IOException;
+import me.dreamvoid.miraimc.internal.PluginUpdate;
 
-import static me.dreamvoid.miraimc.internal.PluginUpdate.getVersion;
+import java.io.IOException;
 
 public class JavaMain {
     public static void main(String[] args){
         try {
-            System.out.println(getVersion());
+            System.out.println(new PluginUpdate().getLatestRelease());
         } catch (IOException e) {
             e.printStackTrace();
         }

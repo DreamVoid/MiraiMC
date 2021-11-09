@@ -99,10 +99,11 @@ public class NukkitPlugin extends PluginBase {
         getServer().getScheduler().scheduleAsyncTask(this, new AsyncTask() {
             @Override
             public void onRun() {
-                getLogger().info("正在检查更新...");
+                getLogger().info("Checking update...");
                 try {
-                    String version = PluginUpdate.getVersion();
-                    if(getDescription().getVersion()!=version){
+                    PluginUpdate fetch = new PluginUpdate();
+                    String version = !getDescription().getVersion().contains("-") ? fetch.getLatestRelease() : fetch.getLatestPreRelease();
+                    if(!getDescription().getVersion().equals(version)){
                         getLogger().info("已找到新的插件更新，最新版本: " + version);
                         getLogger().info("从Github下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
                     } else getLogger().info("你使用的是最新版本");
