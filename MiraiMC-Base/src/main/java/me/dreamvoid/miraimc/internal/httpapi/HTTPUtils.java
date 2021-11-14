@@ -11,6 +11,7 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -18,7 +19,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 class HTTPUtils {
-    private static final String USER_AGENT = "Mozilla/5.0";
+    private static final String USER_AGENT = "Mozilla/5.0 DreamVoid MiraiMC";
 
     // HTTP GET请求
     static String get(String url) throws Exception {
@@ -30,10 +31,6 @@ class HTTPUtils {
 
         //添加请求头
         con.setRequestProperty("User-Agent", USER_AGENT);
-
-        int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
 
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
@@ -54,7 +51,7 @@ class HTTPUtils {
      * @param URL 链接
      * @return 远程服务器返回内容
      */
-    public static String sendPost(JsonObject json, String URL) {
+    public static String sendPost(JsonObject json, String URL) throws IOException {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost post = new HttpPost(URL);
             post.setHeader("Content-Type", "application/json");
@@ -79,9 +76,6 @@ class HTTPUtils {
                 System.out.println("Request failed.");
             }
             return strber.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return null;
     }
 }

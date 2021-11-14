@@ -5,6 +5,8 @@ import me.dreamvoid.miraimc.api.MiraiMC;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI;
+import me.dreamvoid.miraimc.internal.httpapi.response.Bind;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.bukkit.Bukkit;
@@ -16,6 +18,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -43,25 +47,43 @@ public class Commands implements CommandExecutor {
 
                                         @Override
                                         public void run() {
-                                            BotConfiguration.MiraiProtocol Protocol;
-                                            if(args.length == 3){
+                                            BotConfiguration.MiraiProtocol Protocol = null;
+                                            boolean useHttpApi = false;
+                                            if (args.length == 3 || args[3].equalsIgnoreCase("android_phone")) {
                                                 Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
-                                            } else if (args[3].equalsIgnoreCase("android_phone")) {
-                                                Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
-                                            } else if(args[3].equalsIgnoreCase("android_pad")){
-                                                Protocol= BotConfiguration.MiraiProtocol.ANDROID_PAD;
+                                            } else if (args[3].equalsIgnoreCase("android_pad")) {
+                                                Protocol = BotConfiguration.MiraiProtocol.ANDROID_PAD;
                                             } else if (args[3].equalsIgnoreCase("android_watch")) {
                                                 Protocol = BotConfiguration.MiraiProtocol.ANDROID_WATCH;
+                                            } else if (args[3].equalsIgnoreCase("httpapi")) {
+                                                useHttpApi = true;
                                             } else {
-                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&e无效的协议类型，已自动选择 ANDROID_PHONE."));
-                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&e可用的协议类型: ANDROID_PHONE, ANDROID_PAD, ANDROID_WATCH."));
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e无效的协议类型，已自动选择 ANDROID_PHONE."));
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e可用的协议类型: " + Arrays.toString(BotConfiguration.MiraiProtocol.values()) + ", HTTPAPI"));
                                                 Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
                                             }
                                             try {
-                                                MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
+                                                if(!useHttpApi){
+                                                    MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
+                                                } else {
+                                                    if(Config.Gen_WorkingMode_HttpApi) {
+                                                        MiraiHttpAPI httpAPI = new MiraiHttpAPI(Config.HTTPAPI_Url);
+                                                        Bind bind = httpAPI.bind(httpAPI.verify(args[2]).session, Long.parseLong(args[1]));
+                                                        if(bind.code == 0) {
+                                                            sender.sendMessage(ChatColor.GREEN + args[1] + " HTTP-API登录成功！");
+                                                        } else {
+                                                            sender.sendMessage(ChatColor.YELLOW + "登录机器人时出现异常，原因: " + bind.msg);
+                                                        }
+                                                    } else sender.sendMessage(ChatColor.RED + "此服务器没有启用HTTP-API模式，请检查配置文件！");
+                                                }
                                             } catch (InterruptedException e) {
                                                 if(Config.Gen_FriendlyException) {
                                                     Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+                                                } else e.printStackTrace();
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，请检查控制台输出！"));
+                                            } catch (IOException e) {
+                                                if(Config.Gen_FriendlyException) {
+                                                    Utils.logger.warning("登录机器人时出现异常，原因: " + e);
                                                 } else e.printStackTrace();
                                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，请检查控制台输出！"));
                                             }

@@ -14,29 +14,52 @@ public class Message {
     @SerializedName("url")
     public String url = null;
 
-    public static Message getAtAll() {
-        Message msg = new Message();
-        msg.type = "AtAll";
-        return msg;
+    @SerializedName("id")
+    public int id;
+
+    @SerializedName("time")
+    public int time;
+
+    public Message setAtAll() {
+        type = "AtAll";
+        return this;
     }
 
     /**
      * 多次调用时组合的消息不带换行符，需要自己在消息末尾加上
-     * @param message 消息内容
-     * @return 消息实例
      */
-    public static Message getPlain(String message) {
-        Message msg = new Message();
-        msg.type = "Plain";
-        msg.text = message;
-        return msg;
+    public Message setPlain(String message) {
+        this.type = "Plain";
+        this.text = message;
+        return this;
     }
 
-    public static Message getImage(URL url) {
-        Message msg = new Message();
-        msg.type = "Image";
-        msg.url = url.toString();
-        return msg;
+    public Message setImage(URL url) {
+        this.type = "Image";
+        this.url = url.toString();
+        return this;
     }
 
+    public Message setSource(int messageId, int sendTime) {
+        this.id=messageId;
+        this.time=sendTime;
+        return this;
+    }
+
+    public long senderId;
+    public String senderNickname;
+    public String remark;
+
+    public Message setSenderId(long account){
+        this.senderId=account;
+        return this;
+    }
+    public Message setSenderNickname(String nickname){
+        this.senderNickname =nickname;
+        return this;
+    }
+    public Message setSenderRemark(String remark){
+        this.remark=remark;
+        return this;
+    }
 }
