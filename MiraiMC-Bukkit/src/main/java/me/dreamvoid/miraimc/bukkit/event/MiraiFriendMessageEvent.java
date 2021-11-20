@@ -25,26 +25,26 @@ public final class MiraiFriendMessageEvent extends Event {
         senderID = event.getSender().getId();
         senderNick = event.getSender().getNick();
         messageContent = event.getMessage().contentToString();
+        time = event.getTime();
     }
-    public MiraiFriendMessageEvent(Message message) {
+    public MiraiFriendMessageEvent(long BotAccount, Message message) {
         super(true);
-        this.message = message;
 
-        botID = 0L;
+        botID = BotAccount;
         senderID = message.senderId;
         senderNick = message.senderNickname;
         messageContent = message.text;
+        time = message.time;
     }
 
     private static final HandlerList handlers = new HandlerList();
     private FriendMessageEvent event = null;
-    private Message message = null;
 
     private final long botID;
     private final long senderID;
     private final String senderNick;
     private final String messageContent;
-    private int time;
+    private final int time;
 
     public @NotNull HandlerList getHandlers() { return handlers; }
     public static HandlerList getHandlerList() { return handlers; }
@@ -124,9 +124,7 @@ public final class MiraiFriendMessageEvent extends Event {
      * @return 发送时间
      */
     public int getTime() {
-        if(!Objects.isNull(event)) {
-            return event.getTime();
-        } else return message.time;
+        return time;
     }
 
     /**

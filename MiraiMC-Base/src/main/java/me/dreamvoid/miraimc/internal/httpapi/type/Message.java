@@ -20,14 +20,12 @@ public class Message {
     @SerializedName("time")
     public int time;
 
+    // 下方通用，并且只能调用一次
     public Message setAtAll() {
         type = "AtAll";
         return this;
     }
 
-    /**
-     * 多次调用时组合的消息不带换行符，需要自己在消息末尾加上
-     */
     public Message setPlain(String message) {
         this.type = "Plain";
         this.text = message;
@@ -46,6 +44,7 @@ public class Message {
         return this;
     }
 
+    // 下方用于接收到消息时
     public long senderId;
     public String senderNickname;
     public String remark;

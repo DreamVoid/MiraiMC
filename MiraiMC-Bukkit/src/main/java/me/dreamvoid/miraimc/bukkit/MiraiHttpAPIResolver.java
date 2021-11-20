@@ -19,34 +19,40 @@ public class MiraiHttpAPIResolver implements Runnable {
                 String session = hashMap.get(account);
                 FetchMessage fetchMessage = api.fetchMessage(session, Config.HTTPAPI_MessageFetch_Count);
                 if(fetchMessage.code == 0) {
-                    for(FetchMessage.Data data : fetchMessage.data) {
-                        long id = data.sender.id;
-                        String nickname = data.sender.nickname;
-                        String remark = data.sender.remark;
+                    for(FetchMessage.Data data : fetchMessage.data) { // 这里搞循环是因为mirai http api会返回一堆消息，需要挨个处理
+                        long id = data.sender.id; // 发送者QQ
+                        String nickname = data.sender.nickname; // 发送者昵称
+                        String remark = data.sender.remark; // 发送者备注
 
-                        String type = data.type;
+                        String type = data.type; // 消息类型，用于区分私聊群聊等
 
-                        int sendTime = 0;
-                        int messageId = 0;
-                        String message = "";
-                        for (Message msg : data.messageChain) {
-                            if(msg.type.equalsIgnoreCase("Source")){
-                                sendTime = msg.time;
-                                messageId = msg.id;
-                            } else if(msg.type.equalsIgnoreCase("Plain")){
-                                message = message + msg.text;
+                        int sendTime = 0; // 发送时间
+                        int messageId = 0; // 消息ID
+
+                        StringBuilder message = new StringBuilder(); // 消息内容
+                        for (Message msg : data.messageChain) { // 这里搞循环是用来组合消息链
+                            switch (msg.type) {
+                                case "Source": { // 消息源
+                                    sendTime = msg.time;
+                                    messageId = msg.id;
+                                    break;
+                                }
+                                case "Plain": { // 普通文本消息
+                                    message.append(msg.text);
+                                    break;
+                                }
                             }
                         }
 
-
-                        if(type.equalsIgnoreCase("FriendMessage")){
-                            Bukkit.getPluginManager().callEvent(new MiraiFriendMessageEvent(new Message()
+                        // 准备广播事件
+                        switch (type) {
+                            case "FriendMessage":Bukkit.getPluginManager().callEvent(new MiraiFriendMessageEvent(account, new Message()
                                     .setSenderId(id)
                                     .setSenderNickname(nickname)
                                     .setSenderRemark(remark)
                                     .setSource(messageId,sendTime)
-                                    .setPlain(message)
-                            ));
+                                    .setPlain(message.toString())
+                            ));break;
                         }
                     }
 
