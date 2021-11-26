@@ -4,7 +4,6 @@ import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
 import me.dreamvoid.miraimc.internal.*;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
