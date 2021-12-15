@@ -23,38 +23,30 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
+    # MiraiMC-Bukkit.jar
     - name: Upload a Build Artifact - MiraiMC Bukkit
       uses: actions/upload-artifact@v2.3.1
       with:
-        # Artifact name
-        name: "MiraiMC Bukkit"
-        # A file, directory or wildcard pattern that describes what to upload
+        name: "MiraiMC-Bukkit.jar"
         path: MiraiMC-Bukkit/target/MiraiMC-Bukkit.jar
-        # The desired behavior if no files are found using the provided path.
 
+    # MiraiMC-Bungee.jar
     - name: Upload a Build Artifact - MiraiMC Bungee
       uses: actions/upload-artifact@v2.3.1
       with:
-        # Artifact name
-        name: "MiraiMC Bungee"
-        # A file, directory or wildcard pattern that describes what to upload
+        name: "MiraiMC-Bungee.jar"
         path: MiraiMC-Bungee/target/MiraiMC-Bungee.jar
-        # The desired behavior if no files are found using the provided path.
 
+    # MiraiMC-Sponge.jar
     - name: Upload a Build Artifact - MiraiMC Sponge
       uses: actions/upload-artifact@v2.3.1
       with:
-        # Artifact name
-        name: "MiraiMC Sponge"
-        # A file, directory or wildcard pattern that describes what to upload
+        name: "MiraiMC-Sponge.jar"
         path: MiraiMC-Sponge/target/MiraiMC-Sponge.jar
-        # The desired behavior if no files are found using the provided path.
 
+    # MiraiMC-Nukkit.jar
     - name: Upload a Build Artifact - MiraiMC Nukkit
       uses: actions/upload-artifact@v2.3.1
       with:
-        # Artifact name
-        name: "MiraiMC Nukkit"
-        # A file, directory or wildcard pattern that describes what to upload
+        name: "MiraiMC-Nukkit.jar"
         path: MiraiMC-Nukkit/target/MiraiMC-Nukkit.jar
-        # The desired behavior if no files are found using the provided path.
