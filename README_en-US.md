@@ -17,8 +17,10 @@ Although Tencent QQ runs best in China, Tencent is also developing Tencent QQ gl
 * Stable Version
   * [Github Releases](https://github.com/DreamVoid/MiraiMC/releases)
   * [Gitee Releases](https://gitee.com/dreamvoid/MiraiMC/releases) (China)
+  * [MCBBS](https://www.mcbbs.net/thread-1207462-1-1.html) (China)
+    * [Nukkit](https://www.mcbbs.net/thread-1260246-1-1.html) (China)
 * Dev Version
-  * [Jenkins CI](https://ci.dreamvoid.ml/job/MiraiMC/)
+  * [Github Actions CI](https://github.com/DreamVoid/MiraiMC/actions/workflows/build-maven.yml)
 
 ## Get starting
 ### Server owner
@@ -47,7 +49,7 @@ Copy the following code to the ```dependencies``` of pom.xml or directly import 
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC-Integration</artifactId>
     <!--Make sure it is the latest version-->
-    <version>1.5.1</version>
+    <version>1.5.2</version>
     <scope>provided</scope>
 </dependency>
 ```
