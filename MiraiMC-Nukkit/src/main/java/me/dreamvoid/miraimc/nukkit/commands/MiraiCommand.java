@@ -11,8 +11,10 @@ import me.dreamvoid.miraimc.nukkit.commands.miraisubcommand.*;
  */
 public class MiraiCommand extends BaseCommand {
 
-    public MiraiCommand(String name, String description) {
-        super(name, description);
+    public MiraiCommand() {
+        super("mirai", "MiraiBot Bot Command.");
+        this.setPermission("miraimc.command.mirai");
+        this.setUsage("For help, type /mirai help");
 
         this.addSubCommand(new LoginCommand("Login"));
         this.addSubCommand(new LogoutCommand("Logout"));

@@ -5,15 +5,6 @@ main: me.dreamvoid.miraimc.nukkit.NukkitPlugin
 version: ${project.version}
 api: ["1.0.13"]
 website: https://github.com/DreamVoid/MiraiMC
-commands:
-  miraimc:
-    description: MiraiBot Plugin Command.
-    permission: miraimc.command.miraimc
-    usage: For help, type /miraimc help
-  miraiverify:
-    description: MiraiBot LoginVerify Command.
-    permission: miraimc.command.miraiverify
-    usage: For help, type /mirai help
 permissions:
   miraimc.*:
     description: All permissions of MiraiMC
