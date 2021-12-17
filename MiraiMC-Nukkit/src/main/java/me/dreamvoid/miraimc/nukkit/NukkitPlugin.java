@@ -1,10 +1,7 @@
 package me.dreamvoid.miraimc.nukkit;
 
-import cn.nukkit.command.Command;
-import cn.nukkit.command.CommandSender;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.scheduler.AsyncTask;
-import cn.nukkit.utils.TextFormat;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.*;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiCommand;
