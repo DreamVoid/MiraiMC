@@ -9,6 +9,7 @@ import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.*;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiMcCommand;
+import me.dreamvoid.miraimc.nukkit.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.nukkit.utils.MetricsLite;
 
 import java.io.IOException;
@@ -64,6 +65,7 @@ public class NukkitPlugin extends PluginBase {
         getLogger().info("Registering commands.");
         getServer().getCommandMap().register("", new MiraiCommand());
         getServer().getCommandMap().register("", new MiraiMcCommand());
+        getServer().getCommandMap().register("", new MiraiVerifyCommand());
 
         if(Config.Bot_LogEvents){
             getLogger().info("Registering events.");
