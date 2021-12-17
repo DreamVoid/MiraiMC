@@ -60,6 +60,11 @@ public class NukkitPlugin extends PluginBase {
         MiraiAutoLogin.loadFile();
         MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
 
+        // 注册命令
+        getLogger().info("Registering commands.");
+        getServer().getCommandMap().register("", new MiraiCommand());
+        getServer().getCommandMap().register("", new MiraiMcCommand());
+
         if(Config.Bot_LogEvents){
             getLogger().info("Registering events.");
             this.getServer().getPluginManager().registerEvents(new Events(this), this);
@@ -97,10 +102,6 @@ public class NukkitPlugin extends PluginBase {
             getLogger().warning("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
             getLogger().warning("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
-
-        // 注册命令
-        getServer().getCommandMap().register("", new MiraiCommand());
-        getServer().getCommandMap().register("", new MiraiMcCommand());
 
         getServer().getScheduler().scheduleAsyncTask(this, new AsyncTask() {
             @Override
