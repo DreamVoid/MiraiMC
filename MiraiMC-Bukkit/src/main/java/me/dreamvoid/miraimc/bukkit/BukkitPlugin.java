@@ -45,6 +45,16 @@ public class BukkitPlugin extends JavaPlugin {
             getLogger().severe("请不要反馈你遇到的任何问题，作者将永远不会解决！");
             getLogger().severe("兼容性报告: https://wiki.miraimc.dreamvoid.ml/troubleshoot/compatibility-report/cauldron");
         }
+        if(new File("catserver.yml").exists()){
+            getLogger().severe("MiraiMC不支持CatServer及任何下游服务端，请更换其他服务端使用！（如果你并没有在使用，请删除服务端根目录下的catserver.yml文件）");
+            getLogger().severe("请不要反馈你遇到的任何问题，请联系CatServer作者解决兼容性问题！");
+            getLogger().severe("兼容性报告: https://wiki.miraimc.dreamvoid.ml/troubleshoot/compatibility-report/catserver");
+        }
+        if(new File("loliserver.yml").exists()){
+            getLogger().severe("MiraiMC不支持CatServer及任何下游服务端，请更换其他服务端使用！（如果你并没有在使用，请删除服务端根目录下的loliserver.yml文件）");
+            getLogger().severe("请不要反馈你遇到的任何问题，请联系LoliServer作者解决兼容性问题！");
+            getLogger().severe("兼容性报告: https://wiki.miraimc.dreamvoid.ml/troubleshoot/compatibility-report/catserver");
+        }
         getLogger().info("Mirai working dir: " + Config.Gen_MiraiWorkingDir);
 
         if(Config.Gen_AddProperties_MiraiNoDesktop) System.setProperty("mirai.no-desktop", "MiraiMC");

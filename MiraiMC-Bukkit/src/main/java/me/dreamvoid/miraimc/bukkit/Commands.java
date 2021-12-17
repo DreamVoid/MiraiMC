@@ -113,7 +113,13 @@ public class Commands implements CommandExecutor {
                         case "sendgroupmessage":{
                             if(sender.hasPermission("miraimc.command.mirai.sendgroupmessage")){
                                 if(args.length >= 4){
-                                    MiraiBot.getBot(Long.parseLong(args[1])).getGroup(Long.parseLong(args[2])).sendMessage(args[3]);
+                                    StringBuilder message = new StringBuilder();
+                                    for (int i = 0; i < args.length; i++) {    //list.size()就是循环的次数
+                                        if(i >= 3){
+                                            message.append(args[i]).append(" ");
+                                        }
+                                    }
+                                    MiraiBot.getBot(Long.parseLong(args[1])).getGroup(Long.parseLong(args[2])).sendMessage(message.toString().replace("\\n",System.lineSeparator()));
                                 } else {
                                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai sendgroupmessage <账号> <群号> <消息>"));
                                 }
@@ -123,7 +129,13 @@ public class Commands implements CommandExecutor {
                         case "sendfriendmessage":{
                             if(sender.hasPermission("miraimc.command.mirai.sendfriendmessage")){
                                 if(args.length >= 4){
-                                    MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendMessage(args[3]);
+                                    StringBuilder message = new StringBuilder();
+                                    for (int i = 0; i < args.length; i++) {    //list.size()就是循环的次数
+                                        if(i >= 3){
+                                            message.append(args[i]).append(" ");
+                                        }
+                                    }
+                                    MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendMessage(message.toString().replace("\\n",System.lineSeparator()));
                                 } else {
                                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai sendfriendmessage <账号> <好友> <消息>"));
                                 }
