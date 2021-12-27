@@ -20,7 +20,7 @@ Although Tencent QQ runs best in China, Tencent is also developing Tencent QQ gl
   * [MCBBS](https://www.mcbbs.net/thread-1207462-1-1.html) (China)
     * [Nukkit](https://www.mcbbs.net/thread-1260246-1-1.html) (China)
 * Dev Version
-  * [Github Actions CI](https://github.com/DreamVoid/MiraiMC/actions/workflows/build-maven.yml)
+  * [Github Actions CI](https://github.com/DreamVoid/MiraiMC/actions/workflows/build-maven.yml?query=is%3Asuccess)
 
 ## Get starting
 ### Server owner
