@@ -148,7 +148,7 @@ public class MiraiAutoLogin {
             }
 
             // 保存
-            ConfigurationProvider.getProvider(net.md_5.bungee.config.JsonConfiguration.class).save(data,AutoLoginFile);
+            ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).save(data,AutoLoginFile);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
