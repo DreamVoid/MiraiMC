@@ -1,4 +1,4 @@
-# MiraiMC
+# MiraiMC ![](https://www.codefactor.io/Content/badges/A.svg)
 适用于Minecraft服务器的Mirai机器人
 
 [中文（简体）](https://github.com/DreamVoid/MiraiMC/blob/main/README.md) | [中文（繁體）](https://github.com/DreamVoid/MiraiMC/blob/main/README_zh-Hant.md) | [English](https://github.com/DreamVoid/MiraiMC/blob/main/README_en-US.md)
