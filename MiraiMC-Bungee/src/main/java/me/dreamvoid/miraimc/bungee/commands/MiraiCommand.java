@@ -152,8 +152,6 @@ public class MiraiCommand extends Command {
                         if(args.length>=2){
                             switch (args[1]){
                                 case "add":{
-                                    sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c此功能在当前环境(BungeeCord)下不可用，请等待未来的版本！")));
-                                    /*
                                     boolean result;
                                     if(args.length>=4){
                                         if(args.length == 5){
@@ -163,7 +161,7 @@ public class MiraiCommand extends Command {
                                             sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&a新的自动登录机器人添加成功！")));
                                         } else sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c新的自动登录机器人添加失败，请检查控制台错误输出！")));
                                     } else sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai autologin add <账号> <密码> [协议]")));
-                                    */
+
                                     break;
                                 }
                                 case "remove":{

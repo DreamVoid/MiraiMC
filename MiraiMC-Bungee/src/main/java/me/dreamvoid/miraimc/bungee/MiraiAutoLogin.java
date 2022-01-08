@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bungee;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
+import me.dreamvoid.miraimc.bungee.utils.BukkitUtils;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.utils.BotConfiguration;
@@ -11,7 +12,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class MiraiAutoLogin {
@@ -93,19 +96,29 @@ public class MiraiAutoLogin {
         try {
             // 获取自动登录文件
             Configuration data = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(AutoLoginFile);
-            List<?> list = data.getList("accounts");
+            List<Map<?, ?>> list = BukkitUtils.getMapList(data.getList("accounts"));
 
-            // 创建一个Yaml用来添加自动登录机器人
-            // 我除了这个方案想不出别的方案了
-            Configuration tempConf = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load("");
+            data.get("accounts", list);
+            // 新建用于添加进去的Map
+            Map<Object, Object> account = new HashMap<>();
 
-            tempConf.set("account",Account);
+            // account 节点
+            account.put("account", Account);
 
-            tempConf.set("password.kind", "PLAIN");
-            tempConf.set("password.value", Password);
+            // password 节点
+            Map<Object, Object> password = new HashMap<>();
+            password.put("kind", "PLAIN");
+            password.put("value", Password);
+            account.put("password", password);
 
-            tempConf.set("configuration.protocol", Protocol);
-            tempConf.set("configuration.device", "device.json");
+            // configuration 节点
+            Map<Object, Object> configuration = new HashMap<>();
+            configuration.put("protocol", Protocol);
+            configuration.put("device", "device.json");
+            account.put("configuration", configuration);
+
+            list.add(account);
+            data.set("accounts", list);
 
             // 保存
             ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).save(data, AutoLoginFile);
