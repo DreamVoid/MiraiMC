@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>MiraiMC</artifactId>
+        <groupId>io.github.dreamvoid</groupId>
+        <version>1.5.2</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>MiraiMC-Velocity</artifactId>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>velocitypowered-repo</id>
+            <url>https://nexus.velocitypowered.com/repository/maven-public/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.dreamvoid</groupId>
+            <artifactId>MiraiMC-Base</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.velocitypowered</groupId>
+            <artifactId>velocity-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>
