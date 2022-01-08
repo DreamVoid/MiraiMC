@@ -89,7 +89,6 @@ public class SpongePlugin {
             Sponge.getEventManager().registerListeners(this, new Events());
         }
 
-
         switch (Config.DB_Type.toLowerCase()){
             case "sqlite":
             default: {
