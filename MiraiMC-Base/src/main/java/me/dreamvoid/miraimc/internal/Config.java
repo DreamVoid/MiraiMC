@@ -14,6 +14,8 @@ public class Config {
     public static String Gen_MiraiCoreVersion;
     public static String Gen_MavenRepoUrl;
     public static boolean Gen_FriendlyException;
+    public static boolean Gen_WorkingMode_Core;
+    public static boolean Gen_WorkingMode_HttpApi;
 
     public static boolean Bot_DisableNetworkLogs;
     public static boolean Bot_DisableBotLogs;
@@ -35,4 +37,8 @@ public class Config {
     public static int DB_MySQL_Poll_MaximumPoolSize;
     public static int DB_MySQL_Poll_KeepaliveTime;
     public static int DB_MySQL_Poll_MinimumIdle;
+
+    public static String HTTPAPI_Url;
+    public static long HTTPAPI_MessageFetch_Interval;
+    public static int HTTPAPI_MessageFetch_Count;
 }
