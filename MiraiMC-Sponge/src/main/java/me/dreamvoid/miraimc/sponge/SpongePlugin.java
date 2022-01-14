@@ -41,7 +41,7 @@ public class SpongePlugin {
     private MetricsConfigManager metricsConfigManager;
 
     private MiraiEvent MiraiEvent;
-    //private MiraiAutoLogin MiraiAutoLogin;
+    private MiraiAutoLogin MiraiAutoLogin;
 
     /**
      * 触发 GamePreInitializationEvent 时，插件准备进行初始化，这时默认的 Logger 已经准备好被调用，同时你也可以开始引用配置文件中的内容。
@@ -60,7 +60,7 @@ public class SpongePlugin {
                 MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
             }
             MiraiEvent = new MiraiEvent(this);
-            //this.MiraiAutoLogin = new MiraiAutoLogin(this);
+            this.MiraiAutoLogin = new MiraiAutoLogin(this);
         } catch (Exception ex) {
             getLogger().warn("An error occurred while loading plugin.");
             ex.printStackTrace();
@@ -80,9 +80,9 @@ public class SpongePlugin {
         getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();
 
-        //getLogger().info("Loading auto-login file.");
-        //MiraiAutoLogin.loadFile();
-        //MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
+        getLogger().info("Loading auto-login file.");
+        MiraiAutoLogin.loadFile();
+        MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
 
         if(Config.Bot_LogEvents){
             getLogger().info("Registering events.");

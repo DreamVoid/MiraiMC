@@ -1,0 +1,158 @@
+package me.dreamvoid.miraimc.sponge;
+
+import me.dreamvoid.miraimc.api.MiraiBot;
+import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.sponge.utils.AutoLoginObject;
+import net.mamoe.mirai.utils.BotConfiguration;
+import org.spongepowered.api.scheduler.Task;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.nodes.Tag;
+
+import java.io.*;
+import java.util.List;
+import java.util.logging.Logger;
+
+public class MiraiAutoLogin {
+
+    public MiraiAutoLogin(SpongePlugin plugin) {
+        this.plugin = plugin;
+        this.Logger = Utils.logger;
+        Instance = this;
+    }
+
+    private final SpongePlugin plugin;
+    private final Logger Logger;
+    private static File AutoLoginFile;
+    public static MiraiAutoLogin Instance;
+
+    public void loadFile() {
+        // 建立文件夹
+        File MiraiDir; if(!(Config.Gen_MiraiWorkingDir.equals("default"))) MiraiDir = new File(Config.Gen_MiraiWorkingDir); else MiraiDir = new File(Config.PluginDir,"MiraiBot");
+        File ConsoleDir = new File(MiraiDir, "config/Console");
+        if(!ConsoleDir.exists() &&!ConsoleDir.mkdirs()) throw new RuntimeException("Failed to create folder " + ConsoleDir.getPath());
+
+        // 建立自动登录文件
+        AutoLoginFile = new File(ConsoleDir, "AutoLogin.yml");
+        if(!AutoLoginFile.exists()) {
+            try {
+                if(!AutoLoginFile.createNewFile()){ throw new RuntimeException("Failed to create folder " + AutoLoginFile.getPath()); }
+                String defaultText = "accounts: "+System.getProperty("line.separator");
+                File writeName = AutoLoginFile;
+                try (FileWriter writer = new FileWriter(writeName);
+                     BufferedWriter out = new BufferedWriter(writer)
+                ) {
+                    out.write(defaultText);
+                    out.flush();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public List<AutoLoginObject.Accounts> loadAutoLoginList() throws FileNotFoundException {
+        Yaml yaml = new Yaml();
+        InputStream inputStream = new FileInputStream(AutoLoginFile);
+        AutoLoginObject data = yaml.loadAs(inputStream, AutoLoginObject.class);
+        return data.accounts;
+    }
+
+    public void doStartUpAutoLogin() {
+        Runnable thread = () -> {
+            try {
+                Logger.info("[AutoLogin] Starting auto login task.");
+                for(AutoLoginObject.Accounts accounts : loadAutoLoginList()){
+                    AutoLoginObject.Password password = accounts.password;
+                    AutoLoginObject.Configuration configuration = accounts.configuration;
+                    long Account = accounts.account;
+                    if(Account != 123456){
+                        try {
+                            String Password = password.value;
+                            BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.protocol);
+
+                            Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
+                            MiraiBot.doBotLogin(Account, Password, Protocol);
+                        } catch (IllegalArgumentException ex){
+                            Logger.warning("读取自动登录文件时发现未知的协议类型，请修改: " + configuration.protocol);
+                        }
+                    }
+                }
+            } catch (InterruptedException|FileNotFoundException e) {
+                if(Config.Gen_FriendlyException) {
+                    Logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+                } else e.printStackTrace();
+            }
+        };
+        Task.builder().async().name("MiraiMC Autologin Task").execute(thread).submit(plugin);
+    }
+
+    public boolean addAutoLoginBot(long Account, String Password, String Protocol){
+        try {
+            // 获取现有的机器人列表
+            Yaml yaml = new Yaml();
+            InputStream inputStream = new FileInputStream(AutoLoginFile);
+            AutoLoginObject data = yaml.loadAs(inputStream, AutoLoginObject.class);
+
+            // 新建用于添加进去的Map
+            AutoLoginObject.Accounts account = new AutoLoginObject.Accounts();
+
+            // account 节点
+            account.account = Account;
+
+            // password 节点
+            account.password.kind = "PLAIN";
+            account.password.value = Password;
+
+            // configuration 节点
+            account.configuration.protocol = Protocol;
+            account.configuration.device = "device.json";
+
+            // 添加
+            data.accounts.add(account);
+            Yaml yaml1 = new Yaml();
+
+            File writeName = AutoLoginFile;
+            try (FileWriter writer = new FileWriter(writeName);
+                 BufferedWriter out = new BufferedWriter(writer)
+            ) {
+                out.write(yaml1.dumpAs(data, Tag.MAP, null));
+                out.flush();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean delAutoLoginBot(long Account){
+        try {
+            // 获取现有的机器人列表
+            Yaml yaml = new Yaml();
+            InputStream inputStream = new FileInputStream(AutoLoginFile);
+            AutoLoginObject data = yaml.loadAs(inputStream, AutoLoginObject.class);
+
+            for (AutoLoginObject.Accounts bots : data.accounts) {
+                if (bots.account == Account) {
+                    data.accounts.remove(bots);
+                    break;
+                }
+            }
+
+            Yaml yaml1 = new Yaml();
+
+            File writeName = AutoLoginFile;
+            try (FileWriter writer = new FileWriter(writeName);
+                 BufferedWriter out = new BufferedWriter(writer)
+            ) {
+                out.write(yaml1.dumpAs(data, Tag.MAP, null));
+                out.flush();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+}
