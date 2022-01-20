@@ -7,6 +7,7 @@ import me.dreamvoid.miraimc.sponge.utils.AutoLoginObject;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.spongepowered.api.scheduler.Task;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.nodes.Tag;
 
 import java.io.*;
@@ -51,11 +52,12 @@ public class MiraiAutoLogin {
         }
     }
 
-    public List<AutoLoginObject.Accounts> loadAutoLoginList() throws FileNotFoundException {
-        Yaml yaml = new Yaml();
+    public static List<AutoLoginObject.Accounts> loadAutoLoginList() throws FileNotFoundException {
+        Yaml yaml = new Yaml(new Constructor(AutoLoginObject.class));
         InputStream inputStream = new FileInputStream(AutoLoginFile);
         AutoLoginObject data = yaml.loadAs(inputStream, AutoLoginObject.class);
-        return data.accounts;
+        System.out.println(data.toString());
+        return data.getAccounts();
     }
 
     public void doStartUpAutoLogin() {
@@ -63,18 +65,18 @@ public class MiraiAutoLogin {
             try {
                 Logger.info("[AutoLogin] Starting auto login task.");
                 for(AutoLoginObject.Accounts accounts : loadAutoLoginList()){
-                    AutoLoginObject.Password password = accounts.password;
-                    AutoLoginObject.Configuration configuration = accounts.configuration;
-                    long Account = accounts.account;
+                    AutoLoginObject.Password password = accounts.getPassword();
+                    AutoLoginObject.Configuration configuration = accounts.getConfiguration();
+                    long Account = accounts.getAccount();
                     if(Account != 123456){
                         try {
-                            String Password = password.value;
-                            BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.protocol);
+                            String Password = password.getValue();
+                            BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.getProtocol());
 
                             Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
                             MiraiBot.doBotLogin(Account, Password, Protocol);
                         } catch (IllegalArgumentException ex){
-                            Logger.warning("读取自动登录文件时发现未知的协议类型，请修改: " + configuration.protocol);
+                            Logger.warning("读取自动登录文件时发现未知的协议类型，请修改: " + configuration.getProtocol());
                         }
                     }
                 }
@@ -87,7 +89,7 @@ public class MiraiAutoLogin {
         Task.builder().async().name("MiraiMC Autologin Task").execute(thread).submit(plugin);
     }
 
-    public boolean addAutoLoginBot(long Account, String Password, String Protocol){
+    public static boolean addAutoLoginBot(long Account, String Password, String Protocol){
         try {
             // 获取现有的机器人列表
             Yaml yaml = new Yaml();
@@ -98,18 +100,24 @@ public class MiraiAutoLogin {
             AutoLoginObject.Accounts account = new AutoLoginObject.Accounts();
 
             // account 节点
-            account.account = Account;
+            account.setAccount(Account);;
 
             // password 节点
-            account.password.kind = "PLAIN";
-            account.password.value = Password;
+            AutoLoginObject.Password password = new AutoLoginObject.Password();
+            password.setKind("PLAIN");
+            password.setValue(Password);
+            account.setPassword(password);
 
             // configuration 节点
-            account.configuration.protocol = Protocol;
-            account.configuration.device = "device.json";
+            AutoLoginObject.Configuration configuration = new AutoLoginObject.Configuration();
+            configuration.setDevice("device.json");
+            configuration.setProtocol(Protocol);
+            account.setConfiguration(configuration);
 
             // 添加
-            data.accounts.add(account);
+            List<AutoLoginObject.Accounts> accounts = data.getAccounts();
+            accounts.add(account);
+            data.setAccounts(accounts);
             Yaml yaml1 = new Yaml();
 
             File writeName = AutoLoginFile;
@@ -126,16 +134,16 @@ public class MiraiAutoLogin {
         return true;
     }
 
-    public boolean delAutoLoginBot(long Account){
+    public static boolean delAutoLoginBot(long Account){
         try {
             // 获取现有的机器人列表
             Yaml yaml = new Yaml();
             InputStream inputStream = new FileInputStream(AutoLoginFile);
             AutoLoginObject data = yaml.loadAs(inputStream, AutoLoginObject.class);
 
-            for (AutoLoginObject.Accounts bots : data.accounts) {
-                if (bots.account == Account) {
-                    data.accounts.remove(bots);
+            for (AutoLoginObject.Accounts bots : data.getAccounts()) {
+                if (bots.getAccount() == Account) {
+                    data.getAccounts().remove(bots);
                     break;
                 }
             }
