@@ -96,4 +96,20 @@ public class MiraiGroup {
         Image i = ExternalResource.uploadAsImage(imageFile, group);
         return i.getImageId();
     }
+
+    /**
+     * 判断机器人是否被禁言
+     * @return 被禁言返回true，未被禁言false
+     */
+    public boolean isBotMuted(){
+        return group.getBotAsMember().isMuted();
+    }
+
+    /**
+     * 获取机器人禁言剩余时间
+     * @return 剩余时间(秒)
+     */
+    public int getBotMuteTimeRemaining(){
+        return group.getBotMuteRemaining();
+    }
 }
