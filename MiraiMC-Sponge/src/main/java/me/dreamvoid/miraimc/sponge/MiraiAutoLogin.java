@@ -6,11 +6,13 @@ import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.sponge.utils.AutoLoginObject;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.spongepowered.api.scheduler.Task;
+import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.nodes.Tag;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -56,7 +58,9 @@ public class MiraiAutoLogin {
         Yaml yaml = new Yaml(new Constructor(AutoLoginObject.class));
         InputStream inputStream = new FileInputStream(AutoLoginFile);
         AutoLoginObject data = yaml.loadAs(inputStream, AutoLoginObject.class);
-        System.out.println(data.toString());
+        if(data.getAccounts() == null){
+            data.setAccounts(new ArrayList<>());
+        }
         return data.getAccounts();
     }
 
@@ -95,12 +99,15 @@ public class MiraiAutoLogin {
             Yaml yaml = new Yaml();
             InputStream inputStream = new FileInputStream(AutoLoginFile);
             AutoLoginObject data = yaml.loadAs(inputStream, AutoLoginObject.class);
+            if(data.getAccounts() == null){
+                data.setAccounts(new ArrayList<>());
+            }
 
             // 新建用于添加进去的Map
             AutoLoginObject.Accounts account = new AutoLoginObject.Accounts();
 
             // account 节点
-            account.setAccount(Account);;
+            account.setAccount(Account);
 
             // password 节点
             AutoLoginObject.Password password = new AutoLoginObject.Password();
@@ -124,7 +131,7 @@ public class MiraiAutoLogin {
             try (FileWriter writer = new FileWriter(writeName);
                  BufferedWriter out = new BufferedWriter(writer)
             ) {
-                out.write(yaml1.dumpAs(data, Tag.MAP, null));
+                out.write(yaml1.dumpAs(data, Tag.MAP, DumperOptions.FlowStyle.BLOCK));
                 out.flush();
             }
         } catch (IOException e) {
@@ -140,6 +147,9 @@ public class MiraiAutoLogin {
             Yaml yaml = new Yaml();
             InputStream inputStream = new FileInputStream(AutoLoginFile);
             AutoLoginObject data = yaml.loadAs(inputStream, AutoLoginObject.class);
+            if(data.getAccounts() == null){
+                data.setAccounts(new ArrayList<>());
+            }
 
             for (AutoLoginObject.Accounts bots : data.getAccounts()) {
                 if (bots.getAccount() == Account) {
@@ -154,7 +164,7 @@ public class MiraiAutoLogin {
             try (FileWriter writer = new FileWriter(writeName);
                  BufferedWriter out = new BufferedWriter(writer)
             ) {
-                out.write(yaml1.dumpAs(data, Tag.MAP, null));
+                out.write(yaml1.dumpAs(data, Tag.MAP, DumperOptions.FlowStyle.BLOCK));
                 out.flush();
             }
         } catch (IOException e) {
