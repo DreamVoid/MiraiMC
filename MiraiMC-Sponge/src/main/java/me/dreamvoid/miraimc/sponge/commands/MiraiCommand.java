@@ -3,7 +3,9 @@ package me.dreamvoid.miraimc.sponge.commands;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.sponge.MiraiAutoLogin;
 import me.dreamvoid.miraimc.sponge.SpongePlugin;
+import me.dreamvoid.miraimc.sponge.utils.AutoLoginObject;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.jetbrains.annotations.NotNull;
@@ -17,6 +19,7 @@ import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.serializer.TextSerializers;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -150,7 +153,7 @@ public class MiraiCommand implements CommandExecutor {
                 }
                 case "autologin":{
                     if(src.hasPermission("miraimc.command.mirai.autologin")){
-                        /*
+
                         if(args.length>=2){
                             switch (args[1]){
                                 case "add":{
@@ -176,10 +179,15 @@ public class MiraiCommand implements CommandExecutor {
                                     break;
                                 }
                                 case "list":{
-                                    src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a存在的自动登录机器人: "));
-                                    List<Map<?,?>> AutoLoginBotList = MiraiAutoLogin.loadAutoLoginList();
-                                    for (Map<?,?> bots : AutoLoginBotList){
-                                        src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize( "&b"+bots.get("account")));
+                                    try {
+                                        src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a存在的自动登录机器人: "));
+                                        List<AutoLoginObject.Accounts> AutoLoginBotList = MiraiAutoLogin.loadAutoLoginList();
+                                        for (AutoLoginObject.Accounts bots : AutoLoginBotList) {
+                                            src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&b" + bots.getAccount()));
+                                        }
+                                    } catch (FileNotFoundException e) {
+                                        plugin.getLogger().warn("读取自动登录机器人列表时出现异常，原因: " + e);
+                                        src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c读取列表时出现异常，请查看控制台了解更多信息！"));
                                     }
                                     break;
                                 }
@@ -189,8 +197,6 @@ public class MiraiCommand implements CommandExecutor {
                                 }
                             }
                         } else src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c未知或不完整的命令，请输入 /mirai help 查看帮助！"));
-                        */
-                        src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&e自动登录在当前环境(Sponge)下不可用，请等待未来的版本！"));
                     } else src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c你没有足够的权限执行此命令！"));
                     break;
                 }
