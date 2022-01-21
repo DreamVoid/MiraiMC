@@ -1,14 +1,20 @@
 package me.dreamvoid.miraimc.velocity;
 
 import com.google.inject.Inject;
+import com.velocitypowered.api.command.CommandManager;
+import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
+import com.velocitypowered.api.plugin.PluginContainer;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoader;
 import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.velocity.commands.MiraiCommand;
+import me.dreamvoid.miraimc.velocity.commands.MiraiMcCommand;
+import me.dreamvoid.miraimc.velocity.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.velocity.utils.Metrics;
 import org.slf4j.Logger;
 
@@ -18,7 +24,7 @@ import java.sql.SQLException;
 
 @Plugin(
         id = "MiraiMC-Velocity",
-        name = "MiraiMC Velocity",
+        name = "MiraiMC",
         version = "1.0",
         description = "MiraiBot for Minecraft server",
         url = "https://github.com/DreamVoid/MiraiMC",
@@ -35,6 +41,8 @@ public class VelocityPlugin {
         // load 阶段1
         Utils.setLogger(new VelocityLogger("MiraiMC", null, this));
         Utils.setClassLoader(this.getClass().getClassLoader());
+
+        this.MiraiAutoLogin = new MiraiAutoLogin(this);
     }
 
     private final ProxyServer server;
@@ -43,6 +51,9 @@ public class VelocityPlugin {
     private final Metrics.Factory metricsFactory;
 
     private MiraiEvent MiraiEvent;
+    public MiraiAutoLogin MiraiAutoLogin;
+
+    private PluginContainer pluginContainer;
 
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
@@ -71,8 +82,18 @@ public class VelocityPlugin {
         getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();
 
+        getLogger().info("Loading auto-login file.");
+        MiraiAutoLogin.loadFile();
+        MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
+
         getLogger().info("Registering commands.");
-        // TODO: 弄命令
+        CommandManager manager = server.getCommandManager();
+        CommandMeta mirai = manager.metaBuilder("mirai").build();
+        CommandMeta miraimc = manager.metaBuilder("miraimc").build();
+        CommandMeta miraiverify = manager.metaBuilder("miraiverify").build();
+        manager.register(mirai, new MiraiCommand(this));
+        manager.register(miraimc, new MiraiMcCommand(this));
+        manager.register(miraiverify, new MiraiVerifyCommand());
         
         if(Config.Bot_LogEvents){
             getLogger().info("Registering events.");
@@ -112,6 +133,7 @@ public class VelocityPlugin {
             getLogger().warn("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
 
+        pluginContainer = server.getPluginManager().getPlugin("MiraiMC-Velocity").orElse(null);
         getLogger().info("All tasks done. Welcome to use MiraiMC!");
     }
 
@@ -125,5 +147,9 @@ public class VelocityPlugin {
 
     public ProxyServer getServer() {
         return server;
+    }
+
+    public PluginContainer getPluginContainer(){
+        return pluginContainer;
     }
 }

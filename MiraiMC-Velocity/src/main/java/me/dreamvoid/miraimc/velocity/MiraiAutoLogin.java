@@ -25,8 +25,8 @@ public class MiraiAutoLogin {
 
     private final VelocityPlugin plugin;
     private final Logger Logger;
-    private static File AutoLoginFile;
-    public static MiraiAutoLogin Instance;
+    private File AutoLoginFile;
+    public MiraiAutoLogin Instance;
 
     public void loadFile() {
         // 建立文件夹
@@ -53,7 +53,7 @@ public class MiraiAutoLogin {
         }
     }
 
-    public static List<AutoLoginObject.Accounts> loadAutoLoginList() throws FileNotFoundException {
+    public  List<AutoLoginObject.Accounts> loadAutoLoginList() throws FileNotFoundException {
         Yaml yaml = new Yaml(new Constructor(AutoLoginObject.class));
         InputStream inputStream = new FileInputStream(AutoLoginFile);
         AutoLoginObject data = yaml.loadAs(inputStream, AutoLoginObject.class);
@@ -92,7 +92,7 @@ public class MiraiAutoLogin {
         plugin.getServer().getScheduler().buildTask(plugin, thread).schedule();
     }
 
-    public static boolean addAutoLoginBot(long Account, String Password, String Protocol){
+    public  boolean addAutoLoginBot(long Account, String Password, String Protocol){
         try {
             // 获取现有的机器人列表
             Yaml yaml = new Yaml();
@@ -140,7 +140,7 @@ public class MiraiAutoLogin {
         return true;
     }
 
-    public static boolean delAutoLoginBot(long Account){
+    public  boolean delAutoLoginBot(long Account){
         try {
             // 获取现有的机器人列表
             Yaml yaml = new Yaml();
