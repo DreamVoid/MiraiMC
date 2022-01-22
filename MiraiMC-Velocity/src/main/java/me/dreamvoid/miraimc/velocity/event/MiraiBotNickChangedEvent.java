@@ -1,8 +1,6 @@
 package me.dreamvoid.miraimc.velocity.event;
 
 import net.mamoe.mirai.event.events.BotNickChangedEvent;
-import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
  * Bot 昵称改变
