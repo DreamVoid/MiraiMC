@@ -1,8 +1,6 @@
 package me.dreamvoid.miraimc.velocity.event;
 
 import net.mamoe.mirai.event.events.BotLeaveEvent;
-import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
  * 机器人被踢出群或在其他客户端主动退出一个群

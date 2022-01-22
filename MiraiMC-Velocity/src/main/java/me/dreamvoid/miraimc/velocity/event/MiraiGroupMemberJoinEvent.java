@@ -1,8 +1,6 @@
 package me.dreamvoid.miraimc.velocity.event;
 
 import net.mamoe.mirai.event.events.MemberJoinEvent;
-import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
  * 群成员 - 成员列表变更 - 成员已经加入群

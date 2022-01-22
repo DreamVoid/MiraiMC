@@ -1,8 +1,6 @@
 package me.dreamvoid.miraimc.velocity.event;
 
 import net.mamoe.mirai.event.events.NewFriendRequestEvent;
-import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
  * 一个账号请求添加机器人为好友

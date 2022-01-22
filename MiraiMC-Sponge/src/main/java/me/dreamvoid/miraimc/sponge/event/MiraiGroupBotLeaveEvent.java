@@ -2,8 +2,6 @@ package me.dreamvoid.miraimc.sponge.event;
 
 import net.mamoe.mirai.event.events.BotLeaveEvent;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
  * 机器人被踢出群或在其他客户端主动退出一个群

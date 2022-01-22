@@ -1,8 +1,6 @@
 package me.dreamvoid.miraimc.velocity.event;
 
 import net.mamoe.mirai.event.events.GroupEntranceAnnouncementChangeEvent;
-import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
  * 群设置 - 入群公告改变
