@@ -2,8 +2,6 @@ package me.dreamvoid.miraimc.sponge.event;
 
 import net.mamoe.mirai.event.events.OtherClientMessageEvent;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
  * 被动收到消息 - 其他客户端消息

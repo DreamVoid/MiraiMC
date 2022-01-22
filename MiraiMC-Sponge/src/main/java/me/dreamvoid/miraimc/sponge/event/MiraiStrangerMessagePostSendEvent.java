@@ -4,8 +4,6 @@ import net.mamoe.mirai.event.events.StrangerMessagePostSendEvent;
 import net.mamoe.mirai.message.data.QuoteReply;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.impl.AbstractEvent;
 
 import java.util.Objects;
 
