@@ -123,7 +123,7 @@ public class VelocityPlugin {
         // bStats统计
         if(Config.Gen_AllowBStats) {
             getLogger().info("Initializing bStats metrics.");
-            int pluginId = 1234;
+            int pluginId = 13887;
             metricsFactory.make(this, pluginId);
         }
 
