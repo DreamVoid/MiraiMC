@@ -1,6 +1,8 @@
 package me.dreamvoid.miraimc.velocity.event;
 
 import net.mamoe.mirai.event.events.FriendInputStatusChangedEvent;
+import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
  * 好友输入状态改变

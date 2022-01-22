@@ -2,6 +2,8 @@ package me.dreamvoid.miraimc.sponge.event;
 
 import net.mamoe.mirai.event.events.MemberSpecialTitleChangeEvent;
 import org.jetbrains.annotations.NotNull;
+import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
  * 群成员 - 名片和头衔 - 成员群头衔改动

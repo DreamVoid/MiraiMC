@@ -1,6 +1,8 @@
 package me.dreamvoid.miraimc.velocity.event;
 
 import net.mamoe.mirai.event.events.FriendMessagePreSendEvent;
+import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
  * 主动发送消息前 - 好友消息

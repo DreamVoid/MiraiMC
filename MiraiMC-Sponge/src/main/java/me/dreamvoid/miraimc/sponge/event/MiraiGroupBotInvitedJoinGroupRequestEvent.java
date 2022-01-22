@@ -2,6 +2,8 @@ package me.dreamvoid.miraimc.sponge.event;
 
 import net.mamoe.mirai.event.events.BotInvitedJoinGroupRequestEvent;
 import org.jetbrains.annotations.NotNull;
+import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
  * 群成员 - 成员列表变更 - 机器人被邀请加入群

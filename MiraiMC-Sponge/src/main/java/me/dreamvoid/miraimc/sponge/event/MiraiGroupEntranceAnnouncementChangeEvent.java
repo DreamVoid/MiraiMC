@@ -2,6 +2,8 @@ package me.dreamvoid.miraimc.sponge.event;
 
 import net.mamoe.mirai.event.events.GroupEntranceAnnouncementChangeEvent;
 import org.jetbrains.annotations.NotNull;
+import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
  * 群设置 - 入群公告改变

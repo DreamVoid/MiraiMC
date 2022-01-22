@@ -5,6 +5,8 @@ import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupMessagePostSendEvent;
 import net.mamoe.mirai.message.data.QuoteReply;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.impl.AbstractEvent;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,6 +3,8 @@ package me.dreamvoid.miraimc.velocity.event;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupMessagePreSendEvent;
+import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.impl.AbstractEvent;
 
 import java.util.ArrayList;
 import java.util.List;
