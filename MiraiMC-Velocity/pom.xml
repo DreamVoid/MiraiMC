@@ -13,6 +13,46 @@
 
     <build>
         <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <configuration>
+                    <minimizeJar>false</minimizeJar>
+                    <relocations>
+                        <relocation>
+                            <pattern>com.zaxxer</pattern>
+                            <shadedPattern>me.dreamvoid.miraimc.libraries.zaxxer</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.apache.commons.codec</pattern>
+                            <shadedPattern>me.dreamvoid.miraimc.libraries.codec</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
     <repositories>
@@ -34,6 +74,11 @@
             <artifactId>velocity-api</artifactId>
             <version>3.1.0</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.36.0.3</version>
         </dependency>
     </dependencies>
 </project>

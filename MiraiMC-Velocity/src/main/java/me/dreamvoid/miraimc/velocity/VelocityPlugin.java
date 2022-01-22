@@ -23,7 +23,7 @@ import java.nio.file.Path;
 import java.sql.SQLException;
 
 @Plugin(
-        id = "MiraiMC-Velocity",
+        id = "miraimc",
         name = "MiraiMC",
         version = "1.0",
         description = "MiraiBot for Minecraft server",
@@ -82,9 +82,9 @@ public class VelocityPlugin {
         getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();
 
-        getLogger().info("Loading auto-login file.");
-        MiraiAutoLogin.loadFile();
-        MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
+        //getLogger().info("Loading auto-login file.");
+        //MiraiAutoLogin.loadFile();
+        //MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
 
         getLogger().info("Registering commands.");
         CommandManager manager = server.getCommandManager();
@@ -133,7 +133,7 @@ public class VelocityPlugin {
             getLogger().warn("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
 
-        pluginContainer = server.getPluginManager().getPlugin("MiraiMC-Velocity").orElse(null);
+        pluginContainer = server.getPluginManager().getPlugin("miraimc").orElse(null);
         getLogger().info("All tasks done. Welcome to use MiraiMC!");
     }
 
