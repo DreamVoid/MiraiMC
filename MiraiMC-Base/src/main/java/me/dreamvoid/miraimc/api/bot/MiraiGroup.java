@@ -112,4 +112,13 @@ public class MiraiGroup {
     public int getBotMuteTimeRemaining(){
         return group.getBotMuteRemaining();
     }
+    
+    /**
+     * 判断图片是否为表情
+     * @param ImageID 图片ID
+     * @return 是则返回true，不是返回false
+     */
+    public boolean isImageEmoji(String ImageID){
+        return Image.fromId(ImageID).isEmoji();
+    }
 }
