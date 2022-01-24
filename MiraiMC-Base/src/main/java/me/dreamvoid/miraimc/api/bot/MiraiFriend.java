@@ -111,7 +111,7 @@ public class MiraiFriend {
 
     /**
      * 发送音乐分享<br>
-     * <!>本方法中，Kind参数使用mirai提供的valueOf方法，请确保传递的音乐平台名真实存在，否则请注意使用try捕获异常
+     * [!]本方法中，Kind参数使用mirai提供的valueOf方法，请确保传递的音乐平台名真实存在，否则请注意使用try捕获异常
      * @param Kind 可选种类：QQMusic | MiguMusic | KugouMusic | KuwoMusic | NeteaseCLoudMusic
      * @param Title 标题
      * @param Summary 内容
