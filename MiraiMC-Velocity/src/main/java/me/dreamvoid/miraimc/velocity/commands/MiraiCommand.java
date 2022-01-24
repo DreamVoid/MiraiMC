@@ -83,7 +83,7 @@ public class MiraiCommand implements SimpleCommand {
                                     } else e.printStackTrace();
                                     source.sendMessage(Component.text(Color.translate("&c登录机器人时出现异常，请检查控制台输出！")));
                                 }
-                            });
+                            }).schedule();
                         } else {
                             source.sendMessage(Component.text(Color.translate("&c无效的参数！用法: /mirai login <账号> <密码> [协议]")));
                         }
