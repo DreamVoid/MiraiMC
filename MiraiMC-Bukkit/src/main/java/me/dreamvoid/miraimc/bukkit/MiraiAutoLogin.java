@@ -68,7 +68,13 @@ public class MiraiAutoLogin {
                 long Account = Long.parseLong(String.valueOf(map.get("account")));
                 if(Account != 123456){
                     String Password = password.get("value").toString();
-                    BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString());
+                    BotConfiguration.MiraiProtocol Protocol;
+                    try {
+                        Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString().toUpperCase());
+                    } catch (IllegalArgumentException ignored) {
+                        Logger.warning("[AutoLogin] Unknown protocol "+configuration.get("protocol").toString().toUpperCase()+", using ANDROID_PHONE instead.");
+                        Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
+                    }
 
                     Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
                     try {
@@ -103,7 +109,7 @@ public class MiraiAutoLogin {
 
         // configuration 节点
         Map<Object, Object> configuration = new HashMap<>();
-        configuration.put("protocol", Protocol);
+        configuration.put("protocol", Protocol.toUpperCase());
         configuration.put("device", "device.json");
         account.put("configuration", configuration);
 

@@ -4,6 +4,8 @@ import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bungee.BungeePlugin;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI;
+import me.dreamvoid.miraimc.internal.httpapi.response.Bind;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
 import net.md_5.bungee.api.ChatColor;
@@ -14,6 +16,7 @@ import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -36,25 +39,43 @@ public class MiraiCommand extends Command {
                     if(sender.hasPermission("miraimc.command.mirai.login")){
                         if(args.length >= 3) {
                             bungee.getProxy().getScheduler().runAsync(bungee, () -> {
-                                BotConfiguration.MiraiProtocol Protocol;
+                                BotConfiguration.MiraiProtocol Protocol = null;
+                                boolean useHttpApi = false;
                                 if(args.length == 3){
                                     Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
-                                } else if (args[3].equalsIgnoreCase("android_phone")) {
-                                    Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
-                                } else if(args[3].equalsIgnoreCase("android_pad")){
-                                    Protocol= BotConfiguration.MiraiProtocol.ANDROID_PAD;
-                                } else if (args[3].equalsIgnoreCase("android_watch")) {
-                                    Protocol = BotConfiguration.MiraiProtocol.ANDROID_WATCH;
-                                } else {
-                                    sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&e无效的协议类型，已自动选择 ANDROID_PHONE.")));
-                                    sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&e可用的协议类型: ANDROID_PHONE, ANDROID_PAD, ANDROID_WATCH.")));
+                                } else if (args[3].equalsIgnoreCase("httpapi")) {
+                                    useHttpApi = true;
+                                } else try {
+                                    Protocol = BotConfiguration.MiraiProtocol.valueOf(args[3].toUpperCase());
+                                } catch (IllegalArgumentException ignored) {
+                                    sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', "&e无效的协议类型，已自动选择 ANDROID_PHONE.")));
+                                    sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', "&e可用的协议类型: " + Arrays.toString(BotConfiguration.MiraiProtocol.values())
+                                            .replace("[", "")
+                                            .replace("]", "") + ", HTTPAPI")));
                                     Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
                                 }
                                 try {
-                                    MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
+                                    if(!useHttpApi){
+                                        MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
+                                    } else {
+                                        if(Config.Gen_WorkingMode_HttpApi) {
+                                            MiraiHttpAPI httpAPI = new MiraiHttpAPI(Config.HTTPAPI_Url);
+                                            Bind bind = httpAPI.bind(httpAPI.verify(args[2]).session, Long.parseLong(args[1]));
+                                            if(bind.code == 0) {
+                                                sender.sendMessage(new TextComponent(ChatColor.GREEN + args[1] + " HTTP-API登录成功！"));
+                                            } else {
+                                                sender.sendMessage(new TextComponent(ChatColor.YELLOW + "登录机器人时出现异常，原因: " + bind.msg));
+                                            }
+                                        } else sender.sendMessage(new TextComponent(ChatColor.RED + "此服务器没有启用HTTP-API模式，请检查配置文件！"));
+                                    }
                                 } catch (InterruptedException e) {
                                     if(Config.Gen_FriendlyException){
                                         Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+                                    } else e.printStackTrace();
+                                    sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，请检查控制台输出！")));
+                                } catch (IOException e) {
+                                    if(Config.Gen_FriendlyException) {
+                                        Utils.logger.warning("登录机器人时出现异常，原因: " + e);
                                     } else e.printStackTrace();
                                     sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，请检查控制台输出！")));
                                 }
