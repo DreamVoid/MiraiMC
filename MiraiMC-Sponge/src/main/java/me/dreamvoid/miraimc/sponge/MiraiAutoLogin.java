@@ -124,7 +124,7 @@ public class MiraiAutoLogin {
             // configuration 节点
             AutoLoginObject.Configuration configuration = new AutoLoginObject.Configuration();
             configuration.setDevice("device.json");
-            configuration.setProtocol(Protocol);
+            configuration.setProtocol(Protocol.toUpperCase());
             account.setConfiguration(configuration);
 
             // 添加
