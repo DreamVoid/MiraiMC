@@ -75,4 +75,12 @@ public class MiraiImageUploadSucceedEvent extends Event {
     public String eventToString() {
         return event.toString();
     }
+
+    /**
+     * 判断图片是否为表情
+     * @return 是则返回true，不是返回false
+     */
+    public boolean isEmoji(){
+        return event.getImage().isEmoji();
+    }
 }
