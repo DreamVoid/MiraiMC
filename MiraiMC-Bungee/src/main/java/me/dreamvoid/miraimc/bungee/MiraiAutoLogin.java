@@ -120,7 +120,7 @@ public class MiraiAutoLogin {
 
             // configuration 节点
             Map<Object, Object> configuration = new HashMap<>();
-            configuration.put("protocol", Protocol);
+            configuration.put("protocol", Protocol.toUpperCase());
             configuration.put("device", "device.json");
             account.put("configuration", configuration);
 
