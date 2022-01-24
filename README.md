@@ -94,7 +94,6 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 
 ## 已知问题
 * Velocity无法使用自动登录
-* Velocity无法登录账号
 
 ## 下一步的目标
 - [X] 初步实现CoreAPI的基础功能

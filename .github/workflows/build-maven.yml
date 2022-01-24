@@ -50,3 +50,10 @@ jobs:
       with:
         name: "MiraiMC-Nukkit.jar"
         path: MiraiMC-Nukkit/target/MiraiMC-Nukkit.jar
+
+    # MiraiMC-Velocity.jar
+    - name: Upload a Build Artifact - MiraiMC Nukkit
+      uses: actions/upload-artifact@v2.3.1
+      with:
+        name: "MiraiMC-Velocity.jar"
+        path: MiraiMC-Velocity/target/MiraiMC-Velocity.jar
