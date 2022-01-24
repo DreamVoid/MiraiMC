@@ -49,19 +49,20 @@ public class Commands implements CommandExecutor {
                                         public void run() {
                                             BotConfiguration.MiraiProtocol Protocol = null;
                                             boolean useHttpApi = false;
-                                            if (args.length == 3 || args[3].equalsIgnoreCase("android_phone")) {
+                                            if (args.length == 3) {
                                                 Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
-                                            } else if (args[3].equalsIgnoreCase("android_pad")) {
-                                                Protocol = BotConfiguration.MiraiProtocol.ANDROID_PAD;
-                                            } else if (args[3].equalsIgnoreCase("android_watch")) {
-                                                Protocol = BotConfiguration.MiraiProtocol.ANDROID_WATCH;
                                             } else if (args[3].equalsIgnoreCase("httpapi")) {
                                                 useHttpApi = true;
-                                            } else {
+                                            } else try {
+                                                Protocol = BotConfiguration.MiraiProtocol.valueOf(args[3].toUpperCase());
+                                            } catch (IllegalArgumentException ignored) {
                                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e无效的协议类型，已自动选择 ANDROID_PHONE."));
-                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e可用的协议类型: " + Arrays.toString(BotConfiguration.MiraiProtocol.values()) + ", HTTPAPI"));
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e可用的协议类型: " + Arrays.toString(BotConfiguration.MiraiProtocol.values())
+                                                        .replace("[", "")
+                                                        .replace("]", "") + ", HTTPAPI"));
                                                 Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
                                             }
+
                                             try {
                                                 if(!useHttpApi){
                                                     MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
