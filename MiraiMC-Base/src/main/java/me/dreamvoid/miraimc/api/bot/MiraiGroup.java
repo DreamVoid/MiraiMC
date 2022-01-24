@@ -121,4 +121,21 @@ public class MiraiGroup {
     public boolean isImageEmoji(String ImageID){
         return Image.fromId(ImageID).isEmoji();
     }
+
+    /**
+     * 判断群匿名聊天是否开启
+     * @return 是则返回true，不是返回false
+     */
+    public boolean isAnonymousChatEnabled(){
+        return group.getSettings().isAnonymousChatEnabled();
+    }
+
+    /**
+     * 设置群匿名聊天开关<br>
+     * 需要机器人拥有管理权限
+     * @param enable 是否开启群匿名聊天
+     */
+    public void isAnonymousChatEnabled(boolean enable){
+        group.getSettings().setAnonymousChatEnabled(enable);
+    }
 }
