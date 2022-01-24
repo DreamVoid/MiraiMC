@@ -5,6 +5,8 @@ import com.velocitypowered.api.command.SimpleCommand;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI;
+import me.dreamvoid.miraimc.internal.httpapi.response.Bind;
 import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import me.dreamvoid.miraimc.velocity.utils.AutoLoginObject;
 import me.dreamvoid.miraimc.velocity.utils.Color;
@@ -13,6 +15,8 @@ import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -38,29 +42,48 @@ public class MiraiCommand implements SimpleCommand {
                     if(source.hasPermission("miraimc.command.mirai.login")){
                         if(args.length >= 3) {
                             plugin.getServer().getScheduler().buildTask(plugin, () -> {
-                                BotConfiguration.MiraiProtocol Protocol;
+                                BotConfiguration.MiraiProtocol Protocol = null;
+                                boolean useHttpApi = false;
                                 if(args.length == 3){
                                     Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
-                                } else if (args[3].equalsIgnoreCase("android_phone")) {
-                                    Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
-                                } else if(args[3].equalsIgnoreCase("android_pad")){
-                                    Protocol= BotConfiguration.MiraiProtocol.ANDROID_PAD;
-                                } else if (args[3].equalsIgnoreCase("android_watch")) {
-                                    Protocol = BotConfiguration.MiraiProtocol.ANDROID_WATCH;
-                                } else {
+                                } else if (args[3].equalsIgnoreCase("httpapi")) {
+                                    useHttpApi = true;
+                                } else try {
+                                    Protocol = BotConfiguration.MiraiProtocol.valueOf(args[3].toUpperCase());
+                                } catch (IllegalArgumentException ignored) {
                                     source.sendMessage(Component.text(Color.translate("&e无效的协议类型，已自动选择 ANDROID_PHONE.")));
-                                    source.sendMessage(Component.text(Color.translate("&e可用的协议类型: ANDROID_PHONE, ANDROID_PAD, ANDROID_WATCH.")));
+                                    source.sendMessage(Component.text(Color.translate("&e可用的协议类型: " + Arrays.toString(BotConfiguration.MiraiProtocol.values())
+                                            .replace("[", "")
+                                            .replace("]", "") + ", HTTPAPI")));
                                     Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
                                 }
+
                                 try {
-                                    MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
+                                    if(!useHttpApi){
+                                        MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
+                                    } else {
+                                        if(Config.Gen_WorkingMode_HttpApi) {
+                                            MiraiHttpAPI httpAPI = new MiraiHttpAPI(Config.HTTPAPI_Url);
+                                            Bind bind = httpAPI.bind(httpAPI.verify(args[2]).session, Long.parseLong(args[1]));
+                                            if(bind.code == 0) {
+                                                source.sendMessage(Component.text(Color.translate("&a" + args[1] + " HTTP-API登录成功！")));
+                                            } else {
+                                                source.sendMessage(Component.text(Color.translate("&e" + "登录机器人时出现异常，原因: " + bind.msg)));
+                                            }
+                                        } else source.sendMessage(Component.text(Color.translate("&c" + "此服务器没有启用HTTP-API模式，请检查配置文件！")));
+                                    }
                                 } catch (InterruptedException e) {
                                     if(Config.Gen_FriendlyException){
                                         Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
                                     } else e.printStackTrace();
                                     source.sendMessage(Component.text(Color.translate("&c登录机器人时出现异常，请检查控制台输出！")));
+                                } catch (IOException e) {
+                                    if(Config.Gen_FriendlyException) {
+                                        Utils.logger.warning("登录机器人时出现异常，原因: " + e);
+                                    } else e.printStackTrace();
+                                    source.sendMessage(Component.text(Color.translate("&c登录机器人时出现异常，请检查控制台输出！")));
                                 }
-                            });
+                            }).schedule();
                         } else {
                             source.sendMessage(Component.text(Color.translate("&c无效的参数！用法: /mirai login <账号> <密码> [协议]")));
                         }
