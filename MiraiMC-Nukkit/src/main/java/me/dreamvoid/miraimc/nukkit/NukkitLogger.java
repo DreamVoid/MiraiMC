@@ -57,7 +57,11 @@ public class NukkitLogger extends Logger {
         logger.debug("Unsupported method \"log(LogRecord record)\" is being called.");
         if(record.getLevel() != Level.INFO && record.getLevel() != Level.WARNING && record.getLevel() != Level.SEVERE){
             logger.info(record.getMessage());
-        } else logger.log(LogLevel.valueOf(record.getLevel().getName()), record.getMessage());
+        } else if(record.getLevel() == Level.SEVERE) {
+            logger.error(record.getMessage());
+        } else {
+            logger.log(LogLevel.valueOf(record.getLevel().getName()), record.getMessage());
+        }
     }
 
     @Override
@@ -65,7 +69,11 @@ public class NukkitLogger extends Logger {
         logger.debug("Unsupported method \"log(Level level, String msg)\" is being called.");
         if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg);
-        } else logger.log(LogLevel.valueOf(level.getName()), msg);
+        } else if(level == Level.SEVERE) {
+            logger.error(msg);
+        } else {
+            logger.log(LogLevel.valueOf(level.getName()), msg);
+        }
     }
 
     @Override
@@ -73,7 +81,11 @@ public class NukkitLogger extends Logger {
         logger.debug("Unsupported method \"log(Level level, Supplier<String> msgSupplier)\" is being called.");
         if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msgSupplier.get());
-        } else logger.log(LogLevel.valueOf(level.getName()), msgSupplier.get());
+        } else if(level == Level.SEVERE) {
+            logger.error(msgSupplier.get());
+        } else {
+            logger.log(LogLevel.valueOf(level.getName()), msgSupplier.get());
+        }
     }
 
     @Override
@@ -81,7 +93,11 @@ public class NukkitLogger extends Logger {
         logger.debug("Unsupported method \"log(Level level, String msg, Object param1)\" is being called.");
         if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg);
-        } else logger.log(LogLevel.valueOf(level.getName()), msg);
+        } else if(level == Level.SEVERE) {
+            logger.error(msg);
+        } else {
+            logger.log(LogLevel.valueOf(level.getName()), msg);
+        }
     }
 
     @Override
@@ -89,7 +105,11 @@ public class NukkitLogger extends Logger {
         logger.debug("Unsupported method \"log(Level level, String msg, Object[] params)\" is being called.");
         if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg);
-        } else logger.log(LogLevel.valueOf(level.getName()), msg);
+        } else if(level == Level.SEVERE) {
+            logger.error(msg);
+        } else {
+            logger.log(LogLevel.valueOf(level.getName()), msg);
+        }
     }
 
     @Override
@@ -97,7 +117,11 @@ public class NukkitLogger extends Logger {
         logger.debug("Unsupported method \"log(Level level, String msg, Throwable thrown)\" is being called.");
         if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg, thrown);
-        } else logger.log(LogLevel.valueOf(level.getName()), msg, thrown);
+        } else if(level == Level.SEVERE) {
+            logger.error(msg,thrown);
+        } else {
+            logger.log(LogLevel.valueOf(level.getName()), msg,thrown);
+        }
     }
 
     @Override
@@ -105,7 +129,11 @@ public class NukkitLogger extends Logger {
         logger.debug("Unsupported method \"log(Level level, Throwable thrown, Supplier<String> msgSupplier)\" is being called.");
         if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msgSupplier.get(), thrown);
-        } else logger.log(LogLevel.valueOf(level.getName()), msgSupplier.get(), thrown);
+        } else if(level == Level.SEVERE) {
+            logger.error(msgSupplier.get(),thrown);
+        } else {
+            logger.log(LogLevel.valueOf(level.getName()), msgSupplier.get(),thrown);
+        }
     }
 
     @Override
