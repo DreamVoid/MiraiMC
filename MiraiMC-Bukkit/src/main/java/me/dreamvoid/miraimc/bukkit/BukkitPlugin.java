@@ -1,6 +1,9 @@
 package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
+import me.dreamvoid.miraimc.bukkit.commands.MiraiCommand;
+import me.dreamvoid.miraimc.bukkit.commands.MiraiMcCommand;
+import me.dreamvoid.miraimc.bukkit.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
 import me.dreamvoid.miraimc.internal.*;
 import org.bukkit.Bukkit;
@@ -10,8 +13,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Objects;
 
 public class BukkitPlugin extends JavaPlugin {
 
@@ -68,7 +69,9 @@ public class BukkitPlugin extends JavaPlugin {
         MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
 
         getLogger().info("Registering commands.");
-        for (String s : Arrays.asList("mirai", "miraimc", "miraiverify")) { Objects.requireNonNull(getCommand(s)).setExecutor(new Commands(this)); }
+        getCommand("mirai").setExecutor(new MiraiCommand(this));
+        getCommand("miraimc").setExecutor(new MiraiMcCommand(this));
+        getCommand("miraiverify").setExecutor(new MiraiVerifyCommand());
 
         if(Config.Bot_LogEvents){
             getLogger().info("Registering events.");
