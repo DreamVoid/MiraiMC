@@ -15,6 +15,7 @@ general:
   mirai-core-version: "latest"
   maven-repo-url: "https://maven.aliyun.com/nexus/content/groups/public/"
   friendly-exception: true
+  enable-http-api: false
 bot:
   disable-network-logs: false
   disable-bot-logs: false
@@ -40,3 +41,8 @@ database:
       maximumPoolSize: 15
       keepaliveTime: 0
       minimumIdle: 5
+httpapi:
+  url: "http://localhost:8080"
+  message-fetch:
+    interval: 10
+    count: 10

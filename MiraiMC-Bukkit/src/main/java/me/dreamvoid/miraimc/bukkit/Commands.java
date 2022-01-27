@@ -6,7 +6,7 @@ import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI;
-import me.dreamvoid.miraimc.internal.httpapi.response.Bind;
+import me.dreamvoid.miraimc.internal.httpapi.exception.AbnormalStatusException;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.bukkit.Bukkit;
@@ -67,14 +67,10 @@ public class Commands implements CommandExecutor {
                                                 if(!useHttpApi){
                                                     MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
                                                 } else {
-                                                    if(Config.Gen_WorkingMode_HttpApi) {
+                                                    if(Config.Gen_EnableHttpApi) {
                                                         MiraiHttpAPI httpAPI = new MiraiHttpAPI(Config.HTTPAPI_Url);
-                                                        Bind bind = httpAPI.bind(httpAPI.verify(args[2]).session, Long.parseLong(args[1]));
-                                                        if(bind.code == 0) {
-                                                            sender.sendMessage(ChatColor.GREEN + args[1] + " HTTP-API登录成功！");
-                                                        } else {
-                                                            sender.sendMessage(ChatColor.YELLOW + "登录机器人时出现异常，原因: " + bind.msg);
-                                                        }
+                                                        httpAPI.bind(httpAPI.verify(args[2]).session, Long.parseLong(args[1]));
+                                                        sender.sendMessage(ChatColor.GREEN + args[1] + " HTTP-API登录成功！");
                                                     } else sender.sendMessage(ChatColor.RED + "此服务器没有启用HTTP-API模式，请检查配置文件！");
                                                 }
                                             } catch (InterruptedException e) {
@@ -87,6 +83,9 @@ public class Commands implements CommandExecutor {
                                                     Utils.logger.warning("登录机器人时出现异常，原因: " + e);
                                                 } else e.printStackTrace();
                                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，请检查控制台输出！"));
+                                            } catch (AbnormalStatusException e) {
+                                                Utils.logger.warning("使用HTTPAPI登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getLocalizedMessage());
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getLocalizedMessage()));
                                             }
                                         }
                                     }.runTaskAsynchronously(plugin);
@@ -103,7 +102,22 @@ public class Commands implements CommandExecutor {
                                         MiraiBot.getBot(Long.parseLong(args[1])).doLogout();
                                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a已退出指定机器人！"));
                                     } catch (NoSuchElementException e){
-                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c指定的机器人不存在！"));
+                                        if(Config.Gen_EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
+                                            try {
+                                                new MiraiHttpAPI(Config.HTTPAPI_Url).release(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])),Long.parseLong(args[1]));
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a已退出指定机器人！"));
+                                            } catch (IOException ex) {
+                                                Utils.logger.warning("退出机器人时出现异常，原因: " + ex);
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c退出机器人时出现异常，请检查控制台输出！"));
+                                            } catch (AbnormalStatusException ex) {
+                                                if(ex.getCode() == 2){
+                                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c指定的机器人不存在！"));
+                                                } else {
+                                                    Utils.logger.warning("退出机器人时出现异常，状态码："+ex.getCode()+"，原因: "+ex.getMessage());
+                                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c退出机器人时出现异常，状态码："+ex.getCode()+"，原因: "+ex.getMessage()));
+                                                }
+                                            }
+                                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c指定的机器人不存在！"));
                                     }
                                 } else {
                                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai logout <账号>"));
@@ -120,7 +134,21 @@ public class Commands implements CommandExecutor {
                                             message.append(args[i]).append(" ");
                                         }
                                     }
-                                    MiraiBot.getBot(Long.parseLong(args[1])).getGroup(Long.parseLong(args[2])).sendMessage(message.toString().replace("\\n",System.lineSeparator()));
+                                    String text = message.toString().replace("\\n",System.lineSeparator());
+                                    try {
+                                        MiraiBot.getBot(Long.parseLong(args[1])).getGroup(Long.parseLong(args[2])).sendMessage(text);
+                                    } catch (NoSuchElementException e){
+                                        if(Config.Gen_EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
+                                            try {
+                                                MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])), Long.parseLong(args[2]), text);
+                                            } catch (IOException ex) {
+                                                Utils.logger.warning("发送群消息时出现异常，原因: "+ e);
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c发送群消息时出现异常，请检查控制台了解更多信息！"));
+                                            } catch (AbnormalStatusException ex) {
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c发送群消息时出现异常，状态码: " + ex.getCode()+"，原因: "+ex.getMessage()));
+                                            }
+                                        }
+                                    }
                                 } else {
                                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai sendgroupmessage <账号> <群号> <消息>"));
                                 }
@@ -136,7 +164,21 @@ public class Commands implements CommandExecutor {
                                             message.append(args[i]).append(" ");
                                         }
                                     }
-                                    MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendMessage(message.toString().replace("\\n",System.lineSeparator()));
+                                    String text = message.toString().replace("\\n",System.lineSeparator());
+                                    try {
+                                        MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendMessage(text);
+                                    } catch (NoSuchElementException e){
+                                        if(Config.Gen_EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
+                                            try {
+                                                MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])), Long.parseLong(args[2]), text);
+                                            } catch (IOException ex) {
+                                                Utils.logger.warning("发送好友消息时出现异常，原因: "+ e);
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c发送好友消息时出现异常，请检查控制台了解更多信息！"));
+                                            } catch (AbnormalStatusException ex) {
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c发送好友消息时出现异常，状态码: " + ex.getCode()+"，原因: "+ex.getMessage()));
+                                            }
+                                        }
+                                    }
                                 } else {
                                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai sendfriendmessage <账号> <好友> <消息>"));
                                 }
@@ -157,13 +199,20 @@ public class Commands implements CommandExecutor {
                             if(sender.hasPermission("miraimc.command.mirai.list")){
                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a存在的机器人: "));
                                 List<Long> BotList = MiraiBot.getOnlineBots();
-                                for (long bots : BotList){
+
+                                // Core
+                                for (Long bots : BotList) {
                                     Bot bot = Bot.getInstance(bots);
-                                    if(bot.isOnline()){
-                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b"+bot.getId() + "&r &7-&r &6"+Bot.getInstance(bots).getNick()));
+                                    if (bot.isOnline()) {
+                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b" + bot.getId() + "&r &7-&r &6" + Bot.getInstance(bots).getNick()));
                                     } else {
-                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b"+bot.getId() + "&r &7-&r &c离线"));
+                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b" + bot.getId() + "&r &7-&r &c离线"));
                                     }
+                                }
+
+                                // HTTP API
+                                for (long botWithHttp : MiraiHttpAPI.Bots.keySet()){
+                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b"+botWithHttp + "&r &7-&r &eHTTP API"));
                                 }
                             } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
                             break;
