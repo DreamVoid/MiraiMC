@@ -8,15 +8,15 @@ import me.dreamvoid.miraimc.internal.httpapi.response.FetchMessage;
 import me.dreamvoid.miraimc.internal.httpapi.type.Message;
 import org.bukkit.Bukkit;
 
-import static me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI.hashMap;
+import static me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI.Bots;
 
 public class MiraiHttpAPIResolver implements Runnable {
     @Override
     public void run() {
         MiraiHttpAPI api = new MiraiHttpAPI(Config.HTTPAPI_Url);
-        for(long account : hashMap.keySet()){
+        for(long account : Bots.keySet()){
             try {
-                String session = hashMap.get(account);
+                String session = Bots.get(account);
                 FetchMessage fetchMessage = api.fetchMessage(session, Config.HTTPAPI_MessageFetch_Count);
                 if(fetchMessage.code == 0) {
                     for(FetchMessage.Data data : fetchMessage.data) { // 这里搞循环是因为mirai http api会返回一堆消息，需要挨个处理

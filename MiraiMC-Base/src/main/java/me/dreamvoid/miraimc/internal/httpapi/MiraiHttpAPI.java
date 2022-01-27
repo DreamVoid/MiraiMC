@@ -16,7 +16,7 @@ import java.util.List;
 public class MiraiHttpAPI {
     private final String url;
     private final Gson gson = new Gson();
-    public final static HashMap<Long, String> hashMap = new HashMap<>();
+    public final static HashMap<Long, String> Bots = new HashMap<>();
 
     public MiraiHttpAPI(String url) {
         this.url = url;
@@ -38,7 +38,7 @@ public class MiraiHttpAPI {
         json.addProperty("qq", qq);
         Bind bind = gson.fromJson(HTTPUtils.sendPost(json, url + "/bind"), Bind.class);
         if(bind.code == 0) {
-            hashMap.put(qq, sessionKey);
+            Bots.put(qq, sessionKey);
         } else throw new AbnormalStatusException(bind.code, bind.msg);
         return bind;
     }
@@ -49,7 +49,7 @@ public class MiraiHttpAPI {
         json.addProperty("qq", qq);
         Release release = gson.fromJson(HTTPUtils.sendPost(json, url + "/release"), Release.class);
         if(release.code == 0) {
-            hashMap.remove(qq);
+            Bots.remove(qq);
         } else throw new AbnormalStatusException(release.code, release.msg);
         return release;
     }
