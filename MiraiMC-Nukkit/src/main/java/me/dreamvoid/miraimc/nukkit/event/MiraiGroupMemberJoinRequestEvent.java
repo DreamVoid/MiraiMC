@@ -69,14 +69,18 @@ public class MiraiGroupMemberJoinRequestEvent extends Event{
     /**
      * 同意请求
      */
-    public void setAccept(){ event.accept(); event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+ getRequestMemberID() +"|"+getInviterID()+") <- Accept");
+    public void setAccept(){
+        event.accept();
+        event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+ getRequestMemberID() +"|"+getInviterID()+") <- Accept");
     }
 
     /**
      * 忽略请求
      * @param setBlacklist 是否拒绝目标再次申请加群
      */
-    public void setIgnore(boolean setBlacklist){ event.ignore(setBlacklist);event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny");
+    public void setIgnore(boolean setBlacklist){
+        event.ignore(setBlacklist);
+        event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny");
     }
 
     /**
