@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.bukkit.event.MiraiFriendMessageEvent;
+import me.dreamvoid.miraimc.bukkit.event.MiraiGroupMessageEvent;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI;
@@ -46,13 +47,25 @@ public class MiraiHttpAPIResolver implements Runnable {
 
                         // 准备广播事件
                         switch (type) {
-                            case "FriendMessage":Bukkit.getPluginManager().callEvent(new MiraiFriendMessageEvent(account, new Message()
-                                    .setSenderId(id)
-                                    .setSenderNickname(nickname)
-                                    .setSenderRemark(remark)
-                                    .setSource(messageId,sendTime)
-                                    .setPlain(message.toString())
-                            ));break;
+                            case "FriendMessage": {
+                                Bukkit.getPluginManager().callEvent(new MiraiFriendMessageEvent(account, new Message()
+                                        .setSenderId(id)
+                                        .setSenderNickname(nickname)
+                                        .setSenderRemark(remark)
+                                        .setSource(messageId, sendTime)
+                                        .setPlain(message.toString())
+                                ));
+                                break;
+                            }
+                            case "GroupMessage": {
+                                Bukkit.getPluginManager().callEvent(new MiraiGroupMessageEvent(account, data.sender, new Message()
+                                        .setSenderId(id)
+                                        .setSenderNickname(nickname)
+                                        .setSenderRemark(remark)
+                                        .setSource(messageId, sendTime)
+                                        .setPlain(message.toString())
+                                ));
+                            }
                         }
                     }
 

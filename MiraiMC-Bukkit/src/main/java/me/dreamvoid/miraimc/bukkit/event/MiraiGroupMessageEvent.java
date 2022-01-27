@@ -1,5 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event;
 
+import me.dreamvoid.miraimc.internal.httpapi.response.FetchMessage;
+import me.dreamvoid.miraimc.internal.httpapi.type.Message;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
@@ -24,10 +26,40 @@ public final class MiraiGroupMessageEvent extends Event {
     public MiraiGroupMessageEvent(GroupMessageEvent event) {
         super(true);
         this.event = event;
+
+        botID = event.getBot().getId();
+        senderID = event.getSender().getId();
+        memberName = event.getSender().getNameCard();
+        messageContent = event.getMessage().contentToString();
+        messageMiraiCode = event.getMessage().serializeToMiraiCode();
+        time = event.getTime();
+        GroupID = event.getGroup().getId();
+        GroupName = event.getGroup().getName();
     }
 
+    public MiraiGroupMessageEvent(long BotAccount, FetchMessage.Sender sender, Message message) {
+        super(true);
+
+        botID = BotAccount;
+        senderID = sender.id;
+        memberName = sender.memberName;
+        messageContent = message.text;
+        messageMiraiCode = message.text;
+        time = message.time;
+        GroupID = sender.group.id;
+        GroupName = sender.group.name;
+    }
     private static final HandlerList handlers = new HandlerList();
-    private final GroupMessageEvent event;
+    private GroupMessageEvent event;
+
+    private final long botID;
+    private final long senderID;
+    private final String memberName;
+    private final String messageContent;
+    private final String messageMiraiCode;
+    private final int time;
+    private final long GroupID;
+    private final String GroupName;
 
     public @NotNull HandlerList getHandlers() { return handlers; }
     public static HandlerList getHandlerList() { return handlers; }
@@ -37,7 +69,7 @@ public final class MiraiGroupMessageEvent extends Event {
      * @return 机器人ID
      */
     public long getBotID(){
-        return event.getBot().getId();
+        return botID;
     }
 
     /**
@@ -45,7 +77,7 @@ public final class MiraiGroupMessageEvent extends Event {
      * @return 群号
      */
     public long getGroupID(){
-        return event.getGroup().getId();
+        return GroupID;
     }
 
     /**
@@ -53,7 +85,7 @@ public final class MiraiGroupMessageEvent extends Event {
      * @return 群名称
      */
     public String getGroupName(){
-        return event.getGroup().getName();
+        return GroupName;
     }
 
     /**
@@ -61,7 +93,7 @@ public final class MiraiGroupMessageEvent extends Event {
      * @return 发送者ID
      */
     public long getSenderID(){
-        return event.getSender().getId();
+        return senderID;
     }
 
     /**
@@ -69,7 +101,7 @@ public final class MiraiGroupMessageEvent extends Event {
      * @return 发送者群名片
      */
     public String getSenderNameCard(){
-        return event.getSender().getNameCard();
+        return memberName;
     }
 
     /**
@@ -80,7 +112,7 @@ public final class MiraiGroupMessageEvent extends Event {
      * @return 转换字符串后的消息内容
      */
     public String getMessage(){
-        return event.getMessage().contentToString();
+        return messageContent;
     }
 
     /**
@@ -115,7 +147,7 @@ public final class MiraiGroupMessageEvent extends Event {
      * @return 带Mirai Code的消息内容
      */
     public String getMessageToMiraiCode(){
-        return event.getMessage().serializeToMiraiCode();
+        return messageMiraiCode;
     }
 
     /**
@@ -184,7 +216,7 @@ public final class MiraiGroupMessageEvent extends Event {
      * @return 发送时间
      */
     public int getTime(){
-        return event.getTime();
+        return time;
     }
 
     /**
