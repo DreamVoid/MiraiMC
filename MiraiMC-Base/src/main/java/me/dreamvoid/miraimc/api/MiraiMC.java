@@ -195,22 +195,6 @@ public class MiraiMC {
 
         try {
             switch (Config.DB_Type.toLowerCase()){
-                default:
-                case "sqlite": {
-                    Statement statement = Utils.connection.createStatement();
-                    statement.executeUpdate(createTable);
-
-                    ResultSet resultSet = statement.executeQuery(select);
-
-                    if (resultSet.isBeforeFirst()) {
-                        resultSet.next();
-                        account = resultSet.getLong("qqid");
-                    }
-                    resultSet.close();
-                    statement.close();
-
-                    break;
-                }
                 case "mysql": {
                     Connection connection = Utils.ds.getConnection();
                     connection.prepareStatement(createTable).executeUpdate();
@@ -223,6 +207,22 @@ public class MiraiMC {
                     }
                     resultSet.close();
                     connection.close();
+
+                    break;
+                }
+                case "sqlite":
+                default: {
+                    Statement statement = Utils.connection.createStatement();
+                    statement.executeUpdate(createTable);
+
+                    ResultSet resultSet = statement.executeQuery(select);
+
+                    if (resultSet.isBeforeFirst()) {
+                        resultSet.next();
+                        account = resultSet.getLong("qqid");
+                    }
+                    resultSet.close();
+                    statement.close();
 
                     break;
                 }
@@ -249,22 +249,6 @@ public class MiraiMC {
 
         try {
             switch (Config.DB_Type.toLowerCase()){
-                default:
-                case "sqlite": {
-                    Statement statement = Utils.connection.createStatement();
-                    statement.executeUpdate(createTable);
-
-                    ResultSet resultSet = statement.executeQuery(select);
-
-                    if (resultSet.isBeforeFirst()) {
-                        resultSet.next();
-                        uuid = resultSet.getString("uuid");
-                    }
-                    resultSet.close();
-                    statement.close();
-
-                    break;
-                }
                 case "mysql": {
                     Connection connection = Utils.ds.getConnection();
                     connection.prepareStatement(createTable).executeUpdate();
@@ -277,6 +261,22 @@ public class MiraiMC {
                     }
                     resultSet.close();
                     connection.close();
+
+                    break;
+                }
+                case "sqlite":
+                default: {
+                    Statement statement = Utils.connection.createStatement();
+                    statement.executeUpdate(createTable);
+
+                    ResultSet resultSet = statement.executeQuery(select);
+
+                    if (resultSet.isBeforeFirst()) {
+                        resultSet.next();
+                        uuid = resultSet.getString("uuid");
+                    }
+                    resultSet.close();
+                    statement.close();
 
                     break;
                 }
