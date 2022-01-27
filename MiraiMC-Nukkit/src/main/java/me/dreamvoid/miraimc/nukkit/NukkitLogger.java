@@ -38,13 +38,28 @@ public class NukkitLogger extends Logger {
     }
 
     @Override
+    public void severe(Supplier<String> msgSupplier) {
+        logger.error(msgSupplier.get());
+    }
+
+    @Override
     public void warning(String msg) {
         logger.warning(msg);
     }
 
     @Override
+    public void warning(Supplier<String> msgSupplier) {
+        logger.warning(msgSupplier.get());
+    }
+
+    @Override
     public void info(String msg) {
         logger.info(msg);
+    }
+
+    @Override
+    public void info(Supplier<String> msgSupplier) {
+        logger.info(msgSupplier.get());
     }
 
     @Override
@@ -271,21 +286,6 @@ public class NukkitLogger extends Logger {
     public void finest(String msg) {
         logger.debug("Unsupported method \"finest(String msg)\" is being called.");
         logger.debug(msg);
-    }
-
-    @Override
-    public void severe(Supplier<String> msgSupplier) {
-        logger.error(msgSupplier.get());
-    }
-
-    @Override
-    public void warning(Supplier<String> msgSupplier) {
-        logger.warning(msgSupplier.get());
-    }
-
-    @Override
-    public void info(Supplier<String> msgSupplier) {
-        logger.info(msgSupplier.get());
     }
 
     @Override

@@ -35,13 +35,28 @@ public class SpongeLogger extends Logger {
     }
 
     @Override
+    public void severe(Supplier<String> msgSupplier) {
+        logger.error(msgSupplier.get());
+    }
+
+    @Override
     public void warning(String msg) {
         logger.warn(msg);
     }
 
     @Override
+    public void warning(Supplier<String> msgSupplier) {
+        logger.warn(msgSupplier.get());
+    }
+
+    @Override
     public void info(String msg) {
         logger.info(msg);
+    }
+
+    @Override
+    public void info(Supplier<String> msgSupplier) {
+        logger.info(msgSupplier.get());
     }
 
     @Override
@@ -256,6 +271,31 @@ public class SpongeLogger extends Logger {
     }
 
     @Override
+    @Deprecated
+    public void logrb(Level level, String sourceClass, String sourceMethod, String bundleName, String msg, Throwable thrown) {
+        logger.debug("Unsupported method \"logrb(Level level, String sourceClass, String sourceMethod, String bundleName, String msg, Throwable thrown)\" is being called.");
+        if (level == Level.WARNING) {
+            logger.warn(msg);
+        } else if (level == Level.SEVERE) {
+            logger.error(msg);
+        } else {
+            logger.info(msg);
+        }
+    }
+
+    @Override
+    public void logrb(Level level, String sourceClass, String sourceMethod, ResourceBundle bundle, String msg, Throwable thrown) {
+        logger.debug("Unsupported method \"logrb(Level level, String sourceClass, String sourceMethod, ResourceBundle bundle, String msg, Throwable thrown)\" is being called.");
+        if (level == Level.WARNING) {
+            logger.warn(msg);
+        } else if (level == Level.SEVERE) {
+            logger.error(msg);
+        } else {
+            logger.info(msg);
+        }
+    }
+
+    @Override
     public void entering(String sourceClass, String sourceMethod) {
         super.entering(sourceClass, sourceMethod);
     }
@@ -307,21 +347,6 @@ public class SpongeLogger extends Logger {
     public void finest(String msg) {
         logger.debug("Unsupported method \"finest(String msg)\" is being called.");
         logger.debug(msg);
-    }
-
-    @Override
-    public void severe(Supplier<String> msgSupplier) {
-        logger.error(msgSupplier.get());
-    }
-
-    @Override
-    public void warning(Supplier<String> msgSupplier) {
-        logger.warn(msgSupplier.get());
-    }
-
-    @Override
-    public void info(Supplier<String> msgSupplier) {
-        logger.info(msgSupplier.get());
     }
 
     @Override
@@ -381,30 +406,5 @@ public class SpongeLogger extends Logger {
     @Override
     public void setParent(Logger parent) {
         super.setParent(parent);
-    }
-
-    @Override
-    @Deprecated
-    public void logrb(Level level, String sourceClass, String sourceMethod, String bundleName, String msg, Throwable thrown) {
-        logger.debug("Unsupported method \"logrb(Level level, String sourceClass, String sourceMethod, String bundleName, String msg, Throwable thrown)\" is being called.");
-        if (level == Level.WARNING) {
-            logger.warn(msg);
-        } else if (level == Level.SEVERE) {
-            logger.error(msg);
-        } else {
-            logger.info(msg);
-        }
-    }
-
-    @Override
-    public void logrb(Level level, String sourceClass, String sourceMethod, ResourceBundle bundle, String msg, Throwable thrown) {
-        logger.debug("Unsupported method \"logrb(Level level, String sourceClass, String sourceMethod, ResourceBundle bundle, String msg, Throwable thrown)\" is being called.");
-        if (level == Level.WARNING) {
-            logger.warn(msg);
-        } else if (level == Level.SEVERE) {
-            logger.error(msg);
-        } else {
-            logger.info(msg);
-        }
     }
 }
