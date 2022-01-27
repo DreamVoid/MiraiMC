@@ -61,13 +61,13 @@ public class LoginCommand extends BaseSubCommand {
                         if(!useHttpApi){
                             MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
                         } else {
-                            if(Config.Gen_WorkingMode_HttpApi) {
+                            if(Config.Gen_EnableHttpApi) {
                                 MiraiHttpAPI httpAPI = new MiraiHttpAPI(Config.HTTPAPI_Url);
                                 Bind bind = httpAPI.bind(httpAPI.verify(args[2]).session, Long.parseLong(args[1]));
                                 if(bind.code == 0) {
                                     sender.sendMessage(TextFormat.GREEN + args[1] + " HTTP-API登录成功！");
                                 } else {
-                                    sender.sendMessage(TextFormat.YELLOW + "登录机器人时出现异常，原因: " + bind.msg);
+                                    sender.sendMessage(TextFormat.YELLOW + "登录机器人时出现异常，状态码: " + bind.code + "，原因: " + bind.msg);
                                 }
                             } else sender.sendMessage(TextFormat.RED + "此服务器没有启用HTTP-API模式，请检查配置文件！");
                         }

@@ -121,6 +121,12 @@ public class BukkitPlugin extends JavaPlugin {
             }.runTaskAsynchronously(this);
         }
 
+        // HTTP API
+        if(Config.Gen_EnableHttpApi){
+            getLogger().info("Initializing HttpAPI async task.");
+            getServer().getScheduler().runTaskTimerAsynchronously(this,new MiraiHttpAPIResolver(), 0, Config.HTTPAPI_MessageFetch_Interval);
+        }
+
         // 安全警告
         if(!(Config.Gen_DisableSafeWarningMessage)){
             getLogger().warning("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");

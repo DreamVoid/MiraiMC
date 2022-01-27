@@ -24,8 +24,7 @@ public class BukkitConfig {
         Gen_MiraiCoreVersion = plugin.getConfig().getString("general.mirai-core-version","latest");
         Gen_MavenRepoUrl = plugin.getConfig().getString("general.maven-repo-url","https://repo1.maven.org/maven2");
         Gen_FriendlyException = plugin.getConfig().getBoolean("general.friendly-exception",true);
-        Gen_WorkingMode_Core = plugin.getConfig().getBoolean("general.working-mode.core",true);
-        Gen_WorkingMode_HttpApi = plugin.getConfig().getBoolean("general.working-mode.http-api",false);
+        Gen_EnableHttpApi = plugin.getConfig().getBoolean("general.enable-http-api",false);
 
         Bot_DisableNetworkLogs = plugin.getConfig().getBoolean("bot.disable-network-logs",false);
         Bot_DisableBotLogs = plugin.getConfig().getBoolean("bot.disable-bot-logs",false);
@@ -49,6 +48,8 @@ public class BukkitConfig {
         DB_MySQL_Poll_MinimumIdle = plugin.getConfig().getInt("database.mysql.pool.minimumIdle",0);
 
         HTTPAPI_Url = plugin.getConfig().getString("httpapi.url", "http://localhost:8080");
+        HTTPAPI_MessageFetch_Interval = plugin.getConfig().getInt("httpapi.message-fetch.interval", 10);
+        HTTPAPI_MessageFetch_Count = plugin.getConfig().getInt("httpapi.message-fetch.count", 10);
     }
 
     public static void reloadConfig() {

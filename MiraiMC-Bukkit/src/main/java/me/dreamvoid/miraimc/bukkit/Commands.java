@@ -67,7 +67,7 @@ public class Commands implements CommandExecutor {
                                                 if(!useHttpApi){
                                                     MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
                                                 } else {
-                                                    if(Config.Gen_WorkingMode_HttpApi) {
+                                                    if(Config.Gen_EnableHttpApi) {
                                                         MiraiHttpAPI httpAPI = new MiraiHttpAPI(Config.HTTPAPI_Url);
                                                         Bind bind = httpAPI.bind(httpAPI.verify(args[2]).session, Long.parseLong(args[1]));
                                                         if(bind.code == 0) {
