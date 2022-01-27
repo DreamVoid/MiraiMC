@@ -49,6 +49,7 @@ public final class MiraiGroupMessageEvent extends Event {
         GroupID = sender.group.id;
         GroupName = sender.group.name;
     }
+
     private static final HandlerList handlers = new HandlerList();
     private GroupMessageEvent event;
 

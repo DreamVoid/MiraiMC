@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event;
 
+import me.dreamvoid.miraimc.internal.httpapi.type.Message;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
 import net.mamoe.mirai.message.data.MessageChainBuilder;
@@ -16,16 +17,39 @@ public final class MiraiFriendMessageEvent extends Event {
 
     public MiraiFriendMessageEvent(FriendMessageEvent event) {
         this.event = event;
+
+        botID = event.getBot().getId();
+        senderID = event.getSender().getId();
+        senderNick = event.getSender().getNick();
+        messageContent = event.getMessage().contentToString();
+        messageMiraiCode = event.getMessage().serializeToMiraiCode();
+        time = event.getTime();
     }
 
-    private final FriendMessageEvent event;
+    public MiraiFriendMessageEvent(long BotAccount, Message message) {
+        botID = BotAccount;
+        senderID = message.senderId;
+        senderNick = message.senderNickname;
+        messageContent = message.text;
+        messageMiraiCode = message.text;
+        time = message.time;
+    }
+
+    private FriendMessageEvent event;
+
+    private final long botID;
+    private final long senderID;
+    private final String senderNick;
+    private final String messageContent;
+    private final String messageMiraiCode;
+    private final int time;
 
     /**
      * 返回接收到这条信息的机器人ID
      * @return 机器人ID
      */
     public long getBotID(){
-        return event.getBot().getId();
+        return botID;
     }
 
     /**
@@ -33,7 +57,7 @@ public final class MiraiFriendMessageEvent extends Event {
      * @return 发送者ID
      */
     public long getSenderID(){
-        return event.getSender().getId();
+        return senderID;
     }
 
     /**
@@ -41,7 +65,7 @@ public final class MiraiFriendMessageEvent extends Event {
      * @return 发送者昵称
      */
     public String getSenderNick(){
-        return event.getSender().getNick();
+        return senderNick;
     }
 
     /**
@@ -52,7 +76,7 @@ public final class MiraiFriendMessageEvent extends Event {
      * @return 转换字符串后的消息内容
      */
     public String getMessage(){
-        return event.getMessage().contentToString();
+        return messageContent;
     }
 
     /**
@@ -87,14 +111,14 @@ public final class MiraiFriendMessageEvent extends Event {
      * @return 带Mirai Code的消息内容
      */
     public String getMessageToMiraiCode(){
-        return event.getMessage().serializeToMiraiCode();
+        return messageMiraiCode;
     }
 
     /**
      * 返回接收到这条信息的时间
      * @return 发送时间
      */
-    public int getTime(){ return event.getTime(); }
+    public int getTime(){ return time; }
 
     /**
      * 获取原始事件内容<br>

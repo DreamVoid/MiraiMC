@@ -92,7 +92,22 @@ public class MiraiCommand extends Command {
                                 MiraiBot.getBot(Long.parseLong(args[1])).doLogout();
                                 sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', "&a已退出指定机器人！")));
                             } catch (NoSuchElementException e){
-                                sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', "&c指定的机器人不存在！")));
+                                if(Config.Gen_EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
+                                    try {
+                                        new MiraiHttpAPI(Config.HTTPAPI_Url).release(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])),Long.parseLong(args[1]));
+                                        sender.sendMessage(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', "&a已退出指定机器人！")));
+                                    } catch (IOException ex) {
+                                        Utils.logger.warning("退出机器人时出现异常，原因: " + ex);
+                                        sender.sendMessage(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&',"&c退出机器人时出现异常，请检查控制台输出！")));
+                                    } catch (AbnormalStatusException ex) {
+                                        if(ex.getCode() == 2){
+                                            sender.sendMessage(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', "&c指定的机器人不存在！")));
+                                        } else {
+                                            Utils.logger.warning("退出机器人时出现异常，状态码："+ex.getCode()+"，原因: "+ex.getMessage());
+                                            sender.sendMessage(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&',"&c退出机器人时出现异常，状态码："+ex.getCode()+"，原因: "+ex.getMessage())));
+                                        }
+                                    }
+                                } else sender.sendMessage(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', "&c指定的机器人不存在！")));
                             }
                         } else {
                             sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai logout <账号>")));
@@ -146,6 +161,8 @@ public class MiraiCommand extends Command {
                     if(sender.hasPermission("miraimc.command.mirai.list")){
                         sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&a存在的机器人: ")));
                         List<Long> BotList = MiraiBot.getOnlineBots();
+
+                        // Core
                         for (long bots : BotList){
                             Bot bot = Bot.getInstance(bots);
                             if(bot.isOnline()) {
@@ -153,6 +170,11 @@ public class MiraiCommand extends Command {
                             } else {
                                 sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', "&b" + bot.getId() + "&r &7-&r &c离线")));
                             }
+                        }
+
+                        // HTTP API
+                        for (long botWithHttp : MiraiHttpAPI.Bots.keySet()){
+                            sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', "&b"+botWithHttp + "&r &7-&r &eHTTP API")));
                         }
                     } else sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！")));
                     break;
