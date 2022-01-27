@@ -34,7 +34,7 @@ class HTTPUtils {
         con.setRequestProperty("User-Agent", USER_AGENT);
 
         BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
+                new InputStreamReader(con.getInputStream(),StandardCharsets.UTF_8));
         String inputLine;
         StringBuilder response = new StringBuilder();
 
