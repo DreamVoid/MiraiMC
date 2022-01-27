@@ -134,7 +134,21 @@ public class Commands implements CommandExecutor {
                                             message.append(args[i]).append(" ");
                                         }
                                     }
-                                    MiraiBot.getBot(Long.parseLong(args[1])).getGroup(Long.parseLong(args[2])).sendMessage(message.toString().replace("\\n",System.lineSeparator()));
+                                    String text = message.toString().replace("\\n",System.lineSeparator());
+                                    try {
+                                        MiraiBot.getBot(Long.parseLong(args[1])).getGroup(Long.parseLong(args[2])).sendMessage(text);
+                                    } catch (NoSuchElementException e){
+                                        if(Config.Gen_EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
+                                            try {
+                                                MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])), Long.parseLong(args[2]), text);
+                                            } catch (IOException ex) {
+                                                Utils.logger.warning("发送群消息时出现异常，原因: "+ e);
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c发送群消息时出现异常，请检查控制台了解更多信息！"));
+                                            } catch (AbnormalStatusException ex) {
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c发送群消息时出现异常，状态码: " + ex.getCode()+"，原因: "+ex.getMessage()));
+                                            }
+                                        }
+                                    }
                                 } else {
                                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai sendgroupmessage <账号> <群号> <消息>"));
                                 }
@@ -150,7 +164,21 @@ public class Commands implements CommandExecutor {
                                             message.append(args[i]).append(" ");
                                         }
                                     }
-                                    MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendMessage(message.toString().replace("\\n",System.lineSeparator()));
+                                    String text = message.toString().replace("\\n",System.lineSeparator());
+                                    try {
+                                        MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendMessage(text);
+                                    } catch (NoSuchElementException e){
+                                        if(Config.Gen_EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
+                                            try {
+                                                MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])), Long.parseLong(args[2]), text);
+                                            } catch (IOException ex) {
+                                                Utils.logger.warning("发送好友消息时出现异常，原因: "+ e);
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c发送好友消息时出现异常，请检查控制台了解更多信息！"));
+                                            } catch (AbnormalStatusException ex) {
+                                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c发送好友消息时出现异常，状态码: " + ex.getCode()+"，原因: "+ex.getMessage()));
+                                            }
+                                        }
+                                    }
                                 } else {
                                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法: /mirai sendfriendmessage <账号> <好友> <消息>"));
                                 }

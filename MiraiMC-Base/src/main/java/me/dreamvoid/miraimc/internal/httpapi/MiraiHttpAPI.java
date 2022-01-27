@@ -14,12 +14,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MiraiHttpAPI {
+    public static MiraiHttpAPI INSTANCE;
     private final String url;
     private final Gson gson = new Gson();
     public final static HashMap<Long, String> Bots = new HashMap<>();
 
     public MiraiHttpAPI(String url) {
         this.url = url;
+        INSTANCE = this;
     }
 
     public Verify verify(String verifyKey) throws IOException, AbnormalStatusException {
