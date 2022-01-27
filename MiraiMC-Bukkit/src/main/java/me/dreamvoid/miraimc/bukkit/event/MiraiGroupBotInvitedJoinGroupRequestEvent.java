@@ -60,13 +60,17 @@ public class MiraiGroupBotInvitedJoinGroupRequestEvent extends Event{
     /**
      * 同意请求
      */
-    public void setAccept(){ event.accept(); event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getBotID() +"|"+getInviterID()+") <- Accept");
+    public void setAccept(){
+        event.accept();
+        event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getBotID() +"|"+getInviterID()+") <- Accept");
     }
 
     /**
      * 忽略请求
      */
-    public void setIgnore(){ event.ignore(); event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getBotID() +"|"+getInviterID()+") <- Ignore");
+    public void setIgnore(){
+        event.ignore();
+        event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getBotID() +"|"+getInviterID()+") <- Ignore");
     }
 
     /**
