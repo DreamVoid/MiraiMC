@@ -5,7 +5,7 @@ import me.dreamvoid.miraimc.bungee.BungeePlugin;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI;
-import me.dreamvoid.miraimc.internal.httpapi.response.Bind;
+import me.dreamvoid.miraimc.internal.httpapi.exception.AbnormalStatusException;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
 import net.md_5.bungee.api.ChatColor;
@@ -60,12 +60,8 @@ public class MiraiCommand extends Command {
                                     } else {
                                         if(Config.Gen_EnableHttpApi) {
                                             MiraiHttpAPI httpAPI = new MiraiHttpAPI(Config.HTTPAPI_Url);
-                                            Bind bind = httpAPI.bind(httpAPI.verify(args[2]).session, Long.parseLong(args[1]));
-                                            if(bind.code == 0) {
-                                                sender.sendMessage(new TextComponent(ChatColor.GREEN + args[1] + " HTTP-API登录成功！"));
-                                            } else {
-                                                sender.sendMessage(new TextComponent(ChatColor.YELLOW + "登录机器人时出现异常，原因: " + bind.msg));
-                                            }
+                                            httpAPI.bind(httpAPI.verify(args[2]).session, Long.parseLong(args[1]));
+                                            sender.sendMessage(new TextComponent(ChatColor.GREEN + args[1] + " HTTP-API登录成功！"));
                                         } else sender.sendMessage(new TextComponent(ChatColor.RED + "此服务器没有启用HTTP-API模式，请检查配置文件！"));
                                     }
                                 } catch (InterruptedException e) {
@@ -78,6 +74,9 @@ public class MiraiCommand extends Command {
                                         Utils.logger.warning("登录机器人时出现异常，原因: " + e);
                                     } else e.printStackTrace();
                                     sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，请检查控制台输出！")));
+                                } catch (AbnormalStatusException e) {
+                                    Utils.logger.warning("使用HTTPAPI登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getLocalizedMessage());
+                                    sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getLocalizedMessage())));
                                 }
                             });
                         } else {
