@@ -14,8 +14,7 @@ public class Config {
     public static String Gen_MiraiCoreVersion;
     public static String Gen_MavenRepoUrl;
     public static boolean Gen_FriendlyException;
-    public static boolean Gen_WorkingMode_Core;
-    public static boolean Gen_WorkingMode_HttpApi;
+    public static boolean Gen_EnableHttpApi;
 
     public static boolean Bot_DisableNetworkLogs;
     public static boolean Bot_DisableBotLogs;

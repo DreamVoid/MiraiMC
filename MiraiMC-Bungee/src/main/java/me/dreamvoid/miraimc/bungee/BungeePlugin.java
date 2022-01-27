@@ -15,9 +15,11 @@ import java.sql.SQLException;
 public class BungeePlugin extends Plugin {
     private MiraiEvent MiraiEvent;
     private MiraiAutoLogin MiraiAutoLogin;
+    static BungeePlugin INSTANCE;
 
     @Override
     public void onLoad() {
+        INSTANCE = this;
         try {
             Utils.setLogger(this.getLogger());
             Utils.setClassLoader(this.getClass().getClassLoader());

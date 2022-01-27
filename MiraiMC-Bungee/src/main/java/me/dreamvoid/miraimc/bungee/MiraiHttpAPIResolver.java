@@ -1,13 +1,12 @@
-package me.dreamvoid.miraimc.bukkit;
+package me.dreamvoid.miraimc.bungee;
 
-import me.dreamvoid.miraimc.bukkit.event.MiraiFriendMessageEvent;
-import me.dreamvoid.miraimc.bukkit.event.MiraiGroupMessageEvent;
+import me.dreamvoid.miraimc.bungee.event.MiraiFriendMessageEvent;
+import me.dreamvoid.miraimc.bungee.event.MiraiGroupMessageEvent;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI;
 import me.dreamvoid.miraimc.internal.httpapi.response.FetchMessage;
 import me.dreamvoid.miraimc.internal.httpapi.type.Message;
-import org.bukkit.Bukkit;
 
 import static me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI.Bots;
 
@@ -48,7 +47,7 @@ public class MiraiHttpAPIResolver implements Runnable {
                         // 准备广播事件
                         switch (type) {
                             case "FriendMessage": {
-                                Bukkit.getPluginManager().callEvent(new MiraiFriendMessageEvent(account, new Message()
+                                BungeePlugin.INSTANCE.getProxy().getPluginManager().callEvent(new MiraiFriendMessageEvent(account, new Message()
                                         .setSenderId(id)
                                         .setSenderNickname(nickname)
                                         .setSenderRemark(remark)
@@ -58,7 +57,7 @@ public class MiraiHttpAPIResolver implements Runnable {
                                 break;
                             }
                             case "GroupMessage": {
-                                Bukkit.getPluginManager().callEvent(new MiraiGroupMessageEvent(account, data.sender, new Message()
+                                BungeePlugin.INSTANCE.getProxy().getPluginManager().callEvent(new MiraiGroupMessageEvent(account, data.sender, new Message()
                                         .setSenderId(id)
                                         .setSenderNickname(nickname)
                                         .setSenderRemark(remark)

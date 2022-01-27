@@ -25,11 +25,39 @@ public class FetchMessage {
     }
 
     public static class Sender {
+        // 通用
         @SerializedName("id")
         public long id;
-        @SerializedName("nickname")
-        public String nickname;
+
+        // 好友
         @SerializedName("remark")
         public String remark;
+        @SerializedName("nickname")
+        public String nickname;
+
+        // 群
+        @SerializedName("memberName")
+        public String memberName;
+        @SerializedName("specialTitle")
+        public String specialTitle;
+        @SerializedName("permission")
+        public String permission;
+        @SerializedName("joinTimestamp")
+        public long joinTimestamp;
+        @SerializedName("lastSpeakTimestamp")
+        public long lastSpeakTimestamp;
+        @SerializedName("muteTimeRemaining")
+        public long muteTimeRemaining;
+        @SerializedName("group")
+        public Group group;
+    }
+
+    public static class Group {
+        @SerializedName("id")
+        public long id;
+        @SerializedName("name")
+        public String name;
+        @SerializedName("permission")
+        public String permission;
     }
 }
