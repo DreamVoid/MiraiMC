@@ -32,7 +32,10 @@ public class MiraiAutoLogin {
 
     public void loadFile() {
         // 建立控制台文件夹
-        File MiraiDir; if(!(Config.Gen_MiraiWorkingDir.equals("default"))) MiraiDir = new File(Config.Gen_MiraiWorkingDir); else MiraiDir = new File(Config.PluginDir,"MiraiBot");
+        File MiraiDir;
+        if(!(Config.Gen_MiraiWorkingDir.equals("default"))) {
+            MiraiDir = new File(Config.Gen_MiraiWorkingDir);
+        } else MiraiDir = new File(Config.PluginDir,"MiraiBot");
         File ConsoleDir = new File(MiraiDir, "config/Console");
         if(!ConsoleDir.exists() &&!ConsoleDir.mkdirs()) throw new RuntimeException("Failed to create folder " + ConsoleDir.getPath());
 
