@@ -332,27 +332,15 @@ public class SpongeLogger extends Logger {
     }
 
     @Override
-    public void fine(String msg) {
-        logger.debug("Unsupported method \"fine(String msg)\" is being called.");
-        logger.debug(msg);
-    }
-
-    @Override
-    public void finer(String msg) {
-        logger.debug("Unsupported method \"finer(String msg)\" is being called.");
-        logger.debug(msg);
-    }
-
-    @Override
-    public void finest(String msg) {
-        logger.debug("Unsupported method \"finest(String msg)\" is being called.");
-        logger.debug(msg);
-    }
-
-    @Override
     public void config(Supplier<String> msgSupplier) {
         logger.debug("Unsupported method \"config(Supplier<String> msgSupplier)\" is being called.");
         logger.debug(msgSupplier.get());
+    }
+
+    @Override
+    public void fine(String msg) {
+        logger.debug("Unsupported method \"fine(String msg)\" is being called.");
+        logger.debug(msg);
     }
 
     @Override
@@ -365,6 +353,18 @@ public class SpongeLogger extends Logger {
     public void finer(Supplier<String> msgSupplier) {
         logger.debug("Unsupported method \"finer(Supplier<String> msgSupplier)\" is being called.");
         logger.debug(msgSupplier.get());
+    }
+
+    @Override
+    public void finer(String msg) {
+        logger.debug("Unsupported method \"finer(String msg)\" is being called.");
+        logger.debug(msg);
+    }
+
+    @Override
+    public void finest(String msg) {
+        logger.debug("Unsupported method \"finest(String msg)\" is being called.");
+        logger.debug(msg);
     }
 
     @Override

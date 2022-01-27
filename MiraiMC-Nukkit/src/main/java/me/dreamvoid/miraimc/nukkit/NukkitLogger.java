@@ -235,6 +235,23 @@ public class NukkitLogger extends Logger {
     }
 
     @Override
+    @Deprecated
+    public void logrb(Level level, String sourceClass, String sourceMethod, String bundleName, String msg, Throwable thrown) {
+        logger.debug("Unsupported method \"logrb(Level level, String sourceClass, String sourceMethod, String bundleName, String msg, Throwable thrown)\" is being called.");
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
+            logger.info(msg, thrown);
+        } else logger.log(LogLevel.valueOf(level.getName()), msg, thrown);
+    }
+
+    @Override
+    public void logrb(Level level, String sourceClass, String sourceMethod, ResourceBundle bundle, String msg, Throwable thrown) {
+        logger.debug("Unsupported method \"logrb(Level level, String sourceClass, String sourceMethod, ResourceBundle bundle, String msg, Throwable thrown)\" is being called.");
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
+            logger.info(msg, thrown);
+        } else logger.log(LogLevel.valueOf(level.getName()), msg, thrown);
+    }
+
+    @Override
     public void entering(String sourceClass, String sourceMethod) {
         super.entering(sourceClass, sourceMethod);
     }
@@ -265,21 +282,33 @@ public class NukkitLogger extends Logger {
     }
 
     @Override
-    public void config(String msg) {
-        logger.debug("Unsupported method \"config(String msg)\" is being called.");
-        logger.debug(msg);
-    }
-
-    @Override
     public void fine(String msg) {
         logger.debug("Unsupported method \"fine(String msg)\" is being called.");
         logger.debug(msg);
     }
 
     @Override
+    public void fine(Supplier<String> msgSupplier) {
+        logger.debug("Unsupported method \"fine(Supplier<String> msgSupplier)\" is being called.");
+        logger.debug(msgSupplier.get());
+    }
+
+    @Override
     public void finer(String msg) {
         logger.debug("Unsupported method \"finer(String msg)\" is being called.");
         logger.debug(msg);
+    }
+
+    @Override
+    public void finer(Supplier<String> msgSupplier) {
+        logger.debug("Unsupported method \"finer(Supplier<String> msgSupplier)\" is being called.");
+        logger.debug(msgSupplier.get());
+    }
+
+    @Override
+    public void finest(Supplier<String> msgSupplier) {
+        logger.debug("Unsupported method \"finest(Supplier<String> msgSupplier)\" is being called.");
+        logger.debug(msgSupplier.get());
     }
 
     @Override
@@ -295,21 +324,9 @@ public class NukkitLogger extends Logger {
     }
 
     @Override
-    public void fine(Supplier<String> msgSupplier) {
-        logger.debug("Unsupported method \"fine(Supplier<String> msgSupplier)\" is being called.");
-        logger.debug(msgSupplier.get());
-    }
-
-    @Override
-    public void finer(Supplier<String> msgSupplier) {
-        logger.debug("Unsupported method \"finer(Supplier<String> msgSupplier)\" is being called.");
-        logger.debug(msgSupplier.get());
-    }
-
-    @Override
-    public void finest(Supplier<String> msgSupplier) {
-        logger.debug("Unsupported method \"finest(Supplier<String> msgSupplier)\" is being called.");
-        logger.debug(msgSupplier.get());
+    public void config(String msg) {
+        logger.debug("Unsupported method \"config(String msg)\" is being called.");
+        logger.debug(msg);
     }
 
     @Override
@@ -345,22 +362,5 @@ public class NukkitLogger extends Logger {
     @Override
     public void setParent(Logger parent) {
         super.setParent(parent);
-    }
-
-    @Override
-    @Deprecated
-    public void logrb(Level level, String sourceClass, String sourceMethod, String bundleName, String msg, Throwable thrown) {
-        logger.debug("Unsupported method \"logrb(Level level, String sourceClass, String sourceMethod, String bundleName, String msg, Throwable thrown)\" is being called.");
-        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
-            logger.info(msg, thrown);
-        } else logger.log(LogLevel.valueOf(level.getName()), msg, thrown);
-    }
-
-    @Override
-    public void logrb(Level level, String sourceClass, String sourceMethod, ResourceBundle bundle, String msg, Throwable thrown) {
-        logger.debug("Unsupported method \"logrb(Level level, String sourceClass, String sourceMethod, ResourceBundle bundle, String msg, Throwable thrown)\" is being called.");
-        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
-            logger.info(msg, thrown);
-        } else logger.log(LogLevel.valueOf(level.getName()), msg, thrown);
     }
 }
