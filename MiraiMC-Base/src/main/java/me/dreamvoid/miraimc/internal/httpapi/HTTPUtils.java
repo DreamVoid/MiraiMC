@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.internal.httpapi;
 
 import com.google.gson.JsonObject;
+import me.dreamvoid.miraimc.internal.Utils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpPost;
@@ -70,10 +71,8 @@ class HTTPUtils {
             while ((line = reader.readLine()) != null)
                 strber.append(line).append("\n");
             inStream.close();
-            if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-                System.out.println("Request success.");
-            } else {
-                System.out.println("Request failed.");
+            if (httpResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+                Utils.logger.warning("Http request returned bad status code: " + httpResponse.getStatusLine().getStatusCode()+", reason: "+ httpResponse.getStatusLine().getReasonPhrase());
             }
             return strber.toString();
         }
