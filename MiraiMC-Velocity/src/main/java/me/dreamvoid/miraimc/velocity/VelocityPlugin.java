@@ -107,9 +107,7 @@ public class VelocityPlugin {
                 try {
                     Utils.initializeSQLite();
                 } catch (SQLException | ClassNotFoundException ex) {
-                    if(Config.Gen_FriendlyException) {
-                        getLogger().warn("Failed to initialize SQLite database, reason: " + ex);
-                    } else ex.printStackTrace();
+                    getLogger().warn("Failed to initialize SQLite database, reason: " + ex);
                 }
                 break;
             }

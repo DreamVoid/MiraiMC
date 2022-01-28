@@ -68,9 +68,7 @@ public class BungeePlugin extends Plugin {
                 try {
                     Utils.initializeSQLite();
                 } catch (SQLException | ClassNotFoundException e) {
-                    if(Config.Gen_FriendlyException) {
-                        getLogger().warning("Failed to initialize SQLite database, reason: " + e);
-                    } else e.printStackTrace();
+                    getLogger().warning("Failed to initialize SQLite database, reason: " + e);
                 }
                 break;
             }

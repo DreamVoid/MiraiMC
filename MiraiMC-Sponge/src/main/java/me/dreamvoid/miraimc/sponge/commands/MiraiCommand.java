@@ -70,19 +70,12 @@ public class MiraiCommand implements CommandExecutor {
                                             src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a" + args[1] + " HTTP-API登录成功！"));
                                         } else src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c" + "此服务器没有启用HTTP-API模式，请检查配置文件！"));
                                     }
-                                } catch (InterruptedException e) {
-                                    if(Config.Gen_FriendlyException) {
-                                        Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
-                                    } else e.printStackTrace();
-                                    src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c登录机器人时出现异常，请检查控制台输出！"));
-                                } catch (IOException e) {
-                                    if(Config.Gen_FriendlyException) {
-                                        Utils.logger.warning("登录机器人时出现异常，原因: " + e);
-                                    } else e.printStackTrace();
+                                } catch (InterruptedException|IOException e) {
+                                    Utils.logger.warning("登录机器人时出现异常，原因: " + e);
                                     src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c登录机器人时出现异常，请检查控制台输出！"));
                                 } catch (AbnormalStatusException e) {
-                                    Utils.logger.warning("使用HTTPAPI登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getLocalizedMessage());
-                                    src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getLocalizedMessage()));
+                                    Utils.logger.warning("使用HTTPAPI登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getMessage());
+                                    src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getMessage()));
                                 }
                             }).submit(plugin);
                         } else {

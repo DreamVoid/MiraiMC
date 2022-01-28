@@ -84,9 +84,7 @@ public class MiraiAutoLogin {
                         try {
                             MiraiBot.doBotLogin(Account, Password, Protocol);
                         } catch (InterruptedException e) {
-                            if(Config.Gen_FriendlyException) {
-                                Logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
-                            } else e.printStackTrace();
+                            Logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
                         }
                     }
                 }

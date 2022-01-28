@@ -93,10 +93,10 @@ public class MiraiAutoLogin {
                         }
                     }
                 }
-            } catch (InterruptedException|FileNotFoundException e) {
-                if(Config.Gen_FriendlyException) {
-                    Logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
-                } else e.printStackTrace();
+            } catch (InterruptedException e) {
+                Logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+            } catch (FileNotFoundException e) {
+                Logger.warning("登录机器人时出现异常，原因: " + e);
             }
         };
         Task.builder().async().name("MiraiMC Autologin Task").execute(thread).submit(plugin);

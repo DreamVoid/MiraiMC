@@ -93,9 +93,7 @@ public class MiraiBot {
             byte[] md5 = m.digest();
             privateBotLogin(Account, md5, Protocol);
         } catch (NoSuchAlgorithmException e) {
-            if(Config.Gen_FriendlyException) {
-                logger.warning("加密密码时出现异常，原因: " + e.getLocalizedMessage());
-            } else e.printStackTrace();
+            logger.warning("加密密码时出现异常，原因: " + e);
         }
     }
 
@@ -245,9 +243,7 @@ public class MiraiBot {
             bot.login();
             logger.info(bot.getNick()+"("+bot.getId()+") 登录成功");
         } catch (Exception e){
-            if(Config.Gen_FriendlyException) {
-                logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
-            } else e.printStackTrace();
+            logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
         }
     }
 }

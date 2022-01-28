@@ -43,7 +43,6 @@ public class BungeeConfig {
         Gen_AddProperties_MiraiSliderCaptchaSupported = bungeeConfig.getBoolean("general.add-properties.mirai.slider.captcha.supported",true);
         Gen_MiraiCoreVersion = bungeeConfig.getString("general.mirai-core-version","latest");
         Gen_MavenRepoUrl = bungeeConfig.getString("general.maven-repo-url","https://repo1.maven.org/maven2");
-        Gen_FriendlyException = bungeeConfig.getBoolean("general.friendly-exception",true);
 
         Bot_DisableNetworkLogs = bungeeConfig.getBoolean("bot.disable-network-logs",false);
         Bot_DisableBotLogs = bungeeConfig.getBoolean("bot.disable-bot-logs",false);
