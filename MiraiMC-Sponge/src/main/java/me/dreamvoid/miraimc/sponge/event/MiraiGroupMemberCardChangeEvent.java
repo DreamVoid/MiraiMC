@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.sponge.event;
 
+import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.event.events.MemberCardChangeEvent;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.event.cause.Cause;
@@ -68,5 +69,13 @@ public class MiraiGroupMemberCardChangeEvent extends AbstractEvent {
     @Override
     public @NotNull Cause getCause() {
         return cause;
+    }
+
+    /**
+     * 获取群实例
+     * @return MiraiGroup 实例
+     */
+    public MiraiGroup getGroup(){
+        return new MiraiGroup(event.getBot(), event.getGroup().getId());
     }
 }

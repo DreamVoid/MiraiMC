@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event;
 
+import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.event.events.BotJoinGroupEvent;
 import net.md_5.bungee.api.plugin.Event;
 
@@ -33,5 +34,13 @@ public class MiraiGroupBotJoinGroupEvent extends Event{
      */
     public String eventToString() {
         return event.toString();
+    }
+
+    /**
+     * 获取群实例
+     * @return MiraiGroup 实例
+     */
+    public MiraiGroup getGroup(){
+        return new MiraiGroup(event.getBot(), event.getGroup().getId());
     }
 }

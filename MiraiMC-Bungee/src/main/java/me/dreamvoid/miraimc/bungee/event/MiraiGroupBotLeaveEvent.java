@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event;
 
+import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.event.events.BotLeaveEvent;
 import net.md_5.bungee.api.plugin.Event;
 
@@ -66,5 +67,13 @@ public class MiraiGroupBotLeaveEvent extends Event{
      */
     public String eventToString() {
         return event.toString();
+    }
+
+    /**
+     * 获取群实例
+     * @return MiraiGroup 实例
+     */
+    public MiraiGroup getGroup(){
+        return new MiraiGroup(event.getBot(), event.getGroup().getId());
     }
 }

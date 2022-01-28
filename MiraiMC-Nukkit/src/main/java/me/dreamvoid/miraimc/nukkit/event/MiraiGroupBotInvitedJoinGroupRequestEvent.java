@@ -1,8 +1,8 @@
 package me.dreamvoid.miraimc.nukkit.event;
 
+import cn.nukkit.event.Event;
 import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.BotInvitedJoinGroupRequestEvent;
-import cn.nukkit.event.Event;
 
 /**
  * 群成员 - 成员列表变更 - 机器人被邀请加入群
