@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event;
 
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
+import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.event.events.MemberUnmuteEvent;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -77,5 +78,13 @@ public class MiraiGroupMemberUnmuteEvent extends Event {
      */
     public MiraiGroup getGroup(){
         return new MiraiGroup(event.getBot(), event.getGroup().getId());
+    }
+
+    /**
+     * 获取群员实例
+     * @return MiraiNormalMember 实例
+     */
+    public MiraiNormalMember getMember(){
+        return new MiraiNormalMember(event.getGroup(), event.getMember().getId());
     }
 }
