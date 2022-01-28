@@ -42,6 +42,7 @@ public class MiraiHttpAPIResolver implements Runnable {
                                     message.append(msg.text);
                                     break;
                                 }
+                                default:break;
                             }
                         }
 
@@ -65,6 +66,10 @@ public class MiraiHttpAPIResolver implements Runnable {
                                         .setSource(messageId, sendTime)
                                         .setPlain(message.toString())
                                 ));
+                                break;
+                            }
+                            default:{
+                                break;
                             }
                         }
                     }
