@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.bukkit.event;
 
+import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.event.events.GroupTempMessageEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
 import net.mamoe.mirai.message.data.MessageChainBuilder;
@@ -216,5 +217,13 @@ public class MiraiGroupTempMessageEvent extends Event {
     public String getQuoteReplyMessageToMiraiCode() {
         QuoteReply quoteReply = event.getMessage().get(QuoteReply.Key);
         return !Objects.isNull(quoteReply) ? quoteReply.getSource().getOriginalMessage().serializeToMiraiCode() : null;
+    }
+
+    /**
+     * 从临时会话获取群员实例
+     * @return MiraiNormalMember 实例
+     */
+    public MiraiNormalMember getMember(){
+        return new MiraiNormalMember(event.getGroup(), event.getSender().getId());
     }
 }
