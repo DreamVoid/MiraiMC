@@ -1,11 +1,11 @@
 package me.dreamvoid.miraimc.sponge.event;
 
+import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupTempMessagePreSendEvent;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.cause.EventContext;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
 import java.util.ArrayList;
@@ -186,5 +186,13 @@ public class MiraiGroupTempMessagePreSendEvent extends AbstractEvent {
     @Override
     public @NotNull Cause getCause() {
         return cause;
+    }
+
+    /**
+     * 从临时会话获取群员实例
+     * @return MiraiNormalMember 实例
+     */
+    public MiraiNormalMember getMember(){
+        return new MiraiNormalMember(event.getGroup(), event.getTarget().getId());
     }
 }

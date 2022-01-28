@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.sponge.event;
 
+import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.event.events.GroupTempMessageEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
 import net.mamoe.mirai.message.data.MessageChainBuilder;
@@ -7,7 +8,6 @@ import net.mamoe.mirai.message.data.QuoteReply;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.cause.EventContext;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
 import java.util.Objects;
@@ -219,5 +219,13 @@ public class MiraiGroupTempMessageEvent extends AbstractEvent {
     public String getQuoteReplyMessageToMiraiCode() {
         QuoteReply quoteReply = event.getMessage().get(QuoteReply.Key);
         return !Objects.isNull(quoteReply) ? quoteReply.getSource().getOriginalMessage().serializeToMiraiCode() : null;
+    }
+
+    /**
+     * 从临时会话获取群员实例
+     * @return MiraiNormalMember 实例
+     */
+    public MiraiNormalMember getMember(){
+        return new MiraiNormalMember(event.getGroup(), event.getSender().getId());
     }
 }

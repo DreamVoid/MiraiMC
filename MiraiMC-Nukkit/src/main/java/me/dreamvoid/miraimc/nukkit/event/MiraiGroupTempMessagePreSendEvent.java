@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.nukkit.event;
 
 import cn.nukkit.event.HandlerList;
+import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupTempMessagePreSendEvent;
@@ -181,5 +182,13 @@ public class MiraiGroupTempMessagePreSendEvent extends Event {
      */
     public String eventToString() {
         return event.toString();
+    }
+
+    /**
+     * 从临时会话获取群员实例
+     * @return MiraiNormalMember 实例
+     */
+    public MiraiNormalMember getMember(){
+        return new MiraiNormalMember(event.getGroup(), event.getTarget().getId());
     }
 }
