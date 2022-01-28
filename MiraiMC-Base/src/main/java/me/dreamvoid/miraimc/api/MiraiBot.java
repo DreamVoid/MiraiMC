@@ -187,6 +187,13 @@ public class MiraiBot {
         return result;
     }
 
+    /**
+     * 将机器人作为好友获取好友实例
+     * @return MiraiFriend 实例
+     */
+    public MiraiFriend getAsFriend(){
+        return new MiraiFriend(bot.getBot(),bot.getId());
+    }
     private static void privateBotLogin(long Account, byte[] Password, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException {
         logger = Utils.logger;
 
