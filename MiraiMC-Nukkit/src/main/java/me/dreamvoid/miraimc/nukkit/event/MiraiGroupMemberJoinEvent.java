@@ -2,6 +2,7 @@ package me.dreamvoid.miraimc.nukkit.event;
 
 import cn.nukkit.event.HandlerList;
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
+import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.event.events.MemberJoinEvent;
 import cn.nukkit.event.Event;
 
@@ -73,5 +74,13 @@ public class MiraiGroupMemberJoinEvent extends Event{
      */
     public MiraiGroup getGroup(){
         return new MiraiGroup(event.getBot(), event.getGroup().getId());
+    }
+
+    /**
+     * 获取群员实例
+     * @return MiraiNormalMember 实例
+     */
+    public MiraiNormalMember getMember(){
+        return new MiraiNormalMember(event.getGroup(), event.getMember().getId());
     }
 }
