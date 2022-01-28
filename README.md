@@ -1,4 +1,7 @@
 # MiraiMC ![](https://www.codefactor.io/Content/badges/A.svg)
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b7fb77b1743143788c293829085cd98c)](https://app.codacy.com/gh/DreamVoid/MiraiMC?utm_source=github.com&utm_medium=referral&utm_content=DreamVoid/MiraiMC&utm_campaign=Badge_Grade_Settings)
+
 适用于Minecraft服务器的Mirai机器人
 
 [中文（简体）](https://github.com/DreamVoid/MiraiMC/blob/main/README.md) | [中文（繁體）](https://github.com/DreamVoid/MiraiMC/blob/main/README_zh-Hant.md) | [English](https://github.com/DreamVoid/MiraiMC/blob/main/README_en-US.md)
