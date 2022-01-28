@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event;
 
+import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupMessagePreSendEvent;
@@ -147,5 +148,13 @@ public class MiraiGroupMessagePreSendEvent extends Event {
      */
     public String eventToString() {
         return event.toString();
+    }
+
+    /**
+     * 获取群实例
+     * @return MiraiGroup 实例
+     */
+    public MiraiGroup getGroup(){
+        return new MiraiGroup(event.getBot(), event.getTarget().getId());
     }
 }

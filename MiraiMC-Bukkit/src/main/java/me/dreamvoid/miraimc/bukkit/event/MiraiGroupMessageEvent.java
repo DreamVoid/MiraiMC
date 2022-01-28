@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.bukkit.event;
 
+import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import me.dreamvoid.miraimc.internal.httpapi.response.FetchMessage;
 import me.dreamvoid.miraimc.internal.httpapi.type.Message;
 import net.mamoe.mirai.contact.ContactList;
@@ -334,5 +335,13 @@ public final class MiraiGroupMessageEvent extends Event {
      */
     public void sendMessage(String message) {
         event.getSender().sendMessage(MiraiCode.deserializeMiraiCode(message));
+    }
+
+    /**
+     * 获取群实例
+     * @return MiraiGroup 实例
+     */
+    public MiraiGroup getGroup(){
+        return new MiraiGroup(event.getBot(), event.getGroup().getId());
     }
 }

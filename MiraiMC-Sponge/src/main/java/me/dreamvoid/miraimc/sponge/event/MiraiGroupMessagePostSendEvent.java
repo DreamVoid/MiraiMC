@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.sponge.event;
 
+import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupMessagePostSendEvent;
@@ -230,5 +231,13 @@ public class MiraiGroupMessagePostSendEvent extends AbstractEvent {
     public String getQuoteReplyMessageToMiraiCode() {
         QuoteReply quoteReply = event.getMessage().get(QuoteReply.Key);
         return !Objects.isNull(quoteReply) ? quoteReply.getSource().getOriginalMessage().serializeToMiraiCode() : null;
+    }
+
+    /**
+     * 获取群实例
+     * @return MiraiGroup 实例
+     */
+    public MiraiGroup getGroup(){
+        return new MiraiGroup(event.getBot(), event.getTarget().getId());
     }
 }
