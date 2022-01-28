@@ -1,6 +1,9 @@
-# MiraiMC ![](https://www.codefactor.io/Content/badges/A.svg)
+# MiraiMC 
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b7fb77b1743143788c293829085cd98c)](https://app.codacy.com/gh/DreamVoid/MiraiMC?utm_source=github.com&utm_medium=referral&utm_content=DreamVoid/MiraiMC&utm_campaign=Badge_Grade_Settings)
+[![CodeFactor](https://www.codefactor.io/Content/badges/A.svg)](https://www.codefactor.io/repository/github/dreamvoid/miraimc)
+![Maven Central](https://img.shields.io/maven-central/v/io.github.dreamvoid/MiraiMC-Integration?style=flat-square)
+![GitHub all releases](https://img.shields.io/github/downloads/DreamVoid/MiraiMC/total?style=flat-square)
 
 适用于Minecraft服务器的Mirai机器人
 
