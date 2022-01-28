@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.bukkit.event;
 
+import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.FriendMessagePostSendEvent;
 import net.mamoe.mirai.message.data.MessageSource;
 import net.mamoe.mirai.message.data.QuoteReply;
@@ -184,5 +185,13 @@ public class MiraiFriendMessagePostSendEvent extends Event {
     public String getQuoteReplyMessageToMiraiCode() {
         QuoteReply quoteReply = event.getMessage().get(QuoteReply.Key);
         return !Objects.isNull(quoteReply) ? quoteReply.getSource().getOriginalMessage().serializeToMiraiCode() : null;
+    }
+
+    /**
+     * 获取好友实例
+     * @return MiraiFriend 实例
+     */
+    public MiraiFriend getFriend(){
+        return new MiraiFriend(event.getBot(), event.getTarget().getId());
     }
 }

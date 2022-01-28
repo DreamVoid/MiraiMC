@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.velocity.event;
 
+import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.MessageRecallEvent;
 
 /**
@@ -61,5 +62,13 @@ public class MiraiFriendMessageRecallEvent {
      */
     public String eventToString() {
         return event.toString();
+    }
+
+    /**
+     * 获取好友实例
+     * @return MiraiFriend 实例
+     */
+    public MiraiFriend getFriend(){
+        return new MiraiFriend(event.getBot(), event.getOperator().getId());
     }
 }

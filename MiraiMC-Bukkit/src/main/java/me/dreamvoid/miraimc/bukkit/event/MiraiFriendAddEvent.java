@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.bukkit.event;
 
+import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.FriendAddEvent;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -65,5 +66,13 @@ public class MiraiFriendAddEvent extends Event {
      */
     public String eventToString() {
         return event.toString();
+    }
+
+    /**
+     * 获取好友实例
+     * @return MiraiFriend 实例
+     */
+    public MiraiFriend getFriend(){
+        return new MiraiFriend(event.getBot(), event.getFriend().getId());
     }
 }
