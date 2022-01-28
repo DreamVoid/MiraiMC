@@ -36,13 +36,12 @@ MiraiMC 是一個基於[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 
 你也可以為現有插件引入MiraiMC，只需按照以下步驟即可接入MiraiMC：
 
-* 將下面的代碼複製到pom.xml的```dependencies```項或直接將插件jar文件作為外部庫導入
+* 將下面的代碼複製到pom.xml的```dependencies```項或直接將插件jar文件作為外部庫導入（請將下方的```{VERSION}```替換為頂部```maven-central```右邊的字符）
 ```
 <dependency>
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC-Integration</artifactId>
-    <!--請確保版本為Github上的最新版本-->
-    <version>1.5.3</version>
+    <version>{VERSION}</version>
     <scope>provided</scope>
 </dependency>
 ```
