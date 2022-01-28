@@ -1,6 +1,9 @@
 package me.dreamvoid.miraimc.bungee.event;
 
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
+import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI;
+import me.dreamvoid.miraimc.internal.httpapi.exception.AbnormalStatusException;
 import me.dreamvoid.miraimc.internal.httpapi.response.FetchMessage;
 import me.dreamvoid.miraimc.internal.httpapi.type.Message;
 import net.mamoe.mirai.contact.ContactList;
@@ -12,6 +15,7 @@ import net.mamoe.mirai.message.data.QuoteReply;
 import net.md_5.bungee.api.plugin.Event;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -24,6 +28,7 @@ public final class MiraiGroupMessageEvent extends Event {
     public MiraiGroupMessageEvent(GroupMessageEvent event) {
         this.event = event;
 
+        type = 0;
         botID = event.getBot().getId();
         senderID = event.getSender().getId();
         memberName = event.getSender().getNameCard();
@@ -35,7 +40,7 @@ public final class MiraiGroupMessageEvent extends Event {
     }
 
     public MiraiGroupMessageEvent(long BotAccount, FetchMessage.Sender sender, Message message) {
-
+        type = 1;
         botID = BotAccount;
         senderID = sender.id;
         memberName = sender.memberName;
@@ -48,6 +53,7 @@ public final class MiraiGroupMessageEvent extends Event {
 
     private GroupMessageEvent event;
 
+    private final int type;
     private final long botID;
     private final long senderID;
     private final String memberName;
@@ -248,7 +254,15 @@ public final class MiraiGroupMessageEvent extends Event {
      * @param message 消息内容
      */
     public void sendMessage(String message) {
-        event.getSender().sendMessage(MiraiCode.deserializeMiraiCode(message));
+        if(type == 0){
+            event.getSender().sendMessage(MiraiCode.deserializeMiraiCode(message));
+        } else if(type == 1){
+            try {
+                MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(botID), GroupID, message);
+            } catch (IOException | AbnormalStatusException e) {
+                Utils.logger.warning("发送消息时出现异常，原因: " + e);
+            }
+        }
     }
 
     /**
@@ -318,5 +332,13 @@ public final class MiraiGroupMessageEvent extends Event {
      */
     public MiraiGroup getGroup(){
         return new MiraiGroup(event.getBot(), event.getGroup().getId());
+    }
+
+    /**
+     * 获取事件类型（用于判断机器人工作模式）
+     * @return 0 = Core | 1 = HTTP API
+     */
+    public int getType() {
+        return type;
     }
 }
