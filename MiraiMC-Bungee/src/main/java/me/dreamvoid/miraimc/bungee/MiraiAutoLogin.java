@@ -87,16 +87,12 @@ public class MiraiAutoLogin {
                         try {
                             MiraiBot.doBotLogin(Account, Password, Protocol);
                         } catch (InterruptedException e) {
-                            if(Config.Gen_FriendlyException) {
-                                Logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
-                            } else e.printStackTrace();
+                            Logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
                         }
                     }
                 }
             } catch (IOException e) {
-                if(Config.Gen_FriendlyException) {
-                    Logger.severe("执行自动登录时出现异常，原因: " + e.getLocalizedMessage());
-                } else e.printStackTrace();
+                Logger.severe("执行自动登录时出现异常，原因: " + e);
             }
         };
         plugin.getProxy().getScheduler().runAsync(plugin, thread);

@@ -96,9 +96,7 @@ public class SpongePlugin {
                 try {
                     Utils.initializeSQLite();
                 } catch (SQLException | ClassNotFoundException ex) {
-                    if(Config.Gen_FriendlyException) {
-                        getLogger().warn("Failed to initialize SQLite database, reason: " + e);
-                    } else ex.printStackTrace();
+                    getLogger().warn("Failed to initialize SQLite database, reason: " + e);
                 }
                 break;
             }

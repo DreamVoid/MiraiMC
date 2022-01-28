@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 
 public class MiraiLoader {
     // 把lucko的代码偷过来 XD
-    private static final Supplier<URLClassLoaderAccess> LOADER = Suppliers.memoize(() -> URLClassLoaderAccess.create((URLClassLoader) Utils.classLoader))::get;
+    private static final Supplier<URLClassLoaderAccess> LOADER = Suppliers.memoize(() -> URLClassLoaderAccess.create((URLClassLoader) Utils.classLoader));
 
     /**
      * 加载最新版Mirai Core

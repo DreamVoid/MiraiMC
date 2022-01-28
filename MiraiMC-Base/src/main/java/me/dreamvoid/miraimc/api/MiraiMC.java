@@ -75,9 +75,7 @@ public class MiraiMC {
                 }
             }
         } catch (SQLException e){
-            if(Config.Gen_FriendlyException){
-                Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e.getLocalizedMessage());
-            } else e.printStackTrace();
+            Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e);
         }
     }
 
@@ -125,9 +123,7 @@ public class MiraiMC {
                 }
             }
         } catch (SQLException e) {
-            if(Config.Gen_FriendlyException) {
-                Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e.getLocalizedMessage());
-            } else e.printStackTrace();
+            Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e);
         }
     }
     /**
@@ -175,9 +171,7 @@ public class MiraiMC {
                 }
             }
         } catch (SQLException e) {
-            if(Config.Gen_FriendlyException) {
-                Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e.getLocalizedMessage());
-            } else e.printStackTrace();
+            Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e);
         }
     }
 
@@ -228,9 +222,7 @@ public class MiraiMC {
                 }
             }
         } catch (SQLException e) {
-            if(Config.Gen_FriendlyException) {
-                Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e.getLocalizedMessage());
-            } else e.printStackTrace();
+            Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e);
         }
         return account;
     }
@@ -282,9 +274,7 @@ public class MiraiMC {
                 }
             }
         } catch (SQLException e) {
-            if(Config.Gen_FriendlyException) {
-                Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e.getLocalizedMessage());
-            } else e.printStackTrace();
+            Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e);
         }
         return uuid;
     }

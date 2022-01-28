@@ -57,9 +57,7 @@ public class MiraiLoginSolver extends LoginSolver {
             fos.write(imageData);
             fos.flush();
         } catch (IOException e) {
-            if(Config.Gen_FriendlyException){
-                bot.getLogger().warning("保存验证码图片文件时出现异常，原因: "+e.getLocalizedMessage());
-            } else e.printStackTrace();
+            bot.getLogger().warning("保存验证码图片文件时出现异常，原因: "+e);
         }
 
         threads = new Thread(() -> {
@@ -84,9 +82,7 @@ public class MiraiLoginSolver extends LoginSolver {
         try {
             threads.join();
         } catch (InterruptedException e) {
-            if(Config.Gen_FriendlyException) {
-                bot.getLogger().warning("启动验证线程时出现异常，原因: " + e.getLocalizedMessage());
-            } else e.printStackTrace();
+            bot.getLogger().warning("启动验证线程时出现异常，原因: " + e);
             throw loginErrorException;
         }
 
@@ -136,9 +132,7 @@ public class MiraiLoginSolver extends LoginSolver {
         try {
             threads.join();
         } catch (InterruptedException e) {
-            if(Config.Gen_FriendlyException) {
-                bot.getLogger().warning("启动验证线程时出现异常，原因: " + e.getLocalizedMessage());
-            } else e.printStackTrace();
+            bot.getLogger().warning("启动验证线程时出现异常，原因: " + e);
             throw loginErrorException;
         }
 
@@ -188,9 +182,7 @@ public class MiraiLoginSolver extends LoginSolver {
         try {
             threads.join();
         } catch (InterruptedException e) {
-            if(Config.Gen_FriendlyException) {
-                bot.getLogger().warning("启动验证线程时出现异常，原因: " + e.getLocalizedMessage());
-            } else e.printStackTrace();
+            bot.getLogger().warning("启动验证线程时出现异常，原因: " + e);
             throw loginErrorException;
         }
 

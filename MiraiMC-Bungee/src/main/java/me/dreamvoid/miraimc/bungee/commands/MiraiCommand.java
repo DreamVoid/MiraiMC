@@ -65,18 +65,14 @@ public class MiraiCommand extends Command {
                                         } else sender.sendMessage(new TextComponent(ChatColor.RED + "此服务器没有启用HTTP-API模式，请检查配置文件！"));
                                     }
                                 } catch (InterruptedException e) {
-                                    if(Config.Gen_FriendlyException){
-                                        Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
-                                    } else e.printStackTrace();
+                                    Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
                                     sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，请检查控制台输出！")));
                                 } catch (IOException e) {
-                                    if(Config.Gen_FriendlyException) {
-                                        Utils.logger.warning("登录机器人时出现异常，原因: " + e);
-                                    } else e.printStackTrace();
+                                    Utils.logger.warning("登录机器人时出现异常，原因: " + e);
                                     sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，请检查控制台输出！")));
                                 } catch (AbnormalStatusException e) {
-                                    Utils.logger.warning("使用HTTPAPI登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getLocalizedMessage());
-                                    sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getLocalizedMessage())));
+                                    Utils.logger.warning("使用HTTPAPI登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getMessage());
+                                    sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getMessage())));
                                 }
                             });
                         } else {
@@ -256,10 +252,7 @@ public class MiraiCommand extends Command {
                                             }
                                         }
                                     } catch (IOException e) {
-                                        if(!Config.Gen_FriendlyException) {
-                                            e.printStackTrace();
-                                        }
-                                        sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', "&c执行自动登录时出现异常，原因: "+e.getLocalizedMessage())));
+                                        sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', "&c执行自动登录时出现异常，原因: "+e)));
                                     }
                                     break;
                                 }
