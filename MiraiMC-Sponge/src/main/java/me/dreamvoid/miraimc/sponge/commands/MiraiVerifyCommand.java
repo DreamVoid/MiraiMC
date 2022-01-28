@@ -68,6 +68,7 @@ public class MiraiVerifyCommand implements CommandExecutor {
                     } else src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c无效的参数！用法：/miraiverify piccaptchacancel <账号>"));
                     break;
                 }
+                default:break;
             }
             return CommandResult.builder().successCount(1).build();
         } else throw new ArgumentParseException(Text.of("isPresent() returned false!"),"MiraiMC",0);

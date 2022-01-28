@@ -57,6 +57,7 @@ public class MiraiVerifyCommand extends Command {
                     } else sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c无效的参数！用法：/miraiverify piccaptchacancel <账号>")));
                     break;
                 }
+                default:break;
             }
         }
     }

@@ -57,6 +57,7 @@ public class MiraiVerifyCommand implements SimpleCommand {
                     } else source.sendMessage(Component.text(Color.translate("&c无效的参数！用法：/miraiverify piccaptchacancel <账号>")));
                     break;
                 }
+                default:break;
             }
         }
     }
