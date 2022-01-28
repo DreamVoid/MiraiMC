@@ -74,7 +74,7 @@ public class MiraiEvent {
     // TODO: MemberJoinEvent.Retrieve
     private Listener<MemberLeaveEvent.Kick> MemberLeaveKickEventListener;
     private Listener<MemberLeaveEvent.Quit> MemberLeaveQuitEventListener;
-    private Listener<MemberJoinRequestEvent> MemberJoinRequestEventListener; // TODO: MemberJoinRequestEvent.Companion // 这两个如果没差别就不整
+    private Listener<MemberJoinRequestEvent> MemberJoinRequestEventListener;
     private Listener<BotInvitedJoinGroupRequestEvent> BotInvitedJoinGroupRequestEventListener;
 
     private Listener<MemberCardChangeEvent> MemberCardChangeEventListener;
