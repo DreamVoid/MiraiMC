@@ -43,13 +43,12 @@ You can simply use [MiraiMC Development Template](https://github.com/DreamVoid/M
 
 You can also introduce MiraiMC for existing plugins, just follow the following steps:
 
-Copy the following code to the ```dependencies``` of pom.xml or directly import the plugin jar file as an external library
+Copy the following code to the ```dependencies``` of pom.xml or directly import the plugin jar file as an external library. (Replace ```{VERSION}``` with the text to the right of ```maven-central``` on the top.)
 ```
 <dependency>
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC-Integration</artifactId>
-    <!--Make sure it is the latest version-->
-    <version>1.5.3</version>
+    <version>{VERSION}</version>
     <scope>provided</scope>
 </dependency>
 ```
