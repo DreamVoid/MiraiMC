@@ -94,6 +94,7 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
                 }
                 break;
             }
+            default:return null;
         }
         return null;
     }
