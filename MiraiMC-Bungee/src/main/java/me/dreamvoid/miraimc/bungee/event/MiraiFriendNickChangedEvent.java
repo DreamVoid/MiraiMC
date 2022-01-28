@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event;
 
+import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.FriendNickChangedEvent;
 import net.md_5.bungee.api.plugin.Event;
 
@@ -50,5 +51,13 @@ public class MiraiFriendNickChangedEvent extends Event {
      */
     public String eventToString() {
         return event.toString();
+    }
+
+    /**
+     * 获取好友实例
+     * @return MiraiFriend 实例
+     */
+    public MiraiFriend getFriend(){
+        return new MiraiFriend(event.getBot(), event.getFriend().getId());
     }
 }

@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.sponge.event;
 
+import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.FriendAddEvent;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.event.cause.Cause;
@@ -68,5 +69,13 @@ public class MiraiFriendAddEvent extends AbstractEvent {
     @Override
     public @NotNull Cause getCause() {
         return cause;
+    }
+
+    /**
+     * 获取好友实例
+     * @return MiraiFriend 实例
+     */
+    public MiraiFriend getFriend(){
+        return new MiraiFriend(event.getBot(), event.getFriend().getId());
     }
 }

@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.nukkit.event;
 
 import cn.nukkit.event.HandlerList;
+import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
 import cn.nukkit.event.Event;
 import net.mamoe.mirai.message.code.MiraiCode;
@@ -189,5 +190,13 @@ public final class MiraiFriendMessageEvent extends Event {
     public String getQuoteReplyMessageToMiraiCode() {
         QuoteReply quoteReply = event.getMessage().get(QuoteReply.Key);
         return !Objects.isNull(quoteReply) ? quoteReply.getSource().getOriginalMessage().serializeToMiraiCode() : null;
+    }
+
+    /**
+     * 获取好友实例
+     * @return MiraiFriend 实例
+     */
+    public MiraiFriend getFriend(){
+        return new MiraiFriend(event.getBot(), event.getFriend().getId());
     }
 }

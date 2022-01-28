@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.nukkit.event;
 
 import cn.nukkit.event.HandlerList;
+import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.MessageRecallEvent;
 import cn.nukkit.event.Event;
 
@@ -68,5 +69,13 @@ public class MiraiFriendMessageRecallEvent extends Event {
      */
     public String eventToString() {
         return event.toString();
+    }
+
+    /**
+     * 获取好友实例
+     * @return MiraiFriend 实例
+     */
+    public MiraiFriend getFriend(){
+        return new MiraiFriend(event.getBot(), event.getOperator().getId());
     }
 }
