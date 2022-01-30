@@ -1,11 +1,3 @@
----
-name: 问题报告
-about: 如果你想反馈 Bug，请使用此模板
-title: ''
-labels: 漏洞
-assignees: DreamVoid
-
----
 <!--
 【填写前注意】
 
