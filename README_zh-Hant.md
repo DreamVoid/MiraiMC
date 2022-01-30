@@ -103,5 +103,5 @@ MiraiMC 是一個基於[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 - [X] 支持Sponge
 - [X] 支持NukkitX
 - [X] 支持PlaceholderAPI
-- [ ] 引入Mirai-Http-API模式來連接到mirai-console（預計1.6實現）
+- [X] 引入Mirai-Http-API模式來連接到mirai-console
 - [ ] 像mirai console一樣加載mirai console插件（遙遙無期，歡迎PR）
