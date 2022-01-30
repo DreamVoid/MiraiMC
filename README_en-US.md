@@ -110,5 +110,5 @@ A more detailed development tutorial can be found here: https://en.wiki.miraimc.
 - [X] Support Sponge
 - [X] Support NukkitX
 - [X] Support PlaceholderAPI
-- [ ] Support Mirai-Http-API mode to connect to mirai-console (Expected to be implemented in 1.6)
+- [X] Support Mirai-Http-API mode to connect to mirai-console
 - [ ] Load the mirai console plugin like mirai console(Far away, PR welcome)
