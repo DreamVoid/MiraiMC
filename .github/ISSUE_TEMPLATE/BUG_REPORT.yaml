@@ -1,6 +1,6 @@
 name: 问题报告
-about: 如果你想反馈 Bug，请使用此模板
-title: ''
+about: "如果你想反馈 Bug，请使用此模板"
+title: "[Bug] "
 labels: ["漏洞"]
 assignees: 
   - DreamVoid
@@ -18,7 +18,7 @@ body:
       label: 问题描述
       description: 在下方的编辑框描述你的问题
       placeholder: 请尽可能说明你遇到的问题，包括你是如何使用插件的，配置文件有没有调过等等
-      value: ""
+      value: " "
     validations:
       required: true
   - type: textarea
@@ -49,7 +49,7 @@ body:
       label: 服务端版本
       description: 填写你正在使用的服务端版本，例如 Paper-1.12.2
       placeholder: 在服务端输入 /ver 查看版本
-      value: ""
+      value: " "
     validations:
       required: true
   - type: input
@@ -58,7 +58,7 @@ body:
       label: MiraiMC 插件版本
       description: 填写你正在使用的 MiraiMC 版本
       placeholder: 在服务端输入 /miraimc 查看版本
-      value: ""
+      value: " "
     validations:
       required: true
   - type: textarea
@@ -67,7 +67,7 @@ body:
       label: 服务端日志
       description: 在下方复制你的服务端日志
       placeholder: 请提供完整的服务端日志，自以为知道问题所在而仅提供一两行将被直接关闭。如果日志过长（超过300行），请直接上传文件（可直接拖动文件到编辑框）
-      value: ""
+      value: " "
       render: text
     validations:
       required: true
