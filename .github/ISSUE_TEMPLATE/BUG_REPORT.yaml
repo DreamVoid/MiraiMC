@@ -1,0 +1,82 @@
+name: 问题报告
+about: 如果你想反馈 Bug，请使用此模板
+title: ''
+labels: ["漏洞"]
+assignees: 
+  - DreamVoid
+body:
+  - type: markdown
+    attributes:
+      value: |
+        发Issue前请先看看Issue列表里有没有你的问题，包括已关闭的问题。如有，请关注相关Issue而不是重复发问。
+        请不要删除模板中的任何内容，只填写你应该填写的。
+        标题和内容不必加敬词，所有人都是平等的。
+        请勿在标题中增加如“帮帮我”、“急急急”、“大神”之类的无意义词汇，我可能会反感从而选择性忽略你的问题。
+  - type: textarea
+    id: description
+    attributes: 
+      label: 问题描述
+      description: 在下方的编辑框描述你的问题
+      placeholder: 请尽可能说明你遇到的问题，包括你是如何使用插件的，配置文件有没有调过等等
+      value: ""
+    validations:
+      required: true
+  - type: textarea
+    id: recurrent
+    attributes: 
+      label: 复现方法
+      description: 在下方的编辑框描述如何触发这个漏洞（分步需换行请直接回车，会为你添加标号）
+      placeholder: 能看到这个？说明你没有看描述，请自己加上“1. ”
+      value: "1. "
+    validations:
+      required: true
+  - type: dropdown
+    id: servertype
+    attributes: 
+      label: 服务端类型
+      description: 选择你正在使用的服务端类型
+      options: 
+        - Bukkit（包括Paper）
+        - Sponge
+        - BungeeCord（包括Waterfall）
+        - Velocity
+        - Nukkit
+    validations:
+      required: true
+  - type: input
+    id: serverversion
+    attributes:
+      label: 服务端版本
+      description: 填写你正在使用的服务端版本，例如 Paper-1.12.2
+      placeholder: 在服务端输入 /ver 查看版本
+      value: ""
+    validations:
+      required: true
+  - type: input
+    id: pluginversion
+    attributes:
+      label: MiraiMC 插件版本
+      description: 填写你正在使用的 MiraiMC 版本
+      placeholder: 在服务端输入 /miraimc 查看版本
+      value: ""
+    validations:
+      required: true
+  - type: textarea
+    id: serverlog
+    attributes: 
+      label: 服务端日志
+      description: 在下方复制你的服务端日志
+      placeholder: 请提供完整的服务端日志，自以为知道问题所在而仅提供一两行将被直接关闭。如果日志过长（超过300行），请直接上传文件（可直接拖动文件到编辑框）
+      value: ""
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes: 
+      label: 额外说明
+      description: 还有什么要补充的吗？
+      placeholder: 请提供完整的服务端日志，自以为知道问题所在而仅提供一两行将被直接关闭。如果日志过长（超过300行），请直接上传文件（可直接拖动文件到编辑框）
+      value: |
+        例如系统是什么版本、Java是什么版本、你使用了什么依赖MiraiMC的插件、重置插件配置后问题是否仍然存在、你使用的插件列表
+        你还可以提供截图和文件（直接拖动文件到编辑框）
