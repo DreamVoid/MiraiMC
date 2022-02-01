@@ -61,7 +61,7 @@ body:
     attributes: 
       label: 服务端日志
       description: 在下方复制你的服务端日志
-      placeholder: 请提供完整的服务端日志，自以为知道问题所在而仅提供一两行将被直接关闭。如果日志过长（超过300行），请直接上传文件（可直接拖动文件到编辑框）
+      placeholder: 请提供完整的服务端日志，自以为知道问题所在而仅提供一两行将被直接关闭。
       render: text
     validations:
       required: true
