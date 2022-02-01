@@ -18,7 +18,7 @@ body:
       label: 问题描述
       description: 在下方的编辑框描述你的问题
       placeholder: 请尽可能说明你遇到的问题，包括你是如何使用插件的，配置文件有没有调过等等
-      value: " "
+      value: "我在..."
     validations:
       required: true
   - type: textarea
@@ -27,7 +27,10 @@ body:
       label: 复现方法
       description: 在下方的编辑框描述如何触发这个漏洞（分步需换行请直接回车，会为你添加标号）
       placeholder: 能看到这个？说明你没有看描述，请自己加上“1. ”
-      value: "1. "
+      value: |
+        1. 调整配置...
+        2. 输入指令...
+        3. 本应该...，却...
     validations:
       required: true
   - type: dropdown
@@ -49,7 +52,7 @@ body:
       label: 服务端版本
       description: 填写你正在使用的服务端版本，例如 Paper-1.12.2
       placeholder: 在服务端输入 /ver 查看版本
-      value: " "
+      value: "Paper-1.12.2"
     validations:
       required: true
   - type: input
@@ -58,7 +61,7 @@ body:
       label: MiraiMC 插件版本
       description: 填写你正在使用的 MiraiMC 版本
       placeholder: 在服务端输入 /miraimc 查看版本
-      value: " "
+      value: "1.6"
     validations:
       required: true
   - type: textarea
@@ -67,7 +70,7 @@ body:
       label: 服务端日志
       description: 在下方复制你的服务端日志
       placeholder: 请提供完整的服务端日志，自以为知道问题所在而仅提供一两行将被直接关闭。如果日志过长（超过300行），请直接上传文件（可直接拖动文件到编辑框）
-      value: " "
+      value: "请删去此行，然后复制日志"
       render: text
     validations:
       required: true
