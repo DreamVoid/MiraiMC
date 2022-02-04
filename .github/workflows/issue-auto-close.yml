@@ -4,10 +4,11 @@ name: Issue Auto Close
 
 # Controls when the workflow will run
 on:
-
   pull_request:
   issues:
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
