@@ -2,7 +2,6 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b7fb77b1743143788c293829085cd98c)](https://app.codacy.com/gh/DreamVoid/MiraiMC?utm_source=github.com&utm_medium=referral&utm_content=DreamVoid/MiraiMC&utm_campaign=Badge_Grade_Settings)
 [![CodeFactor](https://www.codefactor.io/Content/badges/A.svg)](https://www.codefactor.io/repository/github/dreamvoid/miraimc)
-![Maven Central](https://img.shields.io/maven-central/v/io.github.dreamvoid/MiraiMC-Integration?style=flat-square)
 ![GitHub all releases](https://img.shields.io/github/downloads/DreamVoid/MiraiMC/total?style=flat-square)
 
 适用于Minecraft服务器的Mirai机器人
@@ -42,12 +41,12 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 
 你也可以为现有插件引入MiraiMC，只需按照以下步骤即可接入MiraiMC：
 
-* 将下面的代码复制到pom.xml的```dependencies```项或直接将插件jar文件作为外部库导入（请将下方的```{VERSION}```替换为顶部```maven-central```右边的字符）
+* 将下面的代码复制到pom.xml的```dependencies```项或直接将插件jar文件作为外部库导入
 ```
 <dependency>
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC-Integration</artifactId>
-    <version>{VERSION}</version>
+    <version>1.6</version>
     <scope>provided</scope>
 </dependency>
 ```
