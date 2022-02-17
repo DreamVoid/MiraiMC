@@ -28,7 +28,7 @@ bot:
     enable-group-member-list-cache: false
     save-interval-millis: 60000
 database:
-  allow-databases: false
+  allow-databases: true
   type: sqlite
   mysql:
     address: localhost

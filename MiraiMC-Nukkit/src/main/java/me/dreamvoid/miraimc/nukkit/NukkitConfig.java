@@ -33,8 +33,8 @@ public class NukkitConfig {
         Bot_ContactCache_EnableGroupMemberListCache = plugin.getConfig().getBoolean("bot.contact-cache.enable-group-member-list-cache",false);
         Bot_ContactCache_SaveIntervalMillis = plugin.getConfig().getLong("bot.contact-cache.save-interval-millis",60000);
 
+        DB_AllowDatabases = plugin.getConfig().getBoolean("database.allow-databases",true);
         DB_Type = plugin.getConfig().getString("database.type","sqlite").toLowerCase();
-        DB_AllowDatabases = plugin.getConfig().getBoolean("database.allow-databases",false);
         DB_MySQL_Address = plugin.getConfig().getString("database.mysql.address","localhost");
         DB_MySQL_Username = plugin.getConfig().getString("database.mysql.username", "miraimc");
         DB_MySQL_Password = plugin.getConfig().getString("database.mysql.password", "miraimc");

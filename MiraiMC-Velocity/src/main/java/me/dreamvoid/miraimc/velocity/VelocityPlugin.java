@@ -94,12 +94,13 @@ public class VelocityPlugin {
         manager.register(mirai, new MiraiCommand(this));
         manager.register(miraimc, new MiraiMcCommand(this));
         manager.register(miraiverify, new MiraiVerifyCommand());
-        
+
         if(Config.Bot_LogEvents){
             getLogger().info("Registering events.");
             server.getEventManager().register(this, new Events());
         }
 
+        if(Config.DB_AllowDatabases)
         switch (Config.DB_Type.toLowerCase()){
             case "sqlite":
             default: {

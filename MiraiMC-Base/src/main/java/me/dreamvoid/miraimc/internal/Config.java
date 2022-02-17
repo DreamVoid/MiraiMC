@@ -24,8 +24,8 @@ public class Config {
     public static boolean Bot_ContactCache_EnableGroupMemberListCache;
     public static long Bot_ContactCache_SaveIntervalMillis;
 
-    public static String DB_Type;
     public static boolean DB_AllowDatabases;
+    public static String DB_Type;
     public static String DB_MySQL_Address;
     public static String DB_MySQL_Username;
     public static String DB_MySQL_Password;

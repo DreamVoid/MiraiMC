@@ -95,6 +95,7 @@ public class SpongePlugin {
             Sponge.getEventManager().registerListeners(this, new Events());
         }
 
+        if(Config.DB_AllowDatabases)
         switch (Config.DB_Type.toLowerCase()){
             case "sqlite":
             default: {

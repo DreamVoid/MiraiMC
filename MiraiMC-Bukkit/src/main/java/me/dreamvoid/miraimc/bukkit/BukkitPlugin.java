@@ -69,6 +69,7 @@ public class BukkitPlugin extends JavaPlugin {
             Bukkit.getPluginManager().registerEvents(new Events(), this);
         }
 
+        if(Config.DB_AllowDatabases)
         switch (Config.DB_Type.toLowerCase()){
             case "sqlite":
             default: {
@@ -139,6 +140,7 @@ public class BukkitPlugin extends JavaPlugin {
             MiraiBot.getBot(bots).doLogout();
         }
 
+        if(Config.DB_AllowDatabases)
         switch (Config.DB_Type.toLowerCase()){
             case "sqlite":
             default: {
