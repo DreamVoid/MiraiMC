@@ -30,6 +30,7 @@ public class Utils {
     }
 
     public static void closeSQLite() throws SQLException {
+        if(connection != null)
         connection.close();
     }
 

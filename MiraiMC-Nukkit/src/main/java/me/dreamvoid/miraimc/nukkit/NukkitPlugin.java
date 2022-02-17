@@ -69,6 +69,7 @@ public class NukkitPlugin extends PluginBase {
             this.getServer().getPluginManager().registerEvents(new Events(this), this);
         }
 
+        if(Config.DB_AllowDatabases)
         switch (Config.DB_Type.toLowerCase()){
             case "sqlite":
             default: {
@@ -131,6 +132,7 @@ public class NukkitPlugin extends PluginBase {
             MiraiBot.getBot(bots).doLogout();
         }
 
+        if(Config.DB_AllowDatabases)
         switch (Config.DB_Type.toLowerCase()){
             case "sqlite":
             default: {
