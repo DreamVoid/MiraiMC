@@ -1,5 +1,5 @@
 name: 功能建议
-description: "如果你想建议一些新的功能，请使用此模板"
+description: "如果你想建议一些新的功能，请使用此模板。"
 labels: ["功能"]
 body: 
   - type: markdown
