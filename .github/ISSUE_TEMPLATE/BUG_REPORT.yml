@@ -35,9 +35,9 @@ body:
       label: 服务端类型
       description: 选择你正在使用的服务端类型
       options: 
-        - Bukkit（包括Paper）
+        - Bukkit
+        - BungeeCord
         - Sponge
-        - BungeeCord（包括Waterfall）
         - Velocity
         - Nukkit
     validations:
@@ -73,5 +73,6 @@ body:
       label: 额外说明
       description: 还有什么要补充的吗？
       placeholder: |
-        例如系统是什么版本、Java是什么版本、你使用了什么依赖MiraiMC的插件、重置插件配置后问题是否仍然存在、你使用的插件列表
+        提示：
+        你可以提供系统环境、Java版本、你使用了什么依赖MiraiMC的插件、重置插件配置后问题是否仍然存在、你使用的插件列表
         你还可以提供截图和文件（直接拖动文件到编辑框）
