@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 社区讨论
+    url: https://github.com/DreamVoid/MiraiMC/discussions
+    about: 不确定你遇到了什么问题？请先在讨论区提出。

@@ -1,0 +1,33 @@
+name: 功能建议
+description: "如果你想建议一些新的功能，请使用此模板"
+labels: ["功能"]
+body: 
+  - type: markdown
+    attributes:
+      value: |
+        发Issue前请先看看Issue列表里有没有你的建议，包括已关闭的建议。如有，请关注相关Issue而不是重复建议。
+        如果你只有相关功能的构想而不清楚如何实际实现相关功能，请先在[讨论·Discussions](https://github.com/DreamVoid/MiraiMC/discussions)提出。
+        请在标题栏中用最简练的语言清晰的描述你的建议。
+        如果你具有相关能力，请开Pull Request而不是开Issue，这样能节约你我的时间。
+  - type: textarea
+    id: description
+    attributes: 
+      label: 功能描述
+      description: 在下方的编辑框描述你想要的功能
+      placeholder: 请尽可能完整说明你的建议，包括相关功能应该如何正确工作、何时工作等。
+    validations:
+      required: true
+  - type: textarea
+    id: recurrent
+    attributes: 
+      label: 使用方法
+      description: 在下方的编辑框描述你想这个功能如何运作，如服务端启动时这个功能要怎么工作，或是执行某个命令时这个功能要怎么运作（分步需换行请直接回车，会为你添加标号）
+      placeholder: 能看到这个？说明你没有看描述，请自己加上“1. ”
+      value: "1. "
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes: 
+      label: 额外说明
+      description: 还有什么要补充的吗？
