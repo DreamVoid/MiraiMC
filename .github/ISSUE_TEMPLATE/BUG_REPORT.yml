@@ -8,6 +8,8 @@ body:
     attributes:
       value: |
         发Issue前请先看看Issue列表里有没有你的问题，包括已关闭的问题。如有，请关注相关Issue而不是重复发问。
+        如果你不确定你遇到的问题是MiraiMC的漏洞还是你自己操作的失误，请先在[讨论·Discussions](https://github.com/DreamVoid/MiraiMC/discussions)提出。
+        请在标题栏中用最简练的语言清晰的描述你遇到的问题。
         标题和内容不必加敬词，所有人都是平等的。
         请在标题内用一句话描述你遇到的问题，勿增加如“帮帮我”、“急急急”、“大神”之类的无意义词汇。
   - type: textarea
