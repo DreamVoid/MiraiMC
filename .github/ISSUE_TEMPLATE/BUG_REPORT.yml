@@ -1,5 +1,5 @@
 name: 问题报告
-description: "如果你想反馈 Bug，请使用此模板"
+description: "如果你想反馈 Bug，请使用此模板。"
 labels: ["漏洞"]
 body:
   - type: markdown
