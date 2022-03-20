@@ -17,6 +17,7 @@
         <module>MiraiMC-Nukkit</module>
         <module>MiraiMC-Velocity</module>
         <module>MiraiMC-Integration</module>
+        <module>MiraiMC-WaterdogPE</module>
     </modules>
 
     <name>MiraiMC</name>
