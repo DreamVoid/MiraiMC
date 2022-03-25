@@ -97,6 +97,25 @@ public class MiraiGroupMemberJoinRequestEvent extends Event{
     }
 
     /**
+     * 拒绝请求
+     * @param setBlacklist 是否拒绝目标再次申请加群
+     * @param reason 拒绝原因
+     */
+    public void setDeny(boolean setBlacklist, String reason){
+        event.reject(setBlacklist, reason);
+        event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny");
+    }
+
+    /**
+     * 拒绝请求
+     * @param reason 拒绝原因
+     */
+    public void setDeny(String reason){
+        event.reject(false, reason);
+        event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny");
+    }
+
+    /**
      * 获取原始事件内容<br>
      * [!] 不推荐使用
      * @return 原始事件内容
