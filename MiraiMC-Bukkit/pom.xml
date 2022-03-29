@@ -38,6 +38,11 @@
             <version>1.13-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.1-jre</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -52,15 +57,19 @@
                     <relocations>
                         <relocation>
                             <pattern>com.zaxxer</pattern>
-                            <shadedPattern>me.dreamvoid.miraimc.libraries.zaxxer</shadedPattern>
+                            <shadedPattern>me.dreamvoid.miraimc.libraries.com.zaxxer</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>org.apache.commons.codec</pattern>
-                            <shadedPattern>me.dreamvoid.miraimc.libraries.codec</shadedPattern>
+                            <pattern>org.apache</pattern>
+                            <shadedPattern>me.dreamvoid.miraimc.libraries.org.apache</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>org.slf4j</pattern><!-- ？？？怎么会有slf4j？？？-->
-                            <shadedPattern>me.dreamvoid.miraimc.libraries.slf4j</shadedPattern>
+                            <shadedPattern>me.dreamvoid.miraimc.libraries.org.slf4j</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.google</pattern>
+                            <shadedPattern>me.dreamvoid.miraimc.libraries.com.google</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

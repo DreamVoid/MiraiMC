@@ -57,8 +57,8 @@
                     <minimizeJar>true</minimizeJar>
                     <relocations>
                         <relocation>
-                            <pattern>org.apache.commons.codec</pattern>
-                            <shadedPattern>me.dreamvoid.miraimc.libraries.codec</shadedPattern>
+                            <pattern>org.apache</pattern>
+                            <shadedPattern>me.dreamvoid.miraimc.libraries.org.apache</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
