@@ -29,7 +29,7 @@ public class SendGroupMessageCommand extends BaseSubCommand {
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
         if(args.length >= 4){
-            MiraiBot.getBot(Long.parseLong(args[1])).getGroup(Long.parseLong(args[2])).sendMessage(args[3]);
+            MiraiBot.getBot(Long.parseLong(args[1])).getGroup(Long.parseLong(args[2])).sendMessageMirai(args[3]);
         } else {
             sender.sendMessage(TextFormat.colorize('&',"&c无效的参数！用法: /mirai sendgroupmessage <账号> <群号> <消息>"));
         }
