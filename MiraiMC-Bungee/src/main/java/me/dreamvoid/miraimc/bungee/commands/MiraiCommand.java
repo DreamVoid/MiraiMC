@@ -122,7 +122,7 @@ public class MiraiCommand extends Command {
                             }
                             String text = message.toString().replace("\\n",System.lineSeparator());
                             try {
-                                MiraiBot.getBot(Long.parseLong(args[1])).getGroup(Long.parseLong(args[2])).sendMessage(text);
+                                MiraiBot.getBot(Long.parseLong(args[1])).getGroup(Long.parseLong(args[2])).sendMessageMirai(text);
                             } catch (NoSuchElementException e){
                                 if(Config.Gen_EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
                                     try {
@@ -152,7 +152,7 @@ public class MiraiCommand extends Command {
                             }
                             String text = message.toString().replace("\\n",System.lineSeparator());
                             try {
-                                MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendMessage(text);
+                                MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendMessageMirai(text);
                             } catch (NoSuchElementException e){
                                 if(Config.Gen_EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
                                     try {

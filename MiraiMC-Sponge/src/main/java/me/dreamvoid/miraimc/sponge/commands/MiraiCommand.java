@@ -108,7 +108,7 @@ public class MiraiCommand implements CommandExecutor {
                                     message.append(args[i]).append(" ");
                                 }
                             }
-                            MiraiBot.getBot(Long.parseLong(args[1])).getGroup(Long.parseLong(args[2])).sendMessage(message.toString().replace("\\n", System.lineSeparator()));
+                            MiraiBot.getBot(Long.parseLong(args[1])).getGroup(Long.parseLong(args[2])).sendMessageMirai(message.toString().replace("\\n", System.lineSeparator()));
                         } else {
                             src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c无效的参数！用法: /mirai sendgroupmessage <账号> <群号> <消息>"));
                         }
@@ -124,7 +124,7 @@ public class MiraiCommand implements CommandExecutor {
                                     message.append(args[i]).append(" ");
                                 }
                             }
-                            MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendMessage(message.toString().replace("\\n", System.lineSeparator()));
+                            MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendMessageMirai(message.toString().replace("\\n", System.lineSeparator()));
                         } else {
                             src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c无效的参数！用法: /mirai sendfriendmessage <账号> <好友> <消息>"));
                         }

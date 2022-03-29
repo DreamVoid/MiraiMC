@@ -29,7 +29,7 @@ public class SendFriendMessageCommand extends BaseSubCommand {
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
         if(args.length >= 4){
-            MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendMessage(args[3]);
+            MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendMessageMirai(args[3]);
         } else {
             sender.sendMessage(TextFormat.colorize('&',"&c无效的参数！用法: /mirai sendfriendmessage <账号> <好友> <消息>"));
         }
