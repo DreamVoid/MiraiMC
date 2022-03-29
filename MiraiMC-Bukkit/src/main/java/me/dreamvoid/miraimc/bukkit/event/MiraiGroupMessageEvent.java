@@ -329,7 +329,7 @@ public final class MiraiGroupMessageEvent extends Event {
      * @param message 消息内容
      */
     public void reply(String message) {
-        event.getSender().sendMessage(new MessageChainBuilder()
+        event.getGroup().sendMessage(new MessageChainBuilder()
                 .append(new QuoteReply(event.getMessage()))
                 .append(MiraiCode.deserializeMiraiCode(message))
                 .build()
@@ -342,7 +342,7 @@ public final class MiraiGroupMessageEvent extends Event {
      */
     public void sendMessage(String message) {
         if(type == 0){
-            event.getSender().sendMessage(MiraiCode.deserializeMiraiCode(message));
+            event.getGroup().sendMessage(MiraiCode.deserializeMiraiCode(message));
         } else if(type == 1){
             try {
                 MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(botID), GroupID, message);
