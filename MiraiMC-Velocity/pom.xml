@@ -23,11 +23,11 @@
                     <relocations>
                         <relocation>
                             <pattern>com.zaxxer</pattern>
-                            <shadedPattern>me.dreamvoid.miraimc.libraries.zaxxer</shadedPattern>
+                            <shadedPattern>me.dreamvoid.miraimc.libraries.com.zaxxer</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>org.apache.commons.codec</pattern>
-                            <shadedPattern>me.dreamvoid.miraimc.libraries.codec</shadedPattern>
+                            <pattern>org.apache</pattern>
+                            <shadedPattern>me.dreamvoid.miraimc.libraries.org.apache</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
