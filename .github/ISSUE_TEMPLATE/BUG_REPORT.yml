@@ -75,6 +75,7 @@ body:
         你可以提供系统环境、Java版本、你使用了什么依赖MiraiMC的插件、重置插件配置后问题是否仍然存在、你使用的插件列表
         你还可以提供截图和文件（直接拖动文件到编辑框）
   - type: checkboxes
+    id: agreement
     attributes:
       label: 协议
       description: 请同意下列条款
