@@ -34,5 +34,5 @@ jobs:
           days-before-issue-close: 2
           stale-issue-label: 归档
           close-issue-label: 归档
-          exempt-issue-labels: "功能,接受"
+          exempt-issue-labels: "接受"
           exempt-issue-assignees: DreamVoid
