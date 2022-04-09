@@ -14,7 +14,6 @@ general:
     mirai.slider.captcha.supported: true
   mirai-core-version: "latest"
   maven-repo-url: "https://maven.aliyun.com/nexus/content/groups/public/"
-  friendly-exception: true
   enable-http-api: false
 bot:
   disable-network-logs: false
