@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        发Issue前请先看看Issue列表里有没有你的问题，包括已关闭的问题。如有，请关注相关Issue而不是重复发问。
+        发Issue前请先看看[Issue列表](https://github.com/DreamVoid/MiraiMC/issues?q=is%3Aissue+-label%3A%E6%97%A0%E6%95%88+-label%3A%E9%87%8D%E5%A4%8D)里有没有你的问题，包括已关闭的问题。如有，请关注相关Issue而不是重复发问。
         如果你不确定你遇到的问题是MiraiMC的漏洞还是你自己操作的失误，请先在[讨论·Discussions](https://github.com/DreamVoid/MiraiMC/discussions)提出。
         请在标题栏中用最简练的语言清晰的描述你遇到的问题。
         标题和内容不必加敬词，所有人都是平等的。
@@ -80,7 +80,7 @@ body:
       label: 协议
       description: 请同意下列条款
       options:
-        - label: 我已查阅[常见问题疑难解答](https://wiki.miraimc.dreamvoid.ml/troubleshoot/faq)和[Issue列表](https://github.com/DreamVoid/MiraiMC/issues?q=is%3Aissue)，并确认我的问题不在其中。
+        - label: 我已查阅[常见问题疑难解答](https://wiki.miraimc.dreamvoid.ml/troubleshoot/faq)和[Issue列表](https://github.com/DreamVoid/MiraiMC/issues?q=is%3Aissue+-label%3A%E6%97%A0%E6%95%88+-label%3A%E9%87%8D%E5%A4%8D)，并确认我的问题不在其中。
           required: true
         - label: 我确认我已认真阅读所有注意事项并认真填写表单。
           required: true
