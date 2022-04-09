@@ -1,5 +1,10 @@
 package me.dreamvoid.miraimc.bukkit;
 
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
 import static me.dreamvoid.miraimc.internal.Config.*;
 
 public class BukkitConfig {
@@ -14,6 +19,9 @@ public class BukkitConfig {
 
     public void loadConfig() {
         plugin.saveDefaultConfig();
+        plugin.getConfig().setDefaults(YamlConfiguration.loadConfiguration(new InputStreamReader(plugin.getResource("config.yml"), StandardCharsets.UTF_8)));
+        plugin.getConfig().options().copyDefaults(true);
+        plugin.saveConfig();
 
         Gen_AllowBStats = plugin.getConfig().getBoolean("general.allow-bStats",true);
         Gen_CheckUpdate = plugin.getConfig().getBoolean("general.check-update",true);
