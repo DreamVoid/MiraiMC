@@ -10,6 +10,8 @@ import net.mamoe.mirai.message.data.MusicShare;
 import net.mamoe.mirai.utils.ExternalResource;
 
 import java.io.File;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * MiraiMC 群
@@ -153,5 +155,13 @@ public class MiraiGroup {
      */
     public void sendMusicShare(String Kind, String Title, String Summary, String JumpUrl, String PictureUrl, String MusicUrl){
         group.sendMessage(new MusicShare(MusicKind.valueOf(Kind), Title, Summary, JumpUrl, PictureUrl, MusicUrl));
+    }
+
+    /**
+     * 获取群成员列表
+     * @return 群成员实例数组
+     */
+    public List<MiraiNormalMember> getMembers(){
+        return group.getMembers().stream().map(member -> new MiraiNormalMember(group, member.getId())).collect(Collectors.toList());
     }
 }
