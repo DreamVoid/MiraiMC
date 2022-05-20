@@ -16,7 +16,6 @@ Although Tencent QQ runs best in China, Tencent is also developing Tencent QQ gl
 ## Download
 * Stable Version
   * [Github Releases](https://github.com/DreamVoid/MiraiMC/releases)
-  * [Gitee Releases](https://gitee.com/dreamvoid/MiraiMC/releases) (China)
   * [MCBBS](https://www.mcbbs.net/thread-1207462-1-1.html) (China)
     * [Nukkit](https://www.mcbbs.net/thread-1260246-1-1.html) (China)
 * Dev Version
