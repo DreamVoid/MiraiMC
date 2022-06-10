@@ -44,7 +44,16 @@ abstract class AbstractBotEvent extends Event {
 	 * [!] 不推荐使用
 	 * @return 原始事件内容
 	 */
-	public String eventToString() {
+	@Override
+	public String toString() {
 		return event.toString();
+	}
+
+	/**
+	 * 获取哈希值
+	 * @return 哈希值
+	 */
+	public int getHashCode() {
+		return event.hashCode();
 	}
 }
