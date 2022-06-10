@@ -1,10 +1,17 @@
 package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.bukkit.event.*;
+import me.dreamvoid.miraimc.bukkit.event.bot.MiraiBotOfflineEvent;
+import me.dreamvoid.miraimc.bukkit.event.bot.MiraiBotOnlineEvent;
+import me.dreamvoid.miraimc.bukkit.event.bot.MiraiBotReloginEvent;
+import me.dreamvoid.miraimc.bukkit.event.bot.MiraiBotNickChangedEvent;
+import me.dreamvoid.miraimc.bukkit.event.bot.MiraiBotAvatarChangedEvent;
 import net.mamoe.mirai.event.GlobalEventChannel;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.event.events.*;
 import org.bukkit.Bukkit;
+
+import static me.dreamvoid.miraimc.bukkit.event.bot.MiraiBotOfflineEvent.Type.*;
 
 public class MiraiEvent {
     private Listener<BotOnlineEvent> BotOnlineListener;
@@ -12,8 +19,6 @@ public class MiraiEvent {
     private Listener<BotOfflineEvent.Force> BotOfflineForceListener;
     private Listener<BotOfflineEvent.Dropped> BotOfflineDroppedListener;
     private Listener<BotOfflineEvent.RequireReconnect> BotOfflineRequireReconnectListener;
-    // TODO: BotOfflineEvent.MsfOffline
-    // TODO: BotOfflineEvent.CauseAware
     private Listener<BotReloginEvent> BotReloginEventListener;
     private Listener<BotAvatarChangedEvent> BotAvatarChangedEventListener;
     private Listener<BotNickChangedEvent> BotNickChangedEventListener;
@@ -84,10 +89,10 @@ public class MiraiEvent {
     public void startListenEvent(){
         // Bot
         BotOnlineListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOnlineEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOnlineEvent(event)));
-        BotOfflineActiveListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Active.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOfflineEvent(event, "Active")));
-        BotOfflineForceListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Force.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOfflineEvent(event, "Force")));
-        BotOfflineDroppedListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Dropped.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOfflineEvent(event, "Dropped")));
-        BotOfflineRequireReconnectListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.RequireReconnect.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOfflineEvent(event, "RequireReconnect")));
+        BotOfflineActiveListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Active.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOfflineEvent(event, Active)));
+        BotOfflineForceListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Force.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOfflineEvent(event, Force)));
+        BotOfflineDroppedListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Dropped.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOfflineEvent(event, Dropped)));
+        BotOfflineRequireReconnectListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.RequireReconnect.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOfflineEvent(event, RequireReconnect)));
         BotReloginEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotReloginEvent.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotReloginEvent(event)));
         BotAvatarChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotAvatarChangedEvent.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotAvatarChangedEvent(event)));
         BotNickChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotNickChangedEvent.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotNickChangedEvent(event)));

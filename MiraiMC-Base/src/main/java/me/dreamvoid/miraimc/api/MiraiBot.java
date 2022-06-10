@@ -42,6 +42,23 @@ public class MiraiBot {
     }
 
     /**
+     * 初始化
+     * @param Bot 机器人实例
+     */
+    private MiraiBot(Bot Bot){
+        logger = Utils.logger;
+        bot = Bot;
+    }
+
+    /**
+     * 将一个机器人实例转换为MiraiBot
+     * @param Bot 机器人实例
+     */
+    public static MiraiBot asBot(Bot Bot){
+        return new MiraiBot(Bot);
+    }
+
+    /**
      * 获取指定机器人的实例
      * @param BotAccount 机器人账号
      * @return MiraiMC 机器人实例
