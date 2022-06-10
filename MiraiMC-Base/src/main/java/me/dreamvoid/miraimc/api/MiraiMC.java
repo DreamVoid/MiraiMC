@@ -81,7 +81,6 @@ public class MiraiMC {
             Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e);
         }
     }
-
     /**
      * 添加一个MC-QQ绑定
      * 如果数据库已经有相关数据，将会直接替换
@@ -398,7 +397,7 @@ public class MiraiMC {
         }
         return account;
     }
-    
+
     /**
      * 获取QQ号绑定的Minecraft账号
      * 此方法返回数据库记录的UUID
