@@ -13,8 +13,6 @@ public class MiraiGroupBotPermissionChangeEvent extends Event{
     public MiraiGroupBotPermissionChangeEvent(BotGroupPermissionChangeEvent event) {
         this.event = event;
     }
-
-
     private final BotGroupPermissionChangeEvent event;
 
     /**

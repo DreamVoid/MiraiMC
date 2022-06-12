@@ -14,8 +14,6 @@ public class MiraiGroupMemberPermissionChangeEvent extends Event{
     public MiraiGroupMemberPermissionChangeEvent(MemberPermissionChangeEvent event) {
         this.event = event;
     }
-
-
     private final MemberPermissionChangeEvent event;
 
     /**
