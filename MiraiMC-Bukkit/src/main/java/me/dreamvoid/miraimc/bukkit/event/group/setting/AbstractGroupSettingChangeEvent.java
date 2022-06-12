@@ -6,6 +6,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * (Bukkit) Mirai 核心事件 - 群 - 群设置 - 群设置改变（抽象）
+ */
 abstract class AbstractGroupSettingChangeEvent extends Event {
 	public AbstractGroupSettingChangeEvent(GroupSettingChangeEvent event){
 		super(true);

@@ -7,6 +7,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * (Bukkit) Mirai 核心事件 - 群 - 群成员 - 群成员事件（抽象）
+ */
 abstract class AbstractGroupMemberEvent extends Event {
 	public AbstractGroupMemberEvent(GroupMemberEvent event){
 		super(true);

@@ -1,5 +1,4 @@
 /**
- * 群成员<br>
- * 由于 mirai 将不同分类的事件全部继承 GroupMemberEvent，此处不对各个事件进行分类
+ * (Bukkit) Mirai 核心事件 - 群 - 群成员
  */
 package me.dreamvoid.miraimc.bukkit.event.group.member;

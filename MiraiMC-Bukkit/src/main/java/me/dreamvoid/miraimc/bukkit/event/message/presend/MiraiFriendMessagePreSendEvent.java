@@ -6,7 +6,7 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * 好友消息
+ * (Bukkit) Mirai 核心事件 - 消息 - 主动发送消息前 - 好友消息
  */
 public class MiraiFriendMessagePreSendEvent extends AbstractMessagePreSendEvent {
     public MiraiFriendMessagePreSendEvent(FriendMessagePreSendEvent event) {

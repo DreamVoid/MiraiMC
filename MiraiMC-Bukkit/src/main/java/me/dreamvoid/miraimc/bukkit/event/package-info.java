@@ -1,4 +1,4 @@
 /**
- * Mirai 核心事件程序包 (Bukkit)
+ * (Bukkit) Mirai 核心事件程序包
  */
 package me.dreamvoid.miraimc.bukkit.event;

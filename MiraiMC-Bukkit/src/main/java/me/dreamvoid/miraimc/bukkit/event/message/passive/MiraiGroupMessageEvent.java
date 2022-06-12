@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 群消息
+ * (Bukkit) Mirai 核心事件 - 消息 - 被动收到消息 - 群消息
  */
 public class MiraiGroupMessageEvent extends AbstractMessageEvent {
     public MiraiGroupMessageEvent(GroupMessageEvent event) {

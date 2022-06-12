@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.bukkit.event.bot;
 import net.mamoe.mirai.event.events.BotNickChangedEvent;
 
 /**
- * Bot 昵称改变
+ * (Bukkit) Mirai 核心事件 - Bot - Bot 昵称改变
  */
 public class MiraiBotNickChangedEvent extends AbstractBotEvent {
 

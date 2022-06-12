@@ -6,6 +6,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * (Bukkit) Mirai 核心事件 - Bot（抽象）
+ */
 public abstract class AbstractBotEvent extends Event {
 	public AbstractBotEvent(BotEvent event){
 		this.event = event;

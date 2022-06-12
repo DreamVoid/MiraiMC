@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.bukkit.event.group.member;
 import net.mamoe.mirai.event.events.MemberCardChangeEvent;
 
 /**
- * 群成员 - 名片和头衔 - 成员群名片改动
+ * (Bukkit) Mirai 核心事件 - 群 - 群成员 - 名片和头衔 - 成员群名片改动
  */
 public class MiraiMemberCardChangeEvent extends AbstractGroupMemberEvent {
     public MiraiMemberCardChangeEvent(MemberCardChangeEvent event) {

@@ -11,7 +11,7 @@ import net.mamoe.mirai.message.code.MiraiCode;
 import java.io.IOException;
 
 /**
- * 好友消息
+ * (Bukkit) Mirai 核心事件 - 消息 - 被动收到消息 - 好友消息
  */
 public class MiraiFriendMessageEvent extends AbstractMessageEvent {
     public MiraiFriendMessageEvent(FriendMessageEvent event) {

@@ -6,7 +6,7 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * 图片上传前
+ * (Bukkit) Mirai 核心事件 - 消息 - 图片上传前
  */
 public class MiraiBeforeImageUploadEvent extends Event {
 

@@ -7,6 +7,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * (Bukkit) Mirai 核心事件 - 消息 - 主动发送消息前（抽象）
+ */
 abstract class AbstractMessagePreSendEvent extends Event implements Cancellable {
 	public AbstractMessagePreSendEvent(MessagePreSendEvent event) {
 		super(true);

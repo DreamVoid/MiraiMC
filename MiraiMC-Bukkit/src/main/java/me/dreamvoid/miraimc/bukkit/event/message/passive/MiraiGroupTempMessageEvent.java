@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.event.events.GroupTempMessageEvent;
 
 /**
- * 群临时会话消息
+ * (Bukkit) Mirai 核心事件 - 消息 - 被动收到消息 - 群临时会话消息
  */
 public class MiraiGroupTempMessageEvent extends AbstractMessageEvent {
     public MiraiGroupTempMessageEvent(GroupTempMessageEvent event) {
