@@ -56,4 +56,12 @@ abstract class AbstractGroupMemberEvent extends Event {
 	public MiraiNormalMember getMember(){
 		return new MiraiNormalMember(event.getGroup(), event.getMember().getId());
 	}
+
+	/**
+	 * 获取哈希值
+	 * @return 哈希值
+	 */
+	public int getHashCode() {
+		return event.hashCode();
+	}
 }
