@@ -1,19 +1,20 @@
-package me.dreamvoid.miraimc.bukkit.event.group.setting;
+package me.dreamvoid.miraimc.bukkit.event.group.member;
 
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
-import net.mamoe.mirai.event.events.GroupSettingChangeEvent;
+import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
+import net.mamoe.mirai.event.events.GroupMemberEvent;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
-abstract class AbstractGroupSettingChangeEvent extends Event {
-	public AbstractGroupSettingChangeEvent(GroupSettingChangeEvent event){
+abstract class AbstractGroupMemberEvent extends Event {
+	public AbstractGroupMemberEvent(GroupMemberEvent event){
 		super(true);
 		this.event = event;
 	}
 
 	private static final HandlerList handlers = new HandlerList();
-	private final GroupSettingChangeEvent event;
+	private final GroupMemberEvent event;
 
 	public @NotNull HandlerList getHandlers() { return handlers; }
 	public static HandlerList getHandlerList() { return handlers; }
@@ -25,20 +26,10 @@ abstract class AbstractGroupSettingChangeEvent extends Event {
 	public long getBotID() { return event.getBot().getId(); }
 
 	/**
-	 * 获取群号
+	 * 返回目标群的群号
 	 * @return 群号
 	 */
-	public long getGroupID(){
-		return event.getGroup().getId();
-	}
-
-	/**
-	 * 获取哈希值
-	 * @return 哈希值
-	 */
-	public int getHashCode(){
-		return event.hashCode();
-	}
+	public long getGroupID() { return event.getGroup().getId(); }
 
 	/**
 	 * 获取原始事件内容<br>
@@ -56,5 +47,13 @@ abstract class AbstractGroupSettingChangeEvent extends Event {
 	 */
 	public MiraiGroup getGroup(){
 		return new MiraiGroup(event.getBot(), event.getGroup().getId());
+	}
+
+	/**
+	 * 获取群员实例
+	 * @return MiraiNormalMember 实例
+	 */
+	public MiraiNormalMember getMember(){
+		return new MiraiNormalMember(event.getGroup(), event.getMember().getId());
 	}
 }

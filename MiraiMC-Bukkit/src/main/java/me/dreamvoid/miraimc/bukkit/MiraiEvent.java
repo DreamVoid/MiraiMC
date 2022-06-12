@@ -12,7 +12,7 @@ import me.dreamvoid.miraimc.bukkit.event.friend.MiraiFriendInputStatusChangedEve
 import me.dreamvoid.miraimc.bukkit.event.friend.MiraiFriendDeleteEvent;
 import me.dreamvoid.miraimc.bukkit.event.friend.MiraiFriendAddEvent;
 import me.dreamvoid.miraimc.bukkit.event.friend.MiraiFriendAvatarChangedEvent;
-import me.dreamvoid.miraimc.bukkit.event.bot.MiraiNewFriendRequestEvent;
+import me.dreamvoid.miraimc.bukkit.event.friend.MiraiNewFriendRequestEvent;
 import me.dreamvoid.miraimc.bukkit.event.message.recall.MiraiFriendMessageRecallEvent;
 import me.dreamvoid.miraimc.bukkit.event.message.recall.MiraiGroupMessageRecallEvent;
 import net.mamoe.mirai.event.GlobalEventChannel;

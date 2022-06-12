@@ -1,5 +1,6 @@
-package me.dreamvoid.miraimc.bukkit.event.bot;
+package me.dreamvoid.miraimc.bukkit.event.friend;
 
+import me.dreamvoid.miraimc.bukkit.event.bot.AbstractBotEvent;
 import net.mamoe.mirai.event.events.NewFriendRequestEvent;
 
 /**
@@ -29,32 +30,11 @@ public class MiraiNewFriendRequestEvent extends AbstractBotEvent {
     }
 
     /**
-     * 接受请求
-     * @deprecated
-     * @see #accept()
-     */
-    @Deprecated
-    public void setAcceptRequest(){
-        event.accept();
-    }
-
-    /**
      * 拒绝请求
      * @param Blacklist 是否加入黑名单
      */
     public void reject(boolean Blacklist){
         event.reject(Blacklist);
-    }
-
-    /**
-     * 拒绝请求
-     * @param setBlacklist 是否加入黑名单
-     * @deprecated
-     * @see #reject(boolean)
-     */
-    @Deprecated
-    public void setDenyRequest(boolean setBlacklist){
-        event.reject(setBlacklist);
     }
 
     /**
@@ -85,7 +65,8 @@ public class MiraiNewFriendRequestEvent extends AbstractBotEvent {
     }
 
     /**
-     * 获取来源群号
+     * 获取来源群号<br>
+     * 其他途径时为 0
      * @return 群号
      */
     public long getFromGroupID(){

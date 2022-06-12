@@ -6,7 +6,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
-abstract class AbstractBotEvent extends Event {
+public abstract class AbstractBotEvent extends Event {
 	public AbstractBotEvent(BotEvent event){
 		this.event = event;
 	}
@@ -21,7 +21,7 @@ abstract class AbstractBotEvent extends Event {
 	 * 获取机器人账号
 	 * @return 机器人账号
 	 */
-	public long getID() {
+	public long getBotID() {
 		return event.getBot().getId();
 	}
 
