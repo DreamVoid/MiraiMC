@@ -21,7 +21,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         type = 0;
         botID = event.getBot().getId();
         senderID = event.getSender().getId();
-        senderNick = event.getSender().getNick();
+        senderName = event.getSender().getNick();
         messageContent = event.getMessage().contentToString();
         messageMiraiCode = event.getMessage().serializeToMiraiCode();
         time = event.getTime();
@@ -30,7 +30,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         type = 1;
         botID = BotAccount;
         senderID = message.senderId;
-        senderNick = message.senderNickname;
+        senderName = message.senderNickname;
         messageContent = message.text;
         messageMiraiCode = message.text;
         time = message.time;
@@ -41,7 +41,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
     private final int type;
     private final long botID;
     private final long senderID;
-    private final String senderNick;
+    private final String senderName;
     private final String messageContent;
     private final String messageMiraiCode;
     private final int time;
@@ -69,8 +69,8 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
      * @return 发送者昵称
      */
     @Override
-    public String getSenderNick(){
-        return senderNick;
+    public String getSenderName(){
+        return senderName;
     }
 
     /**

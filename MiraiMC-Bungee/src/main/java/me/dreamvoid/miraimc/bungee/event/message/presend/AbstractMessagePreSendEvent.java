@@ -2,10 +2,8 @@ package me.dreamvoid.miraimc.bungee.event.message.presend;
 
 import net.mamoe.mirai.event.events.MessagePreSendEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
-import org.bukkit.event.Cancellable;
+import net.md_5.bungee.api.plugin.Cancellable;
 import net.md_5.bungee.api.plugin.Event;
-import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * (Bungee) Mirai 核心事件 - 消息 - 主动发送消息前（抽象）

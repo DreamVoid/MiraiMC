@@ -2,8 +2,6 @@ package me.dreamvoid.miraimc.bungee.event.message.presend;
 
 import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.FriendMessagePreSendEvent;
-import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * (Bungee) Mirai 核心事件 - 消息 - 主动发送消息前 - 好友消息

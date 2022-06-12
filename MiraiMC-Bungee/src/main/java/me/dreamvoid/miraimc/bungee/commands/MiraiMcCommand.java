@@ -39,9 +39,8 @@ public class MiraiMcCommand extends Command {
                                         bungee.getProxy().getScheduler().runAsync(bungee, () -> {
                                             ProxiedPlayer player = bungee.getProxy().getPlayer(args[2]);
                                             if(player!=null){
-                                                String uuid = player.getUniqueId().toString();
                                                 long qqid = Long.parseLong(args[3]);
-                                                MiraiMC.addBinding(uuid,qqid);
+                                                MiraiMC.addBinding(player.getUniqueId(),qqid);
                                                 sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&a已添加绑定！")));
                                             } else sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c指定的玩家不存在，请检查是否存在拼写错误！")));
                                         });
@@ -53,8 +52,7 @@ public class MiraiMcCommand extends Command {
                                         bungee.getProxy().getScheduler().runAsync(bungee,() -> {
                                             ProxiedPlayer player = bungee.getProxy().getPlayer(args[2]);
                                             if(player!=null){
-                                                String uuid = bungee.getProxy().getPlayer(args[2]).getUniqueId().toString();
-                                                MiraiMC.removeBinding(uuid);
+                                                MiraiMC.removeBinding(bungee.getProxy().getPlayer(args[2]).getUniqueId());
                                                 sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&a已移除相应绑定！")));
                                             } else sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c指定的玩家不存在，请检查是否存在拼写错误！")));
                                         });
@@ -76,8 +74,7 @@ public class MiraiMcCommand extends Command {
                                         bungee.getProxy().getScheduler().runAsync(bungee, () -> {
                                             ProxiedPlayer player = bungee.getProxy().getPlayer(args[2]);
                                             if(player!=null){
-                                                String uuid = bungee.getProxy().getPlayer(args[2]).getUniqueId().toString();
-                                                long qqId = MiraiMC.getBinding(uuid);
+                                                long qqId = MiraiMC.getBinding(bungee.getProxy().getPlayer(args[2]).getUniqueId());
                                                 if(qqId!=0){
                                                     sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&a绑定的QQ号："+qqId)));
                                                 } else sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c未找到符合条件的记录！")));

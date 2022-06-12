@@ -1,7 +1,7 @@
 package me.dreamvoid.miraimc.bungee.event.group.member;
 
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
-import me.dreamvoid.miraimc.bukkit.event.bot.AbstractBotEvent;
+import me.dreamvoid.miraimc.bungee.event.bot.AbstractBotEvent;
 import net.mamoe.mirai.event.events.MemberJoinRequestEvent;
 
 /**

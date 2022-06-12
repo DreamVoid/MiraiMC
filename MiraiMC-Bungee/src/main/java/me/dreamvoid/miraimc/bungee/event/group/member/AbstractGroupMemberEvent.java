@@ -4,7 +4,6 @@ import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.event.events.GroupMemberEvent;
 import net.md_5.bungee.api.plugin.Event;
-import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**

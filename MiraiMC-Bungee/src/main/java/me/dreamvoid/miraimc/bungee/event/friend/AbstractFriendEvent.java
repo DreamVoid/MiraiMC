@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.bungee.event.friend;
 import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.FriendEvent;
 import net.md_5.bungee.api.plugin.Event;
-import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**

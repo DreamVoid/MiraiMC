@@ -3,8 +3,6 @@ package me.dreamvoid.miraimc.bungee.event.group;
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.event.events.GroupEvent;
 import net.md_5.bungee.api.plugin.Event;
-import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * (Bungee) Mirai 核心事件 - 群（抽象）

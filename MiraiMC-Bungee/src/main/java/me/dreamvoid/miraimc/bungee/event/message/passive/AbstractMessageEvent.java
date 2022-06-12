@@ -5,8 +5,6 @@ import net.mamoe.mirai.message.code.MiraiCode;
 import net.mamoe.mirai.message.data.MessageChainBuilder;
 import net.mamoe.mirai.message.data.QuoteReply;
 import net.md_5.bungee.api.plugin.Event;
-import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -46,17 +44,6 @@ abstract class AbstractMessageEvent extends Event {
 	 */
 	public String getSenderName(){
 		return event.getSenderName();
-	}
-
-	/**
-	 * 返回发送这条信息的发送者昵称
-	 * @return 发送者昵称
-	 * @deprecated
-	 * @see #getSenderName()
-	 */
-	@Deprecated
-	public String getSenderNick(){
-		return event.getSender().getNick();
 	}
 
 	/**

@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.bungee.event.group.setting;
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.event.events.GroupSettingChangeEvent;
 import net.md_5.bungee.api.plugin.Event;
-import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**

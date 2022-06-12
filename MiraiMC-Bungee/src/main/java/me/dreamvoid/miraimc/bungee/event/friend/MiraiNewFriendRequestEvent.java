@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event.friend;
 
-import me.dreamvoid.miraimc.bukkit.event.bot.AbstractBotEvent;
+import me.dreamvoid.miraimc.bungee.event.bot.AbstractBotEvent;
 import net.mamoe.mirai.event.events.NewFriendRequestEvent;
 
 /**
