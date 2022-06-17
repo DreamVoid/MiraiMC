@@ -6,6 +6,7 @@ import me.dreamvoid.miraimc.bungee.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.bungee.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.bungee.utils.Metrics;
 import me.dreamvoid.miraimc.internal.*;
+import me.dreamvoid.miraimc.internal.classloader.MiraiLoader;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 

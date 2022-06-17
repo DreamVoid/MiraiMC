@@ -2,7 +2,7 @@ package me.dreamvoid.miraimc.sponge;
 
 import com.google.inject.Inject;
 import me.dreamvoid.miraimc.internal.Config;
-import me.dreamvoid.miraimc.internal.MiraiLoader;
+import me.dreamvoid.miraimc.internal.classloader.MiraiLoader;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.sponge.commands.MiraiCommand;
 import me.dreamvoid.miraimc.sponge.commands.MiraiMcCommand;

@@ -6,6 +6,7 @@ import me.dreamvoid.miraimc.bukkit.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.bukkit.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
 import me.dreamvoid.miraimc.internal.*;
+import me.dreamvoid.miraimc.internal.classloader.MiraiLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;

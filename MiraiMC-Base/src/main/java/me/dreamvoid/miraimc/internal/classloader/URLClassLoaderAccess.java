@@ -26,7 +26,7 @@
  *  SOFTWARE.
  */
 
-package me.dreamvoid.miraimc.internal;
+package me.dreamvoid.miraimc.internal.classloader;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
