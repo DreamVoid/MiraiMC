@@ -25,7 +25,7 @@ public class MiraiMcCommand implements SimpleCommand {
         // Get the arguments after the command alias
         String[] args = invocation.arguments();
 
-        if(!(args.length == 0)) {
+        if(args.length != 0) {
             switch (args[0].toLowerCase()) {
                 case "reload": {
                     if(source.hasPermission("miraimc.command.miraimc.reload")){

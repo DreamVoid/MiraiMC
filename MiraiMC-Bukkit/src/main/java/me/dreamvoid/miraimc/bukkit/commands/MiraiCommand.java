@@ -32,7 +32,7 @@ public class MiraiCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(!(args.length == 0)){
+        if(args.length != 0){
             switch (args[0].toLowerCase()){
                 case "login": {
                     if(sender.hasPermission("miraimc.command.mirai.login")){
