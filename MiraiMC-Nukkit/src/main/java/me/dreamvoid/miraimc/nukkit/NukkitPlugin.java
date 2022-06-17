@@ -122,8 +122,10 @@ public class NukkitPlugin extends PluginBase {
 
     @Override
     public void onDisable() {
-        getLogger().info("Stopping bot event listener.");
-        MiraiEvent.stopListenEvent();
+        if(MiraiEvent != null) {
+            getLogger().info("Stopping bot event listener.");
+            MiraiEvent.stopListenEvent();
+        }
 
         getLogger().info("Closing all bots");
         MiraiLoginSolver.closeAllVerifyThreads();
@@ -134,18 +136,22 @@ public class NukkitPlugin extends PluginBase {
         switch (Config.DB_Type.toLowerCase()){
             case "sqlite":
             default: {
-                getLogger().info("Closing SQLite database.");
-                try {
-                    Utils.closeSQLite();
-                } catch (SQLException e) {
-                    getLogger().error("Failed to close SQLite database!");
-                    getLogger().error("Reason: " + e);
+                if(Utils.connection != null) {
+                    getLogger().info("Closing SQLite database.");
+                    try {
+                        Utils.closeSQLite();
+                    } catch (SQLException e) {
+                        getLogger().error("Failed to close SQLite database!");
+                        getLogger().error("Reason: " + e);
+                    }
                 }
                 break;
             }
             case "mysql": {
-                getLogger().info("Closing MySQL database.");
-                Utils.closeMySQL();
+                if (Utils.ds != null) {
+                    getLogger().info("Closing MySQL database.");
+                    Utils.closeMySQL();
+                }
                 break;
             }
         }

@@ -157,6 +157,7 @@ public class SpongePlugin {
         Sponge.getCommandManager().register(this, miraimc, "miraimc");
         Sponge.getCommandManager().register(this, miraiverify, "miraiverify");
     }
+
     public Logger getLogger() {
         return logger;
     }

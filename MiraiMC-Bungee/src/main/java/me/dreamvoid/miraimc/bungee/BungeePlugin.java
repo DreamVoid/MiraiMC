@@ -113,8 +113,10 @@ public class BungeePlugin extends Plugin {
 
     @Override
     public void onDisable() {
-        getLogger().info("Stopping bot event listener.");
-        MiraiEvent.stopListenEvent();
+        if(MiraiEvent != null) {
+            getLogger().info("Stopping bot event listener.");
+            MiraiEvent.stopListenEvent();
+        }
 
         getLogger().info("Closing all bots");
         MiraiLoginSolver.closeAllVerifyThreads();
@@ -122,26 +124,25 @@ public class BungeePlugin extends Plugin {
             MiraiBot.getBot(bots).doLogout();
         }
 
-        getLogger().info("Closing all bots");
-        for (long bots : MiraiBot.getOnlineBots()){
-            MiraiBot.getBot(bots).doLogout();
-        }
-
         switch (Config.DB_Type.toLowerCase()){
             case "sqlite":
             default: {
-                getLogger().info("Closing SQLite database.");
-                try {
-                    Utils.closeSQLite();
-                } catch (SQLException e) {
-                    getLogger().severe("Failed to close SQLite database!");
-                    getLogger().severe("Reason: " + e);
+                if(Utils.connection != null) {
+                    getLogger().info("Closing SQLite database.");
+                    try {
+                        Utils.closeSQLite();
+                    } catch (SQLException e) {
+                        getLogger().severe("Failed to close SQLite database!");
+                        getLogger().severe("Reason: " + e);
+                    }
                 }
                 break;
             }
             case "mysql": {
-                getLogger().info("Closing MySQL database.");
-                Utils.closeMySQL();
+                if(Utils.ds != null) {
+                    getLogger().info("Closing MySQL database.");
+                    Utils.closeMySQL();
+                }
                 break;
             }
         }
