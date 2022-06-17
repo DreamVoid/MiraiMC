@@ -25,7 +25,7 @@ public class MiraiVerifyCommand extends BaseCommand {
 
     @Override
     public void sendHelp(CommandSender sender) {
-        //TODO
+        
     }
 
     @Override
