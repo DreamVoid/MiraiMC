@@ -1,76 +1,16 @@
 package me.dreamvoid.miraimc.sponge.event;
 
 import net.mamoe.mirai.event.events.NudgeEvent;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
  * 戳一戳
+ * @deprecated
+ * @see me.dreamvoid.miraimc.sponge.event.message.MiraiNudgeEvent
  */
-public class MiraiNudgeEvent extends AbstractEvent {
-    private final Cause cause;
-
+@Deprecated
+public class MiraiNudgeEvent extends me.dreamvoid.miraimc.sponge.event.message.MiraiNudgeEvent {
     public MiraiNudgeEvent(NudgeEvent event, Cause cause) {
-        this.event = event;
-        this.cause = cause;
-    }
-
-    private final NudgeEvent event;
-
-    /**
-     * 获取机器人账号
-     * @return 机器人账号
-     */
-    public long getBotID() { return event.getBot().getId(); }
-
-    /**
-     * 获取发送者ID
-     * @return 发送者ID
-     */
-    public long getFromID() { return event.getFrom().getId(); }
-
-    /**
-     * 获取发送者昵称
-     * @return 发送者昵称
-     */
-    public String getFromNick() { return event.getFrom().getNick(); }
-
-    /**
-     * 获取接收者ID
-     * @return 接收者ID
-     */
-    public long getTargetID() { return event.getTarget().getId(); }
-
-    /**
-     * 获取接收者昵称
-     * @return 接收者昵称
-     */
-    public String getTargetNick() { return event.getTarget().getNick(); }
-
-    /**
-     * (?)获取操作
-     * @return 操作内容
-     */
-    public String getAction(){return event.getAction();}
-
-    /**
-     * (?)获取后缀
-     * @return 后缀内容
-     */
-    public String getSuffix(){return event.getSuffix();}
-
-    /**
-     * 获取原始事件内容<br>
-     * [!] 不推荐使用
-     * @return 原始事件内容
-     */
-    public String eventToString() {
-        return event.toString();
-    }
-
-    @Override
-    public @NotNull Cause getCause() {
-        return cause;
+        super(event, cause);
     }
 }

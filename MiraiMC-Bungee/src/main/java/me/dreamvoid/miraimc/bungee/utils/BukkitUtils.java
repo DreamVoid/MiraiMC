@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bungee.utils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -13,19 +12,15 @@ import java.util.Map;
 public class BukkitUtils {
     public static List<Map<?, ?>> getMapList(List<?> list) {
         List<Map<?, ?>> result = new ArrayList();
-        if (list == null) {
-            return result;
-        } else {
-            Iterator var5 = list.iterator();
+        if (list != null) {
 
-            while(var5.hasNext()) {
-                Object object = var5.next();
+            for (Object object : list) {
                 if (object instanceof Map) {
-                    result.add((Map)object);
+                    result.add((Map) object);
                 }
             }
 
-            return result;
         }
+        return result;
     }
 }

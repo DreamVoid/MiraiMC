@@ -1,4 +1,4 @@
 /**
- * Mirai 核心事件程序包 (Velocity)
+ * Mirai 核心事件程序包 (BungeeCord)
  */
 package me.dreamvoid.miraimc.velocity.event;

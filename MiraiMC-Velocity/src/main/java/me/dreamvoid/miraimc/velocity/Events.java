@@ -13,6 +13,6 @@ public class Events {
 
     @Subscribe
     public void onMiraiFriendMessageReceived(MiraiFriendMessageEvent e){
-        Utils.logger.info("[FriendMessage/"+e.getBotID()+"] "+e.getSenderNick()+"("+e.getSenderID()+") -> "+e.getMessage());
+        Utils.logger.info("[FriendMessage/"+e.getBotID()+"] "+e.getSenderName()+"("+e.getSenderID()+") -> "+e.getMessage());
     }
 }
