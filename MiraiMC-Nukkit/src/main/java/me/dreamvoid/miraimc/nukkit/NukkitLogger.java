@@ -70,9 +70,9 @@ public class NukkitLogger extends Logger {
     @Override
     public void log(LogRecord record) {
         logger.debug("Unsupported method \"log(LogRecord record)\" is being called.");
-        if(!record.getLevel().equals(Level.INFO) && !record.getLevel().equals(Level.WARNING) && !record.getLevel().equals(Level.SEVERE)){
+        if(record.getLevel() != Level.INFO && record.getLevel() != Level.WARNING && record.getLevel() != Level.SEVERE){
             logger.info(record.getMessage());
-        } else if(record.getLevel().equals(Level.SEVERE)) {
+        } else if(record.getLevel() == Level.SEVERE) {
             logger.error(record.getMessage());
         } else {
             logger.log(LogLevel.valueOf(record.getLevel().getName()), record.getMessage());
@@ -82,9 +82,9 @@ public class NukkitLogger extends Logger {
     @Override
     public void log(Level level, String msg) {
         logger.debug("Unsupported method \"log(Level level, String msg)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg);
-        } else if(level.equals(Level.SEVERE)) {
+        } else if(level == Level.SEVERE) {
             logger.error(msg);
         } else {
             logger.log(LogLevel.valueOf(level.getName()), msg);
@@ -94,9 +94,9 @@ public class NukkitLogger extends Logger {
     @Override
     public void log(Level level, Supplier<String> msgSupplier) {
         logger.debug("Unsupported method \"log(Level level, Supplier<String> msgSupplier)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msgSupplier.get());
-        } else if(level.equals(Level.SEVERE)) {
+        } else if(level == Level.SEVERE) {
             logger.error(msgSupplier.get());
         } else {
             logger.log(LogLevel.valueOf(level.getName()), msgSupplier.get());
@@ -106,9 +106,9 @@ public class NukkitLogger extends Logger {
     @Override
     public void log(Level level, String msg, Object param1) {
         logger.debug("Unsupported method \"log(Level level, String msg, Object param1)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg);
-        } else if(level.equals(Level.SEVERE)) {
+        } else if(level == Level.SEVERE) {
             logger.error(msg);
         } else {
             logger.log(LogLevel.valueOf(level.getName()), msg);
@@ -118,9 +118,9 @@ public class NukkitLogger extends Logger {
     @Override
     public void log(Level level, String msg, Object[] params) {
         logger.debug("Unsupported method \"log(Level level, String msg, Object[] params)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg);
-        } else if(level.equals(Level.SEVERE)) {
+        } else if(level == Level.SEVERE) {
             logger.error(msg);
         } else {
             logger.log(LogLevel.valueOf(level.getName()), msg);
@@ -130,9 +130,9 @@ public class NukkitLogger extends Logger {
     @Override
     public void log(Level level, String msg, Throwable thrown) {
         logger.debug("Unsupported method \"log(Level level, String msg, Throwable thrown)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg, thrown);
-        } else if(level.equals(Level.SEVERE)) {
+        } else if(level == Level.SEVERE) {
             logger.error(msg,thrown);
         } else {
             logger.log(LogLevel.valueOf(level.getName()), msg,thrown);
@@ -142,9 +142,9 @@ public class NukkitLogger extends Logger {
     @Override
     public void log(Level level, Throwable thrown, Supplier<String> msgSupplier) {
         logger.debug("Unsupported method \"log(Level level, Throwable thrown, Supplier<String> msgSupplier)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msgSupplier.get(), thrown);
-        } else if(level.equals(Level.SEVERE)) {
+        } else if(level == Level.SEVERE) {
             logger.error(msgSupplier.get(),thrown);
         } else {
             logger.log(LogLevel.valueOf(level.getName()), msgSupplier.get(),thrown);
@@ -154,7 +154,7 @@ public class NukkitLogger extends Logger {
     @Override
     public void logp(Level level, String sourceClass, String sourceMethod, String msg) {
         logger.debug("Unsupported method \"logp(Level level, String sourceClass, String sourceMethod, String msg)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg);
         } else logger.log(LogLevel.valueOf(level.getName()), msg);
     }
@@ -162,7 +162,7 @@ public class NukkitLogger extends Logger {
     @Override
     public void logp(Level level, String sourceClass, String sourceMethod, Supplier<String> msgSupplier) {
         logger.debug("Unsupported method \"logp(Level level, String sourceClass, String sourceMethod, Supplier<String> msgSupplier)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msgSupplier.get());
         } else logger.log(LogLevel.valueOf(level.getName()), msgSupplier.get());
     }
@@ -170,7 +170,7 @@ public class NukkitLogger extends Logger {
     @Override
     public void logp(Level level, String sourceClass, String sourceMethod, String msg, Object param1) {
         logger.debug("Unsupported method \"logp(Level level, String sourceClass, String sourceMethod, String msg, Object param1)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg);
         } else logger.log(LogLevel.valueOf(level.getName()), msg);
     }
@@ -178,7 +178,7 @@ public class NukkitLogger extends Logger {
     @Override
     public void logp(Level level, String sourceClass, String sourceMethod, String msg, Object[] params) {
         logger.debug("Unsupported method \"logp(Level level, String sourceClass, String sourceMethod, String msg, Object[] params)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg);
         } else logger.log(LogLevel.valueOf(level.getName()), msg);
     }
@@ -186,7 +186,7 @@ public class NukkitLogger extends Logger {
     @Override
     public void logp(Level level, String sourceClass, String sourceMethod, String msg, Throwable thrown) {
         logger.debug("Unsupported method \"logp(Level level, String sourceClass, String sourceMethod, String msg, Throwable thrown)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg, thrown);
         } else logger.log(LogLevel.valueOf(level.getName()), msg, thrown);
     }
@@ -194,7 +194,7 @@ public class NukkitLogger extends Logger {
     @Override
     public void logp(Level level, String sourceClass, String sourceMethod, Throwable thrown, Supplier<String> msgSupplier) {
         logger.debug("Unsupported method \"logp(Level level, String sourceClass, String sourceMethod, Throwable thrown, Supplier<String> msgSupplier)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msgSupplier.get(), thrown);
         } else logger.log(LogLevel.valueOf(level.getName()), msgSupplier.get(), thrown);
     }
@@ -203,7 +203,7 @@ public class NukkitLogger extends Logger {
     @Deprecated
     public void logrb(Level level, String sourceClass, String sourceMethod, String bundleName, String msg) {
         logger.debug("Unsupported method \"logrb(Level level, String sourceClass, String sourceMethod, String bundleName, String msg)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg);
         } else logger.log(LogLevel.valueOf(level.getName()), msg);
     }
@@ -212,7 +212,7 @@ public class NukkitLogger extends Logger {
     @Deprecated
     public void logrb(Level level, String sourceClass, String sourceMethod, String bundleName, String msg, Object param1) {
         logger.debug("Unsupported method \"logrb(Level level, String sourceClass, String sourceMethod, String bundleName, String msg, Object param1)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg);
         } else logger.log(LogLevel.valueOf(level.getName()), msg);
     }
@@ -221,7 +221,7 @@ public class NukkitLogger extends Logger {
     @Deprecated
     public void logrb(Level level, String sourceClass, String sourceMethod, String bundleName, String msg, Object[] params) {
         logger.debug("Unsupported method \"logrb(Level level, String sourceClass, String sourceMethod, String bundleName, String msg, Object[] params)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg);
         } else logger.log(LogLevel.valueOf(level.getName()), msg);
     }
@@ -229,7 +229,7 @@ public class NukkitLogger extends Logger {
     @Override
     public void logrb(Level level, String sourceClass, String sourceMethod, ResourceBundle bundle, String msg, Object... params) {
         logger.debug("Unsupported method \"logrb(Level level, String sourceClass, String sourceMethod, ResourceBundle bundle, String msg, Object... params)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg);
         } else logger.log(LogLevel.valueOf(level.getName()), msg);
     }
@@ -238,7 +238,7 @@ public class NukkitLogger extends Logger {
     @Deprecated
     public void logrb(Level level, String sourceClass, String sourceMethod, String bundleName, String msg, Throwable thrown) {
         logger.debug("Unsupported method \"logrb(Level level, String sourceClass, String sourceMethod, String bundleName, String msg, Throwable thrown)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg, thrown);
         } else logger.log(LogLevel.valueOf(level.getName()), msg, thrown);
     }
@@ -246,7 +246,7 @@ public class NukkitLogger extends Logger {
     @Override
     public void logrb(Level level, String sourceClass, String sourceMethod, ResourceBundle bundle, String msg, Throwable thrown) {
         logger.debug("Unsupported method \"logrb(Level level, String sourceClass, String sourceMethod, ResourceBundle bundle, String msg, Throwable thrown)\" is being called.");
-        if(!level.equals(Level.INFO) && !level.equals(Level.WARNING) && !level.equals(Level.SEVERE)){
+        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
             logger.info(msg, thrown);
         } else logger.log(LogLevel.valueOf(level.getName()), msg, thrown);
     }
