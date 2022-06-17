@@ -8,6 +8,8 @@ import cn.nukkit.event.Event;
  * (bungee) Mirai 核心事件 - 消息 - 图片上传失败
  */
 public class MiraiImageUploadEvent extends Event {
+    private final ImageUploadEvent event;
+
     public MiraiImageUploadEvent(ImageUploadEvent event) {
         this.event = event;
 
@@ -15,8 +17,6 @@ public class MiraiImageUploadEvent extends Event {
             NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiImageUploadSucceedEvent((ImageUploadEvent.Succeed) event));
         } else NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiImageUploadFailedEvent((ImageUploadEvent.Failed) event));
     }
-
-    private final ImageUploadEvent event;
 
     /**
      * 获取机器人账号

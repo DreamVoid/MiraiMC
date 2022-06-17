@@ -14,14 +14,14 @@ import java.util.List;
  * (bungee) Mirai 核心事件 - Bot - Bot 登录完成
  */
 public class MiraiBotOnlineEvent extends AbstractBotEvent {
+    private final BotOnlineEvent event;
+
     public MiraiBotOnlineEvent(BotOnlineEvent event) {
         super(event);
         this.event = event;
 
         VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiBotOnlineEvent(event));
     }
-
-    private final BotOnlineEvent event;
 
     /**
      * 获取机器人的好友列表

@@ -4,15 +4,13 @@ import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI;
 import me.dreamvoid.miraimc.internal.httpapi.exception.AbnormalStatusException;
-import me.dreamvoid.miraimc.internal.httpapi.response.FetchMessage;
-import me.dreamvoid.miraimc.internal.httpapi.type.Message;
-import org.spongepowered.api.Sponge;
-import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
 import net.mamoe.mirai.message.data.MessageSource;
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.event.cause.Cause;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +20,18 @@ import java.util.List;
  * (bungee) Mirai 核心事件 - 消息 - 被动收到消息 - 群消息
  */
 public class MiraiGroupMessageEvent extends AbstractMessageEvent {
+    private GroupMessageEvent event;
+
+    private final int type;
+    private final long botID;
+    private final long senderID;
+    private final String memberName;
+    private final String messageContent;
+    private final String messageMiraiCode;
+    private final int time;
+    private final long GroupID;
+    private final String GroupName;
+
     public MiraiGroupMessageEvent(GroupMessageEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
@@ -38,18 +48,6 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
 
         Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupMessageEvent(event, cause));
     }
-
-    private GroupMessageEvent event;
-
-    private final int type;
-    private final long botID;
-    private final long senderID;
-    private final String memberName;
-    private final String messageContent;
-    private final String messageMiraiCode;
-    private final int time;
-    private final long GroupID;
-    private final String GroupName;
 
     /**
      * 返回接收到这条信息的机器人ID

@@ -10,6 +10,7 @@ import org.spongepowered.api.event.impl.AbstractEvent;
  * (Bungee) Mirai 核心事件 - 群（抽象）
  */
 abstract class AbstractGroupEvent extends AbstractEvent {
+	private final GroupEvent event;
 	private final Cause cause;
 
 	public AbstractGroupEvent(GroupEvent event, Cause cause) {
@@ -17,7 +18,6 @@ abstract class AbstractGroupEvent extends AbstractEvent {
 		this.cause = cause;
 	}
 
-	private final GroupEvent event;
 	/**
 	 * 获取机器人账号
 	 * @return 机器人账号

@@ -7,14 +7,14 @@ import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
  * (bungee) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 群名改变
  */
 public class MiraiGroupNameChangeEvent extends AbstractGroupSettingChangeEvent {
+    private final GroupNameChangeEvent event;
+
     public MiraiGroupNameChangeEvent(GroupNameChangeEvent event) {
         super(event);
         this.event = event;
 
         NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiGroupNameChangeEvent(event));
     }
-
-    private final GroupNameChangeEvent event;
 
     /**
      * 获取更换前的名称

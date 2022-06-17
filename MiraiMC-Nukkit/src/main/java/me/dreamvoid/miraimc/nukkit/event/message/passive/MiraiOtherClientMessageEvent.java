@@ -7,14 +7,14 @@ import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
  * (bungee) Mirai 核心事件 - 消息 - 被动收到消息 - 其他客户端消息
  */
 public class MiraiOtherClientMessageEvent extends AbstractMessageEvent {
+    private final OtherClientMessageEvent event;
+
     public MiraiOtherClientMessageEvent(OtherClientMessageEvent event) {
         super(event);
         this.event = event;
 
         NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiOtherClientMessageEvent(event));
     }
-
-    private final OtherClientMessageEvent event;
 
     /**
      * (?)获取发送设备的种类

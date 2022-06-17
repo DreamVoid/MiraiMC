@@ -9,14 +9,14 @@ import net.mamoe.mirai.event.events.BotLeaveEvent;
  * (bungee) Mirai 核心事件 - 群 - 机器人被踢出群或在其他客户端主动退出一个群
  */
 public class MiraiBotLeaveEvent extends AbstractGroupEvent {
+    private final BotLeaveEvent event;
+
     public MiraiBotLeaveEvent(BotLeaveEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
 
         Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupBotLeaveEvent(event, cause));
     }
-
-    private final BotLeaveEvent event;
 
     /**
      * 获取机器人账号

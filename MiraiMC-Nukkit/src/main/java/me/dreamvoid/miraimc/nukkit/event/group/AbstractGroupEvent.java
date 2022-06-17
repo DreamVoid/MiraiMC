@@ -8,11 +8,12 @@ import net.mamoe.mirai.event.events.GroupEvent;
  * (Bungee) Mirai 核心事件 - 群（抽象）
  */
 abstract class AbstractGroupEvent extends Event {
+	private final GroupEvent event;
+
 	public AbstractGroupEvent(GroupEvent event) {
 		this.event = event;
 	}
 
-	private final GroupEvent event;
 	/**
 	 * 获取机器人账号
 	 * @return 机器人账号

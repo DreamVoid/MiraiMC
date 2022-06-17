@@ -8,14 +8,14 @@ import net.mamoe.mirai.event.events.GroupMuteAllEvent;
  * (bungee) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 全员禁言状态改变
  */
 public class MiraiGroupMuteAllEvent extends AbstractGroupSettingChangeEvent {
+    private final GroupMuteAllEvent event;
+
     public MiraiGroupMuteAllEvent(GroupMuteAllEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
 
         Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupMuteAllEvent(event, cause));
     }
-
-    private final GroupMuteAllEvent event;
 
     /**
      * 获取群号

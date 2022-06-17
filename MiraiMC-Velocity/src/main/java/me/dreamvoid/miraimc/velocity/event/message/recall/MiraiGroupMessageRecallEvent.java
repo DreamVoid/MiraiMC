@@ -8,14 +8,14 @@ import net.mamoe.mirai.event.events.MessageRecallEvent;
  * (bungee) Mirai 核心事件 - 消息 - 消息撤回 - 群撤回
  */
 public class MiraiGroupMessageRecallEvent extends AbstractMessageRecallEvent {
+    private final MessageRecallEvent.GroupRecall event;
+
     public MiraiGroupMessageRecallEvent(MessageRecallEvent.GroupRecall event) {
         super(event);
         this.event = event;
 
         VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiGroupMessageRecallEvent(event));
     }
-
-    private final MessageRecallEvent.GroupRecall event;
 
     /**
      * 获取被撤回信息的发送者昵称

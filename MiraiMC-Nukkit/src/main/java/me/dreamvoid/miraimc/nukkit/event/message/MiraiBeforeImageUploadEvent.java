@@ -8,14 +8,13 @@ import cn.nukkit.event.Event;
  * (bungee) Mirai 核心事件 - 消息 - 图片上传前
  */
 public class MiraiBeforeImageUploadEvent extends Event {
+    private final BeforeImageUploadEvent event;
 
     public MiraiBeforeImageUploadEvent(BeforeImageUploadEvent event) {
         this.event = event;
 
         NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiBeforeImageUploadEvent(event));
     }
-
-    private final BeforeImageUploadEvent event;
 
     /**
      * 获取机器人账号

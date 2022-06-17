@@ -7,14 +7,14 @@ import net.mamoe.mirai.event.events.MemberUnmuteEvent;
  * (bungee) Mirai 核心事件 - 群 - 群成员 - 动作 - 群成员被取消禁言
  */
 public class MiraiMemberUnmuteEvent extends AbstractGroupMemberEvent {
+    private final MemberUnmuteEvent event;
+
     public MiraiMemberUnmuteEvent(MemberUnmuteEvent event) {
         super(event);
         this.event = event;
 
         VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiGroupMemberUnmuteEvent(event));
     }
-
-    private final MemberUnmuteEvent event;
 
     /**
      * 获取操作管理员QQ号
