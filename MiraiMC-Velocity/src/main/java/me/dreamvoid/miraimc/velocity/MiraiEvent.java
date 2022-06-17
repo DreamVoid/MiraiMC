@@ -1,10 +1,21 @@
 package me.dreamvoid.miraimc.velocity;
 
 import com.velocitypowered.api.proxy.ProxyServer;
-import me.dreamvoid.miraimc.velocity.event.*;
+import me.dreamvoid.miraimc.velocity.event.bot.*;
+import me.dreamvoid.miraimc.velocity.event.friend.*;
+import me.dreamvoid.miraimc.velocity.event.group.*;
+import me.dreamvoid.miraimc.velocity.event.group.member.*;
+import me.dreamvoid.miraimc.velocity.event.group.setting.*;
+import me.dreamvoid.miraimc.velocity.event.message.*;
+import me.dreamvoid.miraimc.velocity.event.message.passive.*;
+import me.dreamvoid.miraimc.velocity.event.message.postsend.*;
+import me.dreamvoid.miraimc.velocity.event.message.presend.*;
+import me.dreamvoid.miraimc.velocity.event.message.recall.*;
 import net.mamoe.mirai.event.GlobalEventChannel;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.event.events.*;
+
+import static me.dreamvoid.miraimc.velocity.event.bot.MiraiBotOfflineEvent.Type.*;
 
 public class MiraiEvent {
     final ProxyServer server;
@@ -18,8 +29,6 @@ public class MiraiEvent {
     private Listener<BotOfflineEvent.Force> BotOfflineForceListener;
     private Listener<BotOfflineEvent.Dropped> BotOfflineDroppedListener;
     private Listener<BotOfflineEvent.RequireReconnect> BotOfflineRequireReconnectListener;
-    // TODO: BotOfflineEvent.MsfOffline
-    // TODO: BotOfflineEvent.CauseAware
     private Listener<BotReloginEvent> BotReloginEventListener;
     private Listener<BotAvatarChangedEvent> BotAvatarChangedEventListener;
     private Listener<BotNickChangedEvent> BotNickChangedEventListener;
@@ -53,9 +62,7 @@ public class MiraiEvent {
     private Listener<BotGroupPermissionChangeEvent> BotGroupPermissionChangeEventListener;
     private Listener<BotMuteEvent> BotMuteEventListener;
     private Listener<BotUnmuteEvent> BotUnmuteEventListener;
-    private Listener<BotJoinGroupEvent> BotJoinGroupEventListener; // TODO: BotJoinGroupEvent.Active
-    // TODO: BotJoinGroupEvent.Invite
-    // TODO: BotJoinGroupEvent.Retrieve
+    private Listener<BotJoinGroupEvent> BotJoinGroupEventListener;
 
     private Listener<GroupNameChangeEvent> GroupNameChangeEventListener;
     private Listener<GroupEntranceAnnouncementChangeEvent> GroupEntranceAnnouncementChangeEventListener;
@@ -65,7 +72,6 @@ public class MiraiEvent {
 
     private Listener<MemberJoinEvent.Invite> MemberJoinInviteEventListener;
     private Listener<MemberJoinEvent.Active> MemberJoinActiveEventListener;
-    // TODO: MemberJoinEvent.Retrieve
     private Listener<MemberLeaveEvent.Kick> MemberLeaveKickEventListener;
     private Listener<MemberLeaveEvent.Quit> MemberLeaveQuitEventListener;
     private Listener<MemberJoinRequestEvent> MemberJoinRequestEventListener;
@@ -90,10 +96,10 @@ public class MiraiEvent {
     public void startListenEvent(){
         // Bot
         BotOnlineListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOnlineEvent.class, event -> server.getEventManager().fire(new MiraiBotOnlineEvent(event)));
-        BotOfflineActiveListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Active.class,event -> server.getEventManager().fire(new MiraiBotOfflineEvent(event, "Active")));
-        BotOfflineForceListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Force.class,event -> server.getEventManager().fire(new MiraiBotOfflineEvent(event, "Force")));
-        BotOfflineDroppedListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Dropped.class,event -> server.getEventManager().fire(new MiraiBotOfflineEvent(event, "Dropped")));
-        BotOfflineRequireReconnectListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.RequireReconnect.class,event -> server.getEventManager().fire(new MiraiBotOfflineEvent(event, "RequireReconnect")));
+        BotOfflineActiveListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Active.class,event -> server.getEventManager().fire(new MiraiBotOfflineEvent(event, Active)));
+        BotOfflineForceListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Force.class,event -> server.getEventManager().fire(new MiraiBotOfflineEvent(event, Force)));
+        BotOfflineDroppedListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Dropped.class,event -> server.getEventManager().fire(new MiraiBotOfflineEvent(event, Dropped)));
+        BotOfflineRequireReconnectListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.RequireReconnect.class,event -> server.getEventManager().fire(new MiraiBotOfflineEvent(event, RequireReconnect)));
         BotReloginEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotReloginEvent.class,event -> server.getEventManager().fire(new MiraiBotReloginEvent(event)));
         BotAvatarChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotAvatarChangedEvent.class,event -> server.getEventManager().fire(new MiraiBotAvatarChangedEvent(event)));
         BotNickChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotNickChangedEvent.class,event -> server.getEventManager().fire(new MiraiBotNickChangedEvent(event)));
@@ -122,18 +128,18 @@ public class MiraiEvent {
         // -- 图片上传前
         BeforeImageUploadEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BeforeImageUploadEvent.class, event -> server.getEventManager().fire(new MiraiBeforeImageUploadEvent(event)));
         // -- 图片上传完成
-        ImageUploadSucceedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(ImageUploadEvent.Succeed.class, event -> server.getEventManager().fire(new MiraiImageUploadSucceedEvent(event)));
-        ImageUploadFailedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(ImageUploadEvent.Failed.class, event -> server.getEventManager().fire(new MiraiImageUploadFailedEvent(event)));
+        ImageUploadSucceedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(ImageUploadEvent.Succeed.class, event -> server.getEventManager().fire(new MiraiImageUploadEvent.Succeed(event)));
+        ImageUploadFailedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(ImageUploadEvent.Failed.class, event -> server.getEventManager().fire(new MiraiImageUploadEvent.Failed(event)));
         // - 戳一戳
         NudgeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(NudgeEvent.class, event -> server.getEventManager().fire(new MiraiNudgeEvent(event)));
 
         // 群
-        BotLeaveActiveEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotLeaveEvent.Active.class, event -> server.getEventManager().fire(new MiraiGroupBotLeaveEvent(event, event)));
-        BotLeaveKickEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotLeaveEvent.Kick.class, event -> server.getEventManager().fire(new MiraiGroupBotLeaveEvent(event, event)));
-        BotGroupPermissionChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotGroupPermissionChangeEvent.class, event -> server.getEventManager().fire(new MiraiGroupBotPermissionChangeEvent(event)));
-        BotMuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotMuteEvent.class, event -> server.getEventManager().fire(new MiraiGroupBotMuteEvent(event)));
-        BotUnmuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotUnmuteEvent.class, event -> server.getEventManager().fire(new MiraiGroupBotUnmuteEvent(event)));
-        BotJoinGroupEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotJoinGroupEvent.class, event -> server.getEventManager().fire(new MiraiGroupBotJoinGroupEvent(event)));
+        BotLeaveActiveEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotLeaveEvent.Active.class, event -> server.getEventManager().fire(new MiraiBotLeaveEvent(event)));
+        BotLeaveKickEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotLeaveEvent.Kick.class, event -> server.getEventManager().fire(new MiraiBotLeaveEvent(event)));
+        BotGroupPermissionChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotGroupPermissionChangeEvent.class, event -> server.getEventManager().fire(new MiraiBotGroupPermissionChangeEvent(event)));
+        BotMuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotMuteEvent.class, event -> server.getEventManager().fire(new MiraiBotMuteEvent(event)));
+        BotUnmuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotUnmuteEvent.class, event -> server.getEventManager().fire(new MiraiBotUnmuteEvent(event)));
+        BotJoinGroupEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotJoinGroupEvent.class, event -> server.getEventManager().fire(new MiraiBotJoinGroupEvent(event)));
         // - 群设置
         GroupNameChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupNameChangeEvent.class, event -> server.getEventManager().fire(new MiraiGroupNameChangeEvent(event)));
         GroupEntranceAnnouncementChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupEntranceAnnouncementChangeEvent.class, event -> server.getEventManager().fire(new MiraiGroupEntranceAnnouncementChangeEvent(event)));
@@ -142,20 +148,20 @@ public class MiraiEvent {
         GroupAllowMemberInviteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupAllowMemberInviteEvent.class, event -> server.getEventManager().fire(new MiraiGroupAllowMemberInviteEvent(event)));
         // - 群成员
         // -- 成员列表变更
-        MemberJoinInviteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinEvent.Invite.class, event -> server.getEventManager().fire(new MiraiGroupMemberJoinEvent(event, event)));
-        MemberJoinActiveEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinEvent.Active.class, event -> server.getEventManager().fire(new MiraiGroupMemberJoinEvent(event, event)));
-        MemberLeaveKickEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberLeaveEvent.Kick.class, event -> server.getEventManager().fire(new MiraiGroupMemberLeaveEvent(event, event)));
-        MemberLeaveQuitEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberLeaveEvent.Quit.class, event -> server.getEventManager().fire(new MiraiGroupMemberLeaveEvent(event, event)));
-        MemberJoinRequestEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinRequestEvent.class, event -> server.getEventManager().fire(new MiraiGroupMemberJoinRequestEvent(event)));
-        BotInvitedJoinGroupRequestEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotInvitedJoinGroupRequestEvent.class, event -> server.getEventManager().fire(new MiraiGroupBotInvitedJoinGroupRequestEvent(event)));
+        MemberJoinInviteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinEvent.Invite.class, event -> server.getEventManager().fire(new MiraiMemberJoinEvent.Invite(event)));
+        MemberJoinActiveEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinEvent.Active.class, event -> server.getEventManager().fire(new MiraiMemberJoinEvent.Active(event)));
+        MemberLeaveKickEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberLeaveEvent.Kick.class, event -> server.getEventManager().fire(new MiraiMemberLeaveEvent.Kick(event)));
+        MemberLeaveQuitEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberLeaveEvent.Quit.class, event -> server.getEventManager().fire(new MiraiMemberLeaveEvent.Quit(event)));
+        MemberJoinRequestEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinRequestEvent.class, event -> server.getEventManager().fire(new MiraiMemberJoinRequestEvent(event)));
+        BotInvitedJoinGroupRequestEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotInvitedJoinGroupRequestEvent.class, event -> server.getEventManager().fire(new MiraiBotInvitedJoinGroupRequestEvent(event)));
         // -- 名片和头衔
-        MemberCardChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberCardChangeEvent.class, event -> server.getEventManager().fire(new MiraiGroupMemberCardChangeEvent(event)));
-        MemberSpecialTitleChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberSpecialTitleChangeEvent.class, event -> server.getEventManager().fire(new MiraiGroupMemberSpecialTitleChangeEvent(event)));
+        MemberCardChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberCardChangeEvent.class, event -> server.getEventManager().fire(new MiraiMemberCardChangeEvent(event)));
+        MemberSpecialTitleChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberSpecialTitleChangeEvent.class, event -> server.getEventManager().fire(new MiraiMemberSpecialTitleChangeEvent(event)));
         // -- 成员权限
-        MemberPermissionChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberPermissionChangeEvent.class, event -> server.getEventManager().fire(new MiraiGroupMemberPermissionChangeEvent(event)));
+        MemberPermissionChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberPermissionChangeEvent.class, event -> server.getEventManager().fire(new MiraiMemberPermissionChangeEvent(event)));
         // -- 动作
-        MemberMuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberMuteEvent.class, event -> server.getEventManager().fire(new MiraiGroupMemberMuteEvent(event)));
-        MemberUnmuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberUnmuteEvent.class, event -> server.getEventManager().fire(new MiraiGroupMemberUnmuteEvent(event)));
+        MemberMuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberMuteEvent.class, event -> server.getEventManager().fire(new MiraiMemberMuteEvent(event)));
+        MemberUnmuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberUnmuteEvent.class, event -> server.getEventManager().fire(new MiraiMemberUnmuteEvent(event)));
 
         // 好友
         FriendRemarkChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendRemarkChangeEvent.class, event -> server.getEventManager().fire(new MiraiFriendRemarkChangeEvent(event)));

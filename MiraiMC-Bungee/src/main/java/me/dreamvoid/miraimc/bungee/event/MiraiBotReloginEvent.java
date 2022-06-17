@@ -1,37 +1,15 @@
 package me.dreamvoid.miraimc.bungee.event;
 
 import net.mamoe.mirai.event.events.BotReloginEvent;
-import net.md_5.bungee.api.plugin.Event;
 
 /**
  * Bot 重新登录
+ * @see me.dreamvoid.miraimc.bungee.event.bot.MiraiBotReloginEvent
+ * @deprecated 请使用 {@link me.dreamvoid.miraimc.bungee.event.bot.MiraiBotReloginEvent}
  */
-public class MiraiBotReloginEvent extends Event {
-
+@Deprecated
+public class MiraiBotReloginEvent extends me.dreamvoid.miraimc.bungee.event.bot.MiraiBotReloginEvent {
     public MiraiBotReloginEvent(BotReloginEvent event) {
-        this.event = event;
-    }
-
-    private final BotReloginEvent event;
-
-    /**
-     * 获取机器人账号
-     * @return 机器人账号
-     */
-    public long getID() { return event.getBot().getId(); }
-
-    /**
-     * 获取机器人昵称
-     * @return 机器人昵称
-     */
-    public String getNick() { return event.getBot().getNick(); }
-
-    /**
-     * 获取原始事件内容<br>
-     * [!] 不推荐使用
-     * @return 原始事件内容
-     */
-    public String eventToString() {
-        return event.toString();
+        super(event);
     }
 }

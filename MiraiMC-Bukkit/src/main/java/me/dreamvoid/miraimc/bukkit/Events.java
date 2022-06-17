@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit;
 
-import me.dreamvoid.miraimc.bukkit.event.*;
+import me.dreamvoid.miraimc.bukkit.event.message.passive.MiraiFriendMessageEvent;
+import me.dreamvoid.miraimc.bukkit.event.message.passive.MiraiGroupMessageEvent;
 import me.dreamvoid.miraimc.internal.Utils;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,6 +14,6 @@ public class Events implements Listener {
 
     @EventHandler
     public void onMiraiFriendMessageReceived(MiraiFriendMessageEvent e){
-        Utils.logger.info("[FriendMessage/"+e.getBotID()+"] "+e.getSenderNick()+"("+e.getSenderID()+") -> "+e.getMessageToMiraiCode());
+        Utils.logger.info("[FriendMessage/"+e.getBotID()+"] "+e.getSenderName()+"("+e.getSenderID()+") -> "+e.getMessageToMiraiCode());
     }
 }

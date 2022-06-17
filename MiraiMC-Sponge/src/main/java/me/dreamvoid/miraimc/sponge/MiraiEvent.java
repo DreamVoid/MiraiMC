@@ -1,6 +1,24 @@
 package me.dreamvoid.miraimc.sponge;
 
-import me.dreamvoid.miraimc.sponge.event.*;
+import me.dreamvoid.miraimc.sponge.event.bot.*;
+import me.dreamvoid.miraimc.sponge.event.friend.*;
+import me.dreamvoid.miraimc.sponge.event.group.*;
+import me.dreamvoid.miraimc.sponge.event.group.member.*;
+import me.dreamvoid.miraimc.sponge.event.group.setting.*;
+import me.dreamvoid.miraimc.sponge.event.message.MiraiBeforeImageUploadEvent;
+import me.dreamvoid.miraimc.sponge.event.message.MiraiImageUploadEvent;
+import me.dreamvoid.miraimc.sponge.event.message.MiraiNudgeEvent;
+import me.dreamvoid.miraimc.sponge.event.message.passive.*;
+import me.dreamvoid.miraimc.sponge.event.message.postsend.MiraiFriendMessagePostSendEvent;
+import me.dreamvoid.miraimc.sponge.event.message.postsend.MiraiGroupMessagePostSendEvent;
+import me.dreamvoid.miraimc.sponge.event.message.postsend.MiraiGroupTempMessagePostSendEvent;
+import me.dreamvoid.miraimc.sponge.event.message.postsend.MiraiStrangerMessagePostSendEvent;
+import me.dreamvoid.miraimc.sponge.event.message.presend.MiraiFriendMessagePreSendEvent;
+import me.dreamvoid.miraimc.sponge.event.message.presend.MiraiGroupMessagePreSendEvent;
+import me.dreamvoid.miraimc.sponge.event.message.presend.MiraiGroupTempMessagePreSendEvent;
+import me.dreamvoid.miraimc.sponge.event.message.presend.MiraiStrangerMessagePreSendEvent;
+import me.dreamvoid.miraimc.sponge.event.message.recall.MiraiFriendMessageRecallEvent;
+import me.dreamvoid.miraimc.sponge.event.message.recall.MiraiGroupMessageRecallEvent;
 import net.mamoe.mirai.event.GlobalEventChannel;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.event.events.*;
@@ -9,6 +27,8 @@ import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.EventContext;
 import org.spongepowered.api.event.cause.EventContextKeys;
 import org.spongepowered.api.plugin.PluginContainer;
+
+import static me.dreamvoid.miraimc.sponge.event.bot.MiraiBotOfflineEvent.Type.*;
 
 public class MiraiEvent {
     EventContext eventContext;
@@ -24,8 +44,6 @@ public class MiraiEvent {
     private Listener<BotOfflineEvent.Force> BotOfflineForceListener;
     private Listener<BotOfflineEvent.Dropped> BotOfflineDroppedListener;
     private Listener<BotOfflineEvent.RequireReconnect> BotOfflineRequireReconnectListener;
-    // TODO: BotOfflineEvent.MsfOffline
-    // TODO: BotOfflineEvent.CauseAware
     private Listener<BotReloginEvent> BotReloginEventListener;
     private Listener<BotAvatarChangedEvent> BotAvatarChangedEventListener;
     private Listener<BotNickChangedEvent> BotNickChangedEventListener;
@@ -59,9 +77,7 @@ public class MiraiEvent {
     private Listener<BotGroupPermissionChangeEvent> BotGroupPermissionChangeEventListener;
     private Listener<BotMuteEvent> BotMuteEventListener;
     private Listener<BotUnmuteEvent> BotUnmuteEventListener;
-    private Listener<BotJoinGroupEvent> BotJoinGroupEventListener; // TODO: BotJoinGroupEvent.Active
-    // TODO: BotJoinGroupEvent.Invite
-    // TODO: BotJoinGroupEvent.Retrieve
+    private Listener<BotJoinGroupEvent> BotJoinGroupEventListener;
 
     private Listener<GroupNameChangeEvent> GroupNameChangeEventListener;
     private Listener<GroupEntranceAnnouncementChangeEvent> GroupEntranceAnnouncementChangeEventListener;
@@ -71,7 +87,6 @@ public class MiraiEvent {
 
     private Listener<MemberJoinEvent.Invite> MemberJoinInviteEventListener;
     private Listener<MemberJoinEvent.Active> MemberJoinActiveEventListener;
-    // TODO: MemberJoinEvent.Retrieve
     private Listener<MemberLeaveEvent.Kick> MemberLeaveKickEventListener;
     private Listener<MemberLeaveEvent.Quit> MemberLeaveQuitEventListener;
     private Listener<MemberJoinRequestEvent> MemberJoinRequestEventListener;
@@ -96,10 +111,10 @@ public class MiraiEvent {
     public void startListenEvent(){
         // Bot
         BotOnlineListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOnlineEvent.class, event -> Sponge.getEventManager().post(new MiraiBotOnlineEvent(event, Cause.of(eventContext, pluginContainer))));
-        BotOfflineActiveListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Active.class,event -> Sponge.getEventManager().post(new MiraiBotOfflineEvent(event, "Active", Cause.of(eventContext, pluginContainer))));
-        BotOfflineForceListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Force.class,event -> Sponge.getEventManager().post(new MiraiBotOfflineEvent(event, "Force", Cause.of(eventContext, pluginContainer))));
-        BotOfflineDroppedListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Dropped.class,event -> Sponge.getEventManager().post(new MiraiBotOfflineEvent(event, "Dropped", Cause.of(eventContext, pluginContainer))));
-        BotOfflineRequireReconnectListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.RequireReconnect.class,event -> Sponge.getEventManager().post(new MiraiBotOfflineEvent(event, "RequireReconnect", Cause.of(eventContext, pluginContainer))));
+        BotOfflineActiveListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Active.class,event -> Sponge.getEventManager().post(new MiraiBotOfflineEvent(event, Active, Cause.of(eventContext, pluginContainer))));
+        BotOfflineForceListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Force.class,event -> Sponge.getEventManager().post(new MiraiBotOfflineEvent(event, Force, Cause.of(eventContext, pluginContainer))));
+        BotOfflineDroppedListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Dropped.class,event -> Sponge.getEventManager().post(new MiraiBotOfflineEvent(event, Dropped, Cause.of(eventContext, pluginContainer))));
+        BotOfflineRequireReconnectListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.RequireReconnect.class,event -> Sponge.getEventManager().post(new MiraiBotOfflineEvent(event, RequireReconnect, Cause.of(eventContext, pluginContainer))));
         BotReloginEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotReloginEvent.class,event -> Sponge.getEventManager().post(new MiraiBotReloginEvent(event, Cause.of(eventContext, pluginContainer))));
         BotAvatarChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotAvatarChangedEvent.class,event -> Sponge.getEventManager().post(new MiraiBotAvatarChangedEvent(event, Cause.of(eventContext, pluginContainer))));
         BotNickChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotNickChangedEvent.class,event -> Sponge.getEventManager().post(new MiraiBotNickChangedEvent(event, Cause.of(eventContext, pluginContainer))));
@@ -128,18 +143,18 @@ public class MiraiEvent {
         // -- 图片上传前
         BeforeImageUploadEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BeforeImageUploadEvent.class, event -> Sponge.getEventManager().post(new MiraiBeforeImageUploadEvent(event, Cause.of(eventContext, pluginContainer))));
         // -- 图片上传完成
-        ImageUploadSucceedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(ImageUploadEvent.Succeed.class, event -> Sponge.getEventManager().post(new MiraiImageUploadSucceedEvent(event, Cause.of(eventContext, pluginContainer))));
-        ImageUploadFailedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(ImageUploadEvent.Failed.class, event -> Sponge.getEventManager().post(new MiraiImageUploadFailedEvent(event, Cause.of(eventContext, pluginContainer))));
+        ImageUploadSucceedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(ImageUploadEvent.Succeed.class, event -> Sponge.getEventManager().post(new MiraiImageUploadEvent.Succeed(event, Cause.of(eventContext, pluginContainer))));
+        ImageUploadFailedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(ImageUploadEvent.Failed.class, event -> Sponge.getEventManager().post(new MiraiImageUploadEvent.Failed(event, Cause.of(eventContext, pluginContainer))));
         // - 戳一戳
         NudgeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(NudgeEvent.class, event -> Sponge.getEventManager().post(new MiraiNudgeEvent(event, Cause.of(eventContext, pluginContainer))));
 
         // 群
-        BotLeaveActiveEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotLeaveEvent.Active.class, event -> Sponge.getEventManager().post(new MiraiGroupBotLeaveEvent(event, event, Cause.of(eventContext, pluginContainer))));
-        BotLeaveKickEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotLeaveEvent.Kick.class, event -> Sponge.getEventManager().post(new MiraiGroupBotLeaveEvent(event, event, Cause.of(eventContext, pluginContainer))));
-        BotGroupPermissionChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotGroupPermissionChangeEvent.class, event -> Sponge.getEventManager().post(new MiraiGroupBotPermissionChangeEvent(event, Cause.of(eventContext, pluginContainer))));
-        BotMuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotMuteEvent.class, event -> Sponge.getEventManager().post(new MiraiGroupBotMuteEvent(event, Cause.of(eventContext, pluginContainer))));
-        BotUnmuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotUnmuteEvent.class, event -> Sponge.getEventManager().post(new MiraiGroupBotUnmuteEvent(event, Cause.of(eventContext, pluginContainer))));
-        BotJoinGroupEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotJoinGroupEvent.class, event -> Sponge.getEventManager().post(new MiraiGroupBotJoinGroupEvent(event, Cause.of(eventContext, pluginContainer))));
+        BotLeaveActiveEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotLeaveEvent.Active.class, event -> Sponge.getEventManager().post(new MiraiBotLeaveEvent(event, Cause.of(eventContext, pluginContainer))));
+        BotLeaveKickEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotLeaveEvent.Kick.class, event -> Sponge.getEventManager().post(new MiraiBotLeaveEvent(event, Cause.of(eventContext, pluginContainer))));
+        BotGroupPermissionChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotGroupPermissionChangeEvent.class, event -> Sponge.getEventManager().post(new MiraiBotGroupPermissionChangeEvent(event, Cause.of(eventContext, pluginContainer))));
+        BotMuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotMuteEvent.class, event -> Sponge.getEventManager().post(new MiraiBotMuteEvent(event, Cause.of(eventContext, pluginContainer))));
+        BotUnmuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotUnmuteEvent.class, event -> Sponge.getEventManager().post(new MiraiBotUnmuteEvent(event, Cause.of(eventContext, pluginContainer))));
+        BotJoinGroupEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotJoinGroupEvent.class, event -> Sponge.getEventManager().post(new MiraiBotJoinGroupEvent(event, Cause.of(eventContext, pluginContainer))));
         // - 群设置
         GroupNameChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupNameChangeEvent.class, event -> Sponge.getEventManager().post(new MiraiGroupNameChangeEvent(event, Cause.of(eventContext, pluginContainer))));
         GroupEntranceAnnouncementChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupEntranceAnnouncementChangeEvent.class, event -> Sponge.getEventManager().post(new MiraiGroupEntranceAnnouncementChangeEvent(event, Cause.of(eventContext, pluginContainer))));
@@ -148,20 +163,20 @@ public class MiraiEvent {
         GroupAllowMemberInviteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(GroupAllowMemberInviteEvent.class, event -> Sponge.getEventManager().post(new MiraiGroupAllowMemberInviteEvent(event, Cause.of(eventContext, pluginContainer))));
         // - 群成员
         // -- 成员列表变更
-        MemberJoinInviteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinEvent.Invite.class, event -> Sponge.getEventManager().post(new MiraiGroupMemberJoinEvent(event, event, Cause.of(eventContext, pluginContainer))));
-        MemberJoinActiveEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinEvent.Active.class, event -> Sponge.getEventManager().post(new MiraiGroupMemberJoinEvent(event, event, Cause.of(eventContext, pluginContainer))));
-        MemberLeaveKickEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberLeaveEvent.Kick.class, event -> Sponge.getEventManager().post(new MiraiGroupMemberLeaveEvent(event, event, Cause.of(eventContext, pluginContainer))));
-        MemberLeaveQuitEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberLeaveEvent.Quit.class, event -> Sponge.getEventManager().post(new MiraiGroupMemberLeaveEvent(event, event, Cause.of(eventContext, pluginContainer))));
-        MemberJoinRequestEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinRequestEvent.class, event -> Sponge.getEventManager().post(new MiraiGroupMemberJoinRequestEvent(event, Cause.of(eventContext, pluginContainer))));
-        BotInvitedJoinGroupRequestEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotInvitedJoinGroupRequestEvent.class, event -> Sponge.getEventManager().post(new MiraiGroupBotInvitedJoinGroupRequestEvent(event, Cause.of(eventContext, pluginContainer))));
+        MemberJoinInviteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinEvent.Invite.class, event -> Sponge.getEventManager().post(new MiraiMemberJoinEvent.Invite(event, Cause.of(eventContext, pluginContainer))));
+        MemberJoinActiveEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinEvent.Active.class, event -> Sponge.getEventManager().post(new MiraiMemberJoinEvent.Active(event, Cause.of(eventContext, pluginContainer))));
+        MemberLeaveKickEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberLeaveEvent.Kick.class, event -> Sponge.getEventManager().post(new MiraiMemberLeaveEvent.Kick(event, Cause.of(eventContext, pluginContainer))));
+        MemberLeaveQuitEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberLeaveEvent.Quit.class, event -> Sponge.getEventManager().post(new MiraiMemberLeaveEvent.Quit(event, Cause.of(eventContext, pluginContainer))));
+        MemberJoinRequestEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberJoinRequestEvent.class, event -> Sponge.getEventManager().post(new MiraiMemberJoinRequestEvent(event, Cause.of(eventContext, pluginContainer))));
+        BotInvitedJoinGroupRequestEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotInvitedJoinGroupRequestEvent.class, event -> Sponge.getEventManager().post(new MiraiBotInvitedJoinGroupRequestEvent(event, Cause.of(eventContext, pluginContainer))));
         // -- 名片和头衔
-        MemberCardChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberCardChangeEvent.class, event -> Sponge.getEventManager().post(new MiraiGroupMemberCardChangeEvent(event, Cause.of(eventContext, pluginContainer))));
-        MemberSpecialTitleChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberSpecialTitleChangeEvent.class, event -> Sponge.getEventManager().post(new MiraiGroupMemberSpecialTitleChangeEvent(event, Cause.of(eventContext, pluginContainer))));
+        MemberCardChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberCardChangeEvent.class, event -> Sponge.getEventManager().post(new MiraiMemberCardChangeEvent(event, Cause.of(eventContext, pluginContainer))));
+        MemberSpecialTitleChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberSpecialTitleChangeEvent.class, event -> Sponge.getEventManager().post(new MiraiMemberSpecialTitleChangeEvent(event, Cause.of(eventContext, pluginContainer))));
         // -- 成员权限
-        MemberPermissionChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberPermissionChangeEvent.class, event -> Sponge.getEventManager().post(new MiraiGroupMemberPermissionChangeEvent(event, Cause.of(eventContext, pluginContainer))));
+        MemberPermissionChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberPermissionChangeEvent.class, event -> Sponge.getEventManager().post(new MiraiMemberPermissionChangeEvent(event, Cause.of(eventContext, pluginContainer))));
         // -- 动作
-        MemberMuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberMuteEvent.class, event -> Sponge.getEventManager().post(new MiraiGroupMemberMuteEvent(event, Cause.of(eventContext, pluginContainer))));
-        MemberUnmuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberUnmuteEvent.class, event -> Sponge.getEventManager().post(new MiraiGroupMemberUnmuteEvent(event, Cause.of(eventContext, pluginContainer))));
+        MemberMuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberMuteEvent.class, event -> Sponge.getEventManager().post(new MiraiMemberMuteEvent(event, Cause.of(eventContext, pluginContainer))));
+        MemberUnmuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberUnmuteEvent.class, event -> Sponge.getEventManager().post(new MiraiMemberUnmuteEvent(event, Cause.of(eventContext, pluginContainer))));
 
         // 好友
         FriendRemarkChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendRemarkChangeEvent.class, event -> Sponge.getEventManager().post(new MiraiFriendRemarkChangeEvent(event, Cause.of(eventContext, pluginContainer))));

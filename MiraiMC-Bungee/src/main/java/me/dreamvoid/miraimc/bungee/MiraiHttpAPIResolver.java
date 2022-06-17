@@ -1,7 +1,7 @@
 package me.dreamvoid.miraimc.bungee;
 
-import me.dreamvoid.miraimc.bungee.event.MiraiFriendMessageEvent;
-import me.dreamvoid.miraimc.bungee.event.MiraiGroupMessageEvent;
+import me.dreamvoid.miraimc.bungee.event.message.passive.MiraiFriendMessageEvent;
+import me.dreamvoid.miraimc.bungee.event.message.passive.MiraiGroupMessageEvent;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI;

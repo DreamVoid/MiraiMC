@@ -1,19 +1,20 @@
 package me.dreamvoid.miraimc.sponge.event;
 
+import me.dreamvoid.miraimc.sponge.event.group.member.MiraiBotInvitedJoinGroupRequestEvent;
 import net.mamoe.mirai.event.events.BotInvitedJoinGroupRequestEvent;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
  * 群成员 - 成员列表变更 - 机器人被邀请加入群
+ * @deprecated
+ * @see MiraiBotInvitedJoinGroupRequestEvent
  */
-public class MiraiGroupBotInvitedJoinGroupRequestEvent extends AbstractEvent {
-    private final Cause cause;
+@Deprecated
+public class MiraiGroupBotInvitedJoinGroupRequestEvent extends MiraiBotInvitedJoinGroupRequestEvent {
 
     public MiraiGroupBotInvitedJoinGroupRequestEvent(BotInvitedJoinGroupRequestEvent event, Cause cause) {
+        super(event, cause);
         this.event = event;
-        this.cause = cause;
     }
 
     private final BotInvitedJoinGroupRequestEvent event;
@@ -25,49 +26,29 @@ public class MiraiGroupBotInvitedJoinGroupRequestEvent extends AbstractEvent {
     public long getBotID() { return event.getBot().getId(); }
 
     /**
-     * 返回目标群的群号
-     * @return 群号
-     */
-    public long getGroupID() { return event.getGroupId(); }
-
-    /**
-     * 返回目标群的群名称
-     * @return 群名称
-     */
-    public String getGroupName() { return event.getGroupName(); }
-
-    /**
      * 返回邀请者的昵称
      * @return 邀请者昵称
      */
-    public String getInviterNick() { return event.getInvitorNick(); }
+    public String getInviterNick() { return getInvitorNick(); }
 
     /**
      * 返回邀请者的QQ号
      * @return 邀请者QQ号
      */
-    public long getInviterID(){ return event.getInvitorId(); }
-
-    /**
-     * 获取事件ID用于处理加群事件
-     * @return 事件ID
-     */
-    public long getEventID(){ return event.getEventId(); }
+    public long getInviterID(){ return getInvitorID(); }
 
     /**
      * 同意请求
      */
     public void setAccept(){
-        event.accept();
-        event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getBotID() +"|"+getInviterID()+") <- Accept");
+        accept();
     }
 
     /**
      * 忽略请求
      */
     public void setIgnore(){
-        event.ignore();
-        event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getBotID() +"|"+getInviterID()+") <- Ignore");
+        ignore();
     }
 
     /**
@@ -77,10 +58,5 @@ public class MiraiGroupBotInvitedJoinGroupRequestEvent extends AbstractEvent {
      */
     public String eventToString() {
         return event.toString();
-    }
-
-    @Override
-    public @NotNull Cause getCause() {
-        return cause;
     }
 }
