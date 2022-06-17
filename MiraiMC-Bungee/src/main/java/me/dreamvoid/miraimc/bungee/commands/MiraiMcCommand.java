@@ -21,7 +21,7 @@ public class MiraiMcCommand extends Command {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if(!(args.length == 0)) {
+        if(args.length != 0) {
             switch (args[0].toLowerCase()) {
                 case "reload": {
                     if(sender.hasPermission("miraimc.command.miraimc.reload")){

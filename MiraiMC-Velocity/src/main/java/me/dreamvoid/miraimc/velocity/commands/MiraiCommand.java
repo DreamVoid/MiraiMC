@@ -36,7 +36,7 @@ public class MiraiCommand implements SimpleCommand {
         // Get the arguments after the command alias
         String[] args = invocation.arguments();
 
-        if(!(args.length == 0)){
+        if(args.length != 0){
             switch (args[0].toLowerCase()){
                 case "login": {
                     if(source.hasPermission("miraimc.command.mirai.login")){
