@@ -1,14 +1,17 @@
 package me.dreamvoid.miraimc.bungee.event.group.setting;
 
 import net.mamoe.mirai.event.events.GroupNameChangeEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (Bungee) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 群名改变
+ * (bungee) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 群名改变
  */
 public class MiraiGroupNameChangeEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupNameChangeEvent(GroupNameChangeEvent event) {
         super(event);
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupNameChangeEvent(event));
     }
 
     private final GroupNameChangeEvent event;

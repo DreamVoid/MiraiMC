@@ -3,14 +3,17 @@ package me.dreamvoid.miraimc.bungee.event.group.member;
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import me.dreamvoid.miraimc.bungee.event.bot.AbstractBotEvent;
 import net.mamoe.mirai.event.events.MemberJoinRequestEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (Bungee) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 一个账号请求加入群
+ * (bungee) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 一个账号请求加入群
  */
 public class MiraiMemberJoinRequestEvent extends AbstractBotEvent {
     public MiraiMemberJoinRequestEvent(MemberJoinRequestEvent event) {
         super(event);
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMemberJoinRequestEvent(event));
     }
     private final MemberJoinRequestEvent event;
 

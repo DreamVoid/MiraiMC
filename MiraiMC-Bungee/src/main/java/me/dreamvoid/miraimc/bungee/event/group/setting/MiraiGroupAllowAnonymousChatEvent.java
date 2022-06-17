@@ -1,14 +1,17 @@
 package me.dreamvoid.miraimc.bungee.event.group.setting;
 
 import net.mamoe.mirai.event.events.GroupAllowAnonymousChatEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (Bungee) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 匿名聊天状态改变
+ * (bungee) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 匿名聊天状态改变
  */
 public class MiraiGroupAllowAnonymousChatEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupAllowAnonymousChatEvent(GroupAllowAnonymousChatEvent event) {
         super(event);
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupAllowAnonymousChatEvent(event));
     }
 
     private final GroupAllowAnonymousChatEvent event;

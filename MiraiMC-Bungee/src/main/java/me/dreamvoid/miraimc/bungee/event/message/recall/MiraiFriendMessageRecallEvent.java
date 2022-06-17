@@ -2,14 +2,17 @@ package me.dreamvoid.miraimc.bungee.event.message.recall;
 
 import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.MessageRecallEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (Bungee) Mirai 核心事件 - 消息 - 消息撤回 - 好友撤回
+ * (bungee) Mirai 核心事件 - 消息 - 消息撤回 - 好友撤回
  */
 public class MiraiFriendMessageRecallEvent extends AbstractMessageRecallEvent {
     public MiraiFriendMessageRecallEvent(MessageRecallEvent.FriendRecall event) {
         super(event);
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiFriendMessageRecallEvent(event));
     }
 
     private final MessageRecallEvent.FriendRecall event;

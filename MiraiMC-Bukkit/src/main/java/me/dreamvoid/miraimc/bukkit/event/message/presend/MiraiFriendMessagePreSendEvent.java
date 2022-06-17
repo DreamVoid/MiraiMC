@@ -2,6 +2,7 @@ package me.dreamvoid.miraimc.bukkit.event.message.presend;
 
 import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.FriendMessagePreSendEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,6 +13,8 @@ public class MiraiFriendMessagePreSendEvent extends AbstractMessagePreSendEvent 
     public MiraiFriendMessagePreSendEvent(FriendMessagePreSendEvent event) {
         super(event);
         this.event = event;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiFriendMessagePreSendEvent(event));
     }
 
     private static final HandlerList handlers = new HandlerList();

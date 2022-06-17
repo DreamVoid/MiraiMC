@@ -11,13 +11,14 @@ import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
 import net.mamoe.mirai.message.data.MessageSource;
+import net.md_5.bungee.api.ProxyServer;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * (Bungee) Mirai 核心事件 - 消息 - 被动收到消息 - 群消息
+ * (bungee) Mirai 核心事件 - 消息 - 被动收到消息 - 群消息
  */
 public class MiraiGroupMessageEvent extends AbstractMessageEvent {
     public MiraiGroupMessageEvent(GroupMessageEvent event) {
@@ -33,6 +34,8 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
         time = event.getTime();
         GroupID = event.getGroup().getId();
         GroupName = event.getGroup().getName();
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMessageEvent(event));
     }
 
     public MiraiGroupMessageEvent(long BotAccount, FetchMessage.Sender sender, Message message) {
@@ -45,6 +48,8 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
         time = message.time;
         GroupID = sender.group.id;
         GroupName = sender.group.name;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMessageEvent(BotAccount, sender, message));
     }
 
     private GroupMessageEvent event;

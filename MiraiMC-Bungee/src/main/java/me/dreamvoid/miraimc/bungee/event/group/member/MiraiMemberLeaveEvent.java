@@ -1,14 +1,19 @@
 package me.dreamvoid.miraimc.bungee.event.group.member;
 
 import net.mamoe.mirai.event.events.MemberLeaveEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (Bungee) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 成员已经离开群
+ * (bungee) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 成员已经离开群
  */
 public class MiraiMemberLeaveEvent extends AbstractGroupMemberEvent {
     public MiraiMemberLeaveEvent(MemberLeaveEvent event) {
         super(event);
         this.event = event;
+
+        if(event instanceof MemberLeaveEvent.Kick){
+            ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMemberLeaveEvent((MemberLeaveEvent.Kick) event,(MemberLeaveEvent.Kick) event));
+        } else ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMemberLeaveEvent(event,(MemberLeaveEvent.Quit) event));
     }
 
     private final MemberLeaveEvent event;

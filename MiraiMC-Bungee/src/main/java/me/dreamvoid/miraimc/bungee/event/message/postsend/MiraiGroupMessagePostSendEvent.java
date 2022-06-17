@@ -4,17 +4,20 @@ import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupMessagePostSendEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * (Bungee) Mirai 核心事件 - 消息 - 主动发送消息后 - 群消息
+ * (bungee) Mirai 核心事件 - 消息 - 主动发送消息后 - 群消息
  */
 public class MiraiGroupMessagePostSendEvent extends AbstractMessagePostSendEvent {
     public MiraiGroupMessagePostSendEvent(GroupMessagePostSendEvent event) {
         super(event);
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMessagePostSendEvent(event));
     }
 
     private final GroupMessagePostSendEvent event;

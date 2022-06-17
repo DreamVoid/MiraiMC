@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event.message.passive;
 
 import net.mamoe.mirai.event.events.OtherClientMessageEvent;
+import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 消息 - 被动收到消息 - 其他客户端消息
@@ -9,6 +10,8 @@ public class MiraiOtherClientMessageEvent extends AbstractMessageEvent {
     public MiraiOtherClientMessageEvent(OtherClientMessageEvent event) {
         super(event);
         this.event = event;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiOtherClientMessageEvent(event));
     }
 
     private final OtherClientMessageEvent event;

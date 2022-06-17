@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event.message;
 
 import net.mamoe.mirai.event.events.NudgeEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -13,6 +14,8 @@ public class MiraiNudgeEvent extends Event {
     public MiraiNudgeEvent(NudgeEvent event) {
         super(true);
         this.event = event;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiNudgeEvent(event));
     }
 
     private static final HandlerList handlers = new HandlerList();

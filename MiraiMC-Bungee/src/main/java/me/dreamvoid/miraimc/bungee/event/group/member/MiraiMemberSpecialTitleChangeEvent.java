@@ -1,14 +1,17 @@
 package me.dreamvoid.miraimc.bungee.event.group.member;
 
 import net.mamoe.mirai.event.events.MemberSpecialTitleChangeEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (Bungee) Mirai 核心事件 - 群 - 群成员 - 名片和头衔 - 成员群特殊头衔改动
+ * (bungee) Mirai 核心事件 - 群 - 群成员 - 名片和头衔 - 成员群特殊头衔改动
  */
 public class MiraiMemberSpecialTitleChangeEvent extends AbstractGroupMemberEvent {
     public MiraiMemberSpecialTitleChangeEvent(MemberSpecialTitleChangeEvent event) {
         super(event);
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMemberSpecialTitleChangeEvent(event));
     }
 
     private final MemberSpecialTitleChangeEvent event;

@@ -2,6 +2,7 @@ package me.dreamvoid.miraimc.bukkit.event.message.recall;
 
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.event.events.MessageRecallEvent;
+import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 消息 - 消息撤回 - 群撤回
@@ -10,6 +11,8 @@ public class MiraiGroupMessageRecallEvent extends AbstractMessageRecallEvent {
     public MiraiGroupMessageRecallEvent(MessageRecallEvent.GroupRecall event) {
         super(event);
         this.event = event;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupMessageRecallEvent(event));
     }
 
     private final MessageRecallEvent.GroupRecall event;

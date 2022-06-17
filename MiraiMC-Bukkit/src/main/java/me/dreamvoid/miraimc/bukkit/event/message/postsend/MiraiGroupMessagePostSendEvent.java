@@ -4,6 +4,7 @@ import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupMessagePostSendEvent;
+import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,8 @@ public class MiraiGroupMessagePostSendEvent extends AbstractMessagePostSendEvent
     public MiraiGroupMessagePostSendEvent(GroupMessagePostSendEvent event) {
         super(event);
         this.event = event;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupMessagePostSendEvent(event));
     }
 
     private final GroupMessagePostSendEvent event;

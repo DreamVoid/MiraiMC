@@ -2,14 +2,17 @@ package me.dreamvoid.miraimc.bungee.event.group;
 
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.event.events.BotLeaveEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (Bungee) Mirai 核心事件 - 群 - 机器人被踢出群或在其他客户端主动退出一个群
+ * (bungee) Mirai 核心事件 - 群 - 机器人被踢出群或在其他客户端主动退出一个群
  */
 public class MiraiBotLeaveEvent extends AbstractGroupEvent{
     public MiraiBotLeaveEvent(BotLeaveEvent event) {
         super(event);
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupBotLeaveEvent(event));
     }
 
     private final BotLeaveEvent event;

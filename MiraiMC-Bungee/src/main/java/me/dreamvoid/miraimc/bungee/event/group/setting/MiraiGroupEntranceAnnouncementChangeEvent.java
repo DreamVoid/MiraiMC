@@ -1,14 +1,17 @@
 package me.dreamvoid.miraimc.bungee.event.group.setting;
 
 import net.mamoe.mirai.event.events.GroupEntranceAnnouncementChangeEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (Bungee) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 入群公告改变
+ * (bungee) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 入群公告改变
  */
 public class MiraiGroupEntranceAnnouncementChangeEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupEntranceAnnouncementChangeEvent(GroupEntranceAnnouncementChangeEvent event) {
         super(event);
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupEntranceAnnouncementChangeEvent(event));
     }
 
     private final GroupEntranceAnnouncementChangeEvent event;

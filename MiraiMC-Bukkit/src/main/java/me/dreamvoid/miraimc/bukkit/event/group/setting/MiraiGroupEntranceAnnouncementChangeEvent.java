@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event.group.setting;
 
 import net.mamoe.mirai.event.events.GroupEntranceAnnouncementChangeEvent;
+import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 入群公告改变
@@ -9,6 +10,8 @@ public class MiraiGroupEntranceAnnouncementChangeEvent extends AbstractGroupSett
     public MiraiGroupEntranceAnnouncementChangeEvent(GroupEntranceAnnouncementChangeEvent event) {
         super(event);
         this.event = event;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupEntranceAnnouncementChangeEvent(event));
     }
 
     private final GroupEntranceAnnouncementChangeEvent event;

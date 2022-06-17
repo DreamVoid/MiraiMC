@@ -1,18 +1,22 @@
 package me.dreamvoid.miraimc.bungee.event.message;
 
 import net.mamoe.mirai.event.events.NudgeEvent;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Event;
 
 /**
- * (Bungee) Mirai 核心事件 - 消息 - 戳一戳
+ * (bungee) Mirai 核心事件 - 消息 - 戳一戳
  */
 public class MiraiNudgeEvent extends Event {
 
     public MiraiNudgeEvent(NudgeEvent event) {
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiNudgeEvent(event));
     }
 
     private final NudgeEvent event;
+
     /**
      * 获取机器人账号
      * @return 机器人账号

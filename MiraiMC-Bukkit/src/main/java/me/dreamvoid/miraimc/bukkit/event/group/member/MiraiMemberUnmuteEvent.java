@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event.group.member;
 
 import net.mamoe.mirai.event.events.MemberUnmuteEvent;
+import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 群 - 群成员 - 动作 - 群成员被取消禁言
@@ -9,6 +10,8 @@ public class MiraiMemberUnmuteEvent extends AbstractGroupMemberEvent {
     public MiraiMemberUnmuteEvent(MemberUnmuteEvent event) {
         super(event);
         this.event = event;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupMemberUnmuteEvent(event));
     }
 
     private final MemberUnmuteEvent event;

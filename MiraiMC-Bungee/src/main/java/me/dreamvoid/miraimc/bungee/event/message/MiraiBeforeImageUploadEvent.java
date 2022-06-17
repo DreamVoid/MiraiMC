@@ -1,18 +1,22 @@
 package me.dreamvoid.miraimc.bungee.event.message;
 
 import net.mamoe.mirai.event.events.BeforeImageUploadEvent;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Event;
 
 /**
- * (Bungee) Mirai 核心事件 - 消息 - 图片上传前
+ * (bungee) Mirai 核心事件 - 消息 - 图片上传前
  */
 public class MiraiBeforeImageUploadEvent extends Event {
 
     public MiraiBeforeImageUploadEvent(BeforeImageUploadEvent event) {
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiBeforeImageUploadEvent(event));
     }
 
     private final BeforeImageUploadEvent event;
+
     /**
      * 获取机器人账号
      * @return 机器人账号

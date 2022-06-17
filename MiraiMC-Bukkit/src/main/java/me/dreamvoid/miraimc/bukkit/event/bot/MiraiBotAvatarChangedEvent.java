@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event.bot;
 
 import net.mamoe.mirai.event.events.BotAvatarChangedEvent;
+import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - Bot - Bot 头像改变
@@ -9,6 +10,8 @@ public class MiraiBotAvatarChangedEvent extends AbstractBotEvent {
     public MiraiBotAvatarChangedEvent(BotAvatarChangedEvent event) {
         super(event);
         this.event = event;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiBotAvatarChangedEvent(event));
     }
 
     private final BotAvatarChangedEvent event;

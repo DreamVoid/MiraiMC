@@ -2,14 +2,17 @@ package me.dreamvoid.miraimc.bungee.event.message.presend;
 
 import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.FriendMessagePreSendEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (Bungee) Mirai 核心事件 - 消息 - 主动发送消息前 - 好友消息
+ * (bungee) Mirai 核心事件 - 消息 - 主动发送消息前 - 好友消息
  */
 public class MiraiFriendMessagePreSendEvent extends AbstractMessagePreSendEvent {
     public MiraiFriendMessagePreSendEvent(FriendMessagePreSendEvent event) {
         super(event);
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiFriendMessagePreSendEvent(event));
     }
 
     private final FriendMessagePreSendEvent event;

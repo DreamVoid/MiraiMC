@@ -1,14 +1,17 @@
 package me.dreamvoid.miraimc.bungee.event.group.setting;
 
 import net.mamoe.mirai.event.events.GroupAllowMemberInviteEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (Bungee) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 允许群员邀请好友加群状态改变
+ * (bungee) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 允许群员邀请好友加群状态改变
  */
 public class MiraiGroupAllowMemberInviteEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupAllowMemberInviteEvent(GroupAllowMemberInviteEvent event) {
         super(event);
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupAllowMemberInviteEvent(event));
     }
 
     private final GroupAllowMemberInviteEvent event;

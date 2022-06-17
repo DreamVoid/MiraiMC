@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event.group.member;
 
 import net.mamoe.mirai.event.events.MemberMuteEvent;
+import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 群 - 群成员 - 动作 - 群成员被禁言
@@ -9,6 +10,8 @@ public class MiraiMemberMuteEvent extends AbstractGroupMemberEvent {
     public MiraiMemberMuteEvent(MemberMuteEvent event) {
         super(event);
         this.event = event;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupMemberMuteEvent(event));
     }
 
     private final MemberMuteEvent event;

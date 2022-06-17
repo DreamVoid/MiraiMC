@@ -5,17 +5,20 @@ import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.event.events.BotOnlineEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * (Bungee) Mirai 核心事件 - Bot - Bot 登录完成
+ * (bungee) Mirai 核心事件 - Bot - Bot 登录完成
  */
 public class MiraiBotOnlineEvent extends AbstractBotEvent {
     public MiraiBotOnlineEvent(BotOnlineEvent event) {
         super(event);
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiBotOnlineEvent(event));
     }
 
     private final BotOnlineEvent event;

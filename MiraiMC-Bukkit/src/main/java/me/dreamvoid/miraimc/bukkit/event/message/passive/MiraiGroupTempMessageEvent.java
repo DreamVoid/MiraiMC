@@ -2,6 +2,7 @@ package me.dreamvoid.miraimc.bukkit.event.message.passive;
 
 import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.event.events.GroupTempMessageEvent;
+import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 消息 - 被动收到消息 - 群临时会话消息
@@ -10,6 +11,8 @@ public class MiraiGroupTempMessageEvent extends AbstractMessageEvent {
     public MiraiGroupTempMessageEvent(GroupTempMessageEvent event) {
         super(event);
         this.event = event;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupTempMessageEvent(event));
     }
     private final GroupTempMessageEvent event;
 

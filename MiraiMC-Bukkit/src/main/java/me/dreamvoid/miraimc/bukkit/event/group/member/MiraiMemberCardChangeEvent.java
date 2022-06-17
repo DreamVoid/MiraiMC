@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event.group.member;
 
 import net.mamoe.mirai.event.events.MemberCardChangeEvent;
+import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 群 - 群成员 - 名片和头衔 - 成员群名片改动
@@ -9,6 +10,8 @@ public class MiraiMemberCardChangeEvent extends AbstractGroupMemberEvent {
     public MiraiMemberCardChangeEvent(MemberCardChangeEvent event) {
         super(event);
         this.event = event;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupMemberCardChangeEvent(event));
     }
     private final MemberCardChangeEvent event;
 

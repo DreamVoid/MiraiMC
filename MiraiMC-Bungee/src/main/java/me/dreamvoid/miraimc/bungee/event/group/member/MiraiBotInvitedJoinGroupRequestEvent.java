@@ -2,15 +2,18 @@ package me.dreamvoid.miraimc.bungee.event.group.member;
 
 import me.dreamvoid.miraimc.bungee.event.bot.AbstractBotEvent;
 import net.mamoe.mirai.event.events.BotInvitedJoinGroupRequestEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (Bungee) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 机器人被邀请加入群
+ * (bungee) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 机器人被邀请加入群
  */
 public class MiraiBotInvitedJoinGroupRequestEvent extends AbstractBotEvent {
 
     public MiraiBotInvitedJoinGroupRequestEvent(BotInvitedJoinGroupRequestEvent event) {
         super(event);
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupBotInvitedJoinGroupRequestEvent(event));
     }
 
     private final BotInvitedJoinGroupRequestEvent event;

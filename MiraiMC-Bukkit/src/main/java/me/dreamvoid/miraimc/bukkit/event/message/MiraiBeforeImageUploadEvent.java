@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event.message;
 
 import net.mamoe.mirai.event.events.BeforeImageUploadEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -13,6 +14,8 @@ public class MiraiBeforeImageUploadEvent extends Event {
     public MiraiBeforeImageUploadEvent(BeforeImageUploadEvent event) {
         super(true);
         this.event = event;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiBeforeImageUploadEvent(event));
     }
 
     private static final HandlerList handlers = new HandlerList();

@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event.group.member;
 
 import net.mamoe.mirai.event.events.MemberPermissionChangeEvent;
+import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 群 - 群成员 - 成员权限 - 成员权限改变
@@ -9,6 +10,8 @@ public class MiraiMemberPermissionChangeEvent extends AbstractGroupMemberEvent{
     public MiraiMemberPermissionChangeEvent(MemberPermissionChangeEvent event) {
         super(event);
         this.event = event;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupMemberPermissionChangeEvent(event));
     }
 
     private final MemberPermissionChangeEvent event;

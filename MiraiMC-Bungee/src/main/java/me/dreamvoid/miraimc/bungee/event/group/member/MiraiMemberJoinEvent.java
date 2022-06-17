@@ -1,14 +1,19 @@
 package me.dreamvoid.miraimc.bungee.event.group.member;
 
 import net.mamoe.mirai.event.events.MemberJoinEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (Bungee) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 成员已经加入群
+ * (bungee) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 成员已经加入群
  */
 public class MiraiMemberJoinEvent extends AbstractGroupMemberEvent {
     public MiraiMemberJoinEvent(MemberJoinEvent event){
         super(event);
         this.event = event;
+
+        if(event instanceof MemberJoinEvent.Active){
+            ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMemberJoinEvent(event,(MemberJoinEvent.Active) event));
+        } else ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMemberJoinEvent(event,(MemberJoinEvent.Invite) event));
     }
 
     private final MemberJoinEvent event;

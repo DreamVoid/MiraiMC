@@ -7,11 +7,12 @@ import me.dreamvoid.miraimc.internal.httpapi.exception.AbnormalStatusException;
 import me.dreamvoid.miraimc.internal.httpapi.type.Message;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
+import net.md_5.bungee.api.ProxyServer;
 
 import java.io.IOException;
 
 /**
- * (Bungee) Mirai 核心事件 - 消息 - 被动收到消息 - 好友消息
+ * (bungee) Mirai 核心事件 - 消息 - 被动收到消息 - 好友消息
  */
 public class MiraiFriendMessageEvent extends AbstractMessageEvent {
     public MiraiFriendMessageEvent(FriendMessageEvent event) {
@@ -25,6 +26,8 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         messageContent = event.getMessage().contentToString();
         messageMiraiCode = event.getMessage().serializeToMiraiCode();
         time = event.getTime();
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiFriendMessageEvent(event));
     }
     public MiraiFriendMessageEvent(long BotAccount, Message message) {
         type = 1;
@@ -34,6 +37,8 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         messageContent = message.text;
         messageMiraiCode = message.text;
         time = message.time;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiFriendMessageEvent(BotAccount, message));
     }
 
     private FriendMessageEvent event = null;

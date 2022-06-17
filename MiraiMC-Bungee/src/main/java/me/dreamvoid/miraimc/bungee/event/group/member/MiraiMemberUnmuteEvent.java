@@ -1,14 +1,17 @@
 package me.dreamvoid.miraimc.bungee.event.group.member;
 
 import net.mamoe.mirai.event.events.MemberUnmuteEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (Bungee) Mirai 核心事件 - 群 - 群成员 - 动作 - 群成员被取消禁言
+ * (bungee) Mirai 核心事件 - 群 - 群成员 - 动作 - 群成员被取消禁言
  */
 public class MiraiMemberUnmuteEvent extends AbstractGroupMemberEvent {
     public MiraiMemberUnmuteEvent(MemberUnmuteEvent event) {
         super(event);
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMemberUnmuteEvent(event));
     }
 
     private final MemberUnmuteEvent event;

@@ -1,17 +1,23 @@
 package me.dreamvoid.miraimc.bungee.event.message;
 
 import net.mamoe.mirai.event.events.ImageUploadEvent;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Event;
 
 /**
- * (Bungee) Mirai 核心事件 - 消息 - 图片上传失败
+ * (bungee) Mirai 核心事件 - 消息 - 图片上传失败
  */
 public class MiraiImageUploadEvent extends Event {
     public MiraiImageUploadEvent(ImageUploadEvent event) {
         this.event = event;
+
+        if(event instanceof ImageUploadEvent.Succeed){
+            ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiImageUploadSucceedEvent((ImageUploadEvent.Succeed) event));
+        } else ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiImageUploadFailedEvent((ImageUploadEvent.Failed) event));
     }
 
     private final ImageUploadEvent event;
+
     /**
      * 获取机器人账号
      * @return 机器人账号

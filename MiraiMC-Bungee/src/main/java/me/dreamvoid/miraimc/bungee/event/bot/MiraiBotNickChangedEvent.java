@@ -1,15 +1,18 @@
 package me.dreamvoid.miraimc.bungee.event.bot;
 
 import net.mamoe.mirai.event.events.BotNickChangedEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (Bungee) Mirai 核心事件 - Bot - Bot 昵称改变
+ * (bungee) Mirai 核心事件 - Bot - Bot 昵称改变
  */
 public class MiraiBotNickChangedEvent extends AbstractBotEvent {
 
     public MiraiBotNickChangedEvent(BotNickChangedEvent event) {
         super(event);
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiBotNickChangedEvent(event));
     }
 
     private final BotNickChangedEvent event;

@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event.group;
 
 import net.mamoe.mirai.event.events.BotUnmuteEvent;
+import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 群 - 机器人被取消禁言
@@ -9,6 +10,8 @@ public class MiraiBotUnmuteEvent extends AbstractGroupEvent{
     public MiraiBotUnmuteEvent(BotUnmuteEvent event) {
         super(event);
         this.event = event;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupBotUnmuteEvent(event));
     }
 
     private final BotUnmuteEvent event;

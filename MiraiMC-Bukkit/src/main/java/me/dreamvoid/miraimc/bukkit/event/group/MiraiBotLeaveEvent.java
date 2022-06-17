@@ -2,6 +2,7 @@ package me.dreamvoid.miraimc.bukkit.event.group;
 
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.event.events.BotLeaveEvent;
+import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 群 - 机器人被踢出群或在其他客户端主动退出一个群
@@ -10,6 +11,8 @@ public class MiraiBotLeaveEvent extends AbstractGroupEvent{
     public MiraiBotLeaveEvent(BotLeaveEvent event) {
         super(event);
         this.event = event;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupBotLeaveEvent(event));
     }
 
     private final BotLeaveEvent event;

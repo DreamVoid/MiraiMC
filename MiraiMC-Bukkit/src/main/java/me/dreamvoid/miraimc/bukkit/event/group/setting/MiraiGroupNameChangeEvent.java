@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event.group.setting;
 
 import net.mamoe.mirai.event.events.GroupNameChangeEvent;
+import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 群名改变
@@ -9,6 +10,8 @@ public class MiraiGroupNameChangeEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupNameChangeEvent(GroupNameChangeEvent event) {
         super(event);
         this.event = event;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupNameChangeEvent(event));
     }
 
     private final GroupNameChangeEvent event;

@@ -7,6 +7,7 @@ import me.dreamvoid.miraimc.internal.httpapi.exception.AbnormalStatusException;
 import me.dreamvoid.miraimc.internal.httpapi.type.Message;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
+import org.bukkit.Bukkit;
 
 import java.io.IOException;
 
@@ -25,6 +26,8 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         messageContent = event.getMessage().contentToString();
         messageMiraiCode = event.getMessage().serializeToMiraiCode();
         time = event.getTime();
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiFriendMessageEvent(event));
     }
     public MiraiFriendMessageEvent(long BotAccount, Message message) {
         type = 1;
@@ -34,6 +37,8 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         messageContent = message.text;
         messageMiraiCode = message.text;
         time = message.time;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiFriendMessageEvent(BotAccount, message));
     }
 
     private FriendMessageEvent event = null;

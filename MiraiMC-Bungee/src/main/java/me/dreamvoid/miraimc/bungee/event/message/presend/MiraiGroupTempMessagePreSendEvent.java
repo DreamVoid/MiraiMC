@@ -5,17 +5,20 @@ import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupTempMessagePreSendEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * (Bungee) Mirai 核心事件 - 消息 - 主动发送消息前 - 群临时会话消息
+ * (bungee) Mirai 核心事件 - 消息 - 主动发送消息前 - 群临时会话消息
  */
 public class MiraiGroupTempMessagePreSendEvent extends AbstractMessagePreSendEvent {
     public MiraiGroupTempMessagePreSendEvent(GroupTempMessagePreSendEvent event) {
         super(event);
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupTempMessagePreSendEvent(event));
     }
 
     private final GroupTempMessagePreSendEvent event;

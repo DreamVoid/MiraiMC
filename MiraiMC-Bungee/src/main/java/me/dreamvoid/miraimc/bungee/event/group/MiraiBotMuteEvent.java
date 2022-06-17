@@ -1,14 +1,17 @@
 package me.dreamvoid.miraimc.bungee.event.group;
 
 import net.mamoe.mirai.event.events.BotMuteEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (Bungee) Mirai 核心事件 - 群 - 机器人被禁言
+ * (bungee) Mirai 核心事件 - 群 - 机器人被禁言
  */
 public class MiraiBotMuteEvent extends AbstractGroupEvent{
     public MiraiBotMuteEvent(BotMuteEvent event) {
         super(event);
         this.event = event;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupBotMuteEvent(event));
     }
 
     private final BotMuteEvent event;

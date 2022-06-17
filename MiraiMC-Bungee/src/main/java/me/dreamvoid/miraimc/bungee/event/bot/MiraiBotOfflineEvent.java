@@ -1,15 +1,18 @@
 package me.dreamvoid.miraimc.bungee.event.bot;
 
 import net.mamoe.mirai.event.events.BotOfflineEvent;
+import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (Bungee) Mirai 核心事件 - Bot - Bot 离线
+ * (bungee) Mirai 核心事件 - Bot - Bot 离线
  */
 public class MiraiBotOfflineEvent extends AbstractBotEvent {
     public MiraiBotOfflineEvent(BotOfflineEvent event, Type type) {
         super(event);
         this.event = event;
         this.Type = type;
+
+        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiBotOfflineEvent(event,type));
     }
 
     private final BotOfflineEvent event;

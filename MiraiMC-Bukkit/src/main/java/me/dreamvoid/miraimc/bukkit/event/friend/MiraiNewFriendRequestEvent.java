@@ -2,6 +2,7 @@ package me.dreamvoid.miraimc.bukkit.event.friend;
 
 import me.dreamvoid.miraimc.bukkit.event.bot.AbstractBotEvent;
 import net.mamoe.mirai.event.events.NewFriendRequestEvent;
+import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 好友 - 一个账号请求添加机器人为好友
@@ -10,6 +11,8 @@ public class MiraiNewFriendRequestEvent extends AbstractBotEvent {
     public MiraiNewFriendRequestEvent(NewFriendRequestEvent event) {
         super(event);
         this.event = event;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiNewFriendRequestEvent(event));
     }
 
     private final NewFriendRequestEvent event;

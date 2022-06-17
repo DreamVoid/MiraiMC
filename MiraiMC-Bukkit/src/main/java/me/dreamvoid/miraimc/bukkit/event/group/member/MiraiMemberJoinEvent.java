@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event.group.member;
 
 import net.mamoe.mirai.event.events.MemberJoinEvent;
+import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 成员已经加入群
@@ -9,6 +10,10 @@ public class MiraiMemberJoinEvent extends AbstractGroupMemberEvent {
     public MiraiMemberJoinEvent(MemberJoinEvent event){
         super(event);
         this.event = event;
+
+        if(event instanceof MemberJoinEvent.Active){
+            Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupMemberJoinEvent(event,(MemberJoinEvent.Active) event));
+        } else Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupMemberJoinEvent(event,(MemberJoinEvent.Invite) event));
     }
 
     private final MemberJoinEvent event;

@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event.bot;
 
 import net.mamoe.mirai.event.events.BotOfflineEvent;
+import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - Bot - Bot 离线
@@ -10,6 +11,8 @@ public class MiraiBotOfflineEvent extends AbstractBotEvent {
         super(event);
         this.event = event;
         this.Type = type;
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiBotOfflineEvent(event,type));
     }
 
     private final BotOfflineEvent event;

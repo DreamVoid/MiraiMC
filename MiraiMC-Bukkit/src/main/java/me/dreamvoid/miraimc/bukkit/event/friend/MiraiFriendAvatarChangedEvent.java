@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit.event.friend;
 
 import net.mamoe.mirai.event.events.FriendAvatarChangedEvent;
+import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 好友 - 好友头像改变
@@ -8,5 +9,7 @@ import net.mamoe.mirai.event.events.FriendAvatarChangedEvent;
 public class MiraiFriendAvatarChangedEvent extends AbstractFriendEvent {
     public MiraiFriendAvatarChangedEvent(FriendAvatarChangedEvent event) {
         super(event);
+
+        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiFriendAvatarChangedEvent(event));
     }
 }
