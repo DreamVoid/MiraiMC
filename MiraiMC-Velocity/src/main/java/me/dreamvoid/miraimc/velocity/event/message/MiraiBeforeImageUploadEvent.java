@@ -7,14 +7,13 @@ import net.mamoe.mirai.event.events.BeforeImageUploadEvent;
  * (bungee) Mirai 核心事件 - 消息 - 图片上传前
  */
 public class MiraiBeforeImageUploadEvent {
+    private final BeforeImageUploadEvent event;
 
     public MiraiBeforeImageUploadEvent(BeforeImageUploadEvent event) {
         this.event = event;
 
         VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiBeforeImageUploadEvent(event));
     }
-
-    private final BeforeImageUploadEvent event;
 
     /**
      * 获取机器人账号

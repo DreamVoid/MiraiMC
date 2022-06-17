@@ -13,14 +13,14 @@ import java.util.List;
  * (bungee) Mirai 核心事件 - 消息 - 主动发送消息后 - 群消息
  */
 public class MiraiGroupMessagePostSendEvent extends AbstractMessagePostSendEvent {
+    private final GroupMessagePostSendEvent event;
+
     public MiraiGroupMessagePostSendEvent(GroupMessagePostSendEvent event) {
         super(event);
         this.event = event;
 
         NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiGroupMessagePostSendEvent(event));
     }
-
-    private final GroupMessagePostSendEvent event;
 
     /**
      * 返回目标群的群号

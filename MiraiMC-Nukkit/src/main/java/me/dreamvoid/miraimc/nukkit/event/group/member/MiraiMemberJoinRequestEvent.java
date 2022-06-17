@@ -9,13 +9,14 @@ import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
  * (bungee) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 一个账号请求加入群
  */
 public class MiraiMemberJoinRequestEvent extends AbstractBotEvent {
+    private final MemberJoinRequestEvent event;
+
     public MiraiMemberJoinRequestEvent(MemberJoinRequestEvent event) {
         super(event);
         this.event = event;
 
         NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiGroupMemberJoinRequestEvent(event));
     }
-    private final MemberJoinRequestEvent event;
 
     /**
      * 返回目标群的群号

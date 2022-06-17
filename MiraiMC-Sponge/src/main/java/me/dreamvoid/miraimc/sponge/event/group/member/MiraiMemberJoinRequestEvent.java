@@ -10,13 +10,14 @@ import net.mamoe.mirai.event.events.MemberJoinRequestEvent;
  * (bungee) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 一个账号请求加入群
  */
 public class MiraiMemberJoinRequestEvent extends AbstractBotEvent {
+    private final MemberJoinRequestEvent event;
+
     public MiraiMemberJoinRequestEvent(MemberJoinRequestEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
 
         Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupMemberJoinRequestEvent(event, cause));
     }
-    private final MemberJoinRequestEvent event;
 
     /**
      * 返回目标群的群号

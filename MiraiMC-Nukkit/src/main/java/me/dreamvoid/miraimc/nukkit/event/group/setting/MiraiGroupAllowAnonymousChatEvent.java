@@ -7,14 +7,14 @@ import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
  * (bungee) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 匿名聊天状态改变
  */
 public class MiraiGroupAllowAnonymousChatEvent extends AbstractGroupSettingChangeEvent {
+    private final GroupAllowAnonymousChatEvent event;
+
     public MiraiGroupAllowAnonymousChatEvent(GroupAllowAnonymousChatEvent event) {
         super(event);
         this.event = event;
 
         NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiGroupAllowAnonymousChatEvent(event));
     }
-
-    private final GroupAllowAnonymousChatEvent event;
 
     /**
      * 获取群号

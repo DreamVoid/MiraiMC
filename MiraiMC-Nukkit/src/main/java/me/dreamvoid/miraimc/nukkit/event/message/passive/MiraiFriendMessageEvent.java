@@ -15,6 +15,16 @@ import java.io.IOException;
  * (bungee) Mirai 核心事件 - 消息 - 被动收到消息 - 好友消息
  */
 public class MiraiFriendMessageEvent extends AbstractMessageEvent {
+    private FriendMessageEvent event = null;
+
+    private final int type;
+    private final long botID;
+    private final long senderID;
+    private final String senderName;
+    private final String messageContent;
+    private final String messageMiraiCode;
+    private final int time;
+
     public MiraiFriendMessageEvent(FriendMessageEvent event) {
         super(event);
         this.event = event;
@@ -40,16 +50,6 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
 
         NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiFriendMessageEvent(BotAccount, message));
     }
-
-    private FriendMessageEvent event = null;
-
-    private final int type;
-    private final long botID;
-    private final long senderID;
-    private final String senderName;
-    private final String messageContent;
-    private final String messageMiraiCode;
-    private final int time;
 
     /**
      * 返回接收到这条信息的机器人ID

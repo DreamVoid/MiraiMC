@@ -7,14 +7,14 @@ import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
  * (bungee) Mirai 核心事件 - 消息 - 主动发送消息后 - 陌生人消息
  */
 public class MiraiStrangerMessagePostSendEvent extends AbstractMessagePostSendEvent {
+    private final StrangerMessagePostSendEvent event;
+
     public MiraiStrangerMessagePostSendEvent(StrangerMessagePostSendEvent event) {
         super(event);
         this.event = event;
 
         NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiStrangerMessagePostSendEvent(event));
     }
-
-    private final StrangerMessagePostSendEvent event;
 
     /**
      * 返回接收这条信息的目标昵称

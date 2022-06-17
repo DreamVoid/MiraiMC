@@ -7,6 +7,8 @@ import net.mamoe.mirai.event.events.ImageUploadEvent;
  * (bungee) Mirai 核心事件 - 消息 - 图片上传失败
  */
 public class MiraiImageUploadEvent {
+    private final ImageUploadEvent event;
+
     public MiraiImageUploadEvent(ImageUploadEvent event) {
         this.event = event;
 
@@ -14,8 +16,6 @@ public class MiraiImageUploadEvent {
             VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiImageUploadSucceedEvent((ImageUploadEvent.Succeed) event));
         } else VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiImageUploadFailedEvent((ImageUploadEvent.Failed) event));
     }
-
-    private final ImageUploadEvent event;
 
     /**
      * 获取机器人账号

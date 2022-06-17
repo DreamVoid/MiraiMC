@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.sponge.event.friend;
 import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.FriendEvent;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
@@ -11,13 +10,14 @@ import org.spongepowered.api.event.impl.AbstractEvent;
  * (Bungee) Mirai 核心事件 - 好友（抽象）
  */
 abstract class AbstractFriendEvent extends AbstractEvent {
+	private final FriendEvent event;
+
 	private final Cause cause;
 
 	public AbstractFriendEvent(FriendEvent event, Cause cause){
 		this.event = event;
 		this.cause = cause;
 	}
-	private final FriendEvent event;
 
 	/**
 	 * 获取机器人账号

@@ -1,9 +1,7 @@
 package me.dreamvoid.miraimc.sponge.event.message;
 
-import org.jetbrains.annotations.NotNull;
-import org.spongepowered.api.Sponge;
-import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.NudgeEvent;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
@@ -12,7 +10,7 @@ import org.spongepowered.api.event.impl.AbstractEvent;
  * (bungee) Mirai 核心事件 - 消息 - 戳一戳
  */
 public class MiraiNudgeEvent extends AbstractEvent {
-
+    private final NudgeEvent event;
     private final Cause cause;
 
     public MiraiNudgeEvent(NudgeEvent event, Cause cause) {
@@ -21,8 +19,6 @@ public class MiraiNudgeEvent extends AbstractEvent {
 
         Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiNudgeEvent(event, cause));
     }
-
-    private final NudgeEvent event;
 
     /**
      * 获取机器人账号

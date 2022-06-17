@@ -8,6 +8,9 @@ import net.mamoe.mirai.event.events.BotOfflineEvent;
  * (bungee) Mirai 核心事件 - Bot - Bot 离线
  */
 public class MiraiBotOfflineEvent extends AbstractBotEvent {
+    private final BotOfflineEvent event;
+    private final Type Type;
+
     public MiraiBotOfflineEvent(BotOfflineEvent event, Type type, Cause cause) {
         super(event, cause);
         this.event = event;
@@ -15,9 +18,6 @@ public class MiraiBotOfflineEvent extends AbstractBotEvent {
 
         Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiBotOfflineEvent(event,type,cause));
     }
-
-    private final BotOfflineEvent event;
-    private final Type Type;
 
     /**
      * 获取机器人下线原因
