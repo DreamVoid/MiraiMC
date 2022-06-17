@@ -24,19 +24,19 @@ public class MiraiLoader {
      * @param version 版本
      */
     public static void loadMiraiCore(String version) throws RuntimeException, IOException {
-        try {
-            // 文件夹
-            File MiraiDir;
-            if (Config.Gen_MiraiWorkingDir.equals("default")) {
-                MiraiDir = new File(Config.PluginDir,"MiraiBot");
-            } else {
-                MiraiDir = new File(Config.Gen_MiraiWorkingDir);
-            }
-            File LibrariesDir = new File(MiraiDir,"libs");
-            if(!LibrariesDir.exists() && !LibrariesDir.mkdirs()) {
-                throw new RuntimeException("Failed to create " + LibrariesDir.getPath());
-            }
+        // 文件夹
+        File MiraiDir;
+        if (Config.Gen_MiraiWorkingDir.equals("default")) {
+            MiraiDir = new File(Config.PluginDir,"MiraiBot");
+        } else {
+            MiraiDir = new File(Config.Gen_MiraiWorkingDir);
+        }
+        File LibrariesDir = new File(MiraiDir,"libs");
+        if(!LibrariesDir.exists() && !LibrariesDir.mkdirs()) {
+            throw new RuntimeException("Failed to create " + LibrariesDir.getPath());
+        }
 
+        try {
             loadLibraryClassMaven("net.mamoe", "mirai-core-all", version, "-all", Config.Gen_MavenRepoUrl.replace("http://","https://"), LibrariesDir);
             File writeName = new File(Config.PluginDir, "cache/core-ver");
             try (FileWriter writer = new FileWriter(writeName);
@@ -52,13 +52,6 @@ public class MiraiLoader {
                 String content = new String(Files.readAllBytes(writeName.toPath()), StandardCharsets.UTF_8);
                 if(!content.equals("")){
                     String name = "mirai-core-all" + "-" + content + ".jar"; // 文件名
-                    File MiraiDir;
-                    if (Config.Gen_MiraiWorkingDir.equals("default")) {
-                        MiraiDir = new File(Config.PluginDir,"MiraiBot");
-                    } else {
-                        MiraiDir = new File(Config.Gen_MiraiWorkingDir);
-                    }
-                    File LibrariesDir = new File(MiraiDir,"libs");
                     File coreFile = new File(LibrariesDir, name);
                     loadLibraryClassLocal(coreFile);
                 } else {
