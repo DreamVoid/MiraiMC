@@ -1,47 +1,28 @@
 package me.dreamvoid.miraimc.sponge.event;
 
-import me.dreamvoid.miraimc.api.bot.MiraiGroup;
+import me.dreamvoid.miraimc.sponge.event.group.member.MiraiMemberJoinRequestEvent;
 import net.mamoe.mirai.event.events.MemberJoinRequestEvent;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
  * 群成员 - 成员列表变更 - 一个账号请求加入群
+ * @deprecated
+ * @see MiraiMemberJoinRequestEvent
  */
-public class MiraiGroupMemberJoinRequestEvent extends AbstractEvent {
-    private final Cause cause;
-
+@Deprecated
+public class MiraiGroupMemberJoinRequestEvent extends MiraiMemberJoinRequestEvent {
     public MiraiGroupMemberJoinRequestEvent(MemberJoinRequestEvent event, Cause cause) {
+        super(event, cause);
         this.event = event;
-        this.cause = cause;
     }
 
     private final MemberJoinRequestEvent event;
 
     /**
-     * 获取机器人账号
-     * @return 机器人账号
-     */
-    public long getBotID() { return event.getBot().getId(); }
-
-    /**
-     * 返回目标群的群号
-     * @return 群号
-     */
-    public long getGroupID() { return event.getGroupId(); }
-
-    /**
-     * 返回目标群的群名称
-     * @return 群名称
-     */
-    public String getGroupName() { return event.getGroupName(); }
-
-    /**
      * 返回请求加群的成员的QQ号
      * @return 成员QQ号
      */
-    public long getRequestMemberID() { return event.getFromId(); }
+    public long getRequestMemberID() { return getFromID(); }
 
     /**
      * 返回邀请者的QQ号
@@ -49,29 +30,14 @@ public class MiraiGroupMemberJoinRequestEvent extends AbstractEvent {
      * @return 邀请者QQ号
      */
     public long getInviterID(){
-        if(event.getInvitorId() != null) {
-            return event.getInvitorId();
-        } else return 0;
+        return getInvitorID();
     }
-
-    /**
-     * 获取事件ID用于处理加群事件
-     * @return 事件ID
-     */
-    public long getEventID(){ return event.getEventId(); }
-
-    /**
-     * 获取加群时填写的附言
-     * @return 附言
-     */
-    public String getMessage(){ return event.getMessage(); }
 
     /**
      * 同意请求
      */
     public void setAccept(){
-        event.accept();
-        event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+ getRequestMemberID() +"|"+getInviterID()+") <- Accept");
+        accept();
     }
 
     /**
@@ -79,8 +45,7 @@ public class MiraiGroupMemberJoinRequestEvent extends AbstractEvent {
      * @param setBlacklist 是否拒绝目标再次申请加群
      */
     public void setIgnore(boolean setBlacklist){
-        event.ignore(setBlacklist);
-        event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny");
+        ignore(setBlacklist);
     }
 
     /**
@@ -88,16 +53,14 @@ public class MiraiGroupMemberJoinRequestEvent extends AbstractEvent {
      * @param setBlacklist 是否拒绝目标再次申请加群
      */
     public void setDeny(boolean setBlacklist){
-        event.reject(setBlacklist);
-        event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny");
+        reject(setBlacklist);
     }
 
     /**
      * 拒绝请求
      */
     public void setDeny(){
-        event.reject();
-        event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny");
+        reject();
     }
 
     /**
@@ -106,8 +69,7 @@ public class MiraiGroupMemberJoinRequestEvent extends AbstractEvent {
      * @param reason 拒绝原因
      */
     public void setDeny(boolean setBlacklist, String reason){
-        event.reject(setBlacklist, reason);
-        event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny");
+        reject(setBlacklist,reason);
     }
 
     /**
@@ -115,8 +77,7 @@ public class MiraiGroupMemberJoinRequestEvent extends AbstractEvent {
      * @param reason 拒绝原因
      */
     public void setDeny(String reason){
-        event.reject(false, reason);
-        event.getBot().getLogger().info("[EventInvite/"+getBotID()+"] "+ getGroupID()+"("+getRequestMemberID() +"|"+getInviterID()+") <- Deny");
+        reject(reason);
     }
 
     /**
@@ -126,18 +87,5 @@ public class MiraiGroupMemberJoinRequestEvent extends AbstractEvent {
      */
     public String eventToString() {
         return event.toString();
-    }
-
-    @Override
-    public @NotNull Cause getCause() {
-        return cause;
-    }
-
-    /**
-     * 获取群实例
-     * @return MiraiGroup 实例
-     */
-    public MiraiGroup getGroup(){
-        return new MiraiGroup(event.getBot(), event.getGroup().getId());
     }
 }

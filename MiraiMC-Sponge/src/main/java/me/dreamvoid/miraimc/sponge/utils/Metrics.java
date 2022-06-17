@@ -8,6 +8,7 @@ import org.spongepowered.api.Platform;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.scheduler.Scheduler;
@@ -92,7 +93,7 @@ public class Metrics {
   }
 
   @Listener
-  public void startup(GamePreInitializationEvent event) {
+  public void startup(GamePreInitializationEvent event, Cause cause) {
     try {
       loadConfig();
     } catch (IOException e) {

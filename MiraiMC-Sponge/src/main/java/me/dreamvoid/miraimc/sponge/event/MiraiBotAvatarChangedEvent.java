@@ -1,55 +1,16 @@
 package me.dreamvoid.miraimc.sponge.event;
 
 import net.mamoe.mirai.event.events.BotAvatarChangedEvent;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
  * Bot 头像改变
+ * @see me.dreamvoid.miraimc.sponge.event.bot.MiraiBotAvatarChangedEvent
+ * @deprecated 请使用 {@link me.dreamvoid.miraimc.sponge.event.bot.MiraiBotAvatarChangedEvent }
  */
-public class MiraiBotAvatarChangedEvent extends AbstractEvent {
-
-    private final Cause cause;
-
+@Deprecated
+public class MiraiBotAvatarChangedEvent extends me.dreamvoid.miraimc.sponge.event.bot.MiraiBotAvatarChangedEvent {
     public MiraiBotAvatarChangedEvent(BotAvatarChangedEvent event, Cause cause) {
-        this.event = event;
-        this.cause = cause;
-    }
-
-    private final BotAvatarChangedEvent event;
-
-    /**
-     * 获取机器人账号
-     * @return 机器人账号
-     */
-    public long getID() { return event.getBot().getId(); }
-
-    /**
-     * 获取机器人昵称
-     * @return 机器人昵称
-     */
-    public String getNick() { return event.getBot().getNick(); }
-
-    /**
-     * 获取机器人头像Url
-     * @return 机器人头像Url
-     */
-    public String getAvatarUrl(){
-        return event.getBot().getAvatarUrl();
-    }
-
-    /**
-     * 获取原始事件内容<br>
-     * [!] 不推荐使用
-     * @return 原始事件内容
-     */
-    public String eventToString() {
-        return event.toString();
-    }
-
-    @Override
-    public @NotNull Cause getCause() {
-        return cause;
+        super(event, cause);
     }
 }

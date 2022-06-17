@@ -1,14 +1,19 @@
 package me.dreamvoid.miraimc.velocity.event;
 
-import me.dreamvoid.miraimc.api.bot.MiraiGroup;
+import me.dreamvoid.miraimc.velocity.event.group.member.MiraiMemberLeaveEvent;
 import net.mamoe.mirai.event.events.MemberLeaveEvent;
 
 /**
  * 群成员 - 成员列表变更 - 成员已经离开群
+ * @deprecated
+ * @see MiraiMemberLeaveEvent
  */
-public class MiraiGroupMemberLeaveEvent {
+@Deprecated
+public class MiraiGroupMemberLeaveEvent extends MiraiMemberLeaveEvent {
+
     // 主动退群
     public MiraiGroupMemberLeaveEvent(MemberLeaveEvent event, MemberLeaveEvent.Quit eventQuit) {
+        super(event);
         this.event = event;
         this.eventQuit = eventQuit;
         this.eventKick = null;
@@ -16,6 +21,7 @@ public class MiraiGroupMemberLeaveEvent {
 
     // 被踢出群
     public MiraiGroupMemberLeaveEvent(MemberLeaveEvent.Kick event, MemberLeaveEvent.Kick eventKick) {
+        super(event);
         this.event = event;
         this.eventKick = eventKick;
         this.eventQuit = null;
@@ -24,18 +30,6 @@ public class MiraiGroupMemberLeaveEvent {
     private final MemberLeaveEvent event;
     private final MemberLeaveEvent.Quit eventQuit;
     private final MemberLeaveEvent.Kick eventKick;
-
-    /**
-     * 获取机器人账号
-     * @return 机器人账号
-     */
-    public long getBotID() { return event.getBot().getId(); }
-
-    /**
-     * 返回退出群的群号
-     * @return 群号
-     */
-    public long getGroupID() { return event.getGroupId(); }
 
     /**
      * 返回退群类型
@@ -47,13 +41,6 @@ public class MiraiGroupMemberLeaveEvent {
         } else return "Quit";
     }
 
-    /**
-     * 获取退出群的成员QQ
-     * @return 成员QQ
-     */
-    public long getTargetID(){
-        return event.getUser().getId();
-    }
     /**
      * 返回操作管理员的QQ。
      * 如果成员为主动退群，则返回 0
@@ -72,13 +59,5 @@ public class MiraiGroupMemberLeaveEvent {
      */
     public String eventToString() {
         return event.toString();
-    }
-
-    /**
-     * 获取群实例
-     * @return MiraiGroup 实例
-     */
-    public MiraiGroup getGroup(){
-        return new MiraiGroup(event.getBot(), event.getGroup().getId());
     }
 }

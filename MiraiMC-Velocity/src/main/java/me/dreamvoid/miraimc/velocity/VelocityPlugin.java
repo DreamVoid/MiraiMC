@@ -33,6 +33,8 @@ import java.sql.SQLException;
 public class VelocityPlugin {
     @Inject
     public VelocityPlugin(ProxyServer server, Logger logger, @DataDirectory Path dataDirectory, Metrics.Factory metricsFactory){
+        INSTANCE = this;
+
         this.server = server;
         this.logger = logger;
         this.dataDirectory = dataDirectory;
@@ -45,6 +47,7 @@ public class VelocityPlugin {
         this.MiraiAutoLogin = new MiraiAutoLogin(this);
     }
 
+    public static VelocityPlugin INSTANCE;
     private final ProxyServer server;
     private final Logger logger;
     private final Path dataDirectory;
