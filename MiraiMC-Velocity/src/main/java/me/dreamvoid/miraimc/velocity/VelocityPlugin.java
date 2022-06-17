@@ -5,12 +5,15 @@ import com.velocitypowered.api.command.CommandManager;
 import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
+import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.PluginContainer;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
+import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoader;
+import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.velocity.commands.MiraiCommand;
 import me.dreamvoid.miraimc.velocity.commands.MiraiMcCommand;
@@ -136,6 +139,39 @@ public class VelocityPlugin {
 
         pluginContainer = server.getPluginManager().getPlugin("miraimc").orElse(null);
         getLogger().info("All tasks done. Welcome to use MiraiMC!");
+    }
+
+    @Subscribe
+    public void onProxyShutdown(ProxyShutdownEvent event) {
+        getLogger().info("Stopping bot event listener.");
+        MiraiEvent.stopListenEvent();
+
+        getLogger().info("Closing all bots");
+        MiraiLoginSolver.closeAllVerifyThreads();
+        for (long bots : MiraiBot.getOnlineBots()){
+            MiraiBot.getBot(bots).doLogout();
+        }
+
+        switch (Config.DB_Type.toLowerCase()){
+            case "sqlite":
+            default: {
+                getLogger().info("Closing SQLite database.");
+                try {
+                    Utils.closeSQLite();
+                } catch (SQLException e) {
+                    getLogger().error("Failed to close SQLite database!");
+                    getLogger().error("Reason: " + e);
+                }
+                break;
+            }
+            case "mysql": {
+                getLogger().info("Closing MySQL database.");
+                Utils.closeMySQL();
+                break;
+            }
+        }
+
+        getLogger().info("All tasks done. Thanks for use MiraiMC!");
     }
 
     public Logger getLogger() {
