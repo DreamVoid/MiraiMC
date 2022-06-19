@@ -76,9 +76,13 @@ public class MiraiLoader {
             throw new RuntimeException("Failed to create " + LibrariesDir.getPath());
         }
 
+        File writeName = new File(new File(Config.PluginDir, "cache"), "core-ver");
+        if(!writeName.getParentFile().exists() && !writeName.getParentFile().mkdirs()) {
+            throw new RuntimeException("Failed to create " + writeName.getParentFile().getPath());
+        }
+
         try {
             loadLibraryClassMaven("net.mamoe", "mirai-core-all", version, "-all", Config.Gen_MavenRepoUrl.replace("http://","https://"), LibrariesDir);
-            File writeName = new File(Config.PluginDir, "cache/core-ver");
             try (FileWriter writer = new FileWriter(writeName);
                  BufferedWriter out = new BufferedWriter(writer)
             ) {
@@ -87,7 +91,6 @@ public class MiraiLoader {
             }
         } catch (Exception e) {
             Utils.logger.warning("Unable to download mirai core from remote server("+e+"), try to use local core.");
-            File writeName = new File(Config.PluginDir, "cache/core-ver");
             if(writeName.exists()) {
                 String content = new String(Files.readAllBytes(writeName.toPath()), StandardCharsets.UTF_8);
                 if(!content.equals("")){
@@ -96,11 +99,9 @@ public class MiraiLoader {
                     loadLibraryClassLocal(coreFile);
                 } else {
                     Utils.logger.warning("Unable to use local core.");
-                    throw e;
                 }
             } else {
-                Utils.logger.warning("Unable to use local core.");
-                throw e;
+                Utils.logger.warning("No local core found.");
             }
         }
     }
