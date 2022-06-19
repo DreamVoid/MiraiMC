@@ -18,8 +18,6 @@ public class MiraiBeforeImageUploadEvent extends AbstractEvent {
     public MiraiBeforeImageUploadEvent(BeforeImageUploadEvent event, Cause cause) {
         this.event = event;
         this.cause = cause;
-
-
     }
 
     private final BeforeImageUploadEvent event;

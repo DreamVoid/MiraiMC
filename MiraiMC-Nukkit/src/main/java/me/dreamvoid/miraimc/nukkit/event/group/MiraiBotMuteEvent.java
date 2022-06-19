@@ -12,8 +12,6 @@ public class MiraiBotMuteEvent extends AbstractGroupEvent {
     public MiraiBotMuteEvent(BotMuteEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     /**

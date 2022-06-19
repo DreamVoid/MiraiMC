@@ -34,8 +34,6 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
         time = event.getTime();
         GroupID = event.getGroup().getId();
         GroupName = event.getGroup().getName();
-
-
     }
 
     public MiraiGroupMessageEvent(long BotAccount, FetchMessage.Sender sender, Message message) {
@@ -48,8 +46,6 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
         time = message.time;
         GroupID = sender.group.id;
         GroupName = sender.group.name;
-
-
     }
 
     private GroupMessageEvent event;

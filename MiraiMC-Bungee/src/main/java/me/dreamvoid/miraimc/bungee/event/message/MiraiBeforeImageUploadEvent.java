@@ -11,8 +11,6 @@ public class MiraiBeforeImageUploadEvent extends Event {
 
     public MiraiBeforeImageUploadEvent(BeforeImageUploadEvent event) {
         this.event = event;
-
-
     }
 
     private final BeforeImageUploadEvent event;

@@ -11,8 +11,6 @@ public class MiraiBotOfflineEvent extends AbstractBotEvent {
         super(event);
         this.event = event;
         this.Type = type;
-
-
     }
 
     private final BotOfflineEvent event;

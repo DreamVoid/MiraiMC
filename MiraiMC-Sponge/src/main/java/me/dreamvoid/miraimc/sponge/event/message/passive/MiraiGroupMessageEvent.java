@@ -45,8 +45,6 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
         time = event.getTime();
         GroupID = event.getGroup().getId();
         GroupName = event.getGroup().getName();
-
-
     }
 
     /**

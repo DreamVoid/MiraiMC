@@ -9,7 +9,5 @@ import org.bukkit.Bukkit;
 public class MiraiFriendDeleteEvent extends AbstractFriendEvent {
     public MiraiFriendDeleteEvent(FriendDeleteEvent event) {
         super(event);
-
-
     }
 }

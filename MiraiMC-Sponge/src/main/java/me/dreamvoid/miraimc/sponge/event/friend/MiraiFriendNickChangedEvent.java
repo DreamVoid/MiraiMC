@@ -11,8 +11,6 @@ public class MiraiFriendNickChangedEvent extends AbstractFriendEvent {
     public MiraiFriendNickChangedEvent(FriendNickChangedEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
-
-
     }
 
     private final FriendNickChangedEvent event;

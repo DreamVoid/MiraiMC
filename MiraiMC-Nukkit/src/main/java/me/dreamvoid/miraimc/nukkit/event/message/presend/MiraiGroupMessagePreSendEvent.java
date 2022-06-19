@@ -16,8 +16,6 @@ public class MiraiGroupMessagePreSendEvent extends AbstractMessagePreSendEvent {
     public MiraiGroupMessagePreSendEvent(GroupMessagePreSendEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     private final GroupMessagePreSendEvent event;

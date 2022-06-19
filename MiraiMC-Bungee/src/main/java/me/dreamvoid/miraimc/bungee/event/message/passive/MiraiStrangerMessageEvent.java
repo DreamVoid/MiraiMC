@@ -10,7 +10,5 @@ public class MiraiStrangerMessageEvent extends AbstractMessageEvent {
 
     public MiraiStrangerMessageEvent(StrangerMessageEvent event) {
         super(event);
-
-
     }
 }

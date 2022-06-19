@@ -9,7 +9,5 @@ import org.bukkit.Bukkit;
 public class MiraiBotReloginEvent extends AbstractBotEvent {
     public MiraiBotReloginEvent(BotReloginEvent event) {
         super(event);
-
-
     }
 }

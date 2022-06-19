@@ -10,8 +10,6 @@ public class MiraiGroupAllowMemberInviteEvent extends AbstractGroupSettingChange
     public MiraiGroupAllowMemberInviteEvent(GroupAllowMemberInviteEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     private final GroupAllowMemberInviteEvent event;

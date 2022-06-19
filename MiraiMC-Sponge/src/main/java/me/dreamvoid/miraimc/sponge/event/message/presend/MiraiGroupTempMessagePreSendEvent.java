@@ -18,8 +18,6 @@ public class MiraiGroupTempMessagePreSendEvent extends AbstractMessagePreSendEve
     public MiraiGroupTempMessagePreSendEvent(GroupTempMessagePreSendEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
-
-
     }
 
     private final GroupTempMessagePreSendEvent event;

@@ -27,8 +27,6 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         messageContent = event.getMessage().contentToString();
         messageMiraiCode = event.getMessage().serializeToMiraiCode();
         time = event.getTime();
-
-
     }
 
     private FriendMessageEvent event = null;

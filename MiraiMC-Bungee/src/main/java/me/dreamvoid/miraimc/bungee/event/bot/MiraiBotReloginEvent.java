@@ -9,7 +9,5 @@ import net.md_5.bungee.api.ProxyServer;
 public class MiraiBotReloginEvent extends AbstractBotEvent {
     public MiraiBotReloginEvent(BotReloginEvent event) {
         super(event);
-
-
     }
 }

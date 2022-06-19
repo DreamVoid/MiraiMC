@@ -10,8 +10,6 @@ public class MiraiOtherClientMessageEvent extends AbstractMessageEvent {
     public MiraiOtherClientMessageEvent(OtherClientMessageEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     private final OtherClientMessageEvent event;

@@ -11,8 +11,6 @@ public class MiraiGroupAllowAnonymousChatEvent extends AbstractGroupSettingChang
     public MiraiGroupAllowAnonymousChatEvent(GroupAllowAnonymousChatEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
-
-
     }
 
     private final GroupAllowAnonymousChatEvent event;

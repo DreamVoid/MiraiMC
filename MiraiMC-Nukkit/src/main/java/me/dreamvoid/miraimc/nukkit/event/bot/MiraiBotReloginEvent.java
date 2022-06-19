@@ -9,7 +9,5 @@ import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 public class MiraiBotReloginEvent extends AbstractBotEvent {
     public MiraiBotReloginEvent(BotReloginEvent event) {
         super(event);
-
-
     }
 }

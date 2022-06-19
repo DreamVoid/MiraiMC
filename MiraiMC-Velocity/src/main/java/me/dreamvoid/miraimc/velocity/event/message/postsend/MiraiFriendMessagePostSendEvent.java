@@ -12,8 +12,6 @@ public class MiraiFriendMessagePostSendEvent extends AbstractMessagePostSendEven
     public MiraiFriendMessagePostSendEvent(FriendMessagePostSendEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     private final FriendMessagePostSendEvent event;

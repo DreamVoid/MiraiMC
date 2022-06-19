@@ -13,8 +13,6 @@ public class MiraiBotInvitedJoinGroupRequestEvent extends AbstractBotEvent {
     public MiraiBotInvitedJoinGroupRequestEvent(BotInvitedJoinGroupRequestEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
-
-
     }
 
     private final BotInvitedJoinGroupRequestEvent event;

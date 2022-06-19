@@ -11,8 +11,6 @@ public class MiraiFriendMessageRecallEvent extends AbstractMessageRecallEvent {
     public MiraiFriendMessageRecallEvent(MessageRecallEvent.FriendRecall event) {
         super(event);
         this.event = event;
-
-
     }
 
     private final MessageRecallEvent.FriendRecall event;

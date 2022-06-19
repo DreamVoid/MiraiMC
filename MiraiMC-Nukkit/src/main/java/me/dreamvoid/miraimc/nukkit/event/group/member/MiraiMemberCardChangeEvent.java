@@ -10,8 +10,6 @@ public class MiraiMemberCardChangeEvent extends AbstractGroupMemberEvent {
     public MiraiMemberCardChangeEvent(MemberCardChangeEvent event) {
         super(event);
         this.event = event;
-
-
     }
     private final MemberCardChangeEvent event;
 

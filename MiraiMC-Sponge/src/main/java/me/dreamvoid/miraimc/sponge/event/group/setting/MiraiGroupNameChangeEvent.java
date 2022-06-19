@@ -11,8 +11,6 @@ public class MiraiGroupNameChangeEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupNameChangeEvent(GroupNameChangeEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
-
-
     }
 
     private final GroupNameChangeEvent event;

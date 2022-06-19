@@ -10,7 +10,5 @@ import net.mamoe.mirai.event.events.FriendAddEvent;
 public class MiraiFriendAddEvent extends AbstractFriendEvent {
     public MiraiFriendAddEvent(FriendAddEvent event, Cause cause) {
         super(event, cause);
-
-
     }
 }

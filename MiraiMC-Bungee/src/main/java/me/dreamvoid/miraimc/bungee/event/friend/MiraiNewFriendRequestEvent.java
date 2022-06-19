@@ -11,8 +11,6 @@ public class MiraiNewFriendRequestEvent extends AbstractBotEvent {
     public MiraiNewFriendRequestEvent(NewFriendRequestEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     private final NewFriendRequestEvent event;

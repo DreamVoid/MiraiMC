@@ -11,8 +11,6 @@ public class MiraiBotNickChangedEvent extends AbstractBotEvent {
     public MiraiBotNickChangedEvent(BotNickChangedEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     private final BotNickChangedEvent event;

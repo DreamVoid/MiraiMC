@@ -13,8 +13,6 @@ public class MiraiBotUnmuteEvent extends AbstractGroupEvent {
     public MiraiBotUnmuteEvent(BotUnmuteEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
-
-
     }
 
     /**

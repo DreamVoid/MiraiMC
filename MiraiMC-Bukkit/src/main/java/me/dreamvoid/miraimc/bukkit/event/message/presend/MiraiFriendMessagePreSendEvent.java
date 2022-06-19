@@ -13,8 +13,6 @@ public class MiraiFriendMessagePreSendEvent extends AbstractMessagePreSendEvent 
     public MiraiFriendMessagePreSendEvent(FriendMessagePreSendEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     private static final HandlerList handlers = new HandlerList();

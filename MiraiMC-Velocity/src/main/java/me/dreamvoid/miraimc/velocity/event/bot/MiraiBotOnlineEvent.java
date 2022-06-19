@@ -19,8 +19,6 @@ public class MiraiBotOnlineEvent extends AbstractBotEvent {
     public MiraiBotOnlineEvent(BotOnlineEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     /**

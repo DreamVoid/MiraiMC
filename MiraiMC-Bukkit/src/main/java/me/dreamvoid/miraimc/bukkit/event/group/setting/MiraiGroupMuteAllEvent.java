@@ -10,8 +10,6 @@ public class MiraiGroupMuteAllEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupMuteAllEvent(GroupMuteAllEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     private final GroupMuteAllEvent event;

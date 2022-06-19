@@ -36,8 +36,6 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         messageContent = event.getMessage().contentToString();
         messageMiraiCode = event.getMessage().serializeToMiraiCode();
         time = event.getTime();
-
-
     }
     public MiraiFriendMessageEvent(long BotAccount, Message message) {
         type = 1;
@@ -47,8 +45,6 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         messageContent = message.text;
         messageMiraiCode = message.text;
         time = message.time;
-
-
     }
 
     /**

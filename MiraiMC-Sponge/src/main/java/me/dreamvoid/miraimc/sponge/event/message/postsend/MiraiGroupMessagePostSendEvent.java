@@ -17,8 +17,6 @@ public class MiraiGroupMessagePostSendEvent extends AbstractMessagePostSendEvent
     public MiraiGroupMessagePostSendEvent(GroupMessagePostSendEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
-
-
     }
 
     private final GroupMessagePostSendEvent event;
