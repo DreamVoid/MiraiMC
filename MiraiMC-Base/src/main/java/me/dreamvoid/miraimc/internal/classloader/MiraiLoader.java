@@ -47,7 +47,7 @@ public class MiraiLoader {
             httpUrlConn.disconnect();
 
             HashMap<?, ?> map = new Gson().fromJson(sb.toString(), HashMap.class);
-            HashMap<?, ?> mirai = (HashMap<?, ?>) map.get("mirai");
+            HashMap<?, ?> mirai = new Gson().fromJson(map.get("mirai").toString(), HashMap.class);
             return (String) mirai.get("stable");
         } catch (IOException e){
             Utils.logger.warning("Fetching mirai stable version from remote failed, try to use latest. Reason: " + e);
