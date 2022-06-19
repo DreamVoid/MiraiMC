@@ -13,10 +13,6 @@ public class MiraiImageUploadEvent extends Event {
     public MiraiImageUploadEvent(ImageUploadEvent event) {
         super(true);
         this.event = event;
-
-        if(event instanceof ImageUploadEvent.Succeed){
-            Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiImageUploadSucceedEvent((ImageUploadEvent.Succeed) event));
-        } else Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiImageUploadFailedEvent((ImageUploadEvent.Failed) event));
     }
 
     private static final HandlerList handlers = new HandlerList();

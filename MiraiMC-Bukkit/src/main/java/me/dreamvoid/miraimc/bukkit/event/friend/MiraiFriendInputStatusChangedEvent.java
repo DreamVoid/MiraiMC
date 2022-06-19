@@ -11,7 +11,7 @@ public class MiraiFriendInputStatusChangedEvent extends AbstractFriendEvent {
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiFriendInputStatusChangedEvent(event));
+
     }
 
     private final FriendInputStatusChangedEvent event;

@@ -18,7 +18,7 @@ public class MiraiGroupTempMessagePostSendEvent extends AbstractMessagePostSendE
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupTempMessagePostSendEvent(event));
+
     }
 
     private final GroupTempMessagePostSendEvent event;

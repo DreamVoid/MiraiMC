@@ -11,7 +11,7 @@ public class MiraiMemberCardChangeEvent extends AbstractGroupMemberEvent {
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupMemberCardChangeEvent(event));
+
     }
     private final MemberCardChangeEvent event;
 

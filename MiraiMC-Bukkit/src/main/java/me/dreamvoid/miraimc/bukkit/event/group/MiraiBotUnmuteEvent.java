@@ -11,7 +11,7 @@ public class MiraiBotUnmuteEvent extends AbstractGroupEvent{
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupBotUnmuteEvent(event));
+
     }
 
     private final BotUnmuteEvent event;

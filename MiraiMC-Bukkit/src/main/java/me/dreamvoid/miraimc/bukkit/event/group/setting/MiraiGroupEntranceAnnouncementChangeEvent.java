@@ -11,7 +11,7 @@ public class MiraiGroupEntranceAnnouncementChangeEvent extends AbstractGroupSett
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupEntranceAnnouncementChangeEvent(event));
+
     }
 
     private final GroupEntranceAnnouncementChangeEvent event;

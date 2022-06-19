@@ -11,7 +11,7 @@ public class MiraiGroupAllowMemberInviteEvent extends AbstractGroupSettingChange
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupAllowMemberInviteEvent(event));
+
     }
 
     private final GroupAllowMemberInviteEvent event;

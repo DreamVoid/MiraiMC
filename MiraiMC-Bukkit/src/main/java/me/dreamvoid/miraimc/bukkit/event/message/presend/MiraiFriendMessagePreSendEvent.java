@@ -14,7 +14,7 @@ public class MiraiFriendMessagePreSendEvent extends AbstractMessagePreSendEvent 
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiFriendMessagePreSendEvent(event));
+
     }
 
     private static final HandlerList handlers = new HandlerList();

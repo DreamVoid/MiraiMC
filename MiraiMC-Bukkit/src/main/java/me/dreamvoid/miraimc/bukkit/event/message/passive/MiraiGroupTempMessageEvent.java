@@ -12,7 +12,7 @@ public class MiraiGroupTempMessageEvent extends AbstractMessageEvent {
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupTempMessageEvent(event));
+
     }
     private final GroupTempMessageEvent event;
 

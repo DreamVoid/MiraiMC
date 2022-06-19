@@ -12,7 +12,7 @@ public class MiraiBotOfflineEvent extends AbstractBotEvent {
         this.event = event;
         this.Type = type;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiBotOfflineEvent(event,type));
+
     }
 
     private final BotOfflineEvent event;

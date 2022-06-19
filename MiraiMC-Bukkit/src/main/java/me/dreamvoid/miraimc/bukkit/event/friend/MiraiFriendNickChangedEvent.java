@@ -11,7 +11,7 @@ public class MiraiFriendNickChangedEvent extends AbstractFriendEvent {
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiFriendNickChangedEvent(event));
+
     }
 
     private final FriendNickChangedEvent event;

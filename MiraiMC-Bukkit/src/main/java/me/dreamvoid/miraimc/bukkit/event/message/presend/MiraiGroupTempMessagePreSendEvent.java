@@ -18,7 +18,7 @@ public class MiraiGroupTempMessagePreSendEvent extends AbstractMessagePreSendEve
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupTempMessagePreSendEvent(event));
+
     }
 
     private final GroupTempMessagePreSendEvent event;

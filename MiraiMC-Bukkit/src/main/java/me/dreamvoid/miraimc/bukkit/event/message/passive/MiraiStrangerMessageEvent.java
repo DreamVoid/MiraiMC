@@ -11,6 +11,6 @@ public class MiraiStrangerMessageEvent extends AbstractMessageEvent {
     public MiraiStrangerMessageEvent(StrangerMessageEvent event) {
         super(event);
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiStrangerMessageEvent(event));
+
     }
 }

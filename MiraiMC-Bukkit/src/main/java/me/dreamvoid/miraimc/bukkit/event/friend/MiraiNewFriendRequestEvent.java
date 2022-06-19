@@ -12,7 +12,7 @@ public class MiraiNewFriendRequestEvent extends AbstractBotEvent {
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiNewFriendRequestEvent(event));
+
     }
 
     private final NewFriendRequestEvent event;

@@ -10,6 +10,6 @@ public class MiraiFriendDeleteEvent extends AbstractFriendEvent {
     public MiraiFriendDeleteEvent(FriendDeleteEvent event) {
         super(event);
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiFriendDeleteEvent(event));
+
     }
 }

@@ -13,7 +13,7 @@ public class MiraiFriendMessagePostSendEvent extends AbstractMessagePostSendEven
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiFriendMessagePostSendEvent(event));
+
     }
 
     private final FriendMessagePostSendEvent event;

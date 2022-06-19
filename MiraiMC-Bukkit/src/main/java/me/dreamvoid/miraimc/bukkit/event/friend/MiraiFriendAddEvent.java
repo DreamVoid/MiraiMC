@@ -10,6 +10,6 @@ public class MiraiFriendAddEvent extends AbstractFriendEvent {
     public MiraiFriendAddEvent(FriendAddEvent event) {
         super(event);
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiFriendAddEvent(event));
+
     }
 }

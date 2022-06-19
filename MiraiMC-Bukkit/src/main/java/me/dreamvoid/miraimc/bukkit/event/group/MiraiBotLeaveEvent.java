@@ -12,7 +12,7 @@ public class MiraiBotLeaveEvent extends AbstractGroupEvent{
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupBotLeaveEvent(event));
+
     }
 
     private final BotLeaveEvent event;
