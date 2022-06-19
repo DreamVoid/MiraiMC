@@ -6,7 +6,7 @@ import net.mamoe.mirai.event.events.MessagePreSendEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
 
 /**
- * (Bungee) Mirai 核心事件 - 消息 - 主动发送消息前（抽象）
+ * (Nukkit) Mirai 核心事件 - 消息 - 主动发送消息前（抽象）
  */
 abstract class AbstractMessagePreSendEvent extends Event implements Cancellable {
 	public AbstractMessagePreSendEvent(MessagePreSendEvent event) {

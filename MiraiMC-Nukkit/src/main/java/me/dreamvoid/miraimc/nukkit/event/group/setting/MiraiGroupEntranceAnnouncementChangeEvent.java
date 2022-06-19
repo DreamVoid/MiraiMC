@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.GroupEntranceAnnouncementChangeEvent;
 import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 入群公告改变
+ * (Nukkit) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 入群公告改变
  */
 public class MiraiGroupEntranceAnnouncementChangeEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupEntranceAnnouncementChangeEvent(GroupEntranceAnnouncementChangeEvent event) {

@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.BotJoinGroupEvent;
 import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 机器人成功加入了一个新群
+ * (Nukkit) Mirai 核心事件 - 群 - 机器人成功加入了一个新群
  */
 public class MiraiBotJoinGroupEvent extends AbstractGroupEvent {
     private final BotJoinGroupEvent event;

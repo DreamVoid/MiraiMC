@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.GroupNameChangeEvent;
 import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 群名改变
+ * (BungeeCord) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 群名改变
  */
 public class MiraiGroupNameChangeEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupNameChangeEvent(GroupNameChangeEvent event) {

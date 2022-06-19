@@ -7,7 +7,7 @@ import net.md_5.bungee.api.plugin.Event;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * (Bungee) Mirai 核心事件 - 群 - 群成员 - 群成员事件（抽象）
+ * (BungeeCord) Mirai 核心事件 - 群 - 群成员 - 群成员事件（抽象）
  */
 abstract class AbstractGroupMemberEvent extends Event {
 	public AbstractGroupMemberEvent(GroupMemberEvent event){

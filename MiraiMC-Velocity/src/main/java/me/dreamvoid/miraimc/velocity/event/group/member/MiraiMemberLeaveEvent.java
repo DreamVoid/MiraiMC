@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.MemberLeaveEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 成员已经离开群
+ * (Velocity) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 成员已经离开群
  */
 public class MiraiMemberLeaveEvent extends AbstractGroupMemberEvent {
     public MiraiMemberLeaveEvent(MemberLeaveEvent event) {

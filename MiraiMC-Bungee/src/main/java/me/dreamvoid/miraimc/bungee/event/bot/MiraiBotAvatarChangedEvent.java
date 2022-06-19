@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.BotAvatarChangedEvent;
 import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (bungee) Mirai 核心事件 - Bot - Bot 头像改变
+ * (BungeeCord) Mirai 核心事件 - Bot - Bot 头像改变
  */
 public class MiraiBotAvatarChangedEvent extends AbstractBotEvent {
     public MiraiBotAvatarChangedEvent(BotAvatarChangedEvent event) {

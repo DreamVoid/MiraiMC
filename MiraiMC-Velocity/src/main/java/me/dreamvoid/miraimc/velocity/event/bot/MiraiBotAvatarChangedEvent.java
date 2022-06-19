@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.BotAvatarChangedEvent;
 
 /**
- * (bungee) Mirai 核心事件 - Bot - Bot 头像改变
+ * (Velocity) Mirai 核心事件 - Bot - Bot 头像改变
  */
 public class MiraiBotAvatarChangedEvent extends AbstractBotEvent {
     public MiraiBotAvatarChangedEvent(BotAvatarChangedEvent event) {

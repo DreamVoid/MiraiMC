@@ -5,7 +5,7 @@ import net.mamoe.mirai.event.events.GroupSettingChangeEvent;
 import cn.nukkit.event.Event;
 
 /**
- * (Bungee) Mirai 核心事件 - 群 - 群设置 - 群设置改变（抽象）
+ * (Nukkit) Mirai 核心事件 - 群 - 群设置 - 群设置改变（抽象）
  */
 abstract class AbstractGroupSettingChangeEvent extends Event {
 	public AbstractGroupSettingChangeEvent(GroupSettingChangeEvent event){

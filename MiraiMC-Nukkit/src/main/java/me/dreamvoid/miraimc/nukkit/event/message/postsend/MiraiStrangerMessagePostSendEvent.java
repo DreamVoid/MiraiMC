@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.StrangerMessagePostSendEvent;
 import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 主动发送消息后 - 陌生人消息
+ * (Nukkit) Mirai 核心事件 - 消息 - 主动发送消息后 - 陌生人消息
  */
 public class MiraiStrangerMessagePostSendEvent extends AbstractMessagePostSendEvent {
     private final StrangerMessagePostSendEvent event;

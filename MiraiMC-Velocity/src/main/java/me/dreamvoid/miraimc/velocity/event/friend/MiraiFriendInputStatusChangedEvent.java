@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.FriendInputStatusChangedEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 好友 - 好友输入状态改变
+ * (Velocity) Mirai 核心事件 - 好友 - 好友输入状态改变
  */
 public class MiraiFriendInputStatusChangedEvent extends AbstractFriendEvent {
     public MiraiFriendInputStatusChangedEvent(FriendInputStatusChangedEvent event) {

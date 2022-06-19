@@ -5,7 +5,7 @@ import net.mamoe.mirai.event.events.FriendMessagePostSendEvent;
 import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 主动发送消息后 - 好友消息
+ * (Nukkit) Mirai 核心事件 - 消息 - 主动发送消息后 - 好友消息
  */
 public class MiraiFriendMessagePostSendEvent extends AbstractMessagePostSendEvent {
 

@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.MemberJoinEvent;
 import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 成员已经加入群
+ * (Nukkit) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 成员已经加入群
  */
 public class MiraiMemberJoinEvent extends AbstractGroupMemberEvent {
     public MiraiMemberJoinEvent(MemberJoinEvent event){

@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.OtherClientMessageEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 被动收到消息 - 其他客户端消息
+ * (Velocity) Mirai 核心事件 - 消息 - 被动收到消息 - 其他客户端消息
  */
 public class MiraiOtherClientMessageEvent extends AbstractMessageEvent {
     public MiraiOtherClientMessageEvent(OtherClientMessageEvent event) {

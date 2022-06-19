@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.BotMuteEvent;
 import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 机器人被禁言
+ * (BungeeCord) Mirai 核心事件 - 群 - 机器人被禁言
  */
 public class MiraiBotMuteEvent extends AbstractGroupEvent{
     public MiraiBotMuteEvent(BotMuteEvent event) {

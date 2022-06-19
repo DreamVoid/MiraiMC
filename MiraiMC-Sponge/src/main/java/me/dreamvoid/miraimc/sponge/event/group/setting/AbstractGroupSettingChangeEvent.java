@@ -8,7 +8,7 @@ import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
- * (Bungee) Mirai 核心事件 - 群 - 群设置 - 群设置改变（抽象）
+ * (Sponge) Mirai 核心事件 - 群 - 群设置 - 群设置改变（抽象）
  */
 abstract class AbstractGroupSettingChangeEvent extends AbstractEvent {
 	private final Cause cause;

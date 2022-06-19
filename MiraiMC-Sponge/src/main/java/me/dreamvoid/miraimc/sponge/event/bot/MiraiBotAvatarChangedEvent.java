@@ -5,7 +5,7 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 
 /**
- * (bungee) Mirai 核心事件 - Bot - Bot 头像改变
+ * (Sponge) Mirai 核心事件 - Bot - Bot 头像改变
  */
 public class MiraiBotAvatarChangedEvent extends AbstractBotEvent {
     public MiraiBotAvatarChangedEvent(BotAvatarChangedEvent event, Cause cause) {

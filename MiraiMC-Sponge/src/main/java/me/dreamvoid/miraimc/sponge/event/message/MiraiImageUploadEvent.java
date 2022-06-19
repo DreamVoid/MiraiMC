@@ -7,7 +7,7 @@ import net.mamoe.mirai.event.events.ImageUploadEvent;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 图片上传失败
+ * (Sponge) Mirai 核心事件 - 消息 - 图片上传失败
  */
 public class MiraiImageUploadEvent extends AbstractEvent {
     private final Cause cause;

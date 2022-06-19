@@ -5,7 +5,7 @@ import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.MemberSpecialTitleChangeEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 群成员 - 名片和头衔 - 成员群特殊头衔改动
+ * (Sponge) Mirai 核心事件 - 群 - 群成员 - 名片和头衔 - 成员群特殊头衔改动
  */
 public class MiraiMemberSpecialTitleChangeEvent extends AbstractGroupMemberEvent {
     public MiraiMemberSpecialTitleChangeEvent(MemberSpecialTitleChangeEvent event, Cause cause) {

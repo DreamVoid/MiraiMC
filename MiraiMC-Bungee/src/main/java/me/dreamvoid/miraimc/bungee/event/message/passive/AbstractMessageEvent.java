@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 /**
- * (Bungee) Mirai 核心事件 - 消息 - 被动收到消息（抽象）
+ * (BungeeCord) Mirai 核心事件 - 消息 - 被动收到消息（抽象）
  */
 abstract class AbstractMessageEvent extends Event {
 	public AbstractMessageEvent(MessageEvent event){

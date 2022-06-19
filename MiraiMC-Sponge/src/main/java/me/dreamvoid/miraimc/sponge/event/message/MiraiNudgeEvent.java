@@ -7,7 +7,7 @@ import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 戳一戳
+ * (Sponge) Mirai 核心事件 - 消息 - 戳一戳
  */
 public class MiraiNudgeEvent extends AbstractEvent {
     private final NudgeEvent event;

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 主动发送消息前 - 群临时会话消息
+ * (Sponge) Mirai 核心事件 - 消息 - 主动发送消息前 - 群临时会话消息
  */
 public class MiraiGroupTempMessagePreSendEvent extends AbstractMessagePreSendEvent {
     public MiraiGroupTempMessagePreSendEvent(GroupTempMessagePreSendEvent event, Cause cause) {

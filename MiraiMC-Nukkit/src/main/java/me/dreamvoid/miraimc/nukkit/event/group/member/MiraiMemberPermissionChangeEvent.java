@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.MemberPermissionChangeEvent;
 import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 群成员 - 成员权限 - 成员权限改变
+ * (Nukkit) Mirai 核心事件 - 群 - 群成员 - 成员权限 - 成员权限改变
  */
 public class MiraiMemberPermissionChangeEvent extends AbstractGroupMemberEvent {
     public MiraiMemberPermissionChangeEvent(MemberPermissionChangeEvent event) {

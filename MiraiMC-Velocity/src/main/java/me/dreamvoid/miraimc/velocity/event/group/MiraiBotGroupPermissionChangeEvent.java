@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.BotGroupPermissionChangeEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 机器人在群里的权限被改变
+ * (Velocity) Mirai 核心事件 - 群 - 机器人在群里的权限被改变
  */
 public class MiraiBotGroupPermissionChangeEvent extends AbstractGroupEvent {
     public MiraiBotGroupPermissionChangeEvent(BotGroupPermissionChangeEvent event) {

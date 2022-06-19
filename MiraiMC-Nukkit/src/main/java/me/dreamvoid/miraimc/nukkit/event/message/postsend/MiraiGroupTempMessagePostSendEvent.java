@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 主动发送消息后 - 群临时会话消息
+ * (Nukkit) Mirai 核心事件 - 消息 - 主动发送消息后 - 群临时会话消息
  */
 public class MiraiGroupTempMessagePostSendEvent extends AbstractMessagePostSendEvent {
     public MiraiGroupTempMessagePostSendEvent(GroupTempMessagePostSendEvent event) {

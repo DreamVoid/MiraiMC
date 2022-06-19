@@ -5,7 +5,7 @@ import net.mamoe.mirai.event.events.MessageRecallEvent;
 import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 消息撤回 - 群撤回
+ * (BungeeCord) Mirai 核心事件 - 消息 - 消息撤回 - 群撤回
  */
 public class MiraiGroupMessageRecallEvent extends AbstractMessageRecallEvent {
     public MiraiGroupMessageRecallEvent(MessageRecallEvent.GroupRecall event) {

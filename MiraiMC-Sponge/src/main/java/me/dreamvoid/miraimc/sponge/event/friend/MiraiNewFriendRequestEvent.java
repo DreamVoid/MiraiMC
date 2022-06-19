@@ -6,7 +6,7 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 
 /**
- * (bungee) Mirai 核心事件 - 好友 - 一个账号请求添加机器人为好友
+ * (Sponge) Mirai 核心事件 - 好友 - 一个账号请求添加机器人为好友
  */
 public class MiraiNewFriendRequestEvent extends AbstractBotEvent {
     public MiraiNewFriendRequestEvent(NewFriendRequestEvent event, Cause cause) {

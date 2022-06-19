@@ -5,7 +5,7 @@ import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Event;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 戳一戳
+ * (BungeeCord) Mirai 核心事件 - 消息 - 戳一戳
  */
 public class MiraiNudgeEvent extends Event {
 

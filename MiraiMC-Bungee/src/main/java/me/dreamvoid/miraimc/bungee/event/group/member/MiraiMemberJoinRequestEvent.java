@@ -6,7 +6,7 @@ import net.mamoe.mirai.event.events.MemberJoinRequestEvent;
 import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 一个账号请求加入群
+ * (BungeeCord) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 一个账号请求加入群
  */
 public class MiraiMemberJoinRequestEvent extends AbstractBotEvent {
     public MiraiMemberJoinRequestEvent(MemberJoinRequestEvent event) {

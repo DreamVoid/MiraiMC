@@ -5,7 +5,7 @@ import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 import cn.nukkit.event.Event;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 戳一戳
+ * (Nukkit) Mirai 核心事件 - 消息 - 戳一戳
  */
 public class MiraiNudgeEvent extends Event {
 

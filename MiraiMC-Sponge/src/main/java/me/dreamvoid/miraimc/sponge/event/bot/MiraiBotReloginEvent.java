@@ -5,7 +5,7 @@ import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.BotReloginEvent;
 
 /**
- * (bungee) Mirai 核心事件 - Bot - Bot 重新登录
+ * (Sponge) Mirai 核心事件 - Bot - Bot 重新登录
  */
 public class MiraiBotReloginEvent extends AbstractBotEvent {
     public MiraiBotReloginEvent(BotReloginEvent event, Cause cause) {

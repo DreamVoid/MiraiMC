@@ -5,7 +5,7 @@ import net.mamoe.mirai.event.events.BotInvitedJoinGroupRequestEvent;
 import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 机器人被邀请加入群
+ * (BungeeCord) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 机器人被邀请加入群
  */
 public class MiraiBotInvitedJoinGroupRequestEvent extends AbstractBotEvent {
 

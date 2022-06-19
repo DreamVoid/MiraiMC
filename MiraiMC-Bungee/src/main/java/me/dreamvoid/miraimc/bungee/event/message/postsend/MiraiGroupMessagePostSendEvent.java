@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 主动发送消息后 - 群消息
+ * (BungeeCord) Mirai 核心事件 - 消息 - 主动发送消息后 - 群消息
  */
 public class MiraiGroupMessagePostSendEvent extends AbstractMessagePostSendEvent {
     public MiraiGroupMessagePostSendEvent(GroupMessagePostSendEvent event) {

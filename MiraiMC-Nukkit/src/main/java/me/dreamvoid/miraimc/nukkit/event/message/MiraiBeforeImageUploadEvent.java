@@ -5,7 +5,7 @@ import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 import cn.nukkit.event.Event;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 图片上传前
+ * (Nukkit) Mirai 核心事件 - 消息 - 图片上传前
  */
 public class MiraiBeforeImageUploadEvent extends Event {
     private final BeforeImageUploadEvent event;

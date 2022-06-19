@@ -6,7 +6,7 @@ import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.MessageRecallEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 消息撤回 - 好友撤回
+ * (Sponge) Mirai 核心事件 - 消息 - 消息撤回 - 好友撤回
  */
 public class MiraiFriendMessageRecallEvent extends AbstractMessageRecallEvent {
     public MiraiFriendMessageRecallEvent(MessageRecallEvent.FriendRecall event, Cause cause) {

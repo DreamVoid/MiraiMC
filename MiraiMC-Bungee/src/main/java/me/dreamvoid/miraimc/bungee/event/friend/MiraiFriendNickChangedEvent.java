@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.FriendNickChangedEvent;
 import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (bungee) Mirai 核心事件 - 好友 - 好友昵称改变
+ * (BungeeCord) Mirai 核心事件 - 好友 - 好友昵称改变
  */
 public class MiraiFriendNickChangedEvent extends AbstractFriendEvent {
     public MiraiFriendNickChangedEvent(FriendNickChangedEvent event) {

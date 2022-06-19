@@ -6,7 +6,7 @@ import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.BotLeaveEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 机器人被踢出群或在其他客户端主动退出一个群
+ * (Sponge) Mirai 核心事件 - 群 - 机器人被踢出群或在其他客户端主动退出一个群
  */
 public class MiraiBotLeaveEvent extends AbstractGroupEvent {
     private final BotLeaveEvent event;

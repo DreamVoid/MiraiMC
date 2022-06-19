@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.GroupMuteAllEvent;
 import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 全员禁言状态改变
+ * (Nukkit) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 全员禁言状态改变
  */
 public class MiraiGroupMuteAllEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupMuteAllEvent(GroupMuteAllEvent event) {

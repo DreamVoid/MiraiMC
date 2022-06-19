@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 /**
- * (Bungee) Mirai 核心事件 - 消息 - 主动发送消息后（抽象）
+ * (Nukkit) Mirai 核心事件 - 消息 - 主动发送消息后（抽象）
  */
 abstract class AbstractMessagePostSendEvent extends Event {
 	public AbstractMessagePostSendEvent(MessagePostSendEvent event) {

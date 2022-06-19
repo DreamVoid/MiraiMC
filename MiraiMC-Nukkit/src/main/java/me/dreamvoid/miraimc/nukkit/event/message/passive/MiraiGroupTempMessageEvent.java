@@ -5,7 +5,7 @@ import net.mamoe.mirai.event.events.GroupTempMessageEvent;
 import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 被动收到消息 - 群临时会话消息
+ * (Nukkit) Mirai 核心事件 - 消息 - 被动收到消息 - 群临时会话消息
  */
 public class MiraiGroupTempMessageEvent extends AbstractMessageEvent {
     public MiraiGroupTempMessageEvent(GroupTempMessageEvent event) {

@@ -5,7 +5,7 @@ import net.mamoe.mirai.event.events.GroupEvent;
 import net.md_5.bungee.api.plugin.Event;
 
 /**
- * (Bungee) Mirai 核心事件 - 群（抽象）
+ * (BungeeCord) Mirai 核心事件 - 群（抽象）
  */
 abstract class AbstractGroupEvent extends Event {
 	public AbstractGroupEvent(GroupEvent event) {

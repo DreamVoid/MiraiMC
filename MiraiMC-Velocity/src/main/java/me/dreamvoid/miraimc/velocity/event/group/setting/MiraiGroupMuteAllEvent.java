@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.GroupMuteAllEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 全员禁言状态改变
+ * (Velocity) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 全员禁言状态改变
  */
 public class MiraiGroupMuteAllEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupMuteAllEvent(GroupMuteAllEvent event) {

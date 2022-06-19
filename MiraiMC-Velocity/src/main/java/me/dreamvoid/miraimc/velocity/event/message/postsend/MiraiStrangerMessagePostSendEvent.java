@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.StrangerMessagePostSendEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 主动发送消息后 - 陌生人消息
+ * (Velocity) Mirai 核心事件 - 消息 - 主动发送消息后 - 陌生人消息
  */
 public class MiraiStrangerMessagePostSendEvent extends AbstractMessagePostSendEvent {
     public MiraiStrangerMessagePostSendEvent(StrangerMessagePostSendEvent event) {

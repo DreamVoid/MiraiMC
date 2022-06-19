@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.BotUnmuteEvent;
 import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 机器人被取消禁言
+ * (Nukkit) Mirai 核心事件 - 群 - 机器人被取消禁言
  */
 public class MiraiBotUnmuteEvent extends AbstractGroupEvent{
     public MiraiBotUnmuteEvent(BotUnmuteEvent event) {

@@ -13,7 +13,7 @@ import net.mamoe.mirai.message.code.MiraiCode;
 import java.io.IOException;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 被动收到消息 - 好友消息
+ * (Sponge) Mirai 核心事件 - 消息 - 被动收到消息 - 好友消息
  */
 public class MiraiFriendMessageEvent extends AbstractMessageEvent {
     public MiraiFriendMessageEvent(FriendMessageEvent event, Cause cause) {
