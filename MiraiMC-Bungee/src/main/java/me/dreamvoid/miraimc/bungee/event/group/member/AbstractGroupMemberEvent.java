@@ -4,7 +4,6 @@ import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.event.events.GroupMemberEvent;
 import net.md_5.bungee.api.plugin.Event;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * (BungeeCord) Mirai 核心事件 - 群 - 群成员 - 群成员事件（抽象）
@@ -59,5 +58,13 @@ abstract class AbstractGroupMemberEvent extends Event {
 	 */
 	public int getHashCode() {
 		return event.hashCode();
+	}
+
+	/**
+	 * 获取成员昵称
+	 * @return 昵称
+	 */
+	public String getMemberNick() {
+		return event.getMember().getNick();
 	}
 }

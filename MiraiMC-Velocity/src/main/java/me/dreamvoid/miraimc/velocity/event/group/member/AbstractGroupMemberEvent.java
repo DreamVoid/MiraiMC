@@ -58,4 +58,12 @@ abstract class AbstractGroupMemberEvent {
 	public int getHashCode() {
 		return event.hashCode();
 	}
+
+	/**
+	 * 获取成员昵称
+	 * @return 昵称
+	 */
+	public String getMemberNick() {
+		return event.getMember().getNick();
+	}
 }
