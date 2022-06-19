@@ -39,7 +39,9 @@ public class NukkitPlugin extends PluginBase {
             } else {
                 MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
             }
-            this.MiraiEvent = new MiraiEvent(this);
+            if(!Config.Gen_LegacyEventSupport){
+                this.MiraiEvent = new MiraiEvent(this);
+            } else this.MiraiEvent = new MiraiEventLegacy(this);
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
         } catch (Exception e) {
             getLogger().warning("An error occurred while loading plugin." );

@@ -74,7 +74,9 @@ public class VelocityPlugin {
             } else {
                 MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
             }
-            MiraiEvent = new MiraiEvent(this);
+            if(!Config.Gen_LegacyEventSupport){
+                this.MiraiEvent = new MiraiEvent(this);
+            } else this.MiraiEvent = new MiraiEventLegacy(this);
 
         } catch (Exception e) {
             getLogger().warn("An error occurred while loading plugin.");

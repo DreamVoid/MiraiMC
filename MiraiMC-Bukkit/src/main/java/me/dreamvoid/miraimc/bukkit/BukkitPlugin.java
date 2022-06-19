@@ -34,7 +34,7 @@ public class BukkitPlugin extends JavaPlugin {
                 MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
             }
 
-            if(Config.Gen_LegacyEventSupport){
+            if(!Config.Gen_LegacyEventSupport){
                 this.MiraiEvent = new MiraiEvent();
             } else this.MiraiEvent = new MiraiEventLegacy();
             this.MiraiAutoLogin = new MiraiAutoLogin(this);

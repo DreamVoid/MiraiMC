@@ -33,7 +33,9 @@ public class BungeePlugin extends Plugin {
             } else {
                 MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
             }
-            this.MiraiEvent = new MiraiEvent();
+            if(!Config.Gen_LegacyEventSupport){
+                this.MiraiEvent = new MiraiEvent();
+            } else this.MiraiEvent = new MiraiEventLegacy();
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
         } catch (Exception e) {
             getLogger().warning("An error occurred while loading plugin.");
