@@ -32,7 +32,13 @@ public class NukkitPlugin extends PluginBase {
             Utils.setClassLoader(this.getClass().getClassLoader());
             new NukkitConfig(this).loadConfig();
 
-            MiraiLoader.loadMiraiCore();
+            if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("latest")) {
+                MiraiLoader.loadMiraiCore();
+            } else if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("stable")){
+                MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion());
+            } else {
+                MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
+            }
             this.MiraiEvent = new MiraiEvent(this);
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
         } catch (Exception e) {

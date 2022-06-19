@@ -69,6 +69,8 @@ public class VelocityPlugin {
 
             if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("latest")) {
                 MiraiLoader.loadMiraiCore();
+            } else if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("stable")){
+                MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion());
             } else {
                 MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
             }
