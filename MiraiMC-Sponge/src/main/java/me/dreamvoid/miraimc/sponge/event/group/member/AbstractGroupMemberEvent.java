@@ -4,7 +4,6 @@ import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.event.events.GroupMemberEvent;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
@@ -69,5 +68,13 @@ abstract class AbstractGroupMemberEvent extends AbstractEvent {
 	@Override
 	public @NotNull Cause getCause() {
 		return cause;
+	}
+
+	/**
+	 * 获取成员昵称
+	 * @return 昵称
+	 */
+	public String getMemberNick() {
+		return event.getMember().getNick();
 	}
 }
