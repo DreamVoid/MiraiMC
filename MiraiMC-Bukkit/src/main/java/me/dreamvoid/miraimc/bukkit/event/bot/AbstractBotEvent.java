@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public abstract class AbstractBotEvent extends Event {
 	public AbstractBotEvent(BotEvent event){
+		super(true);
 		this.event = event;
 	}
 
