@@ -67,7 +67,9 @@ public class SpongePlugin {
             } else {
                 MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
             }
-            MiraiEvent = new MiraiEvent(this);
+            if(!Config.Gen_LegacyEventSupport){
+                this.MiraiEvent = new MiraiEvent(this);
+            } else this.MiraiEvent = new MiraiEventLegacy(this);
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
         } catch (Exception ex) {
             getLogger().warn("An error occurred while loading plugin.");

@@ -23,6 +23,8 @@ public class NukkitConfig {
         Gen_AddProperties_MiraiSliderCaptchaSupported = plugin.getConfig().getBoolean("general.add-properties.mirai.slider.captcha.supported",true);
         Gen_MiraiCoreVersion = plugin.getConfig().getString("general.mirai-core-version","latest");
         Gen_MavenRepoUrl = plugin.getConfig().getString("general.maven-repo-url","https://repo1.maven.org/maven2");
+        Gen_EnableHttpApi = plugin.getConfig().getBoolean("general.enable-http-api",false);
+        Gen_LegacyEventSupport = plugin.getConfig().getBoolean("general.legacy-event-support",false);
 
         Bot_DisableNetworkLogs = plugin.getConfig().getBoolean("bot.disable-network-logs",false);
         Bot_DisableBotLogs = plugin.getConfig().getBoolean("bot.disable-bot-logs",false);

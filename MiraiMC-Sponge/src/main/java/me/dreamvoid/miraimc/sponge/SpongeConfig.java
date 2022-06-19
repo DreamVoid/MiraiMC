@@ -48,6 +48,8 @@ public class SpongeConfig {
 
         Gen_MiraiCoreVersion = !Objects.isNull(general.get("mirai-core-version")) ? String.valueOf(general.get("mirai-core-version")) : "latest";
         Gen_MavenRepoUrl = !Objects.isNull(general.get("maven-repo-url")) ? String.valueOf(general.get("maven-repo-url")) : "https://maven.aliyun.com/nexus/content/groups/public/";
+        Gen_EnableHttpApi = !Objects.isNull(general.get("enable-http-api")) ? (Boolean) general.get("enable-http-api") : false;
+        Gen_LegacyEventSupport = !Objects.isNull(general.get("legacy-event-support")) ? (Boolean) general.get("legacy-event-support") : false;
 
         Map<String, Object> bot = !Objects.isNull(obj.get("bot")) ? (Map<String, Object>) obj.get("bot") : new HashMap<>();
         Bot_DisableNetworkLogs = !Objects.isNull(bot.get("disable-network-logs")) ? (Boolean) bot.get("disable-network-logs") : false;
