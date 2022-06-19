@@ -15,7 +15,7 @@ public class MiraiBeforeImageUploadEvent extends Event {
         super(true);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiBeforeImageUploadEvent(event));
+
     }
 
     private static final HandlerList handlers = new HandlerList();

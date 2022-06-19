@@ -11,7 +11,7 @@ public class MiraiGroupNameChangeEvent extends AbstractGroupSettingChangeEvent {
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupNameChangeEvent(event));
+
     }
 
     private final GroupNameChangeEvent event;

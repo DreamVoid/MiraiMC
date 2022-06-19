@@ -11,7 +11,7 @@ public class MiraiBotAvatarChangedEvent extends AbstractBotEvent {
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiBotAvatarChangedEvent(event));
+
     }
 
     private final BotAvatarChangedEvent event;

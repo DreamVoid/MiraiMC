@@ -11,7 +11,7 @@ public class MiraiOtherClientMessageEvent extends AbstractMessageEvent {
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiOtherClientMessageEvent(event));
+
     }
 
     private final OtherClientMessageEvent event;

@@ -15,7 +15,7 @@ public class MiraiNudgeEvent extends Event {
         super(true);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiNudgeEvent(event));
+
     }
 
     private static final HandlerList handlers = new HandlerList();

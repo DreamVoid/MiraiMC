@@ -12,7 +12,7 @@ public class MiraiBotNickChangedEvent extends AbstractBotEvent {
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiBotNickChangedEvent(event));
+
     }
 
     private final BotNickChangedEvent event;

@@ -11,7 +11,7 @@ public class MiraiMemberSpecialTitleChangeEvent extends AbstractGroupMemberEvent
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupMemberSpecialTitleChangeEvent(event));
+
     }
 
     private final MemberSpecialTitleChangeEvent event;

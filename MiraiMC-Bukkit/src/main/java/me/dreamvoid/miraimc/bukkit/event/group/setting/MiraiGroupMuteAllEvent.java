@@ -11,7 +11,7 @@ public class MiraiGroupMuteAllEvent extends AbstractGroupSettingChangeEvent {
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupMuteAllEvent(event));
+
     }
 
     private final GroupMuteAllEvent event;

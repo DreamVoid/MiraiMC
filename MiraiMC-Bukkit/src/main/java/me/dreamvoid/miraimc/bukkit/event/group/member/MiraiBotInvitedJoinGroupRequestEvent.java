@@ -13,7 +13,7 @@ public class MiraiBotInvitedJoinGroupRequestEvent extends AbstractBotEvent {
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupBotInvitedJoinGroupRequestEvent(event));
+
     }
 
     private final BotInvitedJoinGroupRequestEvent event;

@@ -11,7 +11,7 @@ public class MiraiStrangerMessagePreSendEvent extends AbstractMessagePreSendEven
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiStrangerMessagePreSendEvent(event));
+
     }
 
     private final StrangerMessagePreSendEvent event;

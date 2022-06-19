@@ -18,7 +18,7 @@ public class MiraiBotOnlineEvent extends AbstractBotEvent {
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiBotOnlineEvent(event));
+
     }
 
     private final BotOnlineEvent event;

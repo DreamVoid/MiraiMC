@@ -11,7 +11,7 @@ public class MiraiMemberPermissionChangeEvent extends AbstractGroupMemberEvent{
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiGroupMemberPermissionChangeEvent(event));
+
     }
 
     private final MemberPermissionChangeEvent event;

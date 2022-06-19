@@ -12,7 +12,7 @@ public class MiraiFriendMessageRecallEvent extends AbstractMessageRecallEvent {
         super(event);
         this.event = event;
 
-        Bukkit.getPluginManager().callEvent(new me.dreamvoid.miraimc.bukkit.event.MiraiFriendMessageRecallEvent(event));
+
     }
 
     private final MessageRecallEvent.FriendRecall event;
