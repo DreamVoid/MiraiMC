@@ -9,7 +9,5 @@ import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 public class MiraiFriendAddEvent extends AbstractFriendEvent {
     public MiraiFriendAddEvent(FriendAddEvent event) {
         super(event);
-
-
     }
 }

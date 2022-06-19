@@ -12,8 +12,6 @@ public class MiraiBotJoinGroupEvent extends AbstractGroupEvent {
     public MiraiBotJoinGroupEvent(BotJoinGroupEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     /**

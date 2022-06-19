@@ -11,8 +11,6 @@ public class MiraiMemberSpecialTitleChangeEvent extends AbstractGroupMemberEvent
     public MiraiMemberSpecialTitleChangeEvent(MemberSpecialTitleChangeEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
-
-
     }
 
     private final MemberSpecialTitleChangeEvent event;

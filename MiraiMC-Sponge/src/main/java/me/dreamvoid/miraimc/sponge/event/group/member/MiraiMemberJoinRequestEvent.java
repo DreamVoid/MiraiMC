@@ -15,8 +15,6 @@ public class MiraiMemberJoinRequestEvent extends AbstractBotEvent {
     public MiraiMemberJoinRequestEvent(MemberJoinRequestEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
-
-
     }
 
     /**

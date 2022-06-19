@@ -9,7 +9,5 @@ import net.md_5.bungee.api.ProxyServer;
 public class MiraiFriendDeleteEvent extends AbstractFriendEvent {
     public MiraiFriendDeleteEvent(FriendDeleteEvent event) {
         super(event);
-
-
     }
 }

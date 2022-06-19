@@ -10,8 +10,6 @@ public class MiraiBotUnmuteEvent extends AbstractGroupEvent{
     public MiraiBotUnmuteEvent(BotUnmuteEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     private final BotUnmuteEvent event;

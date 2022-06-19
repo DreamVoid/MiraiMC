@@ -11,8 +11,6 @@ public class MiraiGroupMessageRecallEvent extends AbstractMessageRecallEvent {
     public MiraiGroupMessageRecallEvent(MessageRecallEvent.GroupRecall event) {
         super(event);
         this.event = event;
-
-
     }
 
     private final MessageRecallEvent.GroupRecall event;

@@ -11,8 +11,6 @@ public class MiraiBotAvatarChangedEvent extends AbstractBotEvent {
     public MiraiBotAvatarChangedEvent(BotAvatarChangedEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
-
-
     }
 
     private final BotAvatarChangedEvent event;

@@ -12,8 +12,6 @@ public class MiraiMemberUnmuteEvent extends AbstractGroupMemberEvent {
     public MiraiMemberUnmuteEvent(MemberUnmuteEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     /**

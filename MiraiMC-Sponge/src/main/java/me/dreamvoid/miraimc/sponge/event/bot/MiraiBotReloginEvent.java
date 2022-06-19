@@ -10,7 +10,5 @@ import net.mamoe.mirai.event.events.BotReloginEvent;
 public class MiraiBotReloginEvent extends AbstractBotEvent {
     public MiraiBotReloginEvent(BotReloginEvent event, Cause cause) {
         super(event, cause);
-
-
     }
 }

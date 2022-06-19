@@ -9,7 +9,5 @@ import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 public class MiraiFriendAvatarChangedEvent extends AbstractFriendEvent {
     public MiraiFriendAvatarChangedEvent(FriendAvatarChangedEvent event) {
         super(event);
-
-
     }
 }

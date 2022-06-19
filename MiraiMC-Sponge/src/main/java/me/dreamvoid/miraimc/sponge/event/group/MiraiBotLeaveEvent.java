@@ -14,8 +14,6 @@ public class MiraiBotLeaveEvent extends AbstractGroupEvent {
     public MiraiBotLeaveEvent(BotLeaveEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
-
-
     }
 
     /**

@@ -9,7 +9,5 @@ import net.mamoe.mirai.event.events.FriendDeleteEvent;
 public class MiraiFriendDeleteEvent extends AbstractFriendEvent {
     public MiraiFriendDeleteEvent(FriendDeleteEvent event) {
         super(event);
-
-
     }
 }

@@ -11,8 +11,6 @@ public class MiraiBeforeImageUploadEvent {
 
     public MiraiBeforeImageUploadEvent(BeforeImageUploadEvent event) {
         this.event = event;
-
-
     }
 
     /**

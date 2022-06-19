@@ -10,8 +10,6 @@ public class MiraiNudgeEvent {
 
     public MiraiNudgeEvent(NudgeEvent event) {
         this.event = event;
-
-
     }
 
     private final NudgeEvent event;

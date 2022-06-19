@@ -17,8 +17,6 @@ public class MiraiGroupTempMessagePostSendEvent extends AbstractMessagePostSendE
     public MiraiGroupTempMessagePostSendEvent(GroupTempMessagePostSendEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     private final GroupTempMessagePostSendEvent event;

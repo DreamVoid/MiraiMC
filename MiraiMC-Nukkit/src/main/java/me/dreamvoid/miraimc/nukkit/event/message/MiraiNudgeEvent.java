@@ -11,8 +11,6 @@ public class MiraiNudgeEvent extends Event {
 
     public MiraiNudgeEvent(NudgeEvent event) {
         this.event = event;
-
-
     }
 
     private final NudgeEvent event;

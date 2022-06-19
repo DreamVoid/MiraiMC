@@ -9,7 +9,5 @@ import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 public class MiraiFriendDeleteEvent extends AbstractFriendEvent {
     public MiraiFriendDeleteEvent(FriendDeleteEvent event) {
         super(event);
-
-
     }
 }

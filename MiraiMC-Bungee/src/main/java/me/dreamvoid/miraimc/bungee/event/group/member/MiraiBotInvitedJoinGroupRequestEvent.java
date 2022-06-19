@@ -12,8 +12,6 @@ public class MiraiBotInvitedJoinGroupRequestEvent extends AbstractBotEvent {
     public MiraiBotInvitedJoinGroupRequestEvent(BotInvitedJoinGroupRequestEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     private final BotInvitedJoinGroupRequestEvent event;

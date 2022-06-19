@@ -9,7 +9,5 @@ import org.bukkit.Bukkit;
 public class MiraiFriendAvatarChangedEvent extends AbstractFriendEvent {
     public MiraiFriendAvatarChangedEvent(FriendAvatarChangedEvent event) {
         super(event);
-
-
     }
 }

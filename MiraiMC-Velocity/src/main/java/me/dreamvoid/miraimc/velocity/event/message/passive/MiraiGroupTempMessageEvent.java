@@ -11,8 +11,6 @@ public class MiraiGroupTempMessageEvent extends AbstractMessageEvent {
     public MiraiGroupTempMessageEvent(GroupTempMessageEvent event) {
         super(event);
         this.event = event;
-
-
     }
     private final GroupTempMessageEvent event;
 

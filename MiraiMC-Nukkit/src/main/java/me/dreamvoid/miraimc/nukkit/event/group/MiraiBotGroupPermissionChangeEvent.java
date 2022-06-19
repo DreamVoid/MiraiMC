@@ -10,8 +10,6 @@ public class MiraiBotGroupPermissionChangeEvent extends AbstractGroupEvent{
     public MiraiBotGroupPermissionChangeEvent(BotGroupPermissionChangeEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     private final BotGroupPermissionChangeEvent event;

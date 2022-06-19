@@ -11,8 +11,6 @@ public class MiraiStrangerMessagePreSendEvent extends AbstractMessagePreSendEven
     public MiraiStrangerMessagePreSendEvent(StrangerMessagePreSendEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
-
-
     }
 
     private final StrangerMessagePreSendEvent event;

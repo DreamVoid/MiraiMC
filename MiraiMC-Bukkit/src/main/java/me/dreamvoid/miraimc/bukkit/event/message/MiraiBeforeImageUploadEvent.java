@@ -14,8 +14,6 @@ public class MiraiBeforeImageUploadEvent extends Event {
     public MiraiBeforeImageUploadEvent(BeforeImageUploadEvent event) {
         super(true);
         this.event = event;
-
-
     }
 
     private static final HandlerList handlers = new HandlerList();

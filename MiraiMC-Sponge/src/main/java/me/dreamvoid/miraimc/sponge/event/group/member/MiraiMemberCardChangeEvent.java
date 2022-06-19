@@ -11,8 +11,6 @@ public class MiraiMemberCardChangeEvent extends AbstractGroupMemberEvent {
     public MiraiMemberCardChangeEvent(MemberCardChangeEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
-
-
     }
     private final MemberCardChangeEvent event;
 

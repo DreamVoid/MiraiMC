@@ -10,8 +10,6 @@ public class MiraiFriendInputStatusChangedEvent extends AbstractFriendEvent {
     public MiraiFriendInputStatusChangedEvent(FriendInputStatusChangedEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     private final FriendInputStatusChangedEvent event;

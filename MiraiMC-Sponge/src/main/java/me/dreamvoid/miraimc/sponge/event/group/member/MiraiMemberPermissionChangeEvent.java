@@ -11,8 +11,6 @@ public class MiraiMemberPermissionChangeEvent extends AbstractGroupMemberEvent {
     public MiraiMemberPermissionChangeEvent(MemberPermissionChangeEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
-
-
     }
 
     private final MemberPermissionChangeEvent event;

@@ -16,8 +16,6 @@ public class MiraiNudgeEvent extends AbstractEvent {
     public MiraiNudgeEvent(NudgeEvent event, Cause cause) {
         this.event = event;
         this.cause = cause;
-
-
     }
 
     /**

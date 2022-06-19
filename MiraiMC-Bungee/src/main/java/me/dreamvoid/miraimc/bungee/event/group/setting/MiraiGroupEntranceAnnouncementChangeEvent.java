@@ -10,8 +10,6 @@ public class MiraiGroupEntranceAnnouncementChangeEvent extends AbstractGroupSett
     public MiraiGroupEntranceAnnouncementChangeEvent(GroupEntranceAnnouncementChangeEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     private final GroupEntranceAnnouncementChangeEvent event;

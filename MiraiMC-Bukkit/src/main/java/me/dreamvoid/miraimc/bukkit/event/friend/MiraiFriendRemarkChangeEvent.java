@@ -10,8 +10,6 @@ public class MiraiFriendRemarkChangeEvent extends AbstractFriendEvent {
     public MiraiFriendRemarkChangeEvent(FriendRemarkChangeEvent event) {
         super(event);
         this.event = event;
-
-
     }
 
     private final FriendRemarkChangeEvent event;
