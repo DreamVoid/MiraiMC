@@ -1,13 +1,17 @@
 package me.dreamvoid.miraimc.internal.classloader;
 
+import com.google.gson.Gson;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.HashMap;
 
 import static me.dreamvoid.miraimc.internal.classloader.LibrariesLoader.*;
 
@@ -19,11 +23,47 @@ public class MiraiLoader {
         loadMiraiCore(getLibraryVersionMaven("net.mamoe", "mirai-core-all", Config.Gen_MavenRepoUrl.replace("http://","https://"),"release"));
     }
 
+    public static String getStableVersion() {
+        try {
+            URL url = new URL("https://raw.githubusercontent.com/DreamVoid/MiraiMC/main/info.json");
+            StringBuilder sb = new StringBuilder();
+            HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
+
+            httpUrlConn.setDoInput(true);
+            httpUrlConn.setRequestMethod("GET");
+            httpUrlConn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko");
+
+            InputStream input = httpUrlConn.getInputStream();
+            InputStreamReader read = new InputStreamReader(input, StandardCharsets.UTF_8);
+            BufferedReader br = new BufferedReader(read);
+            String data = br.readLine();
+            while (data != null) {
+                sb.append(data);
+                data = br.readLine();
+            }
+            br.close();
+            read.close();
+            input.close();
+            httpUrlConn.disconnect();
+
+            HashMap<?, ?> map = new Gson().fromJson(sb.toString(), HashMap.class);
+            HashMap<?, ?> mirai = (HashMap<?, ?>) map.get("mirai");
+            return (String) mirai.get("stable");
+        } catch (IOException e){
+            Utils.logger.warning("Fetching mirai stable version from remote failed, try to use latest. Reason: " + e);
+            return "latest";
+        }
+    }
+
     /**
      * 加载指定版本的Mirai Core
      * @param version 版本
      */
-    public static void loadMiraiCore(String version) throws RuntimeException, IOException {
+    public static void loadMiraiCore(String version) throws RuntimeException, IOException, ParserConfigurationException, SAXException {
+        if(version.equalsIgnoreCase("latest")){
+            version = getLibraryVersionMaven("net.mamoe", "mirai-core-all", Config.Gen_MavenRepoUrl.replace("http://","https://"),"release");
+        }
+
         // 文件夹
         File MiraiDir;
         if (Config.Gen_MiraiWorkingDir.equals("default")) {
