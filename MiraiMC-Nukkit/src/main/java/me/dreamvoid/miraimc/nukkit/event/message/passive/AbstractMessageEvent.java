@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.nukkit.event.message.passive;
 
+import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.MessageEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
 import net.mamoe.mirai.message.data.MessageChainBuilder;
@@ -16,6 +17,9 @@ abstract class AbstractMessageEvent extends Event {
 	public AbstractMessageEvent(MessageEvent event){
 		this.event = event;
 	}
+
+	private static final HandlerList handlers = new HandlerList();
+	public static HandlerList getHandlers() { return handlers; }
 
 	private final MessageEvent event;
 

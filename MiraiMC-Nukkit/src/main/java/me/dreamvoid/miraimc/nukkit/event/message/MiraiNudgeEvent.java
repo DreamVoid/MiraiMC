@@ -1,8 +1,8 @@
 package me.dreamvoid.miraimc.nukkit.event.message;
 
-import net.mamoe.mirai.event.events.NudgeEvent;
-import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 import cn.nukkit.event.Event;
+import cn.nukkit.event.HandlerList;
+import net.mamoe.mirai.event.events.NudgeEvent;
 
 /**
  * (Nukkit) Mirai 核心事件 - 消息 - 戳一戳
@@ -12,6 +12,9 @@ public class MiraiNudgeEvent extends Event {
     public MiraiNudgeEvent(NudgeEvent event) {
         this.event = event;
     }
+
+    private static final HandlerList handlers = new HandlerList();
+    public static HandlerList getHandlers() { return handlers; }
 
     private final NudgeEvent event;
 

@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.nukkit.event.friend;
 
+import cn.nukkit.event.HandlerList;
 import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.FriendEvent;
 import cn.nukkit.event.Event;
@@ -12,6 +13,9 @@ abstract class AbstractFriendEvent extends Event {
 		this.event = event;
 	}
 	private final FriendEvent event;
+
+	private static final HandlerList handlers = new HandlerList();
+	public static HandlerList getHandlers() { return handlers; }
 
 	/**
 	 * 获取机器人账号

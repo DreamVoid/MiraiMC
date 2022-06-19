@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.nukkit.event.message.postsend;
 
+import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.MessagePostSendEvent;
 import net.mamoe.mirai.message.data.MessageSource;
 import net.mamoe.mirai.message.data.QuoteReply;
@@ -15,6 +16,9 @@ abstract class AbstractMessagePostSendEvent extends Event {
 	public AbstractMessagePostSendEvent(MessagePostSendEvent event) {
 		this.event = event;
 	}
+
+	private static final HandlerList handlers = new HandlerList();
+	public static HandlerList getHandlers() { return handlers; }
 
 	private final MessagePostSendEvent event;
 	/**

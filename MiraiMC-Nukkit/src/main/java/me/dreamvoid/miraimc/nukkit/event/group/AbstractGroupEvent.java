@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.nukkit.event.group;
 
 import cn.nukkit.event.Event;
+import cn.nukkit.event.HandlerList;
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.event.events.GroupEvent;
 
@@ -9,6 +10,9 @@ import net.mamoe.mirai.event.events.GroupEvent;
  */
 abstract class AbstractGroupEvent extends Event {
 	private final GroupEvent event;
+
+	private static final HandlerList handlers = new HandlerList();
+	public static HandlerList getHandlers() { return handlers; }
 
 	public AbstractGroupEvent(GroupEvent event) {
 		this.event = event;
