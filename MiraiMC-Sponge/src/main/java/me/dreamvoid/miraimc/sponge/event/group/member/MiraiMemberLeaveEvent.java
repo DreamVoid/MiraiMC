@@ -5,7 +5,7 @@ import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.MemberLeaveEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 成员已经离开群
+ * (Sponge) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 成员已经离开群
  */
 public class MiraiMemberLeaveEvent extends AbstractGroupMemberEvent {
     public MiraiMemberLeaveEvent(MemberLeaveEvent event, Cause cause) {

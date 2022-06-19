@@ -5,7 +5,7 @@ import net.mamoe.mirai.event.events.NewFriendRequestEvent;
 import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
- * (bungee) Mirai 核心事件 - 好友 - 一个账号请求添加机器人为好友
+ * (Nukkit) Mirai 核心事件 - 好友 - 一个账号请求添加机器人为好友
  */
 public class MiraiNewFriendRequestEvent extends AbstractBotEvent {
     public MiraiNewFriendRequestEvent(NewFriendRequestEvent event) {

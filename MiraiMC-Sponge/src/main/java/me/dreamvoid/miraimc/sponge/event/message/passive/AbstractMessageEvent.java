@@ -13,7 +13,7 @@ import org.spongepowered.api.event.impl.AbstractEvent;
 import java.util.Objects;
 
 /**
- * (Bungee) Mirai 核心事件 - 消息 - 被动收到消息（抽象）
+ * (Sponge) Mirai 核心事件 - 消息 - 被动收到消息（抽象）
  */
 abstract class AbstractMessageEvent extends AbstractEvent {
 	private final Cause cause;

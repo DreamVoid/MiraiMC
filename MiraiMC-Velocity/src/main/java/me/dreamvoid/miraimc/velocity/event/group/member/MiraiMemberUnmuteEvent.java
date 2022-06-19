@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.MemberUnmuteEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 群成员 - 动作 - 群成员被取消禁言
+ * (Velocity) Mirai 核心事件 - 群 - 群成员 - 动作 - 群成员被取消禁言
  */
 public class MiraiMemberUnmuteEvent extends AbstractGroupMemberEvent {
     private final MemberUnmuteEvent event;

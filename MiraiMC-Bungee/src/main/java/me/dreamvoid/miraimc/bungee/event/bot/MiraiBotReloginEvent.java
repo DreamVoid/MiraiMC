@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.BotReloginEvent;
 import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (bungee) Mirai 核心事件 - Bot - Bot 重新登录
+ * (BungeeCord) Mirai 核心事件 - Bot - Bot 重新登录
  */
 public class MiraiBotReloginEvent extends AbstractBotEvent {
     public MiraiBotReloginEvent(BotReloginEvent event) {

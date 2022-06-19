@@ -5,7 +5,7 @@ import net.mamoe.mirai.event.events.BotEvent;
 import cn.nukkit.event.Event;
 
 /**
- * (Bungee) Mirai 核心事件 - Bot（抽象）
+ * (Nukkit) Mirai 核心事件 - Bot（抽象）
  */
 public abstract class AbstractBotEvent extends Event {
 	public AbstractBotEvent(BotEvent event){

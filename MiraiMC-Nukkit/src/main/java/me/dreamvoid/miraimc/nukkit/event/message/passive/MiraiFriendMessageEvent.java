@@ -12,7 +12,7 @@ import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 import java.io.IOException;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 被动收到消息 - 好友消息
+ * (Nukkit) Mirai 核心事件 - 消息 - 被动收到消息 - 好友消息
  */
 public class MiraiFriendMessageEvent extends AbstractMessageEvent {
     private FriendMessageEvent event = null;

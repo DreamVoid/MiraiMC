@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.FriendEvent;
 
 /**
- * (Bungee) Mirai 核心事件 - 好友（抽象）
+ * (Velocity) Mirai 核心事件 - 好友（抽象）
  */
 abstract class AbstractFriendEvent {
 	public AbstractFriendEvent(FriendEvent event){

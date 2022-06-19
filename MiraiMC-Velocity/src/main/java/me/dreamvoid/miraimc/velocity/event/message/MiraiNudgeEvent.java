@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.NudgeEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 戳一戳
+ * (Velocity) Mirai 核心事件 - 消息 - 戳一戳
  */
 public class MiraiNudgeEvent {
 

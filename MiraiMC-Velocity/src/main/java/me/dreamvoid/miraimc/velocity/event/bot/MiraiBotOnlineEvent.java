@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * (bungee) Mirai 核心事件 - Bot - Bot 登录完成
+ * (Velocity) Mirai 核心事件 - Bot - Bot 登录完成
  */
 public class MiraiBotOnlineEvent extends AbstractBotEvent {
     private final BotOnlineEvent event;

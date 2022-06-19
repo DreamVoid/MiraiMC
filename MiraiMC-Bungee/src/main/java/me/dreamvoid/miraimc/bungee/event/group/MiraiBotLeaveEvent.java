@@ -5,7 +5,7 @@ import net.mamoe.mirai.event.events.BotLeaveEvent;
 import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 机器人被踢出群或在其他客户端主动退出一个群
+ * (BungeeCord) Mirai 核心事件 - 群 - 机器人被踢出群或在其他客户端主动退出一个群
  */
 public class MiraiBotLeaveEvent extends AbstractGroupEvent{
     public MiraiBotLeaveEvent(BotLeaveEvent event) {

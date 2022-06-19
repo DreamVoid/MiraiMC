@@ -5,7 +5,7 @@ import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.BotOfflineEvent;
 
 /**
- * (bungee) Mirai 核心事件 - Bot - Bot 离线
+ * (Sponge) Mirai 核心事件 - Bot - Bot 离线
  */
 public class MiraiBotOfflineEvent extends AbstractBotEvent {
     private final BotOfflineEvent event;

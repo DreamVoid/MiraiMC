@@ -6,7 +6,7 @@ import net.md_5.bungee.api.plugin.Event;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * (Bungee) Mirai 核心事件 - Bot（抽象）
+ * (BungeeCord) Mirai 核心事件 - Bot（抽象）
  */
 public abstract class AbstractBotEvent extends Event {
 	public AbstractBotEvent(BotEvent event){

@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.FriendInputStatusChangedEvent;
 import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (bungee) Mirai 核心事件 - 好友 - 好友输入状态改变
+ * (BungeeCord) Mirai 核心事件 - 好友 - 好友输入状态改变
  */
 public class MiraiFriendInputStatusChangedEvent extends AbstractFriendEvent {
     public MiraiFriendInputStatusChangedEvent(FriendInputStatusChangedEvent event) {

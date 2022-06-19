@@ -5,7 +5,7 @@ import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.MessageRecallEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 消息撤回 - 群撤回
+ * (Velocity) Mirai 核心事件 - 消息 - 消息撤回 - 群撤回
  */
 public class MiraiGroupMessageRecallEvent extends AbstractMessageRecallEvent {
     private final MessageRecallEvent.GroupRecall event;

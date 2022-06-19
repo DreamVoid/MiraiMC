@@ -5,7 +5,7 @@ import net.mamoe.mirai.event.events.NewFriendRequestEvent;
 import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (bungee) Mirai 核心事件 - 好友 - 一个账号请求添加机器人为好友
+ * (BungeeCord) Mirai 核心事件 - 好友 - 一个账号请求添加机器人为好友
  */
 public class MiraiNewFriendRequestEvent extends AbstractBotEvent {
     public MiraiNewFriendRequestEvent(NewFriendRequestEvent event) {

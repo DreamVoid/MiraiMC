@@ -5,7 +5,7 @@ import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.event.events.GroupEvent;
 
 /**
- * (Bungee) Mirai 核心事件 - 群（抽象）
+ * (Nukkit) Mirai 核心事件 - 群（抽象）
  */
 abstract class AbstractGroupEvent extends Event {
 	private final GroupEvent event;

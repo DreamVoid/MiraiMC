@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.FriendDeleteEvent;
 import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
- * (bungee) Mirai 核心事件 - 好友 - 好友已被删除
+ * (Nukkit) Mirai 核心事件 - 好友 - 好友已被删除
  */
 public class MiraiFriendDeleteEvent extends AbstractFriendEvent {
     public MiraiFriendDeleteEvent(FriendDeleteEvent event) {

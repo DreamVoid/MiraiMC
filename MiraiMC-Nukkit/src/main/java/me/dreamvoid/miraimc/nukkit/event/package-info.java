@@ -1,4 +1,4 @@
 /**
- * Mirai 核心事件程序包 (BungeeCord)
+ * Mirai 核心事件程序包 (Nukkit)
  */
 package me.dreamvoid.miraimc.nukkit.event;

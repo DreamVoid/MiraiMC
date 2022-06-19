@@ -6,7 +6,7 @@ import net.md_5.bungee.api.plugin.Event;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * (Bungee) Mirai 核心事件 - 好友（抽象）
+ * (BungeeCord) Mirai 核心事件 - 好友（抽象）
  */
 abstract class AbstractFriendEvent extends Event {
 	public AbstractFriendEvent(FriendEvent event){

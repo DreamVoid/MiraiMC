@@ -5,7 +5,7 @@ import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.FriendMessagePreSendEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 主动发送消息前 - 好友消息
+ * (Velocity) Mirai 核心事件 - 消息 - 主动发送消息前 - 好友消息
  */
 public class MiraiFriendMessagePreSendEvent extends AbstractMessagePreSendEvent {
     public MiraiFriendMessagePreSendEvent(FriendMessagePreSendEvent event) {

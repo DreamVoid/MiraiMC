@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.MessageRecallEvent;
 import cn.nukkit.event.Event;
 
 /**
- * (Bungee) Mirai 核心事件 - 消息 - 消息撤回（抽象）
+ * (Nukkit) Mirai 核心事件 - 消息 - 消息撤回（抽象）
  */
 abstract class AbstractMessageRecallEvent extends Event {
 	public AbstractMessageRecallEvent(MessageRecallEvent event) {

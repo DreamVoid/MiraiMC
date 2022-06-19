@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.BeforeImageUploadEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 图片上传前
+ * (Velocity) Mirai 核心事件 - 消息 - 图片上传前
  */
 public class MiraiBeforeImageUploadEvent {
     private final BeforeImageUploadEvent event;

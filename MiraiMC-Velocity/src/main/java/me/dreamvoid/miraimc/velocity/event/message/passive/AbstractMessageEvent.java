@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 /**
- * (Bungee) Mirai 核心事件 - 消息 - 被动收到消息（抽象）
+ * (Velocity) Mirai 核心事件 - 消息 - 被动收到消息（抽象）
  */
 abstract class AbstractMessageEvent {
 	public AbstractMessageEvent(MessageEvent event){

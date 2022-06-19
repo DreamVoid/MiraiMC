@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.OtherClientMessageEvent;
 import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 被动收到消息 - 其他客户端消息
+ * (Nukkit) Mirai 核心事件 - 消息 - 被动收到消息 - 其他客户端消息
  */
 public class MiraiOtherClientMessageEvent extends AbstractMessageEvent {
     private final OtherClientMessageEvent event;

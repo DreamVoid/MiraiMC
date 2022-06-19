@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.MemberSpecialTitleChangeEvent;
 import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 群成员 - 名片和头衔 - 成员群特殊头衔改动
+ * (BungeeCord) Mirai 核心事件 - 群 - 群成员 - 名片和头衔 - 成员群特殊头衔改动
  */
 public class MiraiMemberSpecialTitleChangeEvent extends AbstractGroupMemberEvent {
     public MiraiMemberSpecialTitleChangeEvent(MemberSpecialTitleChangeEvent event) {

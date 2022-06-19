@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.StrangerMessagePostSendEvent;
 import net.md_5.bungee.api.ProxyServer;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 主动发送消息后 - 陌生人消息
+ * (BungeeCord) Mirai 核心事件 - 消息 - 主动发送消息后 - 陌生人消息
  */
 public class MiraiStrangerMessagePostSendEvent extends AbstractMessagePostSendEvent{
     public MiraiStrangerMessagePostSendEvent(StrangerMessagePostSendEvent event) {

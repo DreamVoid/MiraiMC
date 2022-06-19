@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.BotNickChangedEvent;
 import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
- * (bungee) Mirai 核心事件 - Bot - Bot 昵称改变
+ * (Nukkit) Mirai 核心事件 - Bot - Bot 昵称改变
  */
 public class MiraiBotNickChangedEvent extends AbstractBotEvent {
 

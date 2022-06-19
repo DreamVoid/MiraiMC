@@ -5,7 +5,7 @@ import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.GroupTempMessageEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 被动收到消息 - 群临时会话消息
+ * (Velocity) Mirai 核心事件 - 消息 - 被动收到消息 - 群临时会话消息
  */
 public class MiraiGroupTempMessageEvent extends AbstractMessageEvent {
     public MiraiGroupTempMessageEvent(GroupTempMessageEvent event) {

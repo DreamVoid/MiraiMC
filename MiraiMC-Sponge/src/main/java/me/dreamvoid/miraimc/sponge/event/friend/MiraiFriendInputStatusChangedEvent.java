@@ -5,7 +5,7 @@ import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.FriendInputStatusChangedEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 好友 - 好友输入状态改变
+ * (Sponge) Mirai 核心事件 - 好友 - 好友输入状态改变
  */
 public class MiraiFriendInputStatusChangedEvent extends AbstractFriendEvent {
     public MiraiFriendInputStatusChangedEvent(FriendInputStatusChangedEvent event, Cause cause) {

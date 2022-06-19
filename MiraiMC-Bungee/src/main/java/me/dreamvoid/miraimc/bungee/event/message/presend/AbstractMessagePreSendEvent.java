@@ -6,7 +6,7 @@ import net.md_5.bungee.api.plugin.Cancellable;
 import net.md_5.bungee.api.plugin.Event;
 
 /**
- * (Bungee) Mirai 核心事件 - 消息 - 主动发送消息前（抽象）
+ * (BungeeCord) Mirai 核心事件 - 消息 - 主动发送消息前（抽象）
  */
 abstract class AbstractMessagePreSendEvent extends Event implements Cancellable {
 	public AbstractMessagePreSendEvent(MessagePreSendEvent event) {

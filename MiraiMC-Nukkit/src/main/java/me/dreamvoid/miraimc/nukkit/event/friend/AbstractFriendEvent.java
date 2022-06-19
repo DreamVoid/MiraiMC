@@ -5,7 +5,7 @@ import net.mamoe.mirai.event.events.FriendEvent;
 import cn.nukkit.event.Event;
 
 /**
- * (Bungee) Mirai 核心事件 - 好友（抽象）
+ * (Nukkit) Mirai 核心事件 - 好友（抽象）
  */
 abstract class AbstractFriendEvent extends Event {
 	public AbstractFriendEvent(FriendEvent event){

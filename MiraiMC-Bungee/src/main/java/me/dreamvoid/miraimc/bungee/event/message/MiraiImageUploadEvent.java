@@ -5,7 +5,7 @@ import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Event;
 
 /**
- * (bungee) Mirai 核心事件 - 消息 - 图片上传失败
+ * (BungeeCord) Mirai 核心事件 - 消息 - 图片上传失败
  */
 public class MiraiImageUploadEvent extends Event {
     public MiraiImageUploadEvent(ImageUploadEvent event) {

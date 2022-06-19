@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.BotUnmuteEvent;
 
 /**
- * (bungee) Mirai 核心事件 - 群 - 机器人被取消禁言
+ * (Velocity) Mirai 核心事件 - 群 - 机器人被取消禁言
  */
 public class MiraiBotUnmuteEvent extends AbstractGroupEvent {
     public MiraiBotUnmuteEvent(BotUnmuteEvent event) {
