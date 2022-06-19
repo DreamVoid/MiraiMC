@@ -28,7 +28,7 @@ import java.sql.SQLException;
 @Plugin(id = "miraimc",
         name = "MiraiMC",
         description = "MiraiBot for Minecraft server",
-        version = "1.6.1",
+        version = "1.7-pre1",
         url = "https://github.com/DreamVoid/MiraiMC",
         authors = {"DreamVoid"}
 )

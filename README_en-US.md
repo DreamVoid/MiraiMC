@@ -47,7 +47,7 @@ Copy the following code to the ```dependencies``` of pom.xml or directly import 
 <dependency>
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC-Integration</artifactId>
-    <version>1.6.1</version>
+    <version>1.7-pre1</version>
     <scope>provided</scope>
 </dependency>
 ```
