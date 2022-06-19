@@ -111,10 +111,22 @@ abstract class AbstractMessageEvent extends Event {
 	}
 
 	/**
-	 * 回复这条消息（支持 Mirai Code）
+	 * 回复这条消息
 	 * @param message 消息内容
 	 */
 	public void reply(String message) {
+		event.getSender().sendMessage(new MessageChainBuilder()
+				.append(new QuoteReply(event.getMessage()))
+				.append(message)
+				.build()
+		);
+	}
+
+	/**
+	 * 回复这条消息（支持 Mirai Code）
+	 * @param message 消息内容
+	 */
+	public void replyMirai(String message) {
 		event.getSender().sendMessage(new MessageChainBuilder()
 				.append(new QuoteReply(event.getMessage()))
 				.append(MiraiCode.deserializeMiraiCode(message))
@@ -123,10 +135,18 @@ abstract class AbstractMessageEvent extends Event {
 	}
 
 	/**
-	 * 向发送来源发送消息（支持 Mirai Code）
+	 * 向发送来源发送消息
 	 * @param message 消息内容
 	 */
 	public void sendMessage(String message) {
+		event.getSender().sendMessage(message);
+	}
+
+	/**
+	 * 向发送来源发送消息（支持 Mirai Code）
+	 * @param message 消息内容
+	 */
+	public void sendMessageMirai(String message) {
 		event.getSender().sendMessage(MiraiCode.deserializeMiraiCode(message));
 	}
 
