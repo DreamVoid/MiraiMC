@@ -10,10 +10,6 @@ import net.md_5.bungee.api.plugin.Event;
 public class MiraiImageUploadEvent extends Event {
     public MiraiImageUploadEvent(ImageUploadEvent event) {
         this.event = event;
-
-        if(event instanceof ImageUploadEvent.Succeed){
-            ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiImageUploadSucceedEvent((ImageUploadEvent.Succeed) event));
-        } else ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiImageUploadFailedEvent((ImageUploadEvent.Failed) event));
     }
 
     private final ImageUploadEvent event;

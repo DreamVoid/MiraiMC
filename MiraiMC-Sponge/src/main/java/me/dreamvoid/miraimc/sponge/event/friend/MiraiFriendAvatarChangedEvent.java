@@ -11,6 +11,6 @@ public class MiraiFriendAvatarChangedEvent extends AbstractFriendEvent {
     public MiraiFriendAvatarChangedEvent(FriendAvatarChangedEvent event, Cause cause) {
         super(event, cause);
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiFriendAvatarChangedEvent(event, cause));
+
     }
 }

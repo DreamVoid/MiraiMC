@@ -10,6 +10,6 @@ public class MiraiFriendDeleteEvent extends AbstractFriendEvent {
     public MiraiFriendDeleteEvent(FriendDeleteEvent event) {
         super(event);
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiFriendDeleteEvent(event));
+
     }
 }

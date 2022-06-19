@@ -12,7 +12,7 @@ public class MiraiBotMuteEvent extends AbstractGroupEvent {
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupBotMuteEvent(event, cause));
+
     }
 
     private final BotMuteEvent event;

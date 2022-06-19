@@ -12,7 +12,7 @@ public class MiraiFriendMessageRecallEvent extends AbstractMessageRecallEvent {
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiFriendMessageRecallEvent(event));
+
     }
 
     private final MessageRecallEvent.FriendRecall event;

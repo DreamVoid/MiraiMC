@@ -11,7 +11,7 @@ public class MiraiGroupEntranceAnnouncementChangeEvent extends AbstractGroupSett
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupEntranceAnnouncementChangeEvent(event));
+
     }
 
     private final GroupEntranceAnnouncementChangeEvent event;

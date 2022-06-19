@@ -12,7 +12,7 @@ public class MiraiNudgeEvent extends Event {
     public MiraiNudgeEvent(NudgeEvent event) {
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiNudgeEvent(event));
+
     }
 
     private final NudgeEvent event;

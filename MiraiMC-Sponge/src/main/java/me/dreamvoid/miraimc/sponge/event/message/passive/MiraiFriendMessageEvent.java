@@ -28,7 +28,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         messageMiraiCode = event.getMessage().serializeToMiraiCode();
         time = event.getTime();
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiFriendMessageEvent(event, cause));
+
     }
 
     private FriendMessageEvent event = null;

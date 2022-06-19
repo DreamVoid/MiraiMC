@@ -17,7 +17,7 @@ public class MiraiNudgeEvent extends AbstractEvent {
         this.event = event;
         this.cause = cause;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiNudgeEvent(event, cause));
+
     }
 
     /**

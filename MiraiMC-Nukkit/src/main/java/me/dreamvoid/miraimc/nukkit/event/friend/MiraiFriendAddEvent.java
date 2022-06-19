@@ -10,6 +10,6 @@ public class MiraiFriendAddEvent extends AbstractFriendEvent {
     public MiraiFriendAddEvent(FriendAddEvent event) {
         super(event);
 
-        NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiFriendAddEvent(event));
+
     }
 }

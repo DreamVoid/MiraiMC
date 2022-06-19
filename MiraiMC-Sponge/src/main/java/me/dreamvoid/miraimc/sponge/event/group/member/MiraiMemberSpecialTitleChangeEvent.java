@@ -12,7 +12,7 @@ public class MiraiMemberSpecialTitleChangeEvent extends AbstractGroupMemberEvent
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupMemberSpecialTitleChangeEvent(event, cause));
+
     }
 
     private final MemberSpecialTitleChangeEvent event;

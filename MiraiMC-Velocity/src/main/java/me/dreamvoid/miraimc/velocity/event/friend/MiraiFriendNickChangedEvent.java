@@ -11,7 +11,7 @@ public class MiraiFriendNickChangedEvent extends AbstractFriendEvent {
         super(event);
         this.event = event;
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiFriendNickChangedEvent(event));
+
     }
 
     private final FriendNickChangedEvent event;

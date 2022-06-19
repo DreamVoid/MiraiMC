@@ -12,7 +12,7 @@ public class MiraiBeforeImageUploadEvent extends Event {
     public MiraiBeforeImageUploadEvent(BeforeImageUploadEvent event) {
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiBeforeImageUploadEvent(event));
+
     }
 
     private final BeforeImageUploadEvent event;

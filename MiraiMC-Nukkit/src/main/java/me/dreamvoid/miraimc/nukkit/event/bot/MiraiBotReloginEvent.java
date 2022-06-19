@@ -10,6 +10,6 @@ public class MiraiBotReloginEvent extends AbstractBotEvent {
     public MiraiBotReloginEvent(BotReloginEvent event) {
         super(event);
 
-        NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiBotReloginEvent(event));
+
     }
 }

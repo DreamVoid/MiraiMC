@@ -12,7 +12,7 @@ public class MiraiGroupMessageRecallEvent extends AbstractMessageRecallEvent {
         super(event);
         this.event = event;
 
-        NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiGroupMessageRecallEvent(event));
+
     }
 
     private final MessageRecallEvent.GroupRecall event;

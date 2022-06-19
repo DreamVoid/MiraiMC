@@ -11,6 +11,6 @@ public class MiraiStrangerMessageEvent extends AbstractMessageEvent {
     public MiraiStrangerMessageEvent(StrangerMessageEvent event) {
         super(event);
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiStrangerMessageEvent(event));
+
     }
 }

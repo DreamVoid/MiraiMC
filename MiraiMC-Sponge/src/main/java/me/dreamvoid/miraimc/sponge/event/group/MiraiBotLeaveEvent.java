@@ -15,7 +15,7 @@ public class MiraiBotLeaveEvent extends AbstractGroupEvent {
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupBotLeaveEvent(event, cause));
+
     }
 
     /**

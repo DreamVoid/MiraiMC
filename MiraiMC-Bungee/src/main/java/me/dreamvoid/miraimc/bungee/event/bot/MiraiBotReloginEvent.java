@@ -10,6 +10,6 @@ public class MiraiBotReloginEvent extends AbstractBotEvent {
     public MiraiBotReloginEvent(BotReloginEvent event) {
         super(event);
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiBotReloginEvent(event));
+
     }
 }

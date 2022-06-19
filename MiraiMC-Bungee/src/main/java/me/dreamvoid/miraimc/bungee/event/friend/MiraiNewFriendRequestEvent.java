@@ -12,7 +12,7 @@ public class MiraiNewFriendRequestEvent extends AbstractBotEvent {
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiNewFriendRequestEvent(event));
+
     }
 
     private final NewFriendRequestEvent event;

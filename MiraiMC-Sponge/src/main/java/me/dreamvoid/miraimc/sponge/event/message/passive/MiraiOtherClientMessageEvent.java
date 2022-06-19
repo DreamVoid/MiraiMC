@@ -12,7 +12,7 @@ public class MiraiOtherClientMessageEvent extends AbstractMessageEvent {
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiOtherClientMessageEvent(event, cause));
+
     }
 
     private final OtherClientMessageEvent event;

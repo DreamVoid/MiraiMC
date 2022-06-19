@@ -13,7 +13,7 @@ public class MiraiFriendMessageRecallEvent extends AbstractMessageRecallEvent {
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiFriendMessageRecallEvent(event, cause));
+
     }
 
     private final MessageRecallEvent.FriendRecall event;

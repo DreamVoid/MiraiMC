@@ -10,10 +10,6 @@ public class MiraiMemberLeaveEvent extends AbstractGroupMemberEvent {
     public MiraiMemberLeaveEvent(MemberLeaveEvent event) {
         super(event);
         this.event = event;
-
-        if(event instanceof MemberLeaveEvent.Kick){
-            VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiGroupMemberLeaveEvent((MemberLeaveEvent.Kick) event,(MemberLeaveEvent.Kick) event));
-        } else VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiGroupMemberLeaveEvent(event,(MemberLeaveEvent.Quit) event));
     }
 
     private final MemberLeaveEvent event;

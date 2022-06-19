@@ -12,7 +12,7 @@ public class MiraiMemberCardChangeEvent extends AbstractGroupMemberEvent {
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupMemberCardChangeEvent(event, cause));
+
     }
     private final MemberCardChangeEvent event;
 

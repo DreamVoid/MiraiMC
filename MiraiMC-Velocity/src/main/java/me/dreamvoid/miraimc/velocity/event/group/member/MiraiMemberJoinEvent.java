@@ -10,10 +10,6 @@ public class MiraiMemberJoinEvent extends AbstractGroupMemberEvent {
     public MiraiMemberJoinEvent(MemberJoinEvent event){
         super(event);
         this.event = event;
-
-        if(event instanceof MemberJoinEvent.Active){
-            VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiGroupMemberJoinEvent(event,(MemberJoinEvent.Active) event));
-        } else VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiGroupMemberJoinEvent(event,(MemberJoinEvent.Invite) event));
     }
 
     private final MemberJoinEvent event;

@@ -12,7 +12,7 @@ public class MiraiBotOfflineEvent extends AbstractBotEvent {
         this.event = event;
         this.Type = type;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiBotOfflineEvent(event,type));
+
     }
 
     private final BotOfflineEvent event;

@@ -12,7 +12,7 @@ public class MiraiMemberPermissionChangeEvent extends AbstractGroupMemberEvent {
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupMemberPermissionChangeEvent(event, cause));
+
     }
 
     private final MemberPermissionChangeEvent event;

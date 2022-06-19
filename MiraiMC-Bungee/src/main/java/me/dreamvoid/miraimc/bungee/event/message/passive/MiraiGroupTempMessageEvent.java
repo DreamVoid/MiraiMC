@@ -12,7 +12,7 @@ public class MiraiGroupTempMessageEvent extends AbstractMessageEvent {
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupTempMessageEvent(event));
+
     }
     private final GroupTempMessageEvent event;
 

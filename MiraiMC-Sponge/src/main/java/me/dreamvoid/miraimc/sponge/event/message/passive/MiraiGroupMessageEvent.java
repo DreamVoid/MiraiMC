@@ -46,7 +46,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
         GroupID = event.getGroup().getId();
         GroupName = event.getGroup().getName();
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupMessageEvent(event, cause));
+
     }
 
     /**

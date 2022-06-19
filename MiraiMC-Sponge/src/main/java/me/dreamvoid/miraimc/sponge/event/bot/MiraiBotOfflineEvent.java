@@ -16,7 +16,7 @@ public class MiraiBotOfflineEvent extends AbstractBotEvent {
         this.event = event;
         this.Type = type;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiBotOfflineEvent(event,type,cause));
+
     }
 
     /**

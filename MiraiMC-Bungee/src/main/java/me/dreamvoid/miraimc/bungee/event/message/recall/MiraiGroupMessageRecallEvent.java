@@ -12,7 +12,7 @@ public class MiraiGroupMessageRecallEvent extends AbstractMessageRecallEvent {
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMessageRecallEvent(event));
+
     }
 
     private final MessageRecallEvent.GroupRecall event;

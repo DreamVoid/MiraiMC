@@ -11,7 +11,7 @@ public class MiraiMemberSpecialTitleChangeEvent extends AbstractGroupMemberEvent
         super(event);
         this.event = event;
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiGroupMemberSpecialTitleChangeEvent(event));
+
     }
 
     private final MemberSpecialTitleChangeEvent event;

@@ -13,7 +13,7 @@ public class MiraiGroupMessageRecallEvent extends AbstractMessageRecallEvent {
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupMessageRecallEvent(event, cause));
+
     }
 
     private final MessageRecallEvent.GroupRecall event;

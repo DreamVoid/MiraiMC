@@ -13,7 +13,7 @@ public class MiraiBeforeImageUploadEvent extends Event {
     public MiraiBeforeImageUploadEvent(BeforeImageUploadEvent event) {
         this.event = event;
 
-        NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiBeforeImageUploadEvent(event));
+
     }
 
     /**

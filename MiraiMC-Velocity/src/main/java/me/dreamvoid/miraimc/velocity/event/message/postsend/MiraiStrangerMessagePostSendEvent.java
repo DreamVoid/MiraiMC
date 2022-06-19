@@ -11,7 +11,7 @@ public class MiraiStrangerMessagePostSendEvent extends AbstractMessagePostSendEv
         super(event);
         this.event = event;
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiStrangerMessagePostSendEvent(event));
+
     }
 
     private final StrangerMessagePostSendEvent event;

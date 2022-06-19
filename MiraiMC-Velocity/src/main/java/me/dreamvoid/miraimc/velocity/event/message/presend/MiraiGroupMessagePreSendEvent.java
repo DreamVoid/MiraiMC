@@ -17,7 +17,7 @@ public class MiraiGroupMessagePreSendEvent extends AbstractMessagePreSendEvent {
         super(event);
         this.event = event;
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiGroupMessagePreSendEvent(event));
+
     }
 
     private final GroupMessagePreSendEvent event;

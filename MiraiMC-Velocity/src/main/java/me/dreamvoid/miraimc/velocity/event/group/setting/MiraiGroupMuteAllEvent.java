@@ -11,7 +11,7 @@ public class MiraiGroupMuteAllEvent extends AbstractGroupSettingChangeEvent {
         super(event);
         this.event = event;
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiGroupMuteAllEvent(event));
+
     }
 
     private final GroupMuteAllEvent event;

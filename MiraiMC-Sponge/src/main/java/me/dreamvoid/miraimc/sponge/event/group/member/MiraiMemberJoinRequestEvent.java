@@ -16,7 +16,7 @@ public class MiraiMemberJoinRequestEvent extends AbstractBotEvent {
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupMemberJoinRequestEvent(event, cause));
+
     }
 
     /**

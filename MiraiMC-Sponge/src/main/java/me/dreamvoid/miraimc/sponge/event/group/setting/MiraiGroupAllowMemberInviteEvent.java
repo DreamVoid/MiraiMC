@@ -12,7 +12,7 @@ public class MiraiGroupAllowMemberInviteEvent extends AbstractGroupSettingChange
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupAllowMemberInviteEvent(event, cause));
+
     }
 
     private final GroupAllowMemberInviteEvent event;

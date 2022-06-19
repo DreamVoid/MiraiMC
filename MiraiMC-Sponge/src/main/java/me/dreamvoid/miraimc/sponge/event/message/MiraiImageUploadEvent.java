@@ -15,10 +15,6 @@ public class MiraiImageUploadEvent extends AbstractEvent {
     public MiraiImageUploadEvent(ImageUploadEvent event, Cause cause) {
         this.event = event;
         this.cause = cause;
-
-        if(event instanceof ImageUploadEvent.Succeed){
-            Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiImageUploadSucceedEvent((ImageUploadEvent.Succeed) event, cause));
-        } else Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiImageUploadFailedEvent((ImageUploadEvent.Failed) event, cause));
     }
 
     private final ImageUploadEvent event;

@@ -17,7 +17,7 @@ public class MiraiGroupMessagePreSendEvent extends AbstractMessagePreSendEvent {
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMessagePreSendEvent(event));
+
     }
 
     private final GroupMessagePreSendEvent event;

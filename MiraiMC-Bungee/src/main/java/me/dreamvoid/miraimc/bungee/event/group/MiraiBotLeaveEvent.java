@@ -12,7 +12,7 @@ public class MiraiBotLeaveEvent extends AbstractGroupEvent{
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupBotLeaveEvent(event));
+
     }
 
     private final BotLeaveEvent event;

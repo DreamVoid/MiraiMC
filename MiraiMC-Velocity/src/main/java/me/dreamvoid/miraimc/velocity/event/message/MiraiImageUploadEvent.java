@@ -11,10 +11,6 @@ public class MiraiImageUploadEvent {
 
     public MiraiImageUploadEvent(ImageUploadEvent event) {
         this.event = event;
-
-        if(event instanceof ImageUploadEvent.Succeed){
-            VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiImageUploadSucceedEvent((ImageUploadEvent.Succeed) event));
-        } else VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiImageUploadFailedEvent((ImageUploadEvent.Failed) event));
     }
 
     /**

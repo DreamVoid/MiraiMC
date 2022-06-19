@@ -12,7 +12,7 @@ public class MiraiGroupEntranceAnnouncementChangeEvent extends AbstractGroupSett
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupEntranceAnnouncementChangeEvent(event, cause));
+
     }
 
     private final GroupEntranceAnnouncementChangeEvent event;

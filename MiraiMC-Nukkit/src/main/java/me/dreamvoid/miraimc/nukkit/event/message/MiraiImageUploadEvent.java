@@ -12,10 +12,6 @@ public class MiraiImageUploadEvent extends Event {
 
     public MiraiImageUploadEvent(ImageUploadEvent event) {
         this.event = event;
-
-        if(event instanceof ImageUploadEvent.Succeed){
-            NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiImageUploadSucceedEvent((ImageUploadEvent.Succeed) event));
-        } else NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiImageUploadFailedEvent((ImageUploadEvent.Failed) event));
     }
 
     /**

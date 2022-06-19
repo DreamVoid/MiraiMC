@@ -11,7 +11,7 @@ public class MiraiGroupAllowMemberInviteEvent extends AbstractGroupSettingChange
         super(event);
         this.event = event;
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiGroupAllowMemberInviteEvent(event));
+
     }
 
     private final GroupAllowMemberInviteEvent event;

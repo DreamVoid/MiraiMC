@@ -11,7 +11,7 @@ public class MiraiBotGroupPermissionChangeEvent extends AbstractGroupEvent{
         super(event);
         this.event = event;
 
-        NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiGroupBotPermissionChangeEvent(event));
+
     }
 
     private final BotGroupPermissionChangeEvent event;

@@ -11,10 +11,6 @@ public class MiraiMemberLeaveEvent extends AbstractGroupMemberEvent {
     public MiraiMemberLeaveEvent(MemberLeaveEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
-
-        if(event instanceof MemberLeaveEvent.Kick){
-            Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupMemberLeaveEvent((MemberLeaveEvent.Kick) event,(MemberLeaveEvent.Kick) event, cause));
-        } else Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupMemberLeaveEvent(event,(MemberLeaveEvent.Quit) event, cause));
     }
 
     private final MemberLeaveEvent event;

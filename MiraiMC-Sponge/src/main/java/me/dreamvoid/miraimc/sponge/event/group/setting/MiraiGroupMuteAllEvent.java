@@ -14,7 +14,7 @@ public class MiraiGroupMuteAllEvent extends AbstractGroupSettingChangeEvent {
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupMuteAllEvent(event, cause));
+
     }
 
     /**

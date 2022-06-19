@@ -11,7 +11,7 @@ public class MiraiStrangerMessagePreSendEvent extends AbstractMessagePreSendEven
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiStrangerMessagePreSendEvent(event));
+
     }
 
     private final StrangerMessagePreSendEvent event;

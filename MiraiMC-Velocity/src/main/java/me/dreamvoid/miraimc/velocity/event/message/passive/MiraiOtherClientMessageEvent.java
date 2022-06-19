@@ -11,7 +11,7 @@ public class MiraiOtherClientMessageEvent extends AbstractMessageEvent {
         super(event);
         this.event = event;
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiOtherClientMessageEvent(event));
+
     }
 
     private final OtherClientMessageEvent event;
