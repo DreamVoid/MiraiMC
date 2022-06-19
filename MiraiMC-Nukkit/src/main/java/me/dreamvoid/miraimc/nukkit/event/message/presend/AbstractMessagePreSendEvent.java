@@ -2,6 +2,7 @@ package me.dreamvoid.miraimc.nukkit.event.message.presend;
 
 import cn.nukkit.event.Cancellable;
 import cn.nukkit.event.Event;
+import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.MessagePreSendEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
 
@@ -12,6 +13,9 @@ abstract class AbstractMessagePreSendEvent extends Event implements Cancellable 
 	public AbstractMessagePreSendEvent(MessagePreSendEvent event) {
 		this.event = event;
 	}
+
+	private static final HandlerList handlers = new HandlerList();
+	public static HandlerList getHandlers() { return handlers; }
 
 	private final MessagePreSendEvent event;
 

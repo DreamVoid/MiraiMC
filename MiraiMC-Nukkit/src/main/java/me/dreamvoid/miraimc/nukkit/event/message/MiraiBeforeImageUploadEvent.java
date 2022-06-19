@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.nukkit.event.message;
 
+import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.BeforeImageUploadEvent;
 import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 import cn.nukkit.event.Event;
@@ -9,6 +10,9 @@ import cn.nukkit.event.Event;
  */
 public class MiraiBeforeImageUploadEvent extends Event {
     private final BeforeImageUploadEvent event;
+
+    private static final HandlerList handlers = new HandlerList();
+    public static HandlerList getHandlers() { return handlers; }
 
     public MiraiBeforeImageUploadEvent(BeforeImageUploadEvent event) {
         this.event = event;

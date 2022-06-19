@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.nukkit.event.group.setting;
 
+import cn.nukkit.event.HandlerList;
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.event.events.GroupSettingChangeEvent;
 import cn.nukkit.event.Event;
@@ -11,6 +12,9 @@ abstract class AbstractGroupSettingChangeEvent extends Event {
 	public AbstractGroupSettingChangeEvent(GroupSettingChangeEvent event){
 		this.event = event;
 	}
+
+	private static final HandlerList handlers = new HandlerList();
+	public static HandlerList getHandlers() { return handlers; }
 
 	private final GroupSettingChangeEvent event;
 	/**

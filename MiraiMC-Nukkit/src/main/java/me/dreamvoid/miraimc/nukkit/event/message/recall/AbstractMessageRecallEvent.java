@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.nukkit.event.message.recall;
 
+import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.MessageRecallEvent;
 import cn.nukkit.event.Event;
 
@@ -10,6 +11,9 @@ abstract class AbstractMessageRecallEvent extends Event {
 	public AbstractMessageRecallEvent(MessageRecallEvent event) {
 		this.event = event;
 	}
+
+	private static final HandlerList handlers = new HandlerList();
+	public static HandlerList getHandlers() { return handlers; }
 
 	private final MessageRecallEvent event;
 

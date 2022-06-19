@@ -1,8 +1,9 @@
 package me.dreamvoid.miraimc.nukkit.event.bot;
 
+import cn.nukkit.event.Event;
+import cn.nukkit.event.HandlerList;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import net.mamoe.mirai.event.events.BotEvent;
-import cn.nukkit.event.Event;
 
 /**
  * (Nukkit) Mirai 核心事件 - Bot（抽象）
@@ -11,6 +12,9 @@ public abstract class AbstractBotEvent extends Event {
 	public AbstractBotEvent(BotEvent event){
 		this.event = event;
 	}
+
+	private static final HandlerList handlers = new HandlerList();
+	public static HandlerList getHandlers() { return handlers; }
 
 	private final BotEvent event;
 	/**
