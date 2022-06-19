@@ -13,7 +13,7 @@ public class MiraiBotInvitedJoinGroupRequestEvent extends AbstractBotEvent {
         super(event);
         this.event = event;
 
-        NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiGroupBotInvitedJoinGroupRequestEvent(event));
+
     }
 
     private final BotInvitedJoinGroupRequestEvent event;

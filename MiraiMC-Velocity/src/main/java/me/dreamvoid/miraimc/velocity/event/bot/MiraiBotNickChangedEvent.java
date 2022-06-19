@@ -12,7 +12,7 @@ public class MiraiBotNickChangedEvent extends AbstractBotEvent {
         super(event);
         this.event = event;
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiBotNickChangedEvent(event));
+
     }
 
     private final BotNickChangedEvent event;

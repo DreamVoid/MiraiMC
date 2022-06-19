@@ -11,7 +11,7 @@ public class MiraiFriendRemarkChangeEvent extends AbstractFriendEvent {
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiFriendRemarkChangeEvent(event));
+
     }
 
     private final FriendRemarkChangeEvent event;

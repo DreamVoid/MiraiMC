@@ -12,7 +12,7 @@ public class MiraiFriendMessagePreSendEvent extends AbstractMessagePreSendEvent 
         super(event);
         this.event = event;
 
-        NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiFriendMessagePreSendEvent(event));
+
     }
 
     private final FriendMessagePreSendEvent event;

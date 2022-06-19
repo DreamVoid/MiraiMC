@@ -12,6 +12,6 @@ public class MiraiStrangerMessageEvent extends AbstractMessageEvent {
     public MiraiStrangerMessageEvent(StrangerMessageEvent event, Cause cause) {
         super(event, cause);
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiStrangerMessageEvent(event, cause));
+
     }
 }

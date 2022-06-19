@@ -27,7 +27,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         messageMiraiCode = event.getMessage().serializeToMiraiCode();
         time = event.getTime();
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiFriendMessageEvent(event));
+
     }
     public MiraiFriendMessageEvent(long BotAccount, Message message) {
         type = 1;
@@ -38,7 +38,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         messageMiraiCode = message.text;
         time = message.time;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiFriendMessageEvent(BotAccount, message));
+
     }
 
     private FriendMessageEvent event = null;

@@ -12,7 +12,7 @@ public class MiraiNudgeEvent extends Event {
     public MiraiNudgeEvent(NudgeEvent event) {
         this.event = event;
 
-        NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiNudgeEvent(event));
+
     }
 
     private final NudgeEvent event;

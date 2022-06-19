@@ -12,7 +12,7 @@ public class MiraiStrangerMessagePreSendEvent extends AbstractMessagePreSendEven
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiStrangerMessagePreSendEvent(event, cause));
+
     }
 
     private final StrangerMessagePreSendEvent event;

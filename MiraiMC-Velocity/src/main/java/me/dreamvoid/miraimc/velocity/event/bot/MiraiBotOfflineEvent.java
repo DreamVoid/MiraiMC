@@ -15,7 +15,7 @@ public class MiraiBotOfflineEvent extends AbstractBotEvent {
         this.event = event;
         this.Type = type;
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiBotOfflineEvent(event,type));
+
     }
 
     /**

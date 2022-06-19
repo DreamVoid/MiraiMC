@@ -11,7 +11,7 @@ public class MiraiBotGroupPermissionChangeEvent extends AbstractGroupEvent{
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupBotPermissionChangeEvent(event));
+
     }
 
     private final BotGroupPermissionChangeEvent event;

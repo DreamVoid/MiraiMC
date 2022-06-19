@@ -12,7 +12,7 @@ public class MiraiFriendMessagePreSendEvent extends AbstractMessagePreSendEvent 
         super(event);
         this.event = event;
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiFriendMessagePreSendEvent(event));
+
     }
 
     private final FriendMessagePreSendEvent event;

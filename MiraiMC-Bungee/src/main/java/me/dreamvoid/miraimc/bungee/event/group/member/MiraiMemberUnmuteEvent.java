@@ -11,7 +11,7 @@ public class MiraiMemberUnmuteEvent extends AbstractGroupMemberEvent {
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMemberUnmuteEvent(event));
+
     }
 
     private final MemberUnmuteEvent event;

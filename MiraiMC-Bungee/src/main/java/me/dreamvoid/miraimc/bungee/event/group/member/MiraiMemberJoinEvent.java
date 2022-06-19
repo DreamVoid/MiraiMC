@@ -10,10 +10,6 @@ public class MiraiMemberJoinEvent extends AbstractGroupMemberEvent {
     public MiraiMemberJoinEvent(MemberJoinEvent event){
         super(event);
         this.event = event;
-
-        if(event instanceof MemberJoinEvent.Active){
-            ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMemberJoinEvent(event,(MemberJoinEvent.Active) event));
-        } else ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMemberJoinEvent(event,(MemberJoinEvent.Invite) event));
     }
 
     private final MemberJoinEvent event;

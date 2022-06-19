@@ -19,7 +19,7 @@ public class MiraiBotOnlineEvent extends AbstractBotEvent {
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiBotOnlineEvent(event, cause));
+
     }
 
     private final BotOnlineEvent event;

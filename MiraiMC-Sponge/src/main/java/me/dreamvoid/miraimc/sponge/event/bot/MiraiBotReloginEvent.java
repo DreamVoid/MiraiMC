@@ -11,6 +11,6 @@ public class MiraiBotReloginEvent extends AbstractBotEvent {
     public MiraiBotReloginEvent(BotReloginEvent event, Cause cause) {
         super(event, cause);
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiBotReloginEvent(event, cause));
+
     }
 }

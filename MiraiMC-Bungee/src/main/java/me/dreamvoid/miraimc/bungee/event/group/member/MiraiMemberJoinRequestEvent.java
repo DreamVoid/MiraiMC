@@ -13,7 +13,7 @@ public class MiraiMemberJoinRequestEvent extends AbstractBotEvent {
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMemberJoinRequestEvent(event));
+
     }
     private final MemberJoinRequestEvent event;
 

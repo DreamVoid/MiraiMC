@@ -14,7 +14,7 @@ public class MiraiFriendMessagePostSendEvent extends AbstractMessagePostSendEven
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiFriendMessagePostSendEvent(event, cause));
+
     }
 
     private final FriendMessagePostSendEvent event;

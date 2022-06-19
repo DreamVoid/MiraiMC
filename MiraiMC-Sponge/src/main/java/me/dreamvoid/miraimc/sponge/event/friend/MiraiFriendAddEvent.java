@@ -11,6 +11,6 @@ public class MiraiFriendAddEvent extends AbstractFriendEvent {
     public MiraiFriendAddEvent(FriendAddEvent event, Cause cause) {
         super(event, cause);
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiFriendAddEvent(event, cause));
+
     }
 }

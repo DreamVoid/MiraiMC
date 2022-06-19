@@ -11,7 +11,7 @@ public class MiraiBotAvatarChangedEvent extends AbstractBotEvent {
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiBotAvatarChangedEvent(event));
+
     }
 
     private final BotAvatarChangedEvent event;

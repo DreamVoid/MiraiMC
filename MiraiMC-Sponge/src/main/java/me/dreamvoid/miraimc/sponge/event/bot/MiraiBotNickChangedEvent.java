@@ -13,7 +13,7 @@ public class MiraiBotNickChangedEvent extends AbstractBotEvent {
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiBotNickChangedEvent(event, cause));
+
     }
 
     private final BotNickChangedEvent event;

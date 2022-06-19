@@ -11,10 +11,6 @@ public class MiraiMemberJoinEvent extends AbstractGroupMemberEvent {
     public MiraiMemberJoinEvent(MemberJoinEvent event, Cause cause){
         super(event, cause);
         this.event = event;
-
-        if(event instanceof MemberJoinEvent.Active){
-            Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupMemberJoinEvent(event,(MemberJoinEvent.Active) event, cause));
-        } else Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupMemberJoinEvent(event,(MemberJoinEvent.Invite) event, cause));
     }
 
     private final MemberJoinEvent event;

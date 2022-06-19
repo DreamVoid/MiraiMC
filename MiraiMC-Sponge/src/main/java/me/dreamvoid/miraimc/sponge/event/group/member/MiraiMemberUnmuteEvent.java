@@ -12,7 +12,7 @@ public class MiraiMemberUnmuteEvent extends AbstractGroupMemberEvent {
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupMemberUnmuteEvent(event, cause));
+
     }
 
     private final MemberUnmuteEvent event;

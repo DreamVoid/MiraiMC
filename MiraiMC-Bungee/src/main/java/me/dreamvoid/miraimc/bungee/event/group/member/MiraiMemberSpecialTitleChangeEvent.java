@@ -11,7 +11,7 @@ public class MiraiMemberSpecialTitleChangeEvent extends AbstractGroupMemberEvent
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMemberSpecialTitleChangeEvent(event));
+
     }
 
     private final MemberSpecialTitleChangeEvent event;

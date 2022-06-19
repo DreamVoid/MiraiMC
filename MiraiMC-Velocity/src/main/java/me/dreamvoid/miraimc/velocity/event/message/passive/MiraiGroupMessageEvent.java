@@ -35,7 +35,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
         GroupID = event.getGroup().getId();
         GroupName = event.getGroup().getName();
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiGroupMessageEvent(event));
+
     }
 
     public MiraiGroupMessageEvent(long BotAccount, FetchMessage.Sender sender, Message message) {
@@ -49,7 +49,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
         GroupID = sender.group.id;
         GroupName = sender.group.name;
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiGroupMessageEvent(BotAccount, sender, message));
+
     }
 
     private GroupMessageEvent event;

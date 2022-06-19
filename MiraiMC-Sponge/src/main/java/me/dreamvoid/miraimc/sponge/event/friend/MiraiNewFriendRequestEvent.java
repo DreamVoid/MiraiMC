@@ -13,7 +13,7 @@ public class MiraiNewFriendRequestEvent extends AbstractBotEvent {
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiNewFriendRequestEvent(event, cause));
+
     }
 
     private final NewFriendRequestEvent event;

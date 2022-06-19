@@ -13,7 +13,7 @@ public class MiraiGroupAllowAnonymousChatEvent extends AbstractGroupSettingChang
         super(event);
         this.event = event;
 
-        NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiGroupAllowAnonymousChatEvent(event));
+
     }
 
     /**

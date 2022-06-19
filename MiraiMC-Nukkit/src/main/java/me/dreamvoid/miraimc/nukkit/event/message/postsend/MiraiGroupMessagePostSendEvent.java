@@ -19,7 +19,7 @@ public class MiraiGroupMessagePostSendEvent extends AbstractMessagePostSendEvent
         super(event);
         this.event = event;
 
-        NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiGroupMessagePostSendEvent(event));
+
     }
 
     /**

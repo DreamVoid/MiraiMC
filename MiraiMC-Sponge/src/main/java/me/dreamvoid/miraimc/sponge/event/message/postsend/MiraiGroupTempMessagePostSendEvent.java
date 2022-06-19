@@ -19,7 +19,7 @@ public class MiraiGroupTempMessagePostSendEvent extends AbstractMessagePostSendE
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupTempMessagePostSendEvent(event, cause));
+
     }
 
     private final GroupTempMessagePostSendEvent event;

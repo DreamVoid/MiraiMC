@@ -18,7 +18,7 @@ public class MiraiBotOnlineEvent extends AbstractBotEvent {
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiBotOnlineEvent(event));
+
     }
 
     private final BotOnlineEvent event;

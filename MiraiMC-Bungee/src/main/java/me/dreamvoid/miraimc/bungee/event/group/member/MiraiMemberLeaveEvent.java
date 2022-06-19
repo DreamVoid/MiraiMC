@@ -10,10 +10,6 @@ public class MiraiMemberLeaveEvent extends AbstractGroupMemberEvent {
     public MiraiMemberLeaveEvent(MemberLeaveEvent event) {
         super(event);
         this.event = event;
-
-        if(event instanceof MemberLeaveEvent.Kick){
-            ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMemberLeaveEvent((MemberLeaveEvent.Kick) event,(MemberLeaveEvent.Kick) event));
-        } else ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMemberLeaveEvent(event,(MemberLeaveEvent.Quit) event));
     }
 
     private final MemberLeaveEvent event;

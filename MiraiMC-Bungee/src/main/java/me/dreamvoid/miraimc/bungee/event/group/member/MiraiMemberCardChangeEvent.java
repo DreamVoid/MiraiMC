@@ -11,7 +11,7 @@ public class MiraiMemberCardChangeEvent extends AbstractGroupMemberEvent {
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMemberCardChangeEvent(event));
+
     }
     private final MemberCardChangeEvent event;
 

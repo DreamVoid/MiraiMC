@@ -11,6 +11,6 @@ public class MiraiFriendDeleteEvent extends AbstractFriendEvent {
     public MiraiFriendDeleteEvent(FriendDeleteEvent event, Cause cause) {
         super(event, cause);
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiFriendDeleteEvent(event, cause));
+
     }
 }

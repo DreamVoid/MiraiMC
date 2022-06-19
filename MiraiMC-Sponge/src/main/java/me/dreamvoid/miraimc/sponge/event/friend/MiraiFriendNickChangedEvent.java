@@ -12,7 +12,7 @@ public class MiraiFriendNickChangedEvent extends AbstractFriendEvent {
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiFriendNickChangedEvent(event, cause));
+
     }
 
     private final FriendNickChangedEvent event;

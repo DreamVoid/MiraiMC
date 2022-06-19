@@ -10,10 +10,6 @@ public class MiraiMemberLeaveEvent extends AbstractGroupMemberEvent {
     public MiraiMemberLeaveEvent(MemberLeaveEvent event) {
         super(event);
         this.event = event;
-
-        if(event instanceof MemberLeaveEvent.Kick){
-            NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiGroupMemberLeaveEvent((MemberLeaveEvent.Kick) event,(MemberLeaveEvent.Kick) event));
-        } else NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiGroupMemberLeaveEvent(event,(MemberLeaveEvent.Quit) event));
     }
 
     private final MemberLeaveEvent event;

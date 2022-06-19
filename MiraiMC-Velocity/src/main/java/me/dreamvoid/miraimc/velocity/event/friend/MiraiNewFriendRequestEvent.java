@@ -12,7 +12,7 @@ public class MiraiNewFriendRequestEvent extends AbstractBotEvent {
         super(event);
         this.event = event;
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiNewFriendRequestEvent(event));
+
     }
 
     private final NewFriendRequestEvent event;

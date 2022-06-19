@@ -11,7 +11,7 @@ public class MiraiBotMuteEvent extends AbstractGroupEvent {
         super(event);
         this.event = event;
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiGroupBotMuteEvent(event));
+
     }
 
     private final BotMuteEvent event;

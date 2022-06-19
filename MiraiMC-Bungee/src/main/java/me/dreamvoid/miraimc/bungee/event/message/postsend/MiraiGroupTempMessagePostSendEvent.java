@@ -18,7 +18,7 @@ public class MiraiGroupTempMessagePostSendEvent extends AbstractMessagePostSendE
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupTempMessagePostSendEvent(event));
+
     }
 
     private final GroupTempMessagePostSendEvent event;

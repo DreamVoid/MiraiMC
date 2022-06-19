@@ -11,7 +11,7 @@ public class MiraiMemberPermissionChangeEvent extends AbstractGroupMemberEvent{
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupMemberPermissionChangeEvent(event));
+
     }
 
     private final MemberPermissionChangeEvent event;

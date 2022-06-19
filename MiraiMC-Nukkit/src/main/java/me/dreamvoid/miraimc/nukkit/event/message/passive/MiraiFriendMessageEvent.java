@@ -37,7 +37,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         messageMiraiCode = event.getMessage().serializeToMiraiCode();
         time = event.getTime();
 
-        NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiFriendMessageEvent(event));
+
     }
     public MiraiFriendMessageEvent(long BotAccount, Message message) {
         type = 1;
@@ -48,7 +48,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         messageMiraiCode = message.text;
         time = message.time;
 
-        NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiFriendMessageEvent(BotAccount, message));
+
     }
 
     /**

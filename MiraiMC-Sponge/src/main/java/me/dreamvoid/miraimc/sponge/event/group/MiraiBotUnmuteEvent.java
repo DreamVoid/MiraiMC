@@ -14,7 +14,7 @@ public class MiraiBotUnmuteEvent extends AbstractGroupEvent {
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiGroupBotUnmuteEvent(event, cause));
+
     }
 
     /**

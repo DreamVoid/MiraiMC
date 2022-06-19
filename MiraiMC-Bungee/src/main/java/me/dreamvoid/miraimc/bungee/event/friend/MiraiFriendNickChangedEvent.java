@@ -11,7 +11,7 @@ public class MiraiFriendNickChangedEvent extends AbstractFriendEvent {
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiFriendNickChangedEvent(event));
+
     }
 
     private final FriendNickChangedEvent event;

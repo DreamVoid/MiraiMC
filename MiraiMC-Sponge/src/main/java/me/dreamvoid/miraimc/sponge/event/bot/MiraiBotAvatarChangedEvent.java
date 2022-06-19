@@ -12,7 +12,7 @@ public class MiraiBotAvatarChangedEvent extends AbstractBotEvent {
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiBotAvatarChangedEvent(event, cause));
+
     }
 
     private final BotAvatarChangedEvent event;

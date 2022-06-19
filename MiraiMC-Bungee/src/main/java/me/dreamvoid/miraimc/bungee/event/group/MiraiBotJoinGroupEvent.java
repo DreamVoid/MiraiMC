@@ -11,7 +11,7 @@ public class MiraiBotJoinGroupEvent extends AbstractGroupEvent {
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupBotJoinGroupEvent(event));
+
     }
 
     private final BotJoinGroupEvent event;

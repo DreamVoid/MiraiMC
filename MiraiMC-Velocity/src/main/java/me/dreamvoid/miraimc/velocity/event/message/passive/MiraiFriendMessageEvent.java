@@ -27,7 +27,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         messageMiraiCode = event.getMessage().serializeToMiraiCode();
         time = event.getTime();
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiFriendMessageEvent(event));
+
     }
     public MiraiFriendMessageEvent(long BotAccount, Message message) {
         type = 1;
@@ -38,7 +38,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         messageMiraiCode = message.text;
         time = message.time;
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiFriendMessageEvent(BotAccount, message));
+
     }
 
     private FriendMessageEvent event = null;

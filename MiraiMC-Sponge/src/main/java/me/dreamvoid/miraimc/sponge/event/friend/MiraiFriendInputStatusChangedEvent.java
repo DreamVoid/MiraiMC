@@ -12,7 +12,7 @@ public class MiraiFriendInputStatusChangedEvent extends AbstractFriendEvent {
         super(event, cause);
         this.event = event;
 
-        Sponge.getEventManager().post(new me.dreamvoid.miraimc.sponge.event.MiraiFriendInputStatusChangedEvent(event, cause));
+
     }
 
     private final FriendInputStatusChangedEvent event;

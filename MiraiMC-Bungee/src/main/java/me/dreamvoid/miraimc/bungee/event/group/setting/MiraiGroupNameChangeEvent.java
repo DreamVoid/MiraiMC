@@ -11,7 +11,7 @@ public class MiraiGroupNameChangeEvent extends AbstractGroupSettingChangeEvent {
         super(event);
         this.event = event;
 
-        ProxyServer.getInstance().getPluginManager().callEvent(new me.dreamvoid.miraimc.bungee.event.MiraiGroupNameChangeEvent(event));
+
     }
 
     private final GroupNameChangeEvent event;

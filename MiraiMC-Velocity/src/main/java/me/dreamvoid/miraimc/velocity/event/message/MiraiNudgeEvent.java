@@ -11,7 +11,7 @@ public class MiraiNudgeEvent {
     public MiraiNudgeEvent(NudgeEvent event) {
         this.event = event;
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiNudgeEvent(event));
+
     }
 
     private final NudgeEvent event;

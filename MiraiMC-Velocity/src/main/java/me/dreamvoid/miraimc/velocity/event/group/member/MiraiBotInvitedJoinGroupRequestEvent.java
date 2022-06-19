@@ -13,7 +13,7 @@ public class MiraiBotInvitedJoinGroupRequestEvent extends AbstractBotEvent {
         super(event);
         this.event = event;
 
-        VelocityPlugin.INSTANCE.getServer().getEventManager().fire(new me.dreamvoid.miraimc.velocity.event.MiraiGroupBotInvitedJoinGroupRequestEvent(event));
+
     }
 
     private final BotInvitedJoinGroupRequestEvent event;

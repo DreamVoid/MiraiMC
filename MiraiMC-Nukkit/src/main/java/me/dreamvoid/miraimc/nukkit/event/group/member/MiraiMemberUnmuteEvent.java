@@ -11,7 +11,7 @@ public class MiraiMemberUnmuteEvent extends AbstractGroupMemberEvent {
         super(event);
         this.event = event;
 
-        NukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new me.dreamvoid.miraimc.nukkit.event.MiraiGroupMemberUnmuteEvent(event));
+
     }
 
     private final MemberUnmuteEvent event;
