@@ -12,7 +12,7 @@ general:
   add-properties:
     mirai.no-desktop: true
     mirai.slider.captcha.supported: true
-  mirai-core-version: "latest"
+  mirai-core-version: "stable"
   maven-repo-url: "https://maven.aliyun.com/nexus/content/groups/public/"
   enable-http-api: false
 bot:
