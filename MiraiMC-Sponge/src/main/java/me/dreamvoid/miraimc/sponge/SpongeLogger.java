@@ -11,7 +11,7 @@ public class SpongeLogger extends Logger {
      * Protected method to construct a logger for a named subsystem.
      * <p>
      * The logger will be initially configured with a null Level
-     * .and with useParentHandlers set to true..
+     * .and with useParentHandlers set to true.
      *
      * @param name               A name for the logger.  This should
      *                           be a dot-separated name and should normally
