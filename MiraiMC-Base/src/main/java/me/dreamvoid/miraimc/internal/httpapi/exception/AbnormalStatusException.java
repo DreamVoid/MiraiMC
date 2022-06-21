@@ -32,8 +32,4 @@ public class AbnormalStatusException extends Exception{
         return code;
     }
 
-    @Override
-    public String getMessage() {
-        return super.getMessage();
-    }
 }

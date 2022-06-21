@@ -27,6 +27,7 @@ import java.util.zip.GZIPOutputStream;
 public class Metrics {
 
     /** A factory to create new Metrics classes. */
+    @SuppressWarnings("UnusedReturnValue")
     public static class Factory {
 
         private final ProxyServer server;
@@ -651,6 +652,7 @@ public class Metrics {
      * <p>While this class is neither feature-rich nor the most performant one, it's sufficient enough
      * for its use-case.
      */
+    @SuppressWarnings("UnusedReturnValue")
     public static class JsonObjectBuilder {
 
         private StringBuilder builder = new StringBuilder();

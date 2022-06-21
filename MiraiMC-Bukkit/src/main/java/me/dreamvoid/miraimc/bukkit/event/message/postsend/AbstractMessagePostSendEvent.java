@@ -14,12 +14,12 @@ import java.util.Objects;
  * (Bukkit) Mirai 核心事件 - 消息 - 主动发送消息后（抽象）
  */
 abstract class AbstractMessagePostSendEvent extends Event {
-	public AbstractMessagePostSendEvent(MessagePostSendEvent event) {
+	public AbstractMessagePostSendEvent(MessagePostSendEvent<?> event) {
 		super(true);
 		this.event = event;
 	}
 
-	private final MessagePostSendEvent event;
+	private final MessagePostSendEvent<?> event;
 	private static final HandlerList handlers = new HandlerList();
 
 	public @NotNull HandlerList getHandlers() { return handlers; }

@@ -12,11 +12,11 @@ import java.util.Objects;
  * (BungeeCord) Mirai 核心事件 - 消息 - 主动发送消息后（抽象）
  */
 abstract class AbstractMessagePostSendEvent extends Event {
-	public AbstractMessagePostSendEvent(MessagePostSendEvent event) {
+	public AbstractMessagePostSendEvent(MessagePostSendEvent<?> event) {
 		this.event = event;
 	}
 
-	private final MessagePostSendEvent event;
+	private final MessagePostSendEvent<?> event;
 	/**
 	 * 返回发送这条信息的机器人ID
 	 * @return 机器人ID
