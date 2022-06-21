@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.velocity.event.group;
 
-import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.BotGroupPermissionChangeEvent;
 
 /**

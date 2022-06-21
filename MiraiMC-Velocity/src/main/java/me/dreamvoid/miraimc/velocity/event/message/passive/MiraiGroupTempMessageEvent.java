@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.velocity.event.message.passive;
 
 import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
-import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.GroupTempMessageEvent;
 
 /**

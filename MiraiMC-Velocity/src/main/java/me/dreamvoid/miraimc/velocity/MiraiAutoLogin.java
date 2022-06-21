@@ -26,7 +26,7 @@ public class MiraiAutoLogin {
     private final VelocityPlugin plugin;
     private final Logger Logger;
     private File AutoLoginFile;
-    public MiraiAutoLogin Instance;
+    public final MiraiAutoLogin Instance;
 
     public void loadFile() {
         // 建立文件夹

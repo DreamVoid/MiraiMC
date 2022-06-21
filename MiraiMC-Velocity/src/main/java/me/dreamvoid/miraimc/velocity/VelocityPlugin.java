@@ -57,7 +57,7 @@ public class VelocityPlugin {
     private final Metrics.Factory metricsFactory;
 
     private MiraiEvent MiraiEvent;
-    public MiraiAutoLogin MiraiAutoLogin;
+    public final MiraiAutoLogin MiraiAutoLogin;
 
     private PluginContainer pluginContainer;
 

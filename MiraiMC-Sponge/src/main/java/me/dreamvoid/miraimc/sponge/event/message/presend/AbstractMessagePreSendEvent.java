@@ -4,7 +4,6 @@ import net.mamoe.mirai.event.events.MessagePreSendEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.event.Cancellable;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 

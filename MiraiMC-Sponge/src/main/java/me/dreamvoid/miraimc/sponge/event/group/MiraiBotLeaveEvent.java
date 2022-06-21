@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.sponge.event.group;
 
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.BotLeaveEvent;
 
@@ -64,7 +63,7 @@ public class MiraiBotLeaveEvent extends AbstractGroupEvent {
             this.event = event;
         }
 
-        BotLeaveEvent.Kick event;
+        final BotLeaveEvent.Kick event;
 
         /**
          * 返回操作管理员的QQ。

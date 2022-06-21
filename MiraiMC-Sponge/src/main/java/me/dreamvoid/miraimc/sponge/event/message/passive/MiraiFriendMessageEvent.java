@@ -4,8 +4,6 @@ import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI;
 import me.dreamvoid.miraimc.internal.httpapi.exception.AbnormalStatusException;
-import me.dreamvoid.miraimc.internal.httpapi.type.Message;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
@@ -29,7 +27,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         time = event.getTime();
     }
 
-    private FriendMessageEvent event = null;
+    private FriendMessageEvent event;
 
     private final int type;
     private final long botID;

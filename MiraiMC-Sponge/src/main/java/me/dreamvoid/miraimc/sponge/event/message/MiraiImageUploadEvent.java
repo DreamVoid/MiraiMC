@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.sponge.event.message;
 
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.ImageUploadEvent;
 import org.spongepowered.api.event.impl.AbstractEvent;
@@ -80,7 +79,7 @@ public class MiraiImageUploadEvent extends AbstractEvent {
             this.event = event;
         }
 
-        ImageUploadEvent.Succeed event;
+        final ImageUploadEvent.Succeed event;
 
         /**
          * 获取图片ID
@@ -116,7 +115,7 @@ public class MiraiImageUploadEvent extends AbstractEvent {
             this.event = event;
         }
 
-        ImageUploadEvent.Failed event;
+        final ImageUploadEvent.Failed event;
 
         /**
          * (?)获取消息（可能是失败原因）

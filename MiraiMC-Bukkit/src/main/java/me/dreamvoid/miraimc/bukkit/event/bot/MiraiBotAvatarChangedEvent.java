@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bukkit.event.bot;
 
 import net.mamoe.mirai.event.events.BotAvatarChangedEvent;
-import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - Bot - Bot 头像改变

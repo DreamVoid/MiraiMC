@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bukkit.event.group.setting;
 
 import net.mamoe.mirai.event.events.GroupMuteAllEvent;
-import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 全员禁言状态改变

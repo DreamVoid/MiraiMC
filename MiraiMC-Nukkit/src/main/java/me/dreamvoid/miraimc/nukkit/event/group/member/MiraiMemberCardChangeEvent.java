@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.nukkit.event.group.member;
 
 import net.mamoe.mirai.event.events.MemberCardChangeEvent;
-import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
  * (Nukkit) Mirai 核心事件 - 群 - 群成员 - 名片和头衔 - 成员群名片改动

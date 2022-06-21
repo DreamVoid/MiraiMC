@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.nukkit.event.group;
 
 import net.mamoe.mirai.event.events.BotMuteEvent;
-import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
  * (Nukkit) Mirai 核心事件 - 群 - 机器人被禁言

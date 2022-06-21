@@ -2,7 +2,6 @@ package me.dreamvoid.miraimc.bukkit.event.group.member;
 
 import me.dreamvoid.miraimc.bukkit.event.bot.AbstractBotEvent;
 import net.mamoe.mirai.event.events.BotInvitedJoinGroupRequestEvent;
-import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 机器人被邀请加入群

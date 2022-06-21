@@ -11,12 +11,12 @@ import java.util.Map;
  */
 public class BukkitUtils {
     public static List<Map<?, ?>> getMapList(List<?> list) {
-        List<Map<?, ?>> result = new ArrayList();
+        List<Map<?, ?>> result = new ArrayList<>();
         if (list != null) {
 
             for (Object object : list) {
                 if (object instanceof Map) {
-                    result.add((Map) object);
+                    result.add((Map<?,?>) object);
                 }
             }
 

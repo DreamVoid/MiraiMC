@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.velocity.event.group.member;
 
-import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.MemberSpecialTitleChangeEvent;
 
 /**

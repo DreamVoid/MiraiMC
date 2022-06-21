@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bukkit.event.group;
 
 import net.mamoe.mirai.event.events.BotGroupPermissionChangeEvent;
-import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 群 - 机器人在群里的权限被改变

@@ -11,7 +11,7 @@ public abstract class BaseSubCommand {
 
     private final String name;
 
-    protected NukkitPlugin plugin = NukkitPlugin.getInstance();
+    protected final NukkitPlugin plugin = NukkitPlugin.getInstance();
 
     protected BaseSubCommand(String name) {
         this.name = name.toLowerCase();

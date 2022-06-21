@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bukkit.event.group.setting;
 
 import net.mamoe.mirai.event.events.GroupAllowMemberInviteEvent;
-import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 允许群员邀请好友加群状态改变

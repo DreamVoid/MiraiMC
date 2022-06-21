@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.velocity.event.bot;
 
-import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.BotNickChangedEvent;
 
 /**

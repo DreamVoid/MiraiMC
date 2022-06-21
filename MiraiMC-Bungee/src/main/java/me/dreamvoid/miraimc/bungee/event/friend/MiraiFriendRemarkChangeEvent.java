@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event.friend;
 
 import net.mamoe.mirai.event.events.FriendRemarkChangeEvent;
-import net.md_5.bungee.api.ProxyServer;
 
 /**
  * (BungeeCord) Mirai 核心事件 - 好友 - 好友昵称改变

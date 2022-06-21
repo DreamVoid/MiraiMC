@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bukkit.event.message;
 
 import net.mamoe.mirai.event.events.BeforeImageUploadEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;

@@ -13,8 +13,8 @@ import org.spongepowered.api.plugin.PluginContainer;
 import static me.dreamvoid.miraimc.sponge.event.bot.MiraiBotOfflineEvent.Type.*;
 
 public class MiraiEventLegacy extends MiraiEvent {
-	EventContext eventContext;
-	PluginContainer pluginContainer;
+	final EventContext eventContext;
+	final PluginContainer pluginContainer;
 
 	public MiraiEventLegacy(SpongePlugin plugin) {
 		super(plugin);

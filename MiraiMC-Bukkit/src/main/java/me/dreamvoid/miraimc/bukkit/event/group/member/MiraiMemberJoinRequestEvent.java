@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.bukkit.event.group.member;
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import me.dreamvoid.miraimc.bukkit.event.bot.AbstractBotEvent;
 import net.mamoe.mirai.event.events.MemberJoinRequestEvent;
-import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 一个账号请求加入群

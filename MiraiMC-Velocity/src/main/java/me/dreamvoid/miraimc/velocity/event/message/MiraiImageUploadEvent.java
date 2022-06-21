@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.velocity.event.message;
 
-import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.ImageUploadEvent;
 
 /**
@@ -74,7 +73,7 @@ public class MiraiImageUploadEvent {
             this.event = event;
         }
 
-        ImageUploadEvent.Succeed event;
+        final ImageUploadEvent.Succeed event;
 
         /**
          * 获取图片ID
@@ -110,7 +109,7 @@ public class MiraiImageUploadEvent {
             this.event = event;
         }
 
-        ImageUploadEvent.Failed event;
+        final ImageUploadEvent.Failed event;
 
         /**
          * (?)获取消息（可能是失败原因）

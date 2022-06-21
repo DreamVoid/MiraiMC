@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event.bot;
 
 import net.mamoe.mirai.event.events.BotAvatarChangedEvent;
-import net.md_5.bungee.api.ProxyServer;
 
 /**
  * (BungeeCord) Mirai 核心事件 - Bot - Bot 头像改变

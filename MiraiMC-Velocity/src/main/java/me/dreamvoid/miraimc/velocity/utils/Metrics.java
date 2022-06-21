@@ -856,6 +856,7 @@ public class Metrics {
      *
      * <p>This class is not used by every platform.
      */
+    @SuppressWarnings("UnnecessaryToStringCall")
     public static class MetricsConfig {
 
         private final File file;

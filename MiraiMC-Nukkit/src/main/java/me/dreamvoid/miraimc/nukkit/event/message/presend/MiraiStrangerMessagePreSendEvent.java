@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.nukkit.event.message.presend;
 
 import net.mamoe.mirai.event.events.StrangerMessagePreSendEvent;
-import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
  * (Nukkit) Mirai 核心事件 - 消息 - 主动发送消息前 - 陌生人消息

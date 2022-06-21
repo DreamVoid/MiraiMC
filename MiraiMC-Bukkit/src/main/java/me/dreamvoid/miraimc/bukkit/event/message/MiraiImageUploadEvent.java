@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bukkit.event.message;
 
 import net.mamoe.mirai.event.events.ImageUploadEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -82,7 +81,7 @@ public class MiraiImageUploadEvent extends Event {
             this.event = event;
         }
 
-        ImageUploadEvent.Succeed event;
+        final ImageUploadEvent.Succeed event;
 
         /**
          * 获取图片ID
@@ -118,7 +117,7 @@ public class MiraiImageUploadEvent extends Event {
             this.event = event;
         }
 
-        ImageUploadEvent.Failed event;
+        final ImageUploadEvent.Failed event;
 
         /**
          * (?)获取消息（可能是失败原因）

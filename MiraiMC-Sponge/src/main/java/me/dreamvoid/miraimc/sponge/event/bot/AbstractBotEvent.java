@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.sponge.event.bot;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import net.mamoe.mirai.event.events.BotEvent;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 

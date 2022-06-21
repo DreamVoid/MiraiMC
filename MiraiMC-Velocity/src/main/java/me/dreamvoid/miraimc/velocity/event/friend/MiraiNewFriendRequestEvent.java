@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.velocity.event.friend;
 
-import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import me.dreamvoid.miraimc.velocity.event.bot.AbstractBotEvent;
 import net.mamoe.mirai.event.events.NewFriendRequestEvent;
 

@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.velocity.event.message.postsend;
 
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
-import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupMessagePostSendEvent;
