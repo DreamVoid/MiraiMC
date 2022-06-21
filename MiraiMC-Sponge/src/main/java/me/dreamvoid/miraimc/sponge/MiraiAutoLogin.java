@@ -2,9 +2,9 @@ package me.dreamvoid.miraimc.sponge;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Config;
-import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.sponge.utils.AutoLoginObject;
 import net.mamoe.mirai.utils.BotConfiguration;
+import org.slf4j.Logger;
 import org.spongepowered.api.scheduler.Task;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
@@ -14,13 +14,12 @@ import org.yaml.snakeyaml.nodes.Tag;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class MiraiAutoLogin {
 
     public MiraiAutoLogin(SpongePlugin plugin) {
         this.plugin = plugin;
-        this.Logger = Utils.logger;
+        this.Logger = plugin.getLogger();
         Instance = this;
     }
 
@@ -82,21 +81,21 @@ public class MiraiAutoLogin {
                             try {
                                 Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.getProtocol().toUpperCase());
                             } catch (IllegalArgumentException ignored) {
-                                Logger.warning("[AutoLogin] Unknown protocol "+ configuration.getProtocol().toUpperCase()+", using ANDROID_PHONE instead.");
+                                Logger.warn("[AutoLogin] Unknown protocol "+ configuration.getProtocol().toUpperCase()+", using ANDROID_PHONE instead.");
                                 Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
                             }
 
                             Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
                             MiraiBot.doBotLogin(Account, Password, Protocol);
                         } catch (IllegalArgumentException ex){
-                            Logger.warning("读取自动登录文件时发现未知的协议类型，请修改: " + configuration.getProtocol());
+                            Logger.warn("读取自动登录文件时发现未知的协议类型，请修改: " + configuration.getProtocol());
                         }
                     }
                 }
             } catch (InterruptedException e) {
-                Logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
+                Logger.warn("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
             } catch (FileNotFoundException e) {
-                Logger.warning("登录机器人时出现异常，原因: " + e);
+                Logger.warn("登录机器人时出现异常，原因: " + e);
             }
         };
         Task.builder().async().name("MiraiMC Autologin Task").execute(thread).submit(plugin);

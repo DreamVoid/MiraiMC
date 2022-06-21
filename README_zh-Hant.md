@@ -8,11 +8,11 @@ MiraiMC 是一個基於[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 
 ## 下載
 * 穩定版本
-  * [Github 發布頁](https://github.com/DreamVoid/MiraiMC/releases)
+  * [GitHub 發布頁](https://github.com/DreamVoid/MiraiMC/releases)
   * [MCBBS](https://www.mcbbs.net/thread-1207462-1-1.html)（中國）
     * [Nukkit](https://www.mcbbs.net/thread-1260246-1-1.html)（中國）
 * 開發版本
-  * [Github Actions CI](https://github.com/DreamVoid/MiraiMC/actions/workflows/build-maven.yml?query=is%3Asuccess)
+  * [GitHub Actions CI](https://github.com/DreamVoid/MiraiMC/actions/workflows/build-maven.yml?query=is%3Asuccess)
 
 ## 開始使用
 ### 服主

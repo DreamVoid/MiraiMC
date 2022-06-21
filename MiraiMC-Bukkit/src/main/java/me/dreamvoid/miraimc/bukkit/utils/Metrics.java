@@ -33,6 +33,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+@SuppressWarnings("ALL")
 public class Metrics {
 
   private final Plugin plugin;
