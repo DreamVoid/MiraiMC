@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event.group.member;
 
 import net.mamoe.mirai.event.events.MemberCardChangeEvent;
-import net.md_5.bungee.api.ProxyServer;
 
 /**
  * (BungeeCord) Mirai 核心事件 - 群 - 群成员 - 名片和头衔 - 成员群名片改动

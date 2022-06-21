@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.velocity.event.group.member;
 
-import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.MemberLeaveEvent;
 
 /**
@@ -26,7 +25,7 @@ public class MiraiMemberLeaveEvent extends AbstractGroupMemberEvent {
      * 成员被踢出群
      */
     public static class Kick extends MiraiMemberLeaveEvent{
-        private MemberLeaveEvent.Kick event;
+        private final MemberLeaveEvent.Kick event;
 
         public Kick(MemberLeaveEvent.Kick event) {
             super(event);

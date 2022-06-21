@@ -2,7 +2,6 @@ package me.dreamvoid.miraimc.sponge.event.message.recall;
 
 import net.mamoe.mirai.event.events.MessageRecallEvent;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 

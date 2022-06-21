@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.nukkit.event.group;
 
-import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 import net.mamoe.mirai.event.events.BotGroupPermissionChangeEvent;
 
 /**

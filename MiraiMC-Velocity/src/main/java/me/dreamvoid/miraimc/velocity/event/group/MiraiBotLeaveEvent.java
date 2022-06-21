@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.velocity.event.group;
 
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
-import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.BotLeaveEvent;
 
 /**
@@ -63,7 +62,7 @@ public class MiraiBotLeaveEvent extends AbstractGroupEvent {
             this.event = event;
         }
 
-        BotLeaveEvent.Kick event;
+        final BotLeaveEvent.Kick event;
 
         /**
          * 返回操作管理员的QQ。

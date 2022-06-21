@@ -2,7 +2,6 @@ package me.dreamvoid.miraimc.nukkit.event.message;
 
 import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.ImageUploadEvent;
-import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 import cn.nukkit.event.Event;
 
 /**
@@ -79,7 +78,7 @@ public class MiraiImageUploadEvent extends Event {
             this.event = event;
         }
 
-        ImageUploadEvent.Succeed event;
+        final ImageUploadEvent.Succeed event;
 
         /**
          * 获取图片ID
@@ -115,7 +114,7 @@ public class MiraiImageUploadEvent extends Event {
             this.event = event;
         }
 
-        ImageUploadEvent.Failed event;
+        final ImageUploadEvent.Failed event;
 
         /**
          * (?)获取消息（可能是失败原因）

@@ -7,7 +7,6 @@ import me.dreamvoid.miraimc.internal.httpapi.exception.AbnormalStatusException;
 import me.dreamvoid.miraimc.internal.httpapi.type.Message;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
-import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 import java.io.IOException;
 

@@ -14,7 +14,7 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.serializer.TextSerializers;
 
 public class MiraiVerifyCommand implements CommandExecutor {
-    PluginContainer plugin;
+    final PluginContainer plugin;
 
     public MiraiVerifyCommand(SpongePlugin plugin){
         this.plugin = plugin.getPluginContainer();

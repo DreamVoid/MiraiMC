@@ -5,7 +5,6 @@ import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.event.events.BotOnlineEvent;
-import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 import java.util.ArrayList;
 import java.util.List;

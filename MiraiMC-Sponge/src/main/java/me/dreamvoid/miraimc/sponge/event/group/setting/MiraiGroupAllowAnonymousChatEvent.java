@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.sponge.event.group.setting;
 
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.GroupAllowAnonymousChatEvent;
 

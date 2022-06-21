@@ -11,7 +11,6 @@ import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
 import net.mamoe.mirai.message.data.MessageSource;
-import org.bukkit.Bukkit;
 
 import java.io.IOException;
 import java.util.ArrayList;

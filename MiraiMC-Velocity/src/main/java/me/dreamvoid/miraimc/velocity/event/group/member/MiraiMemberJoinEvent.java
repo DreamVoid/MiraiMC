@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.velocity.event.group.member;
 
-import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.MemberJoinEvent;
 
 /**
@@ -45,7 +44,7 @@ public class MiraiMemberJoinEvent extends AbstractGroupMemberEvent {
             this.event = event;
         }
 
-        MemberJoinEvent.Invite event;
+        final MemberJoinEvent.Invite event;
 
         /**
          * 返回邀请者的QQ号

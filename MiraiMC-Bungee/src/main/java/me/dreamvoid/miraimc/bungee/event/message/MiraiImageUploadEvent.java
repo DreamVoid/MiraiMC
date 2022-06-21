@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event.message;
 
 import net.mamoe.mirai.event.events.ImageUploadEvent;
-import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Event;
 
 /**
@@ -75,7 +74,7 @@ public class MiraiImageUploadEvent extends Event {
             this.event = event;
         }
 
-        ImageUploadEvent.Succeed event;
+        final ImageUploadEvent.Succeed event;
 
         /**
          * 获取图片ID
@@ -111,7 +110,7 @@ public class MiraiImageUploadEvent extends Event {
             this.event = event;
         }
 
-        ImageUploadEvent.Failed event;
+        final ImageUploadEvent.Failed event;
 
         /**
          * (?)获取消息（可能是失败原因）

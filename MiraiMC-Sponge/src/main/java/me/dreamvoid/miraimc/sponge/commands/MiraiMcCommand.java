@@ -20,7 +20,7 @@ import org.spongepowered.api.text.serializer.TextSerializers;
 import java.io.IOException;
 
 public class MiraiMcCommand implements CommandExecutor {
-    PluginContainer plugin;
+    final PluginContainer plugin;
 
     public MiraiMcCommand(SpongePlugin plugin){
         this.plugin = plugin.getPluginContainer();

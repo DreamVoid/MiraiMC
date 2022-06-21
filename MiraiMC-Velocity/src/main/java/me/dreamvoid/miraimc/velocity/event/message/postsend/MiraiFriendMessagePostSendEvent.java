@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.velocity.event.message.postsend;
 
 import me.dreamvoid.miraimc.api.bot.MiraiFriend;
-import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.FriendMessagePostSendEvent;
 
 /**

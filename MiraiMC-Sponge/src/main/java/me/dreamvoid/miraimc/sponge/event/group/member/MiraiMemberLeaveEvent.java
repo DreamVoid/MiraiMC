@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.sponge.event.group.member;
 
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.MemberLeaveEvent;
 
@@ -27,7 +26,7 @@ public class MiraiMemberLeaveEvent extends AbstractGroupMemberEvent {
      * 成员被踢出群
      */
     public static class Kick extends MiraiMemberLeaveEvent{
-        private MemberLeaveEvent.Kick event;
+        private final MemberLeaveEvent.Kick event;
 
         public Kick(MemberLeaveEvent.Kick event, Cause cause) {
             super(event, cause);

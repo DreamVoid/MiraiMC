@@ -31,8 +31,8 @@ import org.spongepowered.api.plugin.PluginContainer;
 import static me.dreamvoid.miraimc.sponge.event.bot.MiraiBotOfflineEvent.Type.*;
 
 public class MiraiEvent {
-    EventContext eventContext;
-    PluginContainer pluginContainer;
+    final EventContext eventContext;
+    final PluginContainer pluginContainer;
 
     public MiraiEvent(SpongePlugin plugin) {
         pluginContainer = plugin.getPluginContainer();

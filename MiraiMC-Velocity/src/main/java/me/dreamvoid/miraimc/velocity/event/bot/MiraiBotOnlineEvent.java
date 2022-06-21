@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.velocity.event.bot;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.contact.Group;

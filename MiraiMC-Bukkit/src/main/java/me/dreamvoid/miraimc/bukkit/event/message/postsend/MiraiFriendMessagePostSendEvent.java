@@ -2,7 +2,6 @@ package me.dreamvoid.miraimc.bukkit.event.message.postsend;
 
 import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.FriendMessagePostSendEvent;
-import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 消息 - 主动发送消息后 - 好友消息

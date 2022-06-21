@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.sponge.event.bot;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.Friend;

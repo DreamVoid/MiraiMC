@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.nukkit.event.group.member;
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import me.dreamvoid.miraimc.nukkit.event.bot.AbstractBotEvent;
 import net.mamoe.mirai.event.events.MemberJoinRequestEvent;
-import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
  * (Nukkit) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 一个账号请求加入群

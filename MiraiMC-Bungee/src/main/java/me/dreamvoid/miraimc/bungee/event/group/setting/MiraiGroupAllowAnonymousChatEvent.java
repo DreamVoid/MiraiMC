@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event.group.setting;
 
 import net.mamoe.mirai.event.events.GroupAllowAnonymousChatEvent;
-import net.md_5.bungee.api.ProxyServer;
 
 /**
  * (BungeeCord) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 匿名聊天状态改变

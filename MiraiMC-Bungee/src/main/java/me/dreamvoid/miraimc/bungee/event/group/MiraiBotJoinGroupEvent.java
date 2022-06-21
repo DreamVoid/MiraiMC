@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event.group;
 
 import net.mamoe.mirai.event.events.BotJoinGroupEvent;
-import net.md_5.bungee.api.ProxyServer;
 
 /**
  * (BungeeCord) Mirai 核心事件 - 群 - 机器人成功加入了一个新群

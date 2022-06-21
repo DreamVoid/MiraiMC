@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.sponge.event.message.passive;
 
 import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.GroupTempMessageEvent;
 

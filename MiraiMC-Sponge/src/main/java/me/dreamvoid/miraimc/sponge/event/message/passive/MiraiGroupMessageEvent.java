@@ -9,7 +9,6 @@ import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
 import net.mamoe.mirai.message.data.MessageSource;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 
 import java.io.IOException;
@@ -20,7 +19,7 @@ import java.util.List;
  * (Sponge) Mirai 核心事件 - 消息 - 被动收到消息 - 群消息
  */
 public class MiraiGroupMessageEvent extends AbstractMessageEvent {
-    private GroupMessageEvent event;
+    private final GroupMessageEvent event;
 
     private final int type;
     private final long botID;

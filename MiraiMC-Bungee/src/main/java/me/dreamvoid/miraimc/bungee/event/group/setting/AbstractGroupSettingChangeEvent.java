@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.bungee.event.group.setting;
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.event.events.GroupSettingChangeEvent;
 import net.md_5.bungee.api.plugin.Event;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * (BungeeCord) Mirai 核心事件 - 群 - 群设置 - 群设置改变（抽象）

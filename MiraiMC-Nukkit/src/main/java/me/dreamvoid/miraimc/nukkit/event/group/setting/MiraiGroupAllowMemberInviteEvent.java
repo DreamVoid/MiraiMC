@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.nukkit.event.group.setting;
 
 import net.mamoe.mirai.event.events.GroupAllowMemberInviteEvent;
-import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
  * (Nukkit) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 允许群员邀请好友加群状态改变

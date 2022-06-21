@@ -2,7 +2,6 @@ package me.dreamvoid.miraimc.sponge.event.friend;
 
 import me.dreamvoid.miraimc.sponge.event.bot.AbstractBotEvent;
 import net.mamoe.mirai.event.events.NewFriendRequestEvent;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 
 /**

@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event.group;
 
 import net.mamoe.mirai.event.events.BotGroupPermissionChangeEvent;
-import net.md_5.bungee.api.ProxyServer;
 
 /**
  * (BungeeCord) Mirai 核心事件 - 群 - 机器人在群里的权限被改变

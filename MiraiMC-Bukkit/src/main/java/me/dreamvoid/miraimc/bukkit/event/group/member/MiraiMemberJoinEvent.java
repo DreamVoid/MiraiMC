@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bukkit.event.group.member;
 
 import net.mamoe.mirai.event.events.MemberJoinEvent;
-import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 成员已经加入群
@@ -45,7 +44,7 @@ public class MiraiMemberJoinEvent extends AbstractGroupMemberEvent {
             this.event = event;
         }
 
-        MemberJoinEvent.Invite event;
+        final MemberJoinEvent.Invite event;
 
         /**
          * 返回邀请者的QQ号

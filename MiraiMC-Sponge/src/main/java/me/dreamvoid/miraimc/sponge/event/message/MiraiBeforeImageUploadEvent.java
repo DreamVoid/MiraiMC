@@ -1,10 +1,7 @@
 package me.dreamvoid.miraimc.sponge.event.message;
 
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.api.Sponge;
-import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.BeforeImageUploadEvent;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 

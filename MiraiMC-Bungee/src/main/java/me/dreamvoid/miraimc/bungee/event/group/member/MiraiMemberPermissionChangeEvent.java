@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event.group.member;
 
 import net.mamoe.mirai.event.events.MemberPermissionChangeEvent;
-import net.md_5.bungee.api.ProxyServer;
 
 /**
  * (BungeeCord) Mirai 核心事件 - 群 - 群成员 - 成员权限 - 成员权限改变

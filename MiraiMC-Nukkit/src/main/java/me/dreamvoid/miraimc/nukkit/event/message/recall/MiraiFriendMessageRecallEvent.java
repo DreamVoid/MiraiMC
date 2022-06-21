@@ -2,7 +2,6 @@ package me.dreamvoid.miraimc.nukkit.event.message.recall;
 
 import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.MessageRecallEvent;
-import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
  * (Nukkit) Mirai 核心事件 - 消息 - 消息撤回 - 好友撤回

@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.bungee.event.bot;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import net.mamoe.mirai.event.events.BotEvent;
 import net.md_5.bungee.api.plugin.Event;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * (BungeeCord) Mirai 核心事件 - Bot（抽象）

@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bukkit.event.bot;
 
 import net.mamoe.mirai.event.events.BotNickChangedEvent;
-import org.bukkit.Bukkit;
 
 /**
  * (Bukkit) Mirai 核心事件 - Bot - Bot 昵称改变

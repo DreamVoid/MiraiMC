@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.nukkit.event.group.member;
 
 import net.mamoe.mirai.event.events.MemberPermissionChangeEvent;
-import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
  * (Nukkit) Mirai 核心事件 - 群 - 群成员 - 成员权限 - 成员权限改变

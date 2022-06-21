@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event.message.postsend;
 
 import net.mamoe.mirai.event.events.StrangerMessagePostSendEvent;
-import net.md_5.bungee.api.ProxyServer;
 
 /**
  * (BungeeCord) Mirai 核心事件 - 消息 - 主动发送消息后 - 陌生人消息

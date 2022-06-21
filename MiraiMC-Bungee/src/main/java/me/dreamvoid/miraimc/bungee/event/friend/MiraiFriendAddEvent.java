@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event.friend;
 
 import net.mamoe.mirai.event.events.FriendAddEvent;
-import net.md_5.bungee.api.ProxyServer;
 
 /**
  * (BungeeCord) Mirai 核心事件 - 好友 - 成功添加了一个新好友

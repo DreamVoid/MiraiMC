@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event.message;
 
 import net.mamoe.mirai.event.events.NudgeEvent;
-import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Event;
 
 /**

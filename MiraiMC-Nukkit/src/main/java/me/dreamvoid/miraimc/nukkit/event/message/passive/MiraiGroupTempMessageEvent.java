@@ -2,7 +2,6 @@ package me.dreamvoid.miraimc.nukkit.event.message.passive;
 
 import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.event.events.GroupTempMessageEvent;
-import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
  * (Nukkit) Mirai 核心事件 - 消息 - 被动收到消息 - 群临时会话消息

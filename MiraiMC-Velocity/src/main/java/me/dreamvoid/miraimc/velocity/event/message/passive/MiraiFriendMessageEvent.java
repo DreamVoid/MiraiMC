@@ -5,7 +5,6 @@ import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI;
 import me.dreamvoid.miraimc.internal.httpapi.exception.AbnormalStatusException;
 import me.dreamvoid.miraimc.internal.httpapi.type.Message;
-import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
 

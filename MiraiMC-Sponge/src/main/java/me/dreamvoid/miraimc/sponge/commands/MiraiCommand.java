@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class MiraiCommand implements CommandExecutor {
-    PluginContainer plugin;
+    final PluginContainer plugin;
 
     public MiraiCommand(SpongePlugin plugin){
         this.plugin = plugin.getPluginContainer();

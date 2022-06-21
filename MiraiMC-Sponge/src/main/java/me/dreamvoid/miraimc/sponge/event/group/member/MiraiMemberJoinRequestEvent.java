@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.sponge.event.group.member;
 
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 import me.dreamvoid.miraimc.sponge.event.bot.AbstractBotEvent;
 import net.mamoe.mirai.event.events.MemberJoinRequestEvent;

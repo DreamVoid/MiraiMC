@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.nukkit.event.group.member;
 
 import net.mamoe.mirai.event.events.MemberLeaveEvent;
-import me.dreamvoid.miraimc.nukkit.NukkitPlugin;
 
 /**
  * (Nukkit) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 成员已经离开群
@@ -26,7 +25,7 @@ public class MiraiMemberLeaveEvent extends AbstractGroupMemberEvent {
      * 成员被踢出群
      */
     public static class Kick extends MiraiMemberLeaveEvent{
-        private MemberLeaveEvent.Kick event;
+        private final MemberLeaveEvent.Kick event;
 
         public Kick(MemberLeaveEvent.Kick event) {
             super(event);
