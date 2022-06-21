@@ -12,12 +12,12 @@ import org.spongepowered.api.event.impl.AbstractEvent;
 abstract class AbstractGroupSettingChangeEvent extends AbstractEvent {
 	private final Cause cause;
 
-	public AbstractGroupSettingChangeEvent(GroupSettingChangeEvent event, Cause cause){
+	public AbstractGroupSettingChangeEvent(GroupSettingChangeEvent<?> event, Cause cause){
 		this.event = event;
 		this.cause = cause;
 	}
 
-	private final GroupSettingChangeEvent event;
+	private final GroupSettingChangeEvent<?> event;
 	/**
 	 * 获取机器人账号
 	 * @return 机器人账号

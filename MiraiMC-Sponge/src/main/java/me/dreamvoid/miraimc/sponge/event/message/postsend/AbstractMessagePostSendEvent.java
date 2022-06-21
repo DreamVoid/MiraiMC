@@ -16,12 +16,12 @@ import java.util.Objects;
 abstract class AbstractMessagePostSendEvent extends AbstractEvent {
 	private final Cause cause;
 
-	public AbstractMessagePostSendEvent(MessagePostSendEvent event, Cause cause) {
+	public AbstractMessagePostSendEvent(MessagePostSendEvent<?> event, Cause cause) {
 		this.event = event;
 		this.cause = cause;
 	}
 
-	private final MessagePostSendEvent event;
+	private final MessagePostSendEvent<?> event;
 	/**
 	 * 返回发送这条信息的机器人ID
 	 * @return 机器人ID

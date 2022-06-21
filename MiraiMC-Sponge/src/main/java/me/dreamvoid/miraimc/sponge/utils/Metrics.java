@@ -714,6 +714,7 @@ public class Metrics {
    * <p>While this class is neither feature-rich nor the most performant one, it's sufficient enough
    * for its use-case.
    */
+  @SuppressWarnings("UnusedReturnValue")
   public static class JsonObjectBuilder {
 
     private StringBuilder builder = new StringBuilder();

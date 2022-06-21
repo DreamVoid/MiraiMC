@@ -10,13 +10,13 @@ import org.jetbrains.annotations.NotNull;
  * (Bukkit) Mirai 核心事件 - 群 - 群设置 - 群设置改变（抽象）
  */
 abstract class AbstractGroupSettingChangeEvent extends Event {
-	public AbstractGroupSettingChangeEvent(GroupSettingChangeEvent event){
+	public AbstractGroupSettingChangeEvent(GroupSettingChangeEvent<?> event){
 		super(true);
 		this.event = event;
 	}
 
 	private static final HandlerList handlers = new HandlerList();
-	private final GroupSettingChangeEvent event;
+	private final GroupSettingChangeEvent<?> event;
 
 	public @NotNull HandlerList getHandlers() { return handlers; }
 	public static HandlerList getHandlerList() { return handlers; }

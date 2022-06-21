@@ -27,7 +27,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         time = event.getTime();
     }
 
-    private FriendMessageEvent event;
+    private final FriendMessageEvent event;
 
     private final int type;
     private final long botID;

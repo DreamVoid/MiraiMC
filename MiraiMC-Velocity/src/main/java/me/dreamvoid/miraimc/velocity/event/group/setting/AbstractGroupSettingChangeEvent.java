@@ -7,11 +7,11 @@ import net.mamoe.mirai.event.events.GroupSettingChangeEvent;
  * (Velocity) Mirai 核心事件 - 群 - 群设置 - 群设置改变（抽象）
  */
 abstract class AbstractGroupSettingChangeEvent {
-	public AbstractGroupSettingChangeEvent(GroupSettingChangeEvent event){
+	public AbstractGroupSettingChangeEvent(GroupSettingChangeEvent<?> event){
 		this.event = event;
 	}
 
-	private final GroupSettingChangeEvent event;
+	private final GroupSettingChangeEvent<?> event;
 	/**
 	 * 获取机器人账号
 	 * @return 机器人账号
