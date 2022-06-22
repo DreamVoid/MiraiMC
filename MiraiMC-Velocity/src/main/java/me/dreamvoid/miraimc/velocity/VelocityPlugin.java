@@ -12,6 +12,7 @@ import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.PluginUpdate;
 import me.dreamvoid.miraimc.internal.classloader.MiraiLoader;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
@@ -22,6 +23,7 @@ import me.dreamvoid.miraimc.velocity.utils.Metrics;
 import org.slf4j.Logger;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.sql.SQLException;
 
@@ -139,6 +141,26 @@ public class VelocityPlugin {
         if(!(Config.Gen_DisableSafeWarningMessage)){
             getLogger().warn("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
             getLogger().warn("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
+        }
+
+        if(Config.Gen_CheckUpdate && !getPluginContainer().getDescription().getVersion().orElse("reserved").contains("dev")) {
+            getServer().getScheduler().buildTask(this, () -> {
+                getLogger().info("Checking update...");
+                try {
+                    PluginUpdate fetch = new PluginUpdate();
+                    String version = !getPluginContainer().getDescription().getVersion().orElse("reserved").contains("-") ? fetch.getLatestRelease() : fetch.getLatestPreRelease();
+                    if (fetch.isBlocked(getPluginContainer().getDescription().getVersion().orElse("reserved"))) {
+                        getLogger().error("当前版本已停用，继续使用将不会得到作者的任何支持！");
+                        getLogger().error("请立刻更新到最新版本: " + version);
+                        getLogger().error("从Github下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
+                    } else if (!getPluginContainer().getDescription().getVersion().orElse("reserved").equals(version)) {
+                        getLogger().info("已找到新的插件更新，最新版本: " + version);
+                        getLogger().info("从Github下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
+                    } else getLogger().info("你使用的是最新版本");
+                } catch (IOException|NullPointerException e) {
+                    getLogger().warn("An error occurred while fetching the latest version, reason: " + e);
+                }
+            }).schedule();
         }
 
         pluginContainer = server.getPluginManager().getPlugin("miraimc").orElse(null);

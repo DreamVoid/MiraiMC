@@ -108,7 +108,11 @@ public class BukkitPlugin extends JavaPlugin {
                     try {
                         PluginUpdate fetch = new PluginUpdate();
                         String version = !getDescription().getVersion().contains("-") ? fetch.getLatestRelease() : fetch.getLatestPreRelease();
-                        if(!getDescription().getVersion().equals(version)){
+                        if (fetch.isBlocked(getDescription().getVersion())) {
+                            getLogger().severe("当前版本已停用，继续使用将不会得到作者的任何支持！");
+                            getLogger().severe("请立刻更新到最新版本: " + version);
+                            getLogger().severe("从Github下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
+                        } else if (!getDescription().getVersion().equals(version)) {
                             getLogger().info("已找到新的插件更新，最新版本: " + version);
                             getLogger().info("从Github下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
                         } else getLogger().info("You are using the latest version!");
