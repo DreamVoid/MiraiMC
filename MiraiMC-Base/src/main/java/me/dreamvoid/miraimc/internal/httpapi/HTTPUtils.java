@@ -22,7 +22,11 @@ import java.nio.charset.StandardCharsets;
 class HTTPUtils {
     private static final String USER_AGENT = "Mozilla/5.0 DreamVoid MiraiMC";
 
-    // HTTP GET请求
+    /**
+     * 发送HTTP GET请求
+     * @param url URL 链接
+     * @return 远程服务器返回内容
+     */
     static String get(String url) throws Exception {
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -52,7 +56,7 @@ class HTTPUtils {
      * @param URL 链接
      * @return 远程服务器返回内容
      */
-    public static String sendPost(JsonObject json, String URL) throws IOException {
+    public static String post(JsonObject json, String URL) throws IOException {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost post = new HttpPost(URL);
             post.setHeader("Content-Type", "application/json");
