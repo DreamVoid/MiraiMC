@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.internal.httpapi.exception;
 
-public class AbnormalStatusException extends Exception{
+public class AbnormalStatusException extends RuntimeException{
     private final int code;
 
     public AbnormalStatusException(int code) {
