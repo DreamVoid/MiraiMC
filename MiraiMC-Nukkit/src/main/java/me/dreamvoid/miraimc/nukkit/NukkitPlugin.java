@@ -109,22 +109,28 @@ public class NukkitPlugin extends PluginBase {
             getLogger().warning("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
 
-        getServer().getScheduler().scheduleAsyncTask(this, new AsyncTask() {
-            @Override
-            public void onRun() {
-                getLogger().info("Checking update...");
-                try {
-                    PluginUpdate fetch = new PluginUpdate();
-                    String version = !getDescription().getVersion().contains("-") ? fetch.getLatestRelease() : fetch.getLatestPreRelease();
-                    if(!getDescription().getVersion().equals(version)){
-                        getLogger().info("已找到新的插件更新，最新版本: " + version);
-                        getLogger().info("从Github下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
-                    } else getLogger().info("你使用的是最新版本");
-                } catch (IOException e) {
-                    getLogger().warning("An error occurred while fetching the latest version, reason: " + e);
+        if(Config.Gen_CheckUpdate && !getDescription().getVersion().contains("dev")) {
+            getServer().getScheduler().scheduleAsyncTask(this, new AsyncTask() {
+                @Override
+                public void onRun() {
+                    getLogger().info("Checking update...");
+                    try {
+                        PluginUpdate fetch = new PluginUpdate();
+                        String version = !getDescription().getVersion().contains("-") ? fetch.getLatestRelease() : fetch.getLatestPreRelease();
+                        if (fetch.isBlocked(getDescription().getVersion())) {
+                            getLogger().error("当前版本已停用，继续使用将不会得到作者的任何支持！");
+                            getLogger().error("请立刻更新到最新版本: " + version);
+                            getLogger().error("从Github下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
+                        } else if (!getDescription().getVersion().equals(version)) {
+                            getLogger().info("已找到新的插件更新，最新版本: " + version);
+                            getLogger().info("从Github下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
+                        } else getLogger().info("你使用的是最新版本");
+                    } catch (IOException e) {
+                        getLogger().warning("An error occurred while fetching the latest version, reason: " + e);
+                    }
                 }
-            }
-        });
+            });
+        }
 
         getLogger().info("All tasks done. Welcome to use MiraiMC!");
     }

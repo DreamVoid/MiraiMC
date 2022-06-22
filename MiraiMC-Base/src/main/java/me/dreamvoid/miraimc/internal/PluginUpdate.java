@@ -1,5 +1,8 @@
 package me.dreamvoid.miraimc.internal;
 
+import com.google.gson.Gson;
+import me.dreamvoid.miraimc.webapi.Version;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,9 +16,10 @@ public class PluginUpdate {
     private final int latestReleaseNo;
     private final String latestPreRelease;
     private final int latestPreReleaseNo;
+    private final Version version;
 
     public PluginUpdate() throws IOException {
-        URL url = new URL("https://raw.githubusercontent.com/DreamVoid/MiraiMC/main/version");
+        URL url = new URL("https://api.miraimc.dreamvoid.ml/version.json");
         StringBuilder sb = new StringBuilder();
         HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
 
@@ -36,15 +40,13 @@ public class PluginUpdate {
         input.close();
         httpUrlConn.disconnect();
 
-        String[] version = sb.toString().split(";");
+        version = new Gson().fromJson(sb.toString(), Version.class);
 
-        String[] release = version[0].split(":");
-        latestRelease = release[0];
-        latestReleaseNo = Integer.parseInt(release[1]);
+        latestRelease = version.latest;
+        latestReleaseNo = version.versions.get(version.latest);
 
-        String[] preRelease = version[1].split(":");
-        latestPreRelease = preRelease[0];
-        latestPreReleaseNo = Integer.parseInt(preRelease[1]);
+        latestPreRelease = version.latest_pre;
+        latestPreReleaseNo = version.versions.get(version.latest_pre);
     }
 
     public String getLatestRelease() {
@@ -61,5 +63,9 @@ public class PluginUpdate {
 
     public int getLatestPreReleaseNo() {
         return latestPreReleaseNo;
+    }
+
+    public boolean isBlocked(String PluginVersion){
+        return version.blocked.contains(version.versions.get(PluginVersion));
     }
 }
