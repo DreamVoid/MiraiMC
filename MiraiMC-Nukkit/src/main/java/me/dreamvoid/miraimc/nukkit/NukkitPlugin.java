@@ -1,17 +1,22 @@
 package me.dreamvoid.miraimc.nukkit;
 
 import cn.nukkit.plugin.PluginBase;
-import cn.nukkit.scheduler.AsyncTask;
+import cn.nukkit.scheduler.NukkitRunnable;
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.internal.*;
+import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
+import me.dreamvoid.miraimc.internal.PluginUpdate;
+import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.classloader.MiraiLoader;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.nukkit.utils.MetricsLite;
+import me.dreamvoid.miraimc.webapi.Info;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class NukkitPlugin extends PluginBase {
 
@@ -110,9 +115,9 @@ public class NukkitPlugin extends PluginBase {
         }
 
         if(Config.Gen_CheckUpdate && !getDescription().getVersion().contains("dev")) {
-            getServer().getScheduler().scheduleAsyncTask(this, new AsyncTask() {
+            new NukkitRunnable() {
                 @Override
-                public void onRun() {
+                public void run() {
                     getLogger().info("Checking update...");
                     try {
                         PluginUpdate fetch = new PluginUpdate();
@@ -129,8 +134,22 @@ public class NukkitPlugin extends PluginBase {
                         getLogger().warning("An error occurred while fetching the latest version, reason: " + e);
                     }
                 }
-            });
+            }.runTaskAsynchronously(this);
         }
+
+        new NukkitRunnable() {
+            @Override
+            public void run() {
+                try {
+                    List<String> announcement = Info.init().announcement;
+                    if(announcement != null){
+                        getLogger().info("========== [ MiraiMC 公告版 ] ==========");
+                        announcement.forEach(s -> getLogger().info(s));
+                        getLogger().info("=======================================");
+                    }
+                } catch (IOException ignored) {}
+            }
+        }.runTaskLaterAsynchronously(this, 40);
 
         getLogger().info("All tasks done. Welcome to use MiraiMC!");
     }

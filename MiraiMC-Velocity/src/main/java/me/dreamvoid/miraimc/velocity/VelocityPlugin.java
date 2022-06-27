@@ -12,20 +12,23 @@ import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Config;
-import me.dreamvoid.miraimc.internal.PluginUpdate;
-import me.dreamvoid.miraimc.internal.classloader.MiraiLoader;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
+import me.dreamvoid.miraimc.internal.PluginUpdate;
 import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.internal.classloader.MiraiLoader;
 import me.dreamvoid.miraimc.velocity.commands.MiraiCommand;
 import me.dreamvoid.miraimc.velocity.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.velocity.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.velocity.utils.Metrics;
+import me.dreamvoid.miraimc.webapi.Info;
 import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Plugin(
         id = "miraimc",
@@ -65,6 +68,8 @@ public class VelocityPlugin {
 
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
+        pluginContainer = server.getPluginManager().getPlugin("miraimc").orElse(null);
+
         // load 阶段2
         try {
             new VelocityConfig(this).loadConfig();
@@ -163,7 +168,17 @@ public class VelocityPlugin {
             }).schedule();
         }
 
-        pluginContainer = server.getPluginManager().getPlugin("miraimc").orElse(null);
+        getServer().getScheduler().buildTask(this, () -> {
+            try {
+                List<String> announcement = Info.init().announcement;
+                if(announcement != null){
+                    getLogger().info("========== [ MiraiMC 公告版 ] ==========");
+                    announcement.forEach(s -> getLogger().info(s));
+                    getLogger().info("=======================================");
+                }
+            } catch (IOException ignored) {}
+        }).delay(2, TimeUnit.SECONDS).schedule();
+
         getLogger().info("All tasks done. Welcome to use MiraiMC!");
     }
 

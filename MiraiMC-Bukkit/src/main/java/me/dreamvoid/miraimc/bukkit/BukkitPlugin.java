@@ -5,14 +5,19 @@ import me.dreamvoid.miraimc.bukkit.commands.MiraiCommand;
 import me.dreamvoid.miraimc.bukkit.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.bukkit.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
-import me.dreamvoid.miraimc.internal.*;
+import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
+import me.dreamvoid.miraimc.internal.PluginUpdate;
+import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.classloader.MiraiLoader;
+import me.dreamvoid.miraimc.webapi.Info;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class BukkitPlugin extends JavaPlugin {
 
@@ -134,6 +139,20 @@ public class BukkitPlugin extends JavaPlugin {
             getLogger().warning("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
             getLogger().warning("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                try {
+                    List<String> announcement = Info.init().announcement;
+                    if(announcement != null){
+                        getLogger().info("========== [ MiraiMC 公告版 ] ==========");
+                        announcement.forEach(s -> getLogger().info(s));
+                        getLogger().info("=======================================");
+                    }
+                } catch (IOException ignored) {}
+            }
+        }.runTaskLaterAsynchronously(this, 40L);
 
         getLogger().info("All tasks done. Welcome to use MiraiMC!");
     }

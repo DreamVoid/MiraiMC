@@ -5,13 +5,19 @@ import me.dreamvoid.miraimc.bungee.commands.MiraiCommand;
 import me.dreamvoid.miraimc.bungee.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.bungee.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.bungee.utils.Metrics;
-import me.dreamvoid.miraimc.internal.*;
+import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
+import me.dreamvoid.miraimc.internal.PluginUpdate;
+import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.classloader.MiraiLoader;
+import me.dreamvoid.miraimc.webapi.Info;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class BungeePlugin extends Plugin {
     private MiraiEvent MiraiEvent;
@@ -116,6 +122,17 @@ public class BungeePlugin extends Plugin {
                 }
             });
         }
+
+        getProxy().getScheduler().schedule(this, () -> {
+            try {
+                List<String> announcement = Info.init().announcement;
+                if(announcement != null){
+                    getLogger().info("========== [ MiraiMC 公告版 ] ==========");
+                    announcement.forEach(s -> getLogger().info(s));
+                    getLogger().info("=======================================");
+                }
+            } catch (IOException ignored) {}
+        }, 2, TimeUnit.SECONDS);
 
         getLogger().info("All tasks done. Welcome to use MiraiMC!");
     }
