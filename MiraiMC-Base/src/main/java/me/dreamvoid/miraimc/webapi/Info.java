@@ -29,19 +29,11 @@ public final class Info {
 	public List<String> apis;
 
 	public static Info init() throws IOException {
-		return init(false, Collections.singletonList("https://api.miraimc.dreamvoid.me/"), true);
+		return init(Collections.singletonList("https://api.miraimc.dreamvoid.me/"), true);
 	}
 
-	public static Info init(List<String> apis) throws IOException {
-		return init(false, apis, true);
-	}
-
-	public static Info init(boolean LocalCache) throws IOException {
-		return init(false, Collections.singletonList("https://api.miraimc.dreamvoid.me/"), LocalCache);
-	}
-
-	public static Info init(boolean force, List<String> apis, boolean LocalCache) throws IOException {
-		if(force || INSTANCE == null){
+	public static Info init(List<String> apis, boolean LocalCache) throws IOException {
+		if(INSTANCE == null){
 			List<String> list = new ArrayList<>(apis);
 
 			if(LocalCache){
