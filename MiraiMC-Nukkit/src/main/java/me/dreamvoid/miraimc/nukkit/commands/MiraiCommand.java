@@ -24,6 +24,7 @@ public class MiraiCommand extends BaseCommand {
         this.addSubCommand(new ListCommand("List"));
         this.addSubCommand(new CheckOnlineCommand("CheckOnline"));
         this.addSubCommand(new AutoLoginCommand("AutoLogin"));
+        this.addSubCommand(new AutoLoginCommand("UploadImage"));
     }
 
     @Override
@@ -35,6 +36,7 @@ public class MiraiCommand extends BaseCommand {
         sender.sendMessage(TextFormat.colorize('&',"&6/mirai sendfriendmessage <账号> <好友> <消息>:&r 向指定好友发送私聊消息"));
         sender.sendMessage(TextFormat.colorize('&',"&6/mirai sendgroupmessage <账号> <群号> <消息>:&r 向指定群发送群聊消息"));
         sender.sendMessage(TextFormat.colorize('&',"&6/mirai sendfriendnudge <账号> <好友>:&r 向指定好友发送戳一戳"));
+        sender.sendMessage(TextFormat.colorize('&',"&6/mirai uploadimage <账号> <图片文件名>:&r 上传指定图片"));
         sender.sendMessage(TextFormat.colorize('&',"&6/mirai checkonline <账号>:&r 检查指定的机器人是否在线"));
         sender.sendMessage(TextFormat.colorize('&',"&6/mirai autologin add <账号> <密码> [协议]:&r 添加一个自动登录账号"));
         sender.sendMessage(TextFormat.colorize('&',"&6/mirai autologin list:&r 查看自动登录账号列表"));

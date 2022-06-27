@@ -15,6 +15,7 @@ import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -265,6 +266,29 @@ public class MiraiCommand extends Command {
                     } else sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！")));
                     break;
                 }
+                case "uploadimage":{
+                    if(sender.hasPermission("miraimc.command.mirai.uploadimage")) {
+                        if (args.length >= 3) {
+                            File ImageDir = new File(Config.PluginDir, "images");
+                            if(!ImageDir.exists()) ImageDir.mkdir();
+                            File image = new File(ImageDir, args[2]);
+
+                            if(!image.exists() || image.isDirectory()) {
+                                sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c指定的图片文件不存在，请检查是否存在文件" + image.getPath()+"！")));
+                                break;
+                            }
+
+                            try {
+                                sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', "&a图片上传成功，可使用Mirai Code发送图片：[mirai:image:" + MiraiBot.getBot(Long.parseLong(args[1])).uploadImage(image) + "]")));
+                            } catch (NoSuchElementException e){
+                                sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', "&c指定的机器人不存在！")));
+                                break;
+                            }
+
+                        } else sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c未知或不完整的命令，请输入 /mirai help 查看帮助！")));
+                    } else sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！")));
+                    break;
+                }
                 case "help":{
                     sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&6&lMiraiMC&r &b机器人帮助菜单")));
                     sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&6/mirai login <账号> <密码> [协议]:&r 登录一个机器人")));
@@ -273,6 +297,7 @@ public class MiraiCommand extends Command {
                     sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&6/mirai sendfriendmessage <账号> <好友> <消息>:&r 向指定好友发送私聊消息")));
                     sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&6/mirai sendgroupmessage <账号> <群号> <消息>:&r 向指定群发送群聊消息")));
                     sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&6/mirai sendfriendnudge <账号> <好友>:&r 向指定好友发送戳一戳")));
+                    sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&6/mirai uploadimage <账号> <图片文件名>:&r 上传指定图片")));
                     sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&6/mirai checkonline <账号>:&r 检查指定的机器人是否在线")));
                     sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&6/mirai autologin add <账号> <密码> [协议]:&r 添加一个自动登录账号")));
                     sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&6/mirai autologin list:&r 查看自动登录账号列表")));
