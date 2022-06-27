@@ -11,6 +11,7 @@ import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.Stranger;
 import net.mamoe.mirai.utils.BotConfiguration;
+import net.mamoe.mirai.utils.ExternalResource;
 import net.mamoe.mirai.utils.LoggerAdapters;
 
 import java.io.File;
@@ -211,6 +212,16 @@ public class MiraiBot {
     public MiraiFriend getAsFriend(){
         return new MiraiFriend(bot.getBot(),bot.getId());
     }
+
+    /**
+     * 上传指定图片，获取图片 ID 用于发送消息
+     * @param image 图片文件
+     * @return 图片ID
+     */
+    public String uploadImage(File image){
+        return bot.getAsFriend().uploadImage(ExternalResource.create(image).toAutoCloseable()).getImageId();
+    }
+
     private static void privateBotLogin(long Account, byte[] Password, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException {
         logger = Utils.logger;
 
