@@ -25,7 +25,7 @@ public class MiraiLoader {
 
     public static String getStableVersion() {
         try {
-            URL url = new URL("https://api.miraimc.dreamvoid.ml/info.json");
+            URL url = new URL("https://api.miraimc.dreamvoid.me/info.json");
             StringBuilder sb = new StringBuilder();
             HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
 
