@@ -46,16 +46,20 @@ public final class Version {
 				}
 			} catch (Exception ignored) {}
 
-			IOException e = new IOException();
+			IOException e = null; // 用于所有API都炸掉的时候抛出的
+
 			for (String s : list) {
 				if (!s.endsWith("/")) s += "/";
 				try {
 					INSTANCE = new Gson().fromJson(Utils.Http.get(s + "version.json"), Version.class);
+					break;
 				} catch (IOException ex) {
-					e = ex;
+					if(e == null) e = ex;
 				}
 			}
+
 			if (INSTANCE == null) {
+				assert e != null;
 				throw e;
 			}
 		}

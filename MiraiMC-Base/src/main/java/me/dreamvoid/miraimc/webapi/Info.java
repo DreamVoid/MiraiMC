@@ -56,7 +56,8 @@ public final class Info {
 				} catch (Exception ignored) { }
 			}
 
-			IOException e = new IOException();
+			IOException e = null; // 用于所有API都炸掉的时候抛出的
+
 			for(String s : list){
 				if(!s.endsWith("/")) s += "/";
 				try {
@@ -71,10 +72,12 @@ public final class Info {
 					break;
 				} catch (IOException ex) {
 					Utils.logger.warning("Failed to get " + s +", reason: " + ex);
-					e = ex;
+					if(e == null ) e = ex;
 				}
 			}
+
 			if(INSTANCE == null){
+				assert e != null;
 				throw e;
 			}
 		}
