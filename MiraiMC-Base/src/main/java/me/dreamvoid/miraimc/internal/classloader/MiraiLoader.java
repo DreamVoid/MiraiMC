@@ -1,17 +1,17 @@
 package me.dreamvoid.miraimc.internal.classloader;
 
-import com.google.gson.Gson;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.webapi.Info;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.HashMap;
 
 import static me.dreamvoid.miraimc.internal.classloader.LibrariesLoader.*;
 
@@ -25,30 +25,7 @@ public class MiraiLoader {
 
     public static String getStableVersion() {
         try {
-            URL url = new URL("https://api.miraimc.dreamvoid.me/info.json");
-            StringBuilder sb = new StringBuilder();
-            HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
-
-            httpUrlConn.setDoInput(true);
-            httpUrlConn.setRequestMethod("GET");
-            httpUrlConn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko");
-
-            InputStream input = httpUrlConn.getInputStream();
-            InputStreamReader read = new InputStreamReader(input, StandardCharsets.UTF_8);
-            BufferedReader br = new BufferedReader(read);
-            String data = br.readLine();
-            while (data != null) {
-                sb.append(data);
-                data = br.readLine();
-            }
-            br.close();
-            read.close();
-            input.close();
-            httpUrlConn.disconnect();
-
-            HashMap<?, ?> map = new Gson().fromJson(sb.toString(), HashMap.class);
-            HashMap<?, ?> mirai = new Gson().fromJson(map.get("mirai").toString(), HashMap.class);
-            return (String) mirai.get("stable");
+            return Info.init().mirai.get("stable");
         } catch (IOException e){
             Utils.logger.warning("Fetching mirai stable version from remote failed, try to use latest. Reason: " + e);
             return "latest";

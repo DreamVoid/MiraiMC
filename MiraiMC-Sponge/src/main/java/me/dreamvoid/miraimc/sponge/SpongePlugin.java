@@ -2,12 +2,13 @@ package me.dreamvoid.miraimc.sponge;
 
 import com.google.inject.Inject;
 import me.dreamvoid.miraimc.internal.Config;
-import me.dreamvoid.miraimc.internal.classloader.MiraiLoader;
 import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.internal.classloader.MiraiLoader;
 import me.dreamvoid.miraimc.sponge.commands.MiraiCommand;
 import me.dreamvoid.miraimc.sponge.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.sponge.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.sponge.utils.Metrics;
+import me.dreamvoid.miraimc.webapi.Info;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.args.GenericArguments;
@@ -23,7 +24,10 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.metric.MetricsConfigManager;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Plugin(id = "miraimc",
         name = "MiraiMC",
@@ -135,6 +139,17 @@ public class SpongePlugin {
             getLogger().warn("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
             getLogger().warn("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
+
+        Sponge.getScheduler().createAsyncExecutor(this).schedule(() -> {
+            try {
+                List<String> announcement = Info.init().announcement;
+                if(announcement != null){
+                    getLogger().info("========== [ MiraiMC 公告版 ] ==========");
+                    announcement.forEach(s -> getLogger().info(s));
+                    getLogger().info("=======================================");
+                }
+            } catch (IOException ignored) {}
+        }, 2, TimeUnit.SECONDS);
 
         getLogger().info("Some initialization tasks will continue to run afterwards.");
         getLogger().info("All tasks done. Welcome to use MiraiMC!");
