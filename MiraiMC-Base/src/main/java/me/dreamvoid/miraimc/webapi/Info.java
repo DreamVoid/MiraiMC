@@ -2,16 +2,15 @@ package me.dreamvoid.miraimc.webapi;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.Utils;
 
-import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public final class Info {
 	private static Info INSTANCE;
@@ -26,34 +25,58 @@ public final class Info {
 	@SerializedName("announcement")
 	public List<String> announcement;
 
+	@SerializedName("apis")
+	public List<String> apis;
+
 	public static Info init() throws IOException {
-		return init(false);
+		return init(false, Collections.singletonList("https://api.miraimc.dreamvoid.me/"), true);
 	}
 
-	public static Info init(boolean force) throws IOException {
+	public static Info init(List<String> apis) throws IOException {
+		return init(false, apis, true);
+	}
+
+	public static Info init(boolean LocalCache) throws IOException {
+		return init(false, Collections.singletonList("https://api.miraimc.dreamvoid.me/"), LocalCache);
+	}
+
+	public static Info init(boolean force, List<String> apis, boolean LocalCache) throws IOException {
 		if(force || INSTANCE == null){
-			URL url = new URL("https://api.miraimc.dreamvoid.me/info.json");
-			StringBuilder sb = new StringBuilder();
-			HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
+			List<String> list = new ArrayList<>(apis);
 
-			httpUrlConn.setDoInput(true);
-			httpUrlConn.setRequestMethod("GET");
-			httpUrlConn.setRequestProperty("User-Agent", "Mozilla/5.0 DreamVoid MiraiMC");
-
-			InputStream input = httpUrlConn.getInputStream();
-			InputStreamReader read = new InputStreamReader(input, StandardCharsets.UTF_8);
-			BufferedReader br = new BufferedReader(read);
-			String data = br.readLine();
-			while (data != null) {
-				sb.append(data);
-				data = br.readLine();
+			if(LocalCache){
+				try {
+					File cache = new File(Config.PluginDir, "apis.json");
+					if (cache.exists()) {
+						String[] localString = new Gson().fromJson(new FileReader(cache), String[].class);
+						List<String> local = new ArrayList<>(Arrays.asList(localString)); // 这里不双重调用下面的removeAll就不能用
+						local.removeAll(list);
+						list.addAll(local);
+					}
+				} catch (Exception ignored) { }
 			}
-			br.close();
-			read.close();
-			input.close();
-			httpUrlConn.disconnect();
 
-			INSTANCE = new Gson().fromJson(sb.toString(), Info.class);
+			IOException e = new IOException();
+			for(String s : list){
+				if(!s.endsWith("/")) s += "/";
+				try {
+					INSTANCE = new Gson().fromJson(Utils.Http.get(s + "info.json"), Info.class);
+
+					// API数据保存到本地
+					File cache = new File(Config.PluginDir, "apis.json");
+					FileOutputStream fos = new FileOutputStream(cache);
+					fos.write(new Gson().toJson(INSTANCE.apis.toArray(), String[].class).getBytes(StandardCharsets.UTF_8));
+					fos.close();
+
+					break;
+				} catch (IOException ex) {
+					Utils.logger.warning("Failed to get " + s +", reason: " + ex);
+					e = ex;
+				}
+			}
+			if(INSTANCE == null){
+				throw e;
+			}
 		}
 		return INSTANCE;
 	}

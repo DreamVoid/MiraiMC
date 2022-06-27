@@ -3,6 +3,7 @@ package me.dreamvoid.miraimc.internal.classloader;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.webapi.Info;
+import me.dreamvoid.miraimc.webapi.Version;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -31,6 +32,36 @@ public class MiraiLoader {
             return "latest";
         }
     }
+
+    public static String getStableVersion(String PluginVersion) {
+        try {
+            String mirai = Info.init().mirai.get("stable"); // 最终获取到的 mirai 版本，先用stable占位
+
+            try {
+                int ver = Version.init().versions.getOrDefault(PluginVersion, 0); // 插件当前版本号
+                int temp = -1; // 用于取最大值
+
+                for (String s : Info.init().mirai.keySet()) {
+                    if (s.equalsIgnoreCase("stable")) {
+                        continue;
+                    }
+
+                    if (ver >= Integer.parseInt(s)) {
+                        if(Integer.parseInt(s) > temp) {
+                            mirai = Info.init().mirai.get(s);
+                            temp = Integer.parseInt(s);
+                        }
+                    }
+                }
+            } catch (Exception ignored) {}
+
+            return mirai;
+        } catch (IOException e){
+            Utils.logger.warning("Fetching mirai stable version from remote failed, try to use latest. Reason: " + e);
+            return "latest";
+        }
+    }
+
 
     /**
      * 加载指定版本的Mirai Core
