@@ -26,7 +26,7 @@ import java.util.function.Supplier;
  */
 public class LibrariesLoader {
 	// 把lucko的代码偷过来 XD
-	private static final Supplier<URLClassLoaderAccess> LOADER = Suppliers.memoize(() -> URLClassLoaderAccess.create((URLClassLoader) Utils.classLoader));
+	private static final Supplier<URLClassLoaderAccess> LOADER = () -> Suppliers.memoize(() -> URLClassLoaderAccess.create((URLClassLoader) Utils.classLoader)).get(); // 勿动，乱改可能导致低版本mc无法加载
 
 	private static void downloadFile(File file, URL url) throws IOException {
 		try (InputStream is = url.openStream()) {
