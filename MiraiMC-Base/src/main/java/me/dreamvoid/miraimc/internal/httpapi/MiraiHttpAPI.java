@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.httpapi.exception.AbnormalStatusException;
 import me.dreamvoid.miraimc.internal.httpapi.response.*;
 import me.dreamvoid.miraimc.internal.httpapi.type.Message;
@@ -27,7 +28,7 @@ public class MiraiHttpAPI {
     public Verify verify(String verifyKey) throws IOException, AbnormalStatusException {
         JsonObject json = new JsonObject();
         json.addProperty("verifyKey", verifyKey);
-        Verify verify = gson.fromJson(HTTPUtils.post(json, url + "/verify"), Verify.class);
+        Verify verify = gson.fromJson(Utils.Http.post(json, url + "/verify"), Verify.class);
         if(verify.code != 0){
             throw new AbnormalStatusException(verify.code, verify.msg);
         }
@@ -38,7 +39,7 @@ public class MiraiHttpAPI {
         JsonObject json = new JsonObject();
         json.addProperty("sessionKey", sessionKey);
         json.addProperty("qq", qq);
-        Bind bind = gson.fromJson(HTTPUtils.post(json, url + "/bind"), Bind.class);
+        Bind bind = gson.fromJson(Utils.Http.post(json, url + "/bind"), Bind.class);
         if(bind.code == 0) {
             Bots.put(qq, sessionKey);
         } else throw new AbnormalStatusException(bind.code, bind.msg);
@@ -49,7 +50,7 @@ public class MiraiHttpAPI {
         JsonObject json = new JsonObject();
         json.addProperty("sessionKey", sessionKey);
         json.addProperty("qq", qq);
-        Release release = gson.fromJson(HTTPUtils.post(json, url + "/release"), Release.class);
+        Release release = gson.fromJson(Utils.Http.post(json, url + "/release"), Release.class);
         if(release.code == 0) {
             Bots.remove(qq);
         } else throw new AbnormalStatusException(release.code, release.msg);
@@ -65,7 +66,7 @@ public class MiraiHttpAPI {
         json.addProperty("target", target);
         //json.addProperty("quote", quote); 如果之后的版本搞引用回复，这个加到参数部分
         json.add("messageChain", messageArray);
-        SendMessage sendMessage = gson.fromJson(HTTPUtils.post(json, url + "/sendFriendMessage"), SendMessage.class);
+        SendMessage sendMessage = gson.fromJson(Utils.Http.post(json, url + "/sendFriendMessage"), SendMessage.class);
         if(sendMessage.code != 0){
             throw new AbnormalStatusException(sendMessage.code, sendMessage.msg);
         }
@@ -80,7 +81,7 @@ public class MiraiHttpAPI {
         json.addProperty("target", target);
         //json.addProperty("quote", quote); 如果之后的版本搞引用回复，这个加到参数部分
         json.add("messageChain", messageArray);
-        SendMessage sendMessage = gson.fromJson(HTTPUtils.post(json, url + "/sendFriendMessage"), SendMessage.class);
+        SendMessage sendMessage = gson.fromJson(Utils.Http.post(json, url + "/sendFriendMessage"), SendMessage.class);
         if(sendMessage.code != 0){
             throw new AbnormalStatusException(sendMessage.code, sendMessage.msg);
         }
@@ -96,7 +97,7 @@ public class MiraiHttpAPI {
         json.addProperty("target", target);
         //json.addProperty("quote", quote); 如果之后的版本搞引用回复，这个加到参数部分
         json.add("messageChain", messageArray);
-        SendMessage sendMessage = gson.fromJson(HTTPUtils.post(json, url + "/sendGroupMessage"), SendMessage.class);
+        SendMessage sendMessage = gson.fromJson(Utils.Http.post(json, url + "/sendGroupMessage"), SendMessage.class);
         if(sendMessage.code != 0){
             throw new AbnormalStatusException(sendMessage.code, sendMessage.msg);
         }
@@ -111,7 +112,7 @@ public class MiraiHttpAPI {
         json.addProperty("target", target);
         //json.addProperty("quote", quote); 如果之后的版本搞引用回复，这个加到参数部分
         json.add("messageChain", messageArray);
-        SendMessage sendMessage = gson.fromJson(HTTPUtils.post(json, url + "/sendGroupMessage"), SendMessage.class);
+        SendMessage sendMessage = gson.fromJson(Utils.Http.post(json, url + "/sendGroupMessage"), SendMessage.class);
         if(sendMessage.code != 0){
             throw new AbnormalStatusException(sendMessage.code, sendMessage.msg);
         }
@@ -119,7 +120,7 @@ public class MiraiHttpAPI {
     }
 
     public FetchMessage fetchMessage(String sessionKey, int count) throws Exception {
-        FetchMessage fetchMessage = gson.fromJson(HTTPUtils.get(url + "/fetchMessage?sessionKey=" + sessionKey + "&count=" + count), FetchMessage.class);
+        FetchMessage fetchMessage = gson.fromJson(Utils.Http.get(url + "/fetchMessage?sessionKey=" + sessionKey + "&count=" + count), FetchMessage.class);
         if(fetchMessage.code != 0){
             throw new AbnormalStatusException(fetchMessage.code, fetchMessage.msg);
         }

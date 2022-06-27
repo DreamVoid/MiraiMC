@@ -67,7 +67,7 @@ public class SpongePlugin {
             if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("latest")) {
                 MiraiLoader.loadMiraiCore();
             } else if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("stable")){
-                MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion());
+                MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion(getPluginContainer().getVersion().orElse("1.0")));
             } else {
                 MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
             }

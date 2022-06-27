@@ -35,7 +35,7 @@ public class BungeePlugin extends Plugin {
             if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("latest")) {
                 MiraiLoader.loadMiraiCore();
             } else if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("stable")){
-                MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion());
+                MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion(getDescription().getVersion()));
             } else {
                 MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
             }
