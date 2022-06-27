@@ -7,6 +7,7 @@ import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI;
 import me.dreamvoid.miraimc.internal.httpapi.exception.AbnormalStatusException;
+import me.dreamvoid.miraimc.velocity.MiraiAutoLogin;
 import me.dreamvoid.miraimc.velocity.VelocityPlugin;
 import me.dreamvoid.miraimc.velocity.utils.AutoLoginObject;
 import me.dreamvoid.miraimc.velocity.utils.Color;
@@ -24,7 +25,7 @@ import java.util.NoSuchElementException;
 public class MiraiCommand implements SimpleCommand {
 
     private final VelocityPlugin plugin;
-    private final me.dreamvoid.miraimc.velocity.MiraiAutoLogin MiraiAutoLogin;
+    private final MiraiAutoLogin MiraiAutoLogin;
 
     public MiraiCommand(VelocityPlugin plugin) {
         this.plugin = plugin;
