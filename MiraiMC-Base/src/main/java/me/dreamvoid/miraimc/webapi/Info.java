@@ -38,7 +38,7 @@ public final class Info {
 
 			httpUrlConn.setDoInput(true);
 			httpUrlConn.setRequestMethod("GET");
-			httpUrlConn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko");
+			httpUrlConn.setRequestProperty("User-Agent", "Mozilla/5.0 DreamVoid MiraiMC");
 
 			InputStream input = httpUrlConn.getInputStream();
 			InputStreamReader read = new InputStreamReader(input, StandardCharsets.UTF_8);
