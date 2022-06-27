@@ -85,8 +85,8 @@ public final class Utils {
             httpUrlConn.setDoInput(true);
             httpUrlConn.setRequestMethod("GET");
             httpUrlConn.setRequestProperty("User-Agent", "Mozilla/5.0 DreamVoid MiraiMC");
-            httpUrlConn.setConnectTimeout(30000);
-            httpUrlConn.setReadTimeout(30000);
+            httpUrlConn.setConnectTimeout(5000);
+            httpUrlConn.setReadTimeout(10000);
 
             InputStream input = httpUrlConn.getInputStream();
             InputStreamReader read = new InputStreamReader(input, StandardCharsets.UTF_8);
