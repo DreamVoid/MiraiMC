@@ -19,7 +19,7 @@ public class PluginUpdate {
     private final Version version;
 
     public PluginUpdate() throws IOException {
-        URL url = new URL("https://api.miraimc.dreamvoid.ml/version.json");
+        URL url = new URL("https://api.miraimc.dreamvoid.me/version.json");
         StringBuilder sb = new StringBuilder();
         HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
 
