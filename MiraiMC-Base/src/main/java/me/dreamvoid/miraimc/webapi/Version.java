@@ -29,11 +29,7 @@ public final class Version {
 	public List<Integer> blocked;
 
 	public static Version init() throws IOException {
-		return init(false);
-	}
-
-	public static Version init(boolean force) throws IOException {
-		if (force || INSTANCE == null) {
+		if (INSTANCE == null) {
 			List<String> list = new ArrayList<>(Info.init().apis);
 
 			try {
