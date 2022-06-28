@@ -11,18 +11,16 @@ import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
+import java.util.stream.Collectors;
 
-public class MiraiCommand implements CommandExecutor {
+public class MiraiCommand implements TabExecutor {
     private final BukkitPlugin plugin;
     private final MiraiAutoLogin MiraiAutoLogin;
 
@@ -52,9 +50,7 @@ public class MiraiCommand implements CommandExecutor {
                                         Protocol = BotConfiguration.MiraiProtocol.valueOf(args[3].toUpperCase());
                                     } catch (IllegalArgumentException ignored) {
                                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e无效的协议类型，已自动选择 ANDROID_PHONE."));
-                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e可用的协议类型: " + Arrays.toString(BotConfiguration.MiraiProtocol.values())
-                                                .replace("[", "")
-                                                .replace("]", "") + ", HTTPAPI"));
+                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e可用的协议类型: " + MiraiBot.getAvailableProtocol(true).toString().replace("[", "").replace("]", "")));
                                         Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
                                     }
 
@@ -309,5 +305,88 @@ public class MiraiCommand implements CommandExecutor {
             sender.sendMessage("This server is running "+ plugin.getDescription().getName() +" version "+ plugin.getDescription().getVersion()+" by "+ plugin.getDescription().getAuthors().toString().replace("[","").replace("]",""));
             return false;
         }
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        List<String> result = new ArrayList<>();
+
+        if(args.length == 1){
+            String[] list = new String[]{"login", "logout", "list", "sendfriendmessage", "sendgroupmessage", "sendfriendnudge", "uploadimage", "checkonline", "autologin", "help"};
+            for(String s : list){
+                if(s.startsWith(args[0])) result.add(s);
+            }
+        }
+
+        if(args.length == 2 && sender.hasPermission("miraimc.command.mirai." + args[0].toLowerCase())){
+            // 1
+            List<String> list1 = Arrays.asList("login", "logout", "sendfriendmessage", "sendgroupmessage", "sendfriendnudge", "uploadimage", "checkonline");
+            if(list1.contains(args[0].toLowerCase())){
+                for(Long l : MiraiBot.getOnlineBots()){
+                    if(String.valueOf(l).startsWith(args[1])) result.add(String.valueOf(l));
+                }
+            }
+
+            // 2
+            if("autologin".equalsIgnoreCase(args[0])){
+                String[] list = new String[]{"add", "list", "remove"};
+                for(String s : list){
+                    if(s.startsWith(args[1])) result.add(s);
+                }
+            }
+        }
+
+        if(args.length == 3 && sender.hasPermission("miraimc.command.mirai." + args[0].toLowerCase())){
+            // 1
+            List<String> list1 = Arrays.asList("sendfriendmessage", "sendfriendnudge");
+            if(list1.contains(args[1].toLowerCase())){
+                try {
+                    for (Long l : MiraiBot.getBot(Long.parseLong(args[1])).getFriendList()) {
+                        if (String.valueOf(l).startsWith(args[2])) result.add(String.valueOf(l));
+                    }
+                } catch (NoSuchElementException ignored) {}
+            }
+
+            // 2
+            if("sendgroupmessage".equalsIgnoreCase(args[1])){
+                try {
+                    for (Long l : MiraiBot.getBot(Long.parseLong(args[1])).getGroupList()) {
+                        if (String.valueOf(l).startsWith(args[2])) result.add(String.valueOf(l));
+                    }
+                } catch (NoSuchElementException ignored) {}
+            }
+
+            // 3
+            if(args[0].equalsIgnoreCase("autologin")) {
+                // 1
+                if("add".equalsIgnoreCase(args[1])){
+                    for(Long l : MiraiBot.getOnlineBots()){
+                        if(String.valueOf(l).startsWith(args[2])) result.add(String.valueOf(l));
+                    }
+                }
+
+                // 2
+                if ("remove".equalsIgnoreCase(args[1])) {
+                    List<String> accounts = MiraiAutoLogin.loadAutoLoginList().stream().map(map -> String.valueOf(map.get("account"))).collect(Collectors.toList());
+                    for(String s : accounts){
+                        if(s.startsWith(args[2])) result.add(s);
+                    }
+                }
+            }
+        }
+
+        if(args.length == 4 && sender.hasPermission("miraimc.command.mirai." + args[0].toLowerCase())){
+            if("login".equalsIgnoreCase(args[0])){
+                result = MiraiBot.getAvailableProtocol();
+            }
+        }
+
+        if(args.length == 5 && sender.hasPermission("miraimc.command.mirai." + args[0].toLowerCase())){
+            if("autologin".equalsIgnoreCase(args[0]) && "add".equalsIgnoreCase(args[1])){
+                result = MiraiBot.getAvailableProtocol();
+            }
+        }
+
+        return result;
     }
 }
