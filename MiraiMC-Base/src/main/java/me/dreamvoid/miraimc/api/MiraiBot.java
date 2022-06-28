@@ -18,11 +18,9 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * Mirai Core 核心接口
@@ -67,6 +65,25 @@ public class MiraiBot {
      */
     public static MiraiBot getBot(long BotAccount) throws NoSuchElementException{
         return new MiraiBot(BotAccount);
+    }
+
+    /**
+     * 获取可用的 mirai 协议列表用于登录
+     * @return 协议列表
+     */
+    public static List<String> getAvailableProtocol(){
+        return getAvailableProtocol(false);
+    }
+
+    /**
+     * 获取可用的 mirai 协议列表用于登录
+     * @param AddHttpAPI 是否添加HTTPAPI到协议列表
+     * @return 协议列表
+     */
+    public static List<String> getAvailableProtocol(boolean AddHttpAPI){
+        List<String> result = Arrays.stream(BotConfiguration.MiraiProtocol.values()).map(Enum::name).collect(Collectors.toList());
+        if(AddHttpAPI) result.add("HTTPAPI");
+        return result;
     }
 
     /**
