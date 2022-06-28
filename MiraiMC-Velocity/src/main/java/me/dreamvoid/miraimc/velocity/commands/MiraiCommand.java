@@ -16,7 +16,6 @@ import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -196,12 +195,11 @@ public class MiraiCommand implements SimpleCommand {
                                 case "list":{
                                     sender.sendMessage(Component.text(Color.translate("&a存在的自动登录机器人: ")));
                                     try {
-                                        sender.sendMessage(Component.text(Color.translate("&a存在的自动登录机器人: ")));
                                         List<AutoLoginObject.Accounts> AutoLoginBotList = MiraiAutoLogin.loadAutoLoginList();
                                         for (AutoLoginObject.Accounts bots : AutoLoginBotList) {
                                             sender.sendMessage(Component.text(Color.translate("&b" + bots.getAccount())));
                                         }
-                                    } catch (FileNotFoundException e) {
+                                    } catch (IOException e) {
                                         plugin.getLogger().warn("读取自动登录机器人列表时出现异常，原因: " + e);
                                         sender.sendMessage(Component.text(Color.translate("&c读取列表时出现异常，请查看控制台了解更多信息！")));
                                     }

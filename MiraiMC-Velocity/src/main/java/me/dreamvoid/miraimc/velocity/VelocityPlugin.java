@@ -99,9 +99,9 @@ public class VelocityPlugin {
         getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();
 
-        //getLogger().info("Loading auto-login file.");
-        //MiraiAutoLogin.loadFile();
-        //MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
+        getLogger().info("Loading auto-login file.");
+        MiraiAutoLogin.loadFile();
+        MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
 
         getLogger().info("Registering commands.");
         CommandManager manager = server.getCommandManager();
