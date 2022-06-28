@@ -72,7 +72,9 @@ public class BukkitPlugin extends JavaPlugin {
 
         getLogger().info("Registering commands.");
         getCommand("mirai").setExecutor(new MiraiCommand(this));
+        getCommand("mirai").setTabCompleter(new MiraiCommand(this));
         getCommand("miraimc").setExecutor(new MiraiMcCommand(this));
+        getCommand("miraimc").setTabCompleter(new MiraiMcCommand(this));
         getCommand("miraiverify").setExecutor(new MiraiVerifyCommand());
 
         if(Config.Bot_LogEvents){

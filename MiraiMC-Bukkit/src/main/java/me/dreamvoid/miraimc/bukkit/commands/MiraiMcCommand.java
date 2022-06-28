@@ -7,11 +7,16 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class MiraiMcCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class MiraiMcCommand implements TabExecutor {
     private final BukkitPlugin plugin;
 
     public MiraiMcCommand(BukkitPlugin plugin) {
@@ -104,24 +109,21 @@ public class MiraiMcCommand implements CommandExecutor {
                                     break;
                                 }
                                 default:{
-                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c未知或不完整的命令，请输入 /miraimc bind 查看帮助！"));
+                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c未知或不完整的命令，请输入 /miraimc help 查看帮助！"));
                                     break;
                                 }
                             }
-                        } else {
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6&lMiraiMC&r &b插件帮助菜单&r &a玩家绑定"));
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/miraimc bind add <玩家名> <QQ号>:&r 为玩家和QQ号添加绑定"));
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/miraimc bind getplayer <玩家名>:&r 获取指定玩家名绑定的QQ号"));
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/miraimc bind getqq <QQ号>:&r 获取指定QQ号绑定的玩家名"));
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/miraimc bind removeplayer <玩家名>:&r 删除一个玩家的绑定"));
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/miraimc bind removeqq <QQ号>:&r 删除一个QQ号的绑定"));
-                        }
+                        } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c未知或不完整的命令，请输入 /miraimc help 查看帮助！"));
                     } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
                     break;
                 }
                 case "help": {
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6&lMiraiMC&r &b插件帮助菜单"));
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/miraimc bind:&r 玩家绑定菜单"));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/miraimc bind add <玩家名> <QQ号>:&r 为玩家和QQ号添加绑定"));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/miraimc bind getplayer <玩家名>:&r 获取指定玩家名绑定的QQ号"));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/miraimc bind getqq <QQ号>:&r 获取指定QQ号绑定的玩家名"));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/miraimc bind removeplayer <玩家名>:&r 删除一个玩家的绑定"));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/miraimc bind removeqq <QQ号>:&r 删除一个QQ号的绑定"));
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6/miraimc reload:&r 重新加载插件"));
                     break;
                 }
@@ -135,5 +137,37 @@ public class MiraiMcCommand implements CommandExecutor {
             sender.sendMessage("This server is running "+ plugin.getDescription().getName() +" version "+ plugin.getDescription().getVersion()+" by "+ plugin.getDescription().getAuthors().toString().replace("[","").replace("]",""));
             return false;
         }
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        List<String> result = new ArrayList<>();
+
+        if(args.length == 1){
+            String[] list = new String[]{"bind", "reload"};
+            for(String s : list){
+                if(s.startsWith(args[0])) result.add(s);
+            }
+        }
+
+        if(args.length == 2){
+            if("bind".equalsIgnoreCase(args[0])){
+                String[] list = new String[]{"add", "getplayer", "getqq", "removeplayer", "removeqq"};
+                for(String s : list){
+                    if(s.startsWith(args[1])) result.add(s);
+                }
+            }
+        }
+
+        if(args.length == 3){
+            List<String> list = Arrays.asList("add", "getplayer", "removeplayer");
+            if("bind".equalsIgnoreCase(args[0]) && list.contains(args[1].toLowerCase())){
+                for(Player p : Bukkit.getOnlinePlayers()){
+                    if(p.getName().startsWith(args[2])) result.add(p.getName());
+                }
+            }
+        }
+
+        return result;
     }
 }
