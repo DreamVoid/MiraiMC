@@ -26,7 +26,7 @@ MiraiMC 是一個基於[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 * 如果你同時使用了基於MiraiMC開發的插件，請在這些插件的配置文件中調整有關MiraiMC的配置
 * 享受優雅的QQ機器人服務！
 
-可以在這裡找到更為詳細的使用教程：https://wiki.miraimc.dreamvoid.ml/
+可以在這裡找到更為詳細的使用教程：https://wiki.miraimc.dreamvoid.me/
 
 ### 開發者
 如果你是插件開發者，正在考慮讓自己的插件能夠對接QQ機器人，那麼只需要使用本插件提供的API即可方便快捷的實現需求而無需讓服主進行額外的配置。
@@ -44,10 +44,10 @@ MiraiMC 是一個基於[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
     <scope>provided</scope>
 </dependency>
 ```
-* 參照[Javadoc](https://docs.miraimc.dreamvoid.ml)或[MiraiMC開發模板](https://github.com/DreamVoid/MiraiMC-Template)編寫相關的代碼
+* 參照[Javadoc](https://docs.miraimc.dreamvoid.me)或[MiraiMC開發模板](https://github.com/DreamVoid/MiraiMC-Template)編寫相關的代碼
 * 發布你的插件
 
-可以在這裡找到更為詳細的開發教程：https://wiki.miraimc.dreamvoid.ml/
+可以在這裡找到更為詳細的開發教程：https://wiki.miraimc.dreamvoid.me/
 
 ## 指令和權限
 ### 指令
