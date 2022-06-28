@@ -8,10 +8,11 @@ import org.slf4j.Logger;
 import org.spongepowered.api.scheduler.Task;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
+import org.yaml.snakeyaml.constructor.CustomClassLoaderConstructor;
 import org.yaml.snakeyaml.nodes.Tag;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,9 +57,9 @@ public class MiraiAutoLogin {
         }
     }
 
-    public static List<AutoLoginObject.Accounts> loadAutoLoginList() throws FileNotFoundException {
-        Yaml yaml = new Yaml(new Constructor(AutoLoginObject.class));
-        InputStream inputStream = new FileInputStream(AutoLoginFile);
+    public static List<AutoLoginObject.Accounts> loadAutoLoginList() throws IOException {
+        Yaml yaml = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader()));
+        InputStream inputStream = Files.newInputStream(AutoLoginFile.toPath());
         AutoLoginObject data = yaml.loadAs(inputStream, AutoLoginObject.class);
         if(data.getAccounts() == null){
             data.setAccounts(new ArrayList<>());
@@ -94,7 +95,7 @@ public class MiraiAutoLogin {
                 }
             } catch (InterruptedException e) {
                 Logger.warn("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
-            } catch (FileNotFoundException e) {
+            } catch (IOException e) {
                 Logger.warn("登录机器人时出现异常，原因: " + e);
             }
         };
@@ -104,8 +105,8 @@ public class MiraiAutoLogin {
     public static boolean addAutoLoginBot(long Account, String Password, String Protocol){
         try {
             // 获取现有的机器人列表
-            Yaml yaml = new Yaml();
-            InputStream inputStream = new FileInputStream(AutoLoginFile);
+            Yaml yaml = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader()));
+            InputStream inputStream = Files.newInputStream(AutoLoginFile.toPath());
             AutoLoginObject data = yaml.loadAs(inputStream, AutoLoginObject.class);
             if(data.getAccounts() == null){
                 data.setAccounts(new ArrayList<>());
@@ -133,7 +134,7 @@ public class MiraiAutoLogin {
             List<AutoLoginObject.Accounts> accounts = data.getAccounts();
             accounts.add(account);
             data.setAccounts(accounts);
-            Yaml yaml1 = new Yaml();
+            Yaml yaml1 = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader()));
 
             File writeName = AutoLoginFile;
             try (FileWriter writer = new FileWriter(writeName);
@@ -152,8 +153,8 @@ public class MiraiAutoLogin {
     public static boolean delAutoLoginBot(long Account){
         try {
             // 获取现有的机器人列表
-            Yaml yaml = new Yaml();
-            InputStream inputStream = new FileInputStream(AutoLoginFile);
+            Yaml yaml = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader()));
+            InputStream inputStream = Files.newInputStream(AutoLoginFile.toPath());
             AutoLoginObject data = yaml.loadAs(inputStream, AutoLoginObject.class);
             if(data.getAccounts() == null){
                 data.setAccounts(new ArrayList<>());
@@ -166,7 +167,7 @@ public class MiraiAutoLogin {
                 }
             }
 
-            Yaml yaml1 = new Yaml();
+            Yaml yaml1 = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader()));
 
             File writeName = AutoLoginFile;
             try (FileWriter writer = new FileWriter(writeName);
