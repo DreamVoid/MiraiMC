@@ -123,7 +123,7 @@ public class MiraiBot {
      * @param Protocol 协议类型
      */
     public static void doBotLogin(long Account, byte[] PasswordMD5, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException{
-        privateBotLogin(Account, PasswordMD5, Protocol);
+        login(Account, PasswordMD5, Protocol);
     }
 
     /**
@@ -277,7 +277,13 @@ public class MiraiBot {
         return bot.getAsFriend().uploadImage(ExternalResource.create(image).toAutoCloseable()).getImageId();
     }
 
-    private static void privateBotLogin(long Account, byte[] Password, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException {
+    /**
+     * 登录机器人
+     * @param Account 账号
+     * @param Password 密码
+     * @param Protocol 协议
+     */
+    private static void login(long Account, byte[] Password, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException {
         logger = Utils.logger;
 
         Bot existBot = Bot.getInstanceOrNull(Account);
@@ -296,7 +302,7 @@ public class MiraiBot {
         if(!(Config.Gen_MiraiWorkingDir.equals("default"))) {
             MiraiDir = new File(Config.Gen_MiraiWorkingDir);
         } else MiraiDir = new File(Config.PluginDir,"MiraiBot"); // mirai数据文件夹
-        File BotConfig = new File(MiraiDir, "bots/" + Account); // 当前机器人账号配置文件夹和相应的配置
+        File BotConfig = new File(new File(MiraiDir, "bots"), String.valueOf(Account)); // 当前机器人账号配置文件夹和相应的配置
 
         if(!BotConfig.exists() && !BotConfig.mkdirs()) throw new RuntimeException("Failed to create folder " + BotConfig.getPath());
 
