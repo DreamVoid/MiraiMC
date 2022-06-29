@@ -173,8 +173,17 @@ public class MiraiBot {
 
     /**
      * 登出一个机器人账号
+     * @deprecated 请使用 {@link #close()}
      */
+    @Deprecated
     public void doLogout() {
+        bot.close();
+    }
+
+    /**
+     * 关闭一个机器人实例，立刻停止有关此机器人的所有任务并登出机器人
+     */
+    public void close() {
         bot.close();
     }
 
