@@ -2,6 +2,9 @@ package me.dreamvoid.miraimc.api.bot;
 
 import net.mamoe.mirai.contact.OtherClient;
 import net.mamoe.mirai.message.code.MiraiCode;
+import net.mamoe.mirai.utils.ExternalResource;
+
+import java.io.File;
 
 /**
  * MiraiMC 其他客户端
@@ -57,5 +60,14 @@ public class MiraiOtherClient {
 	 */
 	public String getDeviceKind(){
 		return client.getInfo().getDeviceKind();
+	}
+
+	/**
+	 * 上传一个图片，返回图片ID用于发送消息
+	 * @param imageFile 图片文件
+	 * @return 图片ID
+	 */
+	public String uploadImage(File imageFile) {
+		return ExternalResource.uploadAsImage(imageFile, client).getImageId();
 	}
 }
