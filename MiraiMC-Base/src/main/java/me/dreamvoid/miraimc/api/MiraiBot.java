@@ -118,6 +118,38 @@ public class MiraiBot {
     /**
      * 登录一个机器人账号
      * @param Account 机器人账号
+     * @param PasswordMD5 机器人密码MD5
+     * @param Protocol 协议类型
+     */
+    public static void doBotLogin(long Account, byte[] PasswordMD5, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException{
+        privateBotLogin(Account, PasswordMD5, Protocol);
+    }
+
+    /**
+     * 登录一个机器人账号
+     * @param Account 机器人账号
+     * @param Password 机器人密码
+     * @param Protocol 协议类型
+     * @throws IllegalArgumentException 协议不存在时抛出
+     */
+    public static void doBotLogin(long Account, String Password, String Protocol) throws InterruptedException, IllegalArgumentException{
+        doBotLogin(Account, Password, BotConfiguration.MiraiProtocol.valueOf(Protocol));
+    }
+
+    /**
+     * 登录一个机器人账号
+     * @param Account 机器人账号
+     * @param PasswordMD5 机器人密码MD5
+     * @param Protocol 协议类型
+     * @throws IllegalArgumentException 协议不存在时抛出
+     */
+    public static void doBotLogin(long Account, byte[] PasswordMD5, String Protocol) throws InterruptedException, IllegalArgumentException{
+        doBotLogin(Account, PasswordMD5, BotConfiguration.MiraiProtocol.valueOf(Protocol));
+    }
+
+    /**
+     * 登录一个机器人账号
+     * @param Account 机器人账号
      * @param Password 机器人密码
      * @param Protocol 协议类型
      */
@@ -126,20 +158,10 @@ public class MiraiBot {
             MessageDigest m = MessageDigest.getInstance("MD5");
             m.update(Password.getBytes(StandardCharsets.UTF_8));
             byte[] md5 = m.digest();
-            privateBotLogin(Account, md5, Protocol);
+            doBotLogin(Account, md5, Protocol);
         } catch (NoSuchAlgorithmException e) {
             logger.warning("加密密码时出现异常，原因: " + e);
         }
-    }
-
-    /**
-     * 登录一个机器人账号
-     * @param Account 机器人账号
-     * @param PasswordMD5 机器人密码MD5
-     * @param Protocol 协议类型
-     */
-    public static void doBotLogin(long Account, byte[] PasswordMD5, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException{
-        privateBotLogin(Account, PasswordMD5, Protocol);
     }
 
     /**
