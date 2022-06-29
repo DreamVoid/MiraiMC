@@ -2,6 +2,7 @@ package me.dreamvoid.miraimc.api;
 
 import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
+import me.dreamvoid.miraimc.api.bot.MiraiOtherClient;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
@@ -275,6 +276,24 @@ public class MiraiBot {
      */
     public String uploadImage(File image){
         return bot.getAsFriend().uploadImage(ExternalResource.create(image).toAutoCloseable()).getImageId();
+    }
+
+    /**
+     * 获取指定的机器人登录的其他客户端
+     * @param OtherClient 其他客户端ID
+     * @return {@link MiraiOtherClient} 实例
+     * @throws NoSuchElementException 不存在指定客户端时抛出
+     */
+    public MiraiOtherClient getOtherClient(long OtherClient) throws NoSuchElementException{
+        return new MiraiOtherClient(bot.getOtherClients().getOrFail(OtherClient));
+    }
+
+    /**
+     * 获取机器人登录的所有其他客户端
+     * @return {@link MiraiOtherClient} 实例数组
+     */
+    public List<MiraiOtherClient> getOtherClients() {
+        return bot.getOtherClients().stream().map(MiraiOtherClient::new).collect(Collectors.toList());
     }
 
     /**
