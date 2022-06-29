@@ -116,7 +116,8 @@ public class MiraiBot {
     }
 
     /**
-     * 登录一个机器人账号
+     * 登录一个机器人账号<br>
+     * [!] 不建议插件开发者调用此方法，建议引导用户通过MiraiMC指令登录机器人
      * @param Account 机器人账号
      * @param PasswordMD5 机器人密码MD5
      * @param Protocol 协议类型
@@ -126,7 +127,8 @@ public class MiraiBot {
     }
 
     /**
-     * 登录一个机器人账号
+     * 登录一个机器人账号<br>
+     * [!] 不建议插件开发者调用此方法，建议引导用户通过MiraiMC指令登录机器人
      * @param Account 机器人账号
      * @param Password 机器人密码
      * @param Protocol 协议类型
@@ -137,21 +139,25 @@ public class MiraiBot {
     }
 
     /**
-     * 登录一个机器人账号
+     * 登录一个机器人账号<br>
+     * [!] 不建议插件开发者调用此方法，建议引导用户通过MiraiMC指令登录机器人
      * @param Account 机器人账号
      * @param PasswordMD5 机器人密码MD5
      * @param Protocol 协议类型
      * @throws IllegalArgumentException 协议不存在时抛出
+     * @since 1.7
      */
     public static void doBotLogin(long Account, byte[] PasswordMD5, String Protocol) throws InterruptedException, IllegalArgumentException{
         doBotLogin(Account, PasswordMD5, BotConfiguration.MiraiProtocol.valueOf(Protocol));
     }
 
     /**
-     * 登录一个机器人账号
+     * 登录一个机器人账号<br>
+     * [!] 不建议插件开发者调用此方法，建议引导用户通过MiraiMC指令登录机器人
      * @param Account 机器人账号
      * @param Password 机器人密码
      * @param Protocol 协议类型
+     * @since 1.7
      */
     public static void doBotLogin(long Account, String Password, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException{
         try {
@@ -181,7 +187,8 @@ public class MiraiBot {
     }
 
     /**
-     * 关闭一个机器人实例，立刻停止有关此机器人的所有任务并登出机器人
+     * 关闭一个机器人实例，立刻停止有关此机器人的所有任务并登出机器人<br>
+     * [!] 不建议插件开发者调用此方法，建议引导用户通过MiraiMC指令关闭机器人
      */
     public void close() {
         bot.close();
