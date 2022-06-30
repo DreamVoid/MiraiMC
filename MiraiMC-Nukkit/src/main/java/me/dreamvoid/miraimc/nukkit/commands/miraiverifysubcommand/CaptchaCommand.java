@@ -10,9 +10,9 @@ import me.dreamvoid.miraimc.nukkit.commands.base.BaseSubCommand;
 /**
  * @author LT_Name
  */
-public class PicCaptchaCommand extends BaseSubCommand {
+public class CaptchaCommand extends BaseSubCommand {
 
-    public PicCaptchaCommand(String name) {
+    public CaptchaCommand(String name) {
         super(name);
     }
 
@@ -32,7 +32,7 @@ public class PicCaptchaCommand extends BaseSubCommand {
             sender.sendMessage(TextFormat.colorize('&',"&a已将验证码提交到服务器"));
             MiraiLoginSolver.solve(Long.parseLong(args[1]),args[2]);
         } else {
-            sender.sendMessage(TextFormat.colorize('&',"&c无效的参数！用法：/miraiverify piccaptcha <账号> <验证码>"));
+            sender.sendMessage(TextFormat.colorize('&',"&c无效的参数！用法：/miraiverify captcha <账号> <验证码>"));
         }
         return true;
     }
@@ -41,7 +41,7 @@ public class PicCaptchaCommand extends BaseSubCommand {
     public CommandParameter[] getParameters() {
         return new CommandParameter[] {
                 CommandParameter.newType("账号", CommandParamType.INT),
-                CommandParameter.newType("验证码", CommandParamType.TEXT)
+                CommandParameter.newType("ticket", CommandParamType.TEXT)
         };
     }
 }

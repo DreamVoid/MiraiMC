@@ -16,11 +16,8 @@ public class MiraiVerifyCommand extends BaseCommand {
         this.setUsage("For help, type /mirai help");
 
         this.addSubCommand(new UnsafeDeviceCommand("UnsafeDevice"));
-        this.addSubCommand(new UnsafeDeviceCancelCommand("UnsafeDeviceCancel"));
-        this.addSubCommand(new SliderCaptchaCommand("SliderCaptcha"));
-        this.addSubCommand(new SliderCaptchaCancelCommand("SliderCaptchaCancel"));
-        this.addSubCommand(new PicCaptchaCommand("PicCaptcha"));
-        this.addSubCommand(new PicCaptchaCancelCommand("PicCaptchaCancel"));
+        this.addSubCommand(new CancelCommand("Cancel"));
+        this.addSubCommand(new CaptchaCommand("Captcha"));
     }
 
     @Override

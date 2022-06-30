@@ -63,8 +63,8 @@ public class MiraiLoginSolver extends LoginSolver {
                 bot.getLogger().warning("当前登录的QQ（"+bot.getId()+"）需要文字验证码验证");
                 bot.getLogger().warning("请找到下面的文件并识别文字验证码");
                 bot.getLogger().warning(imageFile.getPath());
-                bot.getLogger().warning("识别完成后，请输入指令 /miraiverify piccaptcha "+bot.getId()+" <验证码>");
-                bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify piccaptchacancel "+bot.getId());
+                bot.getLogger().warning("识别完成后，请输入指令 /miraiverify captcha "+bot.getId()+" <验证码>");
+                bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify cancel "+bot.getId());
                 bot.getLogger().warning("如需帮助，请参阅: https://wiki.miraimc.dreamvoid.me/troubleshoot/verify-guide#word-captcha");
                 while(deviceVerifyWait.contains(bot)) if (deviceVerifyCode.containsKey(bot)) break;
             });
@@ -101,10 +101,10 @@ public class MiraiLoginSolver extends LoginSolver {
             threads = new Thread(() -> {
                 deviceVerifyWait.add(bot);
                 bot.getLogger().warning("当前登录的QQ（"+bot.getId()+"）需要滑动验证码验证");
-                bot.getLogger().warning("请使用手机QQ打开以下链接进行验证");
+                bot.getLogger().warning("请打开以下链接进行验证");
                 bot.getLogger().warning(verifyUrl);
-                bot.getLogger().warning("验证完成后，请输入指令 /miraiverify slidercaptcha "+bot.getId()+" <ticket>");
-                bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify slidercaptchacancel "+bot.getId());
+                bot.getLogger().warning("验证完成后，请输入指令 /miraiverify captcha "+bot.getId()+" <ticket>");
+                bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify cancel "+bot.getId());
                 bot.getLogger().warning("如需帮助，请参阅: https://wiki.miraimc.dreamvoid.me/troubleshoot/verify-guide#slide-captcha");
                 while(deviceVerifyWait.contains(bot)) if (deviceVerifyCode.containsKey(bot)) break;
             });
@@ -141,10 +141,10 @@ public class MiraiLoginSolver extends LoginSolver {
             threads = new Thread(() -> {
                 deviceVerifyWait.add(bot);
                 bot.getLogger().warning("当前登录的QQ（"+bot.getId()+"）需要设备锁验证");
-                bot.getLogger().warning("请使用手机QQ打开以下链接进行验证");
+                bot.getLogger().warning("请打开以下链接进行验证");
                 bot.getLogger().warning(verifyUrl);
                 bot.getLogger().warning("验证完成后，请输入指令 /miraiverify unsafedevice "+bot.getId());
-                bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify unsafedevicecancel "+bot.getId());
+                bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify cancel "+bot.getId());
                 bot.getLogger().warning("如需帮助，请参阅: https://wiki.miraimc.dreamvoid.me/troubleshoot/verify-guide#device-locker");
                 while(deviceVerifyWait.contains(bot)) if (deviceVerifyCode.containsKey(bot)) break;
             });

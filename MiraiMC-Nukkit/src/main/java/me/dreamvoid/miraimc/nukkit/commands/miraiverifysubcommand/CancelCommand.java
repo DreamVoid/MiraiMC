@@ -10,9 +10,9 @@ import me.dreamvoid.miraimc.nukkit.commands.base.BaseSubCommand;
 /**
  * @author LT_Name
  */
-public class PicCaptchaCancelCommand extends BaseSubCommand {
+public class CancelCommand extends BaseSubCommand {
 
-    public PicCaptchaCancelCommand(String name) {
+    public CancelCommand(String name) {
         super(name);
     }
 
@@ -32,7 +32,7 @@ public class PicCaptchaCancelCommand extends BaseSubCommand {
             MiraiLoginSolver.cancel(Long.parseLong(args[1]));
             sender.sendMessage(TextFormat.colorize('&',"&a已取消登录验证流程"));
         } else {
-            sender.sendMessage(TextFormat.colorize('&',"&c无效的参数！用法：/miraiverify piccaptchacancel <账号>"));
+            sender.sendMessage(TextFormat.colorize('&',"&c无效的参数！用法：/miraiverify cancel <账号>"));
         }
         return true;
     }
