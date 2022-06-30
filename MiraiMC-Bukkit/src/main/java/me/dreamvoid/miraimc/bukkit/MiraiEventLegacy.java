@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 
 import static me.dreamvoid.miraimc.bukkit.event.bot.MiraiBotOfflineEvent.Type.*;
 
+@SuppressWarnings("deprecation")
 public class MiraiEventLegacy extends MiraiEvent {
 	private Listener<BotOnlineEvent> BotOnlineListener;
 	private Listener<BotOfflineEvent.Active> BotOfflineActiveListener;

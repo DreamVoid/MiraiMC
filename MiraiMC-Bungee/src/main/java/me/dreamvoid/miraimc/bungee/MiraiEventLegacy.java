@@ -8,6 +8,7 @@ import net.md_5.bungee.api.ProxyServer;
 
 import static me.dreamvoid.miraimc.bungee.event.bot.MiraiBotOfflineEvent.Type.*;
 
+@SuppressWarnings("deprecation")
 public class MiraiEventLegacy extends MiraiEvent {
 	private Listener<BotOnlineEvent> BotOnlineListener;
 	private Listener<BotOfflineEvent.Active> BotOfflineActiveListener;
