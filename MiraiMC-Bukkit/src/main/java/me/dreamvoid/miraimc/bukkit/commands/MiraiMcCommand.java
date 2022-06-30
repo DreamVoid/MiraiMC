@@ -9,9 +9,11 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,8 +31,13 @@ public class MiraiMcCommand implements TabExecutor {
             switch (args[0].toLowerCase()) {
                 case "reload": {
                     if(sender.hasPermission("miraimc.command.miraimc.reload")){
-                        BukkitConfig.reloadConfig();
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a配置文件已经重新加载，部分配置可能需要重新启动服务器才能生效！"));
+                        try {
+                            BukkitConfig.reloadConfig();
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a配置文件已经重新加载，部分配置可能需要重新启动服务器才能生效！"));
+                        } catch (IOException | InvalidConfigurationException e) {
+                            plugin.getLogger().warning("加载配置文件时出现问题，原因："+e);
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c重新配置文件时出现问题，请查看控制台了解更多信息！"));
+                        }
                     } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c你没有足够的权限执行此命令！"));
                     break;
                 }
