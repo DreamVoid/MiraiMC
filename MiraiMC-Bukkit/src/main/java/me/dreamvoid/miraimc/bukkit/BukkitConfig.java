@@ -27,8 +27,8 @@ public class BukkitConfig {
         Gen_CheckUpdate = plugin.getConfig().getBoolean("general.check-update",true);
         Gen_DisableSafeWarningMessage = plugin.getConfig().getBoolean("general.disable-safe-warning-message",false);
         Gen_MiraiWorkingDir = plugin.getConfig().getString("general.mirai-working-dir","default");
-        Gen_AddProperties_NoDesktop = plugin.getConfig().getBoolean("general.add-properties.no-desktop",true);
-        Gen_AddProperties_SliderCaptchaSupported = plugin.getConfig().getBoolean("general.add-properties.slider-captcha-supported",true);
+        Gen_AddProperties_MiraiNoDesktop = plugin.getConfig().getBoolean("general.add-properties.mirai.no-desktop",true);
+        Gen_AddProperties_MiraiSliderCaptchaSupported = plugin.getConfig().getBoolean("general.add-properties.mirai.slider.captcha.supported",true);
         Gen_MiraiCoreVersion = plugin.getConfig().getString("general.mirai-core-version","latest");
         Gen_MavenRepoUrl = plugin.getConfig().getString("general.maven-repo-url","https://repo1.maven.org/maven2");
         Gen_EnableHttpApi = plugin.getConfig().getBoolean("general.enable-http-api",false);
@@ -36,8 +36,8 @@ public class BukkitConfig {
 
         Bot_DisableNetworkLogs = plugin.getConfig().getBoolean("bot.disable-network-logs",false);
         Bot_DisableBotLogs = plugin.getConfig().getBoolean("bot.disable-bot-logs",false);
-        Bot_UseMinecraftLogger_BotLogs = plugin.getConfig().getBoolean("bot.use-minecraft-logger.bot-logs",true);
-        Bot_UseMinecraftLogger_NetworkLogs = plugin.getConfig().getBoolean("bot.use-minecraft-logger.network-logs",true);
+        Bot_UseBukkitLogger_BotLogs = plugin.getConfig().getBoolean("bot.use-bukkit-logger.bot-logs",true);
+        Bot_UseBukkitLogger_NetworkLogs = plugin.getConfig().getBoolean("bot.use-bukkit-logger.network-logs",true);
         Bot_LogEvents = plugin.getConfig().getBoolean("bot.log-events",true);
         Bot_ContactCache_EnableFriendListCache = plugin.getConfig().getBoolean("bot.contact-cache.enable-friend-list-cache",false);
         Bot_ContactCache_EnableGroupMemberListCache = plugin.getConfig().getBoolean("bot.contact-cache.enable-group-member-list-cache",false);

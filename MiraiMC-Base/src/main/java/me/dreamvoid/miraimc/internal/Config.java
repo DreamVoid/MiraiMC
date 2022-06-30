@@ -9,8 +9,8 @@ public class Config {
     public static boolean Gen_CheckUpdate;
     public static boolean Gen_DisableSafeWarningMessage;
     public static String Gen_MiraiWorkingDir;
-    public static boolean Gen_AddProperties_NoDesktop;
-    public static boolean Gen_AddProperties_SliderCaptchaSupported;
+    public static boolean Gen_AddProperties_MiraiNoDesktop;
+    public static boolean Gen_AddProperties_MiraiSliderCaptchaSupported;
     public static String Gen_MiraiCoreVersion;
     public static String Gen_MavenRepoUrl;
     public static boolean Gen_EnableHttpApi;
@@ -18,8 +18,8 @@ public class Config {
 
     public static boolean Bot_DisableNetworkLogs;
     public static boolean Bot_DisableBotLogs;
-    public static boolean Bot_UseMinecraftLogger_BotLogs;
-    public static boolean Bot_UseMinecraftLogger_NetworkLogs;
+    public static boolean Bot_UseBukkitLogger_BotLogs;
+    public static boolean Bot_UseBukkitLogger_NetworkLogs;
     public static boolean Bot_LogEvents;
     public static boolean Bot_ContactCache_EnableFriendListCache;
     public static boolean Bot_ContactCache_EnableGroupMemberListCache;
