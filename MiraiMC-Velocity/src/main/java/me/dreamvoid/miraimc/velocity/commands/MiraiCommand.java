@@ -87,7 +87,7 @@ public class MiraiCommand implements SimpleCommand {
                     if(sender.hasPermission("miraimc.command.mirai.logout")){
                         if(args.length >= 2) {
                             try {
-                                MiraiBot.getBot(Long.parseLong(args[1])).doLogout();
+                                MiraiBot.getBot(Long.parseLong(args[1])).close();
                                 sender.sendMessage(Component.text(Color.translate( "&a已退出指定机器人！")));
                             } catch (NoSuchElementException e){
                                 sender.sendMessage(Component.text(Color.translate( "&c指定的机器人不存在！")));

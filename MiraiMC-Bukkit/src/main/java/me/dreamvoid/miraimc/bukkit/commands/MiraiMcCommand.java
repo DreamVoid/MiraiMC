@@ -15,6 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class MiraiMcCommand implements TabExecutor {
     private final BukkitPlugin plugin;
@@ -42,7 +43,7 @@ public class MiraiMcCommand implements TabExecutor {
                                         new BukkitRunnable() {
                                             @Override
                                             public void run() {
-                                                String uuid = Bukkit.getOfflinePlayer(args[2]).getUniqueId().toString();
+                                                UUID uuid = Bukkit.getOfflinePlayer(args[2]).getUniqueId();
                                                 long qqid = Long.parseLong(args[3]);
                                                 MiraiMC.addBinding(uuid,qqid);
                                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a已添加绑定！"));
@@ -56,7 +57,7 @@ public class MiraiMcCommand implements TabExecutor {
                                         new BukkitRunnable() {
                                             @Override
                                             public void run() {
-                                                String uuid = Bukkit.getOfflinePlayer(args[2]).getUniqueId().toString();
+                                                UUID uuid = Bukkit.getOfflinePlayer(args[2]).getUniqueId();
                                                 MiraiMC.removeBinding(uuid);
                                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a已移除相应绑定！"));
                                             }
@@ -82,7 +83,7 @@ public class MiraiMcCommand implements TabExecutor {
                                         new BukkitRunnable() {
                                             @Override
                                             public void run() {
-                                                String uuid = Bukkit.getOfflinePlayer(args[2]).getUniqueId().toString();
+                                                UUID uuid = Bukkit.getOfflinePlayer(args[2]).getUniqueId();
                                                 long qqId = MiraiMC.getBinding(uuid);
                                                 if(qqId!=0){
                                                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a绑定的QQ号："+qqId));
@@ -98,9 +99,9 @@ public class MiraiMcCommand implements TabExecutor {
                                             @Override
                                             public void run() {
                                                 long qqid = Long.parseLong(args[2]);
-                                                String UUID = MiraiMC.getBinding(qqid);
-                                                if(!UUID.equals("")){
-                                                    OfflinePlayer player = Bukkit.getOfflinePlayer(UUID); // 对于此方法来说，任何玩家都存在. 亲测是真的
+                                                String uuid = MiraiMC.getBinding(qqid);
+                                                if(!uuid.equals("")){
+                                                    OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(uuid)); // 对于此方法来说，任何玩家都存在. 亲测是真的
                                                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a绑定的玩家名："+player.getName()));
                                                 } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c未找到符合条件的记录！"));
                                             }

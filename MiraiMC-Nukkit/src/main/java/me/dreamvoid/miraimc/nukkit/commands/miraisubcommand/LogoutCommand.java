@@ -32,7 +32,7 @@ public class LogoutCommand extends BaseSubCommand {
     public boolean execute(CommandSender sender, String label, String[] args) {
         if(args.length >= 2) {
             try {
-                MiraiBot.getBot(Long.parseLong(args[1])).doLogout();
+                MiraiBot.getBot(Long.parseLong(args[1])).close();
                 sender.sendMessage(TextFormat.colorize('&', "&a已退出指定机器人！"));
             } catch (NoSuchElementException e){
                 sender.sendMessage(TextFormat.colorize('&', "&c指定的机器人不存在！"));
