@@ -2,8 +2,8 @@ package me.dreamvoid.miraimc.velocity;
 
 import com.velocitypowered.api.event.Subscribe;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.velocity.event.MiraiFriendMessageEvent;
-import me.dreamvoid.miraimc.velocity.event.MiraiGroupMessageEvent;
+import me.dreamvoid.miraimc.velocity.event.message.passive.MiraiFriendMessageEvent;
+import me.dreamvoid.miraimc.velocity.event.message.passive.MiraiGroupMessageEvent;
 
 public class Events {
     @Subscribe

@@ -2,8 +2,8 @@ package me.dreamvoid.miraimc.nukkit;
 
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
-import me.dreamvoid.miraimc.nukkit.event.MiraiFriendMessageEvent;
-import me.dreamvoid.miraimc.nukkit.event.MiraiGroupMessageEvent;
+import me.dreamvoid.miraimc.nukkit.event.message.passive.MiraiFriendMessageEvent;
+import me.dreamvoid.miraimc.nukkit.event.message.passive.MiraiGroupMessageEvent;
 
 public class Events implements Listener {
     private final NukkitPlugin plugin;
