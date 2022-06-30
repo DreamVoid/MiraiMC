@@ -88,7 +88,7 @@ public class MiraiCommand implements CommandExecutor {
                     if(sender.hasPermission("miraimc.command.mirai.logout")){
                         if(args.length >= 2) {
                             try {
-                                MiraiBot.getBot(Long.parseLong(args[1])).doLogout();
+                                MiraiBot.getBot(Long.parseLong(args[1])).close();
                                 sender.sendMessage(TextSerializers.FORMATTING_CODE.deserialize( "&a已退出指定机器人！"));
                             } catch (NoSuchElementException e){
                                 sender.sendMessage(TextSerializers.FORMATTING_CODE.deserialize( "&c指定的机器人不存在！"));

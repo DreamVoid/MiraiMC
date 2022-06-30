@@ -86,7 +86,7 @@ public class MiraiCommand implements TabExecutor {
                     if(sender.hasPermission("miraimc.command.mirai.logout")){
                         if(args.length >= 2) {
                             try {
-                                MiraiBot.getBot(Long.parseLong(args[1])).doLogout();
+                                MiraiBot.getBot(Long.parseLong(args[1])).close();
                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a已退出指定机器人！"));
                             } catch (NoSuchElementException e){
                                 if(Config.Gen_EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
