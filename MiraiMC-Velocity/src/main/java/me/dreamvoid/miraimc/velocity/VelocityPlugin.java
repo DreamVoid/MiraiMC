@@ -192,7 +192,7 @@ public class VelocityPlugin {
         getLogger().info("Closing all bots");
         MiraiLoginSolver.closeAllVerifyThreads();
         for (long bots : MiraiBot.getOnlineBots()){
-            MiraiBot.getBot(bots).doLogout();
+            MiraiBot.getBot(bots).close();
         }
 
         switch (Config.DB_Type.toLowerCase()){
