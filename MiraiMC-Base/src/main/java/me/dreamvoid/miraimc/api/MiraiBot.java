@@ -308,9 +308,7 @@ public class MiraiBot {
         Bot existBot = Bot.getInstanceOrNull(Account);
         if(existBot != null){
             logger.info("另一个机器人进程已经存在，正在尝试关闭这个进程");
-            MiraiLoginSolver.solvePicCaptcha(Account,true);
-            MiraiLoginSolver.solveSliderCaptcha(Account, true);
-            MiraiLoginSolver.solveUnsafeDeviceLoginVerify(Account, true);
+            MiraiLoginSolver.cancel(Account);
             existBot.close();
             Thread.sleep(500);
         }

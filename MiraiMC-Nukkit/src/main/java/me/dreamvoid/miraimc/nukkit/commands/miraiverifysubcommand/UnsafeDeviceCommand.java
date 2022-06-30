@@ -29,7 +29,7 @@ public class UnsafeDeviceCommand extends BaseSubCommand {
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
         if(args.length >= 2){
-            MiraiLoginSolver.solveUnsafeDeviceLoginVerify(Long.parseLong(args[1]),false);
+            MiraiLoginSolver.solve(Long.parseLong(args[1]));
             sender.sendMessage(TextFormat.colorize('&',"&a已将验证请求提交到服务器"));
         } else {
             sender.sendMessage(TextFormat.colorize('&',"&c无效的参数！用法：/miraiverify unsafedevice <账号>"));

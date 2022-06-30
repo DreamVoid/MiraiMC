@@ -17,14 +17,14 @@ public class MiraiVerifyCommand implements SimpleCommand {
             switch (args[0].toLowerCase()){
                 case "unsafedevice":{
                     if(args.length >= 2){
-                        MiraiLoginSolver.solveUnsafeDeviceLoginVerify(Long.parseLong(args[1]),false);
+                        MiraiLoginSolver.solve(Long.parseLong(args[1]));
                         source.sendMessage(Component.text(Color.translate("&a已将验证请求提交到服务器")));
                     } else source.sendMessage(Component.text(Color.translate("&c无效的参数！用法：/miraiverify unsafedevice <账号>")));
                     break;
                 }
                 case "unsafedevicecancel":{
                     if(args.length >= 2){
-                        MiraiLoginSolver.solveUnsafeDeviceLoginVerify(Long.parseLong(args[1]),true);
+                        MiraiLoginSolver.cancel(Long.parseLong(args[1]));
                         source.sendMessage(Component.text(Color.translate("&a已取消登录验证流程")));
                     } else source.sendMessage(Component.text(Color.translate("&c无效的参数！用法：/miraiverify unsafedevicecancel <账号>")));
                     break;
@@ -32,13 +32,13 @@ public class MiraiVerifyCommand implements SimpleCommand {
                 case "slidercaptcha":{
                     if(args.length >= 3){
                         source.sendMessage(Component.text(Color.translate("&a已将ticket提交到服务器")));
-                        MiraiLoginSolver.solveSliderCaptcha(Long.parseLong(args[1]),args[2]);
+                        MiraiLoginSolver.solve(Long.parseLong(args[1]),args[2]);
                     } else source.sendMessage(Component.text(Color.translate("&c无效的参数！用法：/miraiverify slidercaptcha <账号> <ticket>")));
                     break;
                 }
                 case "slidercaptchacancel":{
                     if(args.length >= 2){
-                        MiraiLoginSolver.solveSliderCaptcha(Long.parseLong(args[1]),true);
+                        MiraiLoginSolver.cancel(Long.parseLong(args[1]));
                         source.sendMessage(Component.text(Color.translate("&a已取消登录验证流程")));
                     } else source.sendMessage(Component.text(Color.translate("&c无效的参数！用法：/miraiverify slidercaptchacancel <账号>")));
                     break;
@@ -46,13 +46,13 @@ public class MiraiVerifyCommand implements SimpleCommand {
                 case "piccaptcha":{
                     if(args.length >= 3){
                         source.sendMessage(Component.text(Color.translate("&a已将验证码提交到服务器")));
-                        MiraiLoginSolver.solvePicCaptcha(Long.parseLong(args[1]),args[2]);
+                        MiraiLoginSolver.solve(Long.parseLong(args[1]),args[2]);
                     } else source.sendMessage(Component.text(Color.translate("&c无效的参数！用法：/miraiverify piccaptcha <账号> <验证码>")));
                     break;
                 }
                 case "piccaptchacancel":{
                     if(args.length >= 2){
-                        MiraiLoginSolver.solvePicCaptcha(Long.parseLong(args[1]),true);
+                        MiraiLoginSolver.cancel(Long.parseLong(args[1]));
                         source.sendMessage(Component.text(Color.translate("&a已取消登录验证流程")));
                     } else source.sendMessage(Component.text(Color.translate("&c无效的参数！用法：/miraiverify piccaptchacancel <账号>")));
                     break;
