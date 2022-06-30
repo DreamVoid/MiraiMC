@@ -1,7 +1,9 @@
 package me.dreamvoid.miraimc.sponge;
 
 import com.google.inject.Inject;
+import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.classloader.MiraiLoader;
 import me.dreamvoid.miraimc.sponge.commands.MiraiCommand;
@@ -15,9 +17,7 @@ import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.game.state.GameInitializationEvent;
-import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
-import org.spongepowered.api.event.game.state.GameStartingServerEvent;
+import org.spongepowered.api.event.game.state.*;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.text.Text;
@@ -175,6 +175,48 @@ public class SpongePlugin {
         Sponge.getCommandManager().register(this, mirai, "mirai");
         Sponge.getCommandManager().register(this, miraimc, "miraimc");
         Sponge.getCommandManager().register(this, miraiverify, "miraiverify");
+    }
+
+    /**
+     * 触发 GameStoppingServerEvent 时，服务器会进入最后一个 Tick，紧接着就会开始保存世界。
+     */
+    @Listener
+    public void onServerStopping(GameStoppingServerEvent event){
+        if(MiraiEvent != null) {
+            getLogger().info("Stopping bot event listener.");
+            MiraiEvent.stopListenEvent();
+        }
+
+        getLogger().info("Closing all bots");
+        MiraiLoginSolver.closeAllVerifyThreads();
+        for (long bots : MiraiBot.getOnlineBots()){
+            MiraiBot.getBot(bots).close();
+        }
+
+        switch (Config.DB_Type.toLowerCase()){
+            case "sqlite":
+            default: {
+                if(Utils.connection != null) {
+                    getLogger().info("Closing SQLite database.");
+                    try {
+                        Utils.closeSQLite();
+                    } catch (SQLException e) {
+                        getLogger().error("Failed to close SQLite database!");
+                        getLogger().error("Reason: " + e);
+                    }
+                }
+                break;
+            }
+            case "mysql": {
+                if (Utils.ds != null) {
+                    getLogger().info("Closing MySQL database.");
+                    Utils.closeMySQL();
+                }
+                break;
+            }
+        }
+
+        getLogger().info("All tasks done. Thanks for use MiraiMC!");
     }
 
     public Logger getLogger() {
