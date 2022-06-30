@@ -41,8 +41,8 @@ public class BukkitConfig {
 
         Bot_DisableNetworkLogs = plugin.getConfig().getBoolean("bot.disable-network-logs",false);
         Bot_DisableBotLogs = plugin.getConfig().getBoolean("bot.disable-bot-logs",false);
-        Bot_UseBukkitLogger_BotLogs = plugin.getConfig().getBoolean("bot.use-bukkit-logger.bot-logs",true);
-        Bot_UseBukkitLogger_NetworkLogs = plugin.getConfig().getBoolean("bot.use-bukkit-logger.network-logs",true);
+        Bot_UseMinecraftLogger_BotLogs = plugin.getConfig().getBoolean("bot.use-minecraft-logger.bot-logs",true);
+        Bot_UseMinecraftLogger_NetworkLogs = plugin.getConfig().getBoolean("bot.use-minecraft-logger.network-logs",true);
         Bot_LogEvents = plugin.getConfig().getBoolean("bot.log-events",true);
         Bot_ContactCache_EnableFriendListCache = plugin.getConfig().getBoolean("bot.contact-cache.enable-friend-list-cache",false);
         Bot_ContactCache_EnableGroupMemberListCache = plugin.getConfig().getBoolean("bot.contact-cache.enable-group-member-list-cache",false);
