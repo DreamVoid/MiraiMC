@@ -7,6 +7,7 @@ import net.mamoe.mirai.event.events.*;
 
 import static me.dreamvoid.miraimc.nukkit.event.bot.MiraiBotOfflineEvent.Type.*;
 
+@SuppressWarnings("deprecation")
 public class MiraiEventLegacy extends MiraiEvent{
 	private final NukkitPlugin plugin;
 
