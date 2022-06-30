@@ -30,7 +30,7 @@ public class PicCaptchaCommand extends BaseSubCommand {
     public boolean execute(CommandSender sender, String label, String[] args) {
         if(args.length >= 3){
             sender.sendMessage(TextFormat.colorize('&',"&a已将验证码提交到服务器"));
-            MiraiLoginSolver.solvePicCaptcha(Long.parseLong(args[1]),args[2]);
+            MiraiLoginSolver.solve(Long.parseLong(args[1]),args[2]);
         } else {
             sender.sendMessage(TextFormat.colorize('&',"&c无效的参数！用法：/miraiverify piccaptcha <账号> <验证码>"));
         }

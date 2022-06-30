@@ -29,7 +29,7 @@ public class PicCaptchaCancelCommand extends BaseSubCommand {
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
         if(args.length >= 2){
-            MiraiLoginSolver.solvePicCaptcha(Long.parseLong(args[1]),true);
+            MiraiLoginSolver.cancel(Long.parseLong(args[1]));
             sender.sendMessage(TextFormat.colorize('&',"&a已取消登录验证流程"));
         } else {
             sender.sendMessage(TextFormat.colorize('&',"&c无效的参数！用法：/miraiverify piccaptchacancel <账号>"));
