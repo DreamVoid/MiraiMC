@@ -18,7 +18,7 @@ general:
 bot:
   disable-network-logs: false
   disable-bot-logs: false
-  use-bukkit-logger:
+  use-minecraft-logger:
     bot-logs: true
     network-logs: true
   log-events: true

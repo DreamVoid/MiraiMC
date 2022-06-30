@@ -48,8 +48,8 @@ public class BungeeConfig {
 
         Bot_DisableNetworkLogs = bungeeConfig.getBoolean("bot.disable-network-logs",false);
         Bot_DisableBotLogs = bungeeConfig.getBoolean("bot.disable-bot-logs",false);
-        Bot_UseBukkitLogger_BotLogs = bungeeConfig.getBoolean("bot.use-bukkit-logger.bot-logs",true);
-        Bot_UseBukkitLogger_NetworkLogs = bungeeConfig.getBoolean("bot.use-bukkit-logger.network-logs",true);
+        Bot_UseMinecraftLogger_BotLogs = bungeeConfig.getBoolean("bot.use-minecraft-logger.bot-logs",true);
+        Bot_UseMinecraftLogger_NetworkLogs = bungeeConfig.getBoolean("bot.use-minecraft-logger.network-logs",true);
         Bot_LogEvents = bungeeConfig.getBoolean("bot.log-events",true);
         Bot_ContactCache_EnableFriendListCache = bungeeConfig.getBoolean("bot.contact-cache.enable-friend-list-cache",false);
         Bot_ContactCache_EnableGroupMemberListCache = bungeeConfig.getBoolean("bot.contact-cache.enable-group-member-list-cache",false);

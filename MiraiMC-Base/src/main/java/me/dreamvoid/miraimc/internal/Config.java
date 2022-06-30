@@ -18,8 +18,8 @@ public class Config {
 
     public static boolean Bot_DisableNetworkLogs;
     public static boolean Bot_DisableBotLogs;
-    public static boolean Bot_UseBukkitLogger_BotLogs;
-    public static boolean Bot_UseBukkitLogger_NetworkLogs;
+    public static boolean Bot_UseMinecraftLogger_BotLogs;
+    public static boolean Bot_UseMinecraftLogger_NetworkLogs;
     public static boolean Bot_LogEvents;
     public static boolean Bot_ContactCache_EnableFriendListCache;
     public static boolean Bot_ContactCache_EnableGroupMemberListCache;

@@ -55,9 +55,9 @@ public class VelocityConfig {
         Bot_DisableNetworkLogs = !Objects.isNull(bot.get("disable-network-logs")) ? (Boolean) bot.get("disable-network-logs") : false;
         Bot_DisableBotLogs = !Objects.isNull(bot.get("disable-bot-logs")) ? (Boolean) bot.get("disable-bot-logs") : false;
 
-        Map<String, Object> useBukkitLogger = !Objects.isNull(bot.get("use-bukkit-logger")) ? (Map<String, Object>) bot.get("use-bukkit-logger") : new HashMap<>();
-        Bot_UseBukkitLogger_BotLogs = !Objects.isNull(useBukkitLogger.get("bot-logs")) ? (Boolean) useBukkitLogger.get("bot-logs") : true;
-        Bot_UseBukkitLogger_NetworkLogs = !Objects.isNull(useBukkitLogger.get("network-logs")) ? (Boolean) useBukkitLogger.get("network-logs") : true;
+        Map<String, Object> useBukkitLogger = !Objects.isNull(bot.get("use-minecraft-logger")) ? (Map<String, Object>) bot.get("use-minecraft-logger") : new HashMap<>();
+        Bot_UseMinecraftLogger_BotLogs = !Objects.isNull(useBukkitLogger.get("bot-logs")) ? (Boolean) useBukkitLogger.get("bot-logs") : true;
+        Bot_UseMinecraftLogger_NetworkLogs = !Objects.isNull(useBukkitLogger.get("network-logs")) ? (Boolean) useBukkitLogger.get("network-logs") : true;
 
         Bot_LogEvents = !Objects.isNull(bot.get("log-events")) ? (Boolean) bot.get("log-events") : true;
 
