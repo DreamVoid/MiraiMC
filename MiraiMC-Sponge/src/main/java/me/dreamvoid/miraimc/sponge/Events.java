@@ -1,8 +1,8 @@
 package me.dreamvoid.miraimc.sponge;
 
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.sponge.event.MiraiFriendMessageEvent;
-import me.dreamvoid.miraimc.sponge.event.MiraiGroupMessageEvent;
+import me.dreamvoid.miraimc.sponge.event.message.passive.MiraiFriendMessageEvent;
+import me.dreamvoid.miraimc.sponge.event.message.passive.MiraiGroupMessageEvent;
 import org.spongepowered.api.event.Listener;
 
 public class Events {
