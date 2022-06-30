@@ -93,8 +93,8 @@ public class VelocityPlugin {
         // enable
         getLogger().info("Mirai working dir: " + Config.Gen_MiraiWorkingDir);
 
-        if(Config.Gen_AddProperties_NoDesktop) System.setProperty("no-desktop", "MiraiMC");
-        if(Config.Gen_AddProperties_SliderCaptchaSupported) System.setProperty("slider-captcha-supported", "MiraiMC");
+        if(Config.Gen_AddProperties_MiraiNoDesktop) System.setProperty("mirai.no-desktop", "MiraiMC");
+        if(Config.Gen_AddProperties_MiraiSliderCaptchaSupported) System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
 
         getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();

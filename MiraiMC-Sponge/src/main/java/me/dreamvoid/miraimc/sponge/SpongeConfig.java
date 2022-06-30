@@ -43,8 +43,8 @@ public class SpongeConfig {
         Gen_MiraiWorkingDir = !Objects.isNull(general.get("mirai-working-dir")) ? String.valueOf(general.get("mirai-working-dir")) : "default";
 
         Map<String, Object> addProperties = !Objects.isNull(general.get("add-properties")) ? (Map<String, Object>) general.get("add-properties") : new HashMap<>();
-        Gen_AddProperties_NoDesktop = !Objects.isNull(addProperties.get("no-desktop")) ? (Boolean) addProperties.get("no-desktop") : true;
-        Gen_AddProperties_SliderCaptchaSupported = !Objects.isNull(addProperties.get("slider-captcha-supported")) ? (Boolean) addProperties.get("slider-captcha-supported") : true;
+        Gen_AddProperties_MiraiNoDesktop = !Objects.isNull(addProperties.get("mirai.no-desktop")) ? (Boolean) addProperties.get("mirai.no-desktop") : true;
+        Gen_AddProperties_MiraiSliderCaptchaSupported = !Objects.isNull(addProperties.get("mirai.slider.captcha.supported")) ? (Boolean) addProperties.get("mirai.slider.captcha.supported") : true;
 
         Gen_MiraiCoreVersion = !Objects.isNull(general.get("mirai-core-version")) ? String.valueOf(general.get("mirai-core-version")) : "latest";
         Gen_MavenRepoUrl = !Objects.isNull(general.get("maven-repo-url")) ? String.valueOf(general.get("maven-repo-url")) : "https://maven.aliyun.com/nexus/content/groups/public/";
@@ -55,9 +55,9 @@ public class SpongeConfig {
         Bot_DisableNetworkLogs = !Objects.isNull(bot.get("disable-network-logs")) ? (Boolean) bot.get("disable-network-logs") : false;
         Bot_DisableBotLogs = !Objects.isNull(bot.get("disable-bot-logs")) ? (Boolean) bot.get("disable-bot-logs") : false;
 
-        Map<String, Object> useBukkitLogger = !Objects.isNull(bot.get("use-minecraft-logger")) ? (Map<String, Object>) bot.get("use-minecraft-logger") : new HashMap<>();
-        Bot_UseMinecraftLogger_BotLogs = !Objects.isNull(useBukkitLogger.get("bot-logs")) ? (Boolean) useBukkitLogger.get("bot-logs") : true;
-        Bot_UseMinecraftLogger_NetworkLogs = !Objects.isNull(useBukkitLogger.get("network-logs")) ? (Boolean) useBukkitLogger.get("network-logs") : true;
+        Map<String, Object> useBukkitLogger = !Objects.isNull(bot.get("use-bukkit-logger")) ? (Map<String, Object>) bot.get("use-bukkit-logger") : new HashMap<>();
+        Bot_UseBukkitLogger_BotLogs = !Objects.isNull(useBukkitLogger.get("bot-logs")) ? (Boolean) useBukkitLogger.get("bot-logs") : true;
+        Bot_UseBukkitLogger_NetworkLogs = !Objects.isNull(useBukkitLogger.get("network-logs")) ? (Boolean) useBukkitLogger.get("network-logs") : true;
 
         Bot_LogEvents = !Objects.isNull(bot.get("log-events")) ? (Boolean) bot.get("log-events") : true;
 

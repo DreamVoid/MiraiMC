@@ -333,12 +333,12 @@ public class MiraiBot {
             // 是否关闭日志输出（不建议开发者关闭）。如果不关闭，是否使用Bukkit的Logger接管Mirai的Logger
             if(Config.Bot_DisableNetworkLogs) {
                 noNetworkLog();
-            } else if(Config.Bot_UseMinecraftLogger_NetworkLogs) {
+            } else if(Config.Bot_UseBukkitLogger_NetworkLogs) {
                 setNetworkLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(logger));
             }
             if(Config.Bot_DisableBotLogs) {
                 noBotLog();
-            } else if(Config.Bot_UseMinecraftLogger_BotLogs) {
+            } else if(Config.Bot_UseBukkitLogger_BotLogs) {
                 setBotLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(logger));
             }
 
