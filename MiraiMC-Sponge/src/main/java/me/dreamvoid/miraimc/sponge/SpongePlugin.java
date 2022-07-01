@@ -64,14 +64,14 @@ public class SpongePlugin {
             Utils.setClassLoader(this.getClass().getClassLoader());
             new SpongeConfig(this).loadConfig();
 
-            if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("latest")) {
+            if(Config.General.MiraiCoreVersion.equalsIgnoreCase("latest")) {
                 MiraiLoader.loadMiraiCore();
-            } else if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("stable")){
+            } else if(Config.General.MiraiCoreVersion.equalsIgnoreCase("stable")){
                 MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion(getPluginContainer().getVersion().orElse("1.0")));
             } else {
-                MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
+                MiraiLoader.loadMiraiCore(Config.General.MiraiCoreVersion);
             }
-            if(!Config.Gen_LegacyEventSupport){
+            if(!Config.General.LegacyEventSupport){
                 this.MiraiEvent = new MiraiEvent(this);
             } else this.MiraiEvent = new MiraiEventLegacy(this);
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
@@ -86,10 +86,10 @@ public class SpongePlugin {
      */
     @Listener
     public void onEnable(GameInitializationEvent e) {
-        getLogger().info("Mirai working dir: " + Config.Gen_MiraiWorkingDir);
+        getLogger().info("Mirai working dir: " + Config.General.MiraiWorkingDir);
 
-        if(Config.Gen_AddProperties_MiraiNoDesktop) System.setProperty("mirai.no-desktop", "MiraiMC");
-        if(Config.Gen_AddProperties_MiraiSliderCaptchaSupported) System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
+        if(Config.General.AddProperties.MiraiNoDesktop) System.setProperty("mirai.no-desktop", "MiraiMC");
+        if(Config.General.AddProperties.MiraiSliderCaptchaSupported) System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
 
         getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();
@@ -98,12 +98,12 @@ public class SpongePlugin {
         MiraiAutoLogin.loadFile();
         MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
 
-        if(Config.Bot_LogEvents){
+        if(Config.Bot.LogEvents){
             getLogger().info("Registering events.");
             Sponge.getEventManager().registerListeners(this, new Events());
         }
 
-        switch (Config.DB_Type.toLowerCase()){
+        switch (Config.Database.Type.toLowerCase()){
             case "sqlite":
             default: {
                 getLogger().info("Initializing SQLite database.");
@@ -122,7 +122,7 @@ public class SpongePlugin {
         }
 
         // bStats统计
-        if(Config.Gen_AllowBStats) {
+        if(Config.General.AllowBStats) {
             if(this.metricsConfigManager.getCollectionState(this.pluginContainer).asBoolean()){
                 getLogger().info("Initializing bStats metrics.");
                 int pluginId = 12847;
@@ -135,7 +135,7 @@ public class SpongePlugin {
         }
 
         // 安全警告
-        if(!(Config.Gen_DisableSafeWarningMessage)){
+        if(!(Config.General.DisableSafeWarningMessage)){
             getLogger().warn("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
             getLogger().warn("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
@@ -193,7 +193,7 @@ public class SpongePlugin {
             MiraiBot.getBot(bots).close();
         }
 
-        switch (Config.DB_Type.toLowerCase()){
+        switch (Config.Database.Type.toLowerCase()){
             case "sqlite":
             default: {
                 if(Utils.connection != null) {

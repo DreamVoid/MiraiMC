@@ -74,14 +74,14 @@ public class VelocityPlugin {
         try {
             new VelocityConfig(this).loadConfig();
 
-            if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("latest")) {
+            if(Config.General.MiraiCoreVersion.equalsIgnoreCase("latest")) {
                 MiraiLoader.loadMiraiCore();
-            } else if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("stable")){
+            } else if(Config.General.MiraiCoreVersion.equalsIgnoreCase("stable")){
                 MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion(getPluginContainer().getDescription().getVersion().orElse("1.0")));
             } else {
-                MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
+                MiraiLoader.loadMiraiCore(Config.General.MiraiCoreVersion);
             }
-            if(!Config.Gen_LegacyEventSupport){
+            if(!Config.General.LegacyEventSupport){
                 this.MiraiEvent = new MiraiEvent(this);
             } else this.MiraiEvent = new MiraiEventLegacy(this);
 
@@ -91,10 +91,10 @@ public class VelocityPlugin {
         }
 
         // enable
-        getLogger().info("Mirai working dir: " + Config.Gen_MiraiWorkingDir);
+        getLogger().info("Mirai working dir: " + Config.General.MiraiWorkingDir);
 
-        if(Config.Gen_AddProperties_MiraiNoDesktop) System.setProperty("mirai.no-desktop", "MiraiMC");
-        if(Config.Gen_AddProperties_MiraiSliderCaptchaSupported) System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
+        if(Config.General.AddProperties.MiraiNoDesktop) System.setProperty("mirai.no-desktop", "MiraiMC");
+        if(Config.General.AddProperties.MiraiSliderCaptchaSupported) System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
 
         getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();
@@ -112,12 +112,12 @@ public class VelocityPlugin {
         manager.register(miraimc, new MiraiMcCommand(this));
         manager.register(miraiverify, new MiraiVerifyCommand());
         
-        if(Config.Bot_LogEvents){
+        if(Config.Bot.LogEvents){
             getLogger().info("Registering events.");
             server.getEventManager().register(this, new Events());
         }
 
-        switch (Config.DB_Type.toLowerCase()){
+        switch (Config.Database.Type.toLowerCase()){
             case "sqlite":
             default: {
                 getLogger().info("Initializing SQLite database.");
@@ -136,19 +136,19 @@ public class VelocityPlugin {
         }
 
         // bStats统计
-        if(Config.Gen_AllowBStats) {
+        if(Config.General.AllowBStats) {
             getLogger().info("Initializing bStats metrics.");
             int pluginId = 13887;
             metricsFactory.make(this, pluginId);
         }
 
         // 安全警告
-        if(!(Config.Gen_DisableSafeWarningMessage)){
+        if(!(Config.General.DisableSafeWarningMessage)){
             getLogger().warn("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
             getLogger().warn("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
 
-        if(Config.Gen_CheckUpdate && !getPluginContainer().getDescription().getVersion().orElse("reserved").contains("dev")) {
+        if(Config.General.CheckUpdate && !getPluginContainer().getDescription().getVersion().orElse("reserved").contains("dev")) {
             getServer().getScheduler().buildTask(this, () -> {
                 getLogger().info("Checking update...");
                 try {
@@ -195,7 +195,7 @@ public class VelocityPlugin {
             MiraiBot.getBot(bots).close();
         }
 
-        switch (Config.DB_Type.toLowerCase()){
+        switch (Config.Database.Type.toLowerCase()){
             case "sqlite":
             default: {
                 if(Utils.connection != null) {

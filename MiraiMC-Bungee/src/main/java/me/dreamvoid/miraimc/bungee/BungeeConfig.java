@@ -35,37 +35,37 @@ public class BungeeConfig {
             e.printStackTrace();
         }
 
-        Gen_AllowBStats = bungeeConfig.getBoolean("general.allow-bStats",true);
-        Gen_CheckUpdate = bungeeConfig.getBoolean("general.check-update",true);
-        Gen_DisableSafeWarningMessage = bungeeConfig.getBoolean("general.disable-safe-warning-message",false);
-        Gen_MiraiWorkingDir = bungeeConfig.getString("general.mirai-working-dir","default");
-        Gen_AddProperties_MiraiNoDesktop = bungeeConfig.getBoolean("general.add-properties.mirai.no-desktop",true);
-        Gen_AddProperties_MiraiSliderCaptchaSupported = bungeeConfig.getBoolean("general.add-properties.mirai.slider.captcha.supported",true);
-        Gen_MiraiCoreVersion = bungeeConfig.getString("general.mirai-core-version","latest");
-        Gen_MavenRepoUrl = bungeeConfig.getString("general.maven-repo-url","https://repo1.maven.org/maven2");
-        Gen_EnableHttpApi = bungeeConfig.getBoolean("general.enable-http-api",false);
-        Gen_LegacyEventSupport = bungeeConfig.getBoolean("general.legacy-event-support",false);
+        General.AllowBStats = bungeeConfig.getBoolean("general.allow-bStats",true);
+        General.CheckUpdate = bungeeConfig.getBoolean("general.check-update",true);
+        General.DisableSafeWarningMessage = bungeeConfig.getBoolean("general.disable-safe-warning-message",false);
+        General.MiraiWorkingDir = bungeeConfig.getString("general.mirai-working-dir","default");
+        General.AddProperties.MiraiNoDesktop = bungeeConfig.getBoolean("general.add-properties.mirai.no-desktop",true);
+        General.AddProperties.MiraiSliderCaptchaSupported = bungeeConfig.getBoolean("general.add-properties.mirai.slider.captcha.supported",true);
+        General.MiraiCoreVersion = bungeeConfig.getString("general.mirai-core-version","latest");
+        General.MavenRepoUrl = bungeeConfig.getString("general.maven-repo-url","https://repo1.maven.org/maven2");
+        General.EnableHttpApi = bungeeConfig.getBoolean("general.enable-http-api",false);
+        General.LegacyEventSupport = bungeeConfig.getBoolean("general.legacy-event-support",false);
 
-        Bot_DisableNetworkLogs = bungeeConfig.getBoolean("bot.disable-network-logs",false);
-        Bot_DisableBotLogs = bungeeConfig.getBoolean("bot.disable-bot-logs",false);
-        Bot_UseMinecraftLogger_BotLogs = bungeeConfig.getBoolean("bot.use-minecraft-logger.bot-logs",true);
-        Bot_UseMinecraftLogger_NetworkLogs = bungeeConfig.getBoolean("bot.use-minecraft-logger.network-logs",true);
-        Bot_LogEvents = bungeeConfig.getBoolean("bot.log-events",true);
-        Bot_ContactCache_EnableFriendListCache = bungeeConfig.getBoolean("bot.contact-cache.enable-friend-list-cache",false);
-        Bot_ContactCache_EnableGroupMemberListCache = bungeeConfig.getBoolean("bot.contact-cache.enable-group-member-list-cache",false);
-        Bot_ContactCache_SaveIntervalMillis = bungeeConfig.getLong("bot.contact-cache.save-interval-millis",60000);
+        Bot.DisableNetworkLogs = bungeeConfig.getBoolean("bot.disable-network-logs",false);
+        Bot.DisableBotLogs = bungeeConfig.getBoolean("bot.disable-bot-logs",false);
+        Bot.UseMinecraftLogger.BotLogs = bungeeConfig.getBoolean("bot.use-minecraft-logger.bot-logs",true);
+        Bot.UseMinecraftLogger.NetworkLogs = bungeeConfig.getBoolean("bot.use-minecraft-logger.network-logs",true);
+        Bot.LogEvents = bungeeConfig.getBoolean("bot.log-events",true);
+        Bot.ContactCache.EnableFriendListCache = bungeeConfig.getBoolean("bot.contact-cache.enable-friend-list-cache",false);
+        Bot.ContactCache.EnableGroupMemberListCache = bungeeConfig.getBoolean("bot.contact-cache.enable-group-member-list-cache",false);
+        Bot.ContactCache.SaveIntervalMillis = bungeeConfig.getLong("bot.contact-cache.save-interval-millis",60000);
 
-        DB_Type = bungeeConfig.getString("database.type","sqlite").toLowerCase();
-        DB_MySQL_Address = bungeeConfig.getString("database.mysql.address", "localhost");
-        DB_MySQL_Username = bungeeConfig.getString("database.mysql.username", "miraimc");
-        DB_MySQL_Password = bungeeConfig.getString("database.mysql.password", "miraimc");
-        DB_MySQL_Database = bungeeConfig.getString("database.mysql.database", "miraimc");
-        DB_MySQL_Poll_ConnectionTimeout = bungeeConfig.getInt("database.mysql.pool.connectionTimeout",30000);
-        DB_MySQL_Poll_IdleTimeout = bungeeConfig.getInt("database.mysql.pool.connectionTimeout",600000);
-        DB_MySQL_Poll_MaxLifetime = bungeeConfig.getInt("database.mysql.pool.maxLifetime",1800000);
-        DB_MySQL_Poll_MaximumPoolSize = bungeeConfig.getInt("database.mysql.pool.maximumPoolSize",15);
-        DB_MySQL_Poll_KeepaliveTime = bungeeConfig.getInt("database.mysql.pool.keepaliveTime",0);
-        DB_MySQL_Poll_MinimumIdle = bungeeConfig.getInt("database.mysql.pool.minimumIdle",0);
+        Database.Type = bungeeConfig.getString("database.type","sqlite").toLowerCase();
+        Database.MySQL.Address = bungeeConfig.getString("database.mysql.address", "localhost");
+        Database.MySQL.Username = bungeeConfig.getString("database.mysql.username", "miraimc");
+        Database.MySQL.Password = bungeeConfig.getString("database.mysql.password", "miraimc");
+        Database.MySQL.Database = bungeeConfig.getString("database.mysql.database", "miraimc");
+        Database.MySQL.Poll.ConnectionTimeout = bungeeConfig.getInt("database.mysql.pool.connectionTimeout",30000);
+        Database.MySQL.Poll.IdleTimeout = bungeeConfig.getInt("database.mysql.pool.connectionTimeout",600000);
+        Database.MySQL.Poll.MaxLifetime = bungeeConfig.getInt("database.mysql.pool.maxLifetime",1800000);
+        Database.MySQL.Poll.MaximumPoolSize = bungeeConfig.getInt("database.mysql.pool.maximumPoolSize",15);
+        Database.MySQL.Poll.KeepaliveTime = bungeeConfig.getInt("database.mysql.pool.keepaliveTime",0);
+        Database.MySQL.Poll.MinimumIdle = bungeeConfig.getInt("database.mysql.pool.minimumIdle",0);
     }
 
     public static void reloadConfig() {

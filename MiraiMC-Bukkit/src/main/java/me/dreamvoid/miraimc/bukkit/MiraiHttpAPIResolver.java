@@ -14,11 +14,11 @@ import static me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI.Bots;
 public class MiraiHttpAPIResolver implements Runnable {
     @Override
     public void run() {
-        MiraiHttpAPI api = new MiraiHttpAPI(Config.HTTPAPI_Url);
+        MiraiHttpAPI api = new MiraiHttpAPI(Config.HttpApi.Url);
         for(long account : Bots.keySet()){
             try {
                 String session = Bots.get(account);
-                FetchMessage fetchMessage = api.fetchMessage(session, Config.HTTPAPI_MessageFetch_Count);
+                FetchMessage fetchMessage = api.fetchMessage(session, Config.HttpApi.MessageFetch.Count);
                 if(fetchMessage.code == 0) {
                     for(FetchMessage.Data data : fetchMessage.data) { // 这里搞循环是因为mirai http api会返回一堆消息，需要挨个处理
                         long id = data.sender.id; // 发送者QQ

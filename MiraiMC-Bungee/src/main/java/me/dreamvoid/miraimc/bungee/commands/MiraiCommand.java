@@ -59,8 +59,8 @@ public class MiraiCommand extends Command {
                                     if(!useHttpApi){
                                         MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
                                     } else {
-                                        if(Config.Gen_EnableHttpApi) {
-                                            MiraiHttpAPI httpAPI = new MiraiHttpAPI(Config.HTTPAPI_Url);
+                                        if(Config.General.EnableHttpApi) {
+                                            MiraiHttpAPI httpAPI = new MiraiHttpAPI(Config.HttpApi.Url);
                                             httpAPI.bind(httpAPI.verify(args[2]).session, Long.parseLong(args[1]));
                                             sender.sendMessage(new TextComponent(ChatColor.GREEN + args[1] + " HTTP-API登录成功！"));
                                         } else sender.sendMessage(new TextComponent(ChatColor.RED + "此服务器没有启用HTTP-API模式，请检查配置文件！"));
@@ -89,9 +89,9 @@ public class MiraiCommand extends Command {
                                 MiraiBot.getBot(Long.parseLong(args[1])).close();
                                 sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', "&a已退出指定机器人！")));
                             } catch (NoSuchElementException e){
-                                if(Config.Gen_EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
+                                if(Config.General.EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
                                     try {
-                                        new MiraiHttpAPI(Config.HTTPAPI_Url).release(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])),Long.parseLong(args[1]));
+                                        new MiraiHttpAPI(Config.HttpApi.Url).release(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])),Long.parseLong(args[1]));
                                         sender.sendMessage(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', "&a已退出指定机器人！")));
                                     } catch (IOException ex) {
                                         Utils.logger.warning("退出机器人时出现异常，原因: " + ex);
@@ -125,7 +125,7 @@ public class MiraiCommand extends Command {
                             try {
                                 MiraiBot.getBot(Long.parseLong(args[1])).getGroup(Long.parseLong(args[2])).sendMessageMirai(text);
                             } catch (NoSuchElementException e){
-                                if(Config.Gen_EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
+                                if(Config.General.EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
                                     try {
                                         MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])), Long.parseLong(args[2]), text);
                                     } catch (IOException ex) {
@@ -155,7 +155,7 @@ public class MiraiCommand extends Command {
                             try {
                                 MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendMessageMirai(text);
                             } catch (NoSuchElementException e){
-                                if(Config.Gen_EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
+                                if(Config.General.EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
                                     try {
                                         MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])), Long.parseLong(args[2]), text);
                                     } catch (IOException ex) {
