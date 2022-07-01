@@ -64,8 +64,8 @@ public class MiraiCommand implements CommandExecutor {
                                     if(!useHttpApi){
                                         MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
                                     } else {
-                                        if(Config.Gen_EnableHttpApi) {
-                                            MiraiHttpAPI httpAPI = new MiraiHttpAPI(Config.HTTPAPI_Url);
+                                        if(Config.General.EnableHttpApi) {
+                                            MiraiHttpAPI httpAPI = new MiraiHttpAPI(Config.HttpApi.Url);
                                             httpAPI.bind(httpAPI.verify(args[2]).session, Long.parseLong(args[1]));
                                             sender.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a" + args[1] + " HTTP-API登录成功！"));
                                         } else sender.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c" + "此服务器没有启用HTTP-API模式，请检查配置文件！"));

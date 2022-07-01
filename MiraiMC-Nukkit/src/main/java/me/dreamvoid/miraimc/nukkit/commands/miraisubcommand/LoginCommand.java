@@ -61,8 +61,8 @@ public class LoginCommand extends BaseSubCommand {
                         if(!useHttpApi){
                             MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
                         } else {
-                            if(Config.Gen_EnableHttpApi) {
-                                MiraiHttpAPI httpAPI = new MiraiHttpAPI(Config.HTTPAPI_Url);
+                            if(Config.General.EnableHttpApi) {
+                                MiraiHttpAPI httpAPI = new MiraiHttpAPI(Config.HttpApi.Url);
                                 httpAPI.bind(httpAPI.verify(args[2]).session, Long.parseLong(args[1]));
                                 sender.sendMessage(TextFormat.GREEN + args[1] + " HTTP-API登录成功！");
                             } else sender.sendMessage(TextFormat.RED + "此服务器没有启用HTTP-API模式，请检查配置文件！");

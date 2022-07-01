@@ -40,7 +40,7 @@ database:
       maximumPoolSize: 15
       keepaliveTime: 0
       minimumIdle: 5
-httpapi:
+http-api:
   url: "http://localhost:8080"
   message-fetch:
     interval: 10

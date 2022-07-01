@@ -21,7 +21,7 @@ public class MiraiLoader {
      * 加载最新版Mirai Core
      */
     public static void loadMiraiCore() throws RuntimeException, IOException, ParserConfigurationException, SAXException {
-        loadMiraiCore(getLibraryVersionMaven("net.mamoe", "mirai-core-all", Config.Gen_MavenRepoUrl.replace("http://","https://"),"release"));
+        loadMiraiCore(getLibraryVersionMaven("net.mamoe", "mirai-core-all", Config.General.MavenRepoUrl.replace("http://","https://"),"release"));
     }
 
     public static String getStableVersion() {
@@ -69,15 +69,15 @@ public class MiraiLoader {
      */
     public static void loadMiraiCore(String version) throws RuntimeException, IOException, ParserConfigurationException, SAXException {
         if(version.equalsIgnoreCase("latest")){
-            version = getLibraryVersionMaven("net.mamoe", "mirai-core-all", Config.Gen_MavenRepoUrl.replace("http://","https://"),"release");
+            version = getLibraryVersionMaven("net.mamoe", "mirai-core-all", Config.General.MavenRepoUrl.replace("http://","https://"),"release");
         }
 
         // 文件夹
         File MiraiDir;
-        if (Config.Gen_MiraiWorkingDir.equals("default")) {
+        if (Config.General.MiraiWorkingDir.equals("default")) {
             MiraiDir = new File(Config.PluginDir,"MiraiBot");
         } else {
-            MiraiDir = new File(Config.Gen_MiraiWorkingDir);
+            MiraiDir = new File(Config.General.MiraiWorkingDir);
         }
         File LibrariesDir = new File(MiraiDir,"libs");
         if(!LibrariesDir.exists() && !LibrariesDir.mkdirs()) {
@@ -90,7 +90,7 @@ public class MiraiLoader {
         }
 
         try {
-            loadLibraryClassMaven("net.mamoe", "mirai-core-all", version, "-all", Config.Gen_MavenRepoUrl.replace("http://","https://"), LibrariesDir);
+            loadLibraryClassMaven("net.mamoe", "mirai-core-all", version, "-all", Config.General.MavenRepoUrl.replace("http://","https://"), LibrariesDir);
             try (FileWriter writer = new FileWriter(writeName);
                  BufferedWriter out = new BufferedWriter(writer)
             ) {

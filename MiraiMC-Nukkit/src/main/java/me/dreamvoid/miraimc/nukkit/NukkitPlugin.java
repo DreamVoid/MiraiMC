@@ -37,14 +37,14 @@ public class NukkitPlugin extends PluginBase {
             Utils.setClassLoader(this.getClass().getClassLoader());
             new NukkitConfig(this).loadConfig();
 
-            if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("latest")) {
+            if(Config.General.MiraiCoreVersion.equalsIgnoreCase("latest")) {
                 MiraiLoader.loadMiraiCore();
-            } else if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("stable")){
+            } else if(Config.General.MiraiCoreVersion.equalsIgnoreCase("stable")){
                 MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion(getDescription().getVersion()));
             } else {
-                MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
+                MiraiLoader.loadMiraiCore(Config.General.MiraiCoreVersion);
             }
-            if(!Config.Gen_LegacyEventSupport){
+            if(!Config.General.LegacyEventSupport){
                 this.MiraiEvent = new MiraiEvent(this);
             } else this.MiraiEvent = new MiraiEventLegacy(this);
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
@@ -56,12 +56,12 @@ public class NukkitPlugin extends PluginBase {
 
     @Override
     public void onEnable() {
-        getLogger().info("Mirai working dir: " + Config.Gen_MiraiWorkingDir);
+        getLogger().info("Mirai working dir: " + Config.General.MiraiWorkingDir);
 
-        if(Config.Gen_AddProperties_MiraiNoDesktop){
+        if(Config.General.AddProperties.MiraiNoDesktop){
             System.setProperty("mirai.no-desktop","MiraiMC");
         }
-        if(Config.Gen_AddProperties_MiraiSliderCaptchaSupported){
+        if(Config.General.AddProperties.MiraiSliderCaptchaSupported){
             System.setProperty("mirai.slider.captcha.supported","MiraiMC");
         }
 
@@ -78,12 +78,12 @@ public class NukkitPlugin extends PluginBase {
         getServer().getCommandMap().register("", new MiraiMcCommand());
         getServer().getCommandMap().register("", new MiraiVerifyCommand());
 
-        if(Config.Bot_LogEvents){
+        if(Config.Bot.LogEvents){
             getLogger().info("Registering events.");
             this.getServer().getPluginManager().registerEvents(new Events(this), this);
         }
 
-        switch (Config.DB_Type.toLowerCase()){
+        switch (Config.Database.Type.toLowerCase()){
             case "sqlite":
             default: {
                 getLogger().info("Initializing SQLite database.");
@@ -102,19 +102,19 @@ public class NukkitPlugin extends PluginBase {
         }
 
         // bStats统计
-        if(Config.Gen_AllowBStats && !getDescription().getVersion().contains("dev")) {
+        if(Config.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
             getLogger().info("Initializing bStats metrics.");
             int pluginId = 12744;
             new MetricsLite(this, pluginId);
         }
 
         // 安全警告
-        if(!(Config.Gen_DisableSafeWarningMessage)){
+        if(!(Config.General.DisableSafeWarningMessage)){
             getLogger().warning("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
             getLogger().warning("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
 
-        if(Config.Gen_CheckUpdate && !getDescription().getVersion().contains("dev")) {
+        if(Config.General.CheckUpdate && !getDescription().getVersion().contains("dev")) {
             new NukkitRunnable() {
                 @Override
                 public void run() {
@@ -167,7 +167,7 @@ public class NukkitPlugin extends PluginBase {
             MiraiBot.getBot(bots).close();
         }
 
-        switch (Config.DB_Type.toLowerCase()){
+        switch (Config.Database.Type.toLowerCase()){
             case "sqlite":
             default: {
                 if(Utils.connection != null) {

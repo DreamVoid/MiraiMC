@@ -31,15 +31,15 @@ public class BukkitPlugin extends JavaPlugin {
             Utils.setClassLoader(this.getClassLoader());
             new BukkitConfig(this).loadConfig();
 
-            if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("latest")) {
+            if(Config.General.MiraiCoreVersion.equalsIgnoreCase("latest")) {
                 MiraiLoader.loadMiraiCore();
-            } else if(Config.Gen_MiraiCoreVersion.equalsIgnoreCase("stable")){
+            } else if(Config.General.MiraiCoreVersion.equalsIgnoreCase("stable")){
                 MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion(getDescription().getVersion()));
             } else {
-                MiraiLoader.loadMiraiCore(Config.Gen_MiraiCoreVersion);
+                MiraiLoader.loadMiraiCore(Config.General.MiraiCoreVersion);
             }
 
-            if(!Config.Gen_LegacyEventSupport){
+            if(!Config.General.LegacyEventSupport){
                 this.MiraiEvent = new MiraiEvent();
             } else this.MiraiEvent = new MiraiEventLegacy();
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
@@ -58,10 +58,10 @@ public class BukkitPlugin extends JavaPlugin {
             getLogger().severe("兼容性报告: https://wiki.miraimc.dreamvoid.me/troubleshoot/compatibility-report");
         } catch (ClassNotFoundException ignored) {}
 
-        getLogger().info("Mirai working dir: " + Config.Gen_MiraiWorkingDir);
+        getLogger().info("Mirai working dir: " + Config.General.MiraiWorkingDir);
 
-        if(Config.Gen_AddProperties_MiraiNoDesktop) System.setProperty("mirai.no-desktop", "MiraiMC");
-        if(Config.Gen_AddProperties_MiraiSliderCaptchaSupported) System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
+        if(Config.General.AddProperties.MiraiNoDesktop) System.setProperty("mirai.no-desktop", "MiraiMC");
+        if(Config.General.AddProperties.MiraiSliderCaptchaSupported) System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
 
         getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();
@@ -77,12 +77,12 @@ public class BukkitPlugin extends JavaPlugin {
         getCommand("miraimc").setTabCompleter(new MiraiMcCommand(this));
         getCommand("miraiverify").setExecutor(new MiraiVerifyCommand());
 
-        if(Config.Bot_LogEvents){
+        if(Config.Bot.LogEvents){
             getLogger().info("Registering events.");
             Bukkit.getPluginManager().registerEvents(new Events(), this);
         }
 
-        switch (Config.DB_Type.toLowerCase()){
+        switch (Config.Database.Type.toLowerCase()){
             case "sqlite":
             default: {
                 getLogger().info("Initializing SQLite database.");
@@ -101,13 +101,13 @@ public class BukkitPlugin extends JavaPlugin {
         }
 
         // bStats统计
-        if(Config.Gen_AllowBStats && !getDescription().getVersion().contains("dev")) {
+        if(Config.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
             getLogger().info("Initializing bStats metrics.");
             int pluginId = 11534;
             new Metrics(this, pluginId);
         }
 
-        if(Config.Gen_CheckUpdate && !getDescription().getVersion().contains("dev")){
+        if(Config.General.CheckUpdate && !getDescription().getVersion().contains("dev")){
             new BukkitRunnable() {
                 @Override
                 public void run() {
@@ -131,13 +131,13 @@ public class BukkitPlugin extends JavaPlugin {
         }
 
         // HTTP API
-        if(Config.Gen_EnableHttpApi){
+        if(Config.General.EnableHttpApi){
             getLogger().info("Initializing HttpAPI async task.");
-            getServer().getScheduler().runTaskTimerAsynchronously(this,new MiraiHttpAPIResolver(), 0, Config.HTTPAPI_MessageFetch_Interval);
+            getServer().getScheduler().runTaskTimerAsynchronously(this,new MiraiHttpAPIResolver(), 0, Config.HttpApi.MessageFetch.Interval);
         }
 
         // 安全警告
-        if(!(Config.Gen_DisableSafeWarningMessage)){
+        if(!(Config.General.DisableSafeWarningMessage)){
             getLogger().warning("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
             getLogger().warning("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
@@ -172,7 +172,7 @@ public class BukkitPlugin extends JavaPlugin {
             MiraiBot.getBot(bots).close();
         }
 
-        switch (Config.DB_Type.toLowerCase()){
+        switch (Config.Database.Type.toLowerCase()){
             case "sqlite":
             default: {
                 if (Utils.connection != null) {

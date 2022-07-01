@@ -47,15 +47,15 @@ public final class Utils {
     public static void initializeMySQL(){
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("com.mysql.jdbc.Driver"); // 1.17才有cj.jdbc，所以不换
-        config.setJdbcUrl("jdbc:mysql://" + Config.DB_MySQL_Address + "/" + Config.DB_MySQL_Database);
-        config.setUsername(Config.DB_MySQL_Username);
-        config.setPassword(Config.DB_MySQL_Password);
-        config.setConnectionTimeout(Config.DB_MySQL_Poll_ConnectionTimeout);
-        config.setIdleTimeout(Config.DB_MySQL_Poll_IdleTimeout);
-        config.setMaxLifetime(Config.DB_MySQL_Poll_MaxLifetime);
-        config.setMaximumPoolSize(Config.DB_MySQL_Poll_MaximumPoolSize);
-        config.setKeepaliveTime(Config.DB_MySQL_Poll_KeepaliveTime);
-        config.setMinimumIdle(Config.DB_MySQL_Poll_MinimumIdle);
+        config.setJdbcUrl("jdbc:mysql://" + Config.Database.MySQL.Address + "/" + Config.Database.MySQL.Database);
+        config.setUsername(Config.Database.MySQL.Username);
+        config.setPassword(Config.Database.MySQL.Password);
+        config.setConnectionTimeout(Config.Database.MySQL.Poll.ConnectionTimeout);
+        config.setIdleTimeout(Config.Database.MySQL.Poll.IdleTimeout);
+        config.setMaxLifetime(Config.Database.MySQL.Poll.MaxLifetime);
+        config.setMaximumPoolSize(Config.Database.MySQL.Poll.MaximumPoolSize);
+        config.setKeepaliveTime(Config.Database.MySQL.Poll.KeepaliveTime);
+        config.setMinimumIdle(Config.Database.MySQL.Poll.MinimumIdle);
         config.addDataSourceProperty("cachePrepStmts", "true" );
         config.addDataSourceProperty("prepStmtCacheSize", "250" );
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048" );

@@ -316,8 +316,8 @@ public class MiraiBot {
         logger.info("登录新的机器人账号: "+ Account+", 协议: "+ Protocol.name());
 
         File MiraiDir;
-        if(!(Config.Gen_MiraiWorkingDir.equals("default"))) {
-            MiraiDir = new File(Config.Gen_MiraiWorkingDir);
+        if(!(Config.General.MiraiWorkingDir.equals("default"))) {
+            MiraiDir = new File(Config.General.MiraiWorkingDir);
         } else MiraiDir = new File(Config.PluginDir,"MiraiBot"); // mirai数据文件夹
         File BotConfig = new File(new File(MiraiDir, "bots"), String.valueOf(Account)); // 当前机器人账号配置文件夹和相应的配置
 
@@ -331,21 +331,21 @@ public class MiraiBot {
             fileBasedDeviceInfo();
 
             // 是否关闭日志输出（不建议开发者关闭）。如果不关闭，是否使用Bukkit的Logger接管Mirai的Logger
-            if(Config.Bot_DisableNetworkLogs) {
+            if(Config.Bot.DisableNetworkLogs) {
                 noNetworkLog();
-            } else if(Config.Bot_UseMinecraftLogger_NetworkLogs) {
+            } else if(Config.Bot.UseMinecraftLogger.NetworkLogs) {
                 setNetworkLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(logger));
             }
-            if(Config.Bot_DisableBotLogs) {
+            if(Config.Bot.DisableBotLogs) {
                 noBotLog();
-            } else if(Config.Bot_UseMinecraftLogger_BotLogs) {
+            } else if(Config.Bot.UseMinecraftLogger.BotLogs) {
                 setBotLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(logger));
             }
 
             // 是否使用缓存——对于开发者，请启用；对于用户，请禁用。详见 https://github.com/mamoe/mirai/blob/dev/docs/Bots.md#%E5%90%AF%E7%94%A8%E5%88%97%E8%A1%A8%E7%BC%93%E5%AD%98
-            getContactListCache().setFriendListCacheEnabled(Config.Bot_ContactCache_EnableFriendListCache);
-            getContactListCache().setGroupMemberListCacheEnabled(Config.Bot_ContactCache_EnableGroupMemberListCache);
-            getContactListCache().setSaveIntervalMillis(Config.Bot_ContactCache_SaveIntervalMillis);
+            getContactListCache().setFriendListCacheEnabled(Config.Bot.ContactCache.EnableFriendListCache);
+            getContactListCache().setGroupMemberListCacheEnabled(Config.Bot.ContactCache.EnableGroupMemberListCache);
+            getContactListCache().setSaveIntervalMillis(Config.Bot.ContactCache.SaveIntervalMillis);
 
             // 使用自己的验证解决器
             setLoginSolver(new MiraiLoginSolver());

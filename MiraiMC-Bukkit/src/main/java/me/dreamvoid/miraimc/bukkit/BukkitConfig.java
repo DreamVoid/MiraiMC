@@ -28,41 +28,41 @@ public class BukkitConfig {
         plugin.getConfig().options().copyDefaults(true);
         plugin.saveConfig();
 
-        Gen_AllowBStats = plugin.getConfig().getBoolean("general.allow-bStats",true);
-        Gen_CheckUpdate = plugin.getConfig().getBoolean("general.check-update",true);
-        Gen_DisableSafeWarningMessage = plugin.getConfig().getBoolean("general.disable-safe-warning-message",false);
-        Gen_MiraiWorkingDir = plugin.getConfig().getString("general.mirai-working-dir","default");
-        Gen_AddProperties_MiraiNoDesktop = plugin.getConfig().getBoolean("general.add-properties.mirai.no-desktop",true);
-        Gen_AddProperties_MiraiSliderCaptchaSupported = plugin.getConfig().getBoolean("general.add-properties.mirai.slider.captcha.supported",true);
-        Gen_MiraiCoreVersion = plugin.getConfig().getString("general.mirai-core-version","latest");
-        Gen_MavenRepoUrl = plugin.getConfig().getString("general.maven-repo-url","https://repo1.maven.org/maven2");
-        Gen_EnableHttpApi = plugin.getConfig().getBoolean("general.enable-http-api",false);
-        Gen_LegacyEventSupport = plugin.getConfig().getBoolean("general.legacy-event-support",false);
+        General.AllowBStats = plugin.getConfig().getBoolean("general.allow-bStats",true);
+        General.CheckUpdate = plugin.getConfig().getBoolean("general.check-update",true);
+        General.DisableSafeWarningMessage = plugin.getConfig().getBoolean("general.disable-safe-warning-message",false);
+        General.MiraiWorkingDir = plugin.getConfig().getString("general.mirai-working-dir","default");
+        General.AddProperties.MiraiNoDesktop = plugin.getConfig().getBoolean("general.add-properties.mirai.no-desktop",true);
+        General.AddProperties.MiraiSliderCaptchaSupported = plugin.getConfig().getBoolean("general.add-properties.mirai.slider.captcha.supported",true);
+        General.MiraiCoreVersion = plugin.getConfig().getString("general.mirai-core-version","latest");
+        General.MavenRepoUrl = plugin.getConfig().getString("general.maven-repo-url","https://repo1.maven.org/maven2");
+        General.EnableHttpApi = plugin.getConfig().getBoolean("general.enable-http-api",false);
+        General.LegacyEventSupport = plugin.getConfig().getBoolean("general.legacy-event-support",false);
 
-        Bot_DisableNetworkLogs = plugin.getConfig().getBoolean("bot.disable-network-logs",false);
-        Bot_DisableBotLogs = plugin.getConfig().getBoolean("bot.disable-bot-logs",false);
-        Bot_UseMinecraftLogger_BotLogs = plugin.getConfig().getBoolean("bot.use-minecraft-logger.bot-logs",true);
-        Bot_UseMinecraftLogger_NetworkLogs = plugin.getConfig().getBoolean("bot.use-minecraft-logger.network-logs",true);
-        Bot_LogEvents = plugin.getConfig().getBoolean("bot.log-events",true);
-        Bot_ContactCache_EnableFriendListCache = plugin.getConfig().getBoolean("bot.contact-cache.enable-friend-list-cache",false);
-        Bot_ContactCache_EnableGroupMemberListCache = plugin.getConfig().getBoolean("bot.contact-cache.enable-group-member-list-cache",false);
-        Bot_ContactCache_SaveIntervalMillis = plugin.getConfig().getLong("bot.contact-cache.save-interval-millis",60000);
+        Bot.DisableNetworkLogs = plugin.getConfig().getBoolean("bot.disable-network-logs",false);
+        Bot.DisableBotLogs = plugin.getConfig().getBoolean("bot.disable-bot-logs",false);
+        Bot.UseMinecraftLogger.BotLogs = plugin.getConfig().getBoolean("bot.use-minecraft-logger.bot-logs",true);
+        Bot.UseMinecraftLogger.NetworkLogs = plugin.getConfig().getBoolean("bot.use-minecraft-logger.network-logs",true);
+        Bot.LogEvents = plugin.getConfig().getBoolean("bot.log-events",true);
+        Bot.ContactCache.EnableFriendListCache = plugin.getConfig().getBoolean("bot.contact-cache.enable-friend-list-cache",false);
+        Bot.ContactCache.EnableGroupMemberListCache = plugin.getConfig().getBoolean("bot.contact-cache.enable-group-member-list-cache",false);
+        Bot.ContactCache.SaveIntervalMillis = plugin.getConfig().getLong("bot.contact-cache.save-interval-millis",60000);
 
-        DB_Type = plugin.getConfig().getString("database.type","sqlite").toLowerCase();
-        DB_MySQL_Address = plugin.getConfig().getString("database.mysql.address","localhost");
-        DB_MySQL_Username = plugin.getConfig().getString("database.mysql.username", "miraimc");
-        DB_MySQL_Password = plugin.getConfig().getString("database.mysql.password", "miraimc");
-        DB_MySQL_Database = plugin.getConfig().getString("database.mysql.database", "miraimc");
-        DB_MySQL_Poll_ConnectionTimeout = plugin.getConfig().getInt("database.mysql.pool.connectionTimeout",30000);
-        DB_MySQL_Poll_IdleTimeout = plugin.getConfig().getInt("database.mysql.pool.connectionTimeout",600000);
-        DB_MySQL_Poll_MaxLifetime = plugin.getConfig().getInt("database.mysql.pool.maxLifetime",1800000);
-        DB_MySQL_Poll_MaximumPoolSize = plugin.getConfig().getInt("database.mysql.pool.maximumPoolSize",15);
-        DB_MySQL_Poll_KeepaliveTime = plugin.getConfig().getInt("database.mysql.pool.keepaliveTime",0);
-        DB_MySQL_Poll_MinimumIdle = plugin.getConfig().getInt("database.mysql.pool.minimumIdle",0);
+        Database.Type = plugin.getConfig().getString("database.type","sqlite").toLowerCase();
+        Database.MySQL.Address = plugin.getConfig().getString("database.mysql.address","localhost");
+        Database.MySQL.Username = plugin.getConfig().getString("database.mysql.username", "miraimc");
+        Database.MySQL.Password = plugin.getConfig().getString("database.mysql.password", "miraimc");
+        Database.MySQL.Database = plugin.getConfig().getString("database.mysql.database", "miraimc");
+        Database.MySQL.Poll.ConnectionTimeout = plugin.getConfig().getInt("database.mysql.pool.connectionTimeout",30000);
+        Database.MySQL.Poll.IdleTimeout = plugin.getConfig().getInt("database.mysql.pool.connectionTimeout",600000);
+        Database.MySQL.Poll.MaxLifetime = plugin.getConfig().getInt("database.mysql.pool.maxLifetime",1800000);
+        Database.MySQL.Poll.MaximumPoolSize = plugin.getConfig().getInt("database.mysql.pool.maximumPoolSize",15);
+        Database.MySQL.Poll.KeepaliveTime = plugin.getConfig().getInt("database.mysql.pool.keepaliveTime",0);
+        Database.MySQL.Poll.MinimumIdle = plugin.getConfig().getInt("database.mysql.pool.minimumIdle",0);
 
-        HTTPAPI_Url = plugin.getConfig().getString("httpapi.url", "http://localhost:8080");
-        HTTPAPI_MessageFetch_Interval = plugin.getConfig().getInt("httpapi.message-fetch.interval", 10);
-        HTTPAPI_MessageFetch_Count = plugin.getConfig().getInt("httpapi.message-fetch.count", 10);
+        HttpApi.Url = plugin.getConfig().getString("http-api.url", "http://localhost:8080");
+        HttpApi.MessageFetch.Interval = plugin.getConfig().getInt("http-api.message-fetch.interval", 10);
+        HttpApi.MessageFetch.Count = plugin.getConfig().getInt("http-api.message-fetch.count", 10);
     }
 
     public static void reloadConfig() throws IOException, InvalidConfigurationException {
