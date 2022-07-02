@@ -33,12 +33,12 @@ Please follow the steps below to start using MiraiMC：
 * If you are using plugins developed based on MiraiMC at the same time, please adjust the configuration of MiraiMC in the configuration files of these plugins
 * Enjoy the elegant QQ robot service!
 
-A more detailed tutorial can be found here: https://en.wiki.miraimc.dreamvoid.me/
+A more detailed tutorial can be found here: https://wiki.miraimc.dreamvoid.me/
 
 ### Plugin developer
 If you are a plug-in developer and are considering allowing your plugin to connect to QQ robots, you only need to use the API provided by this plugin to quickly and easily achieve your requirements without additional configuration.
 
-You can simply use [MiraiMC Development Template](https://github.com/DreamVoid/MiraiMC-Template) to start developing a new plugin
+You can simply use [MiraiMC Development Template](https://github.com/MiraiMC/MiraiMC-Template) to start developing a new plugin
 
 You can also introduce MiraiMC for existing plugins, just follow the following steps:
 
@@ -51,7 +51,7 @@ Copy the following code to the ```dependencies``` of pom.xml or directly import 
     <scope>provided</scope>
 </dependency>
 ```
-* Refer to [Javadoc](https://docs.miraimc.dreamvoid.me) or [MiraiMC Development Template](https://github.com/DreamVoid/MiraiMC-Template) to write related code
+* Refer to [Javadoc](https://jd.miraimc.dreamvoid.me) or [MiraiMC Development Template](https://github.com/MiraiMC/MiraiMC-Template) to write related code
 * Publish your plugin
 
 A more detailed development tutorial can be found here: https://en.wiki.miraimc.dreamvoid.me/
