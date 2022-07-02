@@ -1,13 +1,12 @@
-package me.dreamvoid.miraimc.internal.httpapi;
+package me.dreamvoid.miraimc.httpapi;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import me.dreamvoid.miraimc.httpapi.exception.AbnormalStatusException;
+import me.dreamvoid.miraimc.httpapi.response.*;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.httpapi.exception.AbnormalStatusException;
-import me.dreamvoid.miraimc.internal.httpapi.response.*;
-import me.dreamvoid.miraimc.internal.httpapi.type.Message;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -58,8 +57,9 @@ public class MiraiHttpAPI {
     }
 
     public SendMessage sendFriendMessage(String sessionKey, long target, String message) throws IOException, AbnormalStatusException {
-        Message chain = new Message().setPlain(message);
-        JsonArray messageArray = gson.toJsonTree(Collections.singletonList(chain), new TypeToken<List<Message>>(){}.getType()).getAsJsonArray();
+        FetchMessage.Data.MessageChain chain = new FetchMessage.Data.MessageChain();
+        chain.text = message;
+        JsonArray messageArray = gson.toJsonTree(Collections.singletonList(chain), new TypeToken<List<FetchMessage.Data.MessageChain>>(){}.getType()).getAsJsonArray();
 
         JsonObject json = new JsonObject();
         json.addProperty("sessionKey", sessionKey);
@@ -73,8 +73,8 @@ public class MiraiHttpAPI {
         return sendMessage;
     }
 
-    public SendMessage sendFriendMessage(String sessionKey, long target, Message[] messageChain) throws IOException, AbnormalStatusException {
-        JsonArray messageArray = gson.toJsonTree(messageChain, new TypeToken<List<Message>>(){}.getType()).getAsJsonArray();
+    public SendMessage sendFriendMessage(String sessionKey, long target, FetchMessage.Data.MessageChain[] messageChain) throws IOException, AbnormalStatusException {
+        JsonArray messageArray = gson.toJsonTree(messageChain, new TypeToken<List<FetchMessage.Data.MessageChain>>(){}.getType()).getAsJsonArray();
 
         JsonObject json = new JsonObject();
         json.addProperty("sessionKey", sessionKey);
@@ -89,8 +89,9 @@ public class MiraiHttpAPI {
     }
 
     public SendMessage sendGroupMessage(String sessionKey, long target, String message) throws IOException, AbnormalStatusException {
-        Message chain = new Message().setPlain(message);
-        JsonArray messageArray = gson.toJsonTree(Collections.singletonList(chain), new TypeToken<List<Message>>(){}.getType()).getAsJsonArray();
+        FetchMessage.Data.MessageChain chain = new FetchMessage.Data.MessageChain();
+        chain.text = message;
+        JsonArray messageArray = gson.toJsonTree(Collections.singletonList(chain), new TypeToken<List<FetchMessage.Data.MessageChain>>(){}.getType()).getAsJsonArray();
 
         JsonObject json = new JsonObject();
         json.addProperty("sessionKey", sessionKey);
@@ -104,8 +105,8 @@ public class MiraiHttpAPI {
         return sendMessage;
     }
 
-    public SendMessage sendGroupMessage(String sessionKey, long target, Message[] messageChain) throws IOException, AbnormalStatusException {
-        JsonArray messageArray = gson.toJsonTree(messageChain, new TypeToken<List<Message>>(){}.getType()).getAsJsonArray();
+    public SendMessage sendGroupMessage(String sessionKey, long target, FetchMessage.Data.MessageChain[] messageChain) throws IOException, AbnormalStatusException {
+        JsonArray messageArray = gson.toJsonTree(messageChain, new TypeToken<List<FetchMessage.Data.MessageChain>>(){}.getType()).getAsJsonArray();
 
         JsonObject json = new JsonObject();
         json.addProperty("sessionKey", sessionKey);

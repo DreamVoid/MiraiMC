@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.bukkit.event;
 
-import me.dreamvoid.miraimc.internal.httpapi.type.Message;
+import me.dreamvoid.miraimc.httpapi.response.FetchMessage;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
 
 /**
@@ -14,7 +14,7 @@ public final class MiraiFriendMessageEvent extends me.dreamvoid.miraimc.bukkit.e
         super(event);
     }
 
-    public MiraiFriendMessageEvent(long BotAccount, Message message) {
-        super(BotAccount, message);
+    public MiraiFriendMessageEvent(long BotAccount, FetchMessage.Data data) {
+        super(BotAccount, data);
     }
 }
