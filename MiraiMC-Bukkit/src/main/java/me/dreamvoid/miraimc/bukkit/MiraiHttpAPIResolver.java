@@ -4,12 +4,17 @@ import me.dreamvoid.miraimc.bukkit.event.message.passive.*;
 import me.dreamvoid.miraimc.httpapi.MiraiHttpAPI;
 import me.dreamvoid.miraimc.httpapi.response.FetchMessage;
 import me.dreamvoid.miraimc.internal.Config;
-import me.dreamvoid.miraimc.internal.Utils;
 import org.bukkit.Bukkit;
 
 import static me.dreamvoid.miraimc.httpapi.MiraiHttpAPI.Bots;
 
 public class MiraiHttpAPIResolver implements Runnable {
+    private final BukkitPlugin plugin;
+
+    public MiraiHttpAPIResolver(BukkitPlugin plugin){
+        this.plugin = plugin;
+    }
+
     @Override
     public void run() {
         MiraiHttpAPI api = new MiraiHttpAPI(Config.HttpApi.Url);
@@ -41,9 +46,9 @@ public class MiraiHttpAPIResolver implements Runnable {
                         }
                     }
 
-                } else Utils.logger.warning("Unable to fetch " + account + "'s message, reason: " + fetchMessage.msg);
+                } else plugin.getLogger().warning("Unable to fetch " + account + "'s message, reason: " + fetchMessage.msg);
             } catch (Exception e) {
-                Utils.logger.warning("An error occurred while fetching message for " + account + ": " + e);
+                plugin.getLogger().warning("An error occurred while fetching message for " + account + ": " + e);
             }
         }
     }
