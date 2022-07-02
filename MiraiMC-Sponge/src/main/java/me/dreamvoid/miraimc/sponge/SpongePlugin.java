@@ -134,6 +134,17 @@ public class SpongePlugin {
             }
         }
 
+        // HTTP API
+        if(Config.General.EnableHttpApi){
+            getLogger().info("Initializing HttpAPI async task.");
+            Sponge.getScheduler().createTaskBuilder()
+                    .async()
+                    .execute(new MiraiHttpAPIResolver(this))
+                    .intervalTicks(Config.HttpApi.MessageFetch.Interval)
+                    .name("MiraiMC-HttpApi")
+                    .submit(this);
+        }
+
         // 安全警告
         if(!(Config.General.DisableSafeWarningMessage)){
             getLogger().warn("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
