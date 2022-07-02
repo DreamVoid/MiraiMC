@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.nukkit.event;
 
-import me.dreamvoid.miraimc.internal.httpapi.response.FetchMessage;
-import me.dreamvoid.miraimc.internal.httpapi.type.Message;
+import me.dreamvoid.miraimc.httpapi.response.FetchMessage;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
 
 /**
@@ -15,7 +14,7 @@ public final class MiraiGroupMessageEvent extends me.dreamvoid.miraimc.nukkit.ev
         super(event);
     }
 
-    public MiraiGroupMessageEvent(long BotAccount, FetchMessage.Sender sender, Message message) {
-        super(BotAccount, sender, message);
+    public MiraiGroupMessageEvent(long BotAccount, FetchMessage.Data data) {
+        super(BotAccount, data);
     }
 }

@@ -1,4 +1,4 @@
-package me.dreamvoid.miraimc.internal.httpapi.response;
+package me.dreamvoid.miraimc.httpapi.response;
 
 import com.google.gson.annotations.SerializedName;
 

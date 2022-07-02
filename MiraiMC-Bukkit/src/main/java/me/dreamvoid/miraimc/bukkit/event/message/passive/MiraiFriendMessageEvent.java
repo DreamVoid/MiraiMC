@@ -1,10 +1,11 @@
 package me.dreamvoid.miraimc.bukkit.event.message.passive;
 
+import me.dreamvoid.miraimc.event.EventType;
 import me.dreamvoid.miraimc.api.bot.MiraiFriend;
+import me.dreamvoid.miraimc.httpapi.MiraiHttpAPI;
+import me.dreamvoid.miraimc.httpapi.exception.AbnormalStatusException;
+import me.dreamvoid.miraimc.httpapi.response.FetchMessage;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI;
-import me.dreamvoid.miraimc.internal.httpapi.exception.AbnormalStatusException;
-import me.dreamvoid.miraimc.internal.httpapi.type.Message;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
 
@@ -18,33 +19,51 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         super(event);
         this.event = event;
 
-        type = 0;
-        botID = event.getBot().getId();
-        senderID = event.getSender().getId();
-        senderName = event.getSender().getNick();
-        messageContent = event.getMessage().contentToString();
-        messageMiraiCode = event.getMessage().serializeToMiraiCode();
-        time = event.getTime();
+        type = EventType.CORE;
+        BotID = event.getBot().getId();
+
+        SenderID = event.getSender().getId();
+        NickName = event.getSender().getNick();
+
+        MessageContent = event.getMessage().contentToString();
+        MessageMiraiCode = event.getMessage().serializeToMiraiCode();
+        Time = event.getTime();
     }
-    public MiraiFriendMessageEvent(long BotAccount, Message message) {
-        type = 1;
-        botID = BotAccount;
-        senderID = message.senderId;
-        senderName = message.senderNickname;
-        messageContent = message.text;
-        messageMiraiCode = message.text;
-        time = message.time;
+
+    public MiraiFriendMessageEvent(long BotAccount, FetchMessage.Data data) {
+        type = EventType.HTTP_API;
+        BotID = BotAccount;
+
+        SenderID = data.sender.id;
+        NickName = data.sender.nickname;
+
+        for(FetchMessage.Data.MessageChain chain : data.messageChain){
+            switch (chain.type){
+                case "Source":
+                    Time = chain.time;
+                    break;
+                case "Code":
+                    MessageMiraiCode = chain.code;
+                    break;
+                case "Plain":
+                    MessageContent = String.format("%s%s", MessageContent, chain.text);
+                    break;
+                default:
+                    MessageContent = String.format("%s[%s]", MessageContent, chain.type);
+                    break;
+            }
+        }
     }
 
     private FriendMessageEvent event = null;
 
-    private final int type;
-    private final long botID;
-    private final long senderID;
-    private final String senderName;
-    private final String messageContent;
-    private final String messageMiraiCode;
-    private final int time;
+    private final EventType type;
+    private final long BotID;
+    private final long SenderID;
+    private final String NickName;
+    private String MessageContent;
+    private String MessageMiraiCode;
+    private int Time;
 
     /**
      * 返回接收到这条信息的机器人ID
@@ -52,7 +71,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
      */
     @Override
     public long getBotID(){
-        return botID;
+        return BotID;
     }
 
     /**
@@ -61,7 +80,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
      */
     @Override
     public long getSenderID(){
-        return senderID;
+        return SenderID;
     }
 
     /**
@@ -70,7 +89,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
      */
     @Override
     public String getSenderName(){
-        return senderName;
+        return NickName;
     }
 
     /**
@@ -82,7 +101,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
      */
     @Override
     public String getMessage(){
-        return messageContent;
+        return MessageContent;
     }
 
     /**
@@ -93,7 +112,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
      */
     @Override
     public String getMessageToMiraiCode(){
-        return messageMiraiCode;
+        return MessageMiraiCode;
     }
 
     /**
@@ -102,7 +121,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
      */
     @Override
     public int getTime() {
-        return time;
+        return Time;
     }
 
     /**
@@ -111,11 +130,11 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
      */
     @Override
     public void sendMessage(String message) {
-        if(type == 0){
+        if(type == EventType.CORE){
             event.getSender().sendMessage(MiraiCode.deserializeMiraiCode(message));
-        } else if(type == 1){
+        } else if(type == EventType.HTTP_API){
             try {
-                MiraiHttpAPI.INSTANCE.sendFriendMessage(MiraiHttpAPI.Bots.get(botID), senderID, message);
+                MiraiHttpAPI.INSTANCE.sendFriendMessage(MiraiHttpAPI.Bots.get(BotID), SenderID, message);
             } catch (IOException | AbnormalStatusException e) {
                 Utils.logger.warning("发送消息时出现异常，原因: " + e);
             }
@@ -132,9 +151,10 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
 
     /**
      * 获取事件类型（用于判断机器人工作模式）
-     * @return 0 = Core | 1 = HTTP API
+     * @return 事件类型
      */
-    public int getType() {
+    public EventType getType() {
         return type;
     }
+
 }

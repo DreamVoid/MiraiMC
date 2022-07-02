@@ -1,9 +1,9 @@
 package test;
 
-import me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI;
-import me.dreamvoid.miraimc.internal.httpapi.response.Bind;
-import me.dreamvoid.miraimc.internal.httpapi.response.SendMessage;
-import me.dreamvoid.miraimc.internal.httpapi.response.Verify;
+import me.dreamvoid.miraimc.httpapi.MiraiHttpAPI;
+import me.dreamvoid.miraimc.httpapi.response.Bind;
+import me.dreamvoid.miraimc.httpapi.response.SendMessage;
+import me.dreamvoid.miraimc.httpapi.response.Verify;
 
 public class JavaMain {
     public static void main(String[] args){

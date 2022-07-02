@@ -1,11 +1,11 @@
 package me.dreamvoid.miraimc.bukkit.event.message.passive;
 
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
+import me.dreamvoid.miraimc.event.EventType;
+import me.dreamvoid.miraimc.httpapi.MiraiHttpAPI;
+import me.dreamvoid.miraimc.httpapi.exception.AbnormalStatusException;
+import me.dreamvoid.miraimc.httpapi.response.FetchMessage;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI;
-import me.dreamvoid.miraimc.internal.httpapi.exception.AbnormalStatusException;
-import me.dreamvoid.miraimc.internal.httpapi.response.FetchMessage;
-import me.dreamvoid.miraimc.internal.httpapi.type.Message;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static me.dreamvoid.miraimc.event.EventType.CORE;
+import static me.dreamvoid.miraimc.event.EventType.HTTP_API;
+
 /**
  * (Bukkit) Mirai 核心事件 - 消息 - 被动收到消息 - 群消息
  */
@@ -24,40 +27,92 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
         super(event);
         this.event = event;
 
-        type = 0;
-        botID = event.getBot().getId();
-        senderID = event.getSender().getId();
-        memberName = event.getSender().getNameCard();
-        messageContent = event.getMessage().contentToString();
-        messageMiraiCode = event.getMessage().serializeToMiraiCode();
-        time = event.getTime();
+        type = EventType.CORE;
+        BotID = event.getBot().getId();
+
+        SenderID = event.getSender().getId();
+        MemberName = event.getSender().getNameCard();
+        Permission = event.getSender().getPermission().getLevel();
+
         GroupID = event.getGroup().getId();
         GroupName = event.getGroup().getName();
+        GroupPermission = event.getGroup().getBotPermission().getLevel();
+
+        MessageContent = event.getMessage().contentToString();
+        MessageMiraiCode = event.getMessage().serializeToMiraiCode();
+
+        Time = event.getTime();
     }
 
-    public MiraiGroupMessageEvent(long BotAccount, FetchMessage.Sender sender, Message message) {
-        type = 1;
-        botID = BotAccount;
-        senderID = sender.id;
-        memberName = sender.memberName;
-        messageContent = message.text;
-        messageMiraiCode = message.text;
-        time = message.time;
-        GroupID = sender.group.id;
-        GroupName = sender.group.name;
+    public MiraiGroupMessageEvent(long BotID, FetchMessage.Data data) {
+        type = EventType.HTTP_API;
+        this.BotID = BotID;
+
+        SenderID = data.sender.id;
+        MemberName = data.sender.memberName;
+        switch(data.sender.permission){
+            case "OWNER":
+                Permission=2;
+                break;
+            case "ADMINISTRATOR":
+                Permission=1;
+                break;
+            case "MEMBER":
+            default:
+                Permission=0;
+                break;
+        }
+
+        GroupID = data.sender.group.id;
+        GroupName = data.sender.group.name;
+        switch(data.sender.group.permission){
+            case "OWNER":
+                GroupPermission=2;
+                break;
+            case "ADMINISTRATOR":
+                GroupPermission=1;
+                break;
+            case "MEMBER":
+            default:
+                GroupPermission=0;
+                break;
+        }
+
+        for(FetchMessage.Data.MessageChain chain : data.messageChain){
+            switch (chain.type){
+                case "Source":
+                    Time = chain.time;
+                    break;
+                case "Code":
+                    MessageMiraiCode = chain.code;
+                    break;
+                case "Plain":
+                    MessageContent = String.format("%s%s", MessageContent, chain.text);
+                    break;
+                default:
+                    MessageContent = String.format("%s[%s]", MessageContent, chain.type);
+                    break;
+            }
+        }
     }
 
     private GroupMessageEvent event;
 
-    private final int type;
-    private final long botID;
-    private final long senderID;
-    private final String memberName;
-    private final String messageContent;
-    private final String messageMiraiCode;
-    private final int time;
+    private final EventType type;
+    private final long BotID;
+
+    private final long SenderID;
+    private final String MemberName;
+    private final int Permission;
+
     private final long GroupID;
     private final String GroupName;
+    private final int GroupPermission;
+
+    private String MessageContent;
+    private String MessageMiraiCode;
+    private int Time;
+
 
     /**
      * 返回接收到这条信息的机器人ID
@@ -65,7 +120,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
      */
     @Override
     public long getBotID(){
-        return botID;
+        return BotID;
     }
 
     /**
@@ -90,7 +145,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
      */
     @Override
     public long getSenderID(){
-        return senderID;
+        return SenderID;
     }
 
     /**
@@ -98,7 +153,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
      * @return 发送者群名片
      */
     public String getSenderNameCard(){
-        return memberName;
+        return MemberName;
     }
 
     /**
@@ -110,7 +165,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
      */
     @Override
     public String getMessage(){
-        return messageContent;
+        return MessageContent;
     }
 
     /**
@@ -121,7 +176,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
      */
     @Override
     public String getMessageToMiraiCode(){
-        return messageMiraiCode;
+        return MessageMiraiCode;
     }
 
     /**
@@ -130,7 +185,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
      */
     @Override
     public int getTime(){
-        return time;
+        return Time;
     }
 
     /**
@@ -138,7 +193,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
      * @return 0 - 普通成员 | 1 - 管理员 | 2 - 群主
      */
     public int getSenderPermission(){
-        return event.getSender().getPermission().getLevel();
+        return Permission;
     }
 
     /**
@@ -169,7 +224,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
      * @return 0 - 普通成员 | 1 - 管理员 | 2 - 群主
      */
     public int getBotPermission(){
-        return event.getGroup().getBotPermission().getLevel();
+        return GroupPermission;
     }
 
     /**
@@ -226,11 +281,11 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
      */
     @Override
     public void sendMessage(String message) {
-        if(type == 0){
+        if(type == CORE){
             event.getGroup().sendMessage(MiraiCode.deserializeMiraiCode(message));
-        } else if(type == 1){
+        } else if(type == HTTP_API){
             try {
-                MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(botID), GroupID, message);
+                MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(BotID), GroupID, message);
             } catch (IOException | AbnormalStatusException e) {
                 Utils.logger.warning("发送消息时出现异常，原因: " + e);
             }
@@ -247,9 +302,9 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
 
     /**
      * 获取事件类型（用于判断机器人工作模式）
-     * @return 0 = Core | 1 = HTTP API
+     * @return 事件类型
      */
-    public int getType() {
+    public EventType getType() {
         return type;
     }
 }
