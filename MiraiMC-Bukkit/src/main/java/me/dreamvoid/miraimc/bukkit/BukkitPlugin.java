@@ -133,7 +133,7 @@ public class BukkitPlugin extends JavaPlugin {
         // HTTP API
         if(Config.General.EnableHttpApi){
             getLogger().info("Initializing HttpAPI async task.");
-            getServer().getScheduler().runTaskTimerAsynchronously(this,new MiraiHttpAPIResolver(), 0, Config.HttpApi.MessageFetch.Interval);
+            getServer().getScheduler().runTaskTimerAsynchronously(this, new MiraiHttpAPIResolver(this), 0, Config.HttpApi.MessageFetch.Interval);
         }
 
         // 安全警告
