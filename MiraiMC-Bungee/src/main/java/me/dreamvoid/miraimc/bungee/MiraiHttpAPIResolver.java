@@ -1,15 +1,19 @@
 package me.dreamvoid.miraimc.bungee;
 
-import me.dreamvoid.miraimc.bungee.event.message.passive.MiraiFriendMessageEvent;
-import me.dreamvoid.miraimc.bungee.event.message.passive.MiraiGroupMessageEvent;
-import me.dreamvoid.miraimc.internal.Config;
-import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.bungee.event.message.passive.*;
 import me.dreamvoid.miraimc.httpapi.MiraiHttpAPI;
 import me.dreamvoid.miraimc.httpapi.response.FetchMessage;
+import me.dreamvoid.miraimc.internal.Config;
 
 import static me.dreamvoid.miraimc.httpapi.MiraiHttpAPI.Bots;
 
 public class MiraiHttpAPIResolver implements Runnable {
+    private final BungeePlugin plugin;
+
+    public MiraiHttpAPIResolver(BungeePlugin plugin){
+        this.plugin = plugin;
+    }
+
     @Override
     public void run() {
         MiraiHttpAPI api = new MiraiHttpAPI(Config.HttpApi.Url);
@@ -23,21 +27,27 @@ public class MiraiHttpAPIResolver implements Runnable {
 
                         // 准备广播事件
                         switch (type) {
-                            case "FriendMessage": {
-                                BungeePlugin.INSTANCE.getProxy().getPluginManager().callEvent(new MiraiFriendMessageEvent(account, data));
+                            case "FriendMessage":
+                                plugin.getProxy().getPluginManager().callEvent(new MiraiFriendMessageEvent(account, data));
                                 break;
-                            }
-                            case "GroupMessage": {
-                                BungeePlugin.INSTANCE.getProxy().getPluginManager().callEvent(new MiraiGroupMessageEvent(account, data));
+                            case "GroupMessage":
+                                plugin.getProxy().getPluginManager().callEvent(new MiraiGroupMessageEvent(account, data));
                                 break;
-                            }
-                            default:break;
+                            case "TempMessage":
+                                plugin.getProxy().getPluginManager().callEvent(new MiraiGroupTempMessageEvent(account, data));
+                                break;
+                            case "StrangerMessage":
+                                plugin.getProxy().getPluginManager().callEvent(new MiraiStrangerMessageEvent(account, data));
+                                break;
+                            case "OtherClientMessage":
+                                plugin.getProxy().getPluginManager().callEvent(new MiraiOtherClientMessageEvent(account, data));
+                                break;
                         }
                     }
 
-                } else Utils.logger.warning("Unable to fetch " + account + "'s message, reason: " + fetchMessage.msg);
+                } else plugin.getLogger().warning("Unable to fetch " + account + "'s message, reason: " + fetchMessage.msg);
             } catch (Exception e) {
-                Utils.logger.warning("An error occurred while fetching message for " + account + ": " + e);
+                plugin.getLogger().warning("An error occurred while fetching message for " + account + ": " + e);
             }
         }
     }

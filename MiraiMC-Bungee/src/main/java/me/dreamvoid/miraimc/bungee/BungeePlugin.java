@@ -22,11 +22,9 @@ import java.util.concurrent.TimeUnit;
 public class BungeePlugin extends Plugin {
     private MiraiEvent MiraiEvent;
     private MiraiAutoLogin MiraiAutoLogin;
-    static BungeePlugin INSTANCE;
 
     @Override
     public void onLoad() {
-        INSTANCE = this;
         try {
             Utils.setLogger(this.getLogger());
             Utils.setClassLoader(this.getClass().getClassLoader());
@@ -95,6 +93,12 @@ public class BungeePlugin extends Plugin {
             getLogger().info("Initializing bStats metrics.");
             int pluginId = 12154;
             new Metrics(this, pluginId);
+        }
+
+        // HTTP API
+        if(Config.General.EnableHttpApi){
+            getLogger().info("Initializing HttpAPI async task.");
+            getProxy().getScheduler().schedule(this, new MiraiHttpAPIResolver(this), 0, Config.HttpApi.MessageFetch.Interval * 20, TimeUnit.MILLISECONDS);
         }
 
         // 安全警告
