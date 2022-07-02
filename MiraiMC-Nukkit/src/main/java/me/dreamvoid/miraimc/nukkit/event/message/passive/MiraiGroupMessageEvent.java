@@ -42,7 +42,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
     }
 
     public MiraiGroupMessageEvent(long BotID, FetchMessage.Data data) {
-        type = EventType.HTTP_API;
+        type = EventType.HTTPAPI;
         this.BotID = BotID;
 
         SenderID = data.sender.id;
@@ -279,7 +279,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
     public void sendMessage(String message) {
         if(type == EventType.CORE){
             event.getGroup().sendMessage(MiraiCode.deserializeMiraiCode(message));
-        } else if(type == EventType.HTTP_API){
+        } else if(type == EventType.HTTPAPI){
             try {
                 MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(BotID), GroupID, message);
             } catch (IOException | AbnormalStatusException e) {

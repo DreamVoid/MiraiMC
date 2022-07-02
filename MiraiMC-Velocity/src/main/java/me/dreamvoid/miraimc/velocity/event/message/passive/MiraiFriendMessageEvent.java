@@ -30,7 +30,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
         Time = event.getTime();
     }
     public MiraiFriendMessageEvent(long BotAccount, FetchMessage.Data data) {
-        type = EventType.HTTP_API;
+        type = EventType.HTTPAPI;
         BotID = BotAccount;
 
         SenderID = data.sender.id;
@@ -131,7 +131,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
     public void sendMessage(String message) {
         if(type == EventType.CORE){
             event.getSender().sendMessage(MiraiCode.deserializeMiraiCode(message));
-        } else if(type == EventType.HTTP_API){
+        } else if(type == EventType.HTTPAPI){
             try {
                 MiraiHttpAPI.INSTANCE.sendFriendMessage(MiraiHttpAPI.Bots.get(BotID), SenderID, message);
             } catch (IOException | AbnormalStatusException e) {

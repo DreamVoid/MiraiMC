@@ -120,7 +120,7 @@ public class MiraiHttpAPI {
         return sendMessage;
     }
 
-    public FetchMessage fetchMessage(String sessionKey, int count) throws Exception {
+    public FetchMessage fetchMessage(String sessionKey, int count) throws IOException {
         FetchMessage fetchMessage = gson.fromJson(Utils.Http.get(url + "/fetchMessage?sessionKey=" + sessionKey + "&count=" + count), FetchMessage.class);
         if(fetchMessage.code != 0){
             throw new AbnormalStatusException(fetchMessage.code, fetchMessage.msg);

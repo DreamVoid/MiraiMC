@@ -9,15 +9,11 @@ import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
-import net.mamoe.mirai.message.code.MiraiCode;
 import net.mamoe.mirai.message.data.MessageSource;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static me.dreamvoid.miraimc.event.EventType.CORE;
-import static me.dreamvoid.miraimc.event.EventType.HTTP_API;
 
 /**
  * (Bukkit) Mirai 核心事件 - 消息 - 被动收到消息 - 群消息
@@ -27,28 +23,21 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
         super(event);
         this.event = event;
 
-        type = EventType.CORE;
         BotID = event.getBot().getId();
 
-        SenderID = event.getSender().getId();
         MemberName = event.getSender().getNameCard();
         Permission = event.getSender().getPermission().getLevel();
 
         GroupID = event.getGroup().getId();
         GroupName = event.getGroup().getName();
         GroupPermission = event.getGroup().getBotPermission().getLevel();
-
-        MessageContent = event.getMessage().contentToString();
-        MessageMiraiCode = event.getMessage().serializeToMiraiCode();
-
-        Time = event.getTime();
     }
 
     public MiraiGroupMessageEvent(long BotID, FetchMessage.Data data) {
-        type = EventType.HTTP_API;
+        super(BotID, data);
+
         this.BotID = BotID;
 
-        SenderID = data.sender.id;
         MemberName = data.sender.memberName;
         switch(data.sender.permission){
             case "OWNER":
@@ -77,51 +66,18 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
                 GroupPermission=0;
                 break;
         }
-
-        for(FetchMessage.Data.MessageChain chain : data.messageChain){
-            switch (chain.type){
-                case "Source":
-                    Time = chain.time;
-                    break;
-                case "Code":
-                    MessageMiraiCode = chain.code;
-                    break;
-                case "Plain":
-                    MessageContent = String.format("%s%s", MessageContent, chain.text);
-                    break;
-                default:
-                    MessageContent = String.format("%s[%s]", MessageContent, chain.type);
-                    break;
-            }
-        }
     }
 
     private GroupMessageEvent event;
 
-    private final EventType type;
     private final long BotID;
 
-    private final long SenderID;
     private final String MemberName;
     private final int Permission;
 
     private final long GroupID;
     private final String GroupName;
     private final int GroupPermission;
-
-    private String MessageContent;
-    private String MessageMiraiCode;
-    private int Time;
-
-
-    /**
-     * 返回接收到这条信息的机器人ID
-     * @return 机器人ID
-     */
-    @Override
-    public long getBotID(){
-        return BotID;
-    }
 
     /**
      * 返回接收到这条信息的群号
@@ -140,52 +96,11 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
     }
 
     /**
-     * 返回发送这条信息的发送者ID
-     * @return 发送者ID
-     */
-    @Override
-    public long getSenderID(){
-        return SenderID;
-    }
-
-    /**
      * 返回发送这条信息的发送者群名片
      * @return 发送者群名片
      */
     public String getSenderNameCard(){
         return MemberName;
-    }
-
-    /**
-     * 返回接收到的消息内容转换到字符串的结果<br>
-     * 此方法使用 contentToString()<br>
-     * QQ 对话框中以纯文本方式会显示的消息内容，这适用于MC与QQ的消息互通等不方便展示原始内容的场景。<br>
-     * 无法用纯文字表示的消息会丢失信息，如任何图片都是 [图片]
-     * @return 转换字符串后的消息内容
-     */
-    @Override
-    public String getMessage(){
-        return MessageContent;
-    }
-
-    /**
-     * 返回接收到的消息内容转换到Mirai Code的结果<br>
-     * 此方法使用 serializeToMiraiCode()<br>
-     * 转换为对应的 Mirai 码，消息的一种序列化方式
-     * @return 带Mirai Code的消息内容
-     */
-    @Override
-    public String getMessageToMiraiCode(){
-        return MessageMiraiCode;
-    }
-
-    /**
-     * 返回接收到这条信息的时间
-     * @return 发送时间
-     */
-    @Override
-    public int getTime(){
-        return Time;
     }
 
     /**
@@ -276,14 +191,31 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
     }
 
     /**
-     * 向发送来源发送消息（支持 Mirai Code）
+     * 向发送来源发送消息（HTTPAPI下支持 Mirai Code）
      * @param message 消息内容
      */
     @Override
     public void sendMessage(String message) {
-        if(type == CORE){
-            event.getGroup().sendMessage(MiraiCode.deserializeMiraiCode(message));
-        } else if(type == HTTP_API){
+        if(getType() == EventType.CORE){
+            super.sendMessage(message);
+        } else if(getType() == EventType.HTTPAPI){
+            try {
+                MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(BotID), GroupID, message);
+            } catch (IOException | AbnormalStatusException e) {
+                Utils.logger.warning("发送消息时出现异常，原因: " + e);
+            }
+        }
+    }
+
+    /**
+     * 向发送来源发送消息（支持 Mirai Code）
+     * @param message 消息内容
+     */
+    @Override
+    public void sendMessageMirai(String message) {
+        if(getType() == EventType.CORE){
+            super.sendMessageMirai(message);
+        } else if(getType() == EventType.HTTPAPI){
             try {
                 MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(BotID), GroupID, message);
             } catch (IOException | AbnormalStatusException e) {
@@ -298,13 +230,5 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
      */
     public MiraiGroup getGroup(){
         return new MiraiGroup(event.getBot(), event.getGroup().getId());
-    }
-
-    /**
-     * 获取事件类型（用于判断机器人工作模式）
-     * @return 事件类型
-     */
-    public EventType getType() {
-        return type;
     }
 }
