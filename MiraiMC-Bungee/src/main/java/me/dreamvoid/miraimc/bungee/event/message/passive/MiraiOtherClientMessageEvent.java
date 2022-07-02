@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.bungee.event.message.passive;
 
+import me.dreamvoid.miraimc.httpapi.response.FetchMessage;
 import net.mamoe.mirai.event.events.OtherClientMessageEvent;
 
 /**
@@ -9,16 +10,25 @@ public class MiraiOtherClientMessageEvent extends AbstractMessageEvent {
     public MiraiOtherClientMessageEvent(OtherClientMessageEvent event) {
         super(event);
         this.event = event;
+
+        deviceKind = event.getClient().getInfo().getDeviceKind();
     }
 
-    private final OtherClientMessageEvent event;
+    public MiraiOtherClientMessageEvent(long BotID, FetchMessage.Data data){
+        super(BotID, data);
+
+        deviceKind = data.sender.platform;
+    }
+
+    private OtherClientMessageEvent event;
+    private final String deviceKind;
 
     /**
      * (?)获取发送设备的种类
      * @return 客户端种类
      */
     public String getDeviceKind(){
-        return event.getClient().getInfo().getDeviceKind();
+        return deviceKind;
     }
 
     /**
