@@ -5,5 +5,5 @@ package me.dreamvoid.miraimc.event;
  * HTTP_API - 使用 mirai-api-http
  */
 public enum EventType {
-	CORE, HTTP_API
+	CORE, HTTPAPI
 }

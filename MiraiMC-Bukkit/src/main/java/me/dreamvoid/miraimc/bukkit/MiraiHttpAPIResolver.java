@@ -1,11 +1,10 @@
 package me.dreamvoid.miraimc.bukkit;
 
-import me.dreamvoid.miraimc.bukkit.event.message.passive.MiraiFriendMessageEvent;
-import me.dreamvoid.miraimc.bukkit.event.message.passive.MiraiGroupMessageEvent;
-import me.dreamvoid.miraimc.internal.Config;
-import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.bukkit.event.message.passive.*;
 import me.dreamvoid.miraimc.httpapi.MiraiHttpAPI;
 import me.dreamvoid.miraimc.httpapi.response.FetchMessage;
+import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.Utils;
 import org.bukkit.Bukkit;
 
 import static me.dreamvoid.miraimc.httpapi.MiraiHttpAPI.Bots;
@@ -24,17 +23,21 @@ public class MiraiHttpAPIResolver implements Runnable {
 
                         // 准备广播事件
                         switch (type) {
-                            case "FriendMessage": {
+                            case "FriendMessage":
                                 Bukkit.getPluginManager().callEvent(new MiraiFriendMessageEvent(account, data));
                                 break;
-                            }
-                            case "GroupMessage": {
+                            case "GroupMessage":
                                 Bukkit.getPluginManager().callEvent(new MiraiGroupMessageEvent(account, data));
                                 break;
-                            }
-                            default:{
+                            case "TempMessage":
+                                Bukkit.getPluginManager().callEvent(new MiraiGroupTempMessageEvent(account, data));
                                 break;
-                            }
+                            case "StrangerMessage":
+                                Bukkit.getPluginManager().callEvent(new MiraiStrangerMessageEvent(account, data));
+                                break;
+                            case "OtherClientMessage":
+                                Bukkit.getPluginManager().callEvent(new MiraiOtherClientMessageEvent(account, data));
+                                break;
                         }
                     }
 
