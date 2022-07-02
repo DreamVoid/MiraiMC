@@ -1,6 +1,5 @@
 # MiraiMC 
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b7fb77b1743143788c293829085cd98c)](https://app.codacy.com/gh/DreamVoid/MiraiMC?utm_source=github.com&utm_medium=referral&utm_content=DreamVoid/MiraiMC&utm_campaign=Badge_Grade_Settings)
 [![CodeFactor](https://www.codefactor.io/Content/badges/A.svg)](https://www.codefactor.io/repository/github/dreamvoid/miraimc)
 ![GitHub all releases](https://img.shields.io/github/downloads/DreamVoid/MiraiMC/total?style=flat-square)
 
