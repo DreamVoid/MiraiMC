@@ -307,5 +307,17 @@ public class FetchMessage {
 		}
 
 		// TODO:EventType
+
+		// Bot自身事件
+
+		/**
+		 * [BotOnlineEvent] 登录成功的Bot的QQ号
+		 * [BotOfflineEventActive] 主动离线的Bot的QQ号
+		 * [BotOfflineEventForce] 被挤下线的Bot的QQ号
+		 * [BotOfflineEventDropped] 被服务器断开或因网络问题而掉线的Bot的QQ号
+		 * [BotReloginEvent] 主动重新登录的Bot的QQ号
+		 */
+		@SerializedName("qq")
+		public long qq;
 	}
 }
