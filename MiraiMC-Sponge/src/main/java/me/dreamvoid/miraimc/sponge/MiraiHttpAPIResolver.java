@@ -40,16 +40,16 @@ public class MiraiHttpAPIResolver implements Runnable {
                                 Sponge.getEventManager().post(new MiraiFriendMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
                                 break;
                             case "GroupMessage":
-                               Sponge.getEventManager().post(new MiraiGroupMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
+                                Sponge.getEventManager().post(new MiraiGroupMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
                                 break;
                             case "TempMessage":
-                               Sponge.getEventManager().post(new MiraiGroupTempMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
+                                Sponge.getEventManager().post(new MiraiGroupTempMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
                                 break;
                             case "StrangerMessage":
-                               Sponge.getEventManager().post(new MiraiStrangerMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
+                                Sponge.getEventManager().post(new MiraiStrangerMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
                                 break;
                             case "OtherClientMessage":
-                               Sponge.getEventManager().post(new MiraiOtherClientMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
+                                Sponge.getEventManager().post(new MiraiOtherClientMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
                                 break;
                         }
                     }
