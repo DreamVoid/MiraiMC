@@ -108,6 +108,12 @@ public class NukkitPlugin extends PluginBase {
             new MetricsLite(this, pluginId);
         }
 
+        // HTTP API
+        if(Config.General.EnableHttpApi){
+            getLogger().info("Initializing HttpAPI async task.");
+            getServer().getScheduler().scheduleRepeatingTask(this, new MiraiHttpAPIResolver(this), Math.toIntExact(Config.HttpApi.MessageFetch.Interval * 20), true);
+        }
+
         // 安全警告
         if(!(Config.General.DisableSafeWarningMessage)){
             getLogger().warning("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
