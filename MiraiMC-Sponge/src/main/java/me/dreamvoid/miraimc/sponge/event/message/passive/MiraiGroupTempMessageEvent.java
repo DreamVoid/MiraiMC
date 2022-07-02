@@ -1,8 +1,9 @@
 package me.dreamvoid.miraimc.sponge.event.message.passive;
 
 import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
-import org.spongepowered.api.event.cause.Cause;
+import me.dreamvoid.miraimc.httpapi.response.FetchMessage;
 import net.mamoe.mirai.event.events.GroupTempMessageEvent;
+import org.spongepowered.api.event.cause.Cause;
 
 /**
  * (Sponge) Mirai 核心事件 - 消息 - 被动收到消息 - 群临时会话消息
@@ -11,15 +12,32 @@ public class MiraiGroupTempMessageEvent extends AbstractMessageEvent {
     public MiraiGroupTempMessageEvent(GroupTempMessageEvent event, Cause cause) {
         super(event, cause);
         this.event = event;
+
+        GroupID = event.getGroup().getId();
+        GroupName = event.getGroup().getName();
+        MemberName = event.getSender().getNameCard();
     }
-    private final GroupTempMessageEvent event;
+
+    public MiraiGroupTempMessageEvent(long BotID, FetchMessage.Data data, Cause cause){
+        super(BotID, data, cause);
+
+        GroupID = data.sender.group.id;
+        GroupName = data.sender.group.name;
+        MemberName = data.sender.memberName;
+    }
+
+    private GroupTempMessageEvent event;
+
+    private final long GroupID;
+    private final String GroupName;
+    private final String MemberName;
 
     /**
      * 返回接收到这条信息的群号
      * @return 群号
      */
     public long getGroupID(){
-        return event.getGroup().getId();
+        return GroupID;
     }
 
     /**
@@ -27,7 +45,7 @@ public class MiraiGroupTempMessageEvent extends AbstractMessageEvent {
      * @return 群名称
      */
     public String getGroupName(){
-        return event.getGroup().getName();
+        return GroupName;
     }
 
     /**
@@ -35,7 +53,7 @@ public class MiraiGroupTempMessageEvent extends AbstractMessageEvent {
      * @return 发送者群名片
      */
     public String getSenderNameCard(){
-        return event.getSender().getNameCard();
+        return MemberName;
     }
 
     /**
