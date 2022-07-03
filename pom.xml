@@ -136,7 +136,7 @@
                     <additionalJOptions>
                         <additionalJOption>-Xdoclint:none</additionalJOption>
                     </additionalJOptions>
-                    <show>public</show>
+                    <show>protected</show>
                     <excludePackageNames>
                         me.dreamvoid.miraimc.webapi:
                         me.dreamvoid.miraimc.webapi.*:
