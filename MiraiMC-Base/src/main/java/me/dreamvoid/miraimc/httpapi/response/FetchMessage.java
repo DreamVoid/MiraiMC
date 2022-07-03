@@ -33,48 +33,48 @@ public class FetchMessage {
 			public long id;
 
 			/**
-			 * 好友 & 陌生人消息
+			 * 好友 + 陌生人消息
 			 */
 			@SerializedName("nickname")
 			public String nickname;
 			/**
-			 * 好友 & 陌生人消息
+			 * 好友 + 陌生人消息
 			 */
 			@SerializedName("remark")
 			public String remark;
 
 			/**
-			 * 群 & 群临时消息
+			 * 群 + 群临时消息
 			 */
 			@SerializedName("memberName")
 			public String memberName;
 			/**
-			 * 群 & 群临时消息
+			 * 群 + 群临时消息
 			 */
 			@SerializedName("specialTitle")
 			public String specialTitle;
 			/**
-			 * 群 & 群临时消息
+			 * 群 + 群临时消息
 			 */
 			@SerializedName("permission")
 			public String permission;
 			/**
-			 * 群 & 群临时消息
+			 * 群 + 群临时消息
 			 */
 			@SerializedName("joinTimestamp")
 			public long joinTimestamp;
 			/**
-			 * 群 & 群临时消息
+			 * 群 + 群临时消息
 			 */
 			@SerializedName("lastSpeakTimestamp")
 			public long lastSpeakTimestamp;
 			/**
-			 * 群 & 群临时消息
+			 * 群 + 群临时消息
 			 */
 			@SerializedName("muteTimeRemaining")
 			public long muteTimeRemaining;
 			/**
-			 * 群 & 群临时消息
+			 * 群 + 群临时消息
 			 */
 			@SerializedName("group")
 			public Group group;
@@ -184,27 +184,27 @@ public class FetchMessage {
 			@SerializedName("text")
 			public String text;
 
-			// Image & FlashImage
+			// Image + FlashImage
 
 			/**
-			 * [Image & FlashImage] 图片的imageId，群图片与好友图片格式不同。不为空时将忽略url属性
+			 * [Image + FlashImage] 图片的imageId，群图片与好友图片格式不同。不为空时将忽略url属性
 			 */
 			@SerializedName("imageId")
 			public String imageId;
 			/**
-			 * [Image & FlashImage] 图片的URL，发送时可作网络图片的链接；接收时为腾讯图片服务器的链接，可用于图片下载<br>
+			 * [Image + FlashImage] 图片的URL，发送时可作网络图片的链接；接收时为腾讯图片服务器的链接，可用于图片下载<br>
 			 * [Voice] 语音的URL，发送时可作网络语音的链接；接收时为腾讯语音服务器的链接，可用于语音下载
 			 */
 			@SerializedName("url")
 			public String url;
 			/**
-			 * [Image & FlashImage] 图片的路径，发送本地图片，路径相对于 JVM 工作路径（默认是当前路径，可通过 -Duser.dir=...指定），也可传入绝对路径。<br>
+			 * [Image + FlashImage] 图片的路径，发送本地图片，路径相对于 JVM 工作路径（默认是当前路径，可通过 -Duser.dir=...指定），也可传入绝对路径。<br>
 			 * [Voice] 语音的路径，发送本地语音，路径相对于 JVM 工作路径（默认是当前路径，可通过 -Duser.dir=...指定），也可传入绝对路径。
 			 */
 			@SerializedName("path")
 			public String path;
 			/**
-			 * [Image & FlashImage] 图片的 Base64 编码
+			 * [Image + FlashImage] 图片的 Base64 编码
 			 * [Voice] 语音的 Base64 编码
 			 */
 			@SerializedName("base64")
