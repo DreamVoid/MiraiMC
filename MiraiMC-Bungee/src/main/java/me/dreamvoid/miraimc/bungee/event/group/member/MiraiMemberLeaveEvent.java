@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.bungee.event.group.member;
 import net.mamoe.mirai.event.events.MemberLeaveEvent;
 
 /**
- * (BungeeCord) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 成员已经离开群
+ * (BungeeCord) 群 - 群成员 - 成员列表变更 - 成员已经离开群
  */
 public class MiraiMemberLeaveEvent extends AbstractGroupMemberEvent {
     public MiraiMemberLeaveEvent(MemberLeaveEvent event) {

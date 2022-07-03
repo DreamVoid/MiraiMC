@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.velocity.event.message;
 import net.mamoe.mirai.event.events.NudgeEvent;
 
 /**
- * (Velocity) Mirai 核心事件 - 消息 - 戳一戳
+ * (Velocity) 消息 - 戳一戳
  */
 public class MiraiNudgeEvent {
 

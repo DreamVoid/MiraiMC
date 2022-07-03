@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.bungee.event.friend;
 import net.mamoe.mirai.event.events.FriendInputStatusChangedEvent;
 
 /**
- * (BungeeCord) Mirai 核心事件 - 好友 - 好友输入状态改变
+ * (BungeeCord) 好友 - 好友输入状态改变
  */
 public class MiraiFriendInputStatusChangedEvent extends AbstractFriendEvent {
     public MiraiFriendInputStatusChangedEvent(FriendInputStatusChangedEvent event) {

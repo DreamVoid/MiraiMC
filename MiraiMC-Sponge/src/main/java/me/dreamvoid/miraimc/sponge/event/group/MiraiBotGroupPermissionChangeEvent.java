@@ -4,7 +4,7 @@ import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.BotGroupPermissionChangeEvent;
 
 /**
- * (Sponge) Mirai 核心事件 - 群 - 机器人在群里的权限被改变
+ * (Sponge) 群 - 机器人在群里的权限被改变
  */
 public class MiraiBotGroupPermissionChangeEvent extends AbstractGroupEvent {
     public MiraiBotGroupPermissionChangeEvent(BotGroupPermissionChangeEvent event, Cause cause) {

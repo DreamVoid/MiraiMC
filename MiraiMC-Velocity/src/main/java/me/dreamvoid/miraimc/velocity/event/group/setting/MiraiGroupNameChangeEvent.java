@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.velocity.event.group.setting;
 import net.mamoe.mirai.event.events.GroupNameChangeEvent;
 
 /**
- * (Velocity) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 群名改变
+ * (Velocity) 群 - 群设置 - 群设置改变 - 群名改变
  */
 public class MiraiGroupNameChangeEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupNameChangeEvent(GroupNameChangeEvent event) {

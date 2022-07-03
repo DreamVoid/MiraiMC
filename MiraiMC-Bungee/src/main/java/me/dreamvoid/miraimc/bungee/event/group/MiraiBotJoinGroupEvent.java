@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.bungee.event.group;
 import net.mamoe.mirai.event.events.BotJoinGroupEvent;
 
 /**
- * (BungeeCord) Mirai 核心事件 - 群 - 机器人成功加入了一个新群
+ * (BungeeCord) 群 - 机器人成功加入了一个新群
  */
 public class MiraiBotJoinGroupEvent extends AbstractGroupEvent {
     public MiraiBotJoinGroupEvent(BotJoinGroupEvent event) {

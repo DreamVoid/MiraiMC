@@ -4,7 +4,7 @@ import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.StrangerMessagePostSendEvent;
 
 /**
- * (Sponge) Mirai 核心事件 - 消息 - 主动发送消息后 - 陌生人消息
+ * (Sponge) 消息 - 主动发送消息后 - 陌生人消息
  */
 public class MiraiStrangerMessagePostSendEvent extends AbstractMessagePostSendEvent {
     public MiraiStrangerMessagePostSendEvent(StrangerMessagePostSendEvent event, Cause cause) {

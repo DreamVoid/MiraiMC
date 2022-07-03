@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.bungee.event.bot.AbstractBotEvent;
 import net.mamoe.mirai.event.events.NewFriendRequestEvent;
 
 /**
- * (BungeeCord) Mirai 核心事件 - 好友 - 一个账号请求添加机器人为好友
+ * (BungeeCord) 好友 - 一个账号请求添加机器人为好友
  */
 public class MiraiNewFriendRequestEvent extends AbstractBotEvent {
     public MiraiNewFriendRequestEvent(NewFriendRequestEvent event) {

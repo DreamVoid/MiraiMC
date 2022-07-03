@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.BotNickChangedEvent;
 import org.spongepowered.api.event.cause.Cause;
 
 /**
- * (Sponge) Mirai 核心事件 - Bot - Bot 昵称改变
+ * (Sponge) Bot - Bot 昵称改变
  */
 public class MiraiBotNickChangedEvent extends AbstractBotEvent {
 

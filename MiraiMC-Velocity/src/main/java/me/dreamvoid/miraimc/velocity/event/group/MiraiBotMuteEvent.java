@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.velocity.event.group;
 import net.mamoe.mirai.event.events.BotMuteEvent;
 
 /**
- * (Velocity) Mirai 核心事件 - 群 - 机器人被禁言
+ * (Velocity) 群 - 机器人被禁言
  */
 public class MiraiBotMuteEvent extends AbstractGroupEvent {
     public MiraiBotMuteEvent(BotMuteEvent event) {

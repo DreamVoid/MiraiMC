@@ -5,7 +5,7 @@ import net.mamoe.mirai.event.events.ImageUploadEvent;
 import cn.nukkit.event.Event;
 
 /**
- * (Nukkit) Mirai 核心事件 - 消息 - 图片上传失败
+ * (Nukkit) 消息 - 图片上传失败
  */
 public class MiraiImageUploadEvent extends Event {
     private final ImageUploadEvent event;

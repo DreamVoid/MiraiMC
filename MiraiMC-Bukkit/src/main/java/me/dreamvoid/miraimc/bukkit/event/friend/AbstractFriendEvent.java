@@ -7,7 +7,7 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * (Bukkit) Mirai 核心事件 - 好友（抽象）
+ * (Bukkit) 好友（抽象）
  */
 abstract class AbstractFriendEvent extends Event {
 	public AbstractFriendEvent(FriendEvent event){

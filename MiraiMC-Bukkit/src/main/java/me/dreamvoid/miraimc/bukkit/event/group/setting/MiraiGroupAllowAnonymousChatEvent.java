@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.bukkit.event.group.setting;
 import net.mamoe.mirai.event.events.GroupAllowAnonymousChatEvent;
 
 /**
- * (Bukkit) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 匿名聊天状态改变
+ * (Bukkit) 群 - 群设置 - 群设置改变 - 匿名聊天状态改变
  */
 public class MiraiGroupAllowAnonymousChatEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupAllowAnonymousChatEvent(GroupAllowAnonymousChatEvent event) {

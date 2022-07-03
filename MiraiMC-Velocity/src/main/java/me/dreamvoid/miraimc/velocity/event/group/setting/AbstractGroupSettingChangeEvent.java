@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.event.events.GroupSettingChangeEvent;
 
 /**
- * (Velocity) Mirai 核心事件 - 群 - 群设置 - 群设置改变（抽象）
+ * (Velocity) 群 - 群设置 - 群设置改变（抽象）
  */
 abstract class AbstractGroupSettingChangeEvent {
 	public AbstractGroupSettingChangeEvent(GroupSettingChangeEvent<?> event){

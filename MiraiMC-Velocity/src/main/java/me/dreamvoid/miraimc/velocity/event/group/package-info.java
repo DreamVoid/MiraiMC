@@ -1,4 +1,4 @@
 /**
- * (Velocity) Mirai 核心事件 - 群
+ * (Velocity) 群
  */
 package me.dreamvoid.miraimc.velocity.event.group;

@@ -4,7 +4,7 @@ import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.GroupEntranceAnnouncementChangeEvent;
 
 /**
- * (Sponge) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 入群公告改变
+ * (Sponge) 群 - 群设置 - 群设置改变 - 入群公告改变
  */
 public class MiraiGroupEntranceAnnouncementChangeEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupEntranceAnnouncementChangeEvent(GroupEntranceAnnouncementChangeEvent event, Cause cause) {

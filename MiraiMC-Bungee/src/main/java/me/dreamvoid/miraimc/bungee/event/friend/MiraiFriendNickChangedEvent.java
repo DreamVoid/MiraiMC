@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.bungee.event.friend;
 import net.mamoe.mirai.event.events.FriendNickChangedEvent;
 
 /**
- * (BungeeCord) Mirai 核心事件 - 好友 - 好友昵称改变
+ * (BungeeCord) 好友 - 好友昵称改变
  */
 public class MiraiFriendNickChangedEvent extends AbstractFriendEvent {
     public MiraiFriendNickChangedEvent(FriendNickChangedEvent event) {

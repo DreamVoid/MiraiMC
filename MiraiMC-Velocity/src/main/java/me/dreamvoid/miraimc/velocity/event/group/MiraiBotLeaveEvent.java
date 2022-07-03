@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.event.events.BotLeaveEvent;
 
 /**
- * (Velocity) Mirai 核心事件 - 群 - 机器人被踢出群或在其他客户端主动退出一个群
+ * (Velocity) 群 - 机器人被踢出群或在其他客户端主动退出一个群
  */
 public class MiraiBotLeaveEvent extends AbstractGroupEvent {
     private final BotLeaveEvent event;

@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.nukkit.event.group.setting;
 import net.mamoe.mirai.event.events.GroupNameChangeEvent;
 
 /**
- * (Nukkit) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 群名改变
+ * (Nukkit) 群 - 群设置 - 群设置改变 - 群名改变
  */
 public class MiraiGroupNameChangeEvent extends AbstractGroupSettingChangeEvent {
     private final GroupNameChangeEvent event;

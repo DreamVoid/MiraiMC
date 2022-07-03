@@ -6,7 +6,7 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * (Bukkit) Mirai 核心事件 - 消息 - 图片上传失败
+ * (Bukkit) 消息 - 图片上传失败
  */
 public class MiraiImageUploadEvent extends Event {
     public MiraiImageUploadEvent(ImageUploadEvent event) {

@@ -1,4 +1,4 @@
 /**
- * (Velocity) Mirai 核心事件 - Bot
+ * (Velocity) Bot
  */
 package me.dreamvoid.miraimc.velocity.event.bot;

@@ -6,7 +6,7 @@ import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
- * (Sponge) Mirai 核心事件 - 消息 - 消息撤回（抽象）
+ * (Sponge) 消息 - 消息撤回（抽象）
  */
 abstract class AbstractMessageRecallEvent extends AbstractEvent {
 	private final Cause cause;

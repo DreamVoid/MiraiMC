@@ -12,7 +12,7 @@ import org.spongepowered.api.event.cause.Cause;
 import java.io.IOException;
 
 /**
- * (Sponge) Mirai 核心事件 - 消息 - 被动收到消息 - 好友消息
+ * (Sponge) 消息 - 被动收到消息 - 好友消息
  */
 public class MiraiFriendMessageEvent extends AbstractMessageEvent {
     public MiraiFriendMessageEvent(FriendMessageEvent event, Cause cause) {

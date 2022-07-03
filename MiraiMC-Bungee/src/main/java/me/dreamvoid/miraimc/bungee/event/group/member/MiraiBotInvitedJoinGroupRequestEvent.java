@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.bungee.event.bot.AbstractBotEvent;
 import net.mamoe.mirai.event.events.BotInvitedJoinGroupRequestEvent;
 
 /**
- * (BungeeCord) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 机器人被邀请加入群
+ * (BungeeCord) 群 - 群成员 - 成员列表变更 - 机器人被邀请加入群
  */
 public class MiraiBotInvitedJoinGroupRequestEvent extends AbstractBotEvent {
 

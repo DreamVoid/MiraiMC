@@ -5,7 +5,7 @@ import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.FriendMessagePreSendEvent;
 
 /**
- * (Sponge) Mirai 核心事件 - 消息 - 主动发送消息前 - 好友消息
+ * (Sponge) 消息 - 主动发送消息前 - 好友消息
  */
 public class MiraiFriendMessagePreSendEvent extends AbstractMessagePreSendEvent {
     public MiraiFriendMessagePreSendEvent(FriendMessagePreSendEvent event, Cause cause) {

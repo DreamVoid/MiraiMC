@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.nukkit.event.bot;
 import net.mamoe.mirai.event.events.BotOfflineEvent;
 
 /**
- * (Nukkit) Mirai 核心事件 - Bot - Bot 离线
+ * (Nukkit) Bot - Bot 离线
  */
 public class MiraiBotOfflineEvent extends AbstractBotEvent {
     public MiraiBotOfflineEvent(BotOfflineEvent event, Type type) {

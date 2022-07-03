@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.bungee.event.bot;
 import net.mamoe.mirai.event.events.BotOfflineEvent;
 
 /**
- * (BungeeCord) Mirai 核心事件 - Bot - Bot 离线
+ * (BungeeCord) Bot - Bot 离线
  */
 public class MiraiBotOfflineEvent extends AbstractBotEvent {
     public MiraiBotOfflineEvent(BotOfflineEvent event, Type type) {

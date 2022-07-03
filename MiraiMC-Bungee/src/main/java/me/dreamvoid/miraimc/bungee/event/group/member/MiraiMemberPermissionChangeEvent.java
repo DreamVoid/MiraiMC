@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.bungee.event.group.member;
 import net.mamoe.mirai.event.events.MemberPermissionChangeEvent;
 
 /**
- * (BungeeCord) Mirai 核心事件 - 群 - 群成员 - 成员权限 - 成员权限改变
+ * (BungeeCord) 群 - 群成员 - 成员权限 - 成员权限改变
  */
 public class MiraiMemberPermissionChangeEvent extends AbstractGroupMemberEvent{
     public MiraiMemberPermissionChangeEvent(MemberPermissionChangeEvent event) {

@@ -7,7 +7,7 @@ import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
- * (Sponge) Mirai 核心事件 - 好友（抽象）
+ * (Sponge) 好友（抽象）
  */
 abstract class AbstractFriendEvent extends AbstractEvent {
 	private final FriendEvent event;

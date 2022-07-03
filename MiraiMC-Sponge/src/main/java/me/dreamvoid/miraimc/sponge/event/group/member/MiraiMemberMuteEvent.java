@@ -4,7 +4,7 @@ import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.MemberMuteEvent;
 
 /**
- * (Sponge) Mirai 核心事件 - 群 - 群成员 - 动作 - 群成员被禁言
+ * (Sponge) 群 - 群成员 - 动作 - 群成员被禁言
  */
 public class MiraiMemberMuteEvent extends AbstractGroupMemberEvent {
     public MiraiMemberMuteEvent(MemberMuteEvent event, Cause cause) {
