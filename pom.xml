@@ -7,7 +7,7 @@
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
     <packaging>pom</packaging>
-    <version>1.7-pre3</version> <!-- 提醒：记得去Sponge和Velocity手动修改 -->
+    <version>1.7-rc1</version> <!-- 提醒：记得去Sponge和Velocity手动修改 -->
     <modules>
         <module>MiraiMC-Base</module>
         <module>MiraiMC-Bukkit</module>
@@ -108,7 +108,7 @@
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <phase>deploy</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
@@ -122,7 +122,7 @@
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
-                        <phase>deploy</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>
