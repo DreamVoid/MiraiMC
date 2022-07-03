@@ -81,11 +81,7 @@ public class MiraiAutoLogin {
                         }
 
                         Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
-                        try {
-                            MiraiBot.doBotLogin(Account, Password, Protocol);
-                        } catch (InterruptedException e) {
-                            Logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
-                        }
+                        MiraiBot.doBotLogin(Account, Password, Protocol);
                     }
                 }
             }

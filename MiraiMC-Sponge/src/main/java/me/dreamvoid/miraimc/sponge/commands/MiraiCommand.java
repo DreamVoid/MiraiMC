@@ -70,7 +70,7 @@ public class MiraiCommand implements CommandExecutor {
                                             sender.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a" + args[1] + " HTTP-API登录成功！"));
                                         } else sender.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c" + "此服务器没有启用HTTP-API模式，请检查配置文件！"));
                                     }
-                                } catch (InterruptedException|IOException e) {
+                                } catch (IOException e) {
                                     Utils.logger.warning("登录机器人时出现异常，原因: " + e);
                                     sender.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c登录机器人时出现异常，请检查控制台输出！"));
                                 } catch (AbnormalStatusException e) {
