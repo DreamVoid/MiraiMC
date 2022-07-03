@@ -46,7 +46,7 @@ public class MiraiLoader {
                         continue;
                     }
 
-                    if (ver >= Integer.parseInt(s)) {
+                    if (ver <= Integer.parseInt(s)) {
                         if(Integer.parseInt(s) > temp) {
                             mirai = Info.init().mirai.get(s);
                             temp = Integer.parseInt(s);
