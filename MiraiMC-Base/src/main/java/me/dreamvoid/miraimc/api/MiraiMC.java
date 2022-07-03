@@ -18,7 +18,7 @@ public class MiraiMC {
      * 如果数据库已经有相关数据，将会直接替换
      * @param uuid 玩家UUID
      * @param account 玩家QQ号
-     * @deprecated 请使用 {@link #addBinding(UUID, long)}
+     * @deprecated 请使用 {@link #addBind(UUID, long)}
      */
     @Deprecated
     public static void addBinding(String uuid, long account) {
@@ -87,7 +87,7 @@ public class MiraiMC {
      * @param uuid 玩家UUID
      * @param account 玩家QQ号
      */
-    public static void addBinding(UUID uuid, long account) {
+    public static void addBind(UUID uuid, long account) {
         String createTable = "CREATE TABLE IF NOT EXISTS miraimc_binding (uuid TINYTEXT NOT NULL, qqid long NOT NULL);";
         String selectUUID = "SELECT * FROM miraimc_binding WHERE uuid='" + uuid + "' LIMIT 1";
         String selectAccount = "SELECT * FROM miraimc_binding WHERE qqid=" + account + " LIMIT 1";
@@ -151,7 +151,7 @@ public class MiraiMC {
     /**
      * 移除一个Minecraft账号绑定的QQ
      * @param uuid 玩家UUID
-     * @deprecated 请使用 {@link #removeBinding(UUID)}
+     * @deprecated 请使用 {@link #removeBind(UUID)}
      */
     @Deprecated
     public static void removeBinding(String uuid) {
@@ -201,7 +201,7 @@ public class MiraiMC {
      * 移除一个Minecraft账号绑定的QQ
      * @param uuid 玩家UUID
      */
-    public static void removeBinding(UUID uuid) {
+    public static void removeBind(UUID uuid) {
         String createTable = "CREATE TABLE IF NOT EXISTS miraimc_binding (uuid TINYTEXT NOT NULL, qqid long NOT NULL);";
         String select = "SELECT * FROM miraimc_binding WHERE uuid='" + uuid + "' LIMIT 1;";
         String delete = "DELETE FROM miraimc_binding WHERE uuid='" + uuid + "';";
@@ -249,7 +249,7 @@ public class MiraiMC {
      * 移除一个QQ账号绑定的玩家
      * @param account 玩家QQ号
      */
-    public static void removeBinding(long account) {
+    public static void removeBind(long account) {
         String createTable = "CREATE TABLE IF NOT EXISTS miraimc_binding (uuid TINYTEXT NOT NULL, qqid long NOT NULL);";
         String select = "SELECT * FROM miraimc_binding WHERE qqid=" + account + " LIMIT 1;";
         String delete = "DELETE FROM miraimc_binding WHERE qqid=" + account+";";
@@ -299,8 +299,9 @@ public class MiraiMC {
      * 如果不存在，返回0
      * @param uuid 玩家UUID
      * @return QQ号
-     * @deprecated 请使用 {@link #getBinding(UUID)}
+     * @deprecated 请使用 {@link #getBind(UUID)}
      */
+    @Deprecated
     public static long getBinding(String uuid){
         long account = 0L;
 
@@ -346,13 +347,14 @@ public class MiraiMC {
         }
         return account;
     }
+
     /**
      * 获取Minecraft账号绑定的QQ号
      * 如果不存在，返回0
      * @param uuid 玩家UUID
      * @return QQ号
      */
-    public static long getBinding(UUID uuid){
+    public static long getBind(UUID uuid){
         long account = 0L;
 
         String createTable = "CREATE TABLE IF NOT EXISTS miraimc_binding (uuid TINYTEXT NOT NULL, qqid long NOT NULL);";
@@ -405,8 +407,8 @@ public class MiraiMC {
      * @param account 玩家QQ号
      * @return UUID
      */
-    public static String getBinding(long account) {
-        String uuid = "";
+    public static UUID getBind(long account) {
+        UUID uuid = null;
 
         String createTable = "CREATE TABLE IF NOT EXISTS miraimc_binding (uuid TINYTEXT NOT NULL, qqid long NOT NULL);";
         String select = "SELECT * FROM miraimc_binding WHERE qqid=" + account + " LIMIT 1;";
@@ -421,7 +423,7 @@ public class MiraiMC {
 
                     if (resultSet.isBeforeFirst()) {
                         resultSet.next();
-                        uuid = resultSet.getString("uuid");
+                        uuid = UUID.fromString(resultSet.getString("uuid"));
                     }
                     resultSet.close();
                     connection.close();
@@ -437,7 +439,7 @@ public class MiraiMC {
 
                     if (resultSet.isBeforeFirst()) {
                         resultSet.next();
-                        uuid = resultSet.getString("uuid");
+                        uuid = UUID.fromString(resultSet.getString("uuid"));
                     }
                     resultSet.close();
                     statement.close();

@@ -48,9 +48,9 @@ public class MiraiMcCommand implements SimpleCommand {
                                         plugin.getServer().getScheduler().buildTask(plugin, () -> {
                                             Player player = plugin.getServer().getPlayer(args[2]).orElse(null);
                                             if(player!=null){
-                                                String uuid = player.getUniqueId().toString();
+                                                UUID uuid = player.getUniqueId();
                                                 long qqid = Long.parseLong(args[3]);
-                                                MiraiMC.addBinding(uuid,qqid);
+                                                MiraiMC.addBind(uuid,qqid);
                                                 source.sendMessage(Component.text(Color.translate("&a已添加绑定！")));
                                             } else source.sendMessage(Component.text(Color.translate("&c指定的玩家不存在，请检查是否存在拼写错误！")));
                                         });
@@ -62,8 +62,8 @@ public class MiraiMcCommand implements SimpleCommand {
                                         plugin.getServer().getScheduler().buildTask(plugin,() -> {
                                             Player player = plugin.getServer().getPlayer(args[2]).orElse(null);
                                             if(player!=null){
-                                                String uuid = player.getUniqueId().toString();
-                                                MiraiMC.removeBinding(uuid);
+                                                UUID uuid = player.getUniqueId();
+                                                MiraiMC.removeBind(uuid);
                                                 source.sendMessage(Component.text(Color.translate("&a已移除相应绑定！")));
                                             } else source.sendMessage(Component.text(Color.translate("&c指定的玩家不存在，请检查是否存在拼写错误！")));
                                         });
@@ -74,7 +74,7 @@ public class MiraiMcCommand implements SimpleCommand {
                                     if(args.length>=3){
                                         plugin.getServer().getScheduler().buildTask(plugin, () -> {
                                             long qqid = Long.parseLong(args[2]);
-                                            MiraiMC.removeBinding(qqid);
+                                            MiraiMC.removeBind(qqid);
                                             source.sendMessage(Component.text(Color.translate("&a已移除相应绑定！")));
                                         });
                                     } else source.sendMessage(Component.text(Color.translate("&c无效的参数！用法: /miraimc bind removeqq <QQ号>")));
@@ -85,8 +85,8 @@ public class MiraiMcCommand implements SimpleCommand {
                                         plugin.getServer().getScheduler().buildTask(plugin, () -> {
                                             Player player = plugin.getServer().getPlayer(args[2]).orElse(null);
                                             if(player!=null){
-                                                String uuid = player.getUniqueId().toString();
-                                                long qqId = MiraiMC.getBinding(uuid);
+                                                    UUID uuid = player.getUniqueId();
+                                                long qqId = MiraiMC.getBind(uuid);
                                                 if(qqId!=0){
                                                     source.sendMessage(Component.text(Color.translate("&a绑定的QQ号："+qqId)));
                                                 } else source.sendMessage(Component.text(Color.translate("&c未找到符合条件的记录！")));
@@ -99,9 +99,9 @@ public class MiraiMcCommand implements SimpleCommand {
                                     if(args.length>=3){
                                         plugin.getServer().getScheduler().buildTask(plugin, () -> {
                                             long qqid = Long.parseLong(args[2]);
-                                            String playerName = MiraiMC.getBinding(qqid);
-                                            if(!playerName.equals("")){
-                                                source.sendMessage(Component.text(Color.translate("&a绑定的玩家名："+ plugin.getServer().getPlayer(UUID.fromString(playerName)).get().getUsername())));
+                                            UUID uuid = MiraiMC.getBind(qqid);
+                                            if(uuid != null){
+                                                source.sendMessage(Component.text(Color.translate("&a绑定的玩家名："+ plugin.getServer().getPlayer(uuid).get().getUsername())));
                                             } else source.sendMessage(Component.text(Color.translate("&c未找到符合条件的记录！")));
                                         });
                                     } else source.sendMessage(Component.text(Color.translate("&c无效的参数！用法: /miraimc bind getqq <QQ号>")));
