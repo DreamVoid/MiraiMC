@@ -5,7 +5,7 @@ import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.event.events.GroupMemberEvent;
 
 /**
- * (Velocity) Mirai 核心事件 - 群 - 群成员 - 群成员事件（抽象）
+ * (Velocity) 群 - 群成员 - 群成员事件（抽象）
  */
 abstract class AbstractGroupMemberEvent {
 	public AbstractGroupMemberEvent(GroupMemberEvent event){

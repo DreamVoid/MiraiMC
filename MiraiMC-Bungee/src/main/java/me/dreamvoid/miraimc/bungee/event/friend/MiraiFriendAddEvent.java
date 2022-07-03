@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.bungee.event.friend;
 import net.mamoe.mirai.event.events.FriendAddEvent;
 
 /**
- * (BungeeCord) Mirai 核心事件 - 好友 - 成功添加了一个新好友
+ * (BungeeCord) 好友 - 成功添加了一个新好友
  */
 public class MiraiFriendAddEvent extends AbstractFriendEvent {
     public MiraiFriendAddEvent(FriendAddEvent event) {

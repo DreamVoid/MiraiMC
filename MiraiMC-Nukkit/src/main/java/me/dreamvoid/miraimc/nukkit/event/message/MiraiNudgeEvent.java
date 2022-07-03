@@ -5,7 +5,7 @@ import cn.nukkit.event.HandlerList;
 import net.mamoe.mirai.event.events.NudgeEvent;
 
 /**
- * (Nukkit) Mirai 核心事件 - 消息 - 戳一戳
+ * (Nukkit) 消息 - 戳一戳
  */
 public class MiraiNudgeEvent extends Event {
 

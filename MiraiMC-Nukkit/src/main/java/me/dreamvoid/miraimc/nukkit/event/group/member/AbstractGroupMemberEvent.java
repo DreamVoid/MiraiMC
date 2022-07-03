@@ -7,7 +7,7 @@ import net.mamoe.mirai.event.events.GroupMemberEvent;
 import cn.nukkit.event.Event;
 
 /**
- * (Nukkit) Mirai 核心事件 - 群 - 群成员 - 群成员事件（抽象）
+ * (Nukkit) 群 - 群成员 - 群成员事件（抽象）
  */
 abstract class AbstractGroupMemberEvent extends Event {
 	public AbstractGroupMemberEvent(GroupMemberEvent event){

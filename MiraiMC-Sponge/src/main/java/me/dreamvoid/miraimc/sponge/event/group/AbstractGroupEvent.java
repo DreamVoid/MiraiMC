@@ -7,7 +7,7 @@ import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
- * (Sponge) Mirai 核心事件 - 群（抽象）
+ * (Sponge) 群（抽象）
  */
 abstract class AbstractGroupEvent extends AbstractEvent {
 	private final GroupEvent event;

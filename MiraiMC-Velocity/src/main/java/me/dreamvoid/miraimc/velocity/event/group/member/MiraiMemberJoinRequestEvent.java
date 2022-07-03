@@ -5,7 +5,7 @@ import me.dreamvoid.miraimc.velocity.event.bot.AbstractBotEvent;
 import net.mamoe.mirai.event.events.MemberJoinRequestEvent;
 
 /**
- * (Velocity) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 一个账号请求加入群
+ * (Velocity) 群 - 群成员 - 成员列表变更 - 一个账号请求加入群
  */
 public class MiraiMemberJoinRequestEvent extends AbstractBotEvent {
     public MiraiMemberJoinRequestEvent(MemberJoinRequestEvent event) {

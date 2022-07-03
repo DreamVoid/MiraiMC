@@ -5,7 +5,7 @@ import net.mamoe.mirai.event.events.BeforeImageUploadEvent;
 import cn.nukkit.event.Event;
 
 /**
- * (Nukkit) Mirai 核心事件 - 消息 - 图片上传前
+ * (Nukkit) 消息 - 图片上传前
  */
 public class MiraiBeforeImageUploadEvent extends Event {
     private final BeforeImageUploadEvent event;

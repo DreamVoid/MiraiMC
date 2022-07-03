@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.bungee.event.bot;
 import net.mamoe.mirai.event.events.BotNickChangedEvent;
 
 /**
- * (BungeeCord) Mirai 核心事件 - Bot - Bot 昵称改变
+ * (BungeeCord) Bot - Bot 昵称改变
  */
 public class MiraiBotNickChangedEvent extends AbstractBotEvent {
 

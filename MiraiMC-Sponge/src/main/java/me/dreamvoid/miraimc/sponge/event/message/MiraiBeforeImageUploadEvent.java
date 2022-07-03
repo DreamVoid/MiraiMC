@@ -6,7 +6,7 @@ import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
- * (Sponge) Mirai 核心事件 - 消息 - 图片上传前
+ * (Sponge) 消息 - 图片上传前
  */
 public class MiraiBeforeImageUploadEvent extends AbstractEvent {
 

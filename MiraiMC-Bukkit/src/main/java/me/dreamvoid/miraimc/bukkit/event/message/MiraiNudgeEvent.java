@@ -6,7 +6,7 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * (Bukkit) Mirai 核心事件 - 消息 - 戳一戳
+ * (Bukkit) 消息 - 戳一戳
  */
 public class MiraiNudgeEvent extends Event {
 

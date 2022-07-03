@@ -4,7 +4,7 @@ import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.FriendAvatarChangedEvent;
 
 /**
- * (Sponge) Mirai 核心事件 - 好友 - 好友头像改变
+ * (Sponge) 好友 - 好友头像改变
  */
 public class MiraiFriendAvatarChangedEvent extends AbstractFriendEvent {
     public MiraiFriendAvatarChangedEvent(FriendAvatarChangedEvent event, Cause cause) {

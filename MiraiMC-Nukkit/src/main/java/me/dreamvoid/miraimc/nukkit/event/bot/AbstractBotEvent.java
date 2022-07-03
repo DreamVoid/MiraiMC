@@ -6,7 +6,7 @@ import me.dreamvoid.miraimc.api.MiraiBot;
 import net.mamoe.mirai.event.events.BotEvent;
 
 /**
- * (Nukkit) Mirai 核心事件 - Bot（抽象）
+ * (Nukkit) Bot（抽象）
  */
 public abstract class AbstractBotEvent extends Event {
 	public AbstractBotEvent(BotEvent event){

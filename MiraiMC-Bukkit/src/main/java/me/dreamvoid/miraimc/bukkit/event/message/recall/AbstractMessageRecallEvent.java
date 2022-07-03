@@ -6,7 +6,7 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * (Bukkit) Mirai 核心事件 - 消息 - 消息撤回（抽象）
+ * (Bukkit) 消息 - 消息撤回（抽象）
  */
 abstract class AbstractMessageRecallEvent extends Event {
 	public AbstractMessageRecallEvent(MessageRecallEvent event) {

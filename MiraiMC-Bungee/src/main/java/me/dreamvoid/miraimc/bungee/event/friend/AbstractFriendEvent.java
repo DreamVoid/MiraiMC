@@ -5,7 +5,7 @@ import net.mamoe.mirai.event.events.FriendEvent;
 import net.md_5.bungee.api.plugin.Event;
 
 /**
- * (BungeeCord) Mirai 核心事件 - 好友（抽象）
+ * (BungeeCord) 好友（抽象）
  */
 abstract class AbstractFriendEvent extends Event {
 	public AbstractFriendEvent(FriendEvent event){

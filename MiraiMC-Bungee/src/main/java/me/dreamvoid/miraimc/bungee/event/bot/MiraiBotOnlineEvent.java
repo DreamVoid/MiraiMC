@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * (BungeeCord) Mirai 核心事件 - Bot - Bot 登录完成
+ * (BungeeCord) Bot - Bot 登录完成
  */
 public class MiraiBotOnlineEvent extends AbstractBotEvent {
     public MiraiBotOnlineEvent(BotOnlineEvent event) {

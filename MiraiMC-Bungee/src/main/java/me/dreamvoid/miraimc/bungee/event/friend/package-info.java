@@ -1,4 +1,4 @@
 /**
- * (BungeeCord) Mirai 核心事件 - 好友
+ * (BungeeCord) 好友
  */
 package me.dreamvoid.miraimc.bungee.event.friend;

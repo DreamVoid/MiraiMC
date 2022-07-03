@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.velocity.event.message.recall;
 import net.mamoe.mirai.event.events.MessageRecallEvent;
 
 /**
- * (Velocity) Mirai 核心事件 - 消息 - 消息撤回（抽象）
+ * (Velocity) 消息 - 消息撤回（抽象）
  */
 abstract class AbstractMessageRecallEvent {
 	public AbstractMessageRecallEvent(MessageRecallEvent event) {

@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.ImageUploadEvent;
 import net.md_5.bungee.api.plugin.Event;
 
 /**
- * (BungeeCord) Mirai 核心事件 - 消息 - 图片上传失败
+ * (BungeeCord) 消息 - 图片上传失败
  */
 public class MiraiImageUploadEvent extends Event {
     public MiraiImageUploadEvent(ImageUploadEvent event) {

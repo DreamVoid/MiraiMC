@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.velocity.event.message;
 import net.mamoe.mirai.event.events.ImageUploadEvent;
 
 /**
- * (Velocity) Mirai 核心事件 - 消息 - 图片上传失败
+ * (Velocity) 消息 - 图片上传失败
  */
 public class MiraiImageUploadEvent {
     private final ImageUploadEvent event;

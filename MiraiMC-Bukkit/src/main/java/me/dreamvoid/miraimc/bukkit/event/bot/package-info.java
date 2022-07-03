@@ -1,4 +1,4 @@
 /**
- * (Bukkit) Mirai 核心事件 - Bot
+ * (Bukkit) Bot
  */
 package me.dreamvoid.miraimc.bukkit.event.bot;

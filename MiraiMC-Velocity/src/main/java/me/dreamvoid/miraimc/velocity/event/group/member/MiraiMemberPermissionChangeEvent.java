@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.velocity.event.group.member;
 import net.mamoe.mirai.event.events.MemberPermissionChangeEvent;
 
 /**
- * (Velocity) Mirai 核心事件 - 群 - 群成员 - 成员权限 - 成员权限改变
+ * (Velocity) 群 - 群成员 - 成员权限 - 成员权限改变
  */
 public class MiraiMemberPermissionChangeEvent extends AbstractGroupMemberEvent {
     public MiraiMemberPermissionChangeEvent(MemberPermissionChangeEvent event) {

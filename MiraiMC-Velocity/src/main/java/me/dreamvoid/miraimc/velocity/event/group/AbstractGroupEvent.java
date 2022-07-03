@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.event.events.GroupEvent;
 
 /**
- * (Velocity) Mirai 核心事件 - 群（抽象）
+ * (Velocity) 群（抽象）
  */
 abstract class AbstractGroupEvent {
 	public AbstractGroupEvent(GroupEvent event) {

@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.api.MiraiBot;
 import net.mamoe.mirai.event.events.BotEvent;
 
 /**
- * (Velocity) Mirai 核心事件 - Bot（抽象）
+ * (Velocity) Bot（抽象）
  */
 public abstract class AbstractBotEvent {
 	public AbstractBotEvent(BotEvent event){

@@ -8,7 +8,7 @@ import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
- * (Sponge) Mirai 核心事件 - 群 - 群成员 - 群成员事件（抽象）
+ * (Sponge) 群 - 群成员 - 群成员事件（抽象）
  */
 abstract class AbstractGroupMemberEvent extends AbstractEvent {
 	private final Cause cause;

@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.bungee.event.group.member;
 import net.mamoe.mirai.event.events.MemberMuteEvent;
 
 /**
- * (BungeeCord) Mirai 核心事件 - 群 - 群成员 - 动作 - 群成员被禁言
+ * (BungeeCord) 群 - 群成员 - 动作 - 群成员被禁言
  */
 public class MiraiMemberMuteEvent extends AbstractGroupMemberEvent {
     public MiraiMemberMuteEvent(MemberMuteEvent event) {

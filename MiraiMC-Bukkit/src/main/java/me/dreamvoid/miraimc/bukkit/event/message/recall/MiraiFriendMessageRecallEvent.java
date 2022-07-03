@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import net.mamoe.mirai.event.events.MessageRecallEvent;
 
 /**
- * (Bukkit) Mirai 核心事件 - 消息 - 消息撤回 - 好友撤回
+ * (Bukkit) 消息 - 消息撤回 - 好友撤回
  */
 public class MiraiFriendMessageRecallEvent extends AbstractMessageRecallEvent {
     public MiraiFriendMessageRecallEvent(MessageRecallEvent.FriendRecall event) {

@@ -4,7 +4,7 @@ import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.GroupAllowAnonymousChatEvent;
 
 /**
- * (Sponge) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 匿名聊天状态改变
+ * (Sponge) 群 - 群设置 - 群设置改变 - 匿名聊天状态改变
  */
 public class MiraiGroupAllowAnonymousChatEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupAllowAnonymousChatEvent(GroupAllowAnonymousChatEvent event, Cause cause) {

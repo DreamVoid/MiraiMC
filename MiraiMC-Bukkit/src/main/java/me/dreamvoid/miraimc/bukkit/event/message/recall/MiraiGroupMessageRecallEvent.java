@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.event.events.MessageRecallEvent;
 
 /**
- * (Bukkit) Mirai 核心事件 - 消息 - 消息撤回 - 群撤回
+ * (Bukkit) 消息 - 消息撤回 - 群撤回
  */
 public class MiraiGroupMessageRecallEvent extends AbstractMessageRecallEvent {
     public MiraiGroupMessageRecallEvent(MessageRecallEvent.GroupRecall event) {

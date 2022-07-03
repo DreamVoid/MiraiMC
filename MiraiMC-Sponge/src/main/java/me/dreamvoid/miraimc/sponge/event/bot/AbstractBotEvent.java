@@ -7,7 +7,7 @@ import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
- * (Sponge) Mirai 核心事件 - Bot（抽象）
+ * (Sponge) Bot（抽象）
  */
 public abstract class AbstractBotEvent extends AbstractEvent {
 	private final Cause cause;

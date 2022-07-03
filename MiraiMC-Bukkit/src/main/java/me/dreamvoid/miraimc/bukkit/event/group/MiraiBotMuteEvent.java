@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.bukkit.event.group;
 import net.mamoe.mirai.event.events.BotMuteEvent;
 
 /**
- * (Bukkit) Mirai 核心事件 - 群 - 机器人被禁言
+ * (Bukkit) 群 - 机器人被禁言
  */
 public class MiraiBotMuteEvent extends AbstractGroupEvent{
     public MiraiBotMuteEvent(BotMuteEvent event) {

@@ -1,4 +1,4 @@
 /**
- * (Sponge) Mirai 核心事件 - Bot
+ * (Sponge) Bot
  */
 package me.dreamvoid.miraimc.sponge.event.bot;

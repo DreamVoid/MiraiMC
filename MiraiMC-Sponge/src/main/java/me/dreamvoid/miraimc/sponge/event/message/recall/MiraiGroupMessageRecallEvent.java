@@ -5,7 +5,7 @@ import org.spongepowered.api.event.cause.Cause;
 import net.mamoe.mirai.event.events.MessageRecallEvent;
 
 /**
- * (Sponge) Mirai 核心事件 - 消息 - 消息撤回 - 群撤回
+ * (Sponge) 消息 - 消息撤回 - 群撤回
  */
 public class MiraiGroupMessageRecallEvent extends AbstractMessageRecallEvent {
     public MiraiGroupMessageRecallEvent(MessageRecallEvent.GroupRecall event, Cause cause) {

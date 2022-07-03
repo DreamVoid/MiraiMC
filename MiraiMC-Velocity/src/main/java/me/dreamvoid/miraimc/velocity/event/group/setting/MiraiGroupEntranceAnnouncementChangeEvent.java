@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.velocity.event.group.setting;
 import net.mamoe.mirai.event.events.GroupEntranceAnnouncementChangeEvent;
 
 /**
- * (Velocity) Mirai 核心事件 - 群 - 群设置 - 群设置改变 - 入群公告改变
+ * (Velocity) 群 - 群设置 - 群设置改变 - 入群公告改变
  */
 public class MiraiGroupEntranceAnnouncementChangeEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupEntranceAnnouncementChangeEvent(GroupEntranceAnnouncementChangeEvent event) {

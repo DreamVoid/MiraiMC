@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.velocity.event.bot;
 import net.mamoe.mirai.event.events.BotOfflineEvent;
 
 /**
- * (Velocity) Mirai 核心事件 - Bot - Bot 离线
+ * (Velocity) Bot - Bot 离线
  */
 public class MiraiBotOfflineEvent extends AbstractBotEvent {
     private final BotOfflineEvent event;

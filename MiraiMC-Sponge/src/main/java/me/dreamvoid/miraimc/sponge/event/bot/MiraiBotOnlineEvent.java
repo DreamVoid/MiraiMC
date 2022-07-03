@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * (Sponge) Mirai 核心事件 - Bot - Bot 登录完成
+ * (Sponge) Bot - Bot 登录完成
  */
 public class MiraiBotOnlineEvent extends AbstractBotEvent {
     public MiraiBotOnlineEvent(BotOnlineEvent event, Cause cause) {

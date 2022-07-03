@@ -4,7 +4,7 @@ import me.dreamvoid.miraimc.nukkit.event.bot.AbstractBotEvent;
 import net.mamoe.mirai.event.events.BotInvitedJoinGroupRequestEvent;
 
 /**
- * (Nukkit) Mirai 核心事件 - 群 - 群成员 - 成员列表变更 - 机器人被邀请加入群
+ * (Nukkit) 群 - 群成员 - 成员列表变更 - 机器人被邀请加入群
  */
 public class MiraiBotInvitedJoinGroupRequestEvent extends AbstractBotEvent {
 

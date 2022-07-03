@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.velocity.event.friend;
 import net.mamoe.mirai.event.events.FriendRemarkChangeEvent;
 
 /**
- * (Velocity) Mirai 核心事件 - 好友 - 好友昵称改变
+ * (Velocity) 好友 - 好友昵称改变
  */
 public class MiraiFriendRemarkChangeEvent extends AbstractFriendEvent {
     public MiraiFriendRemarkChangeEvent(FriendRemarkChangeEvent event) {

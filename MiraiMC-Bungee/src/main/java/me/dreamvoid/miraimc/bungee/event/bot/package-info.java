@@ -1,4 +1,4 @@
 /**
- * (BungeeCord) Mirai 核心事件 - Bot
+ * (BungeeCord) Bot
  */
 package me.dreamvoid.miraimc.bungee.event.bot;
