@@ -65,9 +65,6 @@ public class MiraiCommand extends Command {
                                             sender.sendMessage(new TextComponent(ChatColor.GREEN + args[1] + " HTTP-API登录成功！"));
                                         } else sender.sendMessage(new TextComponent(ChatColor.RED + "此服务器没有启用HTTP-API模式，请检查配置文件！"));
                                     }
-                                } catch (InterruptedException e) {
-                                    Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
-                                    sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，请检查控制台输出！")));
                                 } catch (IOException e) {
                                     Utils.logger.warning("登录机器人时出现异常，原因: " + e);
                                     sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c登录机器人时出现异常，请检查控制台输出！")));

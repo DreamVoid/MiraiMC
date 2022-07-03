@@ -93,8 +93,6 @@ public class MiraiAutoLogin {
                         }
                     }
                 }
-            } catch (InterruptedException e) {
-                Logger.warn("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
             } catch (IOException e) {
                 Logger.warn("登录机器人时出现异常，原因: " + e);
             }

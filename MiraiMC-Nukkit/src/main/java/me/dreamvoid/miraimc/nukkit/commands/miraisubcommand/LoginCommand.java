@@ -67,9 +67,6 @@ public class LoginCommand extends BaseSubCommand {
                                 sender.sendMessage(TextFormat.GREEN + args[1] + " HTTP-API登录成功！");
                             } else sender.sendMessage(TextFormat.RED + "此服务器没有启用HTTP-API模式，请检查配置文件！");
                         }
-                    } catch (InterruptedException e) {
-                        Utils.logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
-                        sender.sendMessage(TextFormat.colorize('&',"&c登录机器人时出现异常，请检查控制台输出！"));
                     } catch (AbnormalStatusException e) {
                         Utils.logger.warning("使用HTTPAPI登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getMessage());
                         sender.sendMessage(TextFormat.colorize('&',"&c登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getMessage()));
