@@ -53,6 +53,7 @@ public class MiraiBot {
     /**
      * 将一个机器人实例转换为MiraiBot
      * @param Bot 机器人实例
+     * @return MiraiMC 机器人实例
      */
     public static MiraiBot asBot(Bot Bot){
         return new MiraiBot(Bot);
@@ -123,7 +124,7 @@ public class MiraiBot {
      * @param PasswordMD5 机器人密码MD5
      * @param Protocol 协议类型
      */
-    public static void doBotLogin(long Account, byte[] PasswordMD5, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException{
+    public static void doBotLogin(long Account, byte[] PasswordMD5, BotConfiguration.MiraiProtocol Protocol) {
         login(Account, PasswordMD5, Protocol);
     }
 
@@ -135,7 +136,7 @@ public class MiraiBot {
      * @param Protocol 协议类型
      * @throws IllegalArgumentException 协议不存在时抛出
      */
-    public static void doBotLogin(long Account, String Password, String Protocol) throws InterruptedException, IllegalArgumentException{
+    public static void doBotLogin(long Account, String Password, String Protocol) throws IllegalArgumentException{
         doBotLogin(Account, Password, BotConfiguration.MiraiProtocol.valueOf(Protocol));
     }
 
@@ -148,7 +149,7 @@ public class MiraiBot {
      * @throws IllegalArgumentException 协议不存在时抛出
      * @since 1.7
      */
-    public static void doBotLogin(long Account, byte[] PasswordMD5, String Protocol) throws InterruptedException, IllegalArgumentException{
+    public static void doBotLogin(long Account, byte[] PasswordMD5, String Protocol) throws IllegalArgumentException{
         doBotLogin(Account, PasswordMD5, BotConfiguration.MiraiProtocol.valueOf(Protocol));
     }
 
@@ -160,7 +161,7 @@ public class MiraiBot {
      * @param Protocol 协议类型
      * @since 1.7
      */
-    public static void doBotLogin(long Account, String Password, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException{
+    public static void doBotLogin(long Account, String Password, BotConfiguration.MiraiProtocol Protocol) {
         try {
             MessageDigest m = MessageDigest.getInstance("MD5");
             m.update(Password.getBytes(StandardCharsets.UTF_8));
@@ -302,7 +303,7 @@ public class MiraiBot {
      * @param Password 密码
      * @param Protocol 协议
      */
-    private static void login(long Account, byte[] Password, BotConfiguration.MiraiProtocol Protocol) throws InterruptedException {
+    private static void login(long Account, byte[] Password, BotConfiguration.MiraiProtocol Protocol) {
         logger = Utils.logger;
 
         Bot existBot = Bot.getInstanceOrNull(Account);
@@ -310,7 +311,9 @@ public class MiraiBot {
             logger.info("另一个机器人进程已经存在，正在尝试关闭这个进程");
             MiraiLoginSolver.cancel(Account);
             existBot.close();
-            Thread.sleep(500);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ignored) { }
         }
 
         logger.info("登录新的机器人账号: "+ Account+", 协议: "+ Protocol.name());
