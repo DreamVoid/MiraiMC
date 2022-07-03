@@ -52,7 +52,7 @@ public class MiraiMcCommand implements TabExecutor {
                                             public void run() {
                                                 UUID uuid = Bukkit.getOfflinePlayer(UUID.fromString(args[2])).getUniqueId();
                                                 long qqid = Long.parseLong(args[3]);
-                                                MiraiMC.addBinding(uuid,qqid);
+                                                MiraiMC.addBind(uuid,qqid);
                                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a已添加绑定！"));
                                             }
                                         }.runTaskAsynchronously(plugin);
@@ -65,7 +65,7 @@ public class MiraiMcCommand implements TabExecutor {
                                             @Override
                                             public void run() {
                                                 UUID uuid = Bukkit.getOfflinePlayer(UUID.fromString(args[2])).getUniqueId();
-                                                MiraiMC.removeBinding(uuid);
+                                                MiraiMC.removeBind(uuid);
                                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a已移除相应绑定！"));
                                             }
                                         }.runTaskAsynchronously(plugin);
@@ -78,7 +78,7 @@ public class MiraiMcCommand implements TabExecutor {
                                             @Override
                                             public void run() {
                                                 long qqid = Long.parseLong(args[2]);
-                                                MiraiMC.removeBinding(qqid);
+                                                MiraiMC.removeBind(qqid);
                                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a已移除相应绑定！"));
                                             }
                                         }.runTaskAsynchronously(plugin);
@@ -91,7 +91,7 @@ public class MiraiMcCommand implements TabExecutor {
                                             @Override
                                             public void run() {
                                                 UUID uuid = Bukkit.getOfflinePlayer(UUID.fromString(args[2])).getUniqueId();
-                                                long qqId = MiraiMC.getBinding(uuid);
+                                                long qqId = MiraiMC.getBind(uuid);
                                                 if(qqId!=0){
                                                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a绑定的QQ号："+qqId));
                                                 } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c未找到符合条件的记录！"));
@@ -106,9 +106,9 @@ public class MiraiMcCommand implements TabExecutor {
                                             @Override
                                             public void run() {
                                                 long qqid = Long.parseLong(args[2]);
-                                                String uuid = MiraiMC.getBinding(qqid);
-                                                if(!uuid.equals("")){
-                                                    OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(uuid)); // 对于此方法来说，任何玩家都存在. 亲测是真的
+                                                UUID uuid = MiraiMC.getBind(qqid);
+                                                if(uuid != null){
+                                                    OfflinePlayer player = Bukkit.getOfflinePlayer(uuid); // 对于此方法来说，任何玩家都存在. 亲测是真的
                                                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a绑定的玩家名："+player.getName()));
                                                 } else sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&c未找到符合条件的记录！"));
                                             }

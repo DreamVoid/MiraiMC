@@ -18,6 +18,7 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.serializer.TextSerializers;
 
 import java.io.IOException;
+import java.util.UUID;
 
 public class MiraiMcCommand implements CommandExecutor {
     final PluginContainer plugin;
@@ -52,9 +53,9 @@ public class MiraiMcCommand implements CommandExecutor {
                                     if(args.length>=4){
                                         Task.builder().async().name("MiraiMC Bot Login Task").execute(() -> {
 
-                                            String uuid = Sponge.getServer().getPlayer(args[2]).get().getUniqueId().toString();
+                                            UUID uuid = Sponge.getServer().getPlayer(args[2]).get().getUniqueId();
                                             long qqid = Long.parseLong(args[3]);
-                                            MiraiMC.addBinding(uuid,qqid);
+                                            MiraiMC.addBind(uuid,qqid);
                                             src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a已添加绑定！"));
                                         }).submit(plugin);
                                     } else src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c无效的参数！用法: /miraimc bind add <玩家名> <QQ号>"));
@@ -63,8 +64,8 @@ public class MiraiMcCommand implements CommandExecutor {
                                 case "removeplayer":{
                                     if(args.length>=3){
                                         Task.builder().async().name("MiraiMC Bot Login Task").execute(() -> {
-                                            String uuid = Sponge.getServer().getPlayer(args[2]).get().getUniqueId().toString();
-                                            MiraiMC.removeBinding(uuid);
+                                            UUID uuid = Sponge.getServer().getPlayer(args[2]).get().getUniqueId();
+                                            MiraiMC.removeBind(uuid);
                                             src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a已移除相应绑定！"));
                                         }).submit(plugin);
                                     } else src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c无效的参数！用法: /miraimc bind removeplayer <玩家名>"));
@@ -74,7 +75,7 @@ public class MiraiMcCommand implements CommandExecutor {
                                     if(args.length>=3){
                                         Task.builder().async().name("MiraiMC Bot Login Task").execute(() -> {
                                             long qqid = Long.parseLong(args[2]);
-                                            MiraiMC.removeBinding(qqid);
+                                            MiraiMC.removeBind(qqid);
                                             src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a已移除相应绑定！"));
                                         }).submit(plugin);
                                     } else src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c无效的参数！用法: /miraimc bind removeqq <QQ号>"));
@@ -83,8 +84,8 @@ public class MiraiMcCommand implements CommandExecutor {
                                 case "getplayer":{
                                     if(args.length>=3){
                                         Task.builder().async().name("MiraiMC Bot Login Task").execute(() -> {
-                                            String uuid = Sponge.getServer().getPlayer(args[2]).get().getUniqueId().toString();
-                                            long qqId = MiraiMC.getBinding(uuid);
+                                            UUID uuid = Sponge.getServer().getPlayer(args[2]).get().getUniqueId();
+                                            long qqId = MiraiMC.getBind(uuid);
                                             if(qqId!=0){
                                                 src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a绑定的QQ号："+qqId));
                                             } else src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c未找到符合条件的记录！"));
@@ -96,9 +97,9 @@ public class MiraiMcCommand implements CommandExecutor {
                                     if(args.length>=3){
                                         Task.builder().async().name("MiraiMC Bot Login Task").execute(() -> {
                                             long qqid = Long.parseLong(args[2]);
-                                            String UUID = MiraiMC.getBinding(qqid);
-                                            if(!UUID.equals("")){
-                                                Player player = Sponge.getServer().getPlayer(UUID).get(); // 对于此方法来说，任何玩家都存在. 亲测是真的
+                                            UUID uuid = MiraiMC.getBind(qqid);
+                                            if(uuid != null){
+                                                Player player = Sponge.getServer().getPlayer(uuid).get(); // 对于此方法来说，任何玩家都存在. 亲测是真的
                                                 src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a绑定的玩家名："+player.getName()));
                                             } else src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c未找到符合条件的记录！"));
                                         }).submit(plugin);
