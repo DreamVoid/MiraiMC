@@ -65,7 +65,7 @@ public class MiraiLoginSolver extends LoginSolver {
                 bot.getLogger().warning(imageFile.getPath());
                 bot.getLogger().warning("识别完成后，请输入指令 /miraiverify captcha "+bot.getId()+" <验证码>");
                 bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify cancel "+bot.getId());
-                bot.getLogger().warning("如需帮助，请参阅: https://wiki.miraimc.dreamvoid.me/troubleshoot/verify-guide#word-captcha");
+                bot.getLogger().warning("如需帮助，请参阅: https://docs.miraimc.dreamvoid.me/troubleshoot/verify-guide#word-captcha");
                 while(deviceVerifyWait.contains(bot)) if (deviceVerifyCode.containsKey(bot)) break;
             });
             threads.start();
@@ -105,7 +105,7 @@ public class MiraiLoginSolver extends LoginSolver {
                 bot.getLogger().warning(verifyUrl);
                 bot.getLogger().warning("验证完成后，请输入指令 /miraiverify captcha "+bot.getId()+" <ticket>");
                 bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify cancel "+bot.getId());
-                bot.getLogger().warning("如需帮助，请参阅: https://wiki.miraimc.dreamvoid.me/troubleshoot/verify-guide#slide-captcha");
+                bot.getLogger().warning("如需帮助，请参阅: https://docs.miraimc.dreamvoid.me/troubleshoot/verify-guide#slide-captcha");
                 while(deviceVerifyWait.contains(bot)) if (deviceVerifyCode.containsKey(bot)) break;
             });
             threads.start();
@@ -145,7 +145,7 @@ public class MiraiLoginSolver extends LoginSolver {
                 bot.getLogger().warning(verifyUrl);
                 bot.getLogger().warning("验证完成后，请输入指令 /miraiverify unsafedevice "+bot.getId());
                 bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify cancel "+bot.getId());
-                bot.getLogger().warning("如需帮助，请参阅: https://wiki.miraimc.dreamvoid.me/troubleshoot/verify-guide#device-locker");
+                bot.getLogger().warning("如需帮助，请参阅: https://docs.miraimc.dreamvoid.me/troubleshoot/verify-guide#device-locker");
                 while(deviceVerifyWait.contains(bot)) if (deviceVerifyCode.containsKey(bot)) break;
             });
             threads.start();
