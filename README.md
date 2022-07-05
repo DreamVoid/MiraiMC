@@ -44,7 +44,7 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 <dependency>
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC-Integration</artifactId>
-    <version>1.7-rc1</version>
+    <version>1.7-rc2</version>
     <scope>provided</scope>
 </dependency>
 ```
