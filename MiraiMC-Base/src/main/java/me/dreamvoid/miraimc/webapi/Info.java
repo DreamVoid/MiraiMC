@@ -5,11 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.*;
 
 public final class Info {
@@ -35,17 +33,23 @@ public final class Info {
 	public static Info init(List<String> apis, boolean LocalCache) throws IOException {
 		if(INSTANCE == null){
 			List<String> list = new ArrayList<>(apis);
+			File CacheDir = new File(Config.PluginDir, "cache");
+			if(!CacheDir.exists() && !CacheDir.mkdirs()) throw new RuntimeException("Failed to create folder " + CacheDir.getPath());
+			File cache = new File(CacheDir, "apis.json");
 
 			if(LocalCache){
 				try {
-					File cache = new File(Config.PluginDir, "apis.json");
-					if (cache.exists()) {
-						String[] localString = new Gson().fromJson(new FileReader(cache), String[].class);
-						List<String> local = new ArrayList<>(Arrays.asList(localString)); // 这里不双重调用下面的removeAll就不能用
-						local.removeAll(list);
-						list.addAll(local);
+					if (!cache.exists()) {
+						try (InputStream in = Info.class.getResourceAsStream("/apis.json")) {
+							assert in != null;
+							Files.copy(in, cache.toPath());
+						}
 					}
-				} catch (Exception ignored) { }
+					String[] localString = new Gson().fromJson(new FileReader(cache), String[].class);
+					List<String> local = new ArrayList<>(Arrays.asList(localString)); // 这里不双重调用下面的removeAll就不能用
+					local.removeAll(list);
+					list.addAll(local);
+				} catch (Exception ignored) {}
 			}
 
 			IOException e = null; // 用于所有API都炸掉的时候抛出的
@@ -56,7 +60,6 @@ public final class Info {
 					INSTANCE = new Gson().fromJson(Utils.Http.get(s + "info.json"), Info.class);
 
 					// API数据保存到本地
-					File cache = new File(Config.PluginDir, "apis.json");
 					FileOutputStream fos = new FileOutputStream(cache);
 					fos.write(new Gson().toJson(INSTANCE.apis.toArray(), String[].class).getBytes(StandardCharsets.UTF_8));
 					fos.close();
