@@ -55,7 +55,7 @@ public class BukkitPlugin extends JavaPlugin {
             Class.forName("cpw.mods.modlauncher.Launcher");
             getLogger().severe("任何Forge服务端均不受MiraiMC支持（如Catserver、Loliserver），请尽量更换其他服务端使用！");
             getLogger().severe("作者不会处理任何使用了Forge服务端导致的问题。");
-            getLogger().severe("兼容性报告: https://wiki.miraimc.dreamvoid.me/troubleshoot/compatibility-report");
+            getLogger().severe("兼容性报告: https://docs.miraimc.dreamvoid.me/troubleshoot/compatibility-report");
         } catch (ClassNotFoundException ignored) {}
 
         getLogger().info("Mirai working dir: " + Config.General.MiraiWorkingDir);
