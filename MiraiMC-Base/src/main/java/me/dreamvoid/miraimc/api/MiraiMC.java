@@ -3,6 +3,7 @@ package me.dreamvoid.miraimc.api;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
 
+import javax.annotation.Nullable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -403,10 +404,11 @@ public class MiraiMC {
     /**
      * 获取QQ号绑定的Minecraft账号
      * 此方法返回数据库记录的UUID
-     * 如果不存在，返回空文本
+     * 如果不存在，返回null
      * @param account 玩家QQ号
      * @return UUID
      */
+    @Nullable
     public static UUID getBind(long account) {
         UUID uuid = null;
 
