@@ -3,7 +3,7 @@ import java.util.Properties
 import java.io.FileInputStream
 
 /*
- 如需发布，需要创建 local.properties
+ 如需发布，需要在本机用户的 GRADLE_USER_HOME 创建 gradle.properties 并写下如下内容
 
  # maven 账户信息
  mavenUsername=
@@ -14,7 +14,7 @@ import java.io.FileInputStream
  signing.secretKeyRingFile=
  */
 val local = Properties().apply { load(FileInputStream("local.properties")) }
-val projects = listOf("Bukkit", "Bungee", "Nukkit", "Sponge", "Velocity")
+val projects = listOf("Base", "Bukkit", "Bungee", "Nukkit", "Sponge", "Velocity")
 
 plugins {
     val kotlinVersion = "1.5.10"
@@ -77,9 +77,6 @@ allprojects {
             encoding = "UTF-8"
         }
 
-        // 重定向到父模块的 javadoc 生成目录
-        setDestinationDir(File(rootProject.rootDir, "build/docs/javadoc"))
-
         logging.captureStandardError(LogLevel.INFO)
         logging.captureStandardOutput(LogLevel.INFO)
         isFailOnError = false
@@ -99,10 +96,32 @@ allprojects {
     }
 }
 
-val javadocJar = tasks.create<Jar>("javadocJar") {
-    dependsOn("javadoc")
-    archiveClassifier.set("javadoc")
-    from(tasks.getByName<Javadoc>("javadoc").destinationDir)
+
+val javadocJars = mutableMapOf<String, Jar>()
+val sourceJars = mutableMapOf<String, Jar>()
+projects.forEach { sub ->
+    javadocJars[sub] = tasks.create<Jar>("javadocJar$sub") {
+        dependsOn(":MiraiMC-$sub:javadoc")
+        archiveBaseName.set("MiraiMC-$sub")
+        archiveClassifier.set("javadoc")
+        val javadoc = tasks.getByPath(":MiraiMC-$sub:javadoc") as Javadoc
+        from(javadoc.destinationDir)
+    }
+    sourceJars[sub] = tasks.create<Jar>("sourceJar$sub") {
+        archiveBaseName.set("MiraiMC-$sub")
+        archiveClassifier.set("source")
+        val proj = project(":MiraiMC-$sub")
+        val specialTask = proj.tasks.findByName("generateTemplates") as Copy?
+        if (specialTask != null) dependsOn(specialTask)
+        from(proj.sourceSets.main.get().allSource.srcDirs)
+        from(specialTask?.destinationDir)
+    }
+}
+val javadocJar = tasks.create("javadocJar") {
+    javadocJars.forEach { dependsOn(it.value) }
+}
+val sourceJar = tasks.create("sourceJar") {
+    sourceJars.forEach { dependsOn(it.value) }
 }
 
 val sharedPom = Action<MavenPom> {
@@ -134,8 +153,9 @@ val sharedPom = Action<MavenPom> {
 // 发布
 publishing {
     repositories {
-        val mavenUsername = local["mavenUsername"].toString()
-        val mavenPassword = local["mavenPassword"].toString()
+        val mavenUsername :String? by project
+        val mavenPassword :String? by project
+
         repositories {
             maven {
                 name = "sonatypeRepository"
@@ -153,29 +173,42 @@ publishing {
                     password = mavenPassword
                 }
             }
-            // 本地仓库
-            mavenLocal()
         }
     }
-    val files = file("build/libs/").listFiles()
     publications {
         // 批量添加发布配置
         projects.forEach { sub ->
             create<MavenPublication>(sub) {
                 groupId = rootProject.group.toString()
                 artifactId = "${rootProject.name}-$sub"
+
                 version = rootProject.version.toString()
                 description = rootProject.description
 
-                artifact(files!!.find { it.name.startsWith(artifactId) }!!.absolutePath)
-                artifact(javadocJar)
+                artifact("build/libs/$artifactId-$version.jar") {
+                    extension = ".jar"
+                }
+                artifact("build/libs/$artifactId-$version-javadoc.jar") {
+                    classifier = "javadoc"
+                    extension = ".jar"
+                }
+                artifact("build/libs/$artifactId-$version-source.jar") {
+                    classifier = "source"
+                    extension = ".jar"
+                }
 
                 pom(sharedPom)
+
+                signing.sign(this)
             }
         }
     }
 }
-// 签名
-signing {
-    //sign(publishing.publications.getByName("maven"))
+
+
+// 构建一切
+tasks.create("buildUp") {
+    projects.forEach { dependsOn("MiraiMC-$it:shadowJar") }
+    finalizedBy(javadocJar)
+    finalizedBy(sourceJar)
 }
