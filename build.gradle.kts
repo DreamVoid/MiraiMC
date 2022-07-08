@@ -1,6 +1,4 @@
 import java.net.URI
-import java.util.Properties
-import java.io.FileInputStream
 
 /*
  如需发布，需要在本机用户的 GRADLE_USER_HOME 创建 gradle.properties 并写下如下内容
@@ -13,14 +11,42 @@ import java.io.FileInputStream
  signing.password=
  signing.secretKeyRingFile=
  */
-val local = Properties().apply { load(FileInputStream("local.properties")) }
 val projects = listOf("Base", "Bukkit", "Bungee", "Nukkit", "Sponge", "Velocity")
-
+val javadocExcludePackages = listOf (
+    "me.dreamvoid.miraimc.webapi:",
+    "me.dreamvoid.miraimc.webapi.*:",
+    "me.dreamvoid.miraimc.internal:",
+    "me.dreamvoid.miraimc.internal.*:",
+    "me.dreamvoid.miraimc.bukkit:",
+    "me.dreamvoid.miraimc.bukkit.commands:",
+    "me.dreamvoid.miraimc.bukkit.commands.*:",
+    "me.dreamvoid.miraimc.bukkit.utils:",
+    "me.dreamvoid.miraimc.bukkit.utils.*:",
+    "me.dreamvoid.miraimc.bungee:",
+    "me.dreamvoid.miraimc.bungee.commands:",
+    "me.dreamvoid.miraimc.bungee.commands.*:",
+    "me.dreamvoid.miraimc.bungee.utils:",
+    "me.dreamvoid.miraimc.bungee.utils.*:",
+    "me.dreamvoid.miraimc.nukkit:",
+    "me.dreamvoid.miraimc.nukkit.commands:",
+    "me.dreamvoid.miraimc.nukkit.commands.*:",
+    "me.dreamvoid.miraimc.nukkit.utils:",
+    "me.dreamvoid.miraimc.nukkit.utils.*:",
+    "me.dreamvoid.miraimc.sponge:",
+    "me.dreamvoid.miraimc.sponge.commands:",
+    "me.dreamvoid.miraimc.sponge.commands.*:",
+    "me.dreamvoid.miraimc.sponge.utils:",
+    "me.dreamvoid.miraimc.sponge.utils.*:",
+    "me.dreamvoid.miraimc.velocity:",
+    "me.dreamvoid.miraimc.velocity.commands:",
+    "me.dreamvoid.miraimc.velocity.commands.*:",
+    "me.dreamvoid.miraimc.velocity.utils:",
+    "me.dreamvoid.miraimc.velocity.utils.*"
+)
 plugins {
     val kotlinVersion = "1.5.10"
     val shadowVersion = "7.1.2"
 
-    java
     `maven-publish`
     signing
     kotlin("jvm") version kotlinVersion
@@ -72,11 +98,13 @@ allprojects {
         description = "Generates project-level javadoc for use in -javadoc jar"
 
         options {
-            memberLevel = JavadocMemberLevel.PUBLIC
+            memberLevel = JavadocMemberLevel.PROTECTED
             header = project.name
             encoding = "UTF-8"
         }
+        javadocExcludePackages.forEach { exclude(it) }
 
+        // 如需调试请移除以下三行
         logging.captureStandardError(LogLevel.INFO)
         logging.captureStandardOutput(LogLevel.INFO)
         isFailOnError = false
