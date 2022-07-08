@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 @Plugin(id = "miraimc",
         name = "MiraiMC",
         description = "MiraiBot for Minecraft server",
-        version = "1.7-rc2",
+        version = BuildConstants.VERSION,
         url = "https://github.com/DreamVoid/MiraiMC",
         authors = {"DreamVoid"}
 )

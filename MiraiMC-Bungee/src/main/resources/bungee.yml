@@ -2,4 +2,4 @@ name: MiraiMC
 main: me.dreamvoid.miraimc.bungee.BungeePlugin
 author: DreamVoid
 description: Mirai for Minecraft server.
-version: ${project.version}
+version: ${version}

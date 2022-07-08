@@ -29,6 +29,7 @@ public class MiraiFriendMessageRecallEvent extends AbstractMessageRecallEvent {
      * @deprecated
      * @see #getAuthorID()
      */
+    @Deprecated
     public long getSenderID() { return event.getAuthor().getId(); }
 
     /**

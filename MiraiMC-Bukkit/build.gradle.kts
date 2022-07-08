@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    api(project(":MiraiMC-Base"))
+    implementation(project(":MiraiMC-Base"))
     compileOnly("org.spigotmc:spigot-api:1.13-R0.1-SNAPSHOT")
     compileOnly("com.google.guava:guava:31.1-jre")
 }
@@ -21,6 +21,7 @@ dependencies {
 tasks.withType<ShadowJar> {
     val libs = rootProject.extra["shadowLibrariesPackage"].toString()
     archiveClassifier.set("")
+    destinationDirectory.set(file("${rootProject.rootDir}/build/libs"))
 
     relocate("com.zaxxer",  "$libs.com.zaxxer")
     relocate("org.apache", "$libs.org.apache")

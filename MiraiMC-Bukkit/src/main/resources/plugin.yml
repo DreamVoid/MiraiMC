@@ -2,7 +2,7 @@ name: MiraiMC
 author: DreamVoid
 description: MiraiBot for Minecraft server
 main: me.dreamvoid.miraimc.bukkit.BukkitPlugin
-version: ${project.version}
+version: ${version}
 api-version: 1.13
 webside: https://github.com/DreamVoid/MiraiMC
 commands:
