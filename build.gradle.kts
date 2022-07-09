@@ -184,7 +184,7 @@ publishing {
 
         repositories {
             maven {
-                name = "sonatypeRepository"
+                name = "sonatype"
                 url = URI("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
                 credentials {
                     username = mavenUsername
@@ -192,7 +192,7 @@ publishing {
                 }
             }
             maven {
-                name = "sonatypeSnapshotRepository"
+                name = "sonatypeSnapshot"
                 url = URI("https://oss.sonatype.org/content/repositories/snapshots/")
                 credentials {
                     username = mavenUsername
@@ -207,21 +207,12 @@ publishing {
             create<MavenPublication>(sub) {
                 groupId = rootProject.group.toString()
                 artifactId = "${rootProject.name}-$sub"
-
                 version = rootProject.version.toString()
                 description = rootProject.description
 
-                artifact("build/libs/$artifactId-$version.jar") {
-                    extension = ".jar"
-                }
-                artifact("build/libs/$artifactId-$version-javadoc.jar") {
-                    classifier = "javadoc"
-                    extension = ".jar"
-                }
-                artifact("build/libs/$artifactId-$version-source.jar") {
-                    classifier = "source"
-                    extension = ".jar"
-                }
+                artifact(project(artifactId).tasks["shadowJar"])
+                artifact(javadocJars[sub])
+                artifact(sourceJars[sub])
 
                 pom(sharedPom)
 
