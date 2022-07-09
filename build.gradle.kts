@@ -11,7 +11,6 @@ import java.net.URI
  signing.password=
  signing.secretKeyRingFile=
  */
-val projects = listOf("Base", "Bukkit", "Bungee", "Nukkit", "Sponge", "Velocity")
 val javadocExcludePackages = listOf (
     "me.dreamvoid.miraimc.webapi:",
     "me.dreamvoid.miraimc.webapi.*:",
@@ -61,8 +60,10 @@ rootProject.let {
 }
 val miraiVersion = "2.11.1"
 
-allprojects {
+
+subprojects {
     plugins.apply("java")
+    plugins.apply("com.github.johnrengelman.shadow")
 
     project.group = rootProject.group
     project.version = rootProject.version
@@ -75,15 +76,15 @@ allprojects {
     }
     // 所有项目共用的依赖
     dependencies {
-        "compileOnly"("net.mamoe:mirai-core-api-jvm:$miraiVersion")
-        "compileOnly"("net.mamoe:mirai-console:$miraiVersion:all")
+        compileOnly("net.mamoe:mirai-core-api-jvm:$miraiVersion")
+        compileOnly("net.mamoe:mirai-console:$miraiVersion:all")
 
-        "compileOnly"("org.apache.logging.log4j:log4j-core:2.17.2")
-        "implementation"("com.zaxxer:HikariCP:4.0.3")
-        "compileOnly"("com.google.guava:guava:31.1-jre")
-        "implementation"("commons-codec:commons-codec:1.15")
-        "implementation"("org.apache.httpcomponents:httpclient:4.5.13")
-        "compileOnly"("com.google.code.gson:gson:2.9.0")
+        compileOnly("org.apache.logging.log4j:log4j-core:2.17.2")
+        implementation("com.zaxxer:HikariCP:4.0.3")
+        compileOnly("com.google.guava:guava:31.1-jre")
+        implementation("commons-codec:commons-codec:1.15")
+        implementation("org.apache.httpcomponents:httpclient:4.5.13")
+        compileOnly("com.google.code.gson:gson:2.9.0")
     }
 
     tasks.withType<JavaCompile> {
@@ -120,34 +121,28 @@ allprojects {
             props.forEach { expand(Pair(it.key, it.value)) }
         }
     }
-}
 
-
-val javadocJars = mutableMapOf<String, Jar>()
-val sourceJars = mutableMapOf<String, Jar>()
-projects.forEach { sub ->
-    javadocJars[sub] = tasks.create<Jar>("javadocJar$sub") {
-        dependsOn(":MiraiMC-$sub:javadoc")
-        archiveBaseName.set("MiraiMC-$sub")
+    tasks.create<Jar>("javadocJar") {
+        dependsOn("javadoc")
+        archiveBaseName.set(project.name)
         archiveClassifier.set("javadoc")
-        val javadoc = tasks.getByPath(":MiraiMC-$sub:javadoc") as Javadoc
-        from(javadoc.destinationDir)
+        from((tasks["javadoc"] as Javadoc).destinationDir)
     }
-    sourceJars[sub] = tasks.create<Jar>("sourceJar$sub") {
-        archiveBaseName.set("MiraiMC-$sub")
+
+    tasks.create<Jar>("sourceJar") {
         archiveClassifier.set("source")
-        val proj = project(":MiraiMC-$sub")
-        val specialTask = proj.tasks.findByName("generateTemplates") as Copy?
+        val specialTask = tasks.findByName("generateTemplates") as Copy?
         if (specialTask != null) dependsOn(specialTask)
-        from(proj.sourceSets.main.get().allSource.srcDirs)
+        from(sourceSets.main.get().allSource.srcDirs)
         from(specialTask?.destinationDir)
     }
 }
+
 val javadocJar = tasks.create("javadocJar") {
-    javadocJars.forEach { dependsOn(it.value) }
+    subprojects.forEach { dependsOn(it.tasks["javadocJar"]) }
 }
 val sourceJar = tasks.create("sourceJar") {
-    sourceJars.forEach { dependsOn(it.value) }
+    subprojects.forEach { dependsOn(it.tasks["sourceJar"]) }
 }
 
 val sharedPom = Action<MavenPom> {
@@ -203,16 +198,16 @@ publishing {
     }
     publications {
         // 批量添加发布配置
-        projects.forEach { sub ->
-            create<MavenPublication>(sub) {
+        subprojects.forEach { proj ->
+            create<MavenPublication>(proj.name.substring(proj.name.indexOf("-") + 1)) {
                 groupId = rootProject.group.toString()
-                artifactId = "${rootProject.name}-$sub"
+                artifactId = proj.name
                 version = rootProject.version.toString()
                 description = rootProject.description
 
-                artifact(project(artifactId).tasks["shadowJar"])
-                artifact(javadocJars[sub])
-                artifact(sourceJars[sub])
+                artifact(proj.tasks["shadowJar"])
+                artifact(proj.tasks["javadocJar"])
+                artifact(proj.tasks["sourceJar"])
 
                 pom(sharedPom)
 
@@ -222,10 +217,9 @@ publishing {
     }
 }
 
-
 // 构建一切
 tasks.create("buildUp") {
-    projects.forEach { dependsOn("MiraiMC-$it:shadowJar") }
+    subprojects.forEach { dependsOn(it.tasks["shadowJar"]) }
     finalizedBy(javadocJar)
     finalizedBy(sourceJar)
 }

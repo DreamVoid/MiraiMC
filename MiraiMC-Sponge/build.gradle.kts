@@ -1,10 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
-plugins {
-    java
-    id("com.github.johnrengelman.shadow")
-}
-
 dependencies {
     implementation(project(":MiraiMC-Base"))
     compileOnly("org.spongepowered:spongeapi:7.2.0")

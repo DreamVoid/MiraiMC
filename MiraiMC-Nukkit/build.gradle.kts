@@ -1,10 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
-plugins {
-    java
-    id("com.github.johnrengelman.shadow")
-}
-
 repositories {
     maven(url = "https://repo.opencollab.dev/maven-releases")
     maven(url = "https://repo.opencollab.dev/maven-snapshots")

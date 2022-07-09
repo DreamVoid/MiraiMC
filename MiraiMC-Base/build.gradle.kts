@@ -1,10 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
-plugins {
-    java
-    id("com.github.johnrengelman.shadow")
-}
-
 tasks.withType<ShadowJar> {
     archiveClassifier.set("")
     destinationDirectory.set(file("${rootProject.rootDir}/build/libs"))
