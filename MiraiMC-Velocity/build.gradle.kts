@@ -1,8 +1,7 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
-    kotlin("jvm")
-    kotlin("plugin.serialization")
+    java
     id("com.github.johnrengelman.shadow")
 }
 
@@ -21,14 +20,13 @@ tasks.withType<ShadowJar> {
     val libs = rootProject.extra["shadowLibrariesPackage"].toString()
     archiveClassifier.set("")
     destinationDirectory.set(file("${rootProject.rootDir}/build/libs"))
+    minimize()
 
     relocate("com.zaxxer",  "$libs.com.zaxxer")
     relocate("org.apache", "$libs.org.apache")
 
     dependencies {
         exclude(dependency("org.jetbrains:annotations"))
-        // 如果需要使用 kotlin，请移除下面这行
-        exclude { it.moduleGroup.startsWith("org.jetbrains.kotlin") }
     }
 
     exclude("META-INF/*")

@@ -1,8 +1,7 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
-    kotlin("jvm")
-    kotlin("plugin.serialization")
+    java
     id("com.github.johnrengelman.shadow")
 }
 

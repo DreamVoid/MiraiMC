@@ -44,13 +44,11 @@ val javadocExcludePackages = listOf (
     "me.dreamvoid.miraimc.velocity.utils.*"
 )
 plugins {
-    val kotlinVersion = "1.5.10"
     val shadowVersion = "7.1.2"
 
     `maven-publish`
     signing
-    kotlin("jvm") version kotlinVersion
-    kotlin("plugin.serialization") version kotlinVersion apply false
+    java
     id("com.github.johnrengelman.shadow") version shadowVersion apply false
 }
 
@@ -61,10 +59,10 @@ rootProject.let {
     extra["shadowLibrariesPackage"] = "me.dreamvoid.miraimc.libraries"
     extra["shadowPath"] = File(rootProject.rootDir, "shadow").absolutePath
 }
-val miraiVersion = "2.12.0"
+val miraiVersion = "2.11.1"
 
 allprojects {
-    plugins.apply("org.jetbrains.kotlin.jvm")
+    plugins.apply("java")
 
     project.group = rootProject.group
     project.version = rootProject.version
@@ -77,8 +75,8 @@ allprojects {
     }
     // 所有项目共用的依赖
     dependencies {
-        "compileOnly"("net.mamoe:mirai-core:$miraiVersion")
-        "compileOnly"("net.mamoe:mirai-console:$miraiVersion")
+        "compileOnly"("net.mamoe:mirai-core-api-jvm:$miraiVersion")
+        "compileOnly"("net.mamoe:mirai-console:$miraiVersion:all")
 
         "compileOnly"("org.apache.logging.log4j:log4j-core:2.17.2")
         "implementation"("com.zaxxer:HikariCP:4.0.3")

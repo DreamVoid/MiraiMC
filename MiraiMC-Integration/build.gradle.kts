@@ -1,6 +1,5 @@
 plugins {
-    kotlin("jvm")
-    kotlin("plugin.serialization")
+    java
     // id("com.github.johnrengelman.shadow")
 }
 
