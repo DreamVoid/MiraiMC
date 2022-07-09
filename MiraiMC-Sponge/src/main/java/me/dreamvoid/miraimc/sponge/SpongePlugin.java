@@ -10,6 +10,7 @@ import me.dreamvoid.miraimc.sponge.commands.MiraiCommand;
 import me.dreamvoid.miraimc.sponge.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.sponge.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.sponge.utils.Metrics;
+import me.dreamvoid.miraimc.sponge.utils.BuildConstants;
 import me.dreamvoid.miraimc.webapi.Info;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;

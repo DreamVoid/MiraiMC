@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     implementation(project(":MiraiMC-Base"))
-    compileOnly("com.velocitypowered:velocity-api:3.1.0")?.because("maven")
+    compileOnly("com.velocitypowered:velocity-api:3.1.0")?.because("maven:provided")
     annotationProcessor("com.velocitypowered:velocity-api:3.1.0")
     implementation("org.xerial:sqlite-jdbc:3.36.0.3")?.because("maven")
 }

@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
     implementation(project(":MiraiMC-Base"))
-    compileOnly("cn.nukkit:nukkit:1.0-SNAPSHOT")?.because("maven")
+    compileOnly("cn.nukkit:nukkit:1.0-SNAPSHOT")?.because("maven:provided")
     implementation("org.xerial:sqlite-jdbc:3.36.0.3")?.because("maven")
 }
 

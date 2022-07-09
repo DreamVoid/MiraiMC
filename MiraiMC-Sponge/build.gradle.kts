@@ -6,8 +6,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":MiraiMC-Base"))
-    compileOnly("org.spongepowered:spongeapi:7.2.0")?.because("maven")
+    implementation(project(":MiraiMC-Base"))?.because("maven:compile")
+    compileOnly("org.spongepowered:spongeapi:7.2.0")?.because("maven::provided")
     annotationProcessor("org.spongepowered:spongeapi:7.2.0")
 }
 

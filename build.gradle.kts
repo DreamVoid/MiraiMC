@@ -49,11 +49,24 @@ subprojects {
         compileOnly("net.mamoe:mirai-console:$miraiVersion:all")
 
         compileOnly("org.apache.logging.log4j:log4j-core:2.17.2")
-        implementation("com.zaxxer:HikariCP:4.0.3")?.apply { if (project.name == "MiraiMC-Base") because("maven") }
-        compileOnly("com.google.guava:guava:31.1-jre")?.apply { if (project.name == "MiraiMC-Base") because("maven:provided") }
-        implementation("commons-codec:commons-codec:1.15")?.apply { if (project.name == "MiraiMC-Base") because("maven:compile") }
-        implementation("org.apache.httpcomponents:httpclient:4.5.13")?.apply { if (project.name == "MiraiMC-Base") because("maven") }
-        compileOnly("com.google.code.gson:gson:2.9.0")?.apply { if (project.name == "MiraiMC-Base") because("maven:provided") }
+        implementation("com.zaxxer:HikariCP:4.0.3")?.apply {
+            when (project.name) {
+                "MiraiMC-Base" -> because("maven")
+                "MiraiMC-Sponge" -> because("maven:provided")
+            }
+        }
+        compileOnly("com.google.guava:guava:31.1-jre")?.apply {
+            when (project.name) { "MiraiMC-Base" -> because("maven:provided") }
+        }
+        implementation("commons-codec:commons-codec:1.15")?.apply {
+            when (project.name) { "MiraiMC-Base" -> because("maven:compile") }
+        }
+        implementation("org.apache.httpcomponents:httpclient:4.5.13")?.apply {
+            when (project.name) { "MiraiMC-Base" -> because("maven") }
+        }
+        compileOnly("com.google.code.gson:gson:2.9.0")?.apply {
+            when (project.name) { "MiraiMC-Base" -> because("maven:provided") }
+        }
     }
 
     tasks.withType<JavaCompile> {

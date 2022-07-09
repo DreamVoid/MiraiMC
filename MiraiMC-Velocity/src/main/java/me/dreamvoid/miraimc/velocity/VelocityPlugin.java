@@ -19,6 +19,7 @@ import me.dreamvoid.miraimc.internal.classloader.MiraiLoader;
 import me.dreamvoid.miraimc.velocity.commands.MiraiCommand;
 import me.dreamvoid.miraimc.velocity.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.velocity.commands.MiraiVerifyCommand;
+import me.dreamvoid.miraimc.velocity.utils.BuildConstants;
 import me.dreamvoid.miraimc.velocity.utils.Metrics;
 import me.dreamvoid.miraimc.webapi.Info;
 import org.slf4j.Logger;
