@@ -1,21 +1,23 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
+plugins {
+    java
+    `maven-publish`
+}
+
 repositories {
     maven(url = "https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {
     implementation(project(":MiraiMC-Base"))
-    compileOnly("com.velocitypowered:velocity-api:3.1.0")
+    compileOnly("com.velocitypowered:velocity-api:3.1.0")?.because("maven")
     annotationProcessor("com.velocitypowered:velocity-api:3.1.0")
-    implementation("org.xerial:sqlite-jdbc:3.36.0.3")
+    implementation("org.xerial:sqlite-jdbc:3.36.0.3")?.because("maven")
 }
 
 tasks.withType<ShadowJar> {
     val libs = rootProject.extra["shadowLibrariesPackage"].toString()
-    archiveClassifier.set("")
-    destinationDirectory.set(file("${rootProject.rootDir}/build/libs"))
-    minimize()
 
     relocate("com.zaxxer",  "$libs.com.zaxxer")
     relocate("org.apache", "$libs.org.apache")
@@ -23,8 +25,6 @@ tasks.withType<ShadowJar> {
     dependencies {
         exclude(dependency("org.jetbrains:annotations"))
     }
-
-    exclude("META-INF/*")
 }
 
 

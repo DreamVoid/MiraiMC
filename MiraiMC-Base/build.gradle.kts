@@ -1,8 +1,5 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
-tasks.withType<ShadowJar> {
-    archiveClassifier.set("")
-    destinationDirectory.set(file("${rootProject.rootDir}/build/libs"))
-    // 原 maven 仓库里 MiraiMC-Base 没有打包任何依赖，所以忽略所有依赖
+tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
+    // 原来的 MiraiMC-Base 没有打包依赖，所以无需打包任何东西
     dependencies { exclude { true } }
 }

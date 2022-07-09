@@ -1,27 +1,26 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
+plugins {
+    java
+    `maven-publish`
+}
+
 dependencies {
     implementation(project(":MiraiMC-Base"))
-    compileOnly("org.spongepowered:spongeapi:7.2.0")
+    compileOnly("org.spongepowered:spongeapi:7.2.0")?.because("maven")
     annotationProcessor("org.spongepowered:spongeapi:7.2.0")
 }
 
 
 tasks.withType<ShadowJar> {
     val libs = rootProject.extra["shadowLibrariesPackage"].toString()
-    archiveClassifier.set("")
-    destinationDirectory.set(file("${rootProject.rootDir}/build/libs"))
-    minimize()
 
     relocate("org.apache", "$libs.org.apache")
 
     dependencies {
-        exclude(dependency("org.jetbrains:annotations"))
         exclude(dependency("com.zaxxer:HikariCP"))
         exclude(dependency("org.slf4j:slf4j-api"))
     }
-
-    exclude("META-INF/*")
 }
 
 // 替换代码中的变量
