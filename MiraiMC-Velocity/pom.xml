@@ -35,6 +35,7 @@
                             <artifact>*:*</artifact>
                             <excludes>
                                 <exclude>META-INF/*</exclude>
+                                <exclude>mozilla/public-suffix-list.txt</exclude>
                             </excludes>
                         </filter>
                     </filters>
