@@ -94,6 +94,9 @@ public class MiraiEvent {
     private Listener<FriendInputStatusChangedEvent> FriendInputStatusChangedEventListener;
 
     public void startListenEvent(){
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        Thread.currentThread().setContextClassLoader(GlobalEventChannel.class.getClassLoader());
+
         // Bot
         BotOnlineListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOnlineEvent.class, event -> server.getEventManager().fire(new MiraiBotOnlineEvent(event)));
         BotOfflineActiveListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Active.class,event -> server.getEventManager().fire(new MiraiBotOfflineEvent(event, Active)));
@@ -171,6 +174,8 @@ public class MiraiEvent {
         FriendAvatarChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendAvatarChangedEvent.class, event -> server.getEventManager().fire(new MiraiFriendAvatarChangedEvent(event)));
         FriendNickChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendNickChangedEvent.class, event -> server.getEventManager().fire(new MiraiFriendNickChangedEvent(event)));
         FriendInputStatusChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendInputStatusChangedEvent.class, event -> server.getEventManager().fire(new MiraiFriendInputStatusChangedEvent(event)));
+
+        Thread.currentThread().setContextClassLoader(loader);
     }
 
     public void stopListenEvent(){
