@@ -81,6 +81,9 @@ public class MiraiEventLegacy extends MiraiEvent {
 
 	@Override
 	public void startListenEvent(){
+		ClassLoader loader = Thread.currentThread().getContextClassLoader(); // since mirai 2.12.0
+		Thread.currentThread().setContextClassLoader(GlobalEventChannel.class.getClassLoader());
+
 		// Bot
 		BotOnlineListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOnlineEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOnlineEvent(event)));
 		BotOfflineActiveListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Active.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOfflineEvent(event, Active)));
@@ -158,6 +161,8 @@ public class MiraiEventLegacy extends MiraiEvent {
 		FriendAvatarChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendAvatarChangedEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendAvatarChangedEvent(event)));
 		FriendNickChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendNickChangedEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendNickChangedEvent(event)));
 		FriendInputStatusChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendInputStatusChangedEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendInputStatusChangedEvent(event)));
+
+		Thread.currentThread().setContextClassLoader(loader);
 	}
 
 	@Override
