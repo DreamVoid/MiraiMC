@@ -45,8 +45,19 @@ public final class Utils {
     }
 
     public static void initializeMySQL(){
+        String driver = null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            driver = "com.mysql.cj.jdbc.Driver";
+        } catch (ClassNotFoundException ignored) {
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                driver = "com.mysql.jdbc.Driver";
+            } catch (ClassNotFoundException ignored1) {}
+        }
+
         HikariConfig config = new HikariConfig();
-        config.setDriverClassName("com.mysql.jdbc.Driver"); // 1.17才有cj.jdbc，所以不换
+        config.setDriverClassName(driver);
         config.setJdbcUrl("jdbc:mysql://" + Config.Database.MySQL.Address + "/" + Config.Database.MySQL.Database);
         config.setUsername(Config.Database.MySQL.Username);
         config.setPassword(Config.Database.MySQL.Password);
