@@ -94,9 +94,6 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 | miraimc.command.miraimc.bind | 允许使用 /miraimc bind 及下属子命令 | OP |
 | miraimc.command.miraimc.reload | 允许使用 /miraimc reload | OP |
 
-## 已知问题
-* Velocity无法使用自动登录
-
 ## 下一步的目标
 - [X] 初步实现CoreAPI的基础功能
 - [X] 初步完善指令和权限系统
