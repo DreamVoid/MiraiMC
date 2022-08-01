@@ -1,16 +1,26 @@
 package me.dreamvoid.miraimc.velocity;
 
 import com.velocitypowered.api.proxy.ProxyServer;
+import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.velocity.event.bot.*;
 import me.dreamvoid.miraimc.velocity.event.friend.*;
 import me.dreamvoid.miraimc.velocity.event.group.*;
 import me.dreamvoid.miraimc.velocity.event.group.member.*;
 import me.dreamvoid.miraimc.velocity.event.group.setting.*;
-import me.dreamvoid.miraimc.velocity.event.message.*;
+import me.dreamvoid.miraimc.velocity.event.message.MiraiBeforeImageUploadEvent;
+import me.dreamvoid.miraimc.velocity.event.message.MiraiImageUploadEvent;
+import me.dreamvoid.miraimc.velocity.event.message.MiraiNudgeEvent;
 import me.dreamvoid.miraimc.velocity.event.message.passive.*;
-import me.dreamvoid.miraimc.velocity.event.message.postsend.*;
-import me.dreamvoid.miraimc.velocity.event.message.presend.*;
-import me.dreamvoid.miraimc.velocity.event.message.recall.*;
+import me.dreamvoid.miraimc.velocity.event.message.postsend.MiraiFriendMessagePostSendEvent;
+import me.dreamvoid.miraimc.velocity.event.message.postsend.MiraiGroupMessagePostSendEvent;
+import me.dreamvoid.miraimc.velocity.event.message.postsend.MiraiGroupTempMessagePostSendEvent;
+import me.dreamvoid.miraimc.velocity.event.message.postsend.MiraiStrangerMessagePostSendEvent;
+import me.dreamvoid.miraimc.velocity.event.message.presend.MiraiFriendMessagePreSendEvent;
+import me.dreamvoid.miraimc.velocity.event.message.presend.MiraiGroupMessagePreSendEvent;
+import me.dreamvoid.miraimc.velocity.event.message.presend.MiraiGroupTempMessagePreSendEvent;
+import me.dreamvoid.miraimc.velocity.event.message.presend.MiraiStrangerMessagePreSendEvent;
+import me.dreamvoid.miraimc.velocity.event.message.recall.MiraiFriendMessageRecallEvent;
+import me.dreamvoid.miraimc.velocity.event.message.recall.MiraiGroupMessageRecallEvent;
 import net.mamoe.mirai.event.GlobalEventChannel;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.event.events.*;
@@ -95,7 +105,7 @@ public class MiraiEvent {
 
     public void startListenEvent(){
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        Thread.currentThread().setContextClassLoader(GlobalEventChannel.class.getClassLoader());
+        Thread.currentThread().setContextClassLoader(Utils.classLoader);
 
         // Bot
         BotOnlineListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOnlineEvent.class, event -> server.getEventManager().fire(new MiraiBotOnlineEvent(event)));

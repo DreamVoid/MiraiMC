@@ -5,11 +5,21 @@ import me.dreamvoid.miraimc.bukkit.event.friend.*;
 import me.dreamvoid.miraimc.bukkit.event.group.*;
 import me.dreamvoid.miraimc.bukkit.event.group.member.*;
 import me.dreamvoid.miraimc.bukkit.event.group.setting.*;
-import me.dreamvoid.miraimc.bukkit.event.message.*;
+import me.dreamvoid.miraimc.bukkit.event.message.MiraiBeforeImageUploadEvent;
+import me.dreamvoid.miraimc.bukkit.event.message.MiraiImageUploadEvent;
+import me.dreamvoid.miraimc.bukkit.event.message.MiraiNudgeEvent;
 import me.dreamvoid.miraimc.bukkit.event.message.passive.*;
-import me.dreamvoid.miraimc.bukkit.event.message.postsend.*;
-import me.dreamvoid.miraimc.bukkit.event.message.presend.*;
-import me.dreamvoid.miraimc.bukkit.event.message.recall.*;
+import me.dreamvoid.miraimc.bukkit.event.message.postsend.MiraiFriendMessagePostSendEvent;
+import me.dreamvoid.miraimc.bukkit.event.message.postsend.MiraiGroupMessagePostSendEvent;
+import me.dreamvoid.miraimc.bukkit.event.message.postsend.MiraiGroupTempMessagePostSendEvent;
+import me.dreamvoid.miraimc.bukkit.event.message.postsend.MiraiStrangerMessagePostSendEvent;
+import me.dreamvoid.miraimc.bukkit.event.message.presend.MiraiFriendMessagePreSendEvent;
+import me.dreamvoid.miraimc.bukkit.event.message.presend.MiraiGroupMessagePreSendEvent;
+import me.dreamvoid.miraimc.bukkit.event.message.presend.MiraiGroupTempMessagePreSendEvent;
+import me.dreamvoid.miraimc.bukkit.event.message.presend.MiraiStrangerMessagePreSendEvent;
+import me.dreamvoid.miraimc.bukkit.event.message.recall.MiraiFriendMessageRecallEvent;
+import me.dreamvoid.miraimc.bukkit.event.message.recall.MiraiGroupMessageRecallEvent;
+import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.event.GlobalEventChannel;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.event.events.*;
@@ -89,7 +99,7 @@ public class MiraiEvent {
 
     public void startListenEvent(){
         ClassLoader loader = Thread.currentThread().getContextClassLoader(); // since mirai 2.12.0
-        Thread.currentThread().setContextClassLoader(GlobalEventChannel.class.getClassLoader());
+        Thread.currentThread().setContextClassLoader(Utils.classLoader);
 
         // Bot
         BotOnlineListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOnlineEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOnlineEvent(event)));

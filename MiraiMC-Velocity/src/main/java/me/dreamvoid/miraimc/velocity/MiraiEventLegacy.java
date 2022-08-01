@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.velocity;
 
 import com.velocitypowered.api.proxy.ProxyServer;
+import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.velocity.event.*;
 import net.mamoe.mirai.event.GlobalEventChannel;
 import net.mamoe.mirai.event.Listener;
@@ -89,7 +90,7 @@ public class MiraiEventLegacy extends MiraiEvent {
 	@Override
 	public void startListenEvent(){
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
-		Thread.currentThread().setContextClassLoader(GlobalEventChannel.class.getClassLoader());
+		Thread.currentThread().setContextClassLoader(Utils.classLoader);
 
 		// Bot
 		BotOnlineListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOnlineEvent.class, event -> server.getEventManager().fire(new MiraiBotOnlineEvent(event)));
