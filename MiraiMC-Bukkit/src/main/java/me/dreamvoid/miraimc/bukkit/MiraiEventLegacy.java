@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.bukkit.event.*;
+import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.event.GlobalEventChannel;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.event.events.*;
@@ -82,7 +83,7 @@ public class MiraiEventLegacy extends MiraiEvent {
 	@Override
 	public void startListenEvent(){
 		ClassLoader loader = Thread.currentThread().getContextClassLoader(); // since mirai 2.12.0
-		Thread.currentThread().setContextClassLoader(GlobalEventChannel.class.getClassLoader());
+		Thread.currentThread().setContextClassLoader(Utils.classLoader);
 
 		// Bot
 		BotOnlineListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOnlineEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOnlineEvent(event)));

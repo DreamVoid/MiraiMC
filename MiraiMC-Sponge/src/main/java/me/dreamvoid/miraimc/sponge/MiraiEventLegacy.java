@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.sponge;
 
+import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.sponge.event.*;
 import net.mamoe.mirai.event.GlobalEventChannel;
 import net.mamoe.mirai.event.Listener;
@@ -100,7 +101,7 @@ public class MiraiEventLegacy extends MiraiEvent {
 	@Override
 	public void startListenEvent(){
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
-		Thread.currentThread().setContextClassLoader(GlobalEventChannel.class.getClassLoader());
+		Thread.currentThread().setContextClassLoader(Utils.classLoader);
 
 		// Bot
 		BotOnlineListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOnlineEvent.class, event -> Sponge.getEventManager().post(new MiraiBotOnlineEvent(event, Cause.of(eventContext, pluginContainer))));
