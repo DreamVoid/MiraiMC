@@ -164,4 +164,12 @@ public class MiraiGroup {
     public List<MiraiNormalMember> getMembers(){
         return group.getMembers().stream().map(member -> new MiraiNormalMember(group, member.getId())).collect(Collectors.toList());
     }
+
+    /**
+     * 发送语音消息
+     * @param audio 语音文件
+     */
+    public void sendAudio(File audio) {
+        group.sendMessage(group.uploadAudio(ExternalResource.create(audio).toAutoCloseable()));
+    }
 }
