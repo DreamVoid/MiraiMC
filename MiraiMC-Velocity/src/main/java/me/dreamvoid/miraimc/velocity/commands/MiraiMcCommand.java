@@ -85,7 +85,7 @@ public class MiraiMcCommand implements SimpleCommand {
                                         plugin.getServer().getScheduler().buildTask(plugin, () -> {
                                             Player player = plugin.getServer().getPlayer(args[2]).orElse(null);
                                             if(player!=null){
-                                                    UUID uuid = player.getUniqueId();
+                                                UUID uuid = player.getUniqueId();
                                                 long qqId = MiraiMC.getBind(uuid);
                                                 if(qqId!=0){
                                                     source.sendMessage(Component.text(Color.translate("&a绑定的QQ号："+qqId)));

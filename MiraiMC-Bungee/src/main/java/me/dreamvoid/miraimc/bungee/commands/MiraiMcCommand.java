@@ -74,7 +74,7 @@ public class MiraiMcCommand extends Command {
                                         bungee.getProxy().getScheduler().runAsync(bungee, () -> {
                                             ProxiedPlayer player = bungee.getProxy().getPlayer(args[2]);
                                             if(player!=null){
-                                                long qqId = MiraiMC.getBind(bungee.getProxy().getPlayer(args[2]).getUniqueId());
+                                                long qqId = MiraiMC.getBind(player.getUniqueId());
                                                 if(qqId!=0){
                                                     sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&a绑定的QQ号："+qqId)));
                                                 } else sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&c未找到符合条件的记录！")));
