@@ -122,4 +122,12 @@ public class MiraiFriend {
     public void sendMusicShare(String Kind, String Title, String Summary, String JumpUrl, String PictureUrl, String MusicUrl){
         friend.sendMessage(new MusicShare(MusicKind.valueOf(Kind), Title, Summary, JumpUrl, PictureUrl, MusicUrl));
     }
+
+    /**
+     * 发送语音消息
+     * @param audio 语音文件
+     */
+    public void sendAudio(File audio) {
+        friend.sendMessage(friend.uploadAudio(ExternalResource.create(audio).toAutoCloseable()));
+    }
 }
