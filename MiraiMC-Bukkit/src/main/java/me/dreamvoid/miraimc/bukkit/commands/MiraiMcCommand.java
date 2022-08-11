@@ -50,7 +50,7 @@ public class MiraiMcCommand implements TabExecutor {
                                         new BukkitRunnable() {
                                             @Override
                                             public void run() {
-                                                UUID uuid = Bukkit.getOfflinePlayer(UUID.fromString(args[2])).getUniqueId();
+                                                UUID uuid = Bukkit.getOfflinePlayer(args[2]).getUniqueId();
                                                 long qqid = Long.parseLong(args[3]);
                                                 MiraiMC.addBind(uuid,qqid);
                                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a已添加绑定！"));
