@@ -2,6 +2,7 @@ package me.dreamvoid.miraimc.api.bot;
 
 import net.mamoe.mirai.contact.OtherClient;
 import net.mamoe.mirai.message.code.MiraiCode;
+import net.mamoe.mirai.message.data.FlashImage;
 import net.mamoe.mirai.utils.ExternalResource;
 
 import java.io.File;
@@ -69,5 +70,21 @@ public class MiraiOtherClient {
 	 */
 	public String uploadImage(File imageFile) {
 		return ExternalResource.uploadAsImage(imageFile, client).getImageId();
+	}
+
+	/**
+	 * 发送闪照
+	 * @param image 图片文件
+	 */
+	public void sendFlashImage(File image) {
+		client.sendMessage(FlashImage.from(client.uploadImage(ExternalResource.create(image).toAutoCloseable())));
+	}
+
+	/**
+	 * 发送闪照
+	 * @param imageID 图片ID
+	 */
+	public void sendFlashImage(String imageID) {
+		client.sendMessage(FlashImage.from(imageID));
 	}
 }

@@ -4,6 +4,7 @@ import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.message.code.MiraiCode;
+import net.mamoe.mirai.message.data.FlashImage;
 import net.mamoe.mirai.message.data.Image;
 import net.mamoe.mirai.message.data.MusicKind;
 import net.mamoe.mirai.message.data.MusicShare;
@@ -171,5 +172,21 @@ public class MiraiGroup {
      */
     public void sendAudio(File audio) {
         group.sendMessage(group.uploadAudio(ExternalResource.create(audio).toAutoCloseable()));
+    }
+
+    /**
+     * 发送闪照
+     * @param image 图片文件
+     */
+    public void sendFlashImage(File image) {
+        group.sendMessage(FlashImage.from(group.uploadImage(ExternalResource.create(image).toAutoCloseable())));
+    }
+
+    /**
+     * 发送闪照
+     * @param imageID 图片ID
+     */
+    public void sendFlashImage(String imageID) {
+        group.sendMessage(FlashImage.from(imageID));
     }
 }

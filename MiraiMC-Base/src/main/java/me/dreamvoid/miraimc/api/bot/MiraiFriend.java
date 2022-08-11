@@ -3,6 +3,7 @@ package me.dreamvoid.miraimc.api.bot;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.message.code.MiraiCode;
+import net.mamoe.mirai.message.data.FlashImage;
 import net.mamoe.mirai.message.data.Image;
 import net.mamoe.mirai.message.data.MusicKind;
 import net.mamoe.mirai.message.data.MusicShare;
@@ -129,5 +130,21 @@ public class MiraiFriend {
      */
     public void sendAudio(File audio) {
         friend.sendMessage(friend.uploadAudio(ExternalResource.create(audio).toAutoCloseable()));
+    }
+
+    /**
+     * 发送闪照
+     * @param image 图片文件
+     */
+    public void sendFlashImage(File image) {
+        friend.sendMessage(FlashImage.from(friend.uploadImage(ExternalResource.create(image).toAutoCloseable())));
+    }
+
+    /**
+     * 发送闪照
+     * @param imageID 图片ID
+     */
+    public void sendFlashImage(String imageID) {
+        friend.sendMessage(FlashImage.from(imageID));
     }
 }
