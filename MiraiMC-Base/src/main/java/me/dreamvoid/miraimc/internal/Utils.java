@@ -10,6 +10,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -146,5 +147,12 @@ public final class Utils {
                 return strber.toString();
             }
         }
+    }
+
+    @NotNull
+    public static File getMiraiDir(){
+        if(!(Config.General.MiraiWorkingDir.equals("default"))) {
+            return new File(Config.General.MiraiWorkingDir);
+        } else return new File(Config.PluginDir,"MiraiBot");
     }
 }

@@ -73,13 +73,7 @@ public class MiraiLoader {
         }
 
         // 文件夹
-        File MiraiDir;
-        if (Config.General.MiraiWorkingDir.equals("default")) {
-            MiraiDir = new File(Config.PluginDir,"MiraiBot");
-        } else {
-            MiraiDir = new File(Config.General.MiraiWorkingDir);
-        }
-        File LibrariesDir = new File(MiraiDir,"libs");
+        File LibrariesDir = new File(Utils.getMiraiDir(),"libs");
         if(!LibrariesDir.exists() && !LibrariesDir.mkdirs()) {
             throw new RuntimeException("Failed to create " + LibrariesDir.getPath());
         }
