@@ -318,11 +318,7 @@ public class MiraiBot {
 
         logger.info("登录新的机器人账号: "+ Account+", 协议: "+ Protocol.name());
 
-        File MiraiDir;
-        if(!(Config.General.MiraiWorkingDir.equals("default"))) {
-            MiraiDir = new File(Config.General.MiraiWorkingDir);
-        } else MiraiDir = new File(Config.PluginDir,"MiraiBot"); // mirai数据文件夹
-        File BotConfig = new File(new File(MiraiDir, "bots"), String.valueOf(Account)); // 当前机器人账号配置文件夹和相应的配置
+        File BotConfig = new File(new File(Utils.getMiraiDir(), "bots"), String.valueOf(Account)); // 当前机器人账号配置文件夹和相应的配置
 
         if(!BotConfig.exists() && !BotConfig.mkdirs()) throw new RuntimeException("Failed to create folder " + BotConfig.getPath());
 

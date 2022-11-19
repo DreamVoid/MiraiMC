@@ -6,6 +6,7 @@ import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -31,11 +32,7 @@ public class MiraiAutoLogin {
 
     public void loadFile() {
         // 建立文件夹
-        File MiraiDir;
-        if(!(Config.General.MiraiWorkingDir.equals("default"))) {
-            MiraiDir = new File(Config.General.MiraiWorkingDir);
-        } else MiraiDir = new File(Config.PluginDir,"MiraiBot");
-        File ConsoleDir = new File(MiraiDir, "config/Console");
+        File ConsoleDir = new File(Utils.getMiraiDir(), "config/Console");
         if(!ConsoleDir.exists() &&!ConsoleDir.mkdirs()) throw new RuntimeException("Failed to create folder " + ConsoleDir.getPath());
 
         // 建立自动登录文件
