@@ -94,6 +94,10 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 | miraimc.command.miraimc.bind | 允许使用 /miraimc bind 及下属子命令 | OP |
 | miraimc.command.miraimc.reload | 允许使用 /miraimc reload | OP |
 
+## 关于更新插件
+
+我，作者，可以不时发布升级、更新或补丁（我将其统称为"更新"），但我不必非得这么做。我也没有义务对插件提供持续支持或维护。当然，我希望继续为这个插件发布新的更新，我只是不能保证一定会这么做。更新中附带的更改可能不太适用于其他附属插件，例如 Chat2QQ。我对此表示遗憾，但我不会对此承担责任。如果你遇到这种情况，请尝试运行较旧版本。
+
 ## 下一步的目标
 - [X] 初步实现CoreAPI的基础功能
 - [X] 初步完善指令和权限系统
