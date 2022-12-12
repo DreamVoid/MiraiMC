@@ -28,7 +28,7 @@ public class BukkitPlugin extends JavaPlugin {
     public void onLoad() {
         try {
             Utils.setLogger(this.getLogger());
-            Utils.setClassLoader(this.getClassLoader());
+            Utils.setClassLoader(this.getClassLoader().getParent());
             new BukkitConfig(this).loadConfig();
 
             if(Config.General.MiraiCoreVersion.equalsIgnoreCase("latest")) {
