@@ -14,10 +14,6 @@ public class Config {
         public static boolean CheckUpdate; // check-update
         public static boolean DisableSafeWarningMessage; // disable-safe-warning-message
         public static String MiraiWorkingDir; // mirai-working-dir
-        public static class AddProperties{ // add-properties
-            public static boolean MiraiNoDesktop; // mirai.no-desktop
-            public static boolean MiraiSliderCaptchaSupported; // mirai.slider.captcha.supported
-        }
         public static String MiraiCoreVersion; // mirai-core-version
         public static String MavenRepoUrl; // maven-repo-url
         public static boolean EnableHttpApi; // enable-http-api

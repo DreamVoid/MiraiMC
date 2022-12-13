@@ -32,8 +32,6 @@ public class BukkitConfig {
         General.CheckUpdate = plugin.getConfig().getBoolean("general.check-update",true);
         General.DisableSafeWarningMessage = plugin.getConfig().getBoolean("general.disable-safe-warning-message",false);
         General.MiraiWorkingDir = plugin.getConfig().getString("general.mirai-working-dir","default");
-        General.AddProperties.MiraiNoDesktop = plugin.getConfig().getBoolean("general.add-properties.mirai.no-desktop",true);
-        General.AddProperties.MiraiSliderCaptchaSupported = plugin.getConfig().getBoolean("general.add-properties.mirai.slider.captcha.supported",true);
         General.MiraiCoreVersion = plugin.getConfig().getString("general.mirai-core-version","latest");
         General.MavenRepoUrl = plugin.getConfig().getString("general.maven-repo-url","https://repo1.maven.org/maven2");
         General.EnableHttpApi = plugin.getConfig().getBoolean("general.enable-http-api",false);

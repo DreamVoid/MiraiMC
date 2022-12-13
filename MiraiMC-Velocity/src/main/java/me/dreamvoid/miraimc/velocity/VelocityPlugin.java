@@ -41,6 +41,8 @@ import java.util.concurrent.TimeUnit;
 public class VelocityPlugin {
     @Inject
     public VelocityPlugin(ProxyServer server, Logger logger, @DataDirectory Path dataDirectory, Metrics.Factory metricsFactory){
+        System.setProperty("mirai.no-desktop", "MiraiMC");
+        System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
         INSTANCE = this;
 
         this.server = server;
@@ -92,9 +94,6 @@ public class VelocityPlugin {
 
         // enable
         getLogger().info("Mirai working dir: " + Config.General.MiraiWorkingDir);
-
-        if(Config.General.AddProperties.MiraiNoDesktop) System.setProperty("mirai.no-desktop", "MiraiMC");
-        if(Config.General.AddProperties.MiraiSliderCaptchaSupported) System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
 
         getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();

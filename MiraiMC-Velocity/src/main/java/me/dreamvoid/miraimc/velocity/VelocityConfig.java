@@ -41,11 +41,6 @@ public class VelocityConfig {
         General.CheckUpdate = !Objects.isNull(general.get("check-update")) ? (Boolean) general.get("check-update") : false;
         General.DisableSafeWarningMessage = !Objects.isNull(general.get("disable-safe-warning-message")) ? (Boolean) general.get("disable-safe-warning-message") : false;
         General.MiraiWorkingDir = !Objects.isNull(general.get("mirai-working-dir")) ? String.valueOf(general.get("mirai-working-dir")) : "default";
-
-        Map<String, Object> addProperties = !Objects.isNull(general.get("add-properties")) ? (Map<String, Object>) general.get("add-properties") : new HashMap<>();
-        General.AddProperties.MiraiNoDesktop = !Objects.isNull(addProperties.get("mirai.no-desktop")) ? (Boolean) addProperties.get("mirai.no-desktop") : true;
-        General.AddProperties.MiraiSliderCaptchaSupported = !Objects.isNull(addProperties.get("mirai.slider.captcha.supported")) ? (Boolean) addProperties.get("mirai.slider.captcha.supported") : true;
-
         General.MiraiCoreVersion = !Objects.isNull(general.get("mirai-core-version")) ? String.valueOf(general.get("mirai-core-version")) : "latest";
         General.MavenRepoUrl = !Objects.isNull(general.get("maven-repo-url")) ? String.valueOf(general.get("maven-repo-url")) : "https://maven.aliyun.com/nexus/content/groups/public/";
         General.EnableHttpApi = !Objects.isNull(general.get("enable-http-api")) ? (Boolean) general.get("enable-http-api") : false;

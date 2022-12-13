@@ -39,8 +39,6 @@ public class BungeeConfig {
         General.CheckUpdate = bungeeConfig.getBoolean("general.check-update",true);
         General.DisableSafeWarningMessage = bungeeConfig.getBoolean("general.disable-safe-warning-message",false);
         General.MiraiWorkingDir = bungeeConfig.getString("general.mirai-working-dir","default");
-        General.AddProperties.MiraiNoDesktop = bungeeConfig.getBoolean("general.add-properties.mirai.no-desktop",true);
-        General.AddProperties.MiraiSliderCaptchaSupported = bungeeConfig.getBoolean("general.add-properties.mirai.slider.captcha.supported",true);
         General.MiraiCoreVersion = bungeeConfig.getString("general.mirai-core-version","latest");
         General.MavenRepoUrl = bungeeConfig.getString("general.maven-repo-url","https://repo1.maven.org/maven2");
         General.EnableHttpApi = bungeeConfig.getBoolean("general.enable-http-api",false);
