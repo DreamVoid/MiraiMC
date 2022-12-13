@@ -62,6 +62,11 @@ public class BungeePlugin extends Plugin {
         ProxyServer.getInstance().getPluginManager().registerCommand(this,new MiraiMcCommand(this,"miraimc"));
         ProxyServer.getInstance().getPluginManager().registerCommand(this,new MiraiVerifyCommand("miraiverify"));
 
+        if(Config.Bot.LogEvents){
+            getLogger().info("Registering events.");
+            getProxy().getPluginManager().registerListener(this, new Events());
+        }
+
         getLogger().info("Loading auto-login file.");
         MiraiAutoLogin.loadFile();
         MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
