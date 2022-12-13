@@ -1,4 +1,4 @@
-package me.dreamvoid.miraimc.internal.classloader;
+package me.dreamvoid.miraimc.internal.libloader;
 
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
-import static me.dreamvoid.miraimc.internal.classloader.LibrariesLoader.*;
+import static me.dreamvoid.miraimc.internal.libloader.JarLoader.*;
 
 public class MiraiLoader {
     /**
@@ -84,7 +84,7 @@ public class MiraiLoader {
         }
 
         try {
-            loadLibraryClassMaven("net.mamoe", "mirai-core-all", version, "-all", Config.General.MavenRepoUrl.replace("http://","https://"), LibrariesDir);
+            loadJarMaven("net.mamoe", "mirai-core-all", version, "-all", Config.General.MavenRepoUrl.replace("http://","https://"), LibrariesDir);
             try (FileWriter writer = new FileWriter(writeName);
                  BufferedWriter out = new BufferedWriter(writer)
             ) {
@@ -92,13 +92,13 @@ public class MiraiLoader {
                 out.flush();
             }
         } catch (Exception e) {
-            Utils.logger.warning("Unable to download mirai core from remote server("+e+"), try to use local core.");
+            Utils.logger.warning("Unable to download mirai core from remote server, try to use local core. ("+e+")");
             if(writeName.exists()) {
                 String content = new String(Files.readAllBytes(writeName.toPath()), StandardCharsets.UTF_8);
                 if(!content.equals("")){
                     String name = "mirai-core-all" + "-" + content + ".jar"; // 文件名
                     File coreFile = new File(LibrariesDir, name);
-                    loadLibraryClassLocal(coreFile);
+                    loadJarLocal(coreFile);
                 } else {
                     Utils.logger.warning("Unable to use local core.");
                 }

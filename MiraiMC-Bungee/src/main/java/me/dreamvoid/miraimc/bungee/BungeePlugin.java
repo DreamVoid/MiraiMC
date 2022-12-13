@@ -9,7 +9,7 @@ import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.PluginUpdate;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.classloader.MiraiLoader;
+import me.dreamvoid.miraimc.internal.libloader.MiraiLoader;
 import me.dreamvoid.miraimc.webapi.Info;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
