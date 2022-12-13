@@ -6,6 +6,8 @@ import cn.nukkit.utils.TextFormat;
 import me.dreamvoid.miraimc.nukkit.commands.base.BaseCommand;
 import me.dreamvoid.miraimc.nukkit.commands.miraisubcommand.*;
 
+import java.util.Arrays;
+
 /**
  * @author LT_Name
  */
@@ -29,18 +31,20 @@ public class MiraiCommand extends BaseCommand {
 
     @Override
     public void sendHelp(CommandSender sender) {
-        sender.sendMessage(TextFormat.colorize('&',"&6&lMiraiMC&r &b机器人帮助菜单"));
-        sender.sendMessage(TextFormat.colorize('&',"&6/mirai login <账号> <密码> [协议]:&r 登录一个机器人"));
-        sender.sendMessage(TextFormat.colorize('&',"&6/mirai logout <账号>:&r 退出一个机器人"));
-        sender.sendMessage(TextFormat.colorize('&',"&6/mirai list:&r 查看当前存在的机器人"));
-        sender.sendMessage(TextFormat.colorize('&',"&6/mirai sendfriendmessage <账号> <好友> <消息>:&r 向指定好友发送私聊消息"));
-        sender.sendMessage(TextFormat.colorize('&',"&6/mirai sendgroupmessage <账号> <群号> <消息>:&r 向指定群发送群聊消息"));
-        sender.sendMessage(TextFormat.colorize('&',"&6/mirai sendfriendnudge <账号> <好友>:&r 向指定好友发送戳一戳"));
-        sender.sendMessage(TextFormat.colorize('&',"&6/mirai uploadimage <账号> <图片文件名>:&r 上传指定图片"));
-        sender.sendMessage(TextFormat.colorize('&',"&6/mirai checkonline <账号>:&r 检查指定的机器人是否在线"));
-        sender.sendMessage(TextFormat.colorize('&',"&6/mirai autologin add <账号> <密码> [协议]:&r 添加一个自动登录账号"));
-        sender.sendMessage(TextFormat.colorize('&',"&6/mirai autologin list:&r 查看自动登录账号列表"));
-        sender.sendMessage(TextFormat.colorize('&',"&6/mirai autologin remove <账号>:&r 删除一个自动登录账号"));
+        for (String s : Arrays.asList("&6&lMiraiMC&r &b机器人帮助菜单",
+                "&6/mirai login <账号> <密码> [协议]:&r 登录一个机器人",
+                "&6/mirai logout <账号>:&r 退出一个机器人",
+                "&6/mirai list:&r 查看当前存在的机器人",
+                "&6/mirai sendfriendmessage <账号> <好友> <消息>:&r 向指定好友发送私聊消息",
+                "&6/mirai sendgroupmessage <账号> <群号> <消息>:&r 向指定群发送群聊消息",
+                "&6/mirai sendfriendnudge <账号> <好友>:&r 向指定好友发送戳一戳",
+                "&6/mirai uploadimage <账号> <图片文件名>:&r 上传指定图片",
+                "&6/mirai checkonline <账号>:&r 检查指定的机器人是否在线",
+                "&6/mirai autologin add <账号> <密码> [协议]:&r 添加一个自动登录账号",
+                "&6/mirai autologin list:&r 查看自动登录账号列表",
+                "&6/mirai autologin remove <账号>:&r 删除一个自动登录账号")) {
+            sender.sendMessage(TextFormat.colorize('&', s));
+        }
     }
 
     @Override

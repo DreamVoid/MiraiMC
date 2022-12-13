@@ -21,7 +21,7 @@ public class MiraiVerifyCommand implements CommandExecutor {
     }
 
     @Override
-    public @NotNull CommandResult execute(@NotNull CommandSource src, CommandContext arg) throws CommandException {
+    public @NotNull CommandResult execute(@NotNull CommandSource sender, CommandContext arg) throws CommandException {
         if(arg.<String>getOne("args").isPresent()){
             String argo = arg.<String>getOne("args").get();
             String[] args = argo.split("\\s+");
@@ -29,22 +29,22 @@ public class MiraiVerifyCommand implements CommandExecutor {
                 case "unsafedevice":{
                     if(args.length >= 2){
                         MiraiLoginSolver.solve(Long.parseLong(args[1]));
-                        src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a已将验证请求提交到服务器"));
-                    } else src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c无效的参数！用法：/miraiverify unsafedevice <账号>"));
+                        sender.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a已将验证请求提交到服务器"));
+                    } else sender.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c无效的参数！用法：/miraiverify unsafedevice <账号>"));
                     break;
                 }
                 case "captcha":{
                     if(args.length >= 3){
-                        src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a已将验证码提交到服务器"));
+                        sender.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a已将验证码提交到服务器"));
                         MiraiLoginSolver.solve(Long.parseLong(args[1]),args[2]);
-                    } else src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c无效的参数！用法：/miraiverify captcha <账号> <验证码>"));
+                    } else sender.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c无效的参数！用法：/miraiverify captcha <账号> <验证码>"));
                     break;
                 }
                 case "cancel":{
                     if(args.length >= 2){
                         MiraiLoginSolver.cancel(Long.parseLong(args[1]));
-                        src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a已取消登录验证流程"));
-                    } else src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c无效的参数！用法：/miraiverify cancel <账号>"));
+                        sender.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a已取消登录验证流程"));
+                    } else sender.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c无效的参数！用法：/miraiverify cancel <账号>"));
                     break;
                 }
             }
