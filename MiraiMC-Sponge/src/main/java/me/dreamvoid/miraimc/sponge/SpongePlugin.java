@@ -5,7 +5,7 @@ import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.classloader.MiraiLoader;
+import me.dreamvoid.miraimc.internal.libloader.MiraiLoader;
 import me.dreamvoid.miraimc.sponge.commands.MiraiCommand;
 import me.dreamvoid.miraimc.sponge.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.sponge.commands.MiraiVerifyCommand;
