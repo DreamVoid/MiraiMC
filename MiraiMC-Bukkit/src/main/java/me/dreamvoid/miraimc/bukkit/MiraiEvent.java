@@ -28,6 +28,10 @@ import org.bukkit.Bukkit;
 import static me.dreamvoid.miraimc.bukkit.event.bot.MiraiBotOfflineEvent.Type.*;
 
 public class MiraiEvent {
+    public MiraiEvent(){
+        Thread.currentThread().setContextClassLoader(Utils.classLoader);
+    }
+
     private Listener<BotOnlineEvent> BotOnlineListener;
     private Listener<BotOfflineEvent.Active> BotOfflineActiveListener;
     private Listener<BotOfflineEvent.Force> BotOfflineForceListener;
