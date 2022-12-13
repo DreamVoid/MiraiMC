@@ -58,6 +58,9 @@ public class SpongePlugin {
      */
     @Listener
     public void onLoad(GamePreInitializationEvent e) {
+        System.setProperty("mirai.no-desktop", "MiraiMC");
+        System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
+
         try {
             java.util.logging.Logger log4j = new SpongeLogger("MiraiMC", null, this);
             Utils.setLogger(log4j);
@@ -87,9 +90,6 @@ public class SpongePlugin {
     @Listener
     public void onEnable(GameInitializationEvent e) {
         getLogger().info("Mirai working dir: " + Config.General.MiraiWorkingDir);
-
-        if(Config.General.AddProperties.MiraiNoDesktop) System.setProperty("mirai.no-desktop", "MiraiMC");
-        if(Config.General.AddProperties.MiraiSliderCaptchaSupported) System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
 
         getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();

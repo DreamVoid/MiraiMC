@@ -26,6 +26,9 @@ public class BukkitPlugin extends JavaPlugin {
 
     @Override // 加载插件
     public void onLoad() {
+        System.setProperty("mirai.no-desktop", "MiraiMC");
+        System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
+
         try {
             Utils.setLogger(this.getLogger());
             Utils.setClassLoader(this.getClassLoader().getParent());
@@ -59,9 +62,6 @@ public class BukkitPlugin extends JavaPlugin {
         } catch (ClassNotFoundException ignored) {}
 
         getLogger().info("Mirai working dir: " + Config.General.MiraiWorkingDir);
-
-        if(Config.General.AddProperties.MiraiNoDesktop) System.setProperty("mirai.no-desktop", "MiraiMC");
-        if(Config.General.AddProperties.MiraiSliderCaptchaSupported) System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
 
         getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();

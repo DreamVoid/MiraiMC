@@ -31,6 +31,8 @@ public class NukkitPlugin extends PluginBase {
 
     @Override
     public void onLoad() {
+        System.setProperty("mirai.no-desktop", "MiraiMC");
+        System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
         nukkitPlugin = this;
         try {
             Utils.setLogger(new NukkitLogger("MiraiMC-Nukkit",null, this));
@@ -57,13 +59,6 @@ public class NukkitPlugin extends PluginBase {
     @Override
     public void onEnable() {
         getLogger().info("Mirai working dir: " + Config.General.MiraiWorkingDir);
-
-        if(Config.General.AddProperties.MiraiNoDesktop){
-            System.setProperty("mirai.no-desktop","MiraiMC");
-        }
-        if(Config.General.AddProperties.MiraiSliderCaptchaSupported){
-            System.setProperty("mirai.slider.captcha.supported","MiraiMC");
-        }
 
         getLogger().info("Starting Mirai-Events listener.");
         MiraiEvent.startListenEvent();
