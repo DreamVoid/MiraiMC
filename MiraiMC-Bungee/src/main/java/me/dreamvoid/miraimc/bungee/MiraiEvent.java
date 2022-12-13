@@ -28,6 +28,10 @@ import net.md_5.bungee.api.ProxyServer;
 import static me.dreamvoid.miraimc.bungee.event.bot.MiraiBotOfflineEvent.Type.*;
 
 public class MiraiEvent {
+    public MiraiEvent(){
+        Thread.currentThread().setContextClassLoader(Utils.classLoader);
+    }
+
     private Listener<BotOnlineEvent> BotOnlineListener;
     private Listener<BotOfflineEvent.Active> BotOfflineActiveListener;
     private Listener<BotOfflineEvent.Force> BotOfflineForceListener;
@@ -98,9 +102,6 @@ public class MiraiEvent {
     private Listener<FriendInputStatusChangedEvent> FriendInputStatusChangedEventListener;
 
     public void startListenEvent(){
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        Thread.currentThread().setContextClassLoader(Utils.classLoader);
-
         // Bot
         BotOnlineListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOnlineEvent.class, event -> ProxyServer.getInstance().getPluginManager().callEvent(new MiraiBotOnlineEvent(event)));
         BotOfflineActiveListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Active.class,event -> ProxyServer.getInstance().getPluginManager().callEvent(new MiraiBotOfflineEvent(event, Active)));
@@ -178,8 +179,6 @@ public class MiraiEvent {
         FriendAvatarChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendAvatarChangedEvent.class, event -> ProxyServer.getInstance().getPluginManager().callEvent(new MiraiFriendAvatarChangedEvent(event)));
         FriendNickChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendNickChangedEvent.class, event -> ProxyServer.getInstance().getPluginManager().callEvent(new MiraiFriendNickChangedEvent(event)));
         FriendInputStatusChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendInputStatusChangedEvent.class, event -> ProxyServer.getInstance().getPluginManager().callEvent(new MiraiFriendInputStatusChangedEvent(event)));
-
-        Thread.currentThread().setContextClassLoader(loader);
     }
 
     public void stopListenEvent(){

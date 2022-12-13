@@ -20,6 +20,7 @@ public class MiraiEventLegacy extends MiraiEvent {
 
 	public MiraiEventLegacy(SpongePlugin plugin) {
 		super(plugin);
+		Thread.currentThread().setContextClassLoader(Utils.classLoader);
 		pluginContainer = plugin.getPluginContainer();
 		eventContext = EventContext.builder().add(EventContextKeys.PLUGIN, pluginContainer).build();
 	}
@@ -100,9 +101,6 @@ public class MiraiEventLegacy extends MiraiEvent {
 
 	@Override
 	public void startListenEvent(){
-		ClassLoader loader = Thread.currentThread().getContextClassLoader();
-		Thread.currentThread().setContextClassLoader(Utils.classLoader);
-
 		// Bot
 		BotOnlineListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOnlineEvent.class, event -> Sponge.getEventManager().post(new MiraiBotOnlineEvent(event, Cause.of(eventContext, pluginContainer))));
 		BotOfflineActiveListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOfflineEvent.Active.class,event -> Sponge.getEventManager().post(new MiraiBotOfflineEvent(event, Active, Cause.of(eventContext, pluginContainer))));
@@ -180,8 +178,6 @@ public class MiraiEventLegacy extends MiraiEvent {
 		FriendAvatarChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendAvatarChangedEvent.class, event -> Sponge.getEventManager().post(new MiraiFriendAvatarChangedEvent(event, Cause.of(eventContext, pluginContainer))));
 		FriendNickChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendNickChangedEvent.class, event -> Sponge.getEventManager().post(new MiraiFriendNickChangedEvent(event, Cause.of(eventContext, pluginContainer))));
 		FriendInputStatusChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendInputStatusChangedEvent.class, event -> Sponge.getEventManager().post(new MiraiFriendInputStatusChangedEvent(event, Cause.of(eventContext, pluginContainer))));
-
-		Thread.currentThread().setContextClassLoader(loader);
 	}
 
 	@Override

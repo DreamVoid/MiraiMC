@@ -31,6 +31,10 @@ public class MiraiBot {
     private final Bot bot;
     private static Logger logger;
 
+    static {
+        Thread.currentThread().setContextClassLoader(Utils.classLoader);
+    }
+
     /**
      * 初始化
      * @param BotAccount 机器人账号
