@@ -14,7 +14,7 @@ public class MiraiVerifyCommand extends Command {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage("This command should not run directly.");
+            sender.sendMessage(new TextComponent("This command should not run directly."));
             return;
         }
 
