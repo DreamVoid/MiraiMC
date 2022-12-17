@@ -63,7 +63,7 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 | /mirai list | 列出当前在线的机器人 | miraimc.command.mirai.list |
 | /mirai sendfriendmessage <账号> <好友> <消息> | 向指定好友发送消息 | miraimc.command.mirai.sendfriendmessage |
 | /mirai sendfriendnudge <账号> <好友> | 向指定好友发送戳一戳 | miraimc.command.mirai.sendfriendnudge |
-| /mirai sendfgroupmessage <账号> <群号> <消息> | 向指定群发送消息 | miraimc.command.mirai.sendgroupmessage |
+| /mirai sendgroupmessage <账号> <群号> <消息> | 向指定群发送消息 | miraimc.command.mirai.sendgroupmessage |
 | /mirai checkonline <账号> | 检查指定机器人是否在线 | miraimc.command.mirai.checkonline |
 | /mirai autologin add <账号> <密码> \[协议] | 添加一个自动登录机器人账号 | miraimc.command.mirai.autologin |
 | /mirai autologin remove <账号> | 移除一个自动登录机器人账号 | miraimc.command.mirai.autologin |
