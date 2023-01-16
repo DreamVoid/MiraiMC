@@ -65,7 +65,7 @@
         <dependency>
             <groupId>net.mamoe</groupId>
             <artifactId>mirai-core-jvm</artifactId>
-            <version>2.13.2</version>
+            <version>2.13.3</version>
             <scope>provided</scope>
         </dependency>
         <!--很明显没有下面这个就别想编译通过，虽然我没有调用任何相关代码-->
