@@ -18,6 +18,7 @@ public class MiraiVerifyCommand extends BaseCommand {
         this.addSubCommand(new UnsafeDeviceCommand("UnsafeDevice"));
         this.addSubCommand(new CancelCommand("Cancel"));
         this.addSubCommand(new CaptchaCommand("Captcha"));
+        this.addSubCommand(new DeviceVerifyCommand("DeviceVerify"));
     }
 
     @Override
