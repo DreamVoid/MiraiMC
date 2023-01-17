@@ -47,6 +47,18 @@ public class MiraiVerifyCommand implements CommandExecutor {
                     } else sender.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c无效的参数！用法：/miraiverify cancel <账号>"));
                     break;
                 }
+                case "deviceverify":{
+                    if(args.length >= 2){
+                        if(args.length == 2){
+                            MiraiLoginSolver.solve(Long.parseLong(args[1]));
+                            sender.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a已将验证请求提交到服务器"));
+                        } else if(args.length == 3){
+                            MiraiLoginSolver.solve(Long.parseLong(args[1]), args[2]);
+                            sender.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&a已将验证码提交到服务器"));
+                        }
+                    } else sender.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&c无效的参数！用法：/miraiverify unsafedevice <账号>"));
+                    break;
+                }
             }
             return CommandResult.builder().successCount(1).build();
         } else throw new ArgumentParseException(Text.of("isPresent() returned false!"),"MiraiMC",0);

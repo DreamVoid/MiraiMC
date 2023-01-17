@@ -1,8 +1,13 @@
 package me.dreamvoid.miraimc.internal;
 
+import kotlin.Unit;
 import kotlin.coroutines.Continuation;
+import kotlin.coroutines.CoroutineContext;
+import kotlinx.coroutines.Dispatchers;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.network.CustomLoginFailedException;
+import net.mamoe.mirai.utils.DeviceVerificationRequests;
+import net.mamoe.mirai.utils.DeviceVerificationResult;
 import net.mamoe.mirai.utils.LoginSolver;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -133,9 +138,13 @@ public class MiraiLoginSolver extends LoginSolver {
      * @param verifyUrl 设备锁验证链接
      * @param continuation (?)
      * @return 任意值
+     * @deprecated
+     * @since mirai 2.13.3
+     * @see #onSolveDeviceVerification(Bot, DeviceVerificationRequests, Continuation)
      */
     @Nullable
     @Override
+    @Deprecated
     public Object onSolveUnsafeDeviceLoginVerify(@NotNull Bot bot, @NotNull String verifyUrl, @NotNull Continuation<? super String> continuation){
         try {
             threads = new Thread(() -> {
@@ -166,6 +175,117 @@ public class MiraiLoginSolver extends LoginSolver {
         }
     }
 
+    @Nullable
+    @Override
+    public Object onSolveDeviceVerification(@NotNull Bot bot, @NotNull DeviceVerificationRequests requests, @NotNull Continuation<? super DeviceVerificationResult> $completion) {
+        try {
+            threads = new Thread(() -> {
+                deviceVerifyWait.add(bot);
+                bot.getLogger().warning("当前登录的QQ（"+bot.getId()+"）需要完成设备验证");
+                bot.getLogger().warning("短信验证方式" + (requests.getSms() != null ? "可用" : "不可用，请勿使用此方式"));
+                bot.getLogger().warning("其他验证方式" + (requests.getSms() != null ? "可用" : "不可用，请勿使用此方式"));
+                if(requests.getPreferSms()) bot.getLogger().warning("服务器要求使用短信验证码验证，但仍可以尝试其他验证方式");
+                bot.getLogger().warning("如需使用短信验证方式，请输入指令 /miraiverify deviceverify " + bot.getId() + " sms");
+                bot.getLogger().warning("如需使用其他验证方式，请输入指令 /miraiverify deviceverify " + bot.getId() + " fallback");
+                bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify cancel "+bot.getId());
+                bot.getLogger().warning("如需帮助，请参阅: https://docs.miraimc.dreamvoid.me/troubleshoot/verify-guide#device-verify");
+                while(deviceVerifyWait.contains(bot)) if (deviceVerifyCode.containsKey(bot)) break;
+            });
+            threads.start();
+            threads.join();
+        } catch (InterruptedException | IllegalThreadStateException e) {
+            bot.getLogger().warning("启动验证线程时出现异常，原因: " + e);
+            throw loginErrorException;
+        }
+
+        String VerifyType = ""; // 验证方式，不加这个就屎山了
+
+        if (deviceVerifyCode.containsKey(bot)) {
+            VerifyType = deviceVerifyCode.get(bot);
+            deviceVerifyCode.remove(bot);
+            try {
+                switch(VerifyType){
+                    case "sms":{
+                        if(requests.getSms() != null){
+                            threads = new Thread(() -> {
+                                deviceVerifyWait.add(bot);
+                                bot.getLogger().warning("当前登录的QQ（"+bot.getId()+"）将使用短信验证码验证");
+                                bot.getLogger().warning("一条包含验证码的短信将会发送到地区代码为"+requests.getSms().getCountryCode()+"、号码为"+requests.getSms().getPhoneNumber()+"的手机上");
+                                bot.getLogger().warning("收到验证码后，请输入指令 /miraiverify deviceverify " + bot.getId() + " <验证码>");
+                                bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify cancel " + bot.getId() + "，取消登录后需要等待至少1分钟才能重新登录");
+                                requests.getSms().requestSms(new Continuation<Unit>() {
+                                    @NotNull
+                                    @Override
+                                    public CoroutineContext getContext() {
+                                        return (CoroutineContext) Dispatchers.getIO();
+                                    }
+
+                                    @Override
+                                    public void resumeWith(@NotNull Object o) { }
+                                });
+                                while(deviceVerifyWait.contains(bot)) if (deviceVerifyCode.containsKey(bot)) break;
+                            });
+                            threads.start();
+                            threads.join();
+                        } else {
+                            bot.getLogger().warning("当前登录的QQ（"+bot.getId()+"）不支持使用短信验证方式");
+                            bot.getLogger().warning("登录可能会失败，请尝试重新登录");
+                            throw new UnsupportedOperationException();
+                        }
+                        break;
+                    }
+                    case "fallback":{
+                        if(requests.getFallback() != null){
+                            threads = new Thread(() -> {
+                                deviceVerifyWait.add(bot);
+                                bot.getLogger().warning("当前登录的QQ（"+bot.getId()+"）将使用其他验证方式");
+                                bot.getLogger().warning("请打开以下链接进行验证");
+                                bot.getLogger().warning(requests.getFallback().getUrl());
+                                bot.getLogger().warning("验证完成后，请输入指令 /miraiverify deviceverify " + bot.getId());
+                                bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify cancel " + bot.getId());
+                                while(deviceVerifyWait.contains(bot)) if (deviceVerifyCode.containsKey(bot)) break;
+                            });
+                            threads.start();
+                            threads.join();
+                        } else {
+                            bot.getLogger().warning("当前登录的QQ（"+bot.getId()+"）不支持使用其他验证方式");
+                            bot.getLogger().warning("登录可能会失败，请尝试重新登录");
+                            throw new UnsupportedOperationException();
+                        }
+                        break;
+                    }
+                }
+            } catch (InterruptedException | IllegalThreadStateException e) {
+                bot.getLogger().warning("启动验证线程时出现异常，原因: " + e);
+                throw loginErrorException;
+            }
+        }
+
+        DeviceVerificationResult result = null;
+        if (deviceVerifyCode.containsKey(bot)) {
+            switch (VerifyType){
+                case "sms":{
+                    result = requests.getSms().solved(deviceVerifyCode.get(bot));
+                    break;
+                }
+                case "fallback":{
+                    result = requests.getFallback().solved();
+                    break;
+                }
+            }
+        }
+
+        if (deviceVerifyCode.containsKey(bot)) {
+            deviceVerifyWait.remove(bot);
+            deviceVerifyCode.remove(bot);
+            return result;
+        } else {
+            deviceVerifyWait.remove(bot);
+            deviceVerifyCode.remove(bot);
+            throw loginCancelException;
+        }
+    }
+
     /**
      * 解决登录验证<br>
      * 此方法只可用于设备锁
@@ -180,7 +300,7 @@ public class MiraiLoginSolver extends LoginSolver {
 
     /**
      * 解决登录验证<br>
-     * 此方法只可用于验证码
+     * 此方法可用于验证码和设备验证
      * @param BotAccount 机器人账号
      * @param Code 验证内容
      * @throws NoSuchElementException 机器人不存在时抛出
