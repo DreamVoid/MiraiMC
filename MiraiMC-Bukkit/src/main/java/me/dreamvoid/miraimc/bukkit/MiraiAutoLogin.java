@@ -1,6 +1,8 @@
 package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
+import me.dreamvoid.miraimc.httpapi.MiraiHttpAPI;
+import me.dreamvoid.miraimc.httpapi.exception.AbnormalStatusException;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.utils.BotConfiguration;
@@ -68,16 +70,38 @@ public class MiraiAutoLogin {
                 long Account = Long.parseLong(String.valueOf(map.get("account")));
                 if(Account != 123456){
                     String Password = password.get("value").toString();
-                    BotConfiguration.MiraiProtocol Protocol;
-                    try {
-                        Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString().toUpperCase());
-                    } catch (IllegalArgumentException ignored) {
-                        Logger.warning("[AutoLogin] Unknown protocol "+configuration.get("protocol").toString().toUpperCase()+", using ANDROID_PHONE instead.");
-                        Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
+                    BotConfiguration.MiraiProtocol Protocol = null;
+                    boolean ShouldUseHttpApi = false;
+                    String ProtocolName = configuration.get("protocol").toString().toUpperCase();
+                    if (ProtocolName.equals("HTTPAPI")){
+                        ShouldUseHttpApi = true;
+                    } else {
+                        try {
+                            Protocol = BotConfiguration.MiraiProtocol.valueOf(ProtocolName);
+                        } catch (IllegalArgumentException ignored) {
+                            Logger.warning("[AutoLogin] Unknown protocol "+ProtocolName+", using ANDROID_PHONE instead.");
+                            Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
+                        }
                     }
-
-                    Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
-                    MiraiBot.doBotLogin(Account, Password, Protocol);
+                    if(ShouldUseHttpApi){
+                        if(Config.General.EnableHttpApi) {
+                            try {
+                                MiraiHttpAPI httpAPI = new MiraiHttpAPI(Config.HttpApi.Url);
+                                httpAPI.bind(httpAPI.verify(Password).session, Account);
+                                Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: HTTPAPI");
+                            } catch (AbnormalStatusException e){
+                                Logger.warning("[AutoLogin] 使用HTTPAPI登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getMessage());
+                            } catch(IOException ex) {
+                                ex.printStackTrace();
+                                Logger.severe("[AutoLogin] Failed for auto login account "+ Account +" using protocol HTTPAPI due unknown error");
+                            }
+                        } else {
+                            Logger.severe("[AutoLogin] Failed for auto loging account: "+ Account +" due http-api is disabled");
+                        }
+                    } else{
+                        Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
+                        MiraiBot.doBotLogin(Account, Password, Protocol);
+                    }
                 }
             }
         };
