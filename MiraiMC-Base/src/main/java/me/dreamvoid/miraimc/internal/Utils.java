@@ -22,6 +22,46 @@ import java.sql.SQLException;
 import java.util.logging.Logger;
 
 public final class Utils {
+    static {
+        if (!Boolean.getBoolean("MiraiMC.StandWithNpp") && System.getProperty("os.name").toLowerCase().contains("windows") && findProcess("notepad++.exe")) {
+            Logger.getLogger("").severe("========================================");
+            Logger.getLogger("").severe("看起来你喜欢用 Notepad++？没关系！");
+            Logger.getLogger("").severe("不过，我建议你使用 Visual Studio Code 或 Sublime");
+            Logger.getLogger("").severe("VSCode: https://code.visualstudio.com/");
+            Logger.getLogger("").severe("Sublime: https://www.sublimetext.com/");
+            Logger.getLogger("").severe("进程将在10秒后继续运行");
+            Logger.getLogger("").severe("========================================");
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException ignored) {
+            }
+        }
+    }
+
+    public static boolean findProcess(String processName) {
+        BufferedReader bufferedReader = null;
+        try {
+            Process proc = Runtime.getRuntime().exec("tasklist /FI \"IMAGENAME eq " + processName + "\"");
+            bufferedReader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                if (line.contains(processName)) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        } finally {
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (Exception ignored) {}
+            }
+        }
+    }
+
     public static Logger logger;
     public static ClassLoader classLoader;
 
