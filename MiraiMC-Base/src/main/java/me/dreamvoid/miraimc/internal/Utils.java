@@ -19,22 +19,25 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 public final class Utils {
     static {
         if (!Boolean.getBoolean("MiraiMC.StandWithNpp") && System.getProperty("os.name").toLowerCase().contains("windows") && findProcess("notepad++.exe")) {
-            Logger.getLogger("").severe("========================================");
-            Logger.getLogger("").severe("看起来你喜欢用 Notepad++？没关系！");
-            Logger.getLogger("").severe("不过，我建议你使用 Visual Studio Code 或 Sublime");
-            Logger.getLogger("").severe("VSCode: https://code.visualstudio.com/");
-            Logger.getLogger("").severe("Sublime: https://www.sublimetext.com/");
-            Logger.getLogger("").severe("进程将在10秒后继续运行");
-            Logger.getLogger("").severe("========================================");
+            Arrays.asList("========================================",
+                    "喜欢用Notepad++，拦不住的", "建议使用 Visual Studio Code 或 Sublime",
+                    "VSCode: https://code.visualstudio.com/",
+                    "Sublime: https://www.sublimetext.com/",
+                    "不要向MiraiMC作者寻求任何帮助。",
+                    "进程将在20秒后继续运行",
+                    "========================================").forEach(s -> Logger.getLogger("MiraiMC Preload Checker").severe(s));
             try {
-                Thread.sleep(10000);
-            } catch (InterruptedException ignored) {
-            }
+                Thread.sleep(20000);
+            } catch (InterruptedException ignored) {}
+        }
+        if(Boolean.getBoolean("MiraiMC.StandWithNpp")){
+            Logger.getLogger("MiraiMC Preload Checker").severe("不要向MiraiMC作者寻求任何帮助。");
         }
     }
 
@@ -191,8 +194,6 @@ public final class Utils {
 
     @NotNull
     public static File getMiraiDir(){
-        if(!(Config.General.MiraiWorkingDir.equals("default"))) {
-            return new File(Config.General.MiraiWorkingDir);
-        } else return new File(Config.PluginDir,"MiraiBot");
+        return Config.General.MiraiWorkingDir.equals("default") ? new File(Config.PluginDir,"MiraiBot") : new File(Config.General.MiraiWorkingDir);
     }
 }
