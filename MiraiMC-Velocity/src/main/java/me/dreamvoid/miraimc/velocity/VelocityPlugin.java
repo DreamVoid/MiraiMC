@@ -3,6 +3,7 @@ package me.dreamvoid.miraimc.velocity;
 import com.google.inject.Inject;
 import com.velocitypowered.api.command.CommandManager;
 import com.velocitypowered.api.command.CommandMeta;
+import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
@@ -10,16 +11,20 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.PluginContainer;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
+import me.dreamvoid.miraimc.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.MiraiMCPlugin;
 import me.dreamvoid.miraimc.api.MiraiBot;
+import me.dreamvoid.miraimc.commands.MiraiCommand;
+import me.dreamvoid.miraimc.commands.MiraiMcCommand;
+import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.PluginUpdate;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.libloader.MiraiLoader;
-import me.dreamvoid.miraimc.velocity.commands.MiraiCommand;
-import me.dreamvoid.miraimc.velocity.commands.MiraiMcCommand;
-import me.dreamvoid.miraimc.velocity.commands.MiraiVerifyCommand;
+import me.dreamvoid.miraimc.server.Platform;
 import me.dreamvoid.miraimc.velocity.utils.Metrics;
+import me.dreamvoid.miraimc.velocity.utils.SpecialUtils;
 import me.dreamvoid.miraimc.webapi.Info;
 import org.slf4j.Logger;
 
@@ -27,7 +32,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Plugin(
@@ -87,6 +92,83 @@ public class VelocityPlugin {
                 this.MiraiEvent = new MiraiEvent(this);
             } else this.MiraiEvent = new MiraiEventLegacy(this);
 
+            MiraiMCPlugin.setPlugin(new MiraiMCPlugin() {
+                @Override
+                public String getName() {
+                    return VelocityPlugin.this.getPluginContainer().getDescription().getName().orElse("MiraiMC");
+                }
+
+                @Override
+                public String getVersion() {
+                    return VelocityPlugin.this.getPluginContainer().getDescription().getVersion().orElse("reserved");
+                }
+
+                @Override
+                public List<String> getAuthors() {
+                    return VelocityPlugin.this.getPluginContainer().getDescription().getAuthors();
+                }
+
+                @Override
+                public java.util.logging.Logger getLogger() {
+                    return Utils.logger;
+                }
+
+                @Override
+                public Platform getServer() {
+                    return new Platform() {
+                        @Override
+                        public String getPlayerName(UUID uuid) {
+                            return VelocityPlugin.this.getServer().getPlayer(uuid).get().getUsername();
+                        }
+
+                        @Override
+                        public UUID getPlayerUUID(String name) {
+                            return VelocityPlugin.this.getServer().getPlayer(name).get().getUniqueId();
+                        }
+
+                        @Override
+                        public void runTaskAsync(Runnable task) {
+                            VelocityPlugin.this.getServer().getScheduler().buildTask(VelocityPlugin.this, task).schedule();
+                        }
+                    };
+                }
+
+                @Override
+                public IMiraiAutoLogin getAutoLogin() {
+                    return new IMiraiAutoLogin() {
+                        @Override
+                        public void loadFile() {
+                            MiraiAutoLogin.loadFile();
+                        }
+
+                        @Override
+                        public List<Map<?, ?>> loadAutoLoginList() throws IOException {
+                            List<Map<?,?>> list = new ArrayList<>();
+                            MiraiAutoLogin.loadAutoLoginList().forEach(accounts -> {
+                                Map<String, Long> map = new HashMap<>();
+                                map.put("account", accounts.getAccount());
+                                list.add(map);
+                            });
+                            return list;
+                        }
+
+                        @Override
+                        public void doStartUpAutoLogin() {
+                            MiraiAutoLogin.doStartUpAutoLogin();
+                        }
+
+                        @Override
+                        public boolean addAutoLoginBot(long Account, String Password, String Protocol) {
+                            return MiraiAutoLogin.addAutoLoginBot(Account, Password, Protocol);
+                        }
+
+                        @Override
+                        public boolean delAutoLoginBot(long Account) {
+                            return MiraiAutoLogin.delAutoLoginBot(Account);
+                        }
+                    };
+                }
+            });
         } catch (Exception e) {
             getLogger().warn("An error occurred while loading plugin.");
             e.printStackTrace();
@@ -107,9 +189,9 @@ public class VelocityPlugin {
         CommandMeta mirai = manager.metaBuilder("mirai").build();
         CommandMeta miraimc = manager.metaBuilder("miraimc").build();
         CommandMeta miraiverify = manager.metaBuilder("miraiverify").build();
-        manager.register(mirai, new MiraiCommand(this));
-        manager.register(miraimc, new MiraiMcCommand(this));
-        manager.register(miraiverify, new MiraiVerifyCommand());
+        manager.register(mirai, (SimpleCommand) invocation -> new MiraiCommand().onCommand(SpecialUtils.getSender(invocation.source()), invocation.arguments()));
+        manager.register(miraimc, (SimpleCommand) invocation -> new MiraiMcCommand().onCommand(SpecialUtils.getSender(invocation.source()), invocation.arguments()));
+        manager.register(miraiverify, (SimpleCommand) invocation -> new MiraiVerifyCommand().onCommand(SpecialUtils.getSender(invocation.source()), invocation.arguments()));
         
         if(Config.Bot.LogEvents){
             getLogger().info("Registering events.");

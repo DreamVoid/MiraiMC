@@ -1,23 +1,33 @@
 package me.dreamvoid.miraimc.bungee;
 
+import me.dreamvoid.miraimc.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.MiraiMCPlugin;
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.bungee.commands.MiraiCommand;
-import me.dreamvoid.miraimc.bungee.commands.MiraiMcCommand;
-import me.dreamvoid.miraimc.bungee.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.bungee.utils.Metrics;
+import me.dreamvoid.miraimc.bungee.utils.SpecialUtils;
+import me.dreamvoid.miraimc.commands.MiraiCommand;
+import me.dreamvoid.miraimc.commands.MiraiMcCommand;
+import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.PluginUpdate;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.libloader.MiraiLoader;
+import me.dreamvoid.miraimc.server.Platform;
 import me.dreamvoid.miraimc.webapi.Info;
+import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.Plugin;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class BungeePlugin extends Plugin {
     private MiraiEvent MiraiEvent;
@@ -44,6 +54,79 @@ public class BungeePlugin extends Plugin {
                 this.MiraiEvent = new MiraiEvent();
             } else this.MiraiEvent = new MiraiEventLegacy();
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
+
+            MiraiMCPlugin.setPlugin(new MiraiMCPlugin() {
+                @Override
+                public String getName() {
+                    return getDescription().getName();
+                }
+
+                @Override
+                public String getVersion() {
+                    return getDescription().getVersion();
+                }
+
+                @Override
+                public List<String> getAuthors() {
+                    return Collections.singletonList(getDescription().getAuthor());
+                }
+
+                @Override
+                public Logger getLogger() {
+                    return Utils.logger;
+                }
+
+                @Override
+                public Platform getServer() {
+                    return new Platform() {
+                        @Override
+                        public String getPlayerName(UUID uuid) {
+                            return getProxy().getPlayer(uuid).getName();
+                        }
+
+                        @Override
+                        public UUID getPlayerUUID(String name) {
+                            return getProxy().getPlayer(name).getUniqueId();
+                        }
+
+                        @Override
+                        public void runTaskAsync(Runnable task) {
+                            getProxy().getScheduler().runAsync(BungeePlugin.this, task);
+                        }
+
+                    };
+                }
+
+                @Override
+                public IMiraiAutoLogin getAutoLogin() {
+                    return new IMiraiAutoLogin() {
+                        @Override
+                        public void loadFile() {
+                            MiraiAutoLogin.loadFile();
+                        }
+
+                        @Override
+                        public List<Map<?, ?>> loadAutoLoginList() throws IOException {
+                            return MiraiAutoLogin.loadAutoLoginList();
+                        }
+
+                        @Override
+                        public void doStartUpAutoLogin() {
+                            MiraiAutoLogin.doStartUpAutoLogin();
+                        }
+
+                        @Override
+                        public boolean addAutoLoginBot(long Account, String Password, String Protocol) {
+                            return MiraiAutoLogin.addAutoLoginBot(Account, Password, Protocol);
+                        }
+
+                        @Override
+                        public boolean delAutoLoginBot(long Account) {
+                            return MiraiAutoLogin.delAutoLoginBot(Account);
+                        }
+                    };
+                }
+            });
         } catch (Exception e) {
             getLogger().warning("An error occurred while loading plugin.");
             e.printStackTrace();
@@ -58,9 +141,27 @@ public class BungeePlugin extends Plugin {
         MiraiEvent.startListenEvent();
 
         getLogger().info("Registering commands.");
-        ProxyServer.getInstance().getPluginManager().registerCommand(this,new MiraiCommand(this,"mirai"));
-        ProxyServer.getInstance().getPluginManager().registerCommand(this,new MiraiMcCommand(this,"miraimc"));
-        ProxyServer.getInstance().getPluginManager().registerCommand(this,new MiraiVerifyCommand("miraiverify"));
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new Command("mirai","miraimc.command.mirai") {
+            @Override
+            public void execute(CommandSender sender, String[] strings) {
+                new MiraiCommand().onCommand(SpecialUtils.getSender(sender), strings);
+            }
+        });
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new Command("miraimc","miraimc.command.miraimc") {
+            @Override
+            public void execute(CommandSender sender, String[] strings) {
+                new MiraiMcCommand().onCommand(SpecialUtils.getSender(sender), strings);
+            }
+        });
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new Command("miraiverify","miraimc.command.miraiverify") {
+            @Override
+            public void execute(CommandSender sender, String[] strings) {
+                new MiraiVerifyCommand().onCommand(SpecialUtils.getSender(sender), strings);
+            }
+        });
+        //ProxyServer.getInstance().getPluginManager().registerCommand(this,new MiraiCommand(this,"mirai"));
+        //ProxyServer.getInstance().getPluginManager().registerCommand(this,new MiraiMcCommand(this,"miraimc"));
+        //ProxyServer.getInstance().getPluginManager().registerCommand(this,new MiraiVerifyCommand("miraiverify"));
 
         if(Config.Bot.LogEvents){
             getLogger().info("Registering events.");

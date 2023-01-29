@@ -1,15 +1,14 @@
 package me.dreamvoid.miraimc.nukkit;
 
-import static me.dreamvoid.miraimc.internal.Config.*;
+import me.dreamvoid.miraimc.internal.Config;
 
-public class NukkitConfig {
+public class NukkitConfig extends Config {
     private final NukkitPlugin plugin;
-    private static NukkitConfig Instance;
 
     public NukkitConfig(NukkitPlugin plugin){
-        Instance = this;
         this.plugin = plugin;
         PluginDir = plugin.getDataFolder();
+        INSTANCE = this;
     }
 
     public void loadConfig() {
@@ -44,9 +43,5 @@ public class NukkitConfig {
         Database.MySQL.Poll.MaximumPoolSize = plugin.getConfig().getInt("database.mysql.pool.maximumPoolSize",15);
         Database.MySQL.Poll.KeepaliveTime = plugin.getConfig().getInt("database.mysql.pool.keepaliveTime",0);
         Database.MySQL.Poll.MinimumIdle = plugin.getConfig().getInt("database.mysql.pool.minimumIdle",0);
-    }
-
-    public static void reloadConfig() {
-        Instance.loadConfig();
     }
 }

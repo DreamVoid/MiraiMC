@@ -1,7 +1,10 @@
 package me.dreamvoid.miraimc.nukkit;
 
 import cn.nukkit.plugin.PluginBase;
+import cn.nukkit.scheduler.AsyncTask;
 import cn.nukkit.scheduler.NukkitRunnable;
+import me.dreamvoid.miraimc.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.MiraiMCPlugin;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
@@ -12,11 +15,15 @@ import me.dreamvoid.miraimc.nukkit.commands.MiraiCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.nukkit.utils.MetricsLite;
+import me.dreamvoid.miraimc.server.Platform;
 import me.dreamvoid.miraimc.webapi.Info;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.logging.Logger;
 
 public class NukkitPlugin extends PluginBase {
 
@@ -50,6 +57,83 @@ public class NukkitPlugin extends PluginBase {
                 this.MiraiEvent = new MiraiEvent(this);
             } else this.MiraiEvent = new MiraiEventLegacy(this);
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
+
+            MiraiMCPlugin.setPlugin(new MiraiMCPlugin() {
+                @Override
+                public String getName() {
+                    return getDescription().getName();
+                }
+
+                @Override
+                public String getVersion() {
+                    return getDescription().getVersion();
+                }
+
+                @Override
+                public List<String> getAuthors() {
+                    return getDescription().getAuthors();
+                }
+
+                @Override
+                public Logger getLogger() {
+                    return Utils.logger;
+                }
+
+                @Override
+                public Platform getServer() {
+                    return new Platform() {
+                        @Override
+                        public String getPlayerName(UUID uuid) {
+                            return NukkitPlugin.this.getServer().getOfflinePlayer(uuid).getName();
+                        }
+
+                        @Override
+                        public UUID getPlayerUUID(String name) {
+                            return NukkitPlugin.this.getServer().getOfflinePlayer(name).getUniqueId();
+                        }
+
+                        @Override
+                        public void runTaskAsync(Runnable task) {
+                            NukkitPlugin.this.getServer().getScheduler().scheduleAsyncTask(NukkitPlugin.this, new AsyncTask() {
+                                @Override
+                                public void onRun() {
+                                    task.run();
+                                }
+                            });
+                        }
+                    };
+                }
+
+                @Override
+                public IMiraiAutoLogin getAutoLogin() {
+                    return new IMiraiAutoLogin() {
+                        @Override
+                        public void loadFile() {
+                            MiraiAutoLogin.loadFile();
+                        }
+
+                        @Override
+                        public List<Map<?, ?>> loadAutoLoginList() {
+                            return MiraiAutoLogin.loadAutoLoginList();
+                        }
+
+                        @Override
+                        public void doStartUpAutoLogin() {
+                            MiraiAutoLogin.doStartUpAutoLogin();
+                        }
+
+                        @Override
+                        public boolean addAutoLoginBot(long Account, String Password, String Protocol) {
+                            return MiraiAutoLogin.addAutoLoginBot(Account, Password, Protocol);
+                        }
+
+                        @Override
+                        public boolean delAutoLoginBot(long Account) {
+                            return MiraiAutoLogin.delAutoLoginBot(Account);
+                        }
+                    };
+                }
+            });
         } catch (Exception e) {
             getLogger().warning("An error occurred while loading plugin." );
             e.printStackTrace();
@@ -67,7 +151,7 @@ public class NukkitPlugin extends PluginBase {
         MiraiAutoLogin.loadFile();
         MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
 
-        // 注册命令
+        // 注册命令 // TODO: 把Nukkit的注册命令并入主代码
         getLogger().info("Registering commands.");
         getServer().getCommandMap().register("", new MiraiCommand());
         getServer().getCommandMap().register("", new MiraiMcCommand());

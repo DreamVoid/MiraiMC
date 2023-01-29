@@ -2,8 +2,8 @@ package me.dreamvoid.miraimc.nukkit;
 
 import cn.nukkit.plugin.PluginLogger;
 import cn.nukkit.scheduler.AsyncTask;
+import cn.nukkit.utils.Config;
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.utils.BotConfiguration;
 
@@ -11,6 +11,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,9 +53,11 @@ public class MiraiAutoLogin {
         }
     }
 
-    public List<Map> loadAutoLoginList() {
-        cn.nukkit.utils.Config data = new cn.nukkit.utils.Config(AutoLoginFile, cn.nukkit.utils.Config.YAML);
-        return data.getMapList("accounts");
+    public List<Map<?, ?>> loadAutoLoginList() {
+        Config data = new Config(AutoLoginFile, Config.YAML);
+        List<Map<?,?>> list = new ArrayList<>();
+        for(Map<?,?> map : data.getMapList("accounts")) list.add(map);
+        return list;
     }
 
     public void doStartUpAutoLogin() {
@@ -87,7 +90,7 @@ public class MiraiAutoLogin {
 
     public boolean addAutoLoginBot(long Account, String Password, String Protocol){
         // 获取自动登录文件
-        cn.nukkit.utils.Config data = new cn.nukkit.utils.Config(AutoLoginFile, cn.nukkit.utils.Config.YAML);
+        Config data = new Config(AutoLoginFile, Config.YAML);
         List<Map> list = data.getMapList("accounts");
 
         // 新建用于添加进去的Map
@@ -122,7 +125,7 @@ public class MiraiAutoLogin {
 
     public boolean delAutoLoginBot(long Account){
         // 获取自动登录文件
-        cn.nukkit.utils.Config data = new cn.nukkit.utils.Config(AutoLoginFile, cn.nukkit.utils.Config.YAML);
+        Config data = new Config(AutoLoginFile, Config.YAML);
         List<Map> list = data.getMapList("accounts");
 
         for (Map<?, ?> bots : list) {

@@ -1,8 +1,7 @@
 package me.dreamvoid.miraimc.bungee;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.bungee.utils.BukkitUtils;
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.bungee.utils.SpecialUtils;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.utils.BotConfiguration;
 import net.md_5.bungee.config.Configuration;
@@ -54,9 +53,9 @@ public class MiraiAutoLogin {
         }
     }
 
-    public List<?> loadAutoLoginList() throws IOException{
+    public List<Map<?, ?>> loadAutoLoginList() throws IOException{
         Configuration data = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(AutoLoginFile);
-        return data.getList("accounts");
+        return SpecialUtils.getMapList(data.getList("accounts"));
     }
 
     public void doStartUpAutoLogin() {
@@ -94,7 +93,7 @@ public class MiraiAutoLogin {
         try {
             // 获取自动登录文件
             Configuration data = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(AutoLoginFile);
-            List<Map<?, ?>> list = BukkitUtils.getMapList(data.getList("accounts"));
+            List<Map<?, ?>> list = SpecialUtils.getMapList(data.getList("accounts"));
 
             data.get("accounts", list);
             // 新建用于添加进去的Map

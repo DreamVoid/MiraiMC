@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.sponge;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.sponge.utils.AutoLoginObject;
 import net.mamoe.mirai.utils.BotConfiguration;
@@ -54,7 +53,7 @@ public class MiraiAutoLogin {
         }
     }
 
-    public static List<AutoLoginObject.Accounts> loadAutoLoginList() throws IOException {
+    public List<AutoLoginObject.Accounts> loadAutoLoginList() throws IOException {
         Yaml yaml = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader()));
         InputStream inputStream = Files.newInputStream(AutoLoginFile.toPath());
         AutoLoginObject data = yaml.loadAs(inputStream, AutoLoginObject.class);
@@ -97,7 +96,7 @@ public class MiraiAutoLogin {
         Task.builder().async().name("MiraiMC Autologin Task").execute(thread).submit(plugin);
     }
 
-    public static boolean addAutoLoginBot(long Account, String Password, String Protocol){
+    public boolean addAutoLoginBot(long Account, String Password, String Protocol){
         try {
             // 获取现有的机器人列表
             Yaml yaml = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader()));
@@ -145,7 +144,7 @@ public class MiraiAutoLogin {
         return true;
     }
 
-    public static boolean delAutoLoginBot(long Account){
+    public boolean delAutoLoginBot(long Account){
         try {
             // 获取现有的机器人列表
             Yaml yaml = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader()));
