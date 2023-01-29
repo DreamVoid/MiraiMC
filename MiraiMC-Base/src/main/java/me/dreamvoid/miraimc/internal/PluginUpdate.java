@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.internal;
 
-import me.dreamvoid.miraimc.webapi.Version;
+import me.dreamvoid.miraimc.internal.webapi.Version;
 
 import java.io.IOException;
 
@@ -17,8 +17,8 @@ public class PluginUpdate {
         latestRelease = version.latest;
         latestReleaseNo = version.versions.get(version.latest);
 
-        latestPreRelease = version.latest_pre;
-        latestPreReleaseNo = version.versions.get(version.latest_pre);
+        latestPreRelease = version.prerelease;
+        latestPreReleaseNo = version.versions.get(version.prerelease);
     }
 
     public String getLatestRelease() {

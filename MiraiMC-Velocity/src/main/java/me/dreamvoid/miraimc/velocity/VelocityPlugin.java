@@ -22,10 +22,10 @@ import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.PluginUpdate;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.libloader.MiraiLoader;
-import me.dreamvoid.miraimc.server.Platform;
+import me.dreamvoid.miraimc.Platform;
 import me.dreamvoid.miraimc.velocity.utils.Metrics;
 import me.dreamvoid.miraimc.velocity.utils.SpecialUtils;
-import me.dreamvoid.miraimc.webapi.Info;
+import me.dreamvoid.miraimc.internal.webapi.Info;
 import org.slf4j.Logger;
 
 import java.io.File;

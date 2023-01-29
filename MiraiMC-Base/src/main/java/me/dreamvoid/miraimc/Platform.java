@@ -1,4 +1,4 @@
-package me.dreamvoid.miraimc.server;
+package me.dreamvoid.miraimc;
 
 import java.util.UUID;
 
