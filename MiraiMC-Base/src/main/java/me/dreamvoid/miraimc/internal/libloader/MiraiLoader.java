@@ -2,8 +2,8 @@ package me.dreamvoid.miraimc.internal.libloader;
 
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.webapi.Info;
-import me.dreamvoid.miraimc.webapi.Version;
+import me.dreamvoid.miraimc.internal.webapi.Info;
+import me.dreamvoid.miraimc.internal.webapi.Version;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;

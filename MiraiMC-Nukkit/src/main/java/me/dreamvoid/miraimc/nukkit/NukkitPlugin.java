@@ -15,8 +15,8 @@ import me.dreamvoid.miraimc.nukkit.commands.MiraiCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.nukkit.utils.MetricsLite;
-import me.dreamvoid.miraimc.server.Platform;
-import me.dreamvoid.miraimc.webapi.Info;
+import me.dreamvoid.miraimc.Platform;
+import me.dreamvoid.miraimc.internal.webapi.Info;
 
 import java.io.IOException;
 import java.sql.SQLException;

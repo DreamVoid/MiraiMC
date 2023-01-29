@@ -1,4 +1,4 @@
-package me.dreamvoid.miraimc.webapi;
+package me.dreamvoid.miraimc.internal.webapi;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;

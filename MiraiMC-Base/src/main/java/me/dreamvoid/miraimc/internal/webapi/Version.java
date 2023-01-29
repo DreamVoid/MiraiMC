@@ -1,4 +1,4 @@
-package me.dreamvoid.miraimc.webapi;
+package me.dreamvoid.miraimc.internal.webapi;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
@@ -15,8 +15,8 @@ public final class Version {
 	@SerializedName("latest")
 	public String latest;
 
-	@SerializedName("latest-pre")
-	public String latest_pre;
+	@SerializedName("prerelease")
+	public String prerelease;
 
 	@SerializedName("versions")
 	public HashMap<String, Integer> versions;

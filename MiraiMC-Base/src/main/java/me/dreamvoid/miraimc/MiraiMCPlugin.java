@@ -1,7 +1,5 @@
 package me.dreamvoid.miraimc;
 
-import me.dreamvoid.miraimc.server.Platform;
-
 import java.util.List;
 import java.util.logging.Logger;
 
