@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.velocity;
 
+import me.dreamvoid.miraimc.internal.Config;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
@@ -11,16 +12,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static me.dreamvoid.miraimc.internal.Config.*;
-
-public class VelocityConfig {
+public class VelocityConfig extends Config {
     private final VelocityPlugin plugin;
-    private static VelocityConfig Instance;
 
     public VelocityConfig(VelocityPlugin plugin){
-        Instance = this;
         this.plugin = plugin;
         PluginDir = plugin.getDataFolder();
+        INSTANCE = this;
     }
 
     public void loadConfig() throws IOException {
@@ -77,9 +75,5 @@ public class VelocityConfig {
         Database.MySQL.Poll.MaximumPoolSize = !Objects.isNull(pool.get("maximumPoolSize")) ? (Integer) pool.get("maximumPoolSize") : 15;
         Database.MySQL.Poll.KeepaliveTime = !Objects.isNull(pool.get("keepaliveTime")) ? (Integer) pool.get("keepaliveTime") : 0;
         Database.MySQL.Poll.MinimumIdle = !Objects.isNull(pool.get("minimumIdle")) ? (Integer) pool.get("minimumIdle") : 5;
-    }
-
-    public static void reloadConfig() throws IOException{
-        Instance.loadConfig();
     }
 }

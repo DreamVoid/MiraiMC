@@ -1,23 +1,32 @@
 package me.dreamvoid.miraimc.sponge;
 
 import com.google.inject.Inject;
+import me.dreamvoid.miraimc.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.MiraiMCPlugin;
 import me.dreamvoid.miraimc.api.MiraiBot;
+import me.dreamvoid.miraimc.commands.MiraiCommand;
+import me.dreamvoid.miraimc.commands.MiraiMcCommand;
+import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.libloader.MiraiLoader;
-import me.dreamvoid.miraimc.sponge.commands.MiraiCommand;
-import me.dreamvoid.miraimc.sponge.commands.MiraiMcCommand;
-import me.dreamvoid.miraimc.sponge.commands.MiraiVerifyCommand;
+import me.dreamvoid.miraimc.server.Platform;
 import me.dreamvoid.miraimc.sponge.utils.Metrics;
+import me.dreamvoid.miraimc.sponge.utils.SpecialUtils;
 import me.dreamvoid.miraimc.webapi.Info;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.command.CommandResult;
+import org.spongepowered.api.command.args.ArgumentParseException;
 import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.game.state.*;
+import org.spongepowered.api.event.game.state.GameInitializationEvent;
+import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
+import org.spongepowered.api.event.game.state.GameStartingServerEvent;
+import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.text.Text;
@@ -26,7 +35,7 @@ import org.spongepowered.api.util.metric.MetricsConfigManager;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Plugin(id = "miraimc",
@@ -78,6 +87,88 @@ public class SpongePlugin {
                 this.MiraiEvent = new MiraiEvent(this);
             } else this.MiraiEvent = new MiraiEventLegacy(this);
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
+
+            MiraiMCPlugin.setPlugin(new MiraiMCPlugin() {
+                @Override
+                public String getName() {
+                    return SpongePlugin.this.getPluginContainer().getName();
+                }
+
+                @Override
+                public String getVersion() {
+                    return SpongePlugin.this.getPluginContainer().getVersion().orElse("reserved");
+                }
+
+                @Override
+                public List<String> getAuthors() {
+                    return SpongePlugin.this.getPluginContainer().getAuthors();
+                }
+
+                @Override
+                public java.util.logging.Logger getLogger() {
+                    return Utils.logger;
+                }
+
+                @Override
+                public Platform getServer() {
+                    return new Platform() {
+                        @Override
+                        public String getPlayerName(UUID uuid) {
+                            return Sponge.getServer().getPlayer(uuid).get().getName();
+                        }
+
+                        @Override
+                        public UUID getPlayerUUID(String name) {
+                            return Sponge.getServer().getPlayer(name).get().getUniqueId();
+                        }
+
+                        @Override
+                        public void runTaskAsync(Runnable task) {
+                            Sponge.getScheduler().createTaskBuilder()
+                                    .async()
+                                    .execute(task)
+                                    .name("MiraiMC Common Task")
+                                    .submit(this);
+                        }
+                    };
+                }
+
+                @Override
+                public IMiraiAutoLogin getAutoLogin() {
+                    return new IMiraiAutoLogin() {
+                        @Override
+                        public void loadFile() {
+                            MiraiAutoLogin.loadFile();
+                        }
+
+                        @Override
+                        public List<Map<?, ?>> loadAutoLoginList() throws IOException {
+                            List<Map<?,?>> list = new ArrayList<>();
+                            MiraiAutoLogin.loadAutoLoginList().forEach(accounts -> {
+                                Map<String, Long> map = new HashMap<>();
+                                map.put("account", accounts.getAccount());
+                                list.add(map);
+                            });
+                            return list;
+                        }
+
+                        @Override
+                        public void doStartUpAutoLogin() {
+                            MiraiAutoLogin.doStartUpAutoLogin();
+                        }
+
+                        @Override
+                        public boolean addAutoLoginBot(long Account, String Password, String Protocol) {
+                            return MiraiAutoLogin.addAutoLoginBot(Account, Password, Protocol);
+                        }
+
+                        @Override
+                        public boolean delAutoLoginBot(long Account) {
+                            return MiraiAutoLogin.delAutoLoginBot(Account);
+                        }
+                    };
+                }
+            });
         } catch (Exception ex) {
             getLogger().warn("An error occurred while loading plugin.");
             ex.printStackTrace();
@@ -173,13 +264,43 @@ public class SpongePlugin {
     public void onServerLoaded(GameStartingServerEvent e) {
         getLogger().info("Registering commands.");
 
-        CommandSpec mirai = CommandSpec.builder().description(Text.of("MiraiMC Bot Command.")).permission("miraimc.command.mirai").executor(new MiraiCommand(this))
+        CommandSpec mirai = CommandSpec.builder()
+                .description(Text.of("MiraiMC Bot Command."))
+                .permission("miraimc.command.mirai")
+                .executor((src, arg) -> {
+                    if(arg.<String>getOne("args").isPresent()){
+                        String argo = arg.<String>getOne("args").get();
+                        String[] args = argo.split("\\s+");
+                        new MiraiCommand().onCommand(SpecialUtils.getSender(src), args);
+                        return CommandResult.builder().successCount(1).build();
+                    } else throw new ArgumentParseException(Text.of("isPresent() returned false!"),"MiraiMC",0);
+                })
                 .arguments(GenericArguments.remainingJoinedStrings((Text.of("args"))))
                 .build();
-        CommandSpec miraimc = CommandSpec.builder().description(Text.of("MiraiMC Plugin Command.")).permission("miraimc.command.miraimc").executor(new MiraiMcCommand(this))
+        CommandSpec miraimc = CommandSpec.builder()
+                .description(Text.of("MiraiMC Plugin Command."))
+                .permission("miraimc.command.miraimc")
+                .executor((src, arg) -> {
+                    if(arg.<String>getOne("args").isPresent()){
+                        String argo = arg.<String>getOne("args").get();
+                        String[] args = argo.split("\\s+");
+                        new MiraiMcCommand().onCommand(SpecialUtils.getSender(src), args);
+                        return CommandResult.builder().successCount(1).build();
+                    } else throw new ArgumentParseException(Text.of("isPresent() returned false!"),"MiraiMC",0);
+                })
                 .arguments(GenericArguments.remainingJoinedStrings((Text.of("args"))))
                 .build();
-        CommandSpec miraiverify = CommandSpec.builder().description(Text.of("MiraiMC LoginVerify Command.")).permission("miraimc.command.miraiverify").executor(new MiraiVerifyCommand(this))
+        CommandSpec miraiverify = CommandSpec.builder()
+                .description(Text.of("MiraiMC LoginVerify Command."))
+                .permission("miraimc.command.miraiverify")
+                .executor((src, arg) -> {
+                    if(arg.<String>getOne("args").isPresent()){
+                        String argo = arg.<String>getOne("args").get();
+                        String[] args = argo.split("\\s+");
+                        new MiraiVerifyCommand().onCommand(SpecialUtils.getSender(src), args);
+                        return CommandResult.builder().successCount(1).build();
+                    } else throw new ArgumentParseException(Text.of("isPresent() returned false!"),"MiraiMC",0);
+                })
                 .arguments(GenericArguments.remainingJoinedStrings((Text.of("args"))))
                 .build();
 

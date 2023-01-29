@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.bukkit;
 
+import me.dreamvoid.miraimc.internal.Config;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -7,26 +8,28 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-import static me.dreamvoid.miraimc.internal.Config.*;
-
-public class BukkitConfig {
+public class BukkitConfig extends Config {
     private final BukkitPlugin plugin;
-    private static BukkitConfig Instance;
 
     public BukkitConfig(BukkitPlugin plugin){
-        Instance = this;
         this.plugin = plugin;
         PluginDir = plugin.getDataFolder();
+        INSTANCE = this;
     }
 
-    public void loadConfig() throws IOException, InvalidConfigurationException {
-        plugin.saveDefaultConfig();
-        YamlConfiguration y = new YamlConfiguration();
-        y.options().pathSeparator('\\');
-        y.load(new InputStreamReader(plugin.getResource("config.yml"), StandardCharsets.UTF_8));
-        plugin.getConfig().setDefaults(y);
-        plugin.getConfig().options().copyDefaults(true);
-        plugin.saveConfig();
+    @Override
+    public void loadConfig() throws IOException {
+        try{
+            plugin.saveDefaultConfig();
+            YamlConfiguration y = new YamlConfiguration();
+            y.options().pathSeparator('\\');
+            y.load(new InputStreamReader(plugin.getResource("config.yml"), StandardCharsets.UTF_8));
+            plugin.getConfig().setDefaults(y);
+            plugin.getConfig().options().copyDefaults(true);
+            plugin.saveConfig();
+        } catch (InvalidConfigurationException e) {
+            throw new IOException(e);
+        }
 
         General.AllowBStats = plugin.getConfig().getBoolean("general.allow-bStats",true);
         General.CheckUpdate = plugin.getConfig().getBoolean("general.check-update",true);
@@ -61,9 +64,5 @@ public class BukkitConfig {
         HttpApi.Url = plugin.getConfig().getString("http-api.url", "http://localhost:8080");
         HttpApi.MessageFetch.Interval = plugin.getConfig().getInt("http-api.message-fetch.interval", 10);
         HttpApi.MessageFetch.Count = plugin.getConfig().getInt("http-api.message-fetch.count", 10);
-    }
-
-    public static void reloadConfig() throws IOException, InvalidConfigurationException {
-        Instance.loadConfig();
     }
 }

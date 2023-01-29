@@ -1,12 +1,14 @@
 package me.dreamvoid.miraimc.internal;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * MiraiMC 插件配置<br>
  * 如果添加新配置，此处请使用大驼峰命名法
  */
-public class Config {
+public abstract class Config {
+    public static Config INSTANCE;
     public static File PluginDir;
 
     public static class General{ // general
@@ -59,5 +61,11 @@ public class Config {
             public static long Interval; // interval
             public static int Count; // count
         }
+    }
+
+    public abstract void loadConfig() throws IOException;
+
+    public static void reloadConfig() throws IOException {
+        INSTANCE.loadConfig();
     }
 }

@@ -1,26 +1,35 @@
 package me.dreamvoid.miraimc.bukkit;
 
+import me.dreamvoid.miraimc.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.MiraiMCPlugin;
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.bukkit.commands.MiraiCommand;
-import me.dreamvoid.miraimc.bukkit.commands.MiraiMcCommand;
-import me.dreamvoid.miraimc.bukkit.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
+import me.dreamvoid.miraimc.commands.ICommandSender;
+import me.dreamvoid.miraimc.commands.MiraiCommand;
+import me.dreamvoid.miraimc.commands.MiraiMcCommand;
+import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.PluginUpdate;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.libloader.MiraiLoader;
+import me.dreamvoid.miraimc.server.Platform;
 import me.dreamvoid.miraimc.webapi.Info;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.*;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class BukkitPlugin extends JavaPlugin {
-
     private MiraiEvent MiraiEvent;
     public MiraiAutoLogin MiraiAutoLogin;
 
@@ -46,6 +55,79 @@ public class BukkitPlugin extends JavaPlugin {
                 this.MiraiEvent = new MiraiEvent();
             } else this.MiraiEvent = new MiraiEventLegacy();
             this.MiraiAutoLogin = new MiraiAutoLogin(this);
+
+            MiraiMCPlugin.setPlugin(new MiraiMCPlugin() {
+                @Override
+                public String getName() {
+                    return getDescription().getName();
+                }
+
+                @Override
+                public String getVersion() {
+                    return getDescription().getVersion();
+                }
+
+                @Override
+                public List<String> getAuthors() {
+                    return getDescription().getAuthors();
+                }
+
+                @Override
+                public Logger getLogger() {
+                    return Utils.logger;
+                }
+
+                @Override
+                public Platform getServer() {
+                    return new Platform() {
+                        @Override
+                        public String getPlayerName(UUID uuid) {
+                            return Bukkit.getOfflinePlayer(uuid).getName();
+                        }
+
+                        @Override
+                        public UUID getPlayerUUID(String name) {
+                            return Bukkit.getOfflinePlayer(name).getUniqueId();
+                        }
+
+                        @Override
+                        public void runTaskAsync(Runnable task) {
+                            Bukkit.getScheduler().runTaskAsynchronously(BukkitPlugin.this, task);
+                        }
+
+                    };
+                }
+
+                @Override
+                public IMiraiAutoLogin getAutoLogin() {
+                    return new IMiraiAutoLogin() {
+                        @Override
+                        public void loadFile() {
+                            MiraiAutoLogin.loadFile();
+                        }
+
+                        @Override
+                        public List<Map<?, ?>> loadAutoLoginList(){
+                            return MiraiAutoLogin.loadAutoLoginList();
+                        }
+
+                        @Override
+                        public void doStartUpAutoLogin() {
+                            MiraiAutoLogin.doStartUpAutoLogin();
+                        }
+
+                        @Override
+                        public boolean addAutoLoginBot(long Account, String Password, String Protocol) {
+                            return MiraiAutoLogin.addAutoLoginBot(Account, Password, Protocol);
+                        }
+
+                        @Override
+                        public boolean delAutoLoginBot(long Account) {
+                            return MiraiAutoLogin.delAutoLoginBot(Account);
+                        }
+                    };
+                }
+            });
         } catch (Exception e) {
             getLogger().warning("An error occurred while loading plugin.");
             e.printStackTrace();
@@ -71,11 +153,120 @@ public class BukkitPlugin extends JavaPlugin {
         MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
 
         getLogger().info("Registering commands.");
-        getCommand("mirai").setExecutor(new MiraiCommand(this));
-        getCommand("mirai").setTabCompleter(new MiraiCommand(this));
-        getCommand("miraimc").setExecutor(new MiraiMcCommand(this));
-        getCommand("miraimc").setTabCompleter(new MiraiMcCommand(this));
-        getCommand("miraiverify").setExecutor(new MiraiVerifyCommand());
+        //getCommand("mirai").setExecutor(new MiraiCommand(this));
+        getCommand("mirai").setTabCompleter((sender, command, label, args) -> {
+            List<String> result = new ArrayList<>();
+
+            if(args.length == 1){
+                String[] list = new String[]{"login", "logout", "list", "sendfriendmessage", "sendgroupmessage", "sendfriendnudge", "uploadimage", "checkonline", "autologin", "help"};
+                for(String s : list){
+                    if(s.startsWith(args[0])) result.add(s);
+                }
+            }
+
+            if(args.length == 2 && sender.hasPermission("miraimc.command.mirai." + args[0].toLowerCase())){
+                // 1
+                List<String> list1 = Arrays.asList("login", "logout", "sendfriendmessage", "sendgroupmessage", "sendfriendnudge", "uploadimage", "checkonline");
+                if(list1.contains(args[0].toLowerCase())){
+                    for(Long l : MiraiBot.getOnlineBots()){
+                        if(String.valueOf(l).startsWith(args[1])) result.add(String.valueOf(l));
+                    }
+                }
+
+                // 2
+                if("autologin".equalsIgnoreCase(args[0])){
+                    String[] list = new String[]{"add", "list", "remove"};
+                    for(String s : list){
+                        if(s.startsWith(args[1])) result.add(s);
+                    }
+                }
+            }
+
+            if(args.length == 3 && sender.hasPermission("miraimc.command.mirai." + args[0].toLowerCase())){
+                // 1
+                List<String> list1 = Arrays.asList("sendfriendmessage", "sendfriendnudge");
+                if(list1.contains(args[1].toLowerCase())){
+                    try {
+                        for (Long l : MiraiBot.getBot(Long.parseLong(args[1])).getFriendList()) {
+                            if (String.valueOf(l).startsWith(args[2])) result.add(String.valueOf(l));
+                        }
+                    } catch (NoSuchElementException ignored) {}
+                }
+
+                // 2
+                if("sendgroupmessage".equalsIgnoreCase(args[1])){
+                    try {
+                        for (Long l : MiraiBot.getBot(Long.parseLong(args[1])).getGroupList()) {
+                            if (String.valueOf(l).startsWith(args[2])) result.add(String.valueOf(l));
+                        }
+                    } catch (NoSuchElementException ignored) {}
+                }
+
+                // 3
+                if(args[0].equalsIgnoreCase("autologin")) {
+                    // 1
+                    if("add".equalsIgnoreCase(args[1])){
+                        for(Long l : MiraiBot.getOnlineBots()){
+                            if(String.valueOf(l).startsWith(args[2])) result.add(String.valueOf(l));
+                        }
+                    }
+
+                    // 2
+                    if ("remove".equalsIgnoreCase(args[1])) {
+                        List<String> accounts = MiraiAutoLogin.loadAutoLoginList().stream().map(map -> String.valueOf(map.get("account"))).collect(Collectors.toList());
+                        for(String s : accounts){
+                            if(s.startsWith(args[2])) result.add(s);
+                        }
+                    }
+                }
+            }
+
+            if(args.length == 4 && sender.hasPermission("miraimc.command.mirai." + args[0].toLowerCase())){
+                if("login".equalsIgnoreCase(args[0])){
+                    result = MiraiBot.getAvailableProtocol();
+                }
+            }
+
+            if(args.length == 5 && sender.hasPermission("miraimc.command.mirai." + args[0].toLowerCase())){
+                if("autologin".equalsIgnoreCase(args[0]) && "add".equalsIgnoreCase(args[1])){
+                    result = MiraiBot.getAvailableProtocol();
+                }
+            }
+
+            return result;
+        });
+        //getCommand("miraimc").setExecutor(new MiraiMcCommand(this));
+        getCommand("miraimc").setTabCompleter((sender, command, labels, args) -> {
+            List<String> result = new ArrayList<>();
+
+            if(args.length == 1){
+                String[] list = new String[]{"bind", "reload"};
+                for(String s : list){
+                    if(s.startsWith(args[0])) result.add(s);
+                }
+            }
+
+            if(args.length == 2){
+                if("bind".equalsIgnoreCase(args[0])){
+                    String[] list = new String[]{"add", "getplayer", "getqq", "removeplayer", "removeqq"};
+                    for(String s : list){
+                        if(s.startsWith(args[1])) result.add(s);
+                    }
+                }
+            }
+
+            if(args.length == 3){
+                List<String> list = Arrays.asList("add", "getplayer", "removeplayer");
+                if("bind".equalsIgnoreCase(args[0]) && list.contains(args[1].toLowerCase())){
+                    for(Player p : Bukkit.getOnlinePlayers()){
+                        if(p.getName().startsWith(args[2])) result.add(p.getName());
+                    }
+                }
+            }
+
+            return result;
+        });
+        //getCommand("miraiverify").setExecutor(new MiraiVerifyCommand());
 
         if(Config.Bot.LogEvents){
             getLogger().info("Registering events.");
@@ -196,5 +387,27 @@ public class BukkitPlugin extends JavaPlugin {
         }
 
         getLogger().info("All tasks done. Thanks for use MiraiMC!");
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        ICommandSender sender1 = new ICommandSender() {
+            @Override
+            public void sendMessage(String message) {
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+            }
+
+            @Override
+            public boolean hasPermission(String permission) {
+                return sender.hasPermission(permission);
+            }
+        };
+
+        switch (command.getName().toLowerCase()){
+            case "mirai":return new MiraiCommand().onCommand(sender1, args);
+            case "miraimc":return new MiraiMcCommand().onCommand(sender1, args);
+            case "miraiverify":return new MiraiVerifyCommand().onCommand(sender1, args);
+            default:return super.onCommand(sender, command, label, args);
+        }
     }
 }

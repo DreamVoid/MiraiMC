@@ -6,7 +6,6 @@ import cn.nukkit.utils.TextFormat;
 import me.dreamvoid.miraimc.nukkit.MiraiAutoLogin;
 import me.dreamvoid.miraimc.nukkit.commands.base.BaseSubCommand;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -58,8 +57,7 @@ public class AutoLoginCommand extends BaseSubCommand {
                 }
                 case "list":{
                     sender.sendMessage(TextFormat.colorize('&',"&a存在的自动登录机器人: "));
-                    List<Map> AutoLoginBotList = MiraiAutoLogin.loadAutoLoginList();
-                    for (Map<?,?> bots : AutoLoginBotList){
+                    for (Map<?,?> bots : MiraiAutoLogin.loadAutoLoginList()){
                         sender.sendMessage(TextFormat.colorize('&', "&b"+bots.get("account")));
                     }
                     break;

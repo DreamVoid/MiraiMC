@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.bungee;
 
+import me.dreamvoid.miraimc.internal.Config;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 
@@ -8,32 +9,25 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 
-import static me.dreamvoid.miraimc.internal.Config.*;
+public class BungeeConfig extends Config {
+    private final BungeePlugin plugin;
 
-public class BungeeConfig {
-    private Configuration config;
-    private final BungeePlugin BungeePlugin;
-    private static BungeeConfig Instance;
-
-    public BungeeConfig(BungeePlugin bungee) {
-        BungeePlugin = bungee;
-        PluginDir = bungee.getDataFolder();
-        Instance = this;
+    public BungeeConfig(BungeePlugin plugin) {
+        this.plugin = plugin;
+        PluginDir = plugin.getDataFolder();
+        INSTANCE = this;
     }
 
-    public void loadConfig() {
-        try {
-            if (!BungeePlugin.getDataFolder().exists() && !BungeePlugin.getDataFolder().mkdirs()) throw new RuntimeException("Failed to create folder " + BungeePlugin.getDataFolder().getPath());
-            File file = new File(BungeePlugin.getDataFolder(), "config.yml");
-            if (!file.exists()) {
-                try (InputStream in = BungeePlugin.getResourceAsStream("config.yml")) {
-                    Files.copy(in, file.toPath());
-                }
+    @Override
+    public void loadConfig() throws IOException {
+        if (!plugin.getDataFolder().exists() && !plugin.getDataFolder().mkdirs()) throw new RuntimeException("Failed to create folder " + plugin.getDataFolder().getPath());
+        File file = new File(plugin.getDataFolder(), "config.yml");
+        if (!file.exists()) {
+            try (InputStream in = plugin.getResourceAsStream("config.yml")) {
+                Files.copy(in, file.toPath());
             }
-            config = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(new File(BungeePlugin.getDataFolder(), "config.yml"));
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        Configuration config = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(new File(plugin.getDataFolder(), "config.yml"));
 
         General.AllowBStats = config.getBoolean("general.allow-bStats",true);
         General.CheckUpdate = config.getBoolean("general.check-update",true);
@@ -64,9 +58,5 @@ public class BungeeConfig {
         Database.MySQL.Poll.MaximumPoolSize = config.getInt("database.mysql.pool.maximumPoolSize",15);
         Database.MySQL.Poll.KeepaliveTime = config.getInt("database.mysql.pool.keepaliveTime",0);
         Database.MySQL.Poll.MinimumIdle = config.getInt("database.mysql.pool.minimumIdle",0);
-    }
-
-    public static void reloadConfig() {
-        Instance.loadConfig();
     }
 }
