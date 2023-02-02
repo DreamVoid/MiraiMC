@@ -38,7 +38,10 @@ A more detailed tutorial can be found here: https://docs.miraimc.dreamvoid.me/
 ### Plugin developer
 If you are a plug-in developer and are considering allowing your plugin to connect to QQ robots, you only need to use the API provided by this plugin to quickly and easily achieve your requirements without additional configuration.
 
-You can simply use [MiraiMC Development Template](https://github.com/MiraiMC/MiraiMC-Template) to start developing a new plugin
+You can simply use MiraiMC Development Template to start developing a new plugin:
+
+- [Maven](https://github.com/MiraiMC/MiraiMC-Template)
+- [Gradle KotlinDSL](https://github.com/MiraiMC/MiraiMC-Template-Gradle-KotlinDSL)
 
 You can also introduce MiraiMC for existing plugins, just follow the following steps:
 
