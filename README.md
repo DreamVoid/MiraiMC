@@ -33,7 +33,10 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的Bukkit插件，
 ### 开发者
 如果你是插件开发者，正在考虑让自己的插件能够对接QQ机器人，那么只需要使用本插件提供的API即可方便快捷的实现需求而无需让服主进行额外的配置。
 
-你可以简单的使用[MiraiMC开发模板](https://github.com/MiraiMC/MiraiMC-Template)来开始开发一个全新的插件
+你可以简单的使用MiraiMC开发模板来开始开发一个全新的插件:
+
+- [Maven](https://github.com/MiraiMC/MiraiMC-Template)
+- [Gradle KotlinDSL](https://github.com/MiraiMC/MiraiMC-Template-Gradle-KotlinDSL)
 
 你也可以为现有插件引入MiraiMC，只需按照以下步骤即可接入MiraiMC：
 
