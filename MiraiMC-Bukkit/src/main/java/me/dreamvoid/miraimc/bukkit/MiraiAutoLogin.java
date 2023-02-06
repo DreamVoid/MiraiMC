@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.bukkit;
 
+import me.dreamvoid.miraimc.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.utils.BotConfiguration;
@@ -15,8 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public class MiraiAutoLogin {
-
+public class MiraiAutoLogin implements IMiraiAutoLogin {
     public MiraiAutoLogin(BukkitPlugin plugin) {
         this.plugin = plugin;
         this.Logger = Utils.logger;
@@ -28,9 +28,11 @@ public class MiraiAutoLogin {
     private static File AutoLoginFile;
     public static MiraiAutoLogin Instance;
 
+    @Override
     public void loadFile() {
         // 建立文件夹
-        File ConsoleDir = new File(Utils.getMiraiDir(), "config/Console");
+        File ConfigDir = new File(Utils.getMiraiDir(), "config");
+        File ConsoleDir = new File(ConfigDir, "Console");
         if(!ConsoleDir.exists() &&!ConsoleDir.mkdirs()) throw new RuntimeException("Failed to create folder " + ConsoleDir.getPath());
 
         // 建立自动登录文件
@@ -52,11 +54,13 @@ public class MiraiAutoLogin {
         }
     }
 
+    @Override
     public List<Map<?, ?>> loadAutoLoginList() {
         FileConfiguration data = YamlConfiguration.loadConfiguration(AutoLoginFile);
         return data.getMapList("accounts");
     }
 
+    @Override
     public void doStartUpAutoLogin() {
         Runnable thread = () -> {
             Logger.info("[AutoLogin] Starting auto login task.");
@@ -82,6 +86,7 @@ public class MiraiAutoLogin {
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, thread);
     }
 
+    @Override
     public boolean addAutoLoginBot(long Account, String Password, String Protocol){
         // 获取现有的机器人列表
         FileConfiguration data = YamlConfiguration.loadConfiguration(AutoLoginFile);
@@ -117,6 +122,7 @@ public class MiraiAutoLogin {
         return true;
     }
 
+    @Override
     public boolean delAutoLoginBot(long Account){
         FileConfiguration data = YamlConfiguration.loadConfiguration(AutoLoginFile);
         List<Map<?, ?>> list = data.getMapList("accounts");

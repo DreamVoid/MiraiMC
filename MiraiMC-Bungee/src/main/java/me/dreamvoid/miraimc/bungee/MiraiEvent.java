@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.bungee;
 
+import me.dreamvoid.miraimc.IMiraiEvent;
 import me.dreamvoid.miraimc.bungee.event.bot.*;
 import me.dreamvoid.miraimc.bungee.event.friend.*;
 import me.dreamvoid.miraimc.bungee.event.group.*;
@@ -27,7 +28,7 @@ import net.md_5.bungee.api.ProxyServer;
 
 import static me.dreamvoid.miraimc.bungee.event.bot.MiraiBotOfflineEvent.Type.*;
 
-public class MiraiEvent {
+public class MiraiEvent implements IMiraiEvent {
     public MiraiEvent(){
         Thread.currentThread().setContextClassLoader(Utils.classLoader);
     }

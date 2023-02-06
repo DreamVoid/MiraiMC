@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.bungee;
 
+import me.dreamvoid.miraimc.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bungee.utils.SpecialUtils;
 import me.dreamvoid.miraimc.internal.Utils;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public class MiraiAutoLogin {
+public class MiraiAutoLogin implements IMiraiAutoLogin {
 
     public MiraiAutoLogin(BungeePlugin plugin) {
         this.plugin = plugin;
@@ -29,9 +30,11 @@ public class MiraiAutoLogin {
     private static File AutoLoginFile;
     public static MiraiAutoLogin Instance;
 
+    @Override
     public void loadFile() {
         // 建立控制台文件夹
-        File ConsoleDir = new File(Utils.getMiraiDir(), "config/Console");
+        File ConfigDir = new File(Utils.getMiraiDir(), "config");
+        File ConsoleDir = new File(ConfigDir, "Console");
         if(!ConsoleDir.exists() &&!ConsoleDir.mkdirs()) throw new RuntimeException("Failed to create folder " + ConsoleDir.getPath());
 
         // 建立自动登录文件
@@ -53,11 +56,13 @@ public class MiraiAutoLogin {
         }
     }
 
+    @Override
     public List<Map<?, ?>> loadAutoLoginList() throws IOException{
         Configuration data = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(AutoLoginFile);
         return SpecialUtils.getMapList(data.getList("accounts"));
     }
 
+    @Override
     public void doStartUpAutoLogin() {
         Runnable thread = () -> {
             Logger.info("[AutoLogin] Starting auto login task.");
@@ -89,6 +94,7 @@ public class MiraiAutoLogin {
         plugin.getProxy().getScheduler().runAsync(plugin, thread);
     }
 
+    @Override
     public boolean addAutoLoginBot(long Account, String Password, String Protocol){
         try {
             // 获取自动登录文件
@@ -126,6 +132,7 @@ public class MiraiAutoLogin {
         return true;
     }
 
+    @Override
     public boolean delAutoLoginBot(long Account){
         try {
             // 获取自动登录文件

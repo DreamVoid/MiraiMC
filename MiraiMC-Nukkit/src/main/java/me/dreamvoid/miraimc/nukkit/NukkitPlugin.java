@@ -1,139 +1,46 @@
 package me.dreamvoid.miraimc.nukkit;
 
 import cn.nukkit.plugin.PluginBase;
-import cn.nukkit.scheduler.AsyncTask;
-import cn.nukkit.scheduler.NukkitRunnable;
 import me.dreamvoid.miraimc.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.IMiraiEvent;
 import me.dreamvoid.miraimc.MiraiMCPlugin;
-import me.dreamvoid.miraimc.api.MiraiBot;
+import me.dreamvoid.miraimc.PlatformPlugin;
 import me.dreamvoid.miraimc.internal.Config;
-import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
-import me.dreamvoid.miraimc.internal.PluginUpdate;
-import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.libloader.MiraiLoader;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.nukkit.utils.MetricsLite;
-import me.dreamvoid.miraimc.Platform;
-import me.dreamvoid.miraimc.internal.webapi.Info;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-public class NukkitPlugin extends PluginBase {
-
+public class NukkitPlugin extends PluginBase implements PlatformPlugin {
     private static NukkitPlugin nukkitPlugin;
 
     private MiraiEvent MiraiEvent;
     private MiraiAutoLogin MiraiAutoLogin;
+    private final MiraiMCPlugin lifeCycle;
+    private final Logger NukkitLogger;
 
+    public NukkitPlugin(){
+        NukkitLogger = new NukkitLogger("MiraiMC-Nukkit",null, this);
+        lifeCycle = new MiraiMCPlugin(this);
+        lifeCycle.startUp();
+    }
     public static NukkitPlugin getInstance() {
         return nukkitPlugin;
     }
 
     @Override
     public void onLoad() {
-        System.setProperty("mirai.no-desktop", "MiraiMC");
-        System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
         nukkitPlugin = this;
         try {
-            Utils.setLogger(new NukkitLogger("MiraiMC-Nukkit",null, this));
-            Utils.setClassLoader(this.getClass().getClassLoader());
             new NukkitConfig(this).loadConfig();
+            MiraiAutoLogin = new MiraiAutoLogin(this);
+            MiraiEvent = !Config.General.LegacyEventSupport ? new MiraiEvent(this) : new MiraiEventLegacy(this);
 
-            if(Config.General.MiraiCoreVersion.equalsIgnoreCase("latest")) {
-                MiraiLoader.loadMiraiCore();
-            } else if(Config.General.MiraiCoreVersion.equalsIgnoreCase("stable")){
-                MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion(getDescription().getVersion()));
-            } else {
-                MiraiLoader.loadMiraiCore(Config.General.MiraiCoreVersion);
-            }
-            if(!Config.General.LegacyEventSupport){
-                this.MiraiEvent = new MiraiEvent(this);
-            } else this.MiraiEvent = new MiraiEventLegacy(this);
-            this.MiraiAutoLogin = new MiraiAutoLogin(this);
-
-            MiraiMCPlugin.setPlugin(new MiraiMCPlugin() {
-                @Override
-                public String getName() {
-                    return getDescription().getName();
-                }
-
-                @Override
-                public String getVersion() {
-                    return getDescription().getVersion();
-                }
-
-                @Override
-                public List<String> getAuthors() {
-                    return getDescription().getAuthors();
-                }
-
-                @Override
-                public Logger getLogger() {
-                    return Utils.logger;
-                }
-
-                @Override
-                public Platform getServer() {
-                    return new Platform() {
-                        @Override
-                        public String getPlayerName(UUID uuid) {
-                            return NukkitPlugin.this.getServer().getOfflinePlayer(uuid).getName();
-                        }
-
-                        @Override
-                        public UUID getPlayerUUID(String name) {
-                            return NukkitPlugin.this.getServer().getOfflinePlayer(name).getUniqueId();
-                        }
-
-                        @Override
-                        public void runTaskAsync(Runnable task) {
-                            NukkitPlugin.this.getServer().getScheduler().scheduleAsyncTask(NukkitPlugin.this, new AsyncTask() {
-                                @Override
-                                public void onRun() {
-                                    task.run();
-                                }
-                            });
-                        }
-                    };
-                }
-
-                @Override
-                public IMiraiAutoLogin getAutoLogin() {
-                    return new IMiraiAutoLogin() {
-                        @Override
-                        public void loadFile() {
-                            MiraiAutoLogin.loadFile();
-                        }
-
-                        @Override
-                        public List<Map<?, ?>> loadAutoLoginList() {
-                            return MiraiAutoLogin.loadAutoLoginList();
-                        }
-
-                        @Override
-                        public void doStartUpAutoLogin() {
-                            MiraiAutoLogin.doStartUpAutoLogin();
-                        }
-
-                        @Override
-                        public boolean addAutoLoginBot(long Account, String Password, String Protocol) {
-                            return MiraiAutoLogin.addAutoLoginBot(Account, Password, Protocol);
-                        }
-
-                        @Override
-                        public boolean delAutoLoginBot(long Account) {
-                            return MiraiAutoLogin.delAutoLoginBot(Account);
-                        }
-                    };
-                }
-            });
+            lifeCycle.preLoad();
         } catch (Exception e) {
             getLogger().warning("An error occurred while loading plugin." );
             e.printStackTrace();
@@ -142,14 +49,7 @@ public class NukkitPlugin extends PluginBase {
 
     @Override
     public void onEnable() {
-        getLogger().info("Mirai working dir: " + Config.General.MiraiWorkingDir);
-
-        getLogger().info("Starting Mirai-Events listener.");
-        MiraiEvent.startListenEvent();
-
-        getLogger().info("Loading auto-login file.");
-        MiraiAutoLogin.loadFile();
-        MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
+        lifeCycle.postLoad();
 
         // 注册命令 // TODO: 把Nukkit的注册命令并入主代码
         getLogger().info("Registering commands.");
@@ -157,27 +57,10 @@ public class NukkitPlugin extends PluginBase {
         getServer().getCommandMap().register("", new MiraiMcCommand());
         getServer().getCommandMap().register("", new MiraiVerifyCommand());
 
+        // 监听事件
         if(Config.Bot.LogEvents){
             getLogger().info("Registering events.");
             this.getServer().getPluginManager().registerEvents(new Events(this), this);
-        }
-
-        switch (Config.Database.Type.toLowerCase()){
-            case "sqlite":
-            default: {
-                getLogger().info("Initializing SQLite database.");
-                try {
-                    Utils.initializeSQLite();
-                } catch (SQLException | ClassNotFoundException e) {
-                    getLogger().warning("Failed to initialize SQLite database, reason: " + e);
-                }
-                break;
-            }
-            case "mysql": {
-                getLogger().info("Initializing MySQL database.");
-                Utils.initializeMySQL();
-                break;
-            }
         }
 
         // bStats统计
@@ -192,90 +75,65 @@ public class NukkitPlugin extends PluginBase {
             getLogger().info("Initializing HttpAPI async task.");
             getServer().getScheduler().scheduleRepeatingTask(this, new MiraiHttpAPIResolver(this), Math.toIntExact(Config.HttpApi.MessageFetch.Interval * 20), true);
         }
-
-        // 安全警告
-        if(!(Config.General.DisableSafeWarningMessage)){
-            getLogger().warning("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
-            getLogger().warning("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
-        }
-
-        if(Config.General.CheckUpdate && !getDescription().getVersion().contains("dev")) {
-            new NukkitRunnable() {
-                @Override
-                public void run() {
-                    getLogger().info("Checking update...");
-                    try {
-                        PluginUpdate fetch = new PluginUpdate();
-                        String version = !getDescription().getVersion().contains("-") ? fetch.getLatestRelease() : fetch.getLatestPreRelease();
-                        if (fetch.isBlocked(getDescription().getVersion())) {
-                            getLogger().error("当前版本已停用，继续使用将不会得到作者的任何支持！");
-                            getLogger().error("请立刻更新到最新版本: " + version);
-                            getLogger().error("从Github下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
-                        } else if (!getDescription().getVersion().equals(version)) {
-                            getLogger().info("已找到新的插件更新，最新版本: " + version);
-                            getLogger().info("从Github下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
-                        } else getLogger().info("你使用的是最新版本");
-                    } catch (IOException e) {
-                        getLogger().warning("An error occurred while fetching the latest version, reason: " + e);
-                    }
-                }
-            }.runTaskAsynchronously(this);
-        }
-
-        new NukkitRunnable() {
-            @Override
-            public void run() {
-                try {
-                    List<String> announcement = Info.init().announcement;
-                    if(announcement != null){
-                        getLogger().info("========== [ MiraiMC 公告版 ] ==========");
-                        announcement.forEach(s -> getLogger().info(s));
-                        getLogger().info("=======================================");
-                    }
-                } catch (IOException ignored) {}
-            }
-        }.runTaskLaterAsynchronously(this, 40);
-
-        getLogger().info("All tasks done. Welcome to use MiraiMC!");
     }
 
     @Override
     public void onDisable() {
-        if(MiraiEvent != null) {
-            getLogger().info("Stopping bot event listener.");
-            MiraiEvent.stopListenEvent();
-        }
-
-        getLogger().info("Closing all bots");
-        MiraiLoginSolver.cancelAll();
-        for (long bots : MiraiBot.getOnlineBots()){
-            MiraiBot.getBot(bots).close();
-        }
-
-        switch (Config.Database.Type.toLowerCase()){
-            case "sqlite":
-            default: {
-                if(Utils.connection != null) {
-                    getLogger().info("Closing SQLite database.");
-                    try {
-                        Utils.closeSQLite();
-                    } catch (SQLException e) {
-                        getLogger().error("Failed to close SQLite database!");
-                        getLogger().error("Reason: " + e);
-                    }
-                }
-                break;
-            }
-            case "mysql": {
-                if (Utils.ds != null) {
-                    getLogger().info("Closing MySQL database.");
-                    Utils.closeMySQL();
-                }
-                break;
-            }
-        }
-
-        getLogger().info("All tasks done. Thanks for use MiraiMC!");
+        lifeCycle.unload();
     }
 
+    @Override
+    public String getPlayerName(UUID uuid) {
+        return getServer().getOfflinePlayer(uuid).getName();
+    }
+
+    @Override
+    public UUID getPlayerUUID(String name) {
+        return getServer().getOfflinePlayer(name).getUniqueId();
+    }
+
+    @Override
+    public void runTaskAsync(Runnable task) {
+        getServer().getScheduler().scheduleTask(this,task,true);
+    }
+
+    @Override
+    public void runTaskLaterAsync(Runnable task, long delay) {
+        getServer().getScheduler().scheduleDelayedTask(this,task,Integer.parseInt(String.valueOf(delay)),true);
+    }
+
+    @Override
+    public String getPluginName() {
+        return getDescription().getName();
+    }
+
+    @Override
+    public String getPluginVersion() {
+        return getDescription().getVersion();
+    }
+
+    @Override
+    public List<String> getAuthors() {
+        return getDescription().getAuthors();
+    }
+
+    @Override
+    public Logger getPluginLogger() {
+        return NukkitLogger;
+    }
+
+    @Override
+    public ClassLoader getPluginClassLoader() {
+        return this.getClass().getClassLoader();
+    }
+
+    @Override
+    public IMiraiAutoLogin getAutoLogin() {
+        return MiraiAutoLogin;
+    }
+
+    @Override
+    public IMiraiEvent getMiraiEvent() {
+        return MiraiEvent;
+    }
 }

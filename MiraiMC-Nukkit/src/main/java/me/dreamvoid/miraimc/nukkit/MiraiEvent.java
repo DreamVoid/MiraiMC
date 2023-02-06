@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.nukkit;
 
+import me.dreamvoid.miraimc.IMiraiEvent;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.nukkit.event.bot.*;
 import me.dreamvoid.miraimc.nukkit.event.friend.*;
@@ -26,7 +27,7 @@ import net.mamoe.mirai.event.events.*;
 
 import static me.dreamvoid.miraimc.nukkit.event.bot.MiraiBotOfflineEvent.Type.*;
 
-public class MiraiEvent {
+public class MiraiEvent implements IMiraiEvent {
     private final NukkitPlugin plugin;
 
     public MiraiEvent(NukkitPlugin plugin){
@@ -103,6 +104,7 @@ public class MiraiEvent {
     private Listener<FriendNickChangedEvent> FriendNickChangedEventListener;
     private Listener<FriendInputStatusChangedEvent> FriendInputStatusChangedEventListener;
 
+    @Override
     public void startListenEvent(){
         // Bot
         BotOnlineListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOnlineEvent.class, event -> plugin.getServer().getPluginManager().callEvent(new MiraiBotOnlineEvent(event)));
@@ -183,6 +185,7 @@ public class MiraiEvent {
         FriendInputStatusChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendInputStatusChangedEvent.class, event -> plugin.getServer().getPluginManager().callEvent(new MiraiFriendInputStatusChangedEvent(event)));
     }
 
+    @Override
     public void stopListenEvent(){
         BotOnlineListener.complete();
         BotOfflineActiveListener.complete();

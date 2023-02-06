@@ -3,6 +3,7 @@ package me.dreamvoid.miraimc.nukkit;
 import cn.nukkit.plugin.PluginLogger;
 import cn.nukkit.scheduler.AsyncTask;
 import cn.nukkit.utils.Config;
+import me.dreamvoid.miraimc.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.utils.BotConfiguration;
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MiraiAutoLogin {
+public class MiraiAutoLogin implements IMiraiAutoLogin {
 
     public MiraiAutoLogin(NukkitPlugin plugin) {
         this.plugin = plugin;
@@ -29,9 +30,11 @@ public class MiraiAutoLogin {
     private static File AutoLoginFile;
     public static MiraiAutoLogin Instance;
 
+    @Override
     public void loadFile() {
         // 建立控制台文件夹
-        File ConsoleDir = new File(Utils.getMiraiDir(), "config/Console");
+        File ConfigDir = new File(Utils.getMiraiDir(), "config");
+        File ConsoleDir = new File(ConfigDir, "Console");
         if(!ConsoleDir.exists() &&!ConsoleDir.mkdirs()) throw new RuntimeException("Failed to create folder " + ConsoleDir.getPath());
 
         // 建立自动登录文件
@@ -53,6 +56,7 @@ public class MiraiAutoLogin {
         }
     }
 
+    @Override
     public List<Map<?, ?>> loadAutoLoginList() {
         Config data = new Config(AutoLoginFile, Config.YAML);
         List<Map<?,?>> list = new ArrayList<>();
@@ -60,6 +64,7 @@ public class MiraiAutoLogin {
         return list;
     }
 
+    @Override
     public void doStartUpAutoLogin() {
         plugin.getServer().getScheduler().scheduleAsyncTask(plugin, new AsyncTask() {
             @Override
@@ -88,6 +93,7 @@ public class MiraiAutoLogin {
         });
     }
 
+    @Override
     public boolean addAutoLoginBot(long Account, String Password, String Protocol){
         // 获取自动登录文件
         Config data = new Config(AutoLoginFile, Config.YAML);
@@ -123,6 +129,7 @@ public class MiraiAutoLogin {
         return true;
     }
 
+    @Override
     public boolean delAutoLoginBot(long Account){
         // 获取自动登录文件
         Config data = new Config(AutoLoginFile, Config.YAML);

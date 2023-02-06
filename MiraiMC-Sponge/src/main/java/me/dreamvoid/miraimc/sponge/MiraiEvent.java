@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.sponge;
 
+import me.dreamvoid.miraimc.IMiraiEvent;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.sponge.event.bot.*;
 import me.dreamvoid.miraimc.sponge.event.friend.*;
@@ -31,9 +32,9 @@ import org.spongepowered.api.plugin.PluginContainer;
 
 import static me.dreamvoid.miraimc.sponge.event.bot.MiraiBotOfflineEvent.Type.*;
 
-public class MiraiEvent {
-    final EventContext eventContext;
-    final PluginContainer pluginContainer;
+public class MiraiEvent implements IMiraiEvent {
+    private final EventContext eventContext;
+    private final PluginContainer pluginContainer;
 
     public MiraiEvent(SpongePlugin plugin) {
         Thread.currentThread().setContextClassLoader(Utils.classLoader);
@@ -110,6 +111,7 @@ public class MiraiEvent {
     private Listener<FriendNickChangedEvent> FriendNickChangedEventListener;
     private Listener<FriendInputStatusChangedEvent> FriendInputStatusChangedEventListener;
 
+    @Override
     public void startListenEvent(){
         // Bot
         BotOnlineListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOnlineEvent.class, event -> Sponge.getEventManager().post(new MiraiBotOnlineEvent(event, Cause.of(eventContext, pluginContainer))));
@@ -190,6 +192,7 @@ public class MiraiEvent {
         FriendInputStatusChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendInputStatusChangedEvent.class, event -> Sponge.getEventManager().post(new MiraiFriendInputStatusChangedEvent(event, Cause.of(eventContext, pluginContainer))));
     }
 
+    @Override
     public void stopListenEvent(){
         BotOnlineListener.complete();
         BotOfflineActiveListener.complete();

@@ -3,18 +3,17 @@ package me.dreamvoid.miraimc.commands;
 import me.dreamvoid.miraimc.MiraiMCPlugin;
 import me.dreamvoid.miraimc.api.MiraiMC;
 import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.internal.Utils;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.UUID;
 
 public class MiraiMcCommand implements ICommandExecutor {
-    private final MiraiMCPlugin plugin = MiraiMCPlugin.getPlugin();
-
     @Override
     public boolean onCommand(ICommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage("This server is running "+ plugin.getName() +" version "+ plugin.getVersion()+" by "+ plugin.getAuthors().toString().replace("[","").replace("]",""));
+            sender.sendMessage("This server is running "+ MiraiMCPlugin.getPlatform().getPluginName() +" version "+ MiraiMCPlugin.getPlatform().getPluginVersion()+" by "+ MiraiMCPlugin.getPlatform().getAuthors().toString().replace("[","").replace("]",""));
             return false;
         }
 
@@ -25,7 +24,7 @@ public class MiraiMcCommand implements ICommandExecutor {
                         Config.reloadConfig();
                         sender.sendMessage("&a配置文件已经重新加载，部分配置可能需要重新启动服务器才能生效！");
                     } catch (IOException e) {
-                        plugin.getLogger().warning("加载配置文件时出现问题，原因："+e);
+                        Utils.logger.warning("加载配置文件时出现问题，原因："+e);
                         sender.sendMessage("&c重新配置文件时出现问题，请查看控制台了解更多信息！");
                     }
                 } else sender.sendMessage("&c你没有足够的权限执行此命令！");
@@ -37,8 +36,8 @@ public class MiraiMcCommand implements ICommandExecutor {
                         switch (args[1].toLowerCase()) {
                             case "add": {
                                 if (args.length >= 4) {
-                                    plugin.getServer().runTaskAsync(() -> {
-                                        UUID uuid = plugin.getServer().getPlayerUUID(args[2]);
+                                    MiraiMCPlugin.getPlatform().runTaskAsync(() -> {
+                                        UUID uuid = MiraiMCPlugin.getPlatform().getPlayerUUID(args[2]);
                                         long qqid = Long.parseLong(args[3]);
                                         MiraiMC.addBind(uuid, qqid);
                                         sender.sendMessage("&a已添加绑定！");
@@ -49,8 +48,8 @@ public class MiraiMcCommand implements ICommandExecutor {
                             }
                             case "removeplayer": {
                                 if (args.length >= 3) {
-                                    plugin.getServer().runTaskAsync(() -> {
-                                        UUID uuid = plugin.getServer().getPlayerUUID(args[2]);
+                                    MiraiMCPlugin.getPlatform().runTaskAsync(() -> {
+                                        UUID uuid = MiraiMCPlugin.getPlatform().getPlayerUUID(args[2]);
                                         MiraiMC.removeBind(uuid);
                                         sender.sendMessage("&a已移除相应绑定！");
                                     });
@@ -60,7 +59,7 @@ public class MiraiMcCommand implements ICommandExecutor {
                             }
                             case "removeqq": {
                                 if (args.length >= 3) {
-                                    plugin.getServer().runTaskAsync(() -> {
+                                    MiraiMCPlugin.getPlatform().runTaskAsync(() -> {
                                         long qqid = Long.parseLong(args[2]);
                                         MiraiMC.removeBind(qqid);
                                         sender.sendMessage("&a已移除相应绑定！");
@@ -71,8 +70,8 @@ public class MiraiMcCommand implements ICommandExecutor {
                             }
                             case "getplayer": {
                                 if (args.length >= 3) {
-                                    plugin.getServer().runTaskAsync(() -> {
-                                        UUID uuid = plugin.getServer().getPlayerUUID(args[2]);
+                                    MiraiMCPlugin.getPlatform().runTaskAsync(() -> {
+                                        UUID uuid = MiraiMCPlugin.getPlatform().getPlayerUUID(args[2]);
                                         long qqId = MiraiMC.getBind(uuid);
                                         if (qqId != 0) {
                                             sender.sendMessage("&a绑定的QQ号：" + qqId);
@@ -85,11 +84,11 @@ public class MiraiMcCommand implements ICommandExecutor {
                             }
                             case "getqq": {
                                 if (args.length >= 3) {
-                                    plugin.getServer().runTaskAsync(() -> {
+                                    MiraiMCPlugin.getPlatform().runTaskAsync(() -> {
                                         long qqid = Long.parseLong(args[2]);
                                         UUID uuid = MiraiMC.getBind(qqid);
                                         if (uuid != null) {
-                                            sender.sendMessage("&a绑定的玩家名：" + plugin.getServer().getPlayerName(uuid));
+                                            sender.sendMessage("&a绑定的玩家名：" + MiraiMCPlugin.getPlatform().getPlayerName(uuid));
                                         } else
                                             sender.sendMessage("&c未找到符合条件的记录！");
                                     });

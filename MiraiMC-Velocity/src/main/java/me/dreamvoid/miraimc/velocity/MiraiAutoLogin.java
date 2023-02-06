@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.velocity;
 
+import me.dreamvoid.miraimc.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.velocity.utils.AutoLoginObject;
@@ -12,10 +13,12 @@ import org.yaml.snakeyaml.nodes.Tag;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
-public class MiraiAutoLogin {
+public class MiraiAutoLogin implements IMiraiAutoLogin {
 
     public MiraiAutoLogin(VelocityPlugin plugin) {
         this.plugin = plugin;
@@ -28,9 +31,11 @@ public class MiraiAutoLogin {
     private File AutoLoginFile;
     public final MiraiAutoLogin Instance;
 
+    @Override
     public void loadFile() {
         // 建立文件夹
-        File ConsoleDir = new File(Utils.getMiraiDir(), "config/Console");
+        File ConfigDir = new File(Utils.getMiraiDir(), "config");
+        File ConsoleDir = new File(ConfigDir, "Console");
         if(!ConsoleDir.exists() &&!ConsoleDir.mkdirs()) throw new RuntimeException("Failed to create folder " + ConsoleDir.getPath());
 
         // 建立自动登录文件
@@ -52,7 +57,18 @@ public class MiraiAutoLogin {
         }
     }
 
-    public List<AutoLoginObject.Accounts> loadAutoLoginList() throws IOException {
+    @Override
+    public List<Map<?, ?>> loadAutoLoginList() throws IOException {
+        List<Map<?,?>> list = new ArrayList<>();
+        loadAutoLoginListVelocity().forEach(accounts -> {
+            Map<String, Long> map = new HashMap<>();
+            map.put("account", accounts.getAccount());
+            list.add(map);
+        });
+        return list;
+    }
+
+    public List<AutoLoginObject.Accounts> loadAutoLoginListVelocity() throws IOException {
         Yaml yaml = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader()));
         InputStream inputStream = Files.newInputStream(AutoLoginFile.toPath());
         AutoLoginObject data = yaml.loadAs(inputStream, AutoLoginObject.class);
@@ -62,11 +78,12 @@ public class MiraiAutoLogin {
         return data.getAccounts();
     }
 
+    @Override
     public void doStartUpAutoLogin() {
         Runnable thread = () -> {
             try {
                 Logger.info("[AutoLogin] Starting auto login task.");
-                for(AutoLoginObject.Accounts accounts : loadAutoLoginList()){
+                for(AutoLoginObject.Accounts accounts : loadAutoLoginListVelocity()){
                     AutoLoginObject.Password password = accounts.getPassword();
                     AutoLoginObject.Configuration configuration = accounts.getConfiguration();
                     long Account = accounts.getAccount();
@@ -95,6 +112,7 @@ public class MiraiAutoLogin {
         plugin.getServer().getScheduler().buildTask(plugin, thread).schedule();
     }
 
+    @Override
     public boolean addAutoLoginBot(long Account, String Password, String Protocol){
         try {
             // 获取现有的机器人列表
@@ -143,6 +161,7 @@ public class MiraiAutoLogin {
         return true;
     }
 
+    @Override
     public boolean delAutoLoginBot(long Account){
         try {
             // 获取现有的机器人列表

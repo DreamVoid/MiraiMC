@@ -18,13 +18,12 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class MiraiCommand implements ICommandExecutor {
-    private final MiraiMCPlugin plugin = MiraiMCPlugin.getPlugin();
-    private final IMiraiAutoLogin MiraiAutoLogin = plugin.getAutoLogin();
+    private final IMiraiAutoLogin MiraiAutoLogin = MiraiMCPlugin.getPlatform().getAutoLogin();
 
     @Override
     public boolean onCommand(ICommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage("This server is running "+ plugin.getName() +" version "+ plugin.getVersion()+" by "+ plugin.getAuthors().toString().replace("[","").replace("]",""));
+            sender.sendMessage("This server is running "+ MiraiMCPlugin.getPlatform().getPluginName() +" version "+ MiraiMCPlugin.getPlatform().getPluginVersion()+" by "+ MiraiMCPlugin.getPlatform().getAuthors().toString().replace("[","").replace("]",""));
             return false;
         }
 
@@ -32,7 +31,7 @@ public class MiraiCommand implements ICommandExecutor {
             case "login": {
                 if(sender.hasPermission("miraimc.command.mirai.login")){
                     if(args.length >= 3) {
-                        plugin.getServer().runTaskAsync(() -> {
+                        MiraiMCPlugin.getPlatform().runTaskAsync(() -> {
                             BotConfiguration.MiraiProtocol Protocol = null;
                             boolean useHttpApi = false;
                             if (args.length == 3) {

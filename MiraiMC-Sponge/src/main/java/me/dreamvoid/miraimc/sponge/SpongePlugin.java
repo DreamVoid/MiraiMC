@@ -2,19 +2,15 @@ package me.dreamvoid.miraimc.sponge;
 
 import com.google.inject.Inject;
 import me.dreamvoid.miraimc.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.IMiraiEvent;
 import me.dreamvoid.miraimc.MiraiMCPlugin;
-import me.dreamvoid.miraimc.api.MiraiBot;
+import me.dreamvoid.miraimc.PlatformPlugin;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.internal.Config;
-import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
-import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.libloader.MiraiLoader;
-import me.dreamvoid.miraimc.Platform;
 import me.dreamvoid.miraimc.sponge.utils.Metrics;
 import me.dreamvoid.miraimc.sponge.utils.SpecialUtils;
-import me.dreamvoid.miraimc.internal.webapi.Info;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandResult;
@@ -33,9 +29,8 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.metric.MetricsConfigManager;
 
 import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Plugin(id = "miraimc",
@@ -45,7 +40,16 @@ import java.util.concurrent.TimeUnit;
         url = "https://github.com/DreamVoid/MiraiMC",
         authors = {"DreamVoid"}
 )
-public class SpongePlugin {
+public class SpongePlugin implements PlatformPlugin {
+    private final MiraiMCPlugin lifeCycle;
+    private final java.util.logging.Logger SpongeLogger;
+
+    public SpongePlugin(){
+        SpongeLogger = new SpongeLogger("MiraiMC", null, this);
+        lifeCycle = new MiraiMCPlugin(this);
+        lifeCycle.startUp();
+    }
+
     @Inject
     private Logger logger;
 
@@ -67,108 +71,12 @@ public class SpongePlugin {
      */
     @Listener
     public void onLoad(GamePreInitializationEvent e) {
-        System.setProperty("mirai.no-desktop", "MiraiMC");
-        System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
-
         try {
-            java.util.logging.Logger log4j = new SpongeLogger("MiraiMC", null, this);
-            Utils.setLogger(log4j);
-            Utils.setClassLoader(this.getClass().getClassLoader());
             new SpongeConfig(this).loadConfig();
+            MiraiAutoLogin = new MiraiAutoLogin(this);
+            MiraiEvent = !Config.General.LegacyEventSupport ? new MiraiEvent(this) : new MiraiEventLegacy(this);
 
-            if(Config.General.MiraiCoreVersion.equalsIgnoreCase("latest")) {
-                MiraiLoader.loadMiraiCore();
-            } else if(Config.General.MiraiCoreVersion.equalsIgnoreCase("stable")){
-                MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion(getPluginContainer().getVersion().orElse("1.0")));
-            } else {
-                MiraiLoader.loadMiraiCore(Config.General.MiraiCoreVersion);
-            }
-            if(!Config.General.LegacyEventSupport){
-                this.MiraiEvent = new MiraiEvent(this);
-            } else this.MiraiEvent = new MiraiEventLegacy(this);
-            this.MiraiAutoLogin = new MiraiAutoLogin(this);
-
-            MiraiMCPlugin.setPlugin(new MiraiMCPlugin() {
-                @Override
-                public String getName() {
-                    return SpongePlugin.this.getPluginContainer().getName();
-                }
-
-                @Override
-                public String getVersion() {
-                    return SpongePlugin.this.getPluginContainer().getVersion().orElse("reserved");
-                }
-
-                @Override
-                public List<String> getAuthors() {
-                    return SpongePlugin.this.getPluginContainer().getAuthors();
-                }
-
-                @Override
-                public java.util.logging.Logger getLogger() {
-                    return Utils.logger;
-                }
-
-                @Override
-                public Platform getServer() {
-                    return new Platform() {
-                        @Override
-                        public String getPlayerName(UUID uuid) {
-                            return Sponge.getServer().getPlayer(uuid).get().getName();
-                        }
-
-                        @Override
-                        public UUID getPlayerUUID(String name) {
-                            return Sponge.getServer().getPlayer(name).get().getUniqueId();
-                        }
-
-                        @Override
-                        public void runTaskAsync(Runnable task) {
-                            Sponge.getScheduler().createTaskBuilder()
-                                    .async()
-                                    .execute(task)
-                                    .name("MiraiMC Common Task")
-                                    .submit(this);
-                        }
-                    };
-                }
-
-                @Override
-                public IMiraiAutoLogin getAutoLogin() {
-                    return new IMiraiAutoLogin() {
-                        @Override
-                        public void loadFile() {
-                            MiraiAutoLogin.loadFile();
-                        }
-
-                        @Override
-                        public List<Map<?, ?>> loadAutoLoginList() throws IOException {
-                            List<Map<?,?>> list = new ArrayList<>();
-                            MiraiAutoLogin.loadAutoLoginList().forEach(accounts -> {
-                                Map<String, Long> map = new HashMap<>();
-                                map.put("account", accounts.getAccount());
-                                list.add(map);
-                            });
-                            return list;
-                        }
-
-                        @Override
-                        public void doStartUpAutoLogin() {
-                            MiraiAutoLogin.doStartUpAutoLogin();
-                        }
-
-                        @Override
-                        public boolean addAutoLoginBot(long Account, String Password, String Protocol) {
-                            return MiraiAutoLogin.addAutoLoginBot(Account, Password, Protocol);
-                        }
-
-                        @Override
-                        public boolean delAutoLoginBot(long Account) {
-                            return MiraiAutoLogin.delAutoLoginBot(Account);
-                        }
-                    };
-                }
-            });
+            lifeCycle.preLoad();
         } catch (Exception ex) {
             getLogger().warn("An error occurred while loading plugin.");
             ex.printStackTrace();
@@ -180,36 +88,12 @@ public class SpongePlugin {
      */
     @Listener
     public void onEnable(GameInitializationEvent e) {
-        getLogger().info("Mirai working dir: " + Config.General.MiraiWorkingDir);
+        lifeCycle.postLoad();
 
-        getLogger().info("Starting Mirai-Events listener.");
-        MiraiEvent.startListenEvent();
-
-        getLogger().info("Loading auto-login file.");
-        MiraiAutoLogin.loadFile();
-        MiraiAutoLogin.doStartUpAutoLogin(); // 服务器启动完成后执行自动登录机器人
-
+        // 监听事件
         if(Config.Bot.LogEvents){
             getLogger().info("Registering events.");
             Sponge.getEventManager().registerListeners(this, new Events());
-        }
-
-        switch (Config.Database.Type.toLowerCase()){
-            case "sqlite":
-            default: {
-                getLogger().info("Initializing SQLite database.");
-                try {
-                    Utils.initializeSQLite();
-                } catch (SQLException | ClassNotFoundException ex) {
-                    getLogger().warn("Failed to initialize SQLite database, reason: " + e);
-                }
-                break;
-            }
-            case "mysql": {
-                getLogger().info("Initializing MySQL database.");
-                Utils.initializeMySQL();
-                break;
-            }
         }
 
         // bStats统计
@@ -235,26 +119,6 @@ public class SpongePlugin {
                     .name("MiraiMC-HttpApi")
                     .submit(this);
         }
-
-        // 安全警告
-        if(!(Config.General.DisableSafeWarningMessage)){
-            getLogger().warn("确保您正在使用开源的MiraiMC插件，未知来源的插件可能会盗取您的账号！");
-            getLogger().warn("请始终从Github或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
-        }
-
-        Sponge.getScheduler().createAsyncExecutor(this).schedule(() -> {
-            try {
-                List<String> announcement = Info.init().announcement;
-                if(announcement != null){
-                    getLogger().info("========== [ MiraiMC 公告版 ] ==========");
-                    announcement.forEach(s -> getLogger().info(s));
-                    getLogger().info("=======================================");
-                }
-            } catch (IOException ignored) {}
-        }, 2, TimeUnit.SECONDS);
-
-        getLogger().info("Some initialization tasks will continue to run afterwards.");
-        getLogger().info("All tasks done. Welcome to use MiraiMC!");
     }
 
     /**
@@ -314,41 +178,7 @@ public class SpongePlugin {
      */
     @Listener
     public void onServerStopping(GameStoppingServerEvent event){
-        if(MiraiEvent != null) {
-            getLogger().info("Stopping bot event listener.");
-            MiraiEvent.stopListenEvent();
-        }
-
-        getLogger().info("Closing all bots");
-        MiraiLoginSolver.cancelAll();
-        for (long bots : MiraiBot.getOnlineBots()){
-            MiraiBot.getBot(bots).close();
-        }
-
-        switch (Config.Database.Type.toLowerCase()){
-            case "sqlite":
-            default: {
-                if(Utils.connection != null) {
-                    getLogger().info("Closing SQLite database.");
-                    try {
-                        Utils.closeSQLite();
-                    } catch (SQLException e) {
-                        getLogger().error("Failed to close SQLite database!");
-                        getLogger().error("Reason: " + e);
-                    }
-                }
-                break;
-            }
-            case "mysql": {
-                if (Utils.ds != null) {
-                    getLogger().info("Closing MySQL database.");
-                    Utils.closeMySQL();
-                }
-                break;
-            }
-        }
-
-        getLogger().info("All tasks done. Thanks for use MiraiMC!");
+        lifeCycle.unload();
     }
 
     public Logger getLogger() {
@@ -361,5 +191,60 @@ public class SpongePlugin {
 
     public PluginContainer getPluginContainer() {
         return pluginContainer;
+    }
+
+    @Override
+    public String getPlayerName(UUID uuid) {
+        return Sponge.getServer().getPlayer(uuid).get().getName();
+    }
+
+    @Override
+    public UUID getPlayerUUID(String name) {
+        return Sponge.getServer().getPlayer(name).get().getUniqueId();
+    }
+
+    @Override
+    public void runTaskAsync(Runnable task) {
+        Sponge.getScheduler().createAsyncExecutor(this).execute(task);
+    }
+
+    @Override
+    public void runTaskLaterAsync(Runnable task, long delay) {
+        Sponge.getScheduler().createAsyncExecutor(this).schedule(task, delay * 50, TimeUnit.MILLISECONDS);
+    }
+
+    @Override
+    public String getPluginName() {
+        return getPluginContainer().getName();
+    }
+
+    @Override
+    public String getPluginVersion() {
+        return getPluginContainer().getVersion().orElse("reserved");
+    }
+
+    @Override
+    public List<String> getAuthors() {
+        return getPluginContainer().getAuthors();
+    }
+
+    @Override
+    public java.util.logging.Logger getPluginLogger() {
+        return SpongeLogger;
+    }
+
+    @Override
+    public ClassLoader getPluginClassLoader() {
+        return getClass().getClassLoader();
+    }
+
+    @Override
+    public IMiraiAutoLogin getAutoLogin() {
+        return MiraiAutoLogin;
+    }
+
+    @Override
+    public IMiraiEvent getMiraiEvent() {
+        return MiraiEvent;
     }
 }

@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.bukkit;
 
+import me.dreamvoid.miraimc.IMiraiEvent;
 import me.dreamvoid.miraimc.bukkit.event.bot.*;
 import me.dreamvoid.miraimc.bukkit.event.friend.*;
 import me.dreamvoid.miraimc.bukkit.event.group.*;
@@ -27,7 +28,7 @@ import org.bukkit.Bukkit;
 
 import static me.dreamvoid.miraimc.bukkit.event.bot.MiraiBotOfflineEvent.Type.*;
 
-public class MiraiEvent {
+public class MiraiEvent implements IMiraiEvent {
     public MiraiEvent(){
         Thread.currentThread().setContextClassLoader(Utils.classLoader);
     }
@@ -101,6 +102,7 @@ public class MiraiEvent {
     private Listener<FriendNickChangedEvent> FriendNickChangedEventListener;
     private Listener<FriendInputStatusChangedEvent> FriendInputStatusChangedEventListener;
 
+    @Override
     public void startListenEvent(){
         // Bot
         BotOnlineListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOnlineEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiBotOnlineEvent(event)));
@@ -181,6 +183,7 @@ public class MiraiEvent {
         FriendInputStatusChangedEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendInputStatusChangedEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendInputStatusChangedEvent(event)));
     }
 
+    @Override
     public void stopListenEvent(){
         BotOnlineListener.complete();
         BotOfflineActiveListener.complete();

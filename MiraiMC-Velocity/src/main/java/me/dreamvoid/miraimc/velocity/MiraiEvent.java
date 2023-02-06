@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.velocity;
 
 import com.velocitypowered.api.proxy.ProxyServer;
+import me.dreamvoid.miraimc.IMiraiEvent;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.velocity.event.bot.*;
 import me.dreamvoid.miraimc.velocity.event.friend.*;
@@ -27,7 +28,7 @@ import net.mamoe.mirai.event.events.*;
 
 import static me.dreamvoid.miraimc.velocity.event.bot.MiraiBotOfflineEvent.Type.*;
 
-public class MiraiEvent {
+public class MiraiEvent implements IMiraiEvent {
     final ProxyServer server;
 
     public MiraiEvent(VelocityPlugin plugin) {
@@ -103,6 +104,7 @@ public class MiraiEvent {
     private Listener<FriendNickChangedEvent> FriendNickChangedEventListener;
     private Listener<FriendInputStatusChangedEvent> FriendInputStatusChangedEventListener;
 
+    @Override
     public void startListenEvent(){
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Thread.currentThread().setContextClassLoader(Utils.classLoader);
@@ -188,6 +190,7 @@ public class MiraiEvent {
         Thread.currentThread().setContextClassLoader(loader);
     }
 
+    @Override
     public void stopListenEvent(){
         BotOnlineListener.complete();
         BotOfflineActiveListener.complete();
