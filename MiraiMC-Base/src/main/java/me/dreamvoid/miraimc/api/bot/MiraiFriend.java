@@ -16,6 +16,7 @@ import java.io.File;
  * @author DreamVoid
  */
 public class MiraiFriend {
+    private final Bot bot;
     private final Friend friend;
 
     /**
@@ -25,7 +26,18 @@ public class MiraiFriend {
      * @throws NullPointerException 不存在指定好友时抛出
      */
     public MiraiFriend(Bot bot, long friendAccount) throws NullPointerException{
+        this.bot = bot;
         friend = bot.getFriend(friendAccount);
+    }
+
+    /**
+     * 获取指定好友的实例
+     * @param friend 好友
+     * @throws NullPointerException 不存在指定好友时抛出
+     */
+    public MiraiFriend(Bot bot, Friend friend) throws NullPointerException{
+        this.bot = bot;
+        this.friend = friend;
     }
 
     /**
@@ -146,5 +158,13 @@ public class MiraiFriend {
      */
     public void sendFlashImage(String imageID) {
         friend.sendMessage(FlashImage.from(imageID));
+    }
+
+    /**
+     * 获取好友所属分组
+     * @return 好友分组
+     */
+    public MiraiFriendGroup getFriendGroup(){
+        return new MiraiFriendGroup(bot, friend.getFriendGroup());
     }
 }

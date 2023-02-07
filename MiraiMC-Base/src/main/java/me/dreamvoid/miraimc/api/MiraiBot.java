@@ -1,9 +1,10 @@
 package me.dreamvoid.miraimc.api;
 
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.api.bot.MiraiFriend;
+import me.dreamvoid.miraimc.api.bot.MiraiFriendGroup;
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import me.dreamvoid.miraimc.api.bot.MiraiOtherClient;
-import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.Bot;
@@ -299,6 +300,14 @@ public class MiraiBot {
      */
     public List<MiraiOtherClient> getOtherClients() {
         return bot.getOtherClients().stream().map(MiraiOtherClient::new).collect(Collectors.toList());
+    }
+
+    /**
+     * 获取好友分组列表
+     * @return 好友分组列表
+     */
+    public List<MiraiFriendGroup> getFriendGroups(){
+        return bot.getFriendGroups().asCollection().stream().map(g -> new MiraiFriendGroup(bot, g)).collect(Collectors.toList());
     }
 
     /**
