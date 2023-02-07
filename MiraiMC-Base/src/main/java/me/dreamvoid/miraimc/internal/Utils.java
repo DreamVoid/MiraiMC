@@ -3,6 +3,7 @@ package me.dreamvoid.miraimc.internal;
 import com.google.gson.JsonObject;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.MiraiMCPlugin;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -87,7 +88,7 @@ public final class Utils {
 
     public static void initializeSQLite() throws SQLException, ClassNotFoundException{
         Class.forName("org.sqlite.JDBC");
-        connection = DriverManager.getConnection("jdbc:sqlite:" + new File(Config.PluginDir,"database.db").getPath());
+        connection = DriverManager.getConnection("jdbc:sqlite:" + new File(MiraiMCConfig.PluginDir,"database.db").getPath());
     }
 
     public static void closeSQLite() throws SQLException {
@@ -108,15 +109,15 @@ public final class Utils {
 
         HikariConfig config = new HikariConfig();
         config.setDriverClassName(driver);
-        config.setJdbcUrl("jdbc:mysql://" + Config.Database.MySQL.Address + "/" + Config.Database.MySQL.Database);
-        config.setUsername(Config.Database.MySQL.Username);
-        config.setPassword(Config.Database.MySQL.Password);
-        config.setConnectionTimeout(Config.Database.MySQL.Poll.ConnectionTimeout);
-        config.setIdleTimeout(Config.Database.MySQL.Poll.IdleTimeout);
-        config.setMaxLifetime(Config.Database.MySQL.Poll.MaxLifetime);
-        config.setMaximumPoolSize(Config.Database.MySQL.Poll.MaximumPoolSize);
-        config.setKeepaliveTime(Config.Database.MySQL.Poll.KeepaliveTime);
-        config.setMinimumIdle(Config.Database.MySQL.Poll.MinimumIdle);
+        config.setJdbcUrl("jdbc:mysql://" + MiraiMCConfig.Database.MySQL.Address + "/" + MiraiMCConfig.Database.MySQL.Database);
+        config.setUsername(MiraiMCConfig.Database.MySQL.Username);
+        config.setPassword(MiraiMCConfig.Database.MySQL.Password);
+        config.setConnectionTimeout(MiraiMCConfig.Database.MySQL.Poll.ConnectionTimeout);
+        config.setIdleTimeout(MiraiMCConfig.Database.MySQL.Poll.IdleTimeout);
+        config.setMaxLifetime(MiraiMCConfig.Database.MySQL.Poll.MaxLifetime);
+        config.setMaximumPoolSize(MiraiMCConfig.Database.MySQL.Poll.MaximumPoolSize);
+        config.setKeepaliveTime(MiraiMCConfig.Database.MySQL.Poll.KeepaliveTime);
+        config.setMinimumIdle(MiraiMCConfig.Database.MySQL.Poll.MinimumIdle);
         config.addDataSourceProperty("cachePrepStmts", "true" );
         config.addDataSourceProperty("prepStmtCacheSize", "250" );
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048" );
@@ -200,6 +201,6 @@ public final class Utils {
 
     @NotNull
     public static File getMiraiDir(){
-        return Config.General.MiraiWorkingDir.equals("default") ? new File(Config.PluginDir,"MiraiBot") : new File(Config.General.MiraiWorkingDir);
+        return MiraiMCConfig.General.MiraiWorkingDir.equals("default") ? new File(MiraiMCConfig.PluginDir,"MiraiBot") : new File(MiraiMCConfig.General.MiraiWorkingDir);
     }
 }

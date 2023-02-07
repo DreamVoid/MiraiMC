@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.api;
 import me.dreamvoid.miraimc.api.bot.MiraiFriend;
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import me.dreamvoid.miraimc.api.bot.MiraiOtherClient;
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.Bot;
@@ -334,21 +334,21 @@ public class MiraiBot {
             fileBasedDeviceInfo();
 
             // 是否关闭日志输出（不建议开发者关闭）。如果不关闭，是否使用Bukkit的Logger接管Mirai的Logger
-            if(Config.Bot.DisableNetworkLogs) {
+            if(MiraiMCConfig.Bot.DisableNetworkLogs) {
                 noNetworkLog();
-            } else if(Config.Bot.UseMinecraftLogger.NetworkLogs) {
+            } else if(MiraiMCConfig.Bot.UseMinecraftLogger.NetworkLogs) {
                 setNetworkLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(logger));
             }
-            if(Config.Bot.DisableBotLogs) {
+            if(MiraiMCConfig.Bot.DisableBotLogs) {
                 noBotLog();
-            } else if(Config.Bot.UseMinecraftLogger.BotLogs) {
+            } else if(MiraiMCConfig.Bot.UseMinecraftLogger.BotLogs) {
                 setBotLoggerSupplier(bot -> LoggerAdapters.asMiraiLogger(logger));
             }
 
             // 是否使用缓存——对于开发者，请启用；对于用户，请禁用。详见 https://github.com/mamoe/mirai/blob/dev/docs/Bots.md#%E5%90%AF%E7%94%A8%E5%88%97%E8%A1%A8%E7%BC%93%E5%AD%98
-            getContactListCache().setFriendListCacheEnabled(Config.Bot.ContactCache.EnableFriendListCache);
-            getContactListCache().setGroupMemberListCacheEnabled(Config.Bot.ContactCache.EnableGroupMemberListCache);
-            getContactListCache().setSaveIntervalMillis(Config.Bot.ContactCache.SaveIntervalMillis);
+            getContactListCache().setFriendListCacheEnabled(MiraiMCConfig.Bot.ContactCache.EnableFriendListCache);
+            getContactListCache().setGroupMemberListCacheEnabled(MiraiMCConfig.Bot.ContactCache.EnableGroupMemberListCache);
+            getContactListCache().setSaveIntervalMillis(MiraiMCConfig.Bot.ContactCache.SaveIntervalMillis);
 
             // 使用自己的验证解决器
             setLoginSolver(new MiraiLoginSolver());

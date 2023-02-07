@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.internal.libloader;
 
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.webapi.Info;
 import me.dreamvoid.miraimc.internal.webapi.Version;
@@ -21,7 +21,7 @@ public class MiraiLoader {
      * 加载最新版Mirai Core
      */
     public static void loadMiraiCore() throws RuntimeException, IOException, ParserConfigurationException, SAXException {
-        loadMiraiCore(getLibraryVersionMaven("net.mamoe", "mirai-core-all", Config.General.MavenRepoUrl.replace("http://","https://"),"release"));
+        loadMiraiCore(getLibraryVersionMaven("net.mamoe", "mirai-core-all", MiraiMCConfig.General.MavenRepoUrl.replace("http://","https://"),"release"));
     }
 
     public static String getStableVersion() {
@@ -69,7 +69,7 @@ public class MiraiLoader {
      */
     public static void loadMiraiCore(String version) throws RuntimeException, IOException, ParserConfigurationException, SAXException {
         if(version.equalsIgnoreCase("latest")){
-            version = getLibraryVersionMaven("net.mamoe", "mirai-core-all", Config.General.MavenRepoUrl.replace("http://","https://"),"release");
+            version = getLibraryVersionMaven("net.mamoe", "mirai-core-all", MiraiMCConfig.General.MavenRepoUrl.replace("http://","https://"),"release");
         }
 
         // 文件夹
@@ -78,13 +78,13 @@ public class MiraiLoader {
             throw new RuntimeException("Failed to create " + LibrariesDir.getPath());
         }
 
-        File writeName = new File(new File(Config.PluginDir, "cache"), "core-ver");
+        File writeName = new File(new File(MiraiMCConfig.PluginDir, "cache"), "core-ver");
         if(!writeName.getParentFile().exists() && !writeName.getParentFile().mkdirs()) {
             throw new RuntimeException("Failed to create " + writeName.getParentFile().getPath());
         }
 
         try {
-            loadJarMaven("net.mamoe", "mirai-core-all", version, "-all", Config.General.MavenRepoUrl.replace("http://","https://"), LibrariesDir);
+            loadJarMaven("net.mamoe", "mirai-core-all", version, "-all", MiraiMCConfig.General.MavenRepoUrl.replace("http://","https://"), LibrariesDir);
             try (FileWriter writer = new FileWriter(writeName);
                  BufferedWriter out = new BufferedWriter(writer)
             ) {

@@ -1,4 +1,4 @@
-package me.dreamvoid.miraimc.internal;
+package me.dreamvoid.miraimc;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,8 +7,8 @@ import java.io.IOException;
  * MiraiMC 插件配置<br>
  * 如果添加新配置，此处请使用大驼峰命名法
  */
-public abstract class Config {
-    public static Config INSTANCE;
+public abstract class MiraiMCConfig {
+    public static MiraiMCConfig INSTANCE;
     public static File PluginDir;
 
     public static class General{ // general

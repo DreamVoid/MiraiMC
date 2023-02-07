@@ -10,7 +10,7 @@ import me.dreamvoid.miraimc.commands.ICommandSender;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -26,10 +26,12 @@ public class BukkitPlugin extends JavaPlugin implements PlatformPlugin {
     private MiraiEvent MiraiEvent;
     private MiraiAutoLogin MiraiAutoLogin;
     private final MiraiMCPlugin lifeCycle;
+    private final MiraiMCConfig platformConfig;
 
     public BukkitPlugin(){
         lifeCycle = new MiraiMCPlugin(this);
         lifeCycle.startUp();
+        platformConfig = new BukkitConfig(this);
     }
 
     @Override // 加载插件
@@ -42,11 +44,10 @@ public class BukkitPlugin extends JavaPlugin implements PlatformPlugin {
         } catch (ClassNotFoundException ignored) {}
 
         try {
-            new BukkitConfig(this).loadConfig();
-            MiraiAutoLogin = new MiraiAutoLogin(this);
-            MiraiEvent = !Config.General.LegacyEventSupport ? new MiraiEvent() : new MiraiEventLegacy();
-
             lifeCycle.preLoad();
+            // 加载mirai核心完成，开始加载附属功能
+            MiraiAutoLogin = new MiraiAutoLogin(this);
+            MiraiEvent = !MiraiMCConfig.General.LegacyEventSupport ? new MiraiEvent() : new MiraiEventLegacy();
         } catch (Exception e) {
             getLogger().warning("An error occurred while loading plugin.");
             e.printStackTrace();
@@ -58,22 +59,22 @@ public class BukkitPlugin extends JavaPlugin implements PlatformPlugin {
         lifeCycle.postLoad();
 
         // 监听事件
-        if(Config.Bot.LogEvents){
+        if(MiraiMCConfig.Bot.LogEvents){
             getLogger().info("Registering events.");
             Bukkit.getPluginManager().registerEvents(new Events(), this);
         }
 
         // bStats统计
-        if(Config.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
+        if(MiraiMCConfig.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
             getLogger().info("Initializing bStats metrics.");
             int pluginId = 11534;
             new Metrics(this, pluginId);
         }
 
         // HTTP API
-        if(Config.General.EnableHttpApi){
+        if(MiraiMCConfig.General.EnableHttpApi){
             getLogger().info("Initializing HttpAPI async task.");
-            getServer().getScheduler().runTaskTimerAsynchronously(this, new MiraiHttpAPIResolver(this), 0, Config.HttpApi.MessageFetch.Interval);
+            getServer().getScheduler().runTaskTimerAsynchronously(this, new MiraiHttpAPIResolver(this), 0, MiraiMCConfig.HttpApi.MessageFetch.Interval);
         }
     }
 
@@ -273,5 +274,10 @@ public class BukkitPlugin extends JavaPlugin implements PlatformPlugin {
     @Override
     public IMiraiEvent getMiraiEvent() {
         return MiraiEvent;
+    }
+
+    @Override
+    public MiraiMCConfig getPluginConfig() {
+        return platformConfig;
     }
 }

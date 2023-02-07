@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.api;
 
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.internal.Utils;
 
 import javax.annotation.Nullable;
@@ -31,7 +31,7 @@ public class MiraiMC {
         String insert = "insert into miraimc_binding values('" + uuid + "', " + account + ");";
 
         try {
-            switch (Config.Database.Type.toLowerCase()) {
+            switch (MiraiMCConfig.Database.Type.toLowerCase()) {
                 case "sqlite":
                 default: {
                     Statement statement = Utils.connection.createStatement();
@@ -97,7 +97,7 @@ public class MiraiMC {
         String insert = "insert into miraimc_binding values('" + uuid + "', " + account + ");";
 
         try {
-            switch (Config.Database.Type.toLowerCase()) {
+            switch (MiraiMCConfig.Database.Type.toLowerCase()) {
                 case "sqlite":
                 default: {
                     Statement statement = Utils.connection.createStatement();
@@ -161,7 +161,7 @@ public class MiraiMC {
         String delete = "DELETE FROM miraimc_binding WHERE uuid='" + uuid + "';";
 
         try {
-            switch (Config.Database.Type.toLowerCase()) {
+            switch (MiraiMCConfig.Database.Type.toLowerCase()) {
                 case "sqlite":
                 default: {
                     Statement statement = Utils.connection.createStatement();
@@ -208,7 +208,7 @@ public class MiraiMC {
         String delete = "DELETE FROM miraimc_binding WHERE uuid='" + uuid + "';";
 
         try {
-            switch (Config.Database.Type.toLowerCase()) {
+            switch (MiraiMCConfig.Database.Type.toLowerCase()) {
                 case "sqlite":
                 default: {
                     Statement statement = Utils.connection.createStatement();
@@ -256,7 +256,7 @@ public class MiraiMC {
         String delete = "DELETE FROM miraimc_binding WHERE qqid=" + account+";";
 
         try {
-            switch (Config.Database.Type.toLowerCase()){
+            switch (MiraiMCConfig.Database.Type.toLowerCase()){
                 case "sqlite":
                 default: {
                     Statement statement = Utils.connection.createStatement();
@@ -310,7 +310,7 @@ public class MiraiMC {
         String select = "SELECT * FROM miraimc_binding WHERE uuid='" + uuid + "' LIMIT 1;";
 
         try {
-            switch (Config.Database.Type.toLowerCase()){
+            switch (MiraiMCConfig.Database.Type.toLowerCase()){
                 case "mysql": {
                     Connection connection = Utils.ds.getConnection();
                     connection.prepareStatement(createTable).executeUpdate();
@@ -362,7 +362,7 @@ public class MiraiMC {
         String select = "SELECT * FROM miraimc_binding WHERE uuid='" + uuid + "' LIMIT 1;";
 
         try {
-            switch (Config.Database.Type.toLowerCase()){
+            switch (MiraiMCConfig.Database.Type.toLowerCase()){
                 case "mysql": {
                     Connection connection = Utils.ds.getConnection();
                     connection.prepareStatement(createTable).executeUpdate();
@@ -416,7 +416,7 @@ public class MiraiMC {
         String select = "SELECT * FROM miraimc_binding WHERE qqid=" + account + " LIMIT 1;";
 
         try {
-            switch (Config.Database.Type.toLowerCase()){
+            switch (MiraiMCConfig.Database.Type.toLowerCase()){
                 case "mysql": {
                     Connection connection = Utils.ds.getConnection();
                     connection.prepareStatement(createTable).executeUpdate();

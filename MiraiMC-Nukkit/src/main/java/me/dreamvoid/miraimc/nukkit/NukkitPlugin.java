@@ -5,7 +5,7 @@ import me.dreamvoid.miraimc.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.IMiraiEvent;
 import me.dreamvoid.miraimc.MiraiMCPlugin;
 import me.dreamvoid.miraimc.PlatformPlugin;
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiVerifyCommand;
@@ -21,12 +21,14 @@ public class NukkitPlugin extends PluginBase implements PlatformPlugin {
     private MiraiEvent MiraiEvent;
     private MiraiAutoLogin MiraiAutoLogin;
     private final MiraiMCPlugin lifeCycle;
+    private final MiraiMCConfig platformConfig;
     private final Logger NukkitLogger;
 
     public NukkitPlugin(){
         NukkitLogger = new NukkitLogger("MiraiMC-Nukkit",null, this);
         lifeCycle = new MiraiMCPlugin(this);
         lifeCycle.startUp();
+        platformConfig = new NukkitConfig(this);
     }
     public static NukkitPlugin getInstance() {
         return nukkitPlugin;
@@ -36,11 +38,10 @@ public class NukkitPlugin extends PluginBase implements PlatformPlugin {
     public void onLoad() {
         nukkitPlugin = this;
         try {
-            new NukkitConfig(this).loadConfig();
-            MiraiAutoLogin = new MiraiAutoLogin(this);
-            MiraiEvent = !Config.General.LegacyEventSupport ? new MiraiEvent(this) : new MiraiEventLegacy(this);
-
             lifeCycle.preLoad();
+
+            MiraiAutoLogin = new MiraiAutoLogin(this);
+            MiraiEvent = !MiraiMCConfig.General.LegacyEventSupport ? new MiraiEvent(this) : new MiraiEventLegacy(this);
         } catch (Exception e) {
             getLogger().warning("An error occurred while loading plugin." );
             e.printStackTrace();
@@ -58,22 +59,22 @@ public class NukkitPlugin extends PluginBase implements PlatformPlugin {
         getServer().getCommandMap().register("", new MiraiVerifyCommand());
 
         // 监听事件
-        if(Config.Bot.LogEvents){
+        if(MiraiMCConfig.Bot.LogEvents){
             getLogger().info("Registering events.");
             this.getServer().getPluginManager().registerEvents(new Events(this), this);
         }
 
         // bStats统计
-        if(Config.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
+        if(MiraiMCConfig.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
             getLogger().info("Initializing bStats metrics.");
             int pluginId = 12744;
             new MetricsLite(this, pluginId);
         }
 
         // HTTP API
-        if(Config.General.EnableHttpApi){
+        if(MiraiMCConfig.General.EnableHttpApi){
             getLogger().info("Initializing HttpAPI async task.");
-            getServer().getScheduler().scheduleRepeatingTask(this, new MiraiHttpAPIResolver(this), Math.toIntExact(Config.HttpApi.MessageFetch.Interval * 20), true);
+            getServer().getScheduler().scheduleRepeatingTask(this, new MiraiHttpAPIResolver(this), Math.toIntExact(MiraiMCConfig.HttpApi.MessageFetch.Interval * 20), true);
         }
     }
 
@@ -135,5 +136,10 @@ public class NukkitPlugin extends PluginBase implements PlatformPlugin {
     @Override
     public IMiraiEvent getMiraiEvent() {
         return MiraiEvent;
+    }
+
+    @Override
+    public MiraiMCConfig getPluginConfig() {
+        return platformConfig;
     }
 }

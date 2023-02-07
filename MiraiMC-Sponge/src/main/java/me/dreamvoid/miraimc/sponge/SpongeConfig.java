@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.sponge;
 
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class SpongeConfig extends Config {
+public class SpongeConfig extends MiraiMCConfig {
     private final SpongePlugin plugin;
 
     public SpongeConfig(SpongePlugin plugin){

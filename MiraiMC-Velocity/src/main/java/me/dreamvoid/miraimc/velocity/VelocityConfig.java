@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.velocity;
 
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class VelocityConfig extends Config {
+public class VelocityConfig extends MiraiMCConfig {
     private final VelocityPlugin plugin;
 
     public VelocityConfig(VelocityPlugin plugin){

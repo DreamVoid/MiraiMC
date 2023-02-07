@@ -4,6 +4,7 @@ import kotlin.Unit;
 import kotlin.coroutines.Continuation;
 import kotlin.coroutines.CoroutineContext;
 import kotlinx.coroutines.Dispatchers;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.network.CustomLoginFailedException;
 import net.mamoe.mirai.utils.DeviceVerificationRequests;
@@ -48,7 +49,7 @@ public class MiraiLoginSolver extends LoginSolver {
     @Override
     public String onSolvePicCaptcha(@NotNull Bot bot, byte[] imageData, @NotNull Continuation<? super String> continuation) {
         // 建立机器人账号文件夹
-        File ImageDir = new File(Config.PluginDir,"verify-image");
+        File ImageDir = new File(MiraiMCConfig.PluginDir,"verify-image");
         if(!ImageDir.exists() &&!ImageDir.mkdirs()) {
             throw new RuntimeException("Failed to create folder " + ImageDir.getPath());
         }

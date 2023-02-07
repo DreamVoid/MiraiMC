@@ -5,7 +5,7 @@ import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.utils.TextFormat;
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.nukkit.commands.base.BaseSubCommand;
 
 import java.io.File;
@@ -29,7 +29,7 @@ public class UploadImageCommand extends BaseSubCommand {
 	@Override
 	public boolean execute(CommandSender sender, String label, String[] args) {
 		if (args.length >= 3) {
-			File ImageDir = new File(Config.PluginDir, "images");
+			File ImageDir = new File(MiraiMCConfig.PluginDir, "images");
 			if(!ImageDir.exists()) ImageDir.mkdir();
 			File image = new File(ImageDir, args[2]);
 

@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.bukkit;
 
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-public class BukkitConfig extends Config {
+public class BukkitConfig extends MiraiMCConfig {
     private final BukkitPlugin plugin;
 
     public BukkitConfig(BukkitPlugin plugin){

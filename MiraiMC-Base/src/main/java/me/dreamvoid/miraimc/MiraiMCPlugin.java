@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.internal.Config;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.PluginUpdate;
 import me.dreamvoid.miraimc.internal.Utils;
@@ -42,20 +41,25 @@ public class MiraiMCPlugin {
     }
 
     /**
-     * 此方法应在插件各项准备工作均已完成时调用。此时配置文件已经初始化完毕，插件已经准备就绪，可以调用此方法开始加载 mirai 核心。
+     * 此方法应在插件各项准备工作均已完成时调用。此时插件已经准备就绪，可以开始初始化配置文件，加载 mirai 核心。
      */
     public void preLoad() throws IOException, ParserConfigurationException, SAXException {
         platform.getPluginLogger().info("Preparing MiraiMC pre-load.");
 
-        platform.getPluginLogger().info("Mirai working dir: " + Config.General.MiraiWorkingDir);
+        // 加载配置
+        platform.getPluginLogger().info("Loading config.");
+        platform.getPluginConfig().loadConfig();
 
-        platform.getPluginLogger().info("Selected mirai core version: " + Config.General.MiraiCoreVersion);
-        if (Config.General.MiraiCoreVersion.equalsIgnoreCase("latest")) {
+        platform.getPluginLogger().info("Mirai working dir: " + MiraiMCConfig.General.MiraiWorkingDir);
+
+        // 加载 mirai 核心
+        platform.getPluginLogger().info("Selected mirai core version: " + MiraiMCConfig.General.MiraiCoreVersion);
+        if (MiraiMCConfig.General.MiraiCoreVersion.equalsIgnoreCase("latest")) {
             MiraiLoader.loadMiraiCore();
-        } else if (Config.General.MiraiCoreVersion.equalsIgnoreCase("stable")) {
+        } else if (MiraiMCConfig.General.MiraiCoreVersion.equalsIgnoreCase("stable")) {
             MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion(getPlatform().getPluginVersion()));
         } else {
-            MiraiLoader.loadMiraiCore(Config.General.MiraiCoreVersion);
+            MiraiLoader.loadMiraiCore(MiraiMCConfig.General.MiraiCoreVersion);
         }
 
         platform.getPluginLogger().info("Pre-load tasks finished.");
@@ -69,7 +73,7 @@ public class MiraiMCPlugin {
         platform.getPluginLogger().info("Preparing MiraiMC post-load.");
 
         // 数据库
-        switch (Config.Database.Type.toLowerCase()){
+        switch (MiraiMCConfig.Database.Type.toLowerCase()){
             case "sqlite":
             default: {
                 platform.getPluginLogger().info("Initializing SQLite database.");
@@ -97,7 +101,7 @@ public class MiraiMCPlugin {
         platform.getAutoLogin().doStartUpAutoLogin();
 
         // 安全警告
-        if(!(Config.General.DisableSafeWarningMessage)){
+        if(!(MiraiMCConfig.General.DisableSafeWarningMessage)){
             platform.getPluginLogger().warning("确保您正在使用开源的 MiraiMC 插件，未知来源的插件可能会盗取您的账号！");
             platform.getPluginLogger().warning("请始终从 GitHub 或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
@@ -115,7 +119,7 @@ public class MiraiMCPlugin {
         }, 40);
 
         // 检查更新
-        if(Config.General.CheckUpdate && !platform.getPluginVersion().contains("dev")){
+        if(MiraiMCConfig.General.CheckUpdate && !platform.getPluginVersion().contains("dev")){
             platform.runTaskAsync(() -> {
                 platform.getPluginLogger().info("Checking update...");
                 try {
@@ -156,7 +160,7 @@ public class MiraiMCPlugin {
         platform.getMiraiEvent().stopListenEvent();
 
         // 停止数据库
-        switch (Config.Database.Type.toLowerCase()){
+        switch (MiraiMCConfig.Database.Type.toLowerCase()){
             case "sqlite":
             default: {
                 if (Utils.connection != null) {

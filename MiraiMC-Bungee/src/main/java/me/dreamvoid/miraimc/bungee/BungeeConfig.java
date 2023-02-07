@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.bungee;
 
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 
-public class BungeeConfig extends Config {
+public class BungeeConfig extends MiraiMCConfig {
     private final BungeePlugin plugin;
 
     public BungeeConfig(BungeePlugin plugin) {

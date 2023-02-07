@@ -18,7 +18,7 @@ import me.dreamvoid.miraimc.PlatformPlugin;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.velocity.utils.Metrics;
 import me.dreamvoid.miraimc.velocity.utils.SpecialUtils;
 import org.slf4j.Logger;
@@ -39,6 +39,7 @@ import java.util.concurrent.TimeUnit;
 )
 public class VelocityPlugin implements PlatformPlugin {
     private final MiraiMCPlugin lifeCycle;
+    private final MiraiMCConfig platformConfig;
     private final java.util.logging.Logger VelocityLogger;
 
     @Inject
@@ -53,6 +54,7 @@ public class VelocityPlugin implements PlatformPlugin {
         VelocityLogger = new VelocityLogger("MiraiMC", null, this);
         lifeCycle = new MiraiMCPlugin(this);
         lifeCycle.startUp();
+        platformConfig = new VelocityConfig(this);
     }
 
     public static VelocityPlugin INSTANCE;
@@ -72,11 +74,10 @@ public class VelocityPlugin implements PlatformPlugin {
 
         // load
         try {
-            new VelocityConfig(this).loadConfig();
-            MiraiEvent = !Config.General.LegacyEventSupport ? new MiraiEvent(this) : new MiraiEventLegacy(this);
-            MiraiAutoLogin = new MiraiAutoLogin(this);
-
             lifeCycle.preLoad();
+
+            MiraiEvent = !MiraiMCConfig.General.LegacyEventSupport ? new MiraiEvent(this) : new MiraiEventLegacy(this);
+            MiraiAutoLogin = new MiraiAutoLogin(this);
         } catch (Exception e) {
             getLogger().warn("An error occurred while loading plugin.");
             e.printStackTrace();
@@ -96,22 +97,22 @@ public class VelocityPlugin implements PlatformPlugin {
         manager.register(miraiverify, (SimpleCommand) invocation -> new MiraiVerifyCommand().onCommand(SpecialUtils.getSender(invocation.source()), invocation.arguments()));
 
         // 监听事件
-        if(Config.Bot.LogEvents){
+        if(MiraiMCConfig.Bot.LogEvents){
             getLogger().info("Registering events.");
             server.getEventManager().register(this, new Events());
         }
 
         // bStats统计
-        if(Config.General.AllowBStats) {
+        if(MiraiMCConfig.General.AllowBStats) {
             getLogger().info("Initializing bStats metrics.");
             int pluginId = 13887;
             metricsFactory.make(this, pluginId);
         }
 
         // HTTP API
-        if(Config.General.EnableHttpApi){
+        if(MiraiMCConfig.General.EnableHttpApi){
             getLogger().info("Initializing HttpAPI async task.");
-            getServer().getScheduler().buildTask(this, new MiraiHttpAPIResolver(this)).repeat(Config.HttpApi.MessageFetch.Interval * 20, TimeUnit.MILLISECONDS).schedule();
+            getServer().getScheduler().buildTask(this, new MiraiHttpAPIResolver(this)).repeat(MiraiMCConfig.HttpApi.MessageFetch.Interval * 20, TimeUnit.MILLISECONDS).schedule();
         }
     }
 
@@ -189,5 +190,10 @@ public class VelocityPlugin implements PlatformPlugin {
     @Override
     public IMiraiEvent getMiraiEvent() {
         return MiraiEvent;
+    }
+
+    @Override
+    public MiraiMCConfig getPluginConfig() {
+        return platformConfig;
     }
 }

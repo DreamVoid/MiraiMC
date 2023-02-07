@@ -2,7 +2,7 @@ package me.dreamvoid.miraimc.commands;
 
 import me.dreamvoid.miraimc.MiraiMCPlugin;
 import me.dreamvoid.miraimc.api.MiraiMC;
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.internal.Utils;
 
 import java.io.IOException;
@@ -21,7 +21,7 @@ public class MiraiMcCommand implements ICommandExecutor {
             case "reload": {
                 if(sender.hasPermission("miraimc.command.miraimc.reload")){
                     try {
-                        Config.reloadConfig();
+                        MiraiMCConfig.reloadConfig();
                         sender.sendMessage("&a配置文件已经重新加载，部分配置可能需要重新启动服务器才能生效！");
                     } catch (IOException e) {
                         Utils.logger.warning("加载配置文件时出现问题，原因："+e);

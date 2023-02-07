@@ -2,7 +2,7 @@ package me.dreamvoid.miraimc.internal.webapi;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.internal.Utils;
 
 import java.io.*;
@@ -33,7 +33,7 @@ public final class Info {
 	public static Info init(List<String> apis, boolean LocalCache) throws IOException {
 		if(INSTANCE == null){
 			List<String> list = new ArrayList<>(apis);
-			File CacheDir = new File(Config.PluginDir, "cache");
+			File CacheDir = new File(MiraiMCConfig.PluginDir, "cache");
 			if(!CacheDir.exists() && !CacheDir.mkdirs()) throw new RuntimeException("Failed to create folder " + CacheDir.getPath());
 			File cache = new File(CacheDir, "apis.json");
 

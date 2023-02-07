@@ -1,7 +1,7 @@
 package me.dreamvoid.miraimc.internal.libloader;
 
 import com.google.common.base.Suppliers;
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.internal.Utils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.w3c.dom.Document;
@@ -136,7 +136,7 @@ public class JarLoader {
 	 * @return 版本名
 	 */
 	static String getLibraryVersionMaven(String groupId, String artifactId, String repo, String xmlTag) throws RuntimeException, IOException, ParserConfigurationException, SAXException {
-		File CacheDir = new File(Config.PluginDir,"cache");
+		File CacheDir = new File(MiraiMCConfig.PluginDir,"cache");
 		if(!CacheDir.exists() && !CacheDir.mkdirs()) throw new RuntimeException("Failed to create " + CacheDir.getPath());
 		String metaFileName = "maven-metadata-" + groupId + "." + artifactId + ".xml";
 		File metaFile = new File(CacheDir, metaFileName);

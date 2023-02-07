@@ -9,7 +9,7 @@ import me.dreamvoid.miraimc.bungee.utils.SpecialUtils;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;
@@ -25,20 +25,21 @@ public class BungeePlugin extends Plugin implements PlatformPlugin {
     private MiraiEvent MiraiEvent;
     private MiraiAutoLogin MiraiAutoLogin;
     private final MiraiMCPlugin lifeCycle;
+    private final MiraiMCConfig platformConfig;
 
     public BungeePlugin(){
         lifeCycle = new MiraiMCPlugin(this);
         lifeCycle.startUp();
+        platformConfig = new BungeeConfig(this);
     }
 
     @Override
     public void onLoad() {
         try {
-            new BungeeConfig(this).loadConfig();
-            MiraiAutoLogin = new MiraiAutoLogin(this);
-            MiraiEvent = !Config.General.LegacyEventSupport ? new MiraiEvent() : new MiraiEventLegacy();
-
             lifeCycle.preLoad();
+
+            MiraiAutoLogin = new MiraiAutoLogin(this);
+            MiraiEvent = !MiraiMCConfig.General.LegacyEventSupport ? new MiraiEvent() : new MiraiEventLegacy();
         } catch (Exception e) {
             getLogger().warning("An error occurred while loading plugin.");
             e.printStackTrace();
@@ -71,22 +72,22 @@ public class BungeePlugin extends Plugin implements PlatformPlugin {
         });
 
         // 监听事件
-        if(Config.Bot.LogEvents){
+        if(MiraiMCConfig.Bot.LogEvents){
             getLogger().info("Registering events.");
             getProxy().getPluginManager().registerListener(this, new Events());
         }
 
         // bStats统计
-        if(Config.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
+        if(MiraiMCConfig.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
             getLogger().info("Initializing bStats metrics.");
             int pluginId = 12154;
             new Metrics(this, pluginId);
         }
 
         // HTTP API
-        if(Config.General.EnableHttpApi){
+        if(MiraiMCConfig.General.EnableHttpApi){
             getLogger().info("Initializing HttpAPI async task.");
-            getProxy().getScheduler().schedule(this, new MiraiHttpAPIResolver(this), 0, Config.HttpApi.MessageFetch.Interval * 20, TimeUnit.MILLISECONDS);
+            getProxy().getScheduler().schedule(this, new MiraiHttpAPIResolver(this), 0, MiraiMCConfig.HttpApi.MessageFetch.Interval * 20, TimeUnit.MILLISECONDS);
         }
     }
 
@@ -143,6 +144,11 @@ public class BungeePlugin extends Plugin implements PlatformPlugin {
     @Override
     public IMiraiEvent getMiraiEvent() {
         return MiraiEvent;
+    }
+
+    @Override
+    public MiraiMCConfig getPluginConfig() {
+        return platformConfig;
     }
 
     @Override

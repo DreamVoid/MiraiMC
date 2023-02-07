@@ -1,8 +1,8 @@
 package me.dreamvoid.miraimc.nukkit;
 
-import me.dreamvoid.miraimc.internal.Config;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 
-public class NukkitConfig extends Config {
+public class NukkitConfig extends MiraiMCConfig {
     private final NukkitPlugin plugin;
 
     public NukkitConfig(NukkitPlugin plugin){

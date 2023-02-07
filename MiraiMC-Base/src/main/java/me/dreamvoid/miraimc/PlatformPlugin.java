@@ -26,4 +26,6 @@ public interface PlatformPlugin {
     IMiraiAutoLogin getAutoLogin();
 
     IMiraiEvent getMiraiEvent();
+
+    MiraiMCConfig getPluginConfig();
 }
