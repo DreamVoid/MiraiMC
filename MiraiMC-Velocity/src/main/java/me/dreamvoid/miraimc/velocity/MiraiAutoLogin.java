@@ -91,14 +91,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
                     if(Account != 123456){
                         try {
                             String Password = password.getValue();
-                            BotConfiguration.MiraiProtocol Protocol;
-                            try {
-                                Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.getProtocol().toUpperCase());
-                            } catch (IllegalArgumentException ignored) {
-                                logger.warning("Unknown protocol "+ configuration.getProtocol().toUpperCase()+", using ANDROID_PHONE instead.");
-                                Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
-                            }
-
+                            BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.getProtocol().toUpperCase());
                             logger.info("Auto login bot account: " + Account + " Protocol: " + Protocol.name());
                             MiraiBot.doBotLogin(Account, Password, Protocol);
                         } catch (IllegalArgumentException ex){

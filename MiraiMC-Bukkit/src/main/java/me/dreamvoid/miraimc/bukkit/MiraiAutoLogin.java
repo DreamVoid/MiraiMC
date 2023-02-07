@@ -70,17 +70,14 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
                 Map<?,?> configuration = (Map<?, ?>) map.get("configuration");
                 long Account = Long.parseLong(String.valueOf(map.get("account")));
                 if(Account != 123456){
-                    String Password = password.get("value").toString();
-                    BotConfiguration.MiraiProtocol Protocol;
                     try {
-                        Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString().toUpperCase());
+                        String Password = password.get("value").toString();
+                        BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString().toUpperCase());
+                        logger.info("Auto login bot account: " + Account + " Protocol: " + Protocol.name());
+                        MiraiBot.doBotLogin(Account, Password, Protocol);
                     } catch (IllegalArgumentException ignored) {
-                        logger.warning("Unknown protocol "+configuration.get("protocol").toString().toUpperCase()+", using ANDROID_PHONE instead.");
-                        Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
+                        logger.warning("读取自动登录文件时发现未知的协议类型，请修改: " + configuration.get("protocol"));
                     }
-
-                    logger.info("Auto login bot account: " + Account + " Protocol: " + Protocol.name());
-                    MiraiBot.doBotLogin(Account, Password, Protocol);
                 }
             }
         };
