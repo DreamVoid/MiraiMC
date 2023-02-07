@@ -15,8 +15,8 @@ public final class Version {
 	@SerializedName("latest")
 	public String latest;
 
-	@SerializedName("prerelease")
-	public String prerelease;
+	@SerializedName("latest-pre")
+	public String latest_pre;
 
 	@SerializedName("versions")
 	public HashMap<String, Integer> versions;

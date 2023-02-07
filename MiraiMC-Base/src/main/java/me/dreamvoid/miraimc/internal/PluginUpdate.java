@@ -17,8 +17,8 @@ public class PluginUpdate {
         latestRelease = version.latest;
         latestReleaseNo = version.versions.get(version.latest);
 
-        latestPreRelease = version.prerelease;
-        latestPreReleaseNo = version.versions.get(version.prerelease);
+        latestPreRelease = version.latest_pre;
+        latestPreReleaseNo = version.versions.get(version.latest_pre);
     }
 
     public String getLatestRelease() {
