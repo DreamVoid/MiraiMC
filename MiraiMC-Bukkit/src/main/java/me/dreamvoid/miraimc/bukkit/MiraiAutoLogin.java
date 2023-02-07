@@ -19,12 +19,13 @@ import java.util.logging.Logger;
 public class MiraiAutoLogin implements IMiraiAutoLogin {
     public MiraiAutoLogin(BukkitPlugin plugin) {
         this.plugin = plugin;
-        this.Logger = Utils.logger;
+        logger = Logger.getLogger("MiraiMC-AutoLogin");
+        logger.setParent(Utils.logger);
         Instance = this;
     }
 
     private final BukkitPlugin plugin;
-    private final Logger Logger;
+    private final Logger logger;
     private static File AutoLoginFile;
     public static MiraiAutoLogin Instance;
 
@@ -63,7 +64,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     @Override
     public void doStartUpAutoLogin() {
         Runnable thread = () -> {
-            Logger.info("[AutoLogin] Starting auto login task.");
+            logger.info("Starting auto login task.");
             for(Map<?,?> map : loadAutoLoginList()){
                 Map<?,?> password = (Map<?, ?>) map.get("password");
                 Map<?,?> configuration = (Map<?, ?>) map.get("configuration");
@@ -74,11 +75,11 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
                     try {
                         Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString().toUpperCase());
                     } catch (IllegalArgumentException ignored) {
-                        Logger.warning("[AutoLogin] Unknown protocol "+configuration.get("protocol").toString().toUpperCase()+", using ANDROID_PHONE instead.");
+                        logger.warning("Unknown protocol "+configuration.get("protocol").toString().toUpperCase()+", using ANDROID_PHONE instead.");
                         Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
                     }
 
-                    Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
+                    logger.info("Auto login bot account: " + Account + " Protocol: " + Protocol.name());
                     MiraiBot.doBotLogin(Account, Password, Protocol);
                 }
             }

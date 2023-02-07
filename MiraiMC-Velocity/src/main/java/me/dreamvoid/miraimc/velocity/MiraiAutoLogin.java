@@ -22,12 +22,13 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
 
     public MiraiAutoLogin(VelocityPlugin plugin) {
         this.plugin = plugin;
-        this.Logger = Utils.logger;
+        logger = new VelocityLogger("MiraiMC-AutoLogin", null, plugin);
+        logger.setParent(Utils.logger);
         Instance = this;
     }
 
     private final VelocityPlugin plugin;
-    private final Logger Logger;
+    private final Logger logger;
     private File AutoLoginFile;
     public final MiraiAutoLogin Instance;
 
@@ -82,7 +83,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     public void doStartUpAutoLogin() {
         Runnable thread = () -> {
             try {
-                Logger.info("[AutoLogin] Starting auto login task.");
+                logger.info("Starting auto login task.");
                 for(AutoLoginObject.Accounts accounts : loadAutoLoginListVelocity()){
                     AutoLoginObject.Password password = accounts.getPassword();
                     AutoLoginObject.Configuration configuration = accounts.getConfiguration();
@@ -94,19 +95,19 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
                             try {
                                 Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.getProtocol().toUpperCase());
                             } catch (IllegalArgumentException ignored) {
-                                Logger.warning("[AutoLogin] Unknown protocol "+ configuration.getProtocol().toUpperCase()+", using ANDROID_PHONE instead.");
+                                logger.warning("Unknown protocol "+ configuration.getProtocol().toUpperCase()+", using ANDROID_PHONE instead.");
                                 Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
                             }
 
-                            Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
+                            logger.info("Auto login bot account: " + Account + " Protocol: " + Protocol.name());
                             MiraiBot.doBotLogin(Account, Password, Protocol);
                         } catch (IllegalArgumentException ex){
-                            Logger.warning("读取自动登录文件时发现未知的协议类型，请修改: " + configuration.getProtocol());
+                            logger.warning("读取自动登录文件时发现未知的协议类型，请修改: " + configuration.getProtocol());
                         }
                     }
                 }
             } catch (IOException e){
-                Logger.warning("登录机器人时出现异常，原因: " + e);
+                logger.warning("登录机器人时出现异常，原因: " + e);
             }
         };
         plugin.getServer().getScheduler().buildTask(plugin, thread).schedule();

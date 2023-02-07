@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.nukkit;
 
-import cn.nukkit.plugin.PluginLogger;
 import cn.nukkit.scheduler.AsyncTask;
 import cn.nukkit.utils.Config;
 import me.dreamvoid.miraimc.IMiraiAutoLogin;
@@ -16,17 +15,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class MiraiAutoLogin implements IMiraiAutoLogin {
 
     public MiraiAutoLogin(NukkitPlugin plugin) {
         this.plugin = plugin;
-        this.Logger = plugin.getLogger();
+        logger = new NukkitLogger("MiraiMC-AutoLogin", null, plugin);
+        logger.setParent(Utils.logger);
         Instance = this;
     }
 
     private final NukkitPlugin plugin;
-    private final PluginLogger Logger;
+    private final Logger logger;
     private static File AutoLoginFile;
     public static MiraiAutoLogin Instance;
 
@@ -69,7 +70,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
         plugin.getServer().getScheduler().scheduleAsyncTask(plugin, new AsyncTask() {
             @Override
             public void onRun() {
-                Logger.info("[AutoLogin] Starting auto login task.");
+                logger.info("Starting auto login task.");
 
                 for(Map<?,?> map : loadAutoLoginList()){
                     Map<?,?> password = (Map<?, ?>) map.get("password");
@@ -81,11 +82,11 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
                         try {
                             Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString().toUpperCase());
                         } catch (IllegalArgumentException ignored) {
-                            Logger.warning("[AutoLogin] Unknown protocol "+configuration.get("protocol").toString().toUpperCase()+", using ANDROID_PHONE instead.");
+                            logger.warning("Unknown protocol "+configuration.get("protocol").toString().toUpperCase()+", using ANDROID_PHONE instead.");
                             Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
                         }
 
-                        Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
+                        logger.info("Auto login bot account: " + Account + " Protocol: " + Protocol.name());
                         MiraiBot.doBotLogin(Account, Password, Protocol);
                     }
                 }

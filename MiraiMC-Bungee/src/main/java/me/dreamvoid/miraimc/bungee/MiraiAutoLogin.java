@@ -21,12 +21,13 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
 
     public MiraiAutoLogin(BungeePlugin plugin) {
         this.plugin = plugin;
-        this.Logger = Utils.logger;
+        logger = Logger.getLogger("MiraiMC-AutoLogin");
+        logger.setParent(Utils.logger);
         Instance = this;
     }
 
     private final BungeePlugin plugin;
-    private final Logger Logger;
+    private final Logger logger;
     private static File AutoLoginFile;
     public static MiraiAutoLogin Instance;
 
@@ -65,7 +66,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     @Override
     public void doStartUpAutoLogin() {
         Runnable thread = () -> {
-            Logger.info("[AutoLogin] Starting auto login task.");
+            logger.info("Starting auto login task.");
 
             try {
                 for(Object list : loadAutoLoginList()){
@@ -79,16 +80,16 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
                         try {
                             Protocol = BotConfiguration.MiraiProtocol.valueOf(data.getString("configuration.protocol").toUpperCase());
                         } catch (IllegalArgumentException ignored) {
-                            Logger.warning("[AutoLogin] Unknown protocol "+ data.getString("configuration.protocol").toUpperCase()+", using ANDROID_PHONE instead.");
+                            logger.warning("Unknown protocol "+ data.getString("configuration.protocol").toUpperCase()+", using ANDROID_PHONE instead.");
                             Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
                         }
 
-                        Logger.info("[AutoLogin] Auto login bot account: " + Account + " Protocol: " + Protocol.name());
+                        logger.info("Auto login bot account: " + Account + " Protocol: " + Protocol.name());
                         MiraiBot.doBotLogin(Account, Password, Protocol);
                     }
                 }
             } catch (IOException e) {
-                Logger.severe("执行自动登录时出现异常，原因: " + e);
+                logger.severe("执行自动登录时出现异常，原因: " + e);
             }
         };
         plugin.getProxy().getScheduler().runAsync(plugin, thread);
