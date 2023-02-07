@@ -9,7 +9,7 @@ general:
   disable-safe-warning-message: false
   mirai-working-dir: default
   mirai-core-version: "stable"
-  maven-repo-url: "https://maven.aliyun.com/nexus/content/groups/public/"
+  maven-repo-url: "https://repo.huaweicloud.com/repository/maven/"
   enable-http-api: false
   legacy-event-support: false
 bot:
