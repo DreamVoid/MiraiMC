@@ -194,9 +194,13 @@ public class MiraiCommand implements ICommandExecutor {
             case "checkonline":{
                 if(sender.hasPermission("miraimc.command.mirai.checkonline")){
                     if(args.length >= 2){
-                        if(MiraiBot.getBot(Long.parseLong(args[1])).isOnline()){
-                            sender.sendMessage("&a当前机器人在线");
-                        } else sender.sendMessage("&e当前机器人不在线");
+                        try {
+                            if (MiraiBot.getBot(Long.parseLong(args[1])).isOnline()) {
+                                sender.sendMessage("&a当前机器人在线");
+                            } else sender.sendMessage("&e当前机器人不在线");
+                        } catch (NoSuchElementException e){
+                            sender.sendMessage("&e当前机器人不存在");
+                        }
                     } else sender.sendMessage("&c无效的参数！用法: /mirai checkonline <账号>");
                 } else sender.sendMessage("&c你没有足够的权限执行此命令！");
                 break;
