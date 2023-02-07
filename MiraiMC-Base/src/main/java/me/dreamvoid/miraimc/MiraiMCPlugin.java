@@ -38,6 +38,8 @@ public class MiraiMCPlugin {
 
         Utils.setLogger(platform.getPluginLogger());
         Utils.setClassLoader(platform.getPluginClassLoader());
+
+        platform.getPluginLogger().info("Start-up tasks finished.");
     }
 
     /**
