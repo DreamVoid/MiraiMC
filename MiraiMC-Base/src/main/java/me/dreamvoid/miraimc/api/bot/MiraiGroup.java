@@ -198,4 +198,10 @@ public class MiraiGroup {
     public MiraiGroupActive getActive(){
         return new MiraiGroupActive(group.getActive());
     }
+
+    /* // TODO: 慢慢实现，现在用不到
+    public void getRoamingMessages(){
+        group.getRoamingMessages();
+    }
+    */
 }

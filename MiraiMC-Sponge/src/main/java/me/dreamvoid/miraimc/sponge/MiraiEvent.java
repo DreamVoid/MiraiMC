@@ -103,6 +103,8 @@ public class MiraiEvent implements IMiraiEvent {
     private Listener<MemberMuteEvent> MemberMuteEventListener;
     private Listener<MemberUnmuteEvent> MemberUnmuteEventListener;
 
+    private Listener<SignEvent> SignEventListener;
+
     private Listener<FriendRemarkChangeEvent> FriendRemarkChangeEventListener;
     private Listener<FriendAddEvent> FriendAddEventListener;
     private Listener<FriendDeleteEvent> FriendDeleteEventListener;
@@ -181,6 +183,8 @@ public class MiraiEvent implements IMiraiEvent {
         // -- 动作
         MemberMuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberMuteEvent.class, event -> Sponge.getEventManager().post(new MiraiMemberMuteEvent(event, Cause.of(eventContext, pluginContainer))));
         MemberUnmuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberUnmuteEvent.class, event -> Sponge.getEventManager().post(new MiraiMemberUnmuteEvent(event, Cause.of(eventContext, pluginContainer))));
+        // - 打卡事件
+        SignEventListener  = GlobalEventChannel.INSTANCE.subscribeAlways(SignEvent.class, event -> Sponge.getEventManager().post(new MiraiSignEvent(event, Cause.of(eventContext, pluginContainer))));
 
         // 好友
         FriendRemarkChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendRemarkChangeEvent.class, event -> Sponge.getEventManager().post(new MiraiFriendRemarkChangeEvent(event, Cause.of(eventContext, pluginContainer))));
@@ -255,6 +259,8 @@ public class MiraiEvent implements IMiraiEvent {
 
         MemberMuteEventListener.complete();
         MemberUnmuteEventListener.complete();
+
+        SignEventListener.complete();
 
         FriendRemarkChangeEventListener.complete();
         FriendAddEventListener.complete();

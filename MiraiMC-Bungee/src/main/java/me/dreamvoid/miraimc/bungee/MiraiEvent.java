@@ -79,6 +79,8 @@ public class MiraiEvent implements IMiraiEvent {
     private Listener<GroupAllowAnonymousChatEvent> GroupAllowAnonymousChatEventListener;
     private Listener<GroupAllowMemberInviteEvent> GroupAllowMemberInviteEventListener;
 
+    private Listener<SignEvent> SignEventListener;
+
     private Listener<MemberJoinEvent.Invite> MemberJoinInviteEventListener;
     private Listener<MemberJoinEvent.Active> MemberJoinActiveEventListener;
     private Listener<MemberLeaveEvent.Kick> MemberLeaveKickEventListener;
@@ -171,6 +173,8 @@ public class MiraiEvent implements IMiraiEvent {
         // -- 动作
         MemberMuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberMuteEvent.class, event -> ProxyServer.getInstance().getPluginManager().callEvent(new MiraiMemberMuteEvent(event)));
         MemberUnmuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberUnmuteEvent.class, event -> ProxyServer.getInstance().getPluginManager().callEvent(new MiraiMemberUnmuteEvent(event)));
+        // - 打卡事件
+        SignEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(SignEvent.class, event -> ProxyServer.getInstance().getPluginManager().callEvent(new MiraiSignEvent(event)));
 
         // 好友
         FriendRemarkChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendRemarkChangeEvent.class, event -> ProxyServer.getInstance().getPluginManager().callEvent(new MiraiFriendRemarkChangeEvent(event)));
@@ -244,6 +248,8 @@ public class MiraiEvent implements IMiraiEvent {
 
         MemberMuteEventListener.complete();
         MemberUnmuteEventListener.complete();
+
+        SignEventListener.complete();
 
         FriendRemarkChangeEventListener.complete();
         FriendAddEventListener.complete();

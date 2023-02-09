@@ -94,6 +94,8 @@ public class MiraiEvent implements IMiraiEvent {
     private Listener<MemberMuteEvent> MemberMuteEventListener;
     private Listener<MemberUnmuteEvent> MemberUnmuteEventListener;
 
+    private Listener<SignEvent> SignEventListener;
+
     private Listener<FriendRemarkChangeEvent> FriendRemarkChangeEventListener;
     private Listener<FriendAddEvent> FriendAddEventListener;
     private Listener<FriendDeleteEvent> FriendDeleteEventListener;
@@ -172,6 +174,8 @@ public class MiraiEvent implements IMiraiEvent {
         // -- 动作
         MemberMuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberMuteEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiMemberMuteEvent(event)));
         MemberUnmuteEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(MemberUnmuteEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiMemberUnmuteEvent(event)));
+        // - 打卡事件 // TODO: mirai 没有给出分类，给出分类后要移动代码
+        SignEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(SignEvent.class,event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiSignEvent(event)));
 
         // 好友
         FriendRemarkChangeEventListener = GlobalEventChannel.INSTANCE.subscribeAlways(FriendRemarkChangeEvent.class, event -> Bukkit.getServer().getPluginManager().callEvent(new MiraiFriendRemarkChangeEvent(event)));
@@ -246,6 +250,8 @@ public class MiraiEvent implements IMiraiEvent {
 
         MemberMuteEventListener.complete();
         MemberUnmuteEventListener.complete();
+
+        SignEventListener.complete();
 
         FriendRemarkChangeEventListener.complete();
         FriendAddEventListener.complete();
