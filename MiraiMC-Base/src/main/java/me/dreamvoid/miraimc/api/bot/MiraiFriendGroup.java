@@ -6,6 +6,11 @@ import net.mamoe.mirai.contact.friendgroup.FriendGroup;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * MiraiMC 好友分组
+ * @author DreamVoid
+ * @since mirai 2.13
+ */
 public class MiraiFriendGroup {
     private final Bot bot;
     private final FriendGroup friendGroup;
