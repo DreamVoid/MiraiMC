@@ -22,6 +22,10 @@ public class MiraiNormalMember{
         member = group.get(account);
     }
 
+    public MiraiNormalMember(NormalMember member) {
+        this.member = member;
+    }
+
     /**
      * 获取成员QQ号
      * @return QQ号
@@ -213,5 +217,13 @@ public class MiraiNormalMember{
      */
     public void sendFlashImage(String imageID) {
         member.sendMessage(FlashImage.from(imageID));
+    }
+
+    /**
+     * 获取群活跃度相关属性.
+     * @return 群活跃度相关属性
+     */
+    public MiraiMemberActive getActive(){
+        return new MiraiMemberActive(member.getActive());
     }
 }

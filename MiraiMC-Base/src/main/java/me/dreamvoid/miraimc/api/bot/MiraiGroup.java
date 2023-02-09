@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.api.bot;
 
+import me.dreamvoid.miraimc.api.bot.group.MiraiGroupActive;
 import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Group;
@@ -188,5 +189,13 @@ public class MiraiGroup {
      */
     public void sendFlashImage(String imageID) {
         group.sendMessage(FlashImage.from(imageID));
+    }
+
+    /**
+     * @return 获取群荣誉相关功能接口
+     * @since mirai 2.13
+     */
+    public MiraiGroupActive getActive(){
+        return new MiraiGroupActive(group.getActive());
     }
 }
