@@ -115,6 +115,14 @@ public class MiraiNormalMember{
     }
 
     /**
+     * 获取成员群名片
+     * @return 群名片
+     */
+    public String getNameCard(){
+        return member.getNameCard();
+    }
+
+    /**
      * 获取群员加群时间
      * @return 时间戳
      */
@@ -135,7 +143,7 @@ public class MiraiNormalMember{
      * @param specialTitle 头衔内容
      */
     public void setSpecialTitle(String specialTitle){
-        member.setNameCard(specialTitle);
+        member.setSpecialTitle(specialTitle);
     }
 
     /**
