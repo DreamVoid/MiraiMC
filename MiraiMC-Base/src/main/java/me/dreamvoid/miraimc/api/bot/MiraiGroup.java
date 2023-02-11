@@ -80,8 +80,18 @@ public class MiraiGroup {
     /**
      * 退出群
      * @return 执行结果
+     * @deprecated {@link #quit()}
      */
+    @Deprecated
     public boolean doQuit(){
+        return group.quit();
+    }
+
+    /**
+     * 退出群
+     * @return 执行结果
+     */
+    public boolean quit(){
         return group.quit();
     }
 

@@ -59,8 +59,17 @@ public class MiraiFriend {
 
     /**
      * 向好友发送戳一戳
+     * @deprecated {@link #nudge()}
      */
+    @Deprecated
     public void sendNudge(){
+        friend.nudge();
+    }
+
+    /**
+     * 向好友发送戳一戳
+     */
+    public void nudge(){
         friend.nudge();
     }
 
@@ -82,8 +91,17 @@ public class MiraiFriend {
 
     /**
      * 删除好友
+     * @deprecated {@link #delete()}
      */
+    @Deprecated
     public void doDelete(){
+        friend.delete();
+    }
+
+    /**
+     * 删除好友
+     */
+    public void delete(){
         friend.delete();
     }
 

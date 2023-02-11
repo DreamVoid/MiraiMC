@@ -37,23 +37,52 @@ public class MiraiNormalMember{
     /**
      * 踢出成员(要求机器人为管理员或群主)
      * @param reason 理由
+     * @deprecated {@link #kick(String)}
      */
+    @Deprecated
     public void doKick(String reason){
+        member.kick(reason);
+    }
+
+    /**
+     * 踢出成员(要求机器人为管理员或群主)
+     * @param reason 理由
+     */
+    public void kick(String reason){
         member.kick(reason);
     }
 
     /**
      * 禁言成员(要求机器人为管理员或群主)
      * @param time 时间(秒)
+     * @deprecated {@link #mute(int)}
      */
+    @Deprecated
     public void setMute(int time){
         member.mute(time);
     }
 
     /**
      * 解除禁言成员(要求机器人为管理员或群主)
+     * @deprecated {@link #unmute()}
      */
+    @Deprecated
     public void setUnmute(){
+        member.unmute();
+    }
+
+    /**
+     * 禁言成员(要求机器人为管理员或群主)
+     * @param time 时间(秒)
+     */
+    public void mute(int time){
+        member.mute(time);
+    }
+
+    /**
+     * 解除禁言成员(要求机器人为管理员或群主)
+     */
+    public void unmute(){
         member.unmute();
     }
 
