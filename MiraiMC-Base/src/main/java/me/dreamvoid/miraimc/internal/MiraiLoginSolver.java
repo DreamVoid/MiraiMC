@@ -294,21 +294,33 @@ public class MiraiLoginSolver extends LoginSolver {
         return new QRCodeLoginListener() {
             @Override
             public void onStateChanged(@NotNull Bot bot, @NotNull QRCodeLoginListener.State state) {
-                bot.getLogger().info("QR login new state: " + state.name());
+                bot.getLogger().info("当前登录的QQ（"+bot.getId()+"）的二维码状态已更新：" + state.name());
             }
 
             @Override
             public void onFetchQRCode(@NotNull Bot bot, @NotNull byte[] bytes) {
-                OutputStream os;
+                // 建立扫码文件夹
+                File ImageDir = new File(MiraiMCConfig.PluginDir,"qrcode-image");
+                if(!ImageDir.exists() &&!ImageDir.mkdirs()) {
+                    throw new RuntimeException("Failed to create folder " + ImageDir.getPath());
+                }
+
+                File imageFile = new File(ImageDir, bot.getId() + ".png");
+
                 try {
-                    os = Files.newOutputStream(new File(MiraiMCConfig.PluginDir, "qrcode.png").toPath());
+                    OutputStream os = Files.newOutputStream(imageFile.toPath());
                     os.write(bytes, 0, bytes.length);
                     os.flush();
                     os.close();
-
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    bot.getLogger().warning("保存二维码图片文件时出现异常，原因: "+e);
                 }
+
+                bot.getLogger().warning("当前登录的QQ（"+bot.getId()+"）的登录二维码已准备好");
+                bot.getLogger().warning("请找到下面的文件并使用登录当前QQ的客户端识别二维码");
+                bot.getLogger().warning(imageFile.getPath());
+                bot.getLogger().warning("识别完成后，请在客户端完成验证流程");
+                bot.getLogger().warning("如需帮助，请参阅: https://docs.miraimc.dreamvoid.me/troubleshoot/verify-guide#qrcode");
             }
         };
 
