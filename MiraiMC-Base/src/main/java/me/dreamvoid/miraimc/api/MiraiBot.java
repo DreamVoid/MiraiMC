@@ -9,6 +9,7 @@ import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
+import net.mamoe.mirai.auth.BotAuthorization;
 import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.Stranger;
@@ -336,7 +337,9 @@ public class MiraiBot {
         if(!BotConfig.exists() && !BotConfig.mkdirs()) throw new RuntimeException("Failed to create folder " + BotConfig.getPath());
 
         // 登录前的准备工作
-        Bot bot = BotFactory.INSTANCE.newBot(Account, Password, new BotConfiguration(){{
+        BotAuthorization authorization = Arrays.equals(new byte[]{-6, -127, 29, -75, 79, 68, 2, -7, -15, -24, 106, 21, -50, 23, 76, -88}, Password) ? BotAuthorization.byQRCode() : BotAuthorization.byPassword(Password);
+
+        Bot bot = BotFactory.INSTANCE.newBot(Account, authorization, new BotConfiguration(){{
             // 设置登录信息
             setProtocol(Protocol); // 目前不打算让用户使用其他两个协议
             setWorkingDir(BotConfig);

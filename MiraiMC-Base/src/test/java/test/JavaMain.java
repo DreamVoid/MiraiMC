@@ -1,12 +1,22 @@
 package test;
 
-import me.dreamvoid.miraimc.httpapi.MiraiHttpAPI;
-import me.dreamvoid.miraimc.httpapi.response.Bind;
-import me.dreamvoid.miraimc.httpapi.response.SendMessage;
-import me.dreamvoid.miraimc.httpapi.response.Verify;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 public class JavaMain {
-    public static void main(String[] args){
+    public static void main(String[] args) throws NoSuchAlgorithmException {
+        MessageDigest m = MessageDigest.getInstance("MD5");
+        m.update("QRCode".getBytes(StandardCharsets.UTF_8));
+        byte[] md5 = m.digest();
+        for(int i =0 ;i<md5.length;i++){
+            System.out.println(md5[i]);
+        }
+        System.out.println(Arrays.equals(new byte[]{-6, -127, 29, -75, 79, 68, 2, -7, -15, -24, 106, 21, -50, 23, 76, -88}, md5));
+
+
+        /*
         try {
             MiraiHttpAPI api = new MiraiHttpAPI("http://localhost:8080");
 
@@ -32,7 +42,7 @@ public class JavaMain {
             System.out.println("code: " + sendGroupMessage.code);
             System.out.println("msg: " + sendGroupMessage.msg);
             System.out.println("messageId: " + sendGroupMessage.messageId);
-
+*/
             /*System.out.println("FetchMessage");
             FetchMessage fetchMessage = api.fetchMessage("mKjSL1Ic", 10);
             System.out.println("code: " + fetchMessage.code);
@@ -49,8 +59,8 @@ public class JavaMain {
             //Release release = api.release(verify.session, Long.parseLong(args[0]));
             //System.out.println("code: " + release.code);
             //System.out.println("msg: " + release.msg);
-        } catch (Exception e) {
+      /*  } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

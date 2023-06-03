@@ -6,6 +6,7 @@ import kotlin.coroutines.CoroutineContext;
 import kotlinx.coroutines.Dispatchers;
 import me.dreamvoid.miraimc.MiraiMCConfig;
 import net.mamoe.mirai.Bot;
+import net.mamoe.mirai.auth.QRCodeLoginListener;
 import net.mamoe.mirai.network.CustomLoginFailedException;
 import net.mamoe.mirai.utils.DeviceVerificationRequests;
 import net.mamoe.mirai.utils.DeviceVerificationResult;
@@ -285,6 +286,32 @@ public class MiraiLoginSolver extends LoginSolver {
             deviceVerifyCode.remove(bot);
             throw loginCancelException;
         }
+    }
+
+    @NotNull
+    @Override
+    public QRCodeLoginListener createQRCodeLoginListener(@NotNull Bot bot) {
+        return new QRCodeLoginListener() {
+            @Override
+            public void onStateChanged(@NotNull Bot bot, @NotNull QRCodeLoginListener.State state) {
+                bot.getLogger().info("QR login new state: " + state.name());
+            }
+
+            @Override
+            public void onFetchQRCode(@NotNull Bot bot, @NotNull byte[] bytes) {
+                OutputStream os;
+                try {
+                    os = Files.newOutputStream(new File(MiraiMCConfig.PluginDir, "qrcode.png").toPath());
+                    os.write(bytes, 0, bytes.length);
+                    os.flush();
+                    os.close();
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+
     }
 
     /**
