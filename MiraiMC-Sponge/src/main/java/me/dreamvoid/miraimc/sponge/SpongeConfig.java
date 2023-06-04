@@ -43,6 +43,7 @@ public class SpongeConfig extends MiraiMCConfig {
         General.MavenRepoUrl = !Objects.isNull(general.get("maven-repo-url")) ? String.valueOf(general.get("maven-repo-url")) : "https://maven.aliyun.com/nexus/content/groups/public/";
         General.EnableHttpApi = !Objects.isNull(general.get("enable-http-api")) ? (Boolean) general.get("enable-http-api") : false;
         General.LegacyEventSupport = !Objects.isNull(general.get("legacy-event-support")) ? (Boolean) general.get("legacy-event-support") : false;
+        General.AutoOpenQRCodeFile = !Objects.isNull(general.get("auto-open-qrcode-file")) ? (Boolean) general.get("auto-open-qrcode-file") : false;
 
         Map<String, Object> bot = !Objects.isNull(obj.get("bot")) ? (Map<String, Object>) obj.get("bot") : new HashMap<>();
         Bot.DisableNetworkLogs = !Objects.isNull(bot.get("disable-network-logs")) ? (Boolean) bot.get("disable-network-logs") : false;

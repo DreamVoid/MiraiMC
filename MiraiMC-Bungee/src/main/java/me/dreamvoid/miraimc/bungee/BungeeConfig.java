@@ -37,6 +37,7 @@ public class BungeeConfig extends MiraiMCConfig {
         General.MavenRepoUrl = config.getString("general.maven-repo-url","https://repo1.maven.org/maven2");
         General.EnableHttpApi = config.getBoolean("general.enable-http-api",false);
         General.LegacyEventSupport = config.getBoolean("general.legacy-event-support",false);
+        General.AutoOpenQRCodeFile = config.getBoolean("general.auto-open-qrcode-file",false);
 
         Bot.DisableNetworkLogs = config.getBoolean("bot.disable-network-logs",false);
         Bot.DisableBotLogs = config.getBoolean("bot.disable-bot-logs",false);

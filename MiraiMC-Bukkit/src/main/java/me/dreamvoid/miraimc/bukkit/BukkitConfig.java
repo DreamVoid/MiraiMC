@@ -39,6 +39,7 @@ public class BukkitConfig extends MiraiMCConfig {
         General.MavenRepoUrl = plugin.getConfig().getString("general.maven-repo-url","https://repo1.maven.org/maven2");
         General.EnableHttpApi = plugin.getConfig().getBoolean("general.enable-http-api",false);
         General.LegacyEventSupport = plugin.getConfig().getBoolean("general.legacy-event-support",false);
+        General.AutoOpenQRCodeFile = plugin.getConfig().getBoolean("general.auto-open-qrcode-file",false);
 
         Bot.DisableNetworkLogs = plugin.getConfig().getBoolean("bot.disable-network-logs",false);
         Bot.DisableBotLogs = plugin.getConfig().getBoolean("bot.disable-bot-logs",false);

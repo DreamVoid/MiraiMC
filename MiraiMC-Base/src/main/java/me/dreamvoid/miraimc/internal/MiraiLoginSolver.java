@@ -328,6 +328,15 @@ public class MiraiLoginSolver extends LoginSolver {
                 bot.getLogger().warning("如需帮助，请参阅: https://docs.miraimc.dreamvoid.me/troubleshoot/verify-guide#qrcode");
 
                 deviceVerifyWait.add(bot);
+
+                if(MiraiMCConfig.General.AutoOpenQRCodeFile){
+                    try {
+                        Runtime.getRuntime().exec("explorer " + imageFile.getPath());
+                        bot.getLogger().info("已尝试使用系统方式直接打开二维码图片");
+                    } catch (IOException ignored) {
+                        bot.getLogger().warning("打开二维码图片失败，仍然可以找到并手动打开文件");
+                    }
+                }
             }
 
             /**

@@ -20,6 +20,7 @@ public abstract class MiraiMCConfig {
         public static String MavenRepoUrl; // maven-repo-url
         public static boolean EnableHttpApi; // enable-http-api
         public static boolean LegacyEventSupport; // legacy-event-support
+        public static boolean AutoOpenQRCodeFile; // auto-open-qrcode-file
     }
 
     public static class Bot{ // bot

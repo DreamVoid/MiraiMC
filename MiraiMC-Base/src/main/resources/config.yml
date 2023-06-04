@@ -12,6 +12,7 @@ general:
   maven-repo-url: "https://repo.huaweicloud.com/repository/maven/"
   enable-http-api: false
   legacy-event-support: false
+  auto-open-qrcode-file: false
 bot:
   disable-network-logs: false
   disable-bot-logs: false
