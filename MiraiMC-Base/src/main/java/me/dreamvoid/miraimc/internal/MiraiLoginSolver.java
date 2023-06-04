@@ -295,6 +295,10 @@ public class MiraiLoginSolver extends LoginSolver {
             @Override
             public void onStateChanged(@NotNull Bot bot, @NotNull QRCodeLoginListener.State state) {
                 bot.getLogger().info("当前登录的QQ（"+bot.getId()+"）的二维码状态已更新：" + state.name());
+
+                if(state == State.CONFIRMED){
+                    deviceVerifyWait.remove(bot);
+                }
             }
 
             @Override
@@ -320,10 +324,22 @@ public class MiraiLoginSolver extends LoginSolver {
                 bot.getLogger().warning("请找到下面的文件并使用登录当前QQ的客户端识别二维码");
                 bot.getLogger().warning(imageFile.getPath());
                 bot.getLogger().warning("识别完成后，请在客户端完成验证流程");
+                bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify cancel "+bot.getId());
                 bot.getLogger().warning("如需帮助，请参阅: https://docs.miraimc.dreamvoid.me/troubleshoot/verify-guide#qrcode");
+
+                deviceVerifyWait.add(bot);
+            }
+
+            /**
+             * 每5秒调用一次
+             */
+            @Override
+            public void onIntervalLoop() {
+                if(!deviceVerifyWait.contains(bot)){
+                    throw loginCancelException;
+                }
             }
         };
-
     }
 
     /**
