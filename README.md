@@ -45,7 +45,7 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的 Minecraft 服�
 <dependency>
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC-Integration</artifactId>
-    <version>1.8-pre1</version>
+    <version>1.8-pre2</version>
     <scope>provided</scope>
 </dependency>
 ```
