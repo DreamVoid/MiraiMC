@@ -324,7 +324,7 @@ public class MiraiLoginSolver extends LoginSolver {
                 bot.getLogger().warning("请找到下面的文件并使用登录当前QQ的客户端识别二维码");
                 bot.getLogger().warning(imageFile.getPath());
                 bot.getLogger().warning("识别完成后，请在客户端完成验证流程");
-                bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify cancel "+bot.getId());
+                bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify cancel "+bot.getId() + "，5秒内将会取消登录");
                 bot.getLogger().warning("如需帮助，请参阅: https://docs.miraimc.dreamvoid.me/troubleshoot/verify-guide#qrcode");
 
                 deviceVerifyWait.add(bot);
