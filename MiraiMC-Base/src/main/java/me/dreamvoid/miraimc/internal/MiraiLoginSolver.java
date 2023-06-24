@@ -311,11 +311,14 @@ public class MiraiLoginSolver extends LoginSolver {
 
                 File imageFile = new File(ImageDir, bot.getId() + ".png");
 
+                boolean saveSuccess = false;
+
                 try {
                     OutputStream os = Files.newOutputStream(imageFile.toPath());
                     os.write(bytes, 0, bytes.length);
                     os.flush();
                     os.close();
+                    saveSuccess = true;
                 } catch (IOException e) {
                     bot.getLogger().warning("保存二维码图片文件时出现异常，原因: "+e);
                 }
@@ -329,7 +332,7 @@ public class MiraiLoginSolver extends LoginSolver {
 
                 deviceVerifyWait.add(bot);
 
-                if(MiraiMCConfig.General.AutoOpenQRCodeFile){
+                if(saveSuccess && MiraiMCConfig.General.AutoOpenQRCodeFile){
                     try {
                         Runtime.getRuntime().exec("explorer " + imageFile.getPath());
                         bot.getLogger().info("已尝试使用系统方式直接打开二维码图片");
