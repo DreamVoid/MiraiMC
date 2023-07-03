@@ -11,8 +11,6 @@ MiraiMC 是一个基于[Mirai](https://github.com/mamoe/mirai)的 Minecraft 服�
 ## 下载
 * 稳定版本
   * [GitHub 发布页](https://github.com/DreamVoid/MiraiMC/releases)
-  * [MCBBS](https://www.mcbbs.net/thread-1207462-1-1.html)（中国）
-    * [Nukkit](https://www.mcbbs.net/thread-1260246-1-1.html)（中国）
 * 开发版本
   * [GitHub Actions CI](https://github.com/DreamVoid/MiraiMC/actions/workflows/build-maven.yml?query=is%3Asuccess)
 
