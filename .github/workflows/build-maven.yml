@@ -20,6 +20,10 @@ jobs:
       with:
         java-version: '8'
         distribution: 'zulu'
+
+    - name: Update version
+      run: mvn versions:set -DnewVersion=dev-${{ GITHUB_RUN_ID }} -DprocessAllModules=true
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
