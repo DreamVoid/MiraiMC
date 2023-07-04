@@ -36,13 +36,6 @@ public class BukkitPlugin extends JavaPlugin implements PlatformPlugin {
 
     @Override // 加载插件
     public void onLoad() {
-        try { // 抛弃Forge用户，别问为什么
-            Class.forName("cpw.mods.modlauncher.Launcher");
-            getLogger().severe("任何Forge服务端均不受MiraiMC支持（如Catserver、Loliserver），请尽量更换其他服务端使用！");
-            getLogger().severe("作者不会处理任何使用了Forge服务端导致的问题。");
-            getLogger().severe("兼容性报告: https://docs.miraimc.dreamvoid.me/troubleshoot/compatibility-report");
-        } catch (ClassNotFoundException ignored) {}
-
         try {
             lifeCycle.preLoad();
             // 加载mirai核心完成，开始加载附属功能

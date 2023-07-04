@@ -41,9 +41,15 @@ public final class Utils {
         if(Boolean.getBoolean("MiraiMC.StandWithNpp")){
             Logger.getLogger("MiraiMC Preload Checker").severe("不要向MiraiMC作者寻求任何帮助。");
         }
+
+        if(findClass("cpw.mods.modlauncher.Launcher") || findClass("net.minecraftforge.server.console.TerminalHandler")) { // 抛弃Forge用户，别问为什么
+            Logger.getLogger("MiraiMC Preload Checker").severe("任何Forge服务端均不受MiraiMC支持，请尽量更换其他服务端使用！");
+            Logger.getLogger("MiraiMC Preload Checker").severe("作者不会处理任何使用了Forge服务端导致的问题。");
+            Logger.getLogger("MiraiMC Preload Checker").severe("兼容性报告: https://docs.miraimc.dreamvoid.me/troubleshoot/compatibility-report");
+        }
     }
 
-    public static boolean findProcess(String processName) {
+    private static boolean findProcess(String processName) {
         BufferedReader bufferedReader = null;
         try {
             Process proc = Runtime.getRuntime().exec("tasklist /FI \"IMAGENAME eq " + processName + "\"");
@@ -56,7 +62,6 @@ public final class Utils {
             }
             return false;
         } catch (Exception ex) {
-            ex.printStackTrace();
             return false;
         } finally {
             if (bufferedReader != null) {
@@ -64,6 +69,15 @@ public final class Utils {
                     bufferedReader.close();
                 } catch (Exception ignored) {}
             }
+        }
+    }
+
+    private static boolean findClass(String className){
+        try {
+            Class.forName(className);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
         }
     }
 
