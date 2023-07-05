@@ -1,21 +1,26 @@
 package me.dreamvoid.miraimc.commands;
 
+import jdk.internal.loader.URLClassPath;
 import me.dreamvoid.miraimc.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.MiraiMCPlugin;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.httpapi.MiraiHttpAPI;
 import me.dreamvoid.miraimc.httpapi.exception.AbnormalStatusException;
-import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.internal.libloader.JarLoader;
+import me.dreamvoid.miraimc.internal.libloader.MiraiLoader;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.lang.reflect.Field;
+import java.net.URLClassLoader;
+import java.util.*;
 
 public class MiraiCommand implements ICommandExecutor {
     private final IMiraiAutoLogin MiraiAutoLogin = MiraiMCPlugin.getPlatform().getAutoLogin();
@@ -290,6 +295,71 @@ public class MiraiCommand implements ICommandExecutor {
                         "&6/mirai autologin list:&r 查看自动登录账号列表",
                         "&6/mirai autologin remove <账号>:&r 删除一个自动登录账号")) {
                     sender.sendMessage(s);
+                }
+                break;
+            }
+            case "dev":{
+                if(Boolean.getBoolean("MiraiMC.DevelopmentMode")) {
+                    if (args.length == 1) {
+                        sender.sendMessage("&6&lMiraiMC&r &b开发者模式已启用");
+                        break;
+                    }
+                    switch (args[1].toLowerCase()){
+                        case "load":{
+                            try {
+                                MiraiLoader.loadMiraiCore();
+                            } catch (IOException | SAXException | ParserConfigurationException e) {
+                                throw new RuntimeException(e);
+                            }
+                            break;
+                        }
+                        case "unload":{
+                            try {
+                                JarLoader.unloadJar();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            break;
+                        }
+                        case "testclass":{
+                            try {
+                                Class.forName("net.mamoe.mirai.utils.BotConfiguration");
+                                sender.sendMessage("Success");
+                            } catch (ClassNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
+                            break;
+                        }
+                        case "change":{
+                            try {
+                                JarLoader.unloadJar();
+                                MiraiLoader.loadMiraiCore(args[2]);
+                                sender.sendMessage("Success");
+                            } catch (IOException | ParserConfigurationException | SAXException e) {
+                                throw new RuntimeException(e);
+                            }
+                            break;
+                        }
+                        case "testurls":{
+                            try {
+                                Field closeables = URLClassLoader.class.getDeclaredField("closeables");
+                                closeables.setAccessible(true);
+                                WeakHashMap<Closeable,Void> h = (WeakHashMap<Closeable,Void>) closeables.get(Utils.classLoader);
+                                Utils.logger.info(String.valueOf(h.keySet().size()));
+
+                                Field ucp = URLClassLoader.class.getDeclaredField("ucp");
+                                ucp.setAccessible(true);
+                                Field loaders = URLClassPath.class.getDeclaredField("loaders");
+                                loaders.setAccessible(true);
+                                URLClassPath o1 = (URLClassPath) ucp.get(Utils.classLoader);
+                                ArrayList o2 = (ArrayList) loaders.get(o1);
+                                Utils.logger.info(String.valueOf(o2.size()));
+                            } catch (NoSuchFieldException | IllegalAccessException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        }
+                    }
                 }
                 break;
             }

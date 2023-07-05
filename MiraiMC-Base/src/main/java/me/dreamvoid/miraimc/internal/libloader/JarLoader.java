@@ -28,13 +28,19 @@ public class JarLoader {
 	// 把lucko的代码偷过来 XD
 	private static final Supplier<URLClassLoaderAccess> LOADER = () -> Suppliers.memoize(() -> URLClassLoaderAccess.create((URLClassLoader) Utils.classLoader)).get(); // 勿动，乱改可能导致低版本mc无法加载
 
+	private static URLClassLoaderAccess loader;
 	/**
 	 * 加载本地 Jar
 	 * @param file Jar 文件
 	 */
 	static void loadJarLocal(File file) throws MalformedURLException {
 		Utils.logger.info("Loading library " + file);
-		LOADER.get().addURL(file.toURI().toURL());
+		loader = LOADER.get();
+		loader.addURL(file.toURI().toURL());
+	}
+
+	public static void unloadJar() throws IOException {
+		loader.close();
 	}
 
 	/**
