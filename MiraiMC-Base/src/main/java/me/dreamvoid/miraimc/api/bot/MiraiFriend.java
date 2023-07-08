@@ -133,25 +133,25 @@ public class MiraiFriend {
 
     /**
      * 判断图片是否为表情
-     * @param ImageID 图片ID
+     * @param imageID 图片ID
      * @return 是则返回true，不是返回false
      */
-    public boolean isImageEmoji(String ImageID){
-        return Image.fromId(ImageID).isEmoji();
+    public boolean isImageEmoji(String imageID){
+        return Image.fromId(imageID).isEmoji();
     }
 
     /**
      * 发送音乐分享<br>
      * [!]本方法中，Kind参数使用mirai提供的valueOf方法，请确保传递的音乐平台名真实存在，否则请注意使用try捕获异常
-     * @param Kind 可选种类：QQMusic | MiguMusic | KugouMusic | KuwoMusic | NeteaseCLoudMusic
-     * @param Title 标题
-     * @param Summary 内容
-     * @param JumpUrl 跳转链接
-     * @param PictureUrl 图片链接
-     * @param MusicUrl 音乐链接
+     * @param kind 可选种类：QQMusic | MiguMusic | KugouMusic | KuwoMusic | NeteaseCLoudMusic
+     * @param title 标题
+     * @param summary 内容
+     * @param jumpUrl 跳转链接
+     * @param pictureUrl 图片链接
+     * @param musicUrl 音乐链接
      */
-    public void sendMusicShare(String Kind, String Title, String Summary, String JumpUrl, String PictureUrl, String MusicUrl){
-        friend.sendMessage(new MusicShare(MusicKind.valueOf(Kind), Title, Summary, JumpUrl, PictureUrl, MusicUrl));
+    public void sendMusicShare(String kind, String title, String summary, String jumpUrl, String pictureUrl, String musicUrl){
+        friend.sendMessage(new MusicShare(MusicKind.valueOf(kind), title, summary, jumpUrl, pictureUrl, musicUrl));
     }
 
     /**

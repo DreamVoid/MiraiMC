@@ -39,40 +39,40 @@ public class MiraiBot {
 
     /**
      * 初始化
-     * @param BotAccount 机器人账号
+     * @param account 机器人账号
      * @throws NoSuchElementException 不存在机器人抛出
      */
-    private MiraiBot(long BotAccount) throws NoSuchElementException {
+    private MiraiBot(long account) throws NoSuchElementException {
         logger = Utils.logger;
-        bot = Bot.getInstance(BotAccount);
+        bot = Bot.getInstance(account);
     }
 
     /**
      * 初始化
-     * @param Bot 机器人实例
+     * @param bot 机器人实例
      */
-    private MiraiBot(Bot Bot){
+    private MiraiBot(Bot bot){
         logger = Utils.logger;
-        bot = Bot;
+        this.bot = bot;
     }
 
     /**
      * 将一个机器人实例转换为MiraiBot
-     * @param Bot 机器人实例
+     * @param bot 机器人实例
      * @return MiraiMC 机器人实例
      */
-    public static MiraiBot asBot(Bot Bot){
-        return new MiraiBot(Bot);
+    public static MiraiBot asBot(Bot bot){
+        return new MiraiBot(bot);
     }
 
     /**
      * 获取指定机器人的实例
-     * @param BotAccount 机器人账号
+     * @param account 机器人账号
      * @return MiraiMC 机器人实例
      * @throws NoSuchElementException 不存在时抛出
      */
-    public static MiraiBot getBot(long BotAccount) throws NoSuchElementException{
-        return new MiraiBot(BotAccount);
+    public static MiraiBot getBot(long account) throws NoSuchElementException{
+        return new MiraiBot(account);
     }
 
     /**
@@ -85,12 +85,12 @@ public class MiraiBot {
 
     /**
      * 获取可用的 mirai 协议列表用于登录
-     * @param AddHttpAPI 是否添加HTTPAPI到协议列表
+     * @param addHttpAPI 是否添加HTTPAPI到协议列表
      * @return 协议列表
      */
-    public static List<String> getAvailableProtocol(boolean AddHttpAPI){
+    public static List<String> getAvailableProtocol(boolean addHttpAPI){
         List<String> result = Arrays.stream(BotConfiguration.MiraiProtocol.values()).map(Enum::name).collect(Collectors.toList());
-        if(AddHttpAPI) result.add("HTTPAPI");
+        if(addHttpAPI) result.add("HTTPAPI");
         return result;
     }
 
@@ -99,80 +99,76 @@ public class MiraiBot {
      * @return 机器人账号列表
      */
     public static List<Long> getOnlineBots(){
-        List<Long> BotList = new ArrayList<>();
-        for (Bot bot : Bot.getInstances()) {
-            BotList.add(bot.getId());
-        }
-        return BotList;
+        return Bot.getInstances().stream().map(Bot::getId).collect(Collectors.toList());
     }
 
     /**
      * 获取机器人指定好友的实例
-     * @param FriendAccount 好友QQ号
+     * @param friendAccount 好友QQ号
      * @return MiraiMC 好友实例
      */
-    public MiraiFriend getFriend(long FriendAccount){
-        return new MiraiFriend(bot, FriendAccount);
+    public MiraiFriend getFriend(long friendAccount){
+        return new MiraiFriend(bot, friendAccount);
     }
     /**
      * 获取机器人指定群的实例
-     * @param GroupID 群号
+     * @param groupID 群号
      * @return MiraiMC 群实例
      */
-    public MiraiGroup getGroup(long GroupID){
-        return new MiraiGroup(bot, GroupID);
+    public MiraiGroup getGroup(long groupID){
+        return new MiraiGroup(bot, groupID);
     }
 
     /**
      * 登录一个机器人账号<br>
      * [!] 不建议插件开发者调用此方法，建议引导用户通过MiraiMC指令登录机器人
-     * @param Account 机器人账号
-     * @param PasswordMD5 机器人密码MD5
-     * @param Protocol 协议类型
+     * @param account 机器人账号
+     * @param password 机器人密码MD5
+     * @param protocol 协议类型
      */
-    public static void doBotLogin(long Account, byte[] PasswordMD5, BotConfiguration.MiraiProtocol Protocol) {
-        login(Account, PasswordMD5, Protocol);
+    public static void doBotLogin(long account, byte[] password, BotConfiguration.MiraiProtocol protocol) {
+        loginCore(account, password, protocol);
     }
 
     /**
      * 登录一个机器人账号<br>
      * [!] 不建议插件开发者调用此方法，建议引导用户通过MiraiMC指令登录机器人
-     * @param Account 机器人账号
-     * @param Password 机器人密码
-     * @param Protocol 协议类型
+     * @param account 机器人账号
+     * @param password 机器人密码
+     * @param protocol 协议类型
      * @throws IllegalArgumentException 协议不存在时抛出
      */
-    public static void doBotLogin(long Account, String Password, String Protocol) throws IllegalArgumentException{
-        doBotLogin(Account, Password, BotConfiguration.MiraiProtocol.valueOf(Protocol));
+    public static void doBotLogin(long account, String password, String protocol) throws IllegalArgumentException{
+        doBotLogin(account, password, BotConfiguration.MiraiProtocol.valueOf(protocol));
     }
 
     /**
      * 登录一个机器人账号<br>
      * [!] 不建议插件开发者调用此方法，建议引导用户通过MiraiMC指令登录机器人
-     * @param Account 机器人账号
-     * @param PasswordMD5 机器人密码MD5
-     * @param Protocol 协议类型
+     * @param account 机器人账号
+     * @param password 机器人密码MD5
+     * @param protocol 协议类型
      * @throws IllegalArgumentException 协议不存在时抛出
      * @since 1.7
      */
-    public static void doBotLogin(long Account, byte[] PasswordMD5, String Protocol) throws IllegalArgumentException{
-        doBotLogin(Account, PasswordMD5, BotConfiguration.MiraiProtocol.valueOf(Protocol));
+    public static void doBotLogin(long account, byte[] password, String protocol) throws IllegalArgumentException{
+        doBotLogin(account, password, BotConfiguration.MiraiProtocol.valueOf(protocol));
     }
 
     /**
      * 登录一个机器人账号<br>
      * [!] 不建议插件开发者调用此方法，建议引导用户通过MiraiMC指令登录机器人
-     * @param Account 机器人账号
-     * @param Password 机器人密码
-     * @param Protocol 协议类型
+     * @param account 机器人账号
+     * @param password 机器人密码
+     * @param protocol 协议类型
      * @since 1.7
      */
-    public static void doBotLogin(long Account, String Password, BotConfiguration.MiraiProtocol Protocol) {
+    public static void doBotLogin(long account, String password, BotConfiguration.MiraiProtocol protocol) {
         try {
             MessageDigest m = MessageDigest.getInstance("MD5");
-            m.update(Password.getBytes(StandardCharsets.UTF_8));
+            m.update(password.getBytes(StandardCharsets.UTF_8));
             byte[] md5 = m.digest();
-            doBotLogin(Account, md5, Protocol);
+            doBotLogin(account, md5, protocol);
         } catch (NoSuchAlgorithmException e) {
             logger.warning("加密密码时出现异常，原因: " + e);
         }
@@ -287,12 +283,12 @@ public class MiraiBot {
 
     /**
      * 获取指定的机器人登录的其他客户端
-     * @param OtherClient 其他客户端ID
+     * @param otherClient 其他客户端ID
      * @return {@link MiraiOtherClient} 实例
      * @throws NoSuchElementException 不存在指定客户端时抛出
      */
-    public MiraiOtherClient getOtherClient(long OtherClient) throws NoSuchElementException{
-        return new MiraiOtherClient(bot.getOtherClients().getOrFail(OtherClient));
+    public MiraiOtherClient getOtherClient(long otherClient) throws NoSuchElementException{
+        return new MiraiOtherClient(bot.getOtherClients().getOrFail(otherClient));
     }
 
     /**
@@ -312,36 +308,36 @@ public class MiraiBot {
     }
 
     /**
-     * 登录机器人
-     * @param Account 账号
-     * @param Password 密码
-     * @param Protocol 协议
+     * 登录机器人（Mirai 核心）
+     * @param account 账号
+     * @param password 密码
+     * @param protocol 协议
      */
-    private static void login(long Account, byte[] Password, BotConfiguration.MiraiProtocol Protocol) {
+    private static void loginCore(long account, byte[] password, BotConfiguration.MiraiProtocol protocol) {
         logger = Utils.logger;
 
-        Bot existBot = Bot.getInstanceOrNull(Account);
+        Bot existBot = Bot.getInstanceOrNull(account);
         if(existBot != null){
             logger.info("另一个机器人进程已经存在，正在尝试关闭这个进程");
-            MiraiLoginSolver.cancel(Account);
+            MiraiLoginSolver.cancel(account);
             existBot.close();
             try {
                 Thread.sleep(500);
             } catch (InterruptedException ignored) { }
         }
 
-        logger.info("登录新的机器人账号: "+ Account+", 协议: "+ Protocol.name());
+        logger.info("登录新的机器人账号: "+ account+", 协议: "+ protocol.name());
 
-        File BotConfig = new File(new File(Utils.getMiraiDir(), "bots"), String.valueOf(Account)); // 当前机器人账号配置文件夹和相应的配置
+        File BotConfig = new File(new File(Utils.getMiraiDir(), "bots"), String.valueOf(account)); // 当前机器人账号配置文件夹和相应的配置
 
         if(!BotConfig.exists() && !BotConfig.mkdirs()) throw new RuntimeException("Failed to create folder " + BotConfig.getPath());
 
         // 登录前的准备工作
-        BotAuthorization authorization = Arrays.equals(new byte[]{-6, -127, 29, -75, 79, 68, 2, -7, -15, -24, 106, 21, -50, 23, 76, -88}, Password) ? BotAuthorization.byQRCode() : BotAuthorization.byPassword(Password);
+        BotAuthorization authorization = Arrays.equals(new byte[]{-6, -127, 29, -75, 79, 68, 2, -7, -15, -24, 106, 21, -50, 23, 76, -88}, password) ? BotAuthorization.byQRCode() : BotAuthorization.byPassword(password);
 
-        Bot bot = BotFactory.INSTANCE.newBot(Account, authorization, new BotConfiguration(){{
+        Bot bot = BotFactory.INSTANCE.newBot(account, authorization, new BotConfiguration(){{
             // 设置登录信息
-            setProtocol(Protocol); // 目前不打算让用户使用其他两个协议
+            setProtocol(protocol); // 目前不打算让用户使用其他两个协议
             setWorkingDir(BotConfig);
             fileBasedDeviceInfo();
 

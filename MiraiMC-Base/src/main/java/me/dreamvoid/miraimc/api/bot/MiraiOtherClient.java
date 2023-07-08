@@ -16,10 +16,10 @@ public class MiraiOtherClient {
 
 	/**
 	 * 获取指定的其他客户端实例
-	 * @param OtherClient 其他客户端
+	 * @param otherClient 其他客户端
 	 */
-	public MiraiOtherClient(OtherClient OtherClient) {
-		this.client = OtherClient;
+	public MiraiOtherClient(OtherClient otherClient) {
+		this.client = otherClient;
 	}
 
 	/**
