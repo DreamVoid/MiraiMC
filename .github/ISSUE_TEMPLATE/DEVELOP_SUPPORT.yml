@@ -1,12 +1,12 @@
-name: 问题报告
-description: "如果你想反馈 Bug，请使用此模板。"
-labels: ["漏洞"]
+name: 开发者问题报告
+description: "如果你想反馈基于 MiraiMC 开发时出现的问题，请使用此模板。"
+labels: ["开发问题"]
 body:
   - type: markdown
     attributes:
       value: |
         发 issue 前请先看看 [issue 列表](https://github.com/DreamVoid/MiraiMC/issues?q=is%3Aissue+-label%3A%E6%97%A0%E6%95%88+-label%3A%E9%87%8D%E5%A4%8D)里有没有你的问题，包括已关闭的问题。如有，请关注相关 issue 而不是重复发问。
-        如果你不确定你遇到的问题是 MiraiMC 的漏洞还是你自己操作的失误，请先在[讨论·Discussions](https://github.com/DreamVoid/MiraiMC/discussions) 提出。
+        如果你不确定你遇到的问题是 MiraiMC 的问题还是你自己操作的失误，请先在[讨论·Discussions](https://github.com/DreamVoid/MiraiMC/discussions) 提出。
         请在标题栏中用最简练的语言清晰的描述你遇到的问题，勿增加如“帮帮我”、“急急急”、“大神”之类的无意义词汇。
         滥用 issue 功能将会导致**你被加入黑名单**。
   - type: textarea
@@ -15,24 +15,24 @@ body:
       label: 问题描述
       description: 在下方的编辑框描述你的问题
       placeholder: |
-        请尽可能说明你遇到的问题，包括你是如何使用插件的，配置文件有没有调过等等。
-        请**不要**在这里粘贴日志或配置文件。
+        请尽可能说明你遇到的问题，包括你调用了 MiraiMC 的什么代码，MiraiMC 没有按预期工作的表现。
+        请**不要**在这里粘贴日志、配置文件或代码。
     validations:
       required: true
   - type: textarea
     id: recurrent
     attributes: 
       label: 复现方法
-      description: 在下方的编辑框描述如何触发这个漏洞（分步需换行请直接回车，会为你添加标号）
-      placeholder: 能看到这个？说明你没有看描述，请自己加上“1. ”进行分步描述步骤。
-      value: "1. "
+      description: 在下方的代码编辑框描述如何触发这个问题
+      placeholder: 
+      render: java
     validations:
       required: true
   - type: dropdown
     id: servertype
     attributes: 
       label: 服务端类型
-      description: 选择你正在使用的服务端类型
+      description: 选择你正在开发的插件适用的服务端类型
       options: 
         - Bukkit
         - BungeeCord
@@ -63,12 +63,12 @@ body:
       label: 服务端日志
       description: 在下方复制你的服务端日志
       placeholder: |
-        请提供 latest.log 文件的所有内容，自以为知道问题所在而提供不完整的日志将被直接关闭。
+        请提供出问题时 MiraiMC 的日志输出内容，如果涉及了 mirai，请上传完整服务端日志。
         如果日志超出字数限制，请在 https://mclo.gs/ 上传日志文件，在这里填写链接。
-        除了日志内容或链接，在这里填写任何无关文字将会导致 issue 被直接关闭，并会视为滥用 issue。
+        如果 MiraiMC 没有日志输出，可不填写此段
       render: text
     validations:
-      required: true
+      required: false
   - type: textarea
     id: extra
     attributes: 
@@ -76,7 +76,7 @@ body:
       description: 还有什么要补充的吗？
       placeholder: |
         提示：
-        你可以提供系统环境、Java版本、你使用了什么依赖MiraiMC的插件、重置插件配置后问题是否仍然存在、你使用的插件列表
+        你可以提供系统环境、Java版本
         你还可以提供截图和文件（直接拖动文件到编辑框）
   - type: checkboxes
     id: agreement

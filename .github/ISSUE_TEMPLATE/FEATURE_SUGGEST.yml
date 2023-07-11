@@ -5,10 +5,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        发Issue前请先看看Issue列表里有没有你的建议，包括已关闭的建议。如有，请关注相关Issue而不是重复建议。
-        如果你只有相关功能的构想而不清楚如何实际实现相关功能，请先在[讨论·Discussions](https://github.com/DreamVoid/MiraiMC/discussions)提出。
+        发 issue 前请先看看 issue 列表里有没有你的建议，包括已关闭的建议。如有，请关注相关 issue 而不是重复建议。
+        如果你只有相关功能的构想而不清楚如何实际实现相关功能，请先在[讨论·Discussions](https://github.com/DreamVoid/MiraiMC/discussions) 提出。
         请在标题栏中用最简练的语言清晰的描述你的建议。
-        如果你具有相关能力，请开Pull Request而不是开Issue，这样能节约你我的时间。
+        如果你具有相关能力，请开 Pull Request 而不是开 issue，这样能节约你我的时间。
+        涉及 [mirai](https://github.com/mamoe/mirai) 应该实现的功能请前往其仓库开新 issue 而不是这里，请勿在这里建议 mirai 不支持或无法支持的特性。
   - type: textarea
     id: description
     attributes: 
@@ -22,7 +23,7 @@ body:
     attributes: 
       label: 使用方法
       description: 在下方的编辑框描述你想这个功能如何运作，如服务端启动时这个功能要怎么工作，或是执行某个命令时这个功能要怎么运作（分步需换行请直接回车，会为你添加标号）
-      placeholder: 能看到这个？说明你没有看描述，请自己加上“1. ”
+      placeholder: 能看到这个？说明你没有看描述，请自己加上“1. ”进行分步描述步骤。
       value: "1. "
     validations:
       required: true
@@ -31,3 +32,19 @@ body:
     attributes: 
       label: 额外说明
       description: 还有什么要补充的吗？
+  - type: checkboxes
+    id: agreement
+    attributes:
+      label: 协议
+      description: 请同意下列条款
+      options:
+        - label: 我已查阅 [issue 列表](https://github.com/DreamVoid/MiraiMC/issues?q=is%3Aissue+-label%3A%E6%97%A0%E6%95%88+-label%3A%E9%87%8D%E5%A4%8D)，并确认我的问题不在其中。
+          required: true
+        - label: 我确认我已认真阅读所有注意事项并认真填写表单。
+          required: true
+        - label: 我确认我没有看这些选择框就随便勾选了。
+          required: false
+        - label: 我明白，如果没有正确填写 issue 模板的内容，本 issue 将会直接被关闭并被锁定。
+          required: true
+        - label: 我明白，如果滥用 issue 功能，我将会被列入黑名单。
+          required: true
