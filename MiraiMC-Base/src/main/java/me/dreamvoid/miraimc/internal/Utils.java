@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 
 public final class Utils {
     static {
+        // 此处放置插件自检代码
         if (!Boolean.getBoolean("MiraiMC.StandWithNpp") && System.getProperty("os.name").toLowerCase().contains("windows") && findProcess("notepad++.exe")) {
             Arrays.asList("========================================",
                     "喜欢用Notepad++，拦不住的", "建议使用 Visual Studio Code 或 Sublime",

@@ -11,11 +11,7 @@ import java.nio.file.Files;
 import java.util.*;
 
 public final class Info {
-	private static Info INSTANCE;
-
-	public Info(){
-		INSTANCE = this;
-	}
+	private static Info INSTANCE = null;
 
 	@SerializedName("mirai")
 	public HashMap<String, String> mirai;
@@ -30,52 +26,59 @@ public final class Info {
 		return init(Collections.singletonList("https://api.miraimc.dreamvoid.me/"), true);
 	}
 
-	public static Info init(List<String> apis, boolean LocalCache) throws IOException {
-		if(INSTANCE == null){
-			List<String> list = new ArrayList<>(apis);
-			File CacheDir = new File(MiraiMCConfig.PluginDir, "cache");
-			if(!CacheDir.exists() && !CacheDir.mkdirs()) throw new RuntimeException("Failed to create folder " + CacheDir.getPath());
-			File cache = new File(CacheDir, "apis.json");
+	public static Info init(List<String> apis, boolean localCache) throws IOException {
+		if(INSTANCE != null) return INSTANCE;
 
-			if(LocalCache){
-				try {
-					if (!cache.exists()) {
-						try (InputStream in = Info.class.getResourceAsStream("/apis.json")) {
-							assert in != null;
-							Files.copy(in, cache.toPath());
-						}
+		List<String> list = new ArrayList<>(apis);
+		File CacheDir = new File(MiraiMCConfig.PluginDir, "cache");
+		if(!CacheDir.exists() && !CacheDir.mkdirs()) throw new RuntimeException("Failed to create folder " + CacheDir.getPath());
+		File cache = new File(CacheDir, "apis.json");
+
+		if(localCache){
+			try {
+				if (!cache.exists()) {
+					try (InputStream in = Info.class.getResourceAsStream("/apis.json")) {
+						assert in != null;
+						Files.copy(in, cache.toPath());
 					}
-					String[] localString = new Gson().fromJson(new FileReader(cache), String[].class);
-					List<String> local = new ArrayList<>(Arrays.asList(localString)); // 这里不双重调用下面的removeAll就不能用
-					local.removeAll(list);
-					list.addAll(local);
-				} catch (Exception ignored) {}
-			}
-
-			IOException e = null; // 用于所有API都炸掉的时候抛出的
-
-			for(String s : list){
-				if(!s.endsWith("/")) s += "/";
-				try {
-					INSTANCE = new Gson().fromJson(Utils.Http.get(s + "info.json"), Info.class);
-
-					// API数据保存到本地
-					FileOutputStream fos = new FileOutputStream(cache);
-					fos.write(new Gson().toJson(INSTANCE.apis.toArray(), String[].class).getBytes(StandardCharsets.UTF_8));
-					fos.close();
-
-					break;
-				} catch (IOException ex) {
-					Utils.logger.warning("Failed to get " + s +", reason: " + ex);
-					if(e == null ) e = ex;
 				}
-			}
+				String[] localString = new Gson().fromJson(new FileReader(cache), String[].class);
+				List<String> local = new ArrayList<>(Arrays.asList(localString)); // 这里不双重调用下面的removeAll就不能用
+				local.removeAll(list);
+				list.addAll(local);
+			} catch (Exception ignored) {}
+		}
 
-			if(INSTANCE == null){
-				assert e != null;
-				throw e;
+		List<IOException> exceptions = new ArrayList<>();
+
+		for(String s : list){
+			if(!s.endsWith("/")) s += "/";
+			try {
+				INSTANCE = new Gson().fromJson(Utils.Http.get(s + "info.json"), Info.class);
+				break;
+			} catch (IOException e) {
+				//Utils.logger.warning("Failed to get " + s +", reason: " + e);
+				exceptions.add(e);
 			}
 		}
-		return INSTANCE;
+
+		if(INSTANCE != null){
+			// API数据保存到本地
+			FileOutputStream fos = new FileOutputStream(cache);
+			fos.write(new Gson().toJson(INSTANCE.apis.toArray(), String[].class).getBytes(StandardCharsets.UTF_8));
+			fos.close();
+
+			return INSTANCE;
+		} else {
+			Utils.logger.warning("所有API均请求失败，请检查您的互联网连接。");
+
+			for(int i = 0; i < list.size(); i++){
+				String s = list.get(i);
+				if(!s.endsWith("/")) s += "/";
+				Utils.logger.warning(s + " - " + exceptions.get(i));
+			}
+
+			throw new IOException("All api fetching failed.");
+		}
 	}
 }
