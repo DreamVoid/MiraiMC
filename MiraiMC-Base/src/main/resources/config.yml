@@ -1,7 +1,6 @@
 # 这是 MiraiMC 插件的配置文件
 # 如需获取有关调整配置的帮助，请访问 https://docs.miraimc.dreamvoid.me/docs/configure-file
 # GitHub: https://github.com/DreamVoid/MiraiMC
-# MCBBS: https://www.mcbbs.net/thread-1207462-1-1.html
 
 general:
   allow-bStats: true
