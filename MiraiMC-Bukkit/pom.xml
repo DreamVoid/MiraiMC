@@ -68,8 +68,10 @@
                             <pattern>org.apache</pattern>
                             <shadedPattern>me.dreamvoid.miraimc.libraries.org.apache</shadedPattern>
                         </relocation>
-                        <pattern>com.github.Anon8281.universalScheduler</pattern>
-                        <shadedPattern>me.dreamvoid.miraimc.libraries.com.github.Anon8281.universalScheduler</shadedPattern>
+                        <relocation>
+                            <pattern>com.github.Anon8281.universalScheduler</pattern>
+                            <shadedPattern>me.dreamvoid.miraimc.libraries.com.github.Anon8281.universalScheduler</shadedPattern>
+                        </relocation>
                     </relocations>
                     <filters>
                         <filter>
