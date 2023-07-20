@@ -27,7 +27,6 @@ public final class Version {
 
 	public static Version init() throws IOException {
 		if (INSTANCE != null) {
-			System.out.println("2: Not null!");
 			return INSTANCE;
 		}
 
