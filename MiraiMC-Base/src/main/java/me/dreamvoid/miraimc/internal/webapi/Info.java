@@ -27,7 +27,10 @@ public final class Info {
 	}
 
 	public static Info init(List<String> apis, boolean localCache) throws IOException {
-		if(INSTANCE != null) return INSTANCE;
+		if(INSTANCE != null) {
+			System.out.println("1: Not null!");
+			return INSTANCE;
+		}
 
 		List<String> list = new ArrayList<>(apis);
 		File CacheDir = new File(MiraiMCConfig.PluginDir, "cache");

@@ -123,17 +123,17 @@ public class MiraiMCPlugin {
         // 检查更新
         if(MiraiMCConfig.General.CheckUpdate && !platform.getPluginVersion().contains("dev")){
             platform.runTaskAsync(() -> {
-                platform.getPluginLogger().info("Checking update...");
+                platform.getPluginLogger().info("正在检查更新...");
                 try {
                     PluginUpdate fetch = new PluginUpdate();
                     String version = !platform.getPluginVersion().contains("-") ? fetch.getLatestRelease() : fetch.getLatestPreRelease();
                     if (fetch.isBlocked(platform.getPluginVersion())) {
                         platform.getPluginLogger().severe("当前版本已停用，继续使用将不会得到作者的任何支持！");
                         platform.getPluginLogger().severe("请立刻更新到最新版本: " + version);
-                        platform.getPluginLogger().severe("从 GitHub 下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
+                        platform.getPluginLogger().severe("从 GitHub 下载更新: https://github.com/DreamVoid/MiraiMC/releases");
                     } else if (!platform.getPluginVersion().equals(version)) {
                         platform.getPluginLogger().info("已找到新的插件更新，最新版本: " + version);
-                        platform.getPluginLogger().info("从 GitHub 下载更新: https://github.com/DreamVoid/MiraiMC/releases/latest");
+                        platform.getPluginLogger().info("从 GitHub 下载更新: https://github.com/DreamVoid/MiraiMC/releases");
                     } else {
                         platform.getPluginLogger().info("你使用的是最新版本的 MiraiMC！");
                     }
