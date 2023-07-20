@@ -7,7 +7,7 @@
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
     <packaging>pom</packaging>
-    <version>1.8-pre2</version> <!-- 提醒：记得去Sponge和Velocity手动修改 -->
+    <version>1.8-rc1</version> <!-- 提醒：记得去Sponge和Velocity手动修改 -->
     <modules>
         <module>MiraiMC-Base</module>
         <module>MiraiMC-Bukkit</module>
