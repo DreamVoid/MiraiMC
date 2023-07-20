@@ -5,6 +5,7 @@ main: me.dreamvoid.miraimc.bukkit.BukkitPlugin
 version: ${project.version}
 api-version: 1.13
 webside: https://github.com/DreamVoid/MiraiMC
+folia-supported: true
 commands:
   mirai:
     description: MiraiMC Bot Command.

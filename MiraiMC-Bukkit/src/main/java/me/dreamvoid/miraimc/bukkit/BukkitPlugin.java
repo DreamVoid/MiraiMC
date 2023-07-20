@@ -1,5 +1,7 @@
 package me.dreamvoid.miraimc.bukkit;
 
+import com.github.Anon8281.universalScheduler.UniversalScheduler;
+import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskScheduler;
 import me.dreamvoid.miraimc.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.IMiraiEvent;
 import me.dreamvoid.miraimc.MiraiMCPlugin;
@@ -27,6 +29,7 @@ public class BukkitPlugin extends JavaPlugin implements PlatformPlugin {
     private MiraiAutoLogin MiraiAutoLogin;
     private final MiraiMCPlugin lifeCycle;
     private final MiraiMCConfig platformConfig;
+    private TaskScheduler scheduler; // Folia
 
     public BukkitPlugin(){
         lifeCycle = new MiraiMCPlugin(this);
@@ -49,6 +52,8 @@ public class BukkitPlugin extends JavaPlugin implements PlatformPlugin {
 
     @Override // 启用插件
     public void onEnable() {
+        scheduler = UniversalScheduler.getScheduler(this); // Folia
+
         lifeCycle.postLoad();
 
         // 监听事件
@@ -67,7 +72,7 @@ public class BukkitPlugin extends JavaPlugin implements PlatformPlugin {
         // HTTP API
         if(MiraiMCConfig.General.EnableHttpApi){
             getLogger().info("Initializing HttpAPI async task.");
-            getServer().getScheduler().runTaskTimerAsynchronously(this, new MiraiHttpAPIResolver(this), 0, MiraiMCConfig.HttpApi.MessageFetch.Interval);
+            getScheduler().runTaskTimerAsynchronously(new MiraiHttpAPIResolver(this), 0, MiraiMCConfig.HttpApi.MessageFetch.Interval);
         }
     }
 
@@ -226,12 +231,12 @@ public class BukkitPlugin extends JavaPlugin implements PlatformPlugin {
 
     @Override
     public void runTaskAsync(Runnable task) {
-        Bukkit.getScheduler().runTaskAsynchronously(this, task);
+        getScheduler().runTaskAsynchronously(task);
     }
 
     @Override
     public void runTaskLaterAsync(Runnable task, long delay) {
-        Bukkit.getScheduler().runTaskLaterAsynchronously(this, task, delay);
+        getScheduler().runTaskLaterAsynchronously(task, delay);
     }
 
     @Override
@@ -272,5 +277,9 @@ public class BukkitPlugin extends JavaPlugin implements PlatformPlugin {
     @Override
     public MiraiMCConfig getPluginConfig() {
         return platformConfig;
+    }
+
+    TaskScheduler getScheduler(){
+        return scheduler;
     }
 }
