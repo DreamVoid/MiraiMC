@@ -41,7 +41,7 @@ public class NukkitPlugin extends PluginBase implements PlatformPlugin {
             lifeCycle.preLoad();
 
             MiraiAutoLogin = new MiraiAutoLogin(this);
-            MiraiEvent = !MiraiMCConfig.General.LegacyEventSupport ? new MiraiEvent(this) : new MiraiEventLegacy(this);
+            MiraiEvent = new MiraiEvent(this);
         } catch (Exception e) {
             getLogger().warning("An error occurred while loading plugin." );
             e.printStackTrace();

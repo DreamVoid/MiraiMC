@@ -39,7 +39,7 @@ public class BungeePlugin extends Plugin implements PlatformPlugin {
             lifeCycle.preLoad();
 
             MiraiAutoLogin = new MiraiAutoLogin(this);
-            MiraiEvent = !MiraiMCConfig.General.LegacyEventSupport ? new MiraiEvent() : new MiraiEventLegacy();
+            MiraiEvent = new MiraiEvent();
         } catch (Exception e) {
             getLogger().warning("An error occurred while loading plugin.");
             e.printStackTrace();

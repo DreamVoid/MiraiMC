@@ -43,7 +43,7 @@ public class BukkitPlugin extends JavaPlugin implements PlatformPlugin {
             lifeCycle.preLoad();
             // 加载mirai核心完成，开始加载附属功能
             MiraiAutoLogin = new MiraiAutoLogin(this);
-            MiraiEvent = !MiraiMCConfig.General.LegacyEventSupport ? new MiraiEvent() : new MiraiEventLegacy();
+            MiraiEvent = new MiraiEvent();
         } catch (Exception e) {
             getLogger().warning("An error occurred while loading plugin.");
             e.printStackTrace();

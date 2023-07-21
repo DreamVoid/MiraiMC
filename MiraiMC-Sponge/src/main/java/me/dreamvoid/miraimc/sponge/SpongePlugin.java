@@ -77,7 +77,7 @@ public class SpongePlugin implements PlatformPlugin {
             lifeCycle.preLoad();
 
             MiraiAutoLogin = new MiraiAutoLogin(this);
-            MiraiEvent = !MiraiMCConfig.General.LegacyEventSupport ? new MiraiEvent(this) : new MiraiEventLegacy(this);
+            MiraiEvent = new MiraiEvent(this);
         } catch (Exception ex) {
             getLogger().warn("An error occurred while loading plugin.");
             ex.printStackTrace();

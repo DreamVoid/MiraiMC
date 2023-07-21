@@ -76,7 +76,7 @@ public class VelocityPlugin implements PlatformPlugin {
         try {
             lifeCycle.preLoad();
 
-            MiraiEvent = !MiraiMCConfig.General.LegacyEventSupport ? new MiraiEvent(this) : new MiraiEventLegacy(this);
+            MiraiEvent = new MiraiEvent(this);
             MiraiAutoLogin = new MiraiAutoLogin(this);
         } catch (Exception e) {
             getLogger().warn("An error occurred while loading plugin.");
