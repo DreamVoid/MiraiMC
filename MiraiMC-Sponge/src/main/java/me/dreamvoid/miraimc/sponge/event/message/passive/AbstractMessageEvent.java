@@ -176,7 +176,7 @@ abstract class AbstractMessageEvent extends AbstractEvent {
 	 * @param message 消息内容
 	 */
 	public void reply(String message) {
-		event.getSender().sendMessage(new MessageChainBuilder()
+		event.getSubject().sendMessage(new MessageChainBuilder()
 				.append(new QuoteReply(event.getMessage()))
 				.append(message)
 				.build()
@@ -188,7 +188,7 @@ abstract class AbstractMessageEvent extends AbstractEvent {
 	 * @param message 消息内容
 	 */
 	public void replyMirai(String message) {
-		event.getSender().sendMessage(new MessageChainBuilder()
+		event.getSubject().sendMessage(new MessageChainBuilder()
 				.append(new QuoteReply(event.getMessage()))
 				.append(MiraiCode.deserializeMiraiCode(message))
 				.build()
