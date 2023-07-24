@@ -60,9 +60,9 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <copy file="${project.build.directory}/MiraiMC-Velocity.jar" tofile="../target/MiraiMC-Velocity.jar"/>
-                            </tasks>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>
