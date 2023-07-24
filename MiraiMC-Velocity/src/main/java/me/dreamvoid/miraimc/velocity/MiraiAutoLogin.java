@@ -22,7 +22,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
 
     public MiraiAutoLogin(VelocityPlugin plugin) {
         this.plugin = plugin;
-        logger = new VelocityLogger("MiraiMC-AutoLogin", null, plugin);
+        logger = new VelocityLogger("MiraiMC-AutoLogin", plugin);
         logger.setParent(Utils.logger);
         Instance = this;
     }

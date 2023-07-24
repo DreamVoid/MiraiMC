@@ -70,8 +70,6 @@ public abstract class URLClassLoaderAccess {
      */
     public abstract void addURL(URL url);
 
-    public abstract void close() throws IOException;
-
     /**
      * Accesses using reflection, not supported on Java 9+.
      */
@@ -103,16 +101,6 @@ public abstract class URLClassLoaderAccess {
                 ADD_URL_METHOD.invoke(super.classLoader, url);
             } catch (ReflectiveOperationException e) {
                 throw new RuntimeException(e);
-            }
-        }
-
-        @Override
-        public void close() throws IOException {
-            try {
-                Method addUrlMethod = URLClassLoader.class.getDeclaredMethod("close");
-                addUrlMethod.setAccessible(true);
-                addUrlMethod.invoke(super.classLoader);
-            } catch (Exception e) {
             }
         }
     }
@@ -173,18 +161,6 @@ public abstract class URLClassLoaderAccess {
             this.unopenedURLs.add(url);
             this.pathURLs.add(url);
         }
-
-        @Override
-        public void close() throws IOException {
-            try {
-                Method addUrlMethod = URLClassLoader.class.getDeclaredMethod("close");
-                addUrlMethod.setAccessible(true);
-                addUrlMethod.invoke(super.classLoader);
-            } catch (Exception e) {
-            }
-            this.unopenedURLs.clear();
-            this.pathURLs.clear();
-        }
     }
 
     private static class Noop extends URLClassLoaderAccess {
@@ -196,11 +172,6 @@ public abstract class URLClassLoaderAccess {
 
         @Override
         public void addURL(URL url) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public void close() {
             throw new UnsupportedOperationException();
         }
     }

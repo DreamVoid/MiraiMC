@@ -69,7 +69,7 @@ public class SpongePlugin implements PlatformPlugin {
      */
     @Listener
     public void onLoad(GamePreInitializationEvent e) {
-        SpongeLogger = new SpongeLogger("MiraiMC", null, this);
+        SpongeLogger = new SpongeLogger("MiraiMC", this);
         lifeCycle = new MiraiMCPlugin(this);
         lifeCycle.startUp();
         platformConfig = new SpongeConfig(this);

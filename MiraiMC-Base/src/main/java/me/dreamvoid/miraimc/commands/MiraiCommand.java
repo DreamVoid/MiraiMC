@@ -7,7 +7,6 @@ import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.httpapi.MiraiHttpAPI;
 import me.dreamvoid.miraimc.httpapi.exception.AbnormalStatusException;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.libloader.JarLoader;
 import me.dreamvoid.miraimc.internal.libloader.MiraiLoader;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
@@ -167,7 +166,7 @@ public class MiraiCommand implements ICommandExecutor {
             case "sendfriendnudge":{
                 if(sender.hasPermission("miraimc.command.mirai.sendfriendnudge")){
                     if(args.length >= 3){
-                        MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendNudge();
+                        MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).nudge();
                     } else {
                         sender.sendMessage("&c无效的参数！用法: /mirai sendfriendnudge <账号> <好友>");
                     }
@@ -313,11 +312,11 @@ public class MiraiCommand implements ICommandExecutor {
                             break;
                         }
                         case "unload":{
-                            try {
+                            /*try {
                                 JarLoader.unloadJar();
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
-                            }
+                            }*/
                             break;
                         }
                         case "testclass":{
@@ -331,7 +330,7 @@ public class MiraiCommand implements ICommandExecutor {
                         }
                         case "change":{
                             try {
-                                JarLoader.unloadJar();
+                                //JarLoader.unloadJar();
                                 MiraiLoader.loadMiraiCore(args[2]);
                                 sender.sendMessage("Success");
                             } catch (IOException | ParserConfigurationException | SAXException e) {

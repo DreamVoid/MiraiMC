@@ -23,7 +23,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
 
     public MiraiAutoLogin(SpongePlugin plugin) {
         this.plugin = plugin;
-        logger = new SpongeLogger("MiraiMC-AutoLogin", null, plugin);
+        logger = new SpongeLogger("MiraiMC-AutoLogin", plugin);
         logger.setParent(Utils.logger);
         Instance = this;
     }

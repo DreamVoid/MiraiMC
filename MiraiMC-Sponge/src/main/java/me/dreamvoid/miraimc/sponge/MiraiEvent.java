@@ -83,6 +83,7 @@ public class MiraiEvent implements IMiraiEvent {
     private Listener<BotJoinGroupEvent> BotJoinGroupEventListener;
 
     private Listener<GroupNameChangeEvent> GroupNameChangeEventListener;
+    @Deprecated
     private Listener<GroupEntranceAnnouncementChangeEvent> GroupEntranceAnnouncementChangeEventListener;
     private Listener<GroupMuteAllEvent> GroupMuteAllEventListener;
     private Listener<GroupAllowAnonymousChatEvent> GroupAllowAnonymousChatEventListener;

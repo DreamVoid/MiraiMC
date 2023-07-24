@@ -39,10 +39,6 @@ public class JarLoader {
 		loader.addURL(file.toURI().toURL());
 	}
 
-	public static void unloadJar() throws IOException {
-		loader.close();
-	}
-
 	/**
 	 * 加载 Maven 仓库的依赖库
 	 * @param groupId 组ID

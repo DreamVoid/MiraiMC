@@ -29,7 +29,7 @@ public class SendFriendNudgeCommand extends BaseSubCommand {
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
         if(args.length >= 3){
-            MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendNudge();
+            MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).nudge();
         } else {
             sender.sendMessage(TextFormat.colorize('&',"&c无效的参数！用法: /mirai sendfriendnudge <账号> <好友>"));
         }

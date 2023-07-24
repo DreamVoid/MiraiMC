@@ -25,7 +25,7 @@ public class NukkitPlugin extends PluginBase implements PlatformPlugin {
     private final Logger NukkitLogger;
 
     public NukkitPlugin(){
-        NukkitLogger = new NukkitLogger("MiraiMC-Nukkit",null, this);
+        NukkitLogger = new NukkitLogger("MiraiMC-Nukkit", this);
         lifeCycle = new MiraiMCPlugin(this);
         lifeCycle.startUp();
         platformConfig = new NukkitConfig(this);

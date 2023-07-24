@@ -51,7 +51,7 @@ public class VelocityPlugin implements PlatformPlugin {
         this.dataDirectory = dataDirectory;
         this.metricsFactory = metricsFactory;
 
-        VelocityLogger = new VelocityLogger("MiraiMC", null, this);
+        VelocityLogger = new VelocityLogger("MiraiMC", this);
         lifeCycle = new MiraiMCPlugin(this);
         lifeCycle.startUp();
         platformConfig = new VelocityConfig(this);

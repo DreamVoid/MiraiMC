@@ -5,7 +5,9 @@ import net.mamoe.mirai.event.events.GroupEntranceAnnouncementChangeEvent;
 
 /**
  * (Sponge) 群 - 群设置 - 群设置改变 - 入群公告改变
+ * @deprecated
  */
+@Deprecated
 public class MiraiGroupEntranceAnnouncementChangeEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupEntranceAnnouncementChangeEvent(GroupEntranceAnnouncementChangeEvent event, Cause cause) {
         super(event, cause);
