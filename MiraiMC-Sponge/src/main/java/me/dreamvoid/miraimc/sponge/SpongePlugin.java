@@ -41,15 +41,11 @@ import java.util.concurrent.TimeUnit;
         authors = {"DreamVoid"}
 )
 public class SpongePlugin implements PlatformPlugin {
-    private final MiraiMCPlugin lifeCycle;
-    private final MiraiMCConfig platformConfig;
-    private final java.util.logging.Logger SpongeLogger;
+    private MiraiMCPlugin lifeCycle;
+    private MiraiMCConfig platformConfig;
+    private java.util.logging.Logger SpongeLogger;
 
     public SpongePlugin(){
-        SpongeLogger = new SpongeLogger("MiraiMC", null, this);
-        lifeCycle = new MiraiMCPlugin(this);
-        lifeCycle.startUp();
-        platformConfig = new SpongeConfig(this);
     }
 
     @Inject
@@ -73,6 +69,11 @@ public class SpongePlugin implements PlatformPlugin {
      */
     @Listener
     public void onLoad(GamePreInitializationEvent e) {
+        SpongeLogger = new SpongeLogger("MiraiMC", null, this);
+        lifeCycle = new MiraiMCPlugin(this);
+        lifeCycle.startUp();
+        platformConfig = new SpongeConfig(this);
+
         try {
             lifeCycle.preLoad();
 
