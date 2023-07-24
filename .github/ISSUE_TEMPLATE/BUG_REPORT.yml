@@ -61,7 +61,9 @@ body:
     id: serverlog
     attributes: 
       label: 服务端日志
-      description: 在下方复制你的服务端日志
+      description: |
+        在下方复制你的服务端日志
+        如果日志超出字数限制，请在 https://mclo.gs/ 上传日志文件，在下方填写链接。
       placeholder: |
         请提供 latest.log 文件的所有内容，自以为知道问题所在而提供不完整的日志将被直接关闭。
         如果日志超出字数限制，请在 https://mclo.gs/ 上传日志文件，在这里填写链接。
