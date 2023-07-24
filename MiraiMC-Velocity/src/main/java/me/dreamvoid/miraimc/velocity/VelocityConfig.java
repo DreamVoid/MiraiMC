@@ -1,12 +1,14 @@
 package me.dreamvoid.miraimc.velocity;
 
 import me.dreamvoid.miraimc.MiraiMCConfig;
+import me.dreamvoid.miraimc.internal.ConfigSerializable;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,51 +32,44 @@ public class VelocityConfig extends MiraiMCConfig {
                 Files.copy(is, file.toPath());
             }
         }
+
         Yaml yaml = new Yaml();
-        InputStream inputStream = new FileInputStream(file);
-        Map<String, Object> obj = yaml.load(inputStream);
+        String config = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8).replace("-", "__");
+        ConfigSerializable serializable = yaml.loadAs(config, ConfigSerializable.class);
 
-        Map<String, Object> general = !Objects.isNull(obj.get("general")) ? (Map<String, Object>) obj.get("general") : new HashMap<>();
-        General.AllowBStats = !Objects.isNull(general.get("allow-bStats")) ? (Boolean) general.get("allow-bStats") : false;
-        General.CheckUpdate = !Objects.isNull(general.get("check-update")) ? (Boolean) general.get("check-update") : false;
-        General.DisableSafeWarningMessage = !Objects.isNull(general.get("disable-safe-warning-message")) ? (Boolean) general.get("disable-safe-warning-message") : false;
-        General.MiraiWorkingDir = !Objects.isNull(general.get("mirai-working-dir")) ? String.valueOf(general.get("mirai-working-dir")) : "default";
-        General.MiraiCoreVersion = !Objects.isNull(general.get("mirai-core-version")) ? String.valueOf(general.get("mirai-core-version")) : "latest";
-        General.MavenRepoUrl = !Objects.isNull(general.get("maven-repo-url")) ? String.valueOf(general.get("maven-repo-url")) : "https://maven.aliyun.com/nexus/content/groups/public/";
-        General.EnableHttpApi = !Objects.isNull(general.get("enable-http-api")) ? (Boolean) general.get("enable-http-api") : false;
-        General.LegacyEventSupport = !Objects.isNull(general.get("legacy-event-support")) ? (Boolean) general.get("legacy-event-support") : false;
-        General.AutoOpenQRCodeFile = !Objects.isNull(general.get("auto-open-qrcode-file")) ? (Boolean) general.get("auto-open-qrcode-file") : false;
+        General.AllowBStats = serializable.general.allow__bStats;
+        General.CheckUpdate = serializable.general.check__update;
+        General.DisableSafeWarningMessage = serializable.general.disable__safe__warning__message;
+        General.MiraiWorkingDir = serializable.general.mirai__working__dir;
+        General.MiraiCoreVersion = serializable.general.mirai__core__version;
+        General.MavenRepoUrl = serializable.general.maven__repo__url;
+        General.EnableHttpApi = serializable.general.enable__http__api;
+        General.LegacyEventSupport = serializable.general.legacy__event__support;
+        General.AutoOpenQRCodeFile = serializable.general.auto__open__qrcode__file;
 
-        Map<String, Object> bot = !Objects.isNull(obj.get("bot")) ? (Map<String, Object>) obj.get("bot") : new HashMap<>();
-        Bot.DisableNetworkLogs = !Objects.isNull(bot.get("disable-network-logs")) ? (Boolean) bot.get("disable-network-logs") : false;
-        Bot.DisableBotLogs = !Objects.isNull(bot.get("disable-bot-logs")) ? (Boolean) bot.get("disable-bot-logs") : false;
+        Bot.DisableNetworkLogs = serializable.bot.disable__network__logs;
+        Bot.DisableBotLogs = serializable.bot.disable__bot__logs;
+        Bot.UseMinecraftLogger.BotLogs = serializable.bot.use__minecraft__logger.bot__logs;
+        Bot.UseMinecraftLogger.NetworkLogs = serializable.bot.use__minecraft__logger.network__logs;
+        Bot.LogEvents = serializable.bot.log__events;
+        Bot.ContactCache.EnableFriendListCache = serializable.bot.contact__cache.enable__friend__list__cache;
+        Bot.ContactCache.EnableGroupMemberListCache = serializable.bot.contact__cache.enable__group__member__list__cache;
+        Bot.ContactCache.SaveIntervalMillis = serializable.bot.contact__cache.save__interval__millis;
 
-        Map<String, Object> useBukkitLogger = !Objects.isNull(bot.get("use-minecraft-logger")) ? (Map<String, Object>) bot.get("use-minecraft-logger") : new HashMap<>();
-        Bot.UseMinecraftLogger.BotLogs = !Objects.isNull(useBukkitLogger.get("bot-logs")) ? (Boolean) useBukkitLogger.get("bot-logs") : true;
-        Bot.UseMinecraftLogger.NetworkLogs = !Objects.isNull(useBukkitLogger.get("network-logs")) ? (Boolean) useBukkitLogger.get("network-logs") : true;
+        Database.Type = serializable.database.type;
+        Database.MySQL.Address = serializable.database.mysql.address;
+        Database.MySQL.Username = serializable.database.mysql.username;
+        Database.MySQL.Password = serializable.database.mysql.password;
+        Database.MySQL.Database = serializable.database.mysql.database;
+        Database.MySQL.Poll.ConnectionTimeout = serializable.database.mysql.pool.connectionTimeout;
+        Database.MySQL.Poll.IdleTimeout = serializable.database.mysql.pool.idleTimeout;
+        Database.MySQL.Poll.MaxLifetime = serializable.database.mysql.pool.maxLifetime;
+        Database.MySQL.Poll.MaximumPoolSize = serializable.database.mysql.pool.maximumPoolSize;
+        Database.MySQL.Poll.KeepaliveTime = serializable.database.mysql.pool.keepaliveTime;
+        Database.MySQL.Poll.MinimumIdle = serializable.database.mysql.pool.minimumIdle;
 
-        Bot.LogEvents = !Objects.isNull(bot.get("log-events")) ? (Boolean) bot.get("log-events") : true;
-
-        Map<String, Object> contactCache = !Objects.isNull(bot.get("contact-cache")) ? (Map<String, Object>) bot.get("contact-cache") : new HashMap<>();
-        Bot.ContactCache.EnableFriendListCache = !Objects.isNull(contactCache.get("enable-friend-list-cache")) ? (Boolean) contactCache.get("enable-friend-list-cache") : false;
-        Bot.ContactCache.EnableGroupMemberListCache = !Objects.isNull(contactCache.get("enable-group-member-list-cache")) ? (Boolean) contactCache.get("enable-group-member-list-cache") : false;
-        Bot.ContactCache.SaveIntervalMillis = !Objects.isNull(contactCache.get("save-interval-millis")) ? Long.parseLong(String.valueOf(contactCache.get("save-interval-millis"))) : 60000;
-
-        Map<String, Object> database = !Objects.isNull(obj.get("database")) ? (Map<String, Object>) obj.get("database") : new HashMap<>();
-        Database.Type = !Objects.isNull(database.get("type")) ? String.valueOf(database.get("type")).toLowerCase() : "sqlite";
-
-        Map<String, Object> mysql = !Objects.isNull(database.get("mysql")) ? (Map<String, Object>) database.get("mysql") : new HashMap<>();
-        Database.MySQL.Address = !Objects.isNull(mysql.get("address")) ? String.valueOf(mysql.get("address")) : "localhost";
-        Database.MySQL.Username = !Objects.isNull(mysql.get("username")) ? String.valueOf(mysql.get("username")) : "miraimc";
-        Database.MySQL.Password = !Objects.isNull(mysql.get("password")) ? String.valueOf(mysql.get("password")) : "miraimc";
-        Database.MySQL.Database = !Objects.isNull(mysql.get("database")) ? String.valueOf(mysql.get("database")) : "miraimc";
-
-        Map<String, Object> pool = !Objects.isNull(mysql.get("pool")) ? (Map<String, Object>) mysql.get("pool") : new HashMap<>();
-        Database.MySQL.Poll.ConnectionTimeout = !Objects.isNull(pool.get("connectionTimeout")) ? (Integer) pool.get("connectionTimeout") : 30000;
-        Database.MySQL.Poll.IdleTimeout = !Objects.isNull(pool.get("connectionTimeout")) ? (Integer) pool.get("connectionTimeout") : 600000;
-        Database.MySQL.Poll.MaxLifetime = !Objects.isNull(pool.get("maxLifetime")) ? (Integer) pool.get("maxLifetime") : 1800000;
-        Database.MySQL.Poll.MaximumPoolSize = !Objects.isNull(pool.get("maximumPoolSize")) ? (Integer) pool.get("maximumPoolSize") : 15;
-        Database.MySQL.Poll.KeepaliveTime = !Objects.isNull(pool.get("keepaliveTime")) ? (Integer) pool.get("keepaliveTime") : 0;
-        Database.MySQL.Poll.MinimumIdle = !Objects.isNull(pool.get("minimumIdle")) ? (Integer) pool.get("minimumIdle") : 5;
+        HttpApi.Url = serializable.http__api.url;
+        HttpApi.MessageFetch.Interval = serializable.http__api.message__fetch.interval;
+        HttpApi.MessageFetch.Count = serializable.http__api.message__fetch.count;
     }
 }
