@@ -48,7 +48,7 @@ public class JarLoader {
 	 * @param extra 额外参数
 	 * @param path 保存目录
 	 */
-	static void loadJarMaven(String groupId, String artifactId, String version, String extra, String repo, File path) throws RuntimeException, IOException {
+	public static void loadJarMaven(String groupId, String artifactId, String version, String extra, String repo, File path) throws RuntimeException, IOException {
 		String name = artifactId + "-" + version + ".jar"; // 文件名
 
 		// jar
