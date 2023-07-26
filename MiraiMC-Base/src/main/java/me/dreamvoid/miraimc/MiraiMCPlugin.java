@@ -88,8 +88,7 @@ public class MiraiMCPlugin {
             try {
                 FixProtocolVersion.update();
                 for (BotConfiguration.MiraiProtocol protocol : BotConfiguration.MiraiProtocol.values()) {
-                    FixProtocolVersion.fetch(protocol, "latest");
-                    File file = new File(new File(MiraiMCConfig.PluginDir, "cache"), protocol.name().toLowerCase() + ".json");
+                    File file = new File(new File(MiraiMCConfig.PluginDir, "protocol"), protocol.name().toLowerCase() + ".json");
                     if (file.exists()) {
                         logger.info(protocol + " load from " + file.toPath().toUri());
                         FixProtocolVersion.load(protocol);
