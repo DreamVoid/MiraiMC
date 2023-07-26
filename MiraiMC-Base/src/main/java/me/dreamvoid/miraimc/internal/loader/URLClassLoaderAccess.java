@@ -1,7 +1,4 @@
 /*
- * 我懒到直接复制粘贴了
- *     -- DreamVoid
- *
  * This file is part of helper, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
@@ -37,6 +34,7 @@ import java.util.Collection;
 /**
  * Provides access to {@link URLClassLoader}#addURL.
  */
+@SuppressWarnings("all")
 public abstract class URLClassLoaderAccess {
 
     /**
