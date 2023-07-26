@@ -1,4 +1,4 @@
-package me.dreamvoid.miraimc.internal.libloader;
+package me.dreamvoid.miraimc.internal.loader;
 
 import com.google.common.base.Suppliers;
 import me.dreamvoid.miraimc.MiraiMCConfig;
@@ -24,21 +24,29 @@ import java.util.function.Supplier;
 /**
  * Jar 库加载器
  */
-public class JarLoader {
+public class LibraryLoader {
 	// 把lucko的代码偷过来 XD
 	private static final Supplier<URLClassLoaderAccess> LOADER = () -> Suppliers.memoize(() -> URLClassLoaderAccess.create((URLClassLoader) Utils.classLoader)).get(); // 勿动，乱改可能导致低版本mc无法加载
 
-	private static URLClassLoaderAccess loader;
 	/**
 	 * 加载本地 Jar
 	 * @param file Jar 文件
 	 */
-	static void loadJarLocal(File file) throws MalformedURLException {
+	public static void loadJarLocal(File file) throws MalformedURLException {
 		Utils.logger.info("Loading library " + file);
-		loader = LOADER.get();
-		loader.addURL(file.toURI().toURL());
+		LOADER.get().addURL(file.toURI().toURL());
 	}
 
+	/**
+	 * 加载 Maven 中央仓库的依赖库
+	 * @param groupId 组ID
+	 * @param artifactId 构件ID
+	 * @param version 版本
+	 * @param path 保存目录
+	 */
+	public static void loadJarMaven(String groupId, String artifactId, String version, File path) throws RuntimeException, IOException {
+		loadJarMaven(groupId,artifactId,version,"", MiraiMCConfig.General.MavenRepoUrl, path);
+	}
 	/**
 	 * 加载 Maven 仓库的依赖库
 	 * @param groupId 组ID
@@ -54,7 +62,7 @@ public class JarLoader {
 		// jar
 		File saveLocation = new File(path, name);
 		if(!downloadJarMaven(repo, groupId, artifactId, version, extra, path, true)){
-			throw new RuntimeException("Failed to download libraries!");
+			throw new RuntimeException("Failed to download library!");
 		}
 
 		// 加载开始
@@ -102,18 +110,18 @@ public class JarLoader {
 		if(checkMD5) {
 			Utils.logger.info("Verifying " + FileName);
 
-			File MD5File = new File(path, FileName + ".md5");
-			String MD5FileUrl = JarFileURL + ".md5";
+			File md5File = new File(path, FileName + ".md5");
+			String md5FileUrl = JarFileURL + ".md5";
 
-			if (MD5File.exists() && !MD5File.delete()) throw new RuntimeException("Failed to delete " + MD5File.getPath());
+			if (md5File.exists() && !md5File.delete()) throw new RuntimeException("Failed to delete " + md5File.getPath());
 
-			downloadFile(MD5File, new URL(MD5FileUrl), false); // 下载MD5文件
+			downloadFile(md5File, new URL(md5FileUrl), false); // 下载MD5文件
 
-			if(!MD5File.exists()) throw new RuntimeException("Failed to download " + MD5FileUrl);
+			if(!md5File.exists()) throw new RuntimeException("Failed to download " + md5FileUrl);
 
 			if(JarFile.exists()){
 				FileInputStream fis = new FileInputStream(JarFile);
-				if(!DigestUtils.md5Hex(fis).equals(new String(Files.readAllBytes(MD5File.toPath()), StandardCharsets.UTF_8))){
+				if(!DigestUtils.md5Hex(fis).equals(new String(Files.readAllBytes(md5File.toPath()), StandardCharsets.UTF_8))){
 					fis.close();
 					if(!JarFile.delete()) throw new RuntimeException("Failed to delete " + JarFile.getPath());
 				}
@@ -130,14 +138,36 @@ public class JarLoader {
 		return JarFile.exists();
 	}
 
+
 	/**
+	 * 获取Maven中央仓库的依赖版本
+	 * @param groupId 组ID
+	 * @param artifactId 构件ID
+	 * @param xmlTag XML标签
+	 * @return 版本名
+	 */
+	public static String getLibraryVersionMaven(String groupId, String artifactId, String xmlTag) throws RuntimeException, IOException, ParserConfigurationException, SAXException {
+		return getLibraryVersionMaven(groupId,artifactId, MiraiMCConfig.General.MavenRepoUrl, xmlTag);
+	}
+	/**
+	 * 获取Maven仓库的最新依赖版本
+	 * @param groupId 组ID
+	 * @param artifactId 构件ID
+	 * @return 版本名
+	 */
+	public static String getLibraryVersionMaven(String groupId, String artifactId) throws RuntimeException, IOException, ParserConfigurationException, SAXException {
+		return getLibraryVersionMaven(groupId,artifactId, MiraiMCConfig.General.MavenRepoUrl, "release");
+	}
+
+	/**
+	 * 获取Maven仓库的依赖版本
 	 * @param groupId 组ID
 	 * @param artifactId 构件ID
 	 * @param repo 仓库地址
 	 * @param xmlTag XML标签
 	 * @return 版本名
 	 */
-	static String getLibraryVersionMaven(String groupId, String artifactId, String repo, String xmlTag) throws RuntimeException, IOException, ParserConfigurationException, SAXException {
+	public static String getLibraryVersionMaven(String groupId, String artifactId, String repo, String xmlTag) throws RuntimeException, IOException, ParserConfigurationException, SAXException {
 		File CacheDir = new File(MiraiMCConfig.PluginDir,"cache");
 		if(!CacheDir.exists() && !CacheDir.mkdirs()) throw new RuntimeException("Failed to create " + CacheDir.getPath());
 		String metaFileName = "maven-metadata-" + groupId + "." + artifactId + ".xml";

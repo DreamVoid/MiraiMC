@@ -1,7 +1,6 @@
-package me.dreamvoid.miraimc.internal.libloader;
+package me.dreamvoid.miraimc.internal;
 
 import me.dreamvoid.miraimc.MiraiMCConfig;
-import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.webapi.Info;
 import me.dreamvoid.miraimc.internal.webapi.Version;
 import org.xml.sax.SAXException;
@@ -14,7 +13,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
-import static me.dreamvoid.miraimc.internal.libloader.JarLoader.*;
+import static me.dreamvoid.miraimc.internal.loader.LibraryLoader.*;
 
 public class MiraiLoader {
     /**

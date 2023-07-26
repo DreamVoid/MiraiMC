@@ -5,8 +5,8 @@ import me.dreamvoid.miraimc.internal.MiraiEncryptServiceFactory;
 import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
 import me.dreamvoid.miraimc.internal.PluginUpdate;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.libloader.JarLoader;
-import me.dreamvoid.miraimc.internal.libloader.MiraiLoader;
+import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
+import me.dreamvoid.miraimc.internal.MiraiLoader;
 import me.dreamvoid.miraimc.internal.webapi.Info;
 import org.xml.sax.SAXException;
 
@@ -58,9 +58,7 @@ public class MiraiMCPlugin {
         platform.getPluginLogger().info("Mirai working dir: " + MiraiMCConfig.General.MiraiWorkingDir);
 
         // 加载 kotlin
-
-        platform.getPluginLogger().info("Selected kotlin version: 1.9.0");
-        JarLoader.loadJarMaven("org.jetbrains.kotlin", "kotlin-stdlib", "1.9.0", "", MiraiMCConfig.General.MavenRepoUrl, new File(MiraiMCConfig.PluginDir, "libraries"));
+        LibraryLoader.loadJarMaven("org.jetbrains.kotlin", "kotlin-stdlib", "1.9.0", new File(MiraiMCConfig.PluginDir, "libraries"));
 
         // 加载 mirai 核心
         platform.getPluginLogger().info("Selected mirai core version: " + MiraiMCConfig.General.MiraiCoreVersion);
