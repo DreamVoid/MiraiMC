@@ -1,4 +1,4 @@
-package me.dreamvoid.miraimc.internal.webapi;
+package me.dreamvoid.miraimc.internal;
 
 import me.dreamvoid.miraimc.internal.webapi.Version;
 
