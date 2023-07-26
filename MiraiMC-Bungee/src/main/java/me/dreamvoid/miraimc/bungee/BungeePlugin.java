@@ -72,7 +72,7 @@ public class BungeePlugin extends Plugin implements PlatformPlugin {
         });
 
         // 监听事件
-        if(MiraiMCConfig.Bot.LogEvents){
+        if(MiraiMCConfig.General.LogEvents){
             getLogger().info("Registering events.");
             getProxy().getPluginManager().registerListener(this, new Events());
         }

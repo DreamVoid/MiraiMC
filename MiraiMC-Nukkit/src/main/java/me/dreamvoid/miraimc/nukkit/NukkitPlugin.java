@@ -59,7 +59,7 @@ public class NukkitPlugin extends PluginBase implements PlatformPlugin {
         getServer().getCommandMap().register("", new MiraiVerifyCommand());
 
         // 监听事件
-        if(MiraiMCConfig.Bot.LogEvents){
+        if(MiraiMCConfig.General.LogEvents){
             getLogger().info("Registering events.");
             this.getServer().getPluginManager().registerEvents(new Events(this), this);
         }

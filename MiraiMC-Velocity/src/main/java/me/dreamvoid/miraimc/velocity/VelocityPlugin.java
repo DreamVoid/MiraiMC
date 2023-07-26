@@ -97,7 +97,7 @@ public class VelocityPlugin implements PlatformPlugin {
         manager.register(miraiverify, (SimpleCommand) invocation -> new MiraiVerifyCommand().onCommand(SpecialUtils.getSender(invocation.source()), invocation.arguments()));
 
         // 监听事件
-        if(MiraiMCConfig.Bot.LogEvents){
+        if(MiraiMCConfig.General.LogEvents){
             getLogger().info("Registering events.");
             server.getEventManager().register(this, new Events());
         }

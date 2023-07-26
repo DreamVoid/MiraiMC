@@ -93,7 +93,7 @@ public class SpongePlugin implements PlatformPlugin {
         lifeCycle.postLoad();
 
         // 监听事件
-        if(MiraiMCConfig.Bot.LogEvents){
+        if(MiraiMCConfig.General.LogEvents){
             getLogger().info("Registering events.");
             Sponge.getEventManager().registerListeners(this, new Events());
         }

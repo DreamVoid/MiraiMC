@@ -57,7 +57,7 @@ public class BukkitPlugin extends JavaPlugin implements PlatformPlugin {
         lifeCycle.postLoad();
 
         // 监听事件
-        if(MiraiMCConfig.Bot.LogEvents){
+        if(MiraiMCConfig.General.LogEvents){
             getLogger().info("Registering events.");
             Bukkit.getPluginManager().registerEvents(new Events(), this);
         }
