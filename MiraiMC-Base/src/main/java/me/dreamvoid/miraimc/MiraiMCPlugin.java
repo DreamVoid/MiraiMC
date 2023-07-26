@@ -1,13 +1,10 @@
 package me.dreamvoid.miraimc;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.internal.MiraiEncryptServiceFactory;
-import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
-import me.dreamvoid.miraimc.internal.PluginUpdate;
-import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.internal.*;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
-import me.dreamvoid.miraimc.internal.MiraiLoader;
 import me.dreamvoid.miraimc.internal.webapi.Info;
+import me.dreamvoid.miraimc.internal.webapi.PluginUpdate;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -70,8 +67,8 @@ public class MiraiMCPlugin {
             MiraiLoader.loadMiraiCore(MiraiMCConfig.General.MiraiCoreVersion);
         }
 
-        platform.getPluginLogger().info("Registering third party encryption service.");
-        MiraiEncryptServiceFactory.install();
+        platform.getPluginLogger().info("Registering Mirai Encrypt Service.");
+        MiraiEncryptServiceFactoryKt.install();
 
         platform.getPluginLogger().info("Pre-load tasks finished.");
     }

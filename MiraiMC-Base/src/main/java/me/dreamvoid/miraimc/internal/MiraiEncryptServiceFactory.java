@@ -6,15 +6,9 @@ import net.mamoe.mirai.internal.spi.EncryptServiceContext;
 import org.jetbrains.annotations.NotNull;
 
 public class MiraiEncryptServiceFactory implements EncryptService.Factory {
-
-    public static void install(){
-        new MiraiEncryptServiceFactoryKotlin().install();
-    }
-
     @NotNull
     @Override
     public EncryptService createForBot(@NotNull EncryptServiceContext encryptServiceContext, @NotNull CoroutineScope coroutineScope) {
         return null;
     }
-
 }
