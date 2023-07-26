@@ -23,6 +23,8 @@ bot:
     enable-friend-list-cache: false
     enable-group-member-list-cache: false
     save-interval-millis: 60000
+  register-encrypt-service: false
+  update-protocol-version: false
 database:
   type: sqlite
   mysql:

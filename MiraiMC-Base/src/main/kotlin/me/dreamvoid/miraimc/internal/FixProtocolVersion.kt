@@ -1,6 +1,7 @@
 package me.dreamvoid.miraimc.internal
 
 import kotlinx.serialization.json.*
+import me.dreamvoid.miraimc.MiraiMCConfig
 import net.mamoe.mirai.internal.utils.*
 import net.mamoe.mirai.utils.*
 import java.io.*
@@ -269,14 +270,14 @@ public object FixProtocolVersion {
     public fun fetch(protocol: BotConfiguration.MiraiProtocol, version: String) {
         val (file, url) = when (protocol) {
             BotConfiguration.MiraiProtocol.ANDROID_PHONE -> {
-                File("android_phone.json") to
+                File(File(MiraiMCConfig.PluginDir,"cache"),"android_phone.json") to
                     when (version) {
                         "", "latest" -> URL("https://raw.githubusercontent.com/RomiChan/protocol-versions/master/android_phone.json")
                         else -> URL("https://raw.githubusercontent.com/RomiChan/protocol-versions/master/android_phone/${version}.json")
                     }
             }
             BotConfiguration.MiraiProtocol.ANDROID_PAD -> {
-                File("android_pad.json") to
+                File(File(MiraiMCConfig.PluginDir,"cache"),"android_pad.json") to
                     when (version) {
                         "", "latest" -> URL("https://raw.githubusercontent.com/RomiChan/protocol-versions/master/android_pad.json")
                         else -> URL("https://raw.githubusercontent.com/RomiChan/protocol-versions/master/android_pad/${version}.json")
@@ -330,7 +331,7 @@ public object FixProtocolVersion {
      */
     @JvmStatic
     public fun load(protocol: BotConfiguration.MiraiProtocol) {
-        val file = File("${protocol.name.lowercase()}.json")
+        val file = File(File(MiraiMCConfig.PluginDir,"cache"),"${protocol.name.lowercase()}.json")
         val json: JsonObject = Json.parseToJsonElement(file.readText()).jsonObject
 
         store(protocol, json)

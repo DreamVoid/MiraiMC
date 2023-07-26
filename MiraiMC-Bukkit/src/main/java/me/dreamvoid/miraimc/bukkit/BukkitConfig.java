@@ -48,6 +48,8 @@ public class BukkitConfig extends MiraiMCConfig {
         Bot.ContactCache.EnableFriendListCache = plugin.getConfig().getBoolean("bot.contact-cache.enable-friend-list-cache",false);
         Bot.ContactCache.EnableGroupMemberListCache = plugin.getConfig().getBoolean("bot.contact-cache.enable-group-member-list-cache",false);
         Bot.ContactCache.SaveIntervalMillis = plugin.getConfig().getLong("bot.contact-cache.save-interval-millis",60000);
+        Bot.RegisterEncryptService = plugin.getConfig().getBoolean("bot.register-encrypt-service",false);
+        Bot.UpdateProtocolVersion = plugin.getConfig().getBoolean("bot.update-protocol-version",false);
 
         Database.Type = plugin.getConfig().getString("database.type","sqlite").toLowerCase();
         Database.MySQL.Address = plugin.getConfig().getString("database.mysql.address","localhost");

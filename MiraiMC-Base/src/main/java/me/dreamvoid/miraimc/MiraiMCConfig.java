@@ -35,6 +35,8 @@ public abstract class MiraiMCConfig {
             public static boolean EnableGroupMemberListCache; // enable-group-member-list-cache
             public static long SaveIntervalMillis; // save-interval-millis
         }
+        public static boolean RegisterEncryptService;
+        public static boolean UpdateProtocolVersion;
     }
 
     public static class Database{ // database
