@@ -70,7 +70,7 @@ public class MiraiMCPlugin {
         if(MiraiMCConfig.Bot.RegisterEncryptService){
             logger.info("Registering Mirai Encrypt Service.");
             try{
-                MiraiEncryptServiceFactoryKt.install();
+                MiraiEncryptServiceFactory.install();
             } catch (NoClassDefFoundError error){
                 logger.severe("Failed to register encrypt service, please use mirai 2.15.0-dev-105 or later.");
             } catch (Throwable cause){

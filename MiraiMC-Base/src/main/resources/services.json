@@ -1,0 +1,17 @@
+{
+  "0.0.0": {
+    "base_url": "http://127.0.0.1:8080",
+    "type": "fuqiuluo/unidbg-fetch-qsign",
+    "key": "114514"
+  },
+  "0.1.0": {
+    "base_url": "http://127.0.0.1:8888",
+    "type": "kiliokuara/magic-signer-guide",
+    "server_identity_key": "vivo50",
+    "authorization_key": "kfc"
+  },
+  "8.8.88": {
+    "base_url": "http://127.0.0.1:80",
+    "type": "TLV544Provider"
+  }
+}
