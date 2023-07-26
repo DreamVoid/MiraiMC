@@ -19,8 +19,8 @@ public abstract class MiraiMCConfig {
         public static String MiraiCoreVersion; // mirai-core-version
         public static String MavenRepoUrl; // maven-repo-url
         public static boolean EnableHttpApi; // enable-http-api
-        public static boolean LegacyEventSupport; // legacy-event-support
         public static boolean AutoOpenQRCodeFile; // auto-open-qrcode-file
+        public static boolean LogEvents; // log-events
     }
 
     public static class Bot{ // bot
@@ -30,7 +30,6 @@ public abstract class MiraiMCConfig {
             public static boolean BotLogs; // bot-logs
             public static boolean NetworkLogs; // network-logs
         }
-        public static boolean LogEvents; // log-events
         public static class ContactCache{ // contact-cache
             public static boolean EnableFriendListCache; // enable-friend-list-cache
             public static boolean EnableGroupMemberListCache; // enable-group-member-list-cache

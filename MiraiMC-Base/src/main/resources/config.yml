@@ -12,13 +12,13 @@ general:
   enable-http-api: false
   legacy-event-support: false
   auto-open-qrcode-file: false
+  log-events: true
 bot:
   disable-network-logs: false
   disable-bot-logs: false
   use-minecraft-logger:
     bot-logs: true
     network-logs: true
-  log-events: true
   contact-cache:
     enable-friend-list-cache: false
     enable-group-member-list-cache: false

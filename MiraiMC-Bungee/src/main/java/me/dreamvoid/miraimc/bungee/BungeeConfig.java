@@ -36,14 +36,13 @@ public class BungeeConfig extends MiraiMCConfig {
         General.MiraiCoreVersion = config.getString("general.mirai-core-version","latest");
         General.MavenRepoUrl = config.getString("general.maven-repo-url","https://repo1.maven.org/maven2");
         General.EnableHttpApi = config.getBoolean("general.enable-http-api",false);
-        General.LegacyEventSupport = config.getBoolean("general.legacy-event-support",false);
         General.AutoOpenQRCodeFile = config.getBoolean("general.auto-open-qrcode-file",false);
+        General.LogEvents = config.getBoolean("general.log-events",true);
 
         Bot.DisableNetworkLogs = config.getBoolean("bot.disable-network-logs",false);
         Bot.DisableBotLogs = config.getBoolean("bot.disable-bot-logs",false);
         Bot.UseMinecraftLogger.BotLogs = config.getBoolean("bot.use-minecraft-logger.bot-logs",true);
         Bot.UseMinecraftLogger.NetworkLogs = config.getBoolean("bot.use-minecraft-logger.network-logs",true);
-        Bot.LogEvents = config.getBoolean("bot.log-events",true);
         Bot.ContactCache.EnableFriendListCache = config.getBoolean("bot.contact-cache.enable-friend-list-cache",false);
         Bot.ContactCache.EnableGroupMemberListCache = config.getBoolean("bot.contact-cache.enable-group-member-list-cache",false);
         Bot.ContactCache.SaveIntervalMillis = config.getLong("bot.contact-cache.save-interval-millis",60000);

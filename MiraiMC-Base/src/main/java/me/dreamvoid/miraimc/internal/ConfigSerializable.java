@@ -11,8 +11,8 @@ public class ConfigSerializable {
         public final String mirai__core__version = "stable";
         public final String maven__repo__url = "https://repo.huaweicloud.com/repository/maven/";
         public final boolean enable__http__api = false;
-        public final boolean legacy__event__support = false;
         public final boolean auto__open__qrcode__file = false;
+        public final boolean log__events = true;
     }
     
     public Bot bot;
@@ -21,7 +21,6 @@ public class ConfigSerializable {
         public final boolean disable__network__logs = false;
         public final boolean disable__bot__logs = false;
         public UseMinecraftLogger use__minecraft__logger;
-        public final boolean log__events = true;
         public ContactCache contact__cache;
         
         public static class UseMinecraftLogger {

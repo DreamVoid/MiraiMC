@@ -40,14 +40,13 @@ public class VelocityConfig extends MiraiMCConfig {
         General.MiraiCoreVersion = serializable.general.mirai__core__version;
         General.MavenRepoUrl = serializable.general.maven__repo__url;
         General.EnableHttpApi = serializable.general.enable__http__api;
-        General.LegacyEventSupport = serializable.general.legacy__event__support;
         General.AutoOpenQRCodeFile = serializable.general.auto__open__qrcode__file;
+        General.LogEvents = serializable.general.log__events;
 
         Bot.DisableNetworkLogs = serializable.bot.disable__network__logs;
         Bot.DisableBotLogs = serializable.bot.disable__bot__logs;
         Bot.UseMinecraftLogger.BotLogs = serializable.bot.use__minecraft__logger.bot__logs;
         Bot.UseMinecraftLogger.NetworkLogs = serializable.bot.use__minecraft__logger.network__logs;
-        Bot.LogEvents = serializable.bot.log__events;
         Bot.ContactCache.EnableFriendListCache = serializable.bot.contact__cache.enable__friend__list__cache;
         Bot.ContactCache.EnableGroupMemberListCache = serializable.bot.contact__cache.enable__group__member__list__cache;
         Bot.ContactCache.SaveIntervalMillis = serializable.bot.contact__cache.save__interval__millis;

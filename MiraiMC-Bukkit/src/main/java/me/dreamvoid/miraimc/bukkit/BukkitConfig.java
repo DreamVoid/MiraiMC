@@ -38,14 +38,13 @@ public class BukkitConfig extends MiraiMCConfig {
         General.MiraiCoreVersion = plugin.getConfig().getString("general.mirai-core-version","latest");
         General.MavenRepoUrl = plugin.getConfig().getString("general.maven-repo-url","https://repo1.maven.org/maven2");
         General.EnableHttpApi = plugin.getConfig().getBoolean("general.enable-http-api",false);
-        General.LegacyEventSupport = plugin.getConfig().getBoolean("general.legacy-event-support",false);
         General.AutoOpenQRCodeFile = plugin.getConfig().getBoolean("general.auto-open-qrcode-file",false);
+        General.LogEvents = plugin.getConfig().getBoolean("general.log-events",true);
 
         Bot.DisableNetworkLogs = plugin.getConfig().getBoolean("bot.disable-network-logs",false);
         Bot.DisableBotLogs = plugin.getConfig().getBoolean("bot.disable-bot-logs",false);
         Bot.UseMinecraftLogger.BotLogs = plugin.getConfig().getBoolean("bot.use-minecraft-logger.bot-logs",true);
         Bot.UseMinecraftLogger.NetworkLogs = plugin.getConfig().getBoolean("bot.use-minecraft-logger.network-logs",true);
-        Bot.LogEvents = plugin.getConfig().getBoolean("bot.log-events",true);
         Bot.ContactCache.EnableFriendListCache = plugin.getConfig().getBoolean("bot.contact-cache.enable-friend-list-cache",false);
         Bot.ContactCache.EnableGroupMemberListCache = plugin.getConfig().getBoolean("bot.contact-cache.enable-group-member-list-cache",false);
         Bot.ContactCache.SaveIntervalMillis = plugin.getConfig().getLong("bot.contact-cache.save-interval-millis",60000);
