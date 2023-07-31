@@ -22,10 +22,9 @@ public class NukkitPlugin extends PluginBase implements PlatformPlugin {
     private MiraiAutoLogin MiraiAutoLogin;
     private final MiraiMCPlugin lifeCycle;
     private final MiraiMCConfig platformConfig;
-    private final Logger NukkitLogger;
+    private Logger NukkitLogger;
 
     public NukkitPlugin(){
-        NukkitLogger = new NukkitLogger("MiraiMC-Nukkit", this);
         lifeCycle = new MiraiMCPlugin(this);
         lifeCycle.startUp();
         platformConfig = new NukkitConfig(this);
@@ -38,6 +37,7 @@ public class NukkitPlugin extends PluginBase implements PlatformPlugin {
     public void onLoad() {
         nukkitPlugin = this;
         try {
+            NukkitLogger = new NukkitLogger("MiraiMC-Nukkit", this);
             lifeCycle.preLoad();
 
             MiraiAutoLogin = new MiraiAutoLogin(this);
