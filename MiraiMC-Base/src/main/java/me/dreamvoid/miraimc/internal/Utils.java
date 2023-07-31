@@ -170,7 +170,7 @@ public final class Utils {
             BufferedReader br = new BufferedReader(read);
             String data = br.readLine();
             while (data != null) {
-                sb.append(data);
+                sb.append(data).append(System.lineSeparator());
                 data = br.readLine();
             }
             br.close();
