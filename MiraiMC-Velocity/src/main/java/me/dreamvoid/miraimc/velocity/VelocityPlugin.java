@@ -11,21 +11,20 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.PluginContainer;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
-import me.dreamvoid.miraimc.IMiraiAutoLogin;
-import me.dreamvoid.miraimc.IMiraiEvent;
-import me.dreamvoid.miraimc.MiraiMCPlugin;
-import me.dreamvoid.miraimc.PlatformPlugin;
+import com.velocitypowered.api.scheduler.ScheduledTask;
+import me.dreamvoid.miraimc.*;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
-import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.velocity.utils.Metrics;
 import me.dreamvoid.miraimc.velocity.utils.SpecialUtils;
 import org.slf4j.Logger;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -155,6 +154,24 @@ public class VelocityPlugin implements PlatformPlugin {
     @Override
     public void runTaskLaterAsync(Runnable task, long delay) {
         getServer().getScheduler().buildTask(this,task).delay(delay * 50, TimeUnit.MILLISECONDS).schedule();
+    }
+
+    private final HashMap<Integer, ScheduledTask> tasks = new HashMap<>();
+
+    @Override
+    public int runTaskTimerAsync(Runnable task, long period) {
+        ScheduledTask task1 = getServer().getScheduler().buildTask(this, task).repeat(period * 50, TimeUnit.MILLISECONDS).schedule();
+        int taskId; // 谁让velocity没有任务id呢
+        do {
+            taskId = new Random().nextInt();
+        } while(tasks.containsKey(taskId));
+        tasks.put(taskId, task1);
+        return taskId;
+    }
+
+    @Override
+    public void cancelTask(int taskId) {
+        tasks.get(taskId).cancel();
     }
 
     @Override

@@ -43,10 +43,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.Anon8281</groupId>
+            <groupId>com.github.DreamVoid</groupId>
             <artifactId>UniversalScheduler</artifactId>
-            <version>0.1.6</version>
-            <scope>compile</scope>
+            <version>0.1.7</version>
         </dependency>
     </dependencies>
 

@@ -98,7 +98,17 @@ public class NukkitPlugin extends PluginBase implements PlatformPlugin {
 
     @Override
     public void runTaskLaterAsync(Runnable task, long delay) {
-        getServer().getScheduler().scheduleDelayedTask(this,task,Integer.parseInt(String.valueOf(delay)),true);
+        getServer().getScheduler().scheduleDelayedTask(this, task, Integer.parseInt(String.valueOf(delay)),true);
+    }
+
+    @Override
+    public int runTaskTimerAsync(Runnable task, long period) {
+        return getServer().getScheduler().scheduleRepeatingTask(this, task, Integer.parseInt(String.valueOf(period)), true).getTaskId();
+    }
+
+    @Override
+    public void cancelTask(int taskId) {
+        getServer().getScheduler().cancelTask(taskId);
     }
 
     @Override

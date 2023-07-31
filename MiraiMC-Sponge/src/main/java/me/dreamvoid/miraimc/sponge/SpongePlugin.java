@@ -1,14 +1,10 @@
 package me.dreamvoid.miraimc.sponge;
 
 import com.google.inject.Inject;
-import me.dreamvoid.miraimc.IMiraiAutoLogin;
-import me.dreamvoid.miraimc.IMiraiEvent;
-import me.dreamvoid.miraimc.MiraiMCPlugin;
-import me.dreamvoid.miraimc.PlatformPlugin;
+import me.dreamvoid.miraimc.*;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
-import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.sponge.utils.Metrics;
 import me.dreamvoid.miraimc.sponge.utils.SpecialUtils;
 import org.slf4j.Logger;
@@ -25,11 +21,14 @@ import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
+import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.metric.MetricsConfigManager;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -213,6 +212,24 @@ public class SpongePlugin implements PlatformPlugin {
     @Override
     public void runTaskLaterAsync(Runnable task, long delay) {
         Sponge.getScheduler().createAsyncExecutor(this).schedule(task, delay * 50, TimeUnit.MILLISECONDS);
+    }
+
+    private final HashMap<Integer, Task> tasks = new HashMap<>();
+
+    @Override
+    public int runTaskTimerAsync(Runnable task, long period) {
+        Task task1 = Sponge.getScheduler().createTaskBuilder().async().execute(task).intervalTicks(period).submit(this);
+        int taskId; // 谁让sponge的任务id是uuid呢
+        do {
+            taskId = new Random().nextInt();
+        } while(tasks.containsKey(taskId));
+        tasks.put(taskId, task1);
+        return taskId;
+    }
+
+    @Override
+    public void cancelTask(int taskId) {
+        tasks.get(taskId).cancel();
     }
 
     @Override

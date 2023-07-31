@@ -155,7 +155,7 @@ public final class Utils {
          * @throws IOException 出现任何连接问题时抛出
          */
         public static String get(String url) throws IOException {
-            URL obj = new URL(url);
+            URL obj = new URL(url.replace(" ", "%20"));
             StringBuilder sb = new StringBuilder();
             HttpURLConnection httpUrlConn = (HttpURLConnection) obj.openConnection();
 

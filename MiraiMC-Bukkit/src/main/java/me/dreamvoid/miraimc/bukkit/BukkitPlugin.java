@@ -240,6 +240,16 @@ public class BukkitPlugin extends JavaPlugin implements PlatformPlugin {
     }
 
     @Override
+    public int runTaskTimerAsync(Runnable task, long period) {
+        return getScheduler().runTaskTimerAsynchronously(task, 0, period).getTaskId();
+    }
+
+    @Override
+    public void cancelTask(int taskId) {
+        Bukkit.getScheduler().cancelTask(taskId);
+    }
+
+    @Override
     public String getPluginName() {
         return getDescription().getName();
     }

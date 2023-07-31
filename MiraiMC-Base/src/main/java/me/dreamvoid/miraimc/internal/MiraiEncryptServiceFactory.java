@@ -27,6 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class MiraiEncryptServiceFactory implements EncryptService.Factory {
     private final ConcurrentHashMap.KeySetView<Object, Boolean> created = ConcurrentHashMap.newKeySet();
+    public static final String REQUEST_TOKEN_INTERVAL = "MiraiMC.EncryptService.REQUEST_TOKEN_INTERVAL";
     private static File config;
 
     public static void install(){
@@ -70,7 +71,7 @@ public class MiraiEncryptServiceFactory implements EncryptService.Factory {
                             String about = Utils.Http.get(server.base);
                             logger.info("unidbg-fetch-qsign by "+server.base + " about \n" + about);
                             if(!about.contains("version")){
-                                System.setProperty("MiraiMC.EncryptService.REQUEST_TOKEN_INTERVAL", "0");
+                                System.setProperty(REQUEST_TOKEN_INTERVAL, "0");
                                 logger.warning("请更新 unidbg-fetch-qsign");
                             }
                             if(!about.contains(version)){

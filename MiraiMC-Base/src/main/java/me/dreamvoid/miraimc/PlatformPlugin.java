@@ -13,6 +13,10 @@ public interface PlatformPlugin {
 
     void runTaskLaterAsync(Runnable task, long delay);
 
+    int runTaskTimerAsync(Runnable task, long period);
+
+    void cancelTask(int taskId);
+
     String getPluginName();
 
     String getPluginVersion();
