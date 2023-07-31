@@ -84,7 +84,7 @@ public class MiraiEncryptServiceFactory implements EncryptService.Factory {
                         return new UnidbgFetchQsign(server.base, server.key, scope.getCoroutineContext());
                     }
                     case "kiliokuara/magic-signer-guide": case "kiliokuara": case "magic-signer-guide": case "vivo50":{
-                        try {
+                        /*try {
                             String about = Utils.Http.get(server.base);
                             logger.info("magic-signer-guide by "+server.base+" about \n" + about);
                             if(about.trim().equals("void")){
@@ -95,16 +95,15 @@ public class MiraiEncryptServiceFactory implements EncryptService.Factory {
                             }
                         } catch (IOException cause) {
                             throw new RuntimeException("请检查 magic-signer-guide by "+server.base+" 的可用性", cause);
-                        }
-                        throw new UnsupportedOperationException(); // 暂时做不出来
+                        }*/
+                        throw new UnsupportedOperationException(server.type); // 部署困难，不打算支持
                     }
                     default:throw new UnsupportedOperationException(server.type);
                 }
             }
             case ANDROID_WATCH: default: throw new UnsupportedOperationException(protocol.name());
-            case IPAD:
-            case MACOS:{
-                logger.error("$protocol 尚不支持签名服务，大概率登录失败");
+            case IPAD: case MACOS:{
+                logger.error(protocol.name() + " 尚不支持签名服务，大概率登录失败");
                 return new TLV544Provider();
             }
         }
