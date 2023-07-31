@@ -1,8 +1,9 @@
 package me.dreamvoid.miraimc.internal;
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
 import kotlinx.coroutines.CoroutineScope;
 import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.MiraiMCPlugin;
@@ -19,9 +20,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -37,7 +37,7 @@ public class MiraiEncryptServiceFactory implements EncryptService.Factory {
                 assert in != null;
                 Files.copy(in, config.toPath());
             } catch (IOException e) {
-                Utils.logger.warning("Failed to create services.json");
+                throw new RuntimeException("Failed to create services.json", e);
             }
         }
     }
@@ -45,23 +45,17 @@ public class MiraiEncryptServiceFactory implements EncryptService.Factory {
     @NotNull
     @Override
     public EncryptService createForBot(@NotNull EncryptServiceContext context, @NotNull CoroutineScope scope) {
-        /*
-        if (created.add(context.getId())) {
-            throw new UnsupportedOperationException("repeated create EncryptService");
-        }
-        */
-
         MiraiLogger logger = Bot.getInstance(context.getId()).getLogger();
+        BotConfiguration.MiraiProtocol protocol = MiraiEncryptServiceFactoryKt.getProtocol(context); // 协议，用Java不能直接获取，所以Kotlin桥接一下
 
-        BotConfiguration.MiraiProtocol protocol = MiraiEncryptServiceFactoryKt.getProtocol(context);
         switch (protocol){
             case ANDROID_PHONE: case ANDROID_PAD:{
-                String version = MiraiEncryptServiceFactoryKt.getProtocolVersion(protocol);
+                String version = MiraiEncryptServiceFactoryKt.getProtocolVersion(protocol); // 协议版本
+
                 ServerConfig server;
                 try {
-                    Type type = new TypeToken<Services>(){}.getType();
-                    Services services = new Gson().fromJson(new FileReader(config), type);
-                    server = services.get(version);
+                    HashMap<String, LinkedTreeMap> services = new Gson().fromJson(new FileReader(config), new TypeToken<HashMap<String, LinkedTreeMap>>(){}.getType());
+                    server = new Gson().fromJson(new Gson().toJson(services.get(version)), ServerConfig.class);
                 } catch (IOException e) {
                     throw new RuntimeException("配置文件读取错误，" + config, e);
                 } catch (NullPointerException e){
@@ -115,10 +109,6 @@ public class MiraiEncryptServiceFactory implements EncryptService.Factory {
         }
 
         //created.remove(context.getId());
-    }
-
-    private static class Services extends LinkedHashMap<String, ServerConfig> {
-
     }
 
     private static class ServerConfig {
