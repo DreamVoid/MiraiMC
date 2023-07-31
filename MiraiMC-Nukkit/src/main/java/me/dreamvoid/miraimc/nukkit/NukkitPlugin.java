@@ -33,11 +33,11 @@ public class NukkitPlugin extends PluginBase implements PlatformPlugin {
         nukkitPlugin = this;
         try {
             NukkitLogger = new NukkitLogger("MiraiMC-Nukkit", this);
-            lifeCycle.preLoad();
             lifeCycle = new MiraiMCPlugin(this);
             lifeCycle.startUp();
             platformConfig = new NukkitConfig(this);
 
+            lifeCycle.preLoad();
             MiraiAutoLogin = new MiraiAutoLogin(this);
             MiraiEvent = new MiraiEvent(this);
         } catch (Exception e) {
