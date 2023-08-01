@@ -2,7 +2,6 @@ package me.dreamvoid.miraimc;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.*;
-import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import me.dreamvoid.miraimc.internal.webapi.Info;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.xml.sax.SAXException;
@@ -81,8 +80,6 @@ public class MiraiMCPlugin {
         // 加载来自 cssxsh 的 fix-protocol-version
         if(MiraiMCConfig.Bot.UpdateProtocolVersion){
             logger.info("Updating mirai protocol version. (Author: cssxsh)");
-            // 由于 fix-protocol-version 采用 kotlin 编写，首先加载 kotlin 库。
-            LibraryLoader.loadJarMaven("org.jetbrains.kotlin", "kotlin-stdlib", "1.9.0", new File(MiraiMCConfig.PluginDir, "libraries"));
 
             logger.info("协议版本检查更新...");
             try {
