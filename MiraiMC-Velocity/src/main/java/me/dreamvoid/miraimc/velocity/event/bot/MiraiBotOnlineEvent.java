@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * (Velocity) Bot - Bot 登录完成
  */
+@SuppressWarnings("unused")
 public class MiraiBotOnlineEvent extends AbstractBotEvent {
     private final BotOnlineEvent event;
 

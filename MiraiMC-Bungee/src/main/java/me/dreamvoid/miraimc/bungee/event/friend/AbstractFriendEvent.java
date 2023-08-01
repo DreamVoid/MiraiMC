@@ -7,6 +7,7 @@ import net.md_5.bungee.api.plugin.Event;
 /**
  * (BungeeCord) 好友（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractFriendEvent extends Event {
 	public AbstractFriendEvent(FriendEvent event){
 		this.event = event;

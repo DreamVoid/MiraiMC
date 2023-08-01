@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.MemberJoinEvent;
 /**
  * (Sponge) 群 - 群成员 - 成员列表变更 - 成员已经加入群
  */
+@SuppressWarnings("unused")
 public class MiraiMemberJoinEvent extends AbstractGroupMemberEvent {
     public MiraiMemberJoinEvent(MemberJoinEvent event, Cause cause){
         super(event, cause);

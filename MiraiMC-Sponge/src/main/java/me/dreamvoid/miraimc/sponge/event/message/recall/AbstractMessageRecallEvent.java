@@ -8,6 +8,7 @@ import org.spongepowered.api.event.impl.AbstractEvent;
 /**
  * (Sponge) 消息 - 消息撤回（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractMessageRecallEvent extends AbstractEvent {
 	private final Cause cause;
 

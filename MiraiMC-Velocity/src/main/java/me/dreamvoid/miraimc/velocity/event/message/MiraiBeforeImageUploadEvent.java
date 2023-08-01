@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.BeforeImageUploadEvent;
 /**
  * (Velocity) 消息 - 图片上传前
  */
+@SuppressWarnings("unused")
 public class MiraiBeforeImageUploadEvent {
     private final BeforeImageUploadEvent event;
 

@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * (Bukkit) 消息 - 图片上传前
  */
+@SuppressWarnings("unused")
 public class MiraiBeforeImageUploadEvent extends Event {
 
     public MiraiBeforeImageUploadEvent(BeforeImageUploadEvent event) {

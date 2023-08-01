@@ -8,6 +8,7 @@ import org.spongepowered.api.event.impl.AbstractEvent;
 /**
  * (Sponge) 消息 - 图片上传失败
  */
+@SuppressWarnings("unused")
 public class MiraiImageUploadEvent extends AbstractEvent {
     private final Cause cause;
 

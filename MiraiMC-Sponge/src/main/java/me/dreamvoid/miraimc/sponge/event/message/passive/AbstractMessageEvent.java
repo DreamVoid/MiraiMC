@@ -16,6 +16,7 @@ import java.util.Objects;
 /**
  * (Sponge) 消息 - 被动收到消息（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractMessageEvent extends AbstractEvent {
 	private final Cause cause;
 

@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.BotAvatarChangedEvent;
 /**
  * (Bukkit) Bot - Bot 头像改变
  */
+@SuppressWarnings("unused")
 public class MiraiBotAvatarChangedEvent extends AbstractBotEvent {
     public MiraiBotAvatarChangedEvent(BotAvatarChangedEvent event) {
         super(event);

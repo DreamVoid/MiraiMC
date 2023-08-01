@@ -13,6 +13,7 @@ import java.util.Objects;
 /**
  * (Velocity) 消息 - 被动收到消息（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractMessageEvent {
 	public AbstractMessageEvent(MessageEvent event){
 		this.event = event;

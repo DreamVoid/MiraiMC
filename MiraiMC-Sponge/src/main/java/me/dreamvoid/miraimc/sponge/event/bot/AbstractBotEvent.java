@@ -9,6 +9,7 @@ import org.spongepowered.api.event.impl.AbstractEvent;
 /**
  * (Sponge) Bot（抽象）
  */
+@SuppressWarnings("unused")
 public abstract class AbstractBotEvent extends AbstractEvent {
 	private final Cause cause;
 

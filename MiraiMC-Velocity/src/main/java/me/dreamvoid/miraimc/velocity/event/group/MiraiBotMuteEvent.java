@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.BotMuteEvent;
 /**
  * (Velocity) 群 - 机器人被禁言
  */
+@SuppressWarnings("unused")
 public class MiraiBotMuteEvent extends AbstractGroupEvent {
     public MiraiBotMuteEvent(BotMuteEvent event) {
         super(event);

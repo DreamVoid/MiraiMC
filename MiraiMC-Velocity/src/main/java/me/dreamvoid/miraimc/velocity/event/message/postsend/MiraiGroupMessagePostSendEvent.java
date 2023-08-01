@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * (Velocity) 消息 - 主动发送消息后 - 群消息
  */
+@SuppressWarnings("unused")
 public class MiraiGroupMessagePostSendEvent extends AbstractMessagePostSendEvent {
     public MiraiGroupMessagePostSendEvent(GroupMessagePostSendEvent event) {
         super(event);

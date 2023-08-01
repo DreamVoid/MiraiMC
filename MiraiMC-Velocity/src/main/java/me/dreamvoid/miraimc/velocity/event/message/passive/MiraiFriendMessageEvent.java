@@ -13,6 +13,7 @@ import java.io.IOException;
 /**
  * (Velocity) 消息 - 被动收到消息 - 好友消息
  */
+@SuppressWarnings("unused")
 public class MiraiFriendMessageEvent extends AbstractMessageEvent {
     public MiraiFriendMessageEvent(FriendMessageEvent event) {
         super(event);

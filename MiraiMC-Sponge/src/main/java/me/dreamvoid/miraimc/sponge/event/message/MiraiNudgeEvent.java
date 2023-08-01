@@ -8,6 +8,7 @@ import org.spongepowered.api.event.impl.AbstractEvent;
 /**
  * (Sponge) 消息 - 戳一戳
  */
+@SuppressWarnings("unused")
 public class MiraiNudgeEvent extends AbstractEvent {
     private final NudgeEvent event;
     private final Cause cause;

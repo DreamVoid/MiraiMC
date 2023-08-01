@@ -8,6 +8,7 @@ import net.md_5.bungee.api.plugin.Event;
 /**
  * (BungeeCord) 消息 - 主动发送消息前（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractMessagePreSendEvent extends Event implements Cancellable {
 	public AbstractMessagePreSendEvent(MessagePreSendEvent event) {
 		this.event = event;

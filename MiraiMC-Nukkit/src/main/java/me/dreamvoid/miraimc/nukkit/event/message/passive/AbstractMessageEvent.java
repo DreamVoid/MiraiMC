@@ -15,6 +15,7 @@ import java.util.Objects;
 /**
  * (Nukkit) 消息 - 被动收到消息（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractMessageEvent extends Event {
 	public AbstractMessageEvent(MessageEvent event){
 		this.event = event;

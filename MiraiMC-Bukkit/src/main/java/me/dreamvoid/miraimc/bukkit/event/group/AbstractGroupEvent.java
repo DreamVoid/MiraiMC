@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * (Bukkit) 群（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractGroupEvent extends Event {
 	public AbstractGroupEvent(GroupEvent event) {
 		super(true);

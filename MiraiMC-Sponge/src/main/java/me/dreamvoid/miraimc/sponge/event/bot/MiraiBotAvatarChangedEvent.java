@@ -6,6 +6,7 @@ import org.spongepowered.api.event.cause.Cause;
 /**
  * (Sponge) Bot - Bot 头像改变
  */
+@SuppressWarnings("unused")
 public class MiraiBotAvatarChangedEvent extends AbstractBotEvent {
     public MiraiBotAvatarChangedEvent(BotAvatarChangedEvent event, Cause cause) {
         super(event, cause);

@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.BotGroupPermissionChangeEvent;
 /**
  * (Sponge) 群 - 机器人在群里的权限被改变
  */
+@SuppressWarnings("unused")
 public class MiraiBotGroupPermissionChangeEvent extends AbstractGroupEvent {
     public MiraiBotGroupPermissionChangeEvent(BotGroupPermissionChangeEvent event, Cause cause) {
         super(event, cause);

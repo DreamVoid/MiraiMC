@@ -7,6 +7,7 @@ import org.spongepowered.api.event.cause.Cause;
 /**
  * (Sponge) 好友 - 一个账号请求添加机器人为好友
  */
+@SuppressWarnings("unused")
 public class MiraiNewFriendRequestEvent extends AbstractBotEvent {
     public MiraiNewFriendRequestEvent(NewFriendRequestEvent event, Cause cause) {
         super(event, cause);

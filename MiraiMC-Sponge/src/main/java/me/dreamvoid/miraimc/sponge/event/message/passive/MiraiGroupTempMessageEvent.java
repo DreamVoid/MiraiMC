@@ -8,6 +8,7 @@ import org.spongepowered.api.event.cause.Cause;
 /**
  * (Sponge) 消息 - 被动收到消息 - 群临时会话消息
  */
+@SuppressWarnings("unused")
 public class MiraiGroupTempMessageEvent extends AbstractMessageEvent {
     public MiraiGroupTempMessageEvent(GroupTempMessageEvent event, Cause cause) {
         super(event, cause);

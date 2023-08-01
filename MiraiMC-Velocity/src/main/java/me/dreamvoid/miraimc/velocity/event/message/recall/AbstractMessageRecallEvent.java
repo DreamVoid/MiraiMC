@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.MessageRecallEvent;
 /**
  * (Velocity) 消息 - 消息撤回（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractMessageRecallEvent {
 	public AbstractMessageRecallEvent(MessageRecallEvent event) {
 		this.event = event;

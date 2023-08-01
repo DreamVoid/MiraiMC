@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.MemberCardChangeEvent;
 /**
  * (Nukkit) 群 - 群成员 - 名片和头衔 - 成员群名片改动
  */
+@SuppressWarnings("unused")
 public class MiraiMemberCardChangeEvent extends AbstractGroupMemberEvent {
     public MiraiMemberCardChangeEvent(MemberCardChangeEvent event) {
         super(event);

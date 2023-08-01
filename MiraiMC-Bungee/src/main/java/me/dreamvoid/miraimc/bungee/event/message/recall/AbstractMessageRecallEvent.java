@@ -6,6 +6,7 @@ import net.md_5.bungee.api.plugin.Event;
 /**
  * (BungeeCord) 消息 - 消息撤回（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractMessageRecallEvent extends Event {
 	public AbstractMessageRecallEvent(MessageRecallEvent event) {
 		this.event = event;

@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.MessageRecallEvent;
 /**
  * (Nukkit) 消息 - 消息撤回 - 群撤回
  */
+@SuppressWarnings("unused")
 public class MiraiGroupMessageRecallEvent extends AbstractMessageRecallEvent {
     public MiraiGroupMessageRecallEvent(MessageRecallEvent.GroupRecall event) {
         super(event);

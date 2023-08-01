@@ -9,6 +9,7 @@ import org.spongepowered.api.event.impl.AbstractEvent;
 /**
  * (Sponge) 好友（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractFriendEvent extends AbstractEvent {
 	private final FriendEvent event;
 

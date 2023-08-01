@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * (Nukkit) Bot - Bot 登录完成
  */
+@SuppressWarnings("unused")
 public class MiraiBotOnlineEvent extends AbstractBotEvent {
     public MiraiBotOnlineEvent(BotOnlineEvent event) {
         super(event);

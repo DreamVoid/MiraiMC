@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.FriendNickChangedEvent;
 /**
  * (Sponge) 好友 - 好友昵称改变
  */
+@SuppressWarnings("unused")
 public class MiraiFriendNickChangedEvent extends AbstractFriendEvent {
     public MiraiFriendNickChangedEvent(FriendNickChangedEvent event, Cause cause) {
         super(event, cause);

@@ -13,6 +13,7 @@ import java.util.Objects;
 /**
  * (Sponge) 消息 - 主动发送消息后（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractMessagePostSendEvent extends AbstractEvent {
 	private final Cause cause;
 

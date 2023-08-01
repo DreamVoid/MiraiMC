@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * (Sponge) 消息 - 主动发送消息前 - 群消息
  */
+@SuppressWarnings("unused")
 public class MiraiGroupMessagePreSendEvent extends AbstractMessagePreSendEvent {
     public MiraiGroupMessagePreSendEvent(GroupMessagePreSendEvent event, Cause cause) {
         super(event, cause);

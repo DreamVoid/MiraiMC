@@ -6,6 +6,7 @@ import org.spongepowered.api.event.cause.Cause;
 /**
  * (Sponge) Bot - Bot 昵称改变
  */
+@SuppressWarnings("unused")
 public class MiraiBotNickChangedEvent extends AbstractBotEvent {
 
     public MiraiBotNickChangedEvent(BotNickChangedEvent event, Cause cause) {

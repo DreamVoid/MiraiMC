@@ -7,6 +7,7 @@ import org.spongepowered.api.event.cause.Cause;
 /**
  * (Sponge) 群 - 打卡事件
  */
+@SuppressWarnings("unused")
 public class MiraiSignEvent extends AbstractBotEvent{
     private final SignEvent event;
 

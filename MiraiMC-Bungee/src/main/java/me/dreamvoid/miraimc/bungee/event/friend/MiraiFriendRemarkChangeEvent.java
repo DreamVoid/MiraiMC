@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.FriendRemarkChangeEvent;
 /**
  * (BungeeCord) 好友 - 好友昵称改变
  */
+@SuppressWarnings("unused")
 public class MiraiFriendRemarkChangeEvent extends AbstractFriendEvent {
     public MiraiFriendRemarkChangeEvent(FriendRemarkChangeEvent event) {
         super(event);

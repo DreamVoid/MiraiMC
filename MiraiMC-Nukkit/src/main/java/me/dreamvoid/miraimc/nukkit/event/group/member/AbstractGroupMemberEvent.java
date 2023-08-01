@@ -9,6 +9,7 @@ import cn.nukkit.event.Event;
 /**
  * (Nukkit) 群 - 群成员 - 群成员事件（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractGroupMemberEvent extends Event {
 	public AbstractGroupMemberEvent(GroupMemberEvent event){
 		this.event = event;

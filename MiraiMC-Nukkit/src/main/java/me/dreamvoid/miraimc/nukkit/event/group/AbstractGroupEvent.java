@@ -8,6 +8,7 @@ import net.mamoe.mirai.event.events.GroupEvent;
 /**
  * (Nukkit) 群（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractGroupEvent extends Event {
 	private final GroupEvent event;
 

@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.SignEvent;
 /**
  * (BungeeCord) 群 - 打卡事件
  */
+@SuppressWarnings("unused")
 public class MiraiSignEvent extends AbstractBotEvent {
     private final SignEvent event;
 

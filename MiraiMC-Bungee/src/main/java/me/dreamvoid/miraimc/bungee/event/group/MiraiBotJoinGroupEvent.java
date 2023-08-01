@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.BotJoinGroupEvent;
 /**
  * (BungeeCord) 群 - 机器人成功加入了一个新群
  */
+@SuppressWarnings("unused")
 public class MiraiBotJoinGroupEvent extends AbstractGroupEvent {
     public MiraiBotJoinGroupEvent(BotJoinGroupEvent event) {
         super(event);

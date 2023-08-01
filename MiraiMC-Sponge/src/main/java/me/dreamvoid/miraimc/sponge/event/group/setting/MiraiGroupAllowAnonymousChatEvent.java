@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.GroupAllowAnonymousChatEvent;
 /**
  * (Sponge) 群 - 群设置 - 群设置改变 - 匿名聊天状态改变
  */
+@SuppressWarnings("unused")
 public class MiraiGroupAllowAnonymousChatEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupAllowAnonymousChatEvent(GroupAllowAnonymousChatEvent event, Cause cause) {
         super(event, cause);

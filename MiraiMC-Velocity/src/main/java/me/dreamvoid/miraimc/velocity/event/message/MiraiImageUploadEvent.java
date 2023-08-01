@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.ImageUploadEvent;
 /**
  * (Velocity) 消息 - 图片上传失败
  */
+@SuppressWarnings("unused")
 public class MiraiImageUploadEvent {
     private final ImageUploadEvent event;
 

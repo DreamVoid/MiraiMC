@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.BotOfflineEvent;
 /**
  * (BungeeCord) Bot - Bot 离线
  */
+@SuppressWarnings("unused")
 public class MiraiBotOfflineEvent extends AbstractBotEvent {
     public MiraiBotOfflineEvent(BotOfflineEvent event, Type type) {
         super(event);

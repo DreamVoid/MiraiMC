@@ -8,6 +8,7 @@ import cn.nukkit.event.Event;
 /**
  * (Nukkit) 群 - 群设置 - 群设置改变（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractGroupSettingChangeEvent extends Event {
 	public AbstractGroupSettingChangeEvent(GroupSettingChangeEvent<?> event){
 		this.event = event;

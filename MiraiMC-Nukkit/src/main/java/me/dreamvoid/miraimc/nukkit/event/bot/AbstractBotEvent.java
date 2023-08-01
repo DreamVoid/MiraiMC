@@ -8,6 +8,7 @@ import net.mamoe.mirai.event.events.BotEvent;
 /**
  * (Nukkit) Bot（抽象）
  */
+@SuppressWarnings("unused")
 public abstract class AbstractBotEvent extends Event {
 	public AbstractBotEvent(BotEvent event){
 		this.event = event;

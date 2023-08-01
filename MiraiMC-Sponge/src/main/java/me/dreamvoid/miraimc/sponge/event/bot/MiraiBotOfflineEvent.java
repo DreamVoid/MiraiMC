@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.BotOfflineEvent;
 /**
  * (Sponge) Bot - Bot 离线
  */
+@SuppressWarnings("unused")
 public class MiraiBotOfflineEvent extends AbstractBotEvent {
     private final BotOfflineEvent event;
     private final Type Type;

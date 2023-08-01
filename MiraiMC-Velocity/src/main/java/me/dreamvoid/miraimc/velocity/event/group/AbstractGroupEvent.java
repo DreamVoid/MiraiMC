@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.GroupEvent;
 /**
  * (Velocity) 群（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractGroupEvent {
 	public AbstractGroupEvent(GroupEvent event) {
 		this.event = event;

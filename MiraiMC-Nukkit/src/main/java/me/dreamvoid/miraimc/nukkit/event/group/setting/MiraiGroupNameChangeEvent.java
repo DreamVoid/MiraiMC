@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.GroupNameChangeEvent;
 /**
  * (Nukkit) 群 - 群设置 - 群设置改变 - 群名改变
  */
+@SuppressWarnings("unused")
 public class MiraiGroupNameChangeEvent extends AbstractGroupSettingChangeEvent {
     private final GroupNameChangeEvent event;
 

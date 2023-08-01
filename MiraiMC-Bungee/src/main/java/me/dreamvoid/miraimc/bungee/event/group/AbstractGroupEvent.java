@@ -7,6 +7,7 @@ import net.md_5.bungee.api.plugin.Event;
 /**
  * (BungeeCord) 群（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractGroupEvent extends Event {
 	public AbstractGroupEvent(GroupEvent event) {
 		this.event = event;

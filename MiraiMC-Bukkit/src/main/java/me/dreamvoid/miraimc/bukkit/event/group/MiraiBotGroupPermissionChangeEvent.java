@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.BotGroupPermissionChangeEvent;
 /**
  * (Bukkit) 群 - 机器人在群里的权限被改变
  */
+@SuppressWarnings("unused")
 public class MiraiBotGroupPermissionChangeEvent extends AbstractGroupEvent{
     public MiraiBotGroupPermissionChangeEvent(BotGroupPermissionChangeEvent event) {
         super(event);

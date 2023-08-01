@@ -9,6 +9,7 @@ import net.mamoe.mirai.message.code.MiraiCode;
 /**
  * (Nukkit) 消息 - 主动发送消息前（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractMessagePreSendEvent extends Event implements Cancellable {
 	public AbstractMessagePreSendEvent(MessagePreSendEvent event) {
 		this.event = event;

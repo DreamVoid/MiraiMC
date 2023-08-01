@@ -6,6 +6,7 @@ import net.md_5.bungee.api.plugin.Event;
 /**
  * (BungeeCord) 消息 - 图片上传前
  */
+@SuppressWarnings("unused")
 public class MiraiBeforeImageUploadEvent extends Event {
 
     public MiraiBeforeImageUploadEvent(BeforeImageUploadEvent event) {

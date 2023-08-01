@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.FriendInputStatusChangedEvent;
 /**
  * (Bukkit) 好友 - 好友输入状态改变
  */
+@SuppressWarnings("unused")
 public class MiraiFriendInputStatusChangedEvent extends AbstractFriendEvent {
     public MiraiFriendInputStatusChangedEvent(FriendInputStatusChangedEvent event) {
         super(event);

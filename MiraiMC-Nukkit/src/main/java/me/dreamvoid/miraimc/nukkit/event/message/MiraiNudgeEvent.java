@@ -7,6 +7,7 @@ import net.mamoe.mirai.event.events.NudgeEvent;
 /**
  * (Nukkit) 消息 - 戳一戳
  */
+@SuppressWarnings("unused")
 public class MiraiNudgeEvent extends Event {
 
     public MiraiNudgeEvent(NudgeEvent event) {

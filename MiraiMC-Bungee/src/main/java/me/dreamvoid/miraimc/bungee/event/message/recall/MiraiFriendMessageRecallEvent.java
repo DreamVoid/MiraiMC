@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.MessageRecallEvent;
 /**
  * (BungeeCord) 消息 - 消息撤回 - 好友撤回
  */
+@SuppressWarnings("unused")
 public class MiraiFriendMessageRecallEvent extends AbstractMessageRecallEvent {
     public MiraiFriendMessageRecallEvent(MessageRecallEvent.FriendRecall event) {
         super(event);

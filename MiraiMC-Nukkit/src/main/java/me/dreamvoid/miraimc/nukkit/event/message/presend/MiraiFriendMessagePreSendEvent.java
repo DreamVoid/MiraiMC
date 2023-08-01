@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.FriendMessagePreSendEvent;
 /**
  * (Nukkit) 消息 - 主动发送消息前 - 好友消息
  */
+@SuppressWarnings("unused")
 public class MiraiFriendMessagePreSendEvent extends AbstractMessagePreSendEvent {
     public MiraiFriendMessagePreSendEvent(FriendMessagePreSendEvent event) {
         super(event);

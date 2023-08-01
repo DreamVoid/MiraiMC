@@ -7,6 +7,7 @@ import cn.nukkit.event.Event;
 /**
  * (Nukkit) 消息 - 图片上传前
  */
+@SuppressWarnings("unused")
 public class MiraiBeforeImageUploadEvent extends Event {
     private final BeforeImageUploadEvent event;
 

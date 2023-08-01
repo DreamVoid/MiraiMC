@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.BotMuteEvent;
 /**
  * (Sponge) 群 - 机器人被禁言
  */
+@SuppressWarnings("unused")
 public class MiraiBotMuteEvent extends AbstractGroupEvent {
     public MiraiBotMuteEvent(BotMuteEvent event, Cause cause) {
         super(event, cause);

@@ -18,6 +18,7 @@ import java.util.List;
 /**
  * (Velocity) 消息 - 被动收到消息 - 群消息
  */
+@SuppressWarnings("unused")
 public class MiraiGroupMessageEvent extends AbstractMessageEvent {
     public MiraiGroupMessageEvent(GroupMessageEvent event) {
         super(event);

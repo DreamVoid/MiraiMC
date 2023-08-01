@@ -6,6 +6,7 @@ import net.md_5.bungee.api.plugin.Event;
 /**
  * (BungeeCord) 消息 - 戳一戳
  */
+@SuppressWarnings("unused")
 public class MiraiNudgeEvent extends Event {
 
     public MiraiNudgeEvent(NudgeEvent event) {

@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.NudgeEvent;
 /**
  * (Velocity) 消息 - 戳一戳
  */
+@SuppressWarnings("unused")
 public class MiraiNudgeEvent {
 
     public MiraiNudgeEvent(NudgeEvent event) {

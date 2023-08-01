@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.GroupAllowMemberInviteEvent;
 /**
  * (Sponge) 群 - 群设置 - 群设置改变 - 允许群员邀请好友加群状态改变
  */
+@SuppressWarnings("unused")
 public class MiraiGroupAllowMemberInviteEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupAllowMemberInviteEvent(GroupAllowMemberInviteEvent event, Cause cause) {
         super(event, cause);

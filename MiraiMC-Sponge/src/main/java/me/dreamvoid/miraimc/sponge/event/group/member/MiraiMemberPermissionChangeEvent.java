@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.MemberPermissionChangeEvent;
 /**
  * (Sponge) 群 - 群成员 - 成员权限 - 成员权限改变
  */
+@SuppressWarnings("unused")
 public class MiraiMemberPermissionChangeEvent extends AbstractGroupMemberEvent {
     public MiraiMemberPermissionChangeEvent(MemberPermissionChangeEvent event, Cause cause) {
         super(event, cause);

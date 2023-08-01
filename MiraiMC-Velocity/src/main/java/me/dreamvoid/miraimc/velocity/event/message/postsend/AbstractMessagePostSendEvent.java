@@ -10,6 +10,7 @@ import java.util.Objects;
 /**
  * (Velocity) 消息 - 主动发送消息后（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractMessagePostSendEvent {
 	public AbstractMessagePostSendEvent(MessagePostSendEvent<?> event) {
 		this.event = event;

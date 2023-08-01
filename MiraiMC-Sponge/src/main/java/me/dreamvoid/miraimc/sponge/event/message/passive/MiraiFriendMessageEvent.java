@@ -14,6 +14,7 @@ import java.io.IOException;
 /**
  * (Sponge) 消息 - 被动收到消息 - 好友消息
  */
+@SuppressWarnings("unused")
 public class MiraiFriendMessageEvent extends AbstractMessageEvent {
     public MiraiFriendMessageEvent(FriendMessageEvent event, Cause cause) {
         super(event, cause);

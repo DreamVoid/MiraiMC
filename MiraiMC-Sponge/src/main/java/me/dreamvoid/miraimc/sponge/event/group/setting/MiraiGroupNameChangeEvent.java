@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.GroupNameChangeEvent;
 /**
  * (Sponge) 群 - 群设置 - 群设置改变 - 群名改变
  */
+@SuppressWarnings("unused")
 public class MiraiGroupNameChangeEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupNameChangeEvent(GroupNameChangeEvent event, Cause cause) {
         super(event, cause);

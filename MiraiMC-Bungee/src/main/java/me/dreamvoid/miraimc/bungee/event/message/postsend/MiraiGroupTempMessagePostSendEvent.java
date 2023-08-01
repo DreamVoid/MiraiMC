@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * (BungeeCord) 消息 - 主动发送消息后 - 群临时会话消息
  */
+@SuppressWarnings("unused")
 public class MiraiGroupTempMessagePostSendEvent extends AbstractMessagePostSendEvent {
     public MiraiGroupTempMessagePostSendEvent(GroupTempMessagePostSendEvent event) {
         super(event);

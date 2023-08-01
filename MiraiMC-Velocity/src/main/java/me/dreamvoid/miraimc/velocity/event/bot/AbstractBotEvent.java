@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.BotEvent;
 /**
  * (Velocity) Bot（抽象）
  */
+@SuppressWarnings("unused")
 public abstract class AbstractBotEvent {
 	public AbstractBotEvent(BotEvent event){
 		this.event = event;

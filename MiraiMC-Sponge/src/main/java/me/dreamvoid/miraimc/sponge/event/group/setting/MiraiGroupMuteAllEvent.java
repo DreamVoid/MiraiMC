@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.GroupMuteAllEvent;
 /**
  * (Sponge) 群 - 群设置 - 群设置改变 - 全员禁言状态改变
  */
+@SuppressWarnings("unused")
 public class MiraiGroupMuteAllEvent extends AbstractGroupSettingChangeEvent {
     private final GroupMuteAllEvent event;
 

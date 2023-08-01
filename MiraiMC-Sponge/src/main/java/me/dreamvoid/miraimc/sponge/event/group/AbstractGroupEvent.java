@@ -9,6 +9,7 @@ import org.spongepowered.api.event.impl.AbstractEvent;
 /**
  * (Sponge) 群（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractGroupEvent extends AbstractEvent {
 	private final GroupEvent event;
 	private final Cause cause;

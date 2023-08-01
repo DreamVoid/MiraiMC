@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.MemberLeaveEvent;
 /**
  * (BungeeCord) 群 - 群成员 - 成员列表变更 - 成员已经离开群
  */
+@SuppressWarnings("unused")
 public class MiraiMemberLeaveEvent extends AbstractGroupMemberEvent {
     public MiraiMemberLeaveEvent(MemberLeaveEvent event) {
         super(event);

@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * (Bukkit) 好友（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractFriendEvent extends Event {
 	public AbstractFriendEvent(FriendEvent event){
 		super(true);

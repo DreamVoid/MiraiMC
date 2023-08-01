@@ -8,6 +8,7 @@ import cn.nukkit.event.Event;
 /**
  * (Nukkit) 好友（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractFriendEvent extends Event {
 	public AbstractFriendEvent(FriendEvent event){
 		this.event = event;

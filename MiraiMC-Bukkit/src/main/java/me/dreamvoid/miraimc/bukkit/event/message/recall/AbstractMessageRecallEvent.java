@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * (Bukkit) 消息 - 消息撤回（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractMessageRecallEvent extends Event {
 	public AbstractMessageRecallEvent(MessageRecallEvent event) {
 		super(true);

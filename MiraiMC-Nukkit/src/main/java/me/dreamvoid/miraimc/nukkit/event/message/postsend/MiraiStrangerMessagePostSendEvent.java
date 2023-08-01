@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.StrangerMessagePostSendEvent;
 /**
  * (Nukkit) 消息 - 主动发送消息后 - 陌生人消息
  */
+@SuppressWarnings("unused")
 public class MiraiStrangerMessagePostSendEvent extends AbstractMessagePostSendEvent {
     private final StrangerMessagePostSendEvent event;
 

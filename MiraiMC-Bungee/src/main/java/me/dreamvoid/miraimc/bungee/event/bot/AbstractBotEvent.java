@@ -7,6 +7,7 @@ import net.md_5.bungee.api.plugin.Event;
 /**
  * (BungeeCord) Bot（抽象）
  */
+@SuppressWarnings("unused")
 public abstract class AbstractBotEvent extends Event {
 	public AbstractBotEvent(BotEvent event){
 		this.event = event;

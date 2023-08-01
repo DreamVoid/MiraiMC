@@ -12,6 +12,7 @@ import java.util.Objects;
 /**
  * (Nukkit) 消息 - 主动发送消息后（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractMessagePostSendEvent extends Event {
 	public AbstractMessagePostSendEvent(MessagePostSendEvent<?> event) {
 		this.event = event;

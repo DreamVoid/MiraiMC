@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * (Bukkit) Bot（抽象）
  */
+@SuppressWarnings("unused")
 public abstract class AbstractBotEvent extends Event {
 	public AbstractBotEvent(BotEvent event){
 		super(true);

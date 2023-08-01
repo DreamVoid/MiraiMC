@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.FriendInputStatusChangedEvent;
 /**
  * (Sponge) 好友 - 好友输入状态改变
  */
+@SuppressWarnings("unused")
 public class MiraiFriendInputStatusChangedEvent extends AbstractFriendEvent {
     public MiraiFriendInputStatusChangedEvent(FriendInputStatusChangedEvent event, Cause cause) {
         super(event, cause);

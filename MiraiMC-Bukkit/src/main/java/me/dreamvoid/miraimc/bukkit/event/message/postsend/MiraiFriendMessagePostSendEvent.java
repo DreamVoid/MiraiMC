@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.FriendMessagePostSendEvent;
 /**
  * (Bukkit) 消息 - 主动发送消息后 - 好友消息
  */
+@SuppressWarnings("unused")
 public class MiraiFriendMessagePostSendEvent extends AbstractMessagePostSendEvent {
 
     public MiraiFriendMessagePostSendEvent(FriendMessagePostSendEvent event) {

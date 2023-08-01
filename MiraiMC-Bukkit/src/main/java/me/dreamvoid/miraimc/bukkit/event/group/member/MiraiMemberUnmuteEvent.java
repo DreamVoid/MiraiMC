@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.MemberUnmuteEvent;
 /**
  * (Bukkit) 群 - 群成员 - 动作 - 群成员被取消禁言
  */
+@SuppressWarnings("unused")
 public class MiraiMemberUnmuteEvent extends AbstractGroupMemberEvent {
     public MiraiMemberUnmuteEvent(MemberUnmuteEvent event) {
         super(event);

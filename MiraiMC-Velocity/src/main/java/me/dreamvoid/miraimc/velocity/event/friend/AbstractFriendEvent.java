@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.FriendEvent;
 /**
  * (Velocity) 好友（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractFriendEvent {
 	public AbstractFriendEvent(FriendEvent event){
 		this.event = event;

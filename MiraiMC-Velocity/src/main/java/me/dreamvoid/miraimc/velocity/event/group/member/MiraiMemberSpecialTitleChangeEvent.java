@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.MemberSpecialTitleChangeEvent;
 /**
  * (Velocity) 群 - 群成员 - 名片和头衔 - 成员群特殊头衔改动
  */
+@SuppressWarnings("unused")
 public class MiraiMemberSpecialTitleChangeEvent extends AbstractGroupMemberEvent {
     public MiraiMemberSpecialTitleChangeEvent(MemberSpecialTitleChangeEvent event) {
         super(event);

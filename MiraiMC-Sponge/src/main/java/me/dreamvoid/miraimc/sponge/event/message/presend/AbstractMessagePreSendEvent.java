@@ -10,6 +10,7 @@ import org.spongepowered.api.event.impl.AbstractEvent;
 /**
  * (Sponge) 消息 - 主动发送消息前（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractMessagePreSendEvent extends AbstractEvent implements Cancellable {
 	private final Cause cause;
 

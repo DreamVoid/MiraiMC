@@ -5,6 +5,7 @@ import net.mamoe.mirai.event.events.StrangerMessagePreSendEvent;
 /**
  * (Bukkit) 消息 - 主动发送消息前 - 陌生人消息
  */
+@SuppressWarnings("unused")
 public class MiraiStrangerMessagePreSendEvent extends AbstractMessagePreSendEvent {
     public MiraiStrangerMessagePreSendEvent(StrangerMessagePreSendEvent event) {
         super(event);

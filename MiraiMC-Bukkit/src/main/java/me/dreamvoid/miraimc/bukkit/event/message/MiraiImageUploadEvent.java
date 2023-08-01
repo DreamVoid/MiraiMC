@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * (Bukkit) 消息 - 图片上传失败
  */
+@SuppressWarnings("unused")
 public class MiraiImageUploadEvent extends Event {
     public MiraiImageUploadEvent(ImageUploadEvent event) {
         super(true);

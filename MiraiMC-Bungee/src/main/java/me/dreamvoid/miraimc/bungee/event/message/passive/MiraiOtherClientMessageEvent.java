@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.OtherClientMessageEvent;
 /**
  * (BungeeCord) 消息 - 被动收到消息 - 其他客户端消息
  */
+@SuppressWarnings("unused")
 public class MiraiOtherClientMessageEvent extends AbstractMessageEvent {
     public MiraiOtherClientMessageEvent(OtherClientMessageEvent event) {
         super(event);

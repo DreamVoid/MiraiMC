@@ -6,6 +6,7 @@ import net.mamoe.mirai.message.code.MiraiCode;
 /**
  * (Velocity) 消息 - 主动发送消息前（抽象）
  */
+@SuppressWarnings("unused")
 abstract class AbstractMessagePreSendEvent {
 	public AbstractMessagePreSendEvent(MessagePreSendEvent event) {
 		this.event = event;

@@ -6,6 +6,7 @@ import net.mamoe.mirai.event.events.BotInvitedJoinGroupRequestEvent;
 /**
  * (BungeeCord) 群 - 群成员 - 成员列表变更 - 机器人被邀请加入群
  */
+@SuppressWarnings("unused")
 public class MiraiBotInvitedJoinGroupRequestEvent extends AbstractBotEvent {
 
     public MiraiBotInvitedJoinGroupRequestEvent(BotInvitedJoinGroupRequestEvent event) {
