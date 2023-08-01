@@ -7,7 +7,6 @@ import com.google.gson.reflect.TypeToken;
 import kotlinx.coroutines.CoroutineScope;
 import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.MiraiMCPlugin;
-import me.dreamvoid.miraimc.internal.encryptservice.TLV544Provider;
 import me.dreamvoid.miraimc.internal.encryptservice.UnidbgFetchQsign;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.internal.spi.EncryptService;
@@ -103,8 +102,8 @@ public class MiraiEncryptServiceFactory implements EncryptService.Factory {
             }
             case ANDROID_WATCH: default: throw new UnsupportedOperationException(protocol.name());
             case IPAD: case MACOS:{
-                logger.error(protocol.name() + " 尚不支持签名服务，大概率登录失败");
-                return new TLV544Provider();
+                logger.error(protocol.name() + " 尚不支持签名服务");
+                throw new UnsupportedOperationException(protocol.name());
             }
         }
 
