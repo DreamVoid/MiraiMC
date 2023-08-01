@@ -9,7 +9,7 @@ import java.net.*
 import java.time.*
 
 @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-public object FixProtocolVersion {
+object FixProtocolVersion {
 
     private val clazz = MiraiProtocolInternal::class.java
 
@@ -94,7 +94,7 @@ public object FixProtocolVersion {
      * 根据本地代码检查协议版本更新
      */
     @JvmStatic
-    public fun update() {
+    fun update() {
         protocols.compute(BotConfiguration.MiraiProtocol.ANDROID_PHONE) { _, impl ->
             when {
                 null == impl -> null
@@ -259,7 +259,7 @@ public object FixProtocolVersion {
         )
     )
     @JvmStatic
-    public fun sync(protocol: BotConfiguration.MiraiProtocol): Unit = fetch(protocol = protocol, version = "latest")
+    fun sync(protocol: BotConfiguration.MiraiProtocol): Unit = fetch(protocol = protocol, version = "latest")
 
     /**
      * 从 [RomiChan/protocol-versions](https://github.com/RomiChan/protocol-versions) 获取指定版本协议
@@ -267,7 +267,7 @@ public object FixProtocolVersion {
      * @since 1.9.6
      */
     @JvmStatic
-    public fun fetch(protocol: BotConfiguration.MiraiProtocol, version: String) {
+    fun fetch(protocol: BotConfiguration.MiraiProtocol, version: String) {
         val (file, url) = when (protocol) {
             BotConfiguration.MiraiProtocol.ANDROID_PHONE -> {
                 File(File(MiraiMCConfig.PluginDir,"protocol"),"android_phone.json") to
@@ -304,7 +304,7 @@ public object FixProtocolVersion {
                     .getInputStream().use { it.readBytes() }
                     .decodeToString()
             } catch (cause: Throwable) {
-                val exception = throwable.cause as? java.net.UnknownHostException ?: throwable
+                val exception = throwable.cause as? UnknownHostException ?: throwable
                 exception.addSuppressed(cause)
                 throw exception
             }
@@ -330,7 +330,7 @@ public object FixProtocolVersion {
      * @since 1.8.0
      */
     @JvmStatic
-    public fun load(protocol: BotConfiguration.MiraiProtocol) {
+    fun load(protocol: BotConfiguration.MiraiProtocol) {
         val file = File(File(MiraiMCConfig.PluginDir,"protocol"),"${protocol.name.lowercase()}.json")
         val json: JsonObject = Json.parseToJsonElement(file.readText()).jsonObject
 
@@ -379,7 +379,7 @@ public object FixProtocolVersion {
      * @since 1.6.0
      */
     @JvmStatic
-    public fun info(): Map<BotConfiguration.MiraiProtocol, String> {
+    fun info(): Map<BotConfiguration.MiraiProtocol, String> {
         return protocols.mapValues { (protocol, info) ->
             val version = info.field("buildVer", null as String?) ?: info.field("ver", "???")
             val epochSecond = info.field("buildTime", 0L)

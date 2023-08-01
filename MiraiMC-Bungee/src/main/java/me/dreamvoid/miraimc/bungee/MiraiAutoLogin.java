@@ -23,13 +23,11 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
         this.plugin = plugin;
         logger = Logger.getLogger("MiraiMC-AutoLogin");
         logger.setParent(Utils.logger);
-        Instance = this;
     }
 
     private final BungeePlugin plugin;
     private final Logger logger;
     private static File AutoLoginFile;
-    public static MiraiAutoLogin Instance;
 
     @Override
     public void loadFile() {

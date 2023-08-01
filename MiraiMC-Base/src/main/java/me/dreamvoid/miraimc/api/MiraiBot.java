@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
  * Mirai Core 核心接口
  * @author DreamVoid
  */
+@SuppressWarnings("unused")
 public class MiraiBot {
     private final Bot bot;
     private static Logger logger;

@@ -25,13 +25,11 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
         this.plugin = plugin;
         logger = new SpongeLogger("MiraiMC-AutoLogin", plugin);
         logger.setParent(Utils.logger);
-        Instance = this;
     }
 
     private final SpongePlugin plugin;
     private final Logger logger;
     private static File AutoLoginFile;
-    public static MiraiAutoLogin Instance;
 
     @Override
     public void loadFile() {

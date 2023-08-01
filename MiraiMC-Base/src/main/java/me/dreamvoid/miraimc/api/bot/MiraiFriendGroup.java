@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
  * @author DreamVoid
  * @since mirai 2.13
  */
+@SuppressWarnings("unused")
 public class MiraiFriendGroup {
     private final Bot bot;
     private final FriendGroup friendGroup;

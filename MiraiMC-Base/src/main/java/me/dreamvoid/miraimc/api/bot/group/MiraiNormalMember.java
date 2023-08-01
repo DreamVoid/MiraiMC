@@ -15,6 +15,7 @@ import java.io.File;
  * MiraiMC 群成员
  * @author DreamVoid
  */
+@SuppressWarnings("unused")
 public class MiraiNormalMember{
     private final NormalMember member;
 

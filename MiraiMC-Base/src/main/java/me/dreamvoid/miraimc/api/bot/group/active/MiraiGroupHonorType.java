@@ -6,6 +6,7 @@ import net.mamoe.mirai.data.GroupHonorType;
  * MiraiMC 群荣誉信息
  * @since mirai 2.13
  */
+@SuppressWarnings("unused")
 public class MiraiGroupHonorType {
     private final GroupHonorType type;
 

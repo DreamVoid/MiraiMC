@@ -7,6 +7,7 @@ import net.mamoe.mirai.contact.active.ActiveRankRecord;
  * MiraiMC 活跃排行榜记录
  * @since mirai 2.13
  */
+@SuppressWarnings("unused")
 public class MiraiActiveRankRecord {
     private final ActiveRankRecord record;
 

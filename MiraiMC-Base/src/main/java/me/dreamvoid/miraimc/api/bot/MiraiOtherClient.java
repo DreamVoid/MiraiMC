@@ -11,6 +11,7 @@ import java.io.File;
  * MiraiMC 其他客户端
  * @since 1.7
  */
+@SuppressWarnings("unused")
 public class MiraiOtherClient {
 	private final OtherClient client;
 

@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
  * MiraiMC 群活跃度相关属性
  * @since mirai 2.13
  */
+@SuppressWarnings("unused")
 public class MiraiMemberActive {
     private final MemberActive active;
 

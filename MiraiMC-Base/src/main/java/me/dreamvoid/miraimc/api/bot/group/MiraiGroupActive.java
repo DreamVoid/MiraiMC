@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
  * MiraiMC 群活跃度管理
  * @since mirai 2.13
  */
+@SuppressWarnings("unused")
 public class MiraiGroupActive {
     private final GroupActive active;
 

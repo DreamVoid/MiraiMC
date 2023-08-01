@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.httpapi.exception;
 
+@SuppressWarnings("unused")
 public class AbnormalStatusException extends RuntimeException{
     private final int code;
 

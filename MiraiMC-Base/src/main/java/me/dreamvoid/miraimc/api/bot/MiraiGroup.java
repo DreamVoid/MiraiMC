@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
  * MiraiMC 群
  * @author DreamVoid
  */
+@SuppressWarnings("unused")
 public class MiraiGroup {
     private final Group group;
 

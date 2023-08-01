@@ -24,13 +24,11 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
         this.plugin = plugin;
         logger = new VelocityLogger("MiraiMC-AutoLogin", plugin);
         logger.setParent(Utils.logger);
-        Instance = this;
     }
 
     private final VelocityPlugin plugin;
     private final Logger logger;
     private File AutoLoginFile;
-    public final MiraiAutoLogin Instance;
 
     @Override
     public void loadFile() {

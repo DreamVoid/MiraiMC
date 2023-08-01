@@ -9,6 +9,7 @@ import java.util.Map;
  * 键是 yyyy-MM 格式的日期，值是数量
  * @since mirai 2.13
  */
+@SuppressWarnings("unused")
 public class MiraiActiveChart {
     private final ActiveChart chart;
 

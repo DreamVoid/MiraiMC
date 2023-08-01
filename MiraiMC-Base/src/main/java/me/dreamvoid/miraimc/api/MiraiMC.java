@@ -13,6 +13,7 @@ import java.util.UUID;
 /**
  * MiraiMC 插件接口
  */
+@SuppressWarnings("unused")
 public class MiraiMC {
     /**
      * 添加一个MC-QQ绑定

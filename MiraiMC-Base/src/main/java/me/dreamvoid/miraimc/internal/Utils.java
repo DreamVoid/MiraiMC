@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import me.dreamvoid.miraimc.MiraiMCConfig;
-import me.dreamvoid.miraimc.MiraiMCPlugin;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpPost;
@@ -82,16 +81,11 @@ public final class Utils {
         }
     }
 
-    public static MiraiMCPlugin PlatformPlugin;
     public static Logger logger;
     public static ClassLoader classLoader;
 
     public static Connection connection; // SQLite
     public static HikariDataSource ds; // MySQL
-
-    public static void setPlatformPlugin(MiraiMCPlugin platformPlugin){
-        Utils.PlatformPlugin = platformPlugin;
-    }
 
     public static void setLogger(Logger logger){
         Utils.logger = logger;

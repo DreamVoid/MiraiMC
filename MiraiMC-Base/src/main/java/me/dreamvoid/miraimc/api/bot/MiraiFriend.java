@@ -15,6 +15,7 @@ import java.io.File;
  * MiraiMC 好友
  * @author DreamVoid
  */
+@SuppressWarnings("unused")
 public class MiraiFriend {
     private final Bot bot;
     private final Friend friend;

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
  * MiraiMC 群成员头衔详情
  * @since mirai 2.13
  */
+@SuppressWarnings("unused")
 public class MiraiMemberMedalInfo {
     private final MemberMedalInfo info;
 

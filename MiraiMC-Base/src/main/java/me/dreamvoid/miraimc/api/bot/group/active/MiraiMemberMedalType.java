@@ -6,6 +6,7 @@ import net.mamoe.mirai.contact.active.MemberMedalType;
  * MiraiMC 群成员头衔类型
  * @since mirai 2.13
  */
+@SuppressWarnings("unused")
 public class MiraiMemberMedalType {
     private final MemberMedalType type;
 

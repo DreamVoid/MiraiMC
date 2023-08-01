@@ -6,8 +6,6 @@ import net.mamoe.mirai.internal.spi.EncryptServiceContext
 import net.mamoe.mirai.internal.utils.*
 import net.mamoe.mirai.utils.*
 import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 class MiraiEncryptServiceFactoryKt {
     companion object{
