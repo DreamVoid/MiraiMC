@@ -63,13 +63,13 @@ MiraiMC 是一个基于 [Mirai](https://github.com/mamoe/mirai) 的 Minecraft �
     <dependency>
         <groupId>io.github.dreamvoid</groupId>
         <artifactId>MiraiMC-Integration</artifactId>
-        <version>1.8-rc1</version>
+        <version>1.8-rc2</version>
         <scope>provided</scope>
     </dependency>
     ```
     * Gradle
     ```
-    implementation 'io.github.dreamvoid:MiraiMC-Integration:1.8-rc1'
+    implementation 'io.github.dreamvoid:MiraiMC-Integration:1.8-rc2'
     ```
 2. 参照 [Javadoc](https://jd.miraimc.dreamvoid.me) 或 [MiraiMC 开发模板](https://github.com/MiraiMC/MiraiMC-Template)编写相关的代码
 3. 发布你的插件
