@@ -149,7 +149,7 @@ public class MiraiMCPlugin {
                 List<String> announcement = Info.init().announcement;
                 if(announcement != null){
                     logger.info("========== [ MiraiMC 公告版 ] ==========");
-                    announcement.forEach(s -> logger.info(s));
+                    announcement.forEach(logger::info);
                     logger.info("=======================================");
                 }
             } catch (IOException ignored) {}

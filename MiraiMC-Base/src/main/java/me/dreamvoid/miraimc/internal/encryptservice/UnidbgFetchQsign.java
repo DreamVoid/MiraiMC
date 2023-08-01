@@ -24,7 +24,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -123,9 +122,9 @@ public class UnidbgFetchQsign implements EncryptService, CoroutineScope {
 
     private static class DataWrapper{
         @SerializedName("code")
-        public int code = 0;
+        public int code;
         @SerializedName("msg")
-        public String message = "";
+        public String message;
         @SerializedName("data")
         public JsonElement data;
     }
@@ -274,14 +273,14 @@ public class UnidbgFetchQsign implements EncryptService, CoroutineScope {
 
     private static class SignResult {
         @SerializedName("token")
-        String token = "";
+        String token;
         @SerializedName("extra")
-        String extra = "";
+        String extra;
         @SerializedName("sign")
-        String sign = "";
+        String sign;
         @SerializedName("o3did")
-        String o3did = "";
+        String o3did;
         @SerializedName("requestCallback")
-        List<RequestCallback> request = Collections.emptyList();
+        List<RequestCallback> request;
     }
 }

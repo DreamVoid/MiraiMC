@@ -115,15 +115,15 @@ public class MiraiEncryptServiceFactory implements EncryptService.Factory {
         String base;
 
         @SerializedName("type")
-        String type = "";
+        String type;
 
         @SerializedName("key")
-        String key = "";
+        String key;
 
         @SerializedName("server_identity_key")
-        String serverIdentityKey = "";
+        String serverIdentityKey;
 
         @SerializedName("authorization_key")
-        String authorizationKey = "";
+        String authorizationKey;
     }
 }
