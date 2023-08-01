@@ -52,6 +52,9 @@ public class MiraiMCPlugin {
         // 加载配置
         logger.info("Loading config.");
         platform.getPluginConfig().loadConfig();
+        if(platform.getPluginVersion().contains("dev-") && MiraiMCConfig.General.MiraiCoreVersion.equalsIgnoreCase("stable")) {
+            MiraiMCConfig.General.MiraiCoreVersion = "latest"; // Fix dev version
+        }
 
         logger.info("Mirai working dir: " + MiraiMCConfig.General.MiraiWorkingDir);
 
