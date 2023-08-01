@@ -304,7 +304,7 @@ object FixProtocolVersion {
                     .getInputStream().use { it.readBytes() }
                     .decodeToString()
             } catch (cause: Throwable) {
-                val exception = throwable.cause as? UnknownHostException ?: throwable
+                val exception = throwable.cause as? java.net.UnknownHostException ?: throwable
                 exception.addSuppressed(cause)
                 throw exception
             }
