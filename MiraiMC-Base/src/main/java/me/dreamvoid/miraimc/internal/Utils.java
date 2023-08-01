@@ -121,12 +121,12 @@ public final class Utils {
         config.setJdbcUrl("jdbc:mysql://" + MiraiMCConfig.Database.MySQL.Address + "/" + MiraiMCConfig.Database.MySQL.Database);
         config.setUsername(MiraiMCConfig.Database.MySQL.Username);
         config.setPassword(MiraiMCConfig.Database.MySQL.Password);
-        config.setConnectionTimeout(MiraiMCConfig.Database.MySQL.Poll.ConnectionTimeout);
-        config.setIdleTimeout(MiraiMCConfig.Database.MySQL.Poll.IdleTimeout);
-        config.setMaxLifetime(MiraiMCConfig.Database.MySQL.Poll.MaxLifetime);
-        config.setMaximumPoolSize(MiraiMCConfig.Database.MySQL.Poll.MaximumPoolSize);
-        config.setKeepaliveTime(MiraiMCConfig.Database.MySQL.Poll.KeepaliveTime);
-        config.setMinimumIdle(MiraiMCConfig.Database.MySQL.Poll.MinimumIdle);
+        config.setConnectionTimeout(MiraiMCConfig.Database.MySQL.Pool.ConnectionTimeout);
+        config.setIdleTimeout(MiraiMCConfig.Database.MySQL.Pool.IdleTimeout);
+        config.setMaxLifetime(MiraiMCConfig.Database.MySQL.Pool.MaxLifetime);
+        config.setMaximumPoolSize(MiraiMCConfig.Database.MySQL.Pool.MaximumPoolSize);
+        config.setKeepaliveTime(MiraiMCConfig.Database.MySQL.Pool.KeepaliveTime);
+        config.setMinimumIdle(MiraiMCConfig.Database.MySQL.Pool.MinimumIdle);
         config.addDataSourceProperty("cachePrepStmts", "true" );
         config.addDataSourceProperty("prepStmtCacheSize", "250" );
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048" );

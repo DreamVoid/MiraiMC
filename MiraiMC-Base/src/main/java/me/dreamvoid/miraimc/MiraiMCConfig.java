@@ -46,7 +46,7 @@ public abstract class MiraiMCConfig {
             public static String Username; // username
             public static String Password; // password
             public static String Database; // database
-            public static class Poll{ // pool
+            public static class Pool { // pool
                 public static int ConnectionTimeout; // connectionTimeout
                 public static int IdleTimeout; // idleTimeout
                 public static int MaxLifetime; // maxLifetime

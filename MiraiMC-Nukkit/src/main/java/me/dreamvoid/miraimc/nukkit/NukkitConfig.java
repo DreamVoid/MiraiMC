@@ -37,11 +37,11 @@ public class NukkitConfig extends MiraiMCConfig {
         Database.MySQL.Username = plugin.getConfig().getString("database.mysql.username", "miraimc");
         Database.MySQL.Password = plugin.getConfig().getString("database.mysql.password", "miraimc");
         Database.MySQL.Database = plugin.getConfig().getString("database.mysql.database", "miraimc");
-        Database.MySQL.Poll.ConnectionTimeout = plugin.getConfig().getInt("database.mysql.pool.connectionTimeout",30000);
-        Database.MySQL.Poll.IdleTimeout = plugin.getConfig().getInt("database.mysql.pool.connectionTimeout",600000);
-        Database.MySQL.Poll.MaxLifetime = plugin.getConfig().getInt("database.mysql.pool.maxLifetime",1800000);
-        Database.MySQL.Poll.MaximumPoolSize = plugin.getConfig().getInt("database.mysql.pool.maximumPoolSize",15);
-        Database.MySQL.Poll.KeepaliveTime = plugin.getConfig().getInt("database.mysql.pool.keepaliveTime",0);
-        Database.MySQL.Poll.MinimumIdle = plugin.getConfig().getInt("database.mysql.pool.minimumIdle",0);
+        Database.MySQL.Pool.ConnectionTimeout = plugin.getConfig().getInt("database.mysql.pool.connectionTimeout",30000);
+        Database.MySQL.Pool.IdleTimeout = plugin.getConfig().getInt("database.mysql.pool.connectionTimeout",600000);
+        Database.MySQL.Pool.MaxLifetime = plugin.getConfig().getInt("database.mysql.pool.maxLifetime",1800000);
+        Database.MySQL.Pool.MaximumPoolSize = plugin.getConfig().getInt("database.mysql.pool.maximumPoolSize",15);
+        Database.MySQL.Pool.KeepaliveTime = plugin.getConfig().getInt("database.mysql.pool.keepaliveTime",0);
+        Database.MySQL.Pool.MinimumIdle = plugin.getConfig().getInt("database.mysql.pool.minimumIdle",0);
     }
 }

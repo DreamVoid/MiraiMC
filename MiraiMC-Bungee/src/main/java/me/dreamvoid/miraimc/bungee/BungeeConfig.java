@@ -52,11 +52,11 @@ public class BungeeConfig extends MiraiMCConfig {
         Database.MySQL.Username = config.getString("database.mysql.username", "miraimc");
         Database.MySQL.Password = config.getString("database.mysql.password", "miraimc");
         Database.MySQL.Database = config.getString("database.mysql.database", "miraimc");
-        Database.MySQL.Poll.ConnectionTimeout = config.getInt("database.mysql.pool.connectionTimeout",30000);
-        Database.MySQL.Poll.IdleTimeout = config.getInt("database.mysql.pool.connectionTimeout",600000);
-        Database.MySQL.Poll.MaxLifetime = config.getInt("database.mysql.pool.maxLifetime",1800000);
-        Database.MySQL.Poll.MaximumPoolSize = config.getInt("database.mysql.pool.maximumPoolSize",15);
-        Database.MySQL.Poll.KeepaliveTime = config.getInt("database.mysql.pool.keepaliveTime",0);
-        Database.MySQL.Poll.MinimumIdle = config.getInt("database.mysql.pool.minimumIdle",0);
+        Database.MySQL.Pool.ConnectionTimeout = config.getInt("database.mysql.pool.connectionTimeout",30000);
+        Database.MySQL.Pool.IdleTimeout = config.getInt("database.mysql.pool.connectionTimeout",600000);
+        Database.MySQL.Pool.MaxLifetime = config.getInt("database.mysql.pool.maxLifetime",1800000);
+        Database.MySQL.Pool.MaximumPoolSize = config.getInt("database.mysql.pool.maximumPoolSize",15);
+        Database.MySQL.Pool.KeepaliveTime = config.getInt("database.mysql.pool.keepaliveTime",0);
+        Database.MySQL.Pool.MinimumIdle = config.getInt("database.mysql.pool.minimumIdle",0);
     }
 }

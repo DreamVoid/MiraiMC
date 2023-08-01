@@ -56,12 +56,12 @@ public class SpongeConfig extends MiraiMCConfig {
         Database.MySQL.Username = serializable.database.mysql.username;
         Database.MySQL.Password = serializable.database.mysql.password;
         Database.MySQL.Database = serializable.database.mysql.database;
-        Database.MySQL.Poll.ConnectionTimeout = serializable.database.mysql.pool.connectionTimeout;
-        Database.MySQL.Poll.IdleTimeout = serializable.database.mysql.pool.idleTimeout;
-        Database.MySQL.Poll.MaxLifetime = serializable.database.mysql.pool.maxLifetime;
-        Database.MySQL.Poll.MaximumPoolSize = serializable.database.mysql.pool.maximumPoolSize;
-        Database.MySQL.Poll.KeepaliveTime = serializable.database.mysql.pool.keepaliveTime;
-        Database.MySQL.Poll.MinimumIdle = serializable.database.mysql.pool.minimumIdle;
+        Database.MySQL.Pool.ConnectionTimeout = serializable.database.mysql.pool.connectionTimeout;
+        Database.MySQL.Pool.IdleTimeout = serializable.database.mysql.pool.idleTimeout;
+        Database.MySQL.Pool.MaxLifetime = serializable.database.mysql.pool.maxLifetime;
+        Database.MySQL.Pool.MaximumPoolSize = serializable.database.mysql.pool.maximumPoolSize;
+        Database.MySQL.Pool.KeepaliveTime = serializable.database.mysql.pool.keepaliveTime;
+        Database.MySQL.Pool.MinimumIdle = serializable.database.mysql.pool.minimumIdle;
 
         HttpApi.Url = serializable.http__api.url;
         HttpApi.MessageFetch.Interval = serializable.http__api.message__fetch.interval;
