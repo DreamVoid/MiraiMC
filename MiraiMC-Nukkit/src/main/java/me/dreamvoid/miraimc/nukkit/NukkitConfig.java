@@ -45,5 +45,9 @@ public class NukkitConfig extends MiraiMCConfig {
         Database.Pool.MaximumPoolSize = plugin.getConfig().getInt("database.pool.maximumPoolSize",15);
         Database.Pool.KeepaliveTime = plugin.getConfig().getInt("database.pool.keepaliveTime",0);
         Database.Pool.MinimumIdle = plugin.getConfig().getInt("database.pool.minimumIdle",0);
+
+        HttpApi.Url = plugin.getConfig().getString("http-api.url", "http://localhost:8080");
+        HttpApi.MessageFetch.Interval = plugin.getConfig().getInt("http-api.message-fetch.interval", 10);
+        HttpApi.MessageFetch.Count = plugin.getConfig().getInt("http-api.message-fetch.count", 10);
     }
 }

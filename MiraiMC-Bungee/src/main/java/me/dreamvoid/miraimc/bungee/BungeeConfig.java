@@ -60,5 +60,9 @@ public class BungeeConfig extends MiraiMCConfig {
         Database.Pool.MaximumPoolSize = config.getInt("database.pool.maximumPoolSize",15);
         Database.Pool.KeepaliveTime = config.getInt("database.pool.keepaliveTime",0);
         Database.Pool.MinimumIdle = config.getInt("database.pool.minimumIdle",0);
+
+        HttpApi.Url = config.getString("http-api.url", "http://localhost:8080");
+        HttpApi.MessageFetch.Interval = config.getInt("http-api.message-fetch.interval", 10);
+        HttpApi.MessageFetch.Count = config.getInt("http-api.message-fetch.count", 10);
     }
 }
