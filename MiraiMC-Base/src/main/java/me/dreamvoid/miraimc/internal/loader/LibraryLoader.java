@@ -61,7 +61,7 @@ public class LibraryLoader {
 
 		// jar
 		File saveLocation = new File(path, name);
-		if(!downloadJarMaven(repo, groupId, artifactId, version, extra, path, true)){
+		if(!downloadJarMaven(repo, groupId, artifactId, version, extra, path)){
 			throw new RuntimeException("Failed to download library!");
 		}
 
@@ -85,16 +85,16 @@ public class LibraryLoader {
 
 	/**
 	 * 从Maven仓库下载依赖
-	 * @param repo 仓库地址
-	 * @param groupId 组ID
+	 *
+	 * @param repo       仓库地址
+	 * @param groupId    组ID
 	 * @param artifactId 构建ID
-	 * @param version 版本
-	 * @param extra 额外参数
-	 * @param path 保存路径
-	 * @param checkMD5 是否检查MD5
+	 * @param version    版本
+	 * @param extra      额外参数
+	 * @param path       保存路径
 	 * @return 下载成功返回true，否则返回false
 	 */
-	static boolean downloadJarMaven(String repo, String groupId, String artifactId, String version, String extra, File path, boolean checkMD5) throws RuntimeException, IOException {
+	static boolean downloadJarMaven(String repo, String groupId, String artifactId, String version, String extra, File path) throws RuntimeException, IOException {
 		// 创建文件夹
 		if(!path.exists() && !path.mkdirs()) throw new RuntimeException("Failed to create " + path.getPath());
 
@@ -107,27 +107,23 @@ public class LibraryLoader {
 		String JarFileURL = String.format(repo, groupId.replace(".", "/"), artifactId, version, artifactId, version, extra); // 下载地址
 
 		// 检查MD5
-		if(checkMD5) {
-			Utils.logger.info("Verifying " + FileName);
+		Utils.logger.info("Verifying " + FileName);
 
-			File md5File = new File(path, FileName + ".md5");
-			String md5FileUrl = JarFileURL + ".md5";
+		File md5File = new File(path, FileName + ".md5");
+		String md5FileUrl = JarFileURL + ".md5";
 
-			if (md5File.exists() && !md5File.delete()) throw new RuntimeException("Failed to delete " + md5File.getPath());
+		if (md5File.exists() && !md5File.delete()) throw new RuntimeException("Failed to delete " + md5File.getPath());
 
-			downloadFile(md5File, new URL(md5FileUrl), false); // 下载MD5文件
+		downloadFile(md5File, new URL(md5FileUrl), false); // 下载MD5文件
 
-			if(!md5File.exists()) throw new RuntimeException("Failed to download " + md5FileUrl);
+		if(!md5File.exists()) throw new RuntimeException("Failed to download " + md5FileUrl);
 
-			if(JarFile.exists()){
-				FileInputStream fis = new FileInputStream(JarFile);
-				if(!DigestUtils.md5Hex(fis).equals(new String(Files.readAllBytes(md5File.toPath()), StandardCharsets.UTF_8))){
-					fis.close();
-					if(!JarFile.delete()) throw new RuntimeException("Failed to delete " + JarFile.getPath());
-				}
+		if(JarFile.exists()){
+			FileInputStream fis = new FileInputStream(JarFile);
+			if(!DigestUtils.md5Hex(fis).equals(new String(Files.readAllBytes(md5File.toPath()), StandardCharsets.UTF_8))){
+				fis.close();
+				if(!JarFile.delete()) throw new RuntimeException("Failed to delete " + JarFile.getPath());
 			}
-		} else if (JarFile.exists() && !JarFile.delete()) { // 不检查直接删原文件下新的
-			throw new RuntimeException("Failed to delete " + JarFile.getPath());
 		}
 
 		// 下载正式文件
