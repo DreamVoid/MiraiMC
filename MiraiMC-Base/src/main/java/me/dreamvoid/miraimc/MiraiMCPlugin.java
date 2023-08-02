@@ -150,7 +150,7 @@ public class MiraiMCPlugin {
         platform.runTaskLaterAsync(() -> {
             try {
                 List<String> announcement = Info.init().announcement;
-                if(announcement != null){
+                if(announcement != null && announcement.size() != 0){
                     logger.info("========== [ MiraiMC 公告版 ] ==========");
                     announcement.forEach(logger::info);
                     logger.info("=======================================");
