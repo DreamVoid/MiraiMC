@@ -186,7 +186,6 @@ public class SpongePlugin implements Platform {
         return logger;
     }
 
-    @Override
     public File getDataFolder() {
         return dataFolder;
     }

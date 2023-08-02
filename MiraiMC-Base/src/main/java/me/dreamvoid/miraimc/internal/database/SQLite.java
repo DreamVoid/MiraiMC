@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.internal.database;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import me.dreamvoid.miraimc.MiraiMCConfig;
-import me.dreamvoid.miraimc.MiraiMCPlugin;
 
 import java.io.File;
 import java.sql.Connection;
@@ -34,7 +33,7 @@ public class SQLite implements Database {
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("org.sqlite.JDBC");
         config.setPoolName("MiraiMC-SQLite");
-        config.setJdbcUrl("jdbc:sqlite:" + new File(MiraiMCConfig.Database.Settings.SQLite.Path.replace("%plugin_folder%", MiraiMCPlugin.getPlatform().getDataFolder().toPath().toString())).toPath());
+        config.setJdbcUrl("jdbc:sqlite:" + new File(MiraiMCConfig.Database.Settings.SQLite.Path.replace("%plugin_folder%", MiraiMCConfig.PluginDir.toPath().toString())).toPath());
         config.setConnectionTimeout(MiraiMCConfig.Database.Pool.ConnectionTimeout);
         config.setIdleTimeout(MiraiMCConfig.Database.Pool.IdleTimeout);
         config.setMaxLifetime(MiraiMCConfig.Database.Pool.MaxLifetime);

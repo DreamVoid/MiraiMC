@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc;
 
-import java.io.File;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -33,6 +32,4 @@ public interface Platform {
     IMiraiEvent getMiraiEvent();
 
     MiraiMCConfig getPluginConfig();
-
-    File getDataFolder();
 }

@@ -121,7 +121,6 @@ public class VelocityPlugin implements Platform {
         return logger;
     }
 
-    @Override
     public File getDataFolder() {
         return dataDirectory.toFile();
     }
