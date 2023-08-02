@@ -14,6 +14,22 @@ public class SQLite implements Database {
 
     @Override
     public void initialize() throws ClassNotFoundException {
+        /*
+        try {
+            Class<HikariDataSource> clazz = HikariDataSource.class;
+            Field field = clazz.getDeclaredField("LOGGER");
+            field.setAccessible(true);
+
+            Field modifiersField = Field.class.getDeclaredField("modifiers");
+            modifiersField.setAccessible(true);
+            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+
+            field.set(ds, Utils.logger);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        */
+
         Class.forName("org.sqlite.JDBC");
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("org.sqlite.JDBC");
