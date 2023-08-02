@@ -3,8 +3,11 @@ package me.dreamvoid.miraimc.internal.database;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import me.dreamvoid.miraimc.MiraiMCConfig;
+import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -29,9 +32,21 @@ public class SQLite implements Database {
         }
         */
 
-        Class.forName("org.sqlite.JDBC");
+        String driver;
+        if(Utils.findClass("org.sqlite.JDBC")){
+            driver = "org.sqlite.JDBC";
+        } else {
+            try {
+                LibraryLoader.loadJarMaven("org.xerial", "sqlite-jdbc", "3.36.0.3");
+                initialize();
+                return;
+            } catch (IOException e) {
+                throw new ClassNotFoundException("Local library not found and maven download failed: " + e);
+            }
+        }
+
         HikariConfig config = new HikariConfig();
-        config.setDriverClassName("org.sqlite.JDBC");
+        config.setDriverClassName(driver);
         config.setPoolName("MiraiMC-SQLite");
         config.setJdbcUrl("jdbc:sqlite:" + new File(MiraiMCConfig.Database.Settings.SQLite.Path.replace("%plugin_folder%", MiraiMCConfig.PluginDir.toPath().toString())).toPath());
         config.setConnectionTimeout(MiraiMCConfig.Database.Pool.ConnectionTimeout);

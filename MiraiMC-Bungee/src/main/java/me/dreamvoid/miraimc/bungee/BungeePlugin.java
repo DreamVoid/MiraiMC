@@ -6,7 +6,6 @@ import me.dreamvoid.miraimc.bungee.utils.SpecialUtils;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
-import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;
@@ -37,8 +36,6 @@ public class BungeePlugin extends Plugin implements Platform {
 
             MiraiAutoLogin = new MiraiAutoLogin(this);
             MiraiEvent = new MiraiEvent();
-
-            LibraryLoader.loadJarMaven("org.xerial", "sqlite-jdbc", "3.36.0.3");
         } catch (Exception e) {
             getLogger().warning("An error occurred while loading plugin.");
             e.printStackTrace();

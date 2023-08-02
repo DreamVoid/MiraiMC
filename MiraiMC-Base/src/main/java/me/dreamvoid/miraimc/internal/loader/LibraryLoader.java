@@ -42,7 +42,6 @@ public class LibraryLoader {
 	 * @param groupId 组ID
 	 * @param artifactId 构件ID
 	 * @param version 版本
-	 * @param path 保存目录
 	 */
 	public static void loadJarMaven(String groupId, String artifactId, String version) throws RuntimeException, IOException {
 		loadJarMaven(groupId,artifactId,version,"", MiraiMCConfig.General.MavenRepoUrl, new File(MiraiMCConfig.PluginDir, "libraries"));
@@ -117,23 +116,27 @@ public class LibraryLoader {
 		String JarFileURL = String.format(repo, groupId.replace(".", "/"), artifactId, version, artifactId, version, extra); // 下载地址
 
 		// 检查MD5
-		Utils.logger.info("Verifying " + FileName);
+		try{
+			Utils.logger.info("Verifying " + FileName);
 
-		File md5File = new File(path, FileName + ".md5");
-		String md5FileUrl = JarFileURL + ".md5";
+			File md5File = new File(path, FileName + ".md5");
+			String md5FileUrl = JarFileURL + ".md5";
 
-		if (md5File.exists() && !md5File.delete()) throw new RuntimeException("Failed to delete " + md5File.getPath());
+			if (md5File.exists() && !md5File.delete()) throw new RuntimeException("Failed to delete " + md5File.getPath());
 
-		downloadFile(md5File, new URL(md5FileUrl), false); // 下载MD5文件
+			downloadFile(md5File, new URL(md5FileUrl), false); // 下载MD5文件
 
-		if(!md5File.exists()) throw new RuntimeException("Failed to download " + md5FileUrl);
+			if(!md5File.exists()) throw new RuntimeException("Failed to download " + md5FileUrl);
 
-		if(JarFile.exists()){
-			FileInputStream fis = new FileInputStream(JarFile);
-			if(!DigestUtils.md5Hex(fis).equals(new String(Files.readAllBytes(md5File.toPath()), StandardCharsets.UTF_8))){
-				fis.close();
-				if(!JarFile.delete()) throw new RuntimeException("Failed to delete " + JarFile.getPath());
+			if(JarFile.exists()){
+				FileInputStream fis = new FileInputStream(JarFile);
+				if(!DigestUtils.md5Hex(fis).equals(new String(Files.readAllBytes(md5File.toPath()), StandardCharsets.UTF_8))){
+					fis.close();
+					if(!JarFile.delete()) throw new RuntimeException("Failed to delete " + JarFile.getPath());
+				}
 			}
+		} catch (RuntimeException e){
+			Utils.logger.warning("Verify library failed, skipping: " + e.getMessage());
 		}
 
 		// 下载正式文件
