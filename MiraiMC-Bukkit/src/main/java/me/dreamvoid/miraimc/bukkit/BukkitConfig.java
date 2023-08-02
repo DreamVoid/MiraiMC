@@ -52,16 +52,18 @@ public class BukkitConfig extends MiraiMCConfig {
         Bot.UpdateProtocolVersion = plugin.getConfig().getBoolean("bot.update-protocol-version",false);
 
         Database.Type = plugin.getConfig().getString("database.type","sqlite").toLowerCase();
-        Database.MySQL.Address = plugin.getConfig().getString("database.mysql.address","localhost");
-        Database.MySQL.Username = plugin.getConfig().getString("database.mysql.username", "miraimc");
-        Database.MySQL.Password = plugin.getConfig().getString("database.mysql.password", "miraimc");
-        Database.MySQL.Database = plugin.getConfig().getString("database.mysql.database", "miraimc");
-        Database.MySQL.Pool.ConnectionTimeout = plugin.getConfig().getInt("database.mysql.pool.connectionTimeout",30000);
-        Database.MySQL.Pool.IdleTimeout = plugin.getConfig().getInt("database.mysql.pool.connectionTimeout",600000);
-        Database.MySQL.Pool.MaxLifetime = plugin.getConfig().getInt("database.mysql.pool.maxLifetime",1800000);
-        Database.MySQL.Pool.MaximumPoolSize = plugin.getConfig().getInt("database.mysql.pool.maximumPoolSize",15);
-        Database.MySQL.Pool.KeepaliveTime = plugin.getConfig().getInt("database.mysql.pool.keepaliveTime",0);
-        Database.MySQL.Pool.MinimumIdle = plugin.getConfig().getInt("database.mysql.pool.minimumIdle",0);
+        Database.Settings.SQLite.Path = plugin.getConfig().getString("database.settings.sqlite.path", "%plugin_folder%/database.db");
+        Database.Settings.MySQL.Address = plugin.getConfig().getString("database.settings.mysql.address","localhost");
+        Database.Settings.MySQL.Username = plugin.getConfig().getString("database.settings.mysql.username", "miraimc");
+        Database.Settings.MySQL.Password = plugin.getConfig().getString("database.settings.mysql.password", "miraimc");
+        Database.Settings.MySQL.Database = plugin.getConfig().getString("database.settings.mysql.database", "miraimc");
+        Database.Settings.MySQL.Parameters = plugin.getConfig().getString("database.settings.mysql.parameters", "?useSSL=false");
+        Database.Pool.ConnectionTimeout = plugin.getConfig().getInt("database.pool.connectionTimeout",30000);
+        Database.Pool.IdleTimeout = plugin.getConfig().getInt("database.pool.connectionTimeout",600000);
+        Database.Pool.MaxLifetime = plugin.getConfig().getInt("database.pool.maxLifetime",1800000);
+        Database.Pool.MaximumPoolSize = plugin.getConfig().getInt("database.pool.maximumPoolSize",15);
+        Database.Pool.KeepaliveTime = plugin.getConfig().getInt("database.pool.keepaliveTime",0);
+        Database.Pool.MinimumIdle = plugin.getConfig().getInt("database.pool.minimumIdle",0);
 
         HttpApi.Url = plugin.getConfig().getString("http-api.url", "http://localhost:8080");
         HttpApi.MessageFetch.Interval = plugin.getConfig().getInt("http-api.message-fetch.interval", 10);

@@ -36,7 +36,7 @@ import java.util.concurrent.TimeUnit;
         url = "https://github.com/DreamVoid/MiraiMC",
         authors = {"DreamVoid"}
 )
-public class VelocityPlugin implements PlatformPlugin {
+public class VelocityPlugin implements Platform {
     private final MiraiMCPlugin lifeCycle;
     private final MiraiMCConfig platformConfig;
     private final java.util.logging.Logger VelocityLogger;

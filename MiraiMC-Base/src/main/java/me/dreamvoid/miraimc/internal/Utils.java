@@ -1,8 +1,6 @@
 package me.dreamvoid.miraimc.internal;
 
 import com.google.gson.JsonObject;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import me.dreamvoid.miraimc.MiraiMCConfig;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -17,9 +15,6 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
@@ -72,7 +67,7 @@ public final class Utils {
         }
     }
 
-    private static boolean findClass(String className){
+    public static boolean findClass(String className){
         try {
             Class.forName(className);
             return true;
@@ -84,8 +79,6 @@ public final class Utils {
     public static Logger logger;
     public static ClassLoader classLoader;
 
-    public static Connection connection; // SQLite
-    public static HikariDataSource ds; // MySQL
 
     public static void setLogger(Logger logger){
         Utils.logger = logger;
@@ -93,49 +86,6 @@ public final class Utils {
 
     public static void setClassLoader(ClassLoader classLoader) {
         Utils.classLoader = classLoader;
-    }
-
-    public static void initializeSQLite() throws SQLException, ClassNotFoundException{
-        Class.forName("org.sqlite.JDBC");
-        connection = DriverManager.getConnection("jdbc:sqlite:" + new File(MiraiMCConfig.PluginDir,"database.db").getPath());
-    }
-
-    public static void closeSQLite() throws SQLException {
-        connection.close();
-    }
-
-    public static void initializeMySQL(){
-        String driver = null;
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            driver = "com.mysql.cj.jdbc.Driver";
-        } catch (ClassNotFoundException ignored) {
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                driver = "com.mysql.jdbc.Driver";
-            } catch (ClassNotFoundException ignored1) {}
-        }
-
-        HikariConfig config = new HikariConfig();
-        config.setDriverClassName(driver);
-        config.setJdbcUrl("jdbc:mysql://" + MiraiMCConfig.Database.MySQL.Address + "/" + MiraiMCConfig.Database.MySQL.Database);
-        config.setUsername(MiraiMCConfig.Database.MySQL.Username);
-        config.setPassword(MiraiMCConfig.Database.MySQL.Password);
-        config.setConnectionTimeout(MiraiMCConfig.Database.MySQL.Pool.ConnectionTimeout);
-        config.setIdleTimeout(MiraiMCConfig.Database.MySQL.Pool.IdleTimeout);
-        config.setMaxLifetime(MiraiMCConfig.Database.MySQL.Pool.MaxLifetime);
-        config.setMaximumPoolSize(MiraiMCConfig.Database.MySQL.Pool.MaximumPoolSize);
-        config.setKeepaliveTime(MiraiMCConfig.Database.MySQL.Pool.KeepaliveTime);
-        config.setMinimumIdle(MiraiMCConfig.Database.MySQL.Pool.MinimumIdle);
-        config.addDataSourceProperty("cachePrepStmts", "true" );
-        config.addDataSourceProperty("prepStmtCacheSize", "250" );
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048" );
-
-        ds = new HikariDataSource(config);
-    }
-
-    public static void closeMySQL(){
-        ds.close();
     }
 
     /**

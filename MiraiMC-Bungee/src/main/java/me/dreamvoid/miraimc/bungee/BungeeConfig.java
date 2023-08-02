@@ -48,15 +48,17 @@ public class BungeeConfig extends MiraiMCConfig {
         Bot.ContactCache.SaveIntervalMillis = config.getLong("bot.contact-cache.save-interval-millis",60000);
 
         Database.Type = config.getString("database.type","sqlite").toLowerCase();
-        Database.MySQL.Address = config.getString("database.mysql.address", "localhost");
-        Database.MySQL.Username = config.getString("database.mysql.username", "miraimc");
-        Database.MySQL.Password = config.getString("database.mysql.password", "miraimc");
-        Database.MySQL.Database = config.getString("database.mysql.database", "miraimc");
-        Database.MySQL.Pool.ConnectionTimeout = config.getInt("database.mysql.pool.connectionTimeout",30000);
-        Database.MySQL.Pool.IdleTimeout = config.getInt("database.mysql.pool.connectionTimeout",600000);
-        Database.MySQL.Pool.MaxLifetime = config.getInt("database.mysql.pool.maxLifetime",1800000);
-        Database.MySQL.Pool.MaximumPoolSize = config.getInt("database.mysql.pool.maximumPoolSize",15);
-        Database.MySQL.Pool.KeepaliveTime = config.getInt("database.mysql.pool.keepaliveTime",0);
-        Database.MySQL.Pool.MinimumIdle = config.getInt("database.mysql.pool.minimumIdle",0);
+        Database.Settings.SQLite.Path = config.getString("database.settings.sqlite.path", "%plugin_folder%/database.db");
+        Database.Settings.MySQL.Address = config.getString("database.settings.mysql.address", "localhost");
+        Database.Settings.MySQL.Username = config.getString("database.settings.mysql.username", "miraimc");
+        Database.Settings.MySQL.Password = config.getString("database.settings.mysql.password", "miraimc");
+        Database.Settings.MySQL.Database = config.getString("database.settings.mysql.database", "miraimc");
+        Database.Settings.MySQL.Parameters = config.getString("database.settings.mysql.parameters", "?useSSL=false");
+        Database.Pool.ConnectionTimeout = config.getInt("database.pool.connectionTimeout",30000);
+        Database.Pool.IdleTimeout = config.getInt("database.pool.connectionTimeout",600000);
+        Database.Pool.MaxLifetime = config.getInt("database.pool.maxLifetime",1800000);
+        Database.Pool.MaximumPoolSize = config.getInt("database.pool.maximumPoolSize",15);
+        Database.Pool.KeepaliveTime = config.getInt("database.pool.keepaliveTime",0);
+        Database.Pool.MinimumIdle = config.getInt("database.pool.minimumIdle",0);
     }
 }

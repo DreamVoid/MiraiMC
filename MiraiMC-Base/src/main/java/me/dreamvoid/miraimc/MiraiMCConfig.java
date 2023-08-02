@@ -41,19 +41,25 @@ public abstract class MiraiMCConfig {
 
     public static class Database{ // database
         public static String Type; // type
-        public static class MySQL{ // mysql
-            public static String Address; // address
-            public static String Username; // username
-            public static String Password; // password
-            public static String Database; // database
-            public static class Pool { // pool
-                public static int ConnectionTimeout; // connectionTimeout
-                public static int IdleTimeout; // idleTimeout
-                public static int MaxLifetime; // maxLifetime
-                public static int MaximumPoolSize; // maximumPoolSize
-                public static int KeepaliveTime; // keepaliveTime
-                public static int MinimumIdle; // minimumIdle
+        public static class Settings { // settings
+            public static class SQLite{ // sqlite
+                public static String Path; // path
             }
+            public static class MySQL{ // mysql
+                public static String Address; // address
+                public static String Username; // username
+                public static String Password; // password
+                public static String Database; // database
+                public static String Parameters; // parameters
+            }
+        }
+        public static class Pool { // pool
+            public static int ConnectionTimeout; // connectionTimeout
+            public static int IdleTimeout; // idleTimeout
+            public static int MaxLifetime; // maxLifetime
+            public static int MaximumPoolSize; // maximumPoolSize
+            public static int KeepaliveTime; // keepaliveTime
+            public static int MinimumIdle; // minimumIdle
         }
     }
 

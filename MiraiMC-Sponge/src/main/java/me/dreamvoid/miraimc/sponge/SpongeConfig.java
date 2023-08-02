@@ -52,16 +52,18 @@ public class SpongeConfig extends MiraiMCConfig {
         Bot.ContactCache.SaveIntervalMillis = serializable.bot.contact__cache.save__interval__millis;
 
         Database.Type = serializable.database.type;
-        Database.MySQL.Address = serializable.database.mysql.address;
-        Database.MySQL.Username = serializable.database.mysql.username;
-        Database.MySQL.Password = serializable.database.mysql.password;
-        Database.MySQL.Database = serializable.database.mysql.database;
-        Database.MySQL.Pool.ConnectionTimeout = serializable.database.mysql.pool.connectionTimeout;
-        Database.MySQL.Pool.IdleTimeout = serializable.database.mysql.pool.idleTimeout;
-        Database.MySQL.Pool.MaxLifetime = serializable.database.mysql.pool.maxLifetime;
-        Database.MySQL.Pool.MaximumPoolSize = serializable.database.mysql.pool.maximumPoolSize;
-        Database.MySQL.Pool.KeepaliveTime = serializable.database.mysql.pool.keepaliveTime;
-        Database.MySQL.Pool.MinimumIdle = serializable.database.mysql.pool.minimumIdle;
+        Database.Settings.SQLite.Path = serializable.database.settings.sqlite.path;
+        Database.Settings.MySQL.Address = serializable.database.settings.mysql.address;
+        Database.Settings.MySQL.Username = serializable.database.settings.mysql.username;
+        Database.Settings.MySQL.Password = serializable.database.settings.mysql.password;
+        Database.Settings.MySQL.Database = serializable.database.settings.mysql.database;
+        Database.Settings.MySQL.Parameters = serializable.database.settings.mysql.parameters;
+        Database.Pool.ConnectionTimeout = serializable.database.pool.connectionTimeout;
+        Database.Pool.IdleTimeout = serializable.database.pool.idleTimeout;
+        Database.Pool.MaxLifetime = serializable.database.pool.maxLifetime;
+        Database.Pool.MaximumPoolSize = serializable.database.pool.maximumPoolSize;
+        Database.Pool.KeepaliveTime = serializable.database.pool.keepaliveTime;
+        Database.Pool.MinimumIdle = serializable.database.pool.minimumIdle;
 
         HttpApi.Url = serializable.http__api.url;
         HttpApi.MessageFetch.Interval = serializable.http__api.message__fetch.interval;

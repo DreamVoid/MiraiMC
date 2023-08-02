@@ -1,10 +1,11 @@
 package me.dreamvoid.miraimc;
 
+import java.io.File;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-public interface PlatformPlugin {
+public interface Platform {
     String getPlayerName(UUID uuid);
 
     UUID getPlayerUUID(String name);
@@ -32,4 +33,6 @@ public interface PlatformPlugin {
     IMiraiEvent getMiraiEvent();
 
     MiraiMCConfig getPluginConfig();
+
+    File getDataFolder();
 }

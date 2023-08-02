@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.bungee;
 import me.dreamvoid.miraimc.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.IMiraiEvent;
 import me.dreamvoid.miraimc.MiraiMCPlugin;
-import me.dreamvoid.miraimc.PlatformPlugin;
+import me.dreamvoid.miraimc.Platform;
 import me.dreamvoid.miraimc.bungee.utils.Metrics;
 import me.dreamvoid.miraimc.bungee.utils.SpecialUtils;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
@@ -21,7 +21,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-public class BungeePlugin extends Plugin implements PlatformPlugin {
+public class BungeePlugin extends Plugin implements Platform {
     private MiraiEvent MiraiEvent;
     private MiraiAutoLogin MiraiAutoLogin;
     private final MiraiMCPlugin lifeCycle;

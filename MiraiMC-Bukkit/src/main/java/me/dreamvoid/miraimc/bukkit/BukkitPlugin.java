@@ -5,7 +5,7 @@ import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskSchedule
 import me.dreamvoid.miraimc.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.IMiraiEvent;
 import me.dreamvoid.miraimc.MiraiMCPlugin;
-import me.dreamvoid.miraimc.PlatformPlugin;
+import me.dreamvoid.miraimc.Platform;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
 import me.dreamvoid.miraimc.commands.ICommandSender;
@@ -24,7 +24,7 @@ import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class BukkitPlugin extends JavaPlugin implements PlatformPlugin {
+public class BukkitPlugin extends JavaPlugin implements Platform {
     private MiraiEvent MiraiEvent;
     private MiraiAutoLogin MiraiAutoLogin;
     private final MiraiMCPlugin lifeCycle;

@@ -39,7 +39,7 @@ import java.util.concurrent.TimeUnit;
         url = "https://github.com/DreamVoid/MiraiMC",
         authors = {"DreamVoid"}
 )
-public class SpongePlugin implements PlatformPlugin {
+public class SpongePlugin implements Platform {
     private MiraiMCPlugin lifeCycle;
     private MiraiMCConfig platformConfig;
     private java.util.logging.Logger SpongeLogger;

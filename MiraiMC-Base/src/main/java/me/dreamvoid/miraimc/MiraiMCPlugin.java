@@ -2,6 +2,9 @@ package me.dreamvoid.miraimc;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.*;
+import me.dreamvoid.miraimc.internal.database.DatabaseManager;
+import me.dreamvoid.miraimc.internal.database.MySQL;
+import me.dreamvoid.miraimc.internal.database.SQLite;
 import me.dreamvoid.miraimc.internal.webapi.Info;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.xml.sax.SAXException;
@@ -9,22 +12,21 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Logger;
 
 public class MiraiMCPlugin {
     public static MiraiMCPlugin INSTANCE;
-    private static PlatformPlugin platform;
+    private static Platform platform;
     private final Logger logger;
 
-    public MiraiMCPlugin(PlatformPlugin plugin){
+    public MiraiMCPlugin(Platform plugin){
         INSTANCE = this;
         platform = plugin;
         logger = plugin.getPluginLogger();
     }
 
-    public static PlatformPlugin getPlatform() {
+    public static Platform getPlatform() {
         return platform;
     }
 
@@ -110,22 +112,23 @@ public class MiraiMCPlugin {
         logger.info("Preparing MiraiMC post-load.");
 
         // 数据库
-        switch (MiraiMCConfig.Database.Type.toLowerCase()){
-            case "sqlite":
-            default: {
-                logger.info("Initializing SQLite database.");
-                try {
-                    Utils.initializeSQLite();
-                } catch (SQLException | ClassNotFoundException e) {
-                    logger.warning("Failed to initialize SQLite database, reason: " + e);
+        try {
+            switch (MiraiMCConfig.Database.Type.toLowerCase()){
+                case "sqlite":
+                default: {
+                    logger.info("Initializing SQLite database.");
+                    DatabaseManager.setDatabase(new SQLite());
+                    break;
                 }
-                break;
+                case "mysql": {
+                    logger.info("Initializing MySQL database.");
+                    DatabaseManager.setDatabase(new MySQL());
+                    break;
+                }
             }
-            case "mysql": {
-                logger.info("Initializing MySQL database.");
-                Utils.initializeMySQL();
-                break;
-            }
+            DatabaseManager.getDatabase().initialize();
+        } catch (ClassNotFoundException e) {
+            logger.warning("Failed to initialize database, reason: " + e);
         }
 
         // 接入 mirai 事件
@@ -197,28 +200,8 @@ public class MiraiMCPlugin {
         platform.getMiraiEvent().stopListenEvent();
 
         // 停止数据库
-        switch (MiraiMCConfig.Database.Type.toLowerCase()){
-            case "sqlite":
-            default: {
-                if (Utils.connection != null) {
-                    logger.info("Closing SQLite database.");
-                    try {
-                        Utils.closeSQLite();
-                    } catch (SQLException e) {
-                        logger.severe("Failed to close SQLite database!");
-                        logger.severe("Reason: " + e);
-                    }
-                }
-                break;
-            }
-            case "mysql": {
-                if(Utils.ds != null) {
-                    logger.info("Closing MySQL database.");
-                    Utils.closeMySQL();
-                }
-                break;
-            }
-        }
+        logger.info("Closing database.");
+        DatabaseManager.getDatabase().close();
 
         logger.info("Unload tasks finished. Thanks for use MiraiMC!");
     }

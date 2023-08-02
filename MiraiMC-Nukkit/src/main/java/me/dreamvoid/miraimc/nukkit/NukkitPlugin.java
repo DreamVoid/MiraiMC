@@ -4,7 +4,7 @@ import cn.nukkit.plugin.PluginBase;
 import me.dreamvoid.miraimc.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.IMiraiEvent;
 import me.dreamvoid.miraimc.MiraiMCPlugin;
-import me.dreamvoid.miraimc.PlatformPlugin;
+import me.dreamvoid.miraimc.Platform;
 import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiMcCommand;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-public class NukkitPlugin extends PluginBase implements PlatformPlugin {
+public class NukkitPlugin extends PluginBase implements Platform {
     private static NukkitPlugin nukkitPlugin;
 
     private MiraiEvent MiraiEvent;
