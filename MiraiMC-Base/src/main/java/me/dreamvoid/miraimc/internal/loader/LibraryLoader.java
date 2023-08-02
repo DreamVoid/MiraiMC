@@ -44,6 +44,16 @@ public class LibraryLoader {
 	 * @param version 版本
 	 * @param path 保存目录
 	 */
+	public static void loadJarMaven(String groupId, String artifactId, String version) throws RuntimeException, IOException {
+		loadJarMaven(groupId,artifactId,version,"", MiraiMCConfig.General.MavenRepoUrl, new File(MiraiMCConfig.PluginDir, "libraries"));
+	}
+	/**
+	 * 加载 Maven 中央仓库的依赖库
+	 * @param groupId 组ID
+	 * @param artifactId 构件ID
+	 * @param version 版本
+	 * @param path 保存目录
+	 */
 	public static void loadJarMaven(String groupId, String artifactId, String version, File path) throws RuntimeException, IOException {
 		loadJarMaven(groupId,artifactId,version,"", MiraiMCConfig.General.MavenRepoUrl, path);
 	}

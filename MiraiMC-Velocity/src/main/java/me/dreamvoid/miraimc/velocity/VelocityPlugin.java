@@ -16,6 +16,7 @@ import me.dreamvoid.miraimc.*;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
+import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import me.dreamvoid.miraimc.velocity.utils.Metrics;
 import me.dreamvoid.miraimc.velocity.utils.SpecialUtils;
 import org.slf4j.Logger;
@@ -74,6 +75,8 @@ public class VelocityPlugin implements Platform {
 
             MiraiEvent = new MiraiEvent(this);
             MiraiAutoLogin = new MiraiAutoLogin(this);
+
+            LibraryLoader.loadJarMaven("org.xerial", "sqlite-jdbc", "3.36.0.3");
         } catch (Exception e) {
             getLogger().warn("An error occurred while loading plugin.");
             e.printStackTrace();

@@ -6,6 +6,7 @@ import me.dreamvoid.miraimc.IMiraiEvent;
 import me.dreamvoid.miraimc.MiraiMCPlugin;
 import me.dreamvoid.miraimc.Platform;
 import me.dreamvoid.miraimc.MiraiMCConfig;
+import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiVerifyCommand;
@@ -40,6 +41,8 @@ public class NukkitPlugin extends PluginBase implements Platform {
             lifeCycle.preLoad();
             MiraiAutoLogin = new MiraiAutoLogin(this);
             MiraiEvent = new MiraiEvent(this);
+
+            LibraryLoader.loadJarMaven("org.xerial", "sqlite-jdbc", "3.36.0.3");
         } catch (Exception e) {
             getLogger().warning("An error occurred while loading plugin." );
             e.printStackTrace();
