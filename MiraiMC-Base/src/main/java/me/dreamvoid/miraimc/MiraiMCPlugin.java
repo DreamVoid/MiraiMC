@@ -18,12 +18,11 @@ import java.util.logging.Logger;
 public class MiraiMCPlugin {
     public static MiraiMCPlugin INSTANCE;
     private static Platform platform;
-    private final Logger logger;
+    private Logger logger;
 
     public MiraiMCPlugin(Platform plugin){
         INSTANCE = this;
         platform = plugin;
-        logger = plugin.getPluginLogger();
     }
 
     public static Platform getPlatform() {
@@ -34,13 +33,15 @@ public class MiraiMCPlugin {
      * 此方法应在插件实例化时调用，用于设置必要的运行环境，此时配置尚未初始化。
      */
     public void startUp() {
+        logger = Logger.getLogger("MiraiMC");
+
         logger.info("Preparing MiraiMC start-up.");
 
         System.setProperty("mirai.no-desktop", "MiraiMC");
         System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
 
         Utils.setLogger(logger);
-        Utils.setClassLoader(platform.getPluginClassLoader());
+        Utils.setClassLoader(this.getClass().getClassLoader());
 
         logger.info("Start-up tasks finished.");
     }
@@ -49,6 +50,10 @@ public class MiraiMCPlugin {
      * 此方法应在插件各项准备工作均已完成时调用。此时插件已经准备就绪，可以开始初始化配置文件，加载 mirai 核心。
      */
     public void preLoad() throws IOException, ParserConfigurationException, SAXException {
+        logger = platform.getPluginLogger();
+        Utils.setLogger(logger);
+        Utils.setClassLoader(platform.getPluginClassLoader());
+
         logger.info("Preparing MiraiMC pre-load.");
 
         // 加载配置

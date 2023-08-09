@@ -45,6 +45,8 @@ public class SpongePlugin implements Platform {
     private java.util.logging.Logger SpongeLogger;
 
     public SpongePlugin(){
+        lifeCycle = new MiraiMCPlugin(this);
+        lifeCycle.startUp();
     }
 
     @Inject
@@ -69,11 +71,9 @@ public class SpongePlugin implements Platform {
     @Listener
     public void onLoad(GamePreInitializationEvent e) {
         SpongeLogger = new SpongeLogger("MiraiMC", this);
-        lifeCycle = new MiraiMCPlugin(this);
-        lifeCycle.startUp();
-        platformConfig = new SpongeConfig(this);
 
         try {
+            platformConfig = new SpongeConfig(this);
             lifeCycle.preLoad();
 
             MiraiAutoLogin = new MiraiAutoLogin(this);
