@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 import java.util.logging.*;
 
 public class NukkitLogger extends Logger {
-    private final cn.nukkit.Utils.getLogger() logger;
+    private final cn.nukkit.utils.Logger logger;
     /**
      * Protected method to construct a logger for a named subsystem.
      * <p>
@@ -23,7 +23,7 @@ public class NukkitLogger extends Logger {
      * @throws MissingResourceException if the resourceBundleName is non-null and
      *                                  no corresponding resource can be found.
      */
-    protected NukkitLogger(String name, cn.nukkit.Utils.getLogger() logger) {
+    protected NukkitLogger(String name, cn.nukkit.utils.Logger logger) {
         super(name, null);
         this.logger = logger;
     }

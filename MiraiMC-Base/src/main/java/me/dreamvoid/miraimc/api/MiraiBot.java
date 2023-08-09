@@ -15,7 +15,7 @@ import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.Stranger;
 import net.mamoe.mirai.utils.BotConfiguration;
 import net.mamoe.mirai.utils.ExternalResource;
-import net.mamoe.mirai.Utils.getLogger()Adapters;
+import net.mamoe.mirai.utils.LoggerAdapters;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
