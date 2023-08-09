@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MiraiEncryptServiceFactory implements EncryptService.Factory {
@@ -55,7 +56,7 @@ public class MiraiEncryptServiceFactory implements EncryptService.Factory {
                 ServerConfig server;
                 try {
                     HashMap<String, LinkedTreeMap> services = new Gson().fromJson(new FileReader(config), new TypeToken<HashMap<String, LinkedTreeMap>>(){}.getType());
-                    server = new Gson().fromJson(new Gson().toJson(services.get(version)), ServerConfig.class);
+                    server = Objects.requireNonNull(new Gson().fromJson(new Gson().toJson(services.get(version)), ServerConfig.class));
                 } catch (IOException e) {
                     throw new RuntimeException("配置文件读取错误，" + config, e);
                 } catch (NullPointerException e){
