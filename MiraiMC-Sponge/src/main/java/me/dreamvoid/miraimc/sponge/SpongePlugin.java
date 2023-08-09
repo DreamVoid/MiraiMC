@@ -8,6 +8,7 @@ import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.sponge.utils.Metrics;
 import me.dreamvoid.miraimc.sponge.utils.SpecialUtils;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.args.ArgumentParseException;
@@ -46,7 +47,7 @@ public class SpongePlugin implements Platform {
 
     public SpongePlugin(){
         lifeCycle = new MiraiMCPlugin(this);
-        lifeCycle.startUp();
+        lifeCycle.startUp(new SpongeLogger("MiraiMC", LoggerFactory.getLogger("MiraiMC")));
     }
 
     @Inject
@@ -70,7 +71,7 @@ public class SpongePlugin implements Platform {
      */
     @Listener
     public void onLoad(GamePreInitializationEvent e) {
-        SpongeLogger = new SpongeLogger("MiraiMC", this);
+        SpongeLogger = new SpongeLogger("MiraiMC", this.getLogger());
 
         try {
             platformConfig = new SpongeConfig(this);

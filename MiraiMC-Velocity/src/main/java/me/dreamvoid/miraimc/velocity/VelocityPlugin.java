@@ -50,7 +50,7 @@ public class VelocityPlugin implements Platform {
 
         VelocityLogger = new VelocityLogger("MiraiMC", this);
         lifeCycle = new MiraiMCPlugin(this);
-        lifeCycle.startUp();
+        lifeCycle.startUp(VelocityLogger);
         platformConfig = new VelocityConfig(this);
     }
 

@@ -25,7 +25,7 @@ public class BungeePlugin extends Plugin implements Platform {
 
     public BungeePlugin(){
         lifeCycle = new MiraiMCPlugin(this);
-        lifeCycle.startUp();
+        lifeCycle.startUp(getLogger());
         platformConfig = new BungeeConfig(this);
     }
 

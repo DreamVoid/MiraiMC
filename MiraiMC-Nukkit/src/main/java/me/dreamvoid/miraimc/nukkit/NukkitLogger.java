@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.nukkit;
 
-import cn.nukkit.plugin.PluginLogger;
 import cn.nukkit.utils.LogLevel;
 
 import java.util.MissingResourceException;
@@ -9,7 +8,7 @@ import java.util.function.Supplier;
 import java.util.logging.*;
 
 public class NukkitLogger extends Logger {
-    private final PluginLogger logger;
+    private final cn.nukkit.utils.Logger logger;
     /**
      * Protected method to construct a logger for a named subsystem.
      * <p>
@@ -24,9 +23,9 @@ public class NukkitLogger extends Logger {
      * @throws MissingResourceException if the resourceBundleName is non-null and
      *                                  no corresponding resource can be found.
      */
-    protected NukkitLogger(String name, NukkitPlugin plugin) {
+    protected NukkitLogger(String name, cn.nukkit.utils.Logger logger) {
         super(name, null);
-        this.logger = plugin.getLogger();
+        this.logger = logger;
     }
 
     @Override

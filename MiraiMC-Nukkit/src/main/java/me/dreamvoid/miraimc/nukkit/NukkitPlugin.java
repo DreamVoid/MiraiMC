@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc.nukkit;
 
+import cn.nukkit.Server;
 import cn.nukkit.plugin.PluginBase;
 import me.dreamvoid.miraimc.*;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiCommand;
@@ -26,14 +27,14 @@ public class NukkitPlugin extends PluginBase implements Platform {
 
     public NukkitPlugin(){
         lifeCycle = new MiraiMCPlugin(this);
-        lifeCycle.startUp();
+        lifeCycle.startUp(new NukkitLogger("MiraiMC-Nukkit", Server.getInstance().getLogger()));
     }
 
     @Override
     public void onLoad() {
         nukkitPlugin = this;
         try {
-            NukkitLogger = new NukkitLogger("MiraiMC-Nukkit", this);
+            NukkitLogger = new NukkitLogger("MiraiMC-Nukkit", getLogger());
             platformConfig = new NukkitConfig(this);
             lifeCycle.preLoad();
 

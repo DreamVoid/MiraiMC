@@ -21,9 +21,9 @@ public class SpongeLogger extends Logger {
      * @throws MissingResourceException if the resourceBundleName is non-null and
      *                                  no corresponding resource can be found.
      */
-    protected SpongeLogger(String name, SpongePlugin plugin) {
+    protected SpongeLogger(String name, org.slf4j.Logger logger) {
         super(name, null);
-        this.logger = plugin.getLogger();
+        this.logger = logger;
     }
 
     @Override

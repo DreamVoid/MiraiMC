@@ -33,7 +33,7 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
 
     public BukkitPlugin(){
         lifeCycle = new MiraiMCPlugin(this);
-        lifeCycle.startUp();
+        lifeCycle.startUp(getLogger());
         platformConfig = new BukkitConfig(this);
     }
 

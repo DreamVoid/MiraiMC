@@ -31,10 +31,9 @@ public class MiraiMCPlugin {
 
     /**
      * 此方法应在插件实例化时调用，用于设置必要的运行环境，此时配置尚未初始化。
+     * @param logger Logger 实例。由于各平台初始化 Logger 的时机不一，因此需要一个 Logger 来辅助。
      */
-    public void startUp() {
-        logger = Logger.getLogger("MiraiMC");
-
+    public void startUp(Logger logger) {
         logger.info("Preparing MiraiMC start-up.");
 
         System.setProperty("mirai.no-desktop", "MiraiMC");
