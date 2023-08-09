@@ -103,6 +103,9 @@ public class MiraiMCPlugin {
             } catch (Throwable cause){
                 logger.severe("协议版本升级失败: " + cause);
             }
+
+            logger.info("当前各登录协议版本日期: ");
+            FixProtocolVersion.info().values().forEach(s -> logger.info(s));
         }
 
         logger.info("Pre-load tasks finished.");
