@@ -27,6 +27,7 @@ public class MiraiCommand implements ICommandExecutor {
     public boolean onCommand(ICommandSender sender, String[] args) {
         if (args.length == 0) {
             sender.sendMessage("This server is running "+ MiraiMCPlugin.getPlatform().getPluginName() +" version "+ MiraiMCPlugin.getPlatform().getPluginVersion()+" by "+ MiraiMCPlugin.getPlatform().getAuthors().toString().replace("[","").replace("]",""));
+            if(Utils.isDeveloperMode()) sender.sendMessage("Developer mode is on.");
             return false;
         }
 
@@ -297,7 +298,7 @@ public class MiraiCommand implements ICommandExecutor {
                 break;
             }
             case "dev":{
-                if(Boolean.getBoolean("MiraiMC.DevelopmentMode")) {
+                if(Utils.isDeveloperMode()) {
                     if (args.length == 1) {
                         sender.sendMessage("&6&lMiraiMC&r &b开发者模式已启用");
                         break;
