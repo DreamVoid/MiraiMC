@@ -27,7 +27,7 @@ public class MiraiLoader {
         try {
             return Info.init().mirai.get("stable");
         } catch (IOException e){
-            Utils.logger.warning("Fetching mirai stable version from remote failed, try to use latest. Reason: " + e);
+            Utils.getLogger().warning("Fetching mirai stable version from remote failed, try to use latest. Reason: " + e);
             return "latest";
         }
     }
@@ -56,7 +56,7 @@ public class MiraiLoader {
 
             return mirai;
         } catch (IOException e){
-            Utils.logger.warning("Fetching mirai stable version from remote failed, try to use latest. Reason: " + e);
+            Utils.getLogger().warning("Fetching mirai stable version from remote failed, try to use latest. Reason: " + e);
             return "latest";
         }
     }
@@ -91,7 +91,7 @@ public class MiraiLoader {
                 out.flush();
             }
         } catch (Exception e) {
-            Utils.logger.warning("Unable to download mirai core from remote server, try to use local core. ("+e+")");
+            Utils.getLogger().warning("Unable to download mirai core from remote server, try to use local core. ("+e+")");
             if(writeName.exists()) {
                 String content = new String(Files.readAllBytes(writeName.toPath()), StandardCharsets.UTF_8);
                 if(!content.equals("")){
@@ -99,10 +99,10 @@ public class MiraiLoader {
                     File coreFile = new File(LibrariesDir, name);
                     loadJarLocal(coreFile);
                 } else {
-                    Utils.logger.warning("Unable to use local core.");
+                    Utils.getLogger().warning("Unable to use local core.");
                 }
             } else {
-                Utils.logger.warning("No local core found.");
+                Utils.getLogger().warning("No local core found.");
             }
         }
     }

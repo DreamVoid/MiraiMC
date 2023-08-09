@@ -204,7 +204,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
             try {
                 MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(BotID), GroupID, message);
             } catch (IOException | AbnormalStatusException e) {
-                Utils.logger.warning("发送消息时出现异常，原因: " + e);
+                Utils.getLogger().warning("发送消息时出现异常，原因: " + e);
             }
         }
     }
@@ -221,7 +221,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
             try {
                 MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(BotID), GroupID, message);
             } catch (IOException | AbnormalStatusException e) {
-                Utils.logger.warning("发送消息时出现异常，原因: " + e);
+                Utils.getLogger().warning("发送消息时出现异常，原因: " + e);
             }
         }
     }

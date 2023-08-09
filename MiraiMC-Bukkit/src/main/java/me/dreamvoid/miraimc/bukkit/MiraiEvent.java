@@ -30,7 +30,7 @@ import static me.dreamvoid.miraimc.bukkit.event.bot.MiraiBotOfflineEvent.Type.*;
 
 public class MiraiEvent implements IMiraiEvent {
     public MiraiEvent(){
-        Thread.currentThread().setContextClassLoader(Utils.classLoader);
+        Thread.currentThread().setContextClassLoader(Utils.getClassLoader());
     }
 
     private Listener<BotOnlineEvent> BotOnlineListener;

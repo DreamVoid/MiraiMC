@@ -23,7 +23,7 @@ public class MySQL implements Database {
             modifiersField.setAccessible(true);
             modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
 
-            field.set(ds, Utils.logger);
+            field.set(ds, Utils.getLogger());
         } catch (Exception e){
             e.printStackTrace();
         }

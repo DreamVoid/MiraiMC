@@ -8,11 +8,11 @@ import org.spongepowered.api.event.Listener;
 public class Events {
     @Listener
     public void onMiraiGroupMessageReceived(MiraiGroupMessageEvent e){
-        Utils.logger.info("[GroupMessage/"+e.getBotID()+"] ["+e.getGroupName()+"("+e.getGroupID()+")] "+e.getSenderNameCard()+"("+e.getSenderID()+") -> "+e.getMessage());
+        Utils.getLogger().info("[GroupMessage/"+e.getBotID()+"] ["+e.getGroupName()+"("+e.getGroupID()+")] "+e.getSenderNameCard()+"("+e.getSenderID()+") -> "+e.getMessage());
     }
 
     @Listener
     public void onMiraiFriendMessageReceived(MiraiFriendMessageEvent e){
-        Utils.logger.info("[FriendMessage/"+e.getBotID()+"] "+e.getSenderName()+"("+e.getSenderID()+") -> "+e.getMessage());
+        Utils.getLogger().info("[FriendMessage/"+e.getBotID()+"] "+e.getSenderName()+"("+e.getSenderID()+") -> "+e.getMessage());
     }
 }

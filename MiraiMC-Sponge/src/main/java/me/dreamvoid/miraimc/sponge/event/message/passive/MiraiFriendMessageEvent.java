@@ -62,7 +62,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
             try {
                 MiraiHttpAPI.INSTANCE.sendFriendMessage(MiraiHttpAPI.Bots.get(BotID), SenderID, message);
             } catch (IOException | AbnormalStatusException e) {
-                Utils.logger.warning("发送消息时出现异常，原因: " + e);
+                Utils.getLogger().warning("发送消息时出现异常，原因: " + e);
             }
         }
     }
@@ -79,7 +79,7 @@ public class MiraiFriendMessageEvent extends AbstractMessageEvent {
             try {
                 MiraiHttpAPI.INSTANCE.sendFriendMessage(MiraiHttpAPI.Bots.get(BotID), SenderID, message);
             } catch (IOException | AbnormalStatusException e) {
-                Utils.logger.warning("发送消息时出现异常，原因: " + e);
+                Utils.getLogger().warning("发送消息时出现异常，原因: " + e);
             }
         }
     }

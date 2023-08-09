@@ -8,11 +8,11 @@ import me.dreamvoid.miraimc.velocity.event.message.passive.MiraiGroupMessageEven
 public class Events {
     @Subscribe
     public void onMiraiGroupMessageReceived(MiraiGroupMessageEvent e){
-        Utils.logger.info("[GroupMessage/"+e.getBotID()+"] ["+e.getGroupName()+"("+e.getGroupID()+")] "+e.getSenderNameCard()+"("+e.getSenderID()+") -> "+e.getMessage());
+        Utils.getLogger().info("[GroupMessage/"+e.getBotID()+"] ["+e.getGroupName()+"("+e.getGroupID()+")] "+e.getSenderNameCard()+"("+e.getSenderID()+") -> "+e.getMessage());
     }
 
     @Subscribe
     public void onMiraiFriendMessageReceived(MiraiFriendMessageEvent e){
-        Utils.logger.info("[FriendMessage/"+e.getBotID()+"] "+e.getSenderName()+"("+e.getSenderID()+") -> "+e.getMessage());
+        Utils.getLogger().info("[FriendMessage/"+e.getBotID()+"] "+e.getSenderName()+"("+e.getSenderID()+") -> "+e.getMessage());
     }
 }

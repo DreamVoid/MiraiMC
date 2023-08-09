@@ -110,7 +110,7 @@ public class MiraiEvent implements IMiraiEvent {
     @Override
     public void startListenEvent(){
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        Thread.currentThread().setContextClassLoader(Utils.classLoader);
+        Thread.currentThread().setContextClassLoader(Utils.getClassLoader());
 
         // Bot
         BotOnlineListener = GlobalEventChannel.INSTANCE.subscribeAlways(BotOnlineEvent.class, event -> server.getEventManager().fire(new MiraiBotOnlineEvent(event)));

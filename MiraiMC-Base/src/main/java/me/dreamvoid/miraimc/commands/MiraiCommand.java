@@ -60,10 +60,10 @@ public class MiraiCommand implements ICommandExecutor {
                                     } else sender.sendMessage("&c此服务器没有启用HTTP-API模式，请检查配置文件！");
                                 }
                             } catch (IOException e) {
-                                Utils.logger.warning("登录机器人时出现异常，原因: " + e);
+                                Utils.getLogger().warning("登录机器人时出现异常，原因: " + e);
                                 sender.sendMessage("&c登录机器人时出现异常，请检查控制台输出！");
                             } catch (AbnormalStatusException e) {
-                                Utils.logger.warning("使用HTTPAPI登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getMessage());
+                                Utils.getLogger().warning("使用HTTPAPI登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getMessage());
                                 sender.sendMessage("&c登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getMessage());
                             }
                         });
@@ -85,13 +85,13 @@ public class MiraiCommand implements ICommandExecutor {
                                     new MiraiHttpAPI(MiraiMCConfig.HttpApi.Url).release(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])),Long.parseLong(args[1]));
                                     sender.sendMessage( "&a已退出指定机器人！");
                                 } catch (IOException ex) {
-                                    Utils.logger.warning("退出机器人时出现异常，原因: " + ex);
+                                    Utils.getLogger().warning("退出机器人时出现异常，原因: " + ex);
                                     sender.sendMessage("&c退出机器人时出现异常，请检查控制台输出！");
                                 } catch (AbnormalStatusException ex) {
                                     if(ex.getCode() == 2){
                                         sender.sendMessage( "&c指定的机器人不存在！");
                                     } else {
-                                        Utils.logger.warning("退出机器人时出现异常，状态码："+ex.getCode()+"，原因: "+ex.getMessage());
+                                        Utils.getLogger().warning("退出机器人时出现异常，状态码："+ex.getCode()+"，原因: "+ex.getMessage());
                                         sender.sendMessage("&c退出机器人时出现异常，状态码："+ex.getCode()+"，原因: "+ex.getMessage());
                                     }
                                 }
@@ -120,7 +120,7 @@ public class MiraiCommand implements ICommandExecutor {
                                 try {
                                     MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])), Long.parseLong(args[2]), text);
                                 } catch (IOException ex) {
-                                    Utils.logger.warning("发送群消息时出现异常，原因: "+ e);
+                                    Utils.getLogger().warning("发送群消息时出现异常，原因: "+ e);
                                     sender.sendMessage("&c发送群消息时出现异常，请检查控制台了解更多信息！");
                                 } catch (AbnormalStatusException ex) {
                                     sender.sendMessage("&c发送群消息时出现异常，状态码: " + ex.getCode()+"，原因: "+ex.getMessage());
@@ -150,7 +150,7 @@ public class MiraiCommand implements ICommandExecutor {
                                 try {
                                     MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])), Long.parseLong(args[2]), text);
                                 } catch (IOException ex) {
-                                    Utils.logger.warning("发送好友消息时出现异常，原因: "+ e);
+                                    Utils.getLogger().warning("发送好友消息时出现异常，原因: "+ e);
                                     sender.sendMessage("&c发送好友消息时出现异常，请检查控制台了解更多信息！");
                                 } catch (AbnormalStatusException ex) {
                                     sender.sendMessage("&c发送好友消息时出现异常，状态码: " + ex.getCode()+"，原因: "+ex.getMessage());

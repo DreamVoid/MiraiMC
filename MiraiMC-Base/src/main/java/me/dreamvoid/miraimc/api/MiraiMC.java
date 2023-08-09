@@ -47,7 +47,7 @@ public class MiraiMC {
             resultSetUUID.close();
             resultSetAccount.close();
         } catch (SQLException e){
-            Utils.logger.warning("处理数据库数据时出现异常，原因: " + e);
+            Utils.getLogger().warning("处理数据库数据时出现异常，原因: " + e);
         }
     }
     /**
@@ -81,7 +81,7 @@ public class MiraiMC {
             resultSetUUID.close();
             resultSetAccount.close();
         } catch (SQLException e){
-            Utils.logger.warning("处理数据库数据时出现异常，原因: " + e);
+            Utils.getLogger().warning("处理数据库数据时出现异常，原因: " + e);
         }
     }
 
@@ -107,7 +107,7 @@ public class MiraiMC {
             }
             resultSet.close();
         } catch (SQLException e) {
-            Utils.logger.warning("处理数据库数据时出现异常，原因: " + e);
+            Utils.getLogger().warning("处理数据库数据时出现异常，原因: " + e);
         }
     }
     /**
@@ -130,7 +130,7 @@ public class MiraiMC {
             }
             resultSet.close();
         } catch (SQLException e) {
-            Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e);
+            Utils.getLogger().warning("处理MySQL数据时出现异常，原因: " + e);
         }
     }
 
@@ -155,7 +155,7 @@ public class MiraiMC {
             resultSet.close();
 
         } catch (SQLException e) {
-            Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e);
+            Utils.getLogger().warning("处理MySQL数据时出现异常，原因: " + e);
         }
     }
 
@@ -185,7 +185,7 @@ public class MiraiMC {
             resultSet.close();
 
         } catch (SQLException e) {
-            Utils.logger.warning("处理数据库数据时出现异常，原因: " + e);
+            Utils.getLogger().warning("处理数据库数据时出现异常，原因: " + e);
         }
         return account;
     }
@@ -213,7 +213,7 @@ public class MiraiMC {
             }
             resultSet.close();
         } catch (SQLException e) {
-            Utils.logger.warning("处理数据库数据时出现异常，原因: " + e);
+            Utils.getLogger().warning("处理数据库数据时出现异常，原因: " + e);
         }
         return account;
     }
@@ -243,7 +243,7 @@ public class MiraiMC {
             }
             resultSet.close();
         } catch (SQLException e) {
-            Utils.logger.warning("处理MySQL数据时出现异常，原因: " + e);
+            Utils.getLogger().warning("处理MySQL数据时出现异常，原因: " + e);
         }
         return uuid;
     }

@@ -22,7 +22,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     public MiraiAutoLogin(BungeePlugin plugin) {
         this.plugin = plugin;
         logger = Logger.getLogger("MiraiMC-AutoLogin");
-        logger.setParent(Utils.logger);
+        logger.setParent(Utils.getLogger());
     }
 
     private final BungeePlugin plugin;

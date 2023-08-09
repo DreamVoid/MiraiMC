@@ -47,12 +47,12 @@ public final class Version {
 		if (INSTANCE != null) {
 			return INSTANCE;
 		} else {
-			Utils.logger.warning("所有API均请求失败，请检查您的互联网连接。");
+			Utils.getLogger().warning("所有API均请求失败，请检查您的互联网连接。");
 
 			for(int i = 0; i < list.size(); i++){
 				String s = list.get(i);
 				if(!s.endsWith("/")) s += "/";
-				Utils.logger.warning(s + " - " + ex.get(i));
+				Utils.getLogger().warning(s + " - " + ex.get(i));
 			}
 
 			throw new IOException("All api fetching failed.");

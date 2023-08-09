@@ -20,7 +20,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     public MiraiAutoLogin(BukkitPlugin plugin) {
         this.plugin = plugin;
         logger = Logger.getLogger("MiraiMC-AutoLogin");
-        logger.setParent(Utils.logger);
+        logger.setParent(Utils.getLogger());
     }
 
     private final BukkitPlugin plugin;

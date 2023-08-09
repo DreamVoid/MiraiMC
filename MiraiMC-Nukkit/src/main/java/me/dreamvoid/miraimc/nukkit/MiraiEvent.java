@@ -31,7 +31,7 @@ public class MiraiEvent implements IMiraiEvent {
     private final NukkitPlugin plugin;
 
     public MiraiEvent(NukkitPlugin plugin){
-        Thread.currentThread().setContextClassLoader(Utils.classLoader);
+        Thread.currentThread().setContextClassLoader(Utils.getClassLoader());
         this.plugin = plugin;
     }
 

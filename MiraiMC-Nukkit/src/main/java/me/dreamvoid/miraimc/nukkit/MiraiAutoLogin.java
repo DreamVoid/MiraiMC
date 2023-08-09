@@ -22,7 +22,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     public MiraiAutoLogin(NukkitPlugin plugin) {
         this.plugin = plugin;
         logger = new NukkitLogger("MiraiMC-AutoLogin", plugin.getLogger());
-        logger.setParent(Utils.logger);
+        logger.setParent(Utils.getLogger());
         Instance = this;
     }
 

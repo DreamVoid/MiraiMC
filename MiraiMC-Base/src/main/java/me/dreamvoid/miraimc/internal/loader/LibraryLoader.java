@@ -26,14 +26,14 @@ import java.util.function.Supplier;
  */
 public class LibraryLoader {
 	// 把lucko的代码偷过来 XD
-	private static final Supplier<URLClassLoaderAccess> LOADER = () -> Suppliers.memoize(() -> URLClassLoaderAccess.create((URLClassLoader) Utils.classLoader)).get(); // 勿动，乱改可能导致低版本mc无法加载
+	private static final Supplier<URLClassLoaderAccess> LOADER = () -> Suppliers.memoize(() -> URLClassLoaderAccess.create((URLClassLoader) Utils.getClassLoader())).get(); // 勿动，乱改可能导致低版本mc无法加载
 
 	/**
 	 * 加载本地 Jar
 	 * @param file Jar 文件
 	 */
 	public static void loadJarLocal(File file) throws MalformedURLException {
-		Utils.logger.info("Loading library " + file);
+		Utils.getLogger().info("Loading library " + file);
 		LOADER.get().addURL(file.toURI().toURL());
 	}
 
@@ -86,7 +86,7 @@ public class LibraryLoader {
 	 * @throws IOException 下载失败时抛出
 	 */
 	private static void downloadFile(File file, URL url, boolean log) throws IOException {
-		if(log) Utils.logger.info("Downloading "+ url);
+		if(log) Utils.getLogger().info("Downloading "+ url);
 		try (InputStream is = url.openStream()) {
 			Files.copy(is, file.toPath());
 		}
@@ -117,7 +117,7 @@ public class LibraryLoader {
 
 		// 检查MD5
 		try{
-			Utils.logger.info("Verifying " + FileName);
+			Utils.getLogger().info("Verifying " + FileName);
 
 			File md5File = new File(path, FileName + ".md5");
 			String md5FileUrl = JarFileURL + ".md5";
@@ -136,7 +136,7 @@ public class LibraryLoader {
 				}
 			}
 		} catch (RuntimeException e){
-			Utils.logger.warning("Verify library failed, skipping: " + e.getMessage());
+			Utils.getLogger().warning("Verify library failed, skipping: " + e.getMessage());
 		}
 
 		// 下载正式文件
@@ -195,7 +195,7 @@ public class LibraryLoader {
 		if(!metaFileMD5.exists()) throw new RuntimeException("Failed to download " + MD5FileUrl);
 
 		// 验证meta文件
-		Utils.logger.info("Verifying " + metaFileName);
+		Utils.getLogger().info("Verifying " + metaFileName);
 		if (metaFile.exists()) {
 			try (FileInputStream fis = new FileInputStream(metaFile)) {
 				if (!DigestUtils.md5Hex(fis).equals(new String(Files.readAllBytes(metaFileMD5.toPath()), StandardCharsets.UTF_8))) {

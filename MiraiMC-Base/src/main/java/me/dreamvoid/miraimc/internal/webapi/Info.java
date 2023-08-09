@@ -59,7 +59,7 @@ public final class Info {
 				INSTANCE = new Gson().fromJson(Utils.Http.get(s + "info.json"), Info.class);
 				break;
 			} catch (IOException e) {
-				//Utils.logger.warning("Failed to get " + s +", reason: " + e);
+				//Utils.getLogger().warning("Failed to get " + s +", reason: " + e);
 				exceptions.add(e);
 			}
 		}
@@ -72,12 +72,12 @@ public final class Info {
 
 			return INSTANCE;
 		} else {
-			Utils.logger.warning("所有API均请求失败，请检查您的互联网连接。");
+			Utils.getLogger().warning("所有API均请求失败，请检查您的互联网连接。");
 
 			for(int i = 0; i < list.size(); i++){
 				String s = list.get(i);
 				if(!s.endsWith("/")) s += "/";
-				Utils.logger.warning(s + " - " + exceptions.get(i));
+				Utils.getLogger().warning(s + " - " + exceptions.get(i));
 			}
 
 			throw new IOException("All api fetching failed.");

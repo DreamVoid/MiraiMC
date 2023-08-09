@@ -42,6 +42,11 @@ public final class Utils {
             Logger.getLogger("MiraiMC Preload Checker").severe("作者不会处理任何使用了Forge服务端导致的问题。");
             Logger.getLogger("MiraiMC Preload Checker").severe("兼容性报告: https://docs.miraimc.dreamvoid.me/troubleshoot/compatibility-report");
         }
+        
+        if(Boolean.getBoolean("MiraiMC.DeveloperMode")){
+            Logger.getLogger("MiraiMC Preload Checker").warning("MiraiMC 开发者模式已启用！");
+            Logger.getLogger("MiraiMC Preload Checker").warning("除非你知道你正在做什么，否则请不要启用开发者模式。");
+        }
     }
 
     private static boolean findProcess(String processName) {
@@ -76,16 +81,23 @@ public final class Utils {
         }
     }
 
-    public static Logger logger;
-    public static ClassLoader classLoader;
-
+    private static Logger logger;
+    private static ClassLoader classLoader;
 
     public static void setLogger(Logger logger){
         Utils.logger = logger;
     }
+    
+    public static Logger getLogger(){
+        return logger;
+    }
 
     public static void setClassLoader(ClassLoader classLoader) {
         Utils.classLoader = classLoader;
+    }
+    
+    public static ClassLoader getClassLoader(){
+        return classLoader;
     }
 
     /**

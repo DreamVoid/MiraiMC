@@ -37,7 +37,7 @@ public class MiraiEvent implements IMiraiEvent {
     private final PluginContainer pluginContainer;
 
     public MiraiEvent(SpongePlugin plugin) {
-        Thread.currentThread().setContextClassLoader(Utils.classLoader);
+        Thread.currentThread().setContextClassLoader(Utils.getClassLoader());
         pluginContainer = plugin.getPluginContainer();
         eventContext = EventContext.builder().add(EventContextKeys.PLUGIN, pluginContainer).build();
     }

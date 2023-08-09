@@ -15,7 +15,7 @@ import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.Stranger;
 import net.mamoe.mirai.utils.BotConfiguration;
 import net.mamoe.mirai.utils.ExternalResource;
-import net.mamoe.mirai.utils.LoggerAdapters;
+import net.mamoe.mirai.Utils.getLogger()Adapters;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -35,7 +35,7 @@ public class MiraiBot {
     private static Logger logger;
 
     static {
-        Thread.currentThread().setContextClassLoader(Utils.classLoader);
+        Thread.currentThread().setContextClassLoader(Utils.getClassLoader());
     }
 
     /**
@@ -44,7 +44,7 @@ public class MiraiBot {
      * @throws NoSuchElementException 不存在机器人抛出
      */
     private MiraiBot(long account) throws NoSuchElementException {
-        logger = Utils.logger;
+        logger = Utils.getLogger();
         bot = Bot.getInstance(account);
     }
 
@@ -53,7 +53,7 @@ public class MiraiBot {
      * @param bot 机器人实例
      */
     private MiraiBot(Bot bot){
-        logger = Utils.logger;
+        logger = Utils.getLogger();
         this.bot = bot;
     }
 
@@ -315,7 +315,7 @@ public class MiraiBot {
      * @param protocol 协议
      */
     private static void loginCore(long account, byte[] password, BotConfiguration.MiraiProtocol protocol) {
-        logger = Utils.logger;
+        logger = Utils.getLogger();
 
         Bot existBot = Bot.getInstanceOrNull(account);
         if(existBot != null){

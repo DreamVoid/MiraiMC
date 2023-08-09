@@ -24,7 +24,7 @@ public class MiraiMcCommand implements ICommandExecutor {
                         MiraiMCConfig.reloadConfig();
                         sender.sendMessage("&a配置文件已经重新加载，部分配置可能需要重新启动服务器才能生效！");
                     } catch (IOException e) {
-                        Utils.logger.warning("加载配置文件时出现问题，原因："+e);
+                        Utils.getLogger().warning("加载配置文件时出现问题，原因："+e);
                         sender.sendMessage("&c重新配置文件时出现问题，请查看控制台了解更多信息！");
                     }
                 } else sender.sendMessage("&c你没有足够的权限执行此命令！");
