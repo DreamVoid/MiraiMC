@@ -4,7 +4,7 @@
 [![GitHub release](https://img.shields.io/github/v/release/DreamVoid/MiraiMC?style=flat-square
 )](https://github.com/DreamVoid/MiraiMC/releases/latest)
 [![CodeFactor](https://www.codefactor.io/Content/badges/A.svg)](https://www.codefactor.io/repository/github/dreamvoid/miraimc)
-[![GitHub Actions CI](https://img.shields.io/github/actions/workflow/status/DreamVoid/MiraiMC/build-maven.yml?style=flat-square)](https://github.com/DreamVoid/MiraiMC/actions/workflows/build-maven.yml?query=is%3Asuccess)
+[![GitHub Actions CI](https://img.shields.io/github/actions/workflow/status/DreamVoid/MiraiMC/maven.yml?style=flat-square)](https://github.com/DreamVoid/MiraiMC/actions/workflows/build-maven.yml?query=is%3Asuccess)
 ![GitHub all releases](https://img.shields.io/github/downloads/DreamVoid/MiraiMC/total?style=flat-square)
 
 </div>
@@ -129,7 +129,6 @@ MiraiMC 是一个基于 [Mirai](https://github.com/mamoe/mirai) 的 Minecraft �
 * [mamoe/mirai](https://github.com/mamoe/mirai)：强大的QQ机器人支持库，MiraiMC 的核心和基础。
 * [lucko/helper](https://github.com/lucko/helper)：为 MiraiMC 提供动态加载 mirai 核心的解决方案。
 * [brettwooldridge/HikariCP](https://github.com/brettwooldridge/HikariCP)：高效的 SQL 连接池，为 MiraiMC 提供数据库连接方案。
-* [Anon8281/UniversalScheduler](https://github.com/Anon8281/UniversalScheduler)：为 MiraiMC 提供在 Folia 使用异步线程的解决方案。
 * [LT_Name](https://github.com/lt-name)：为 MiraiMC 优化了大量 Nukkit 代码，也为 MiraiMC 和我本人提供了很多帮助。
 * 你。
 
