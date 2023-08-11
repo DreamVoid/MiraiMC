@@ -28,7 +28,7 @@ MiraiMC 是一个基于 [Mirai](https://github.com/mamoe/mirai) 的 Minecraft �
   * [GitHub 发布页](https://github.com/DreamVoid/MiraiMC/releases)
   * [Modrinth](https://modrinth.com/plugin/miraimc)
 * 开发版本
-  * [GitHub Actions CI](https://github.com/DreamVoid/MiraiMC/actions/workflows/build-maven.yml?query=is%3Asuccess)
+  * [GitHub Actions CI](https://github.com/DreamVoid/MiraiMC/actions/workflows/maven.yml?query=is%3Asuccess)
 
 ## 开始使用
 ### 服主
