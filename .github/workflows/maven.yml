@@ -14,11 +14,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3.5.3
     - name: Set up JDK 8
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v3.12.0
       with:
-        java-version: '8'
+        java-version: '17'
         distribution: 'zulu'
 
     - name: Update version
@@ -29,35 +29,35 @@ jobs:
 
     # MiraiMC-Bukkit.jar
     - name: Upload a Build Artifact - MiraiMC Bukkit
-      uses: actions/upload-artifact@v2.3.1
+      uses: actions/upload-artifact@v3.1.2
       with:
         name: "MiraiMC-Bukkit.jar"
         path: MiraiMC-Bukkit/target/MiraiMC-Bukkit.jar
 
     # MiraiMC-Bungee.jar
     - name: Upload a Build Artifact - MiraiMC Bungee
-      uses: actions/upload-artifact@v2.3.1
+      uses: actions/upload-artifact@v3.1.2
       with:
         name: "MiraiMC-Bungee.jar"
         path: MiraiMC-Bungee/target/MiraiMC-Bungee.jar
 
     # MiraiMC-Sponge.jar
     - name: Upload a Build Artifact - MiraiMC Sponge
-      uses: actions/upload-artifact@v2.3.1
+      uses: actions/upload-artifact@v3.1.2
       with:
         name: "MiraiMC-Sponge.jar"
         path: MiraiMC-Sponge/target/MiraiMC-Sponge.jar
 
     # MiraiMC-Nukkit.jar
     - name: Upload a Build Artifact - MiraiMC Nukkit
-      uses: actions/upload-artifact@v2.3.1
+      uses: actions/upload-artifact@v3.1.2
       with:
         name: "MiraiMC-Nukkit.jar"
         path: MiraiMC-Nukkit/target/MiraiMC-Nukkit.jar
 
     # MiraiMC-Velocity.jar
     - name: Upload a Build Artifact - MiraiMC Velocity
-      uses: actions/upload-artifact@v2.3.1
+      uses: actions/upload-artifact@v3.1.2
       with:
         name: "MiraiMC-Velocity.jar"
         path: MiraiMC-Velocity/target/MiraiMC-Velocity.jar
