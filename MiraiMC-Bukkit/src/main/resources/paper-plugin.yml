@@ -1,0 +1,66 @@
+name: MiraiMC
+authors:
+  - DreamVoid
+version: ${project.version}
+main: me.dreamvoid.miraimc.paper.PaperPlugin
+loader: me.dreamvoid.miraimc.paper.PaperPluginLoader
+description: MiraiBot for Minecraft server
+api-version: '1.20'
+website: https://github.com/DreamVoid/MiraiMC
+has-open-classloader: true
+permissions:
+  miraimc.*:
+    description: All permissions of MiraiMC
+    default: false
+    children:
+      miraimc.command.*:
+        description: All permissions of MiraiMC's commands
+        default: false
+        children:
+          miraimc.command.mirai:
+            description: Allow use /miria
+            default: op
+          miraimc.command.mirai.*:
+            description: Allow use all /mirai child commands.
+            default: op
+            children:
+              miraimc.command.mirai.login:
+                description: Allow use /mirai login
+                default: op
+              miraimc.command.mirai.logout:
+                description: Allow use /mirai logout
+                default: op
+              miraimc.command.mirai.list:
+                description: Allow use /mirai list
+                default: op
+              miraimc.command.mirai.sendfriendmessage:
+                description: Allow use /mirai sendfriendmessage
+                default: op
+              miraimc.command.mirai.sendfriendnudge:
+                description: Allow use /mirai sendfriendnudge
+                default: op
+              miraimc.command.mirai.sendgroupmessage:
+                description: Allow use /mirai sendgroupmessage
+                default: op
+              miraimc.command.mirai.sendgroupnudge:
+                description: Allow use /mirai sendgroupnudge
+                default: op
+              miraimc.command.mirai.checkonline:
+                description: Allow use /mirai checkonline
+                default: op
+          miraimc.command.miraimc:
+            description: Allow use /miriamc
+            default: op
+          miraimc.command.miraimc.*:
+            description: Allow use all /miraimc child commands.
+            default: op
+            children:
+              miraimc.command.miraimc.bind:
+                description: Allow use /miraimc bind
+                default: op
+              miraimc.command.miraimc.reload:
+                description: Allow use /miriamc reload
+                default: op
+          miraimc.command.miraiverify:
+            description: Allow use /miraiverify
+            default: op

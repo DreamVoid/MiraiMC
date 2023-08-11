@@ -1,7 +1,5 @@
 package me.dreamvoid.miraimc.bukkit;
 
-import com.github.Anon8281.universalScheduler.UniversalScheduler;
-import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskScheduler;
 import me.dreamvoid.miraimc.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.IMiraiEvent;
 import me.dreamvoid.miraimc.MiraiMCPlugin;
@@ -29,7 +27,6 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
     private MiraiAutoLogin MiraiAutoLogin;
     private final MiraiMCPlugin lifeCycle;
     private final MiraiMCConfig platformConfig;
-    private TaskScheduler scheduler; // Folia
 
     public BukkitPlugin(){
         lifeCycle = new MiraiMCPlugin(this);
@@ -52,8 +49,6 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
 
     @Override // 启用插件
     public void onEnable() {
-        scheduler = UniversalScheduler.getScheduler(this); // Folia
-
         lifeCycle.postLoad();
 
         // 监听事件
@@ -72,7 +67,7 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
         // HTTP API
         if(MiraiMCConfig.General.EnableHttpApi){
             getLogger().info("Initializing HttpAPI async task.");
-            getScheduler().runTaskTimerAsynchronously(new MiraiHttpAPIResolver(this), 0, MiraiMCConfig.HttpApi.MessageFetch.Interval);
+            getServer().getScheduler().runTaskTimerAsynchronously(this, new MiraiHttpAPIResolver(this), 0, MiraiMCConfig.HttpApi.MessageFetch.Interval);
         }
     }
 
@@ -231,22 +226,22 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
 
     @Override
     public void runTaskAsync(Runnable task) {
-        getScheduler().runTaskAsynchronously(task);
+        getServer().getScheduler().runTaskAsynchronously(this, task);
     }
 
     @Override
     public void runTaskLaterAsync(Runnable task, long delay) {
-        getScheduler().runTaskLaterAsynchronously(task, delay);
+        getServer().getScheduler().runTaskLaterAsynchronously(this, task, delay);
     }
 
     @Override
     public int runTaskTimerAsync(Runnable task, long period) {
-        return getScheduler().runTaskTimerAsynchronously(task, 0, period).getTaskId();
+        return getServer().getScheduler().runTaskTimerAsynchronously(this, task, 0, period).getTaskId();
     }
 
     @Override
     public void cancelTask(int taskId) {
-        Bukkit.getScheduler().cancelTask(taskId);
+        getServer().getScheduler().cancelTask(taskId);
     }
 
     @Override
@@ -287,9 +282,5 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
     @Override
     public MiraiMCConfig getPluginConfig() {
         return platformConfig;
-    }
-
-    TaskScheduler getScheduler(){
-        return scheduler;
     }
 }

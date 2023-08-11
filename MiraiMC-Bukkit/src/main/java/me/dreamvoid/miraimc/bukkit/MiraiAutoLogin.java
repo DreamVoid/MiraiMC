@@ -79,7 +79,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
                 }
             }
         };
-        plugin.getScheduler().runTaskAsynchronously(thread);
+        plugin.runTaskAsync(thread);
     }
 
     @Override

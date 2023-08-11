@@ -19,8 +19,8 @@
     <repositories>
         <!-- This adds the Spigot Maven repository to the build -->
         <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <id>paper-repo</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
         <repository>
             <id>jitpack.io</id>
@@ -37,15 +37,16 @@
         </dependency>
         <!--This adds the Spigot API artifact to the build -->
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.13-R0.1-SNAPSHOT</version>
+            <groupId>io.papermc.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>1.20.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.DreamVoid</groupId>
-            <artifactId>UniversalScheduler</artifactId>
-            <version>0.1.7</version>
+            <groupId>cloud.commandframework</groupId>
+            <artifactId>cloud-paper</artifactId>
+            <version>1.8.3</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -66,10 +67,6 @@
                         <relocation>
                             <pattern>org.apache</pattern>
                             <shadedPattern>me.dreamvoid.miraimc.libraries.org.apache</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>com.github.Anon8281.universalScheduler</pattern>
-                            <shadedPattern>me.dreamvoid.miraimc.libraries.com.github.Anon8281.universalScheduler</shadedPattern>
                         </relocation>
                     </relocations>
                     <filters>
