@@ -4,7 +4,7 @@
 [![GitHub release](https://img.shields.io/github/v/release/DreamVoid/MiraiMC?style=flat-square
 )](https://github.com/DreamVoid/MiraiMC/releases/latest)
 [![CodeFactor](https://www.codefactor.io/Content/badges/A.svg)](https://www.codefactor.io/repository/github/dreamvoid/miraimc)
-[![GitHub Actions CI](https://img.shields.io/github/actions/workflow/status/DreamVoid/MiraiMC/maven.yml?style=flat-square)](https://github.com/DreamVoid/MiraiMC/actions/workflows/build-maven.yml?query=is%3Asuccess)
+[![GitHub Actions CI](https://img.shields.io/github/actions/workflow/status/DreamVoid/MiraiMC/maven.yml?style=flat-square)](https://github.com/DreamVoid/MiraiMC/actions/workflows/maven.yml?query=is%3Asuccess)
 ![GitHub all releases](https://img.shields.io/github/downloads/DreamVoid/MiraiMC/total?style=flat-square)
 
 </div>
