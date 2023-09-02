@@ -46,10 +46,12 @@ public class BungeeConfig extends MiraiMCConfig {
         Bot.ContactCache.EnableFriendListCache = config.getBoolean("bot.contact-cache.enable-friend-list-cache",false);
         Bot.ContactCache.EnableGroupMemberListCache = config.getBoolean("bot.contact-cache.enable-group-member-list-cache",false);
         Bot.ContactCache.SaveIntervalMillis = config.getLong("bot.contact-cache.save-interval-millis",60000);
+        Bot.RegisterEncryptService = config.getBoolean("bot.register-encrypt-service",false);
+        Bot.UpdateProtocolVersion = config.getBoolean("bot.update-protocol-version",false);
 
         Database.Type = config.getString("database.type","sqlite").toLowerCase();
         Database.Settings.SQLite.Path = config.getString("database.settings.sqlite.path", "%plugin_folder%/database.db");
-        Database.Settings.MySQL.Address = config.getString("database.settings.mysql.address", "localhost");
+        Database.Settings.MySQL.Address = config.getString("database.settings.mysql.address","localhost");
         Database.Settings.MySQL.Username = config.getString("database.settings.mysql.username", "miraimc");
         Database.Settings.MySQL.Password = config.getString("database.settings.mysql.password", "miraimc");
         Database.Settings.MySQL.Database = config.getString("database.settings.mysql.database", "miraimc");
