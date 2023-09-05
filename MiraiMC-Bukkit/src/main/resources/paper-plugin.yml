@@ -18,7 +18,7 @@ permissions:
         default: false
         children:
           miraimc.command.mirai:
-            description: Allow use /miria
+            description: Allow use /mirai
             default: op
           miraimc.command.mirai.*:
             description: Allow use all /mirai child commands.
@@ -49,7 +49,7 @@ permissions:
                 description: Allow use /mirai checkonline
                 default: op
           miraimc.command.miraimc:
-            description: Allow use /miriamc
+            description: Allow use /miraimc
             default: op
           miraimc.command.miraimc.*:
             description: Allow use all /miraimc child commands.
@@ -59,7 +59,7 @@ permissions:
                 description: Allow use /miraimc bind
                 default: op
               miraimc.command.miraimc.reload:
-                description: Allow use /miriamc reload
+                description: Allow use /miraimc reload
                 default: op
           miraimc.command.miraiverify:
             description: Allow use /miraiverify
