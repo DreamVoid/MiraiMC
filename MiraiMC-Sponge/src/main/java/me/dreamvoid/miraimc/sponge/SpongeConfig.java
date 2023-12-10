@@ -50,6 +50,8 @@ public class SpongeConfig extends MiraiMCConfig {
         Bot.ContactCache.EnableFriendListCache = serializable.bot.contact__cache.enable__friend__list__cache;
         Bot.ContactCache.EnableGroupMemberListCache = serializable.bot.contact__cache.enable__group__member__list__cache;
         Bot.ContactCache.SaveIntervalMillis = serializable.bot.contact__cache.save__interval__millis;
+        Bot.RegisterEncryptService = serializable.bot.register__encrypt__service;
+        Bot.UpdateProtocolVersion = serializable.bot.update__protocol__version;
 
         Database.Type = serializable.database.type;
         Database.Settings.SQLite.Path = serializable.database.settings.sqlite.path;

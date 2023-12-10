@@ -10,7 +10,6 @@ general:
   mirai-core-version: "stable"
   maven-repo-url: "https://repo.huaweicloud.com/repository/maven/"
   enable-http-api: false
-  legacy-event-support: false
   auto-open-qrcode-file: false
   log-events: true
 bot:

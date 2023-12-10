@@ -2,7 +2,9 @@ package me.dreamvoid.miraimc.velocity;
 
 import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.internal.ConfigSerializable;
+import me.dreamvoid.miraimc.internal.Utils;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.CustomClassLoaderConstructor;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +31,7 @@ public class VelocityConfig extends MiraiMCConfig {
             }
         }
 
-        Yaml yaml = new Yaml();
+        Yaml yaml = new Yaml(new CustomClassLoaderConstructor(Utils.getClassLoader()));
         String config = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8).replace("-", "__");
         ConfigSerializable serializable = yaml.loadAs(config, ConfigSerializable.class);
 
@@ -50,6 +52,8 @@ public class VelocityConfig extends MiraiMCConfig {
         Bot.ContactCache.EnableFriendListCache = serializable.bot.contact__cache.enable__friend__list__cache;
         Bot.ContactCache.EnableGroupMemberListCache = serializable.bot.contact__cache.enable__group__member__list__cache;
         Bot.ContactCache.SaveIntervalMillis = serializable.bot.contact__cache.save__interval__millis;
+        Bot.RegisterEncryptService = serializable.bot.register__encrypt__service;
+        Bot.UpdateProtocolVersion = serializable.bot.update__protocol__version;
 
         Database.Type = serializable.database.type;
         Database.Settings.SQLite.Path = serializable.database.settings.sqlite.path;

@@ -33,6 +33,8 @@ public class ConfigSerializable {
             public final boolean enable__group__member__list__cache = false;
             public final int save__interval__millis = 60000;
         }
+        public final boolean register__encrypt__service = false;
+        public final boolean update__protocol__version = false;
     }
     
     public Database database;
