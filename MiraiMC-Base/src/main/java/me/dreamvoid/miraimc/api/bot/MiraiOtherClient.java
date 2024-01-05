@@ -3,8 +3,10 @@ package me.dreamvoid.miraimc.api.bot;
 import net.mamoe.mirai.contact.OtherClient;
 import net.mamoe.mirai.message.code.MiraiCode;
 import net.mamoe.mirai.message.data.FlashImage;
+import net.mamoe.mirai.message.data.ShortVideo;
 import net.mamoe.mirai.utils.ExternalResource;
 
+import javax.annotation.Nullable;
 import java.io.File;
 
 /**
@@ -87,5 +89,16 @@ public class MiraiOtherClient {
 	 */
 	public void sendFlashImage(String imageID) {
 		client.sendMessage(FlashImage.from(imageID));
+	}
+
+	/**
+	 * 上传并发送一个短视频
+	 * @param thumbnailFile 短视频封面图
+	 * @param videoFile 视频资源，目前仅支持上传 mp4 格式的视频
+	 * @param fileName 文件名，若为 null 则根据 video 自动生成.
+	 */
+	public void sendShortVideo(File thumbnailFile, File videoFile, @Nullable String fileName){
+		ShortVideo shortVideo = client.uploadShortVideo(ExternalResource.create(thumbnailFile).toAutoCloseable(), ExternalResource.create(videoFile).toAutoCloseable(), fileName);
+		client.sendMessage(shortVideo);
 	}
 }

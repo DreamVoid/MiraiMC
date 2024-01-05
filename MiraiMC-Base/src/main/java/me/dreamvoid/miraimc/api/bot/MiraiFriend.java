@@ -3,12 +3,10 @@ package me.dreamvoid.miraimc.api.bot;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.message.code.MiraiCode;
-import net.mamoe.mirai.message.data.FlashImage;
-import net.mamoe.mirai.message.data.Image;
-import net.mamoe.mirai.message.data.MusicKind;
-import net.mamoe.mirai.message.data.MusicShare;
+import net.mamoe.mirai.message.data.*;
 import net.mamoe.mirai.utils.ExternalResource;
 
+import javax.annotation.Nullable;
 import java.io.File;
 
 /**
@@ -185,5 +183,16 @@ public class MiraiFriend {
      */
     public MiraiFriendGroup getFriendGroup(){
         return new MiraiFriendGroup(bot, friend.getFriendGroup());
+    }
+
+    /**
+     * 上传并发送一个短视频
+     * @param thumbnailFile 短视频封面图
+     * @param videoFile 视频资源，目前仅支持上传 mp4 格式的视频
+     * @param fileName 文件名，若为 null 则根据 video 自动生成.
+     */
+    public void sendShortVideo(File thumbnailFile, File videoFile, @Nullable String fileName){
+        ShortVideo shortVideo = friend.uploadShortVideo(ExternalResource.create(thumbnailFile).toAutoCloseable(), ExternalResource.create(videoFile).toAutoCloseable(), fileName);
+        friend.sendMessage(shortVideo);
     }
 }
