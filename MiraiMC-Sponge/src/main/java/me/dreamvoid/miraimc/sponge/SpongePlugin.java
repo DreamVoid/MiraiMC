@@ -15,6 +15,7 @@ import org.spongepowered.api.command.args.ArgumentParseException;
 import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.ConfigDir;
+import org.spongepowered.api.entity.living.player.User;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
@@ -197,12 +198,12 @@ public class SpongePlugin implements Platform {
 
     @Override
     public String getPlayerName(UUID uuid) {
-        return Sponge.getServer().getPlayer(uuid).get().getName();
+        return Sponge.getServer().getPlayer(uuid).map(User::getName).orElse(null);
     }
 
     @Override
     public UUID getPlayerUUID(String name) {
-        return Sponge.getServer().getPlayer(name).get().getUniqueId();
+        return Sponge.getServer().getPlayer(name).map(User::getUniqueId).orElse(null);
     }
 
     @Override

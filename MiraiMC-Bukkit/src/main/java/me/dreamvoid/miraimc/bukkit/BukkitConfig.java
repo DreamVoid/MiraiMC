@@ -5,6 +5,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
@@ -23,7 +24,9 @@ public class BukkitConfig extends MiraiMCConfig {
             plugin.saveDefaultConfig();
             YamlConfiguration y = new YamlConfiguration();
             y.options().pathSeparator('\\');
-            y.load(new InputStreamReader(plugin.getResource("config.yml"), StandardCharsets.UTF_8));
+            InputStream resource = plugin.getResource("config.yml");
+            assert resource != null;
+            y.load(new InputStreamReader(resource, StandardCharsets.UTF_8));
             plugin.getConfig().setDefaults(y);
             plugin.getConfig().options().copyDefaults(true);
             plugin.saveConfig();

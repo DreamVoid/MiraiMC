@@ -28,6 +28,7 @@ import net.mamoe.mirai.event.events.*;
 
 import static me.dreamvoid.miraimc.velocity.event.bot.MiraiBotOfflineEvent.Type.*;
 
+@SuppressWarnings("deprecation")
 public class MiraiEvent implements IMiraiEvent {
     final ProxyServer server;
 

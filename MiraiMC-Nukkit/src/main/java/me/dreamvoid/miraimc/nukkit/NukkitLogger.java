@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import java.util.function.Supplier;
 import java.util.logging.*;
 
+@SuppressWarnings("deprecation")
 public class NukkitLogger extends Logger {
     private final cn.nukkit.utils.Logger logger;
     /**

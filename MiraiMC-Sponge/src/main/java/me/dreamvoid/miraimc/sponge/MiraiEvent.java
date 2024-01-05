@@ -32,6 +32,7 @@ import org.spongepowered.api.plugin.PluginContainer;
 
 import static me.dreamvoid.miraimc.sponge.event.bot.MiraiBotOfflineEvent.Type.*;
 
+@SuppressWarnings("deprecation")
 public class MiraiEvent implements IMiraiEvent {
     private final EventContext eventContext;
     private final PluginContainer pluginContainer;

@@ -28,6 +28,7 @@ import net.md_5.bungee.api.ProxyServer;
 
 import static me.dreamvoid.miraimc.bungee.event.bot.MiraiBotOfflineEvent.Type.*;
 
+@SuppressWarnings("deprecation")
 public class MiraiEvent implements IMiraiEvent {
     public MiraiEvent(){
         Thread.currentThread().setContextClassLoader(Utils.getClassLoader());

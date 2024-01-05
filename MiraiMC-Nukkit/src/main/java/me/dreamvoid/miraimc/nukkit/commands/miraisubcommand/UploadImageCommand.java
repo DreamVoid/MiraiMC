@@ -30,7 +30,7 @@ public class UploadImageCommand extends BaseSubCommand {
 	public boolean execute(CommandSender sender, String label, String[] args) {
 		if (args.length >= 3) {
 			File ImageDir = new File(MiraiMCConfig.PluginDir, "images");
-			if(!ImageDir.exists()) ImageDir.mkdir();
+			if(!ImageDir.exists() && !ImageDir.mkdir()) sender.sendMessage("&c图片文件夹创建失败，是否有目录的读写权限？");
 			File image = new File(ImageDir, args[2]);
 
 			if(!image.exists() || image.isDirectory()) {

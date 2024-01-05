@@ -28,6 +28,7 @@ import org.bukkit.Bukkit;
 
 import static me.dreamvoid.miraimc.bukkit.event.bot.MiraiBotOfflineEvent.Type.*;
 
+@SuppressWarnings("deprecation")
 public class MiraiEvent implements IMiraiEvent {
     public MiraiEvent(){
         Thread.currentThread().setContextClassLoader(Utils.getClassLoader());

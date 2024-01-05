@@ -17,6 +17,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -77,7 +78,7 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, Command command, @NotNull String label, String[] args) {
         ICommandSender sender1 = new ICommandSender() {
             @Override
             public void sendMessage(String message) {
@@ -99,7 +100,7 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+    public List<String> onTabComplete(@NotNull CommandSender sender, Command command, @NotNull String alias, String[] args) {
         List<String> result = new ArrayList<>();
 
         switch (command.getName().toLowerCase()){

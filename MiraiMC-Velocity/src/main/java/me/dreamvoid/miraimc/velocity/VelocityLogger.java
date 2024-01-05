@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import java.util.function.Supplier;
 import java.util.logging.*;
 
+@SuppressWarnings("deprecation")
 public class VelocityLogger extends Logger {
     private final org.slf4j.Logger logger;
     /**

@@ -10,6 +10,7 @@ import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.PluginContainer;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
+import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.scheduler.ScheduledTask;
 import me.dreamvoid.miraimc.*;
@@ -135,12 +136,12 @@ public class VelocityPlugin implements Platform {
 
     @Override
     public String getPlayerName(UUID uuid) {
-        return getServer().getPlayer(uuid).get().getUsername();
+        return getServer().getPlayer(uuid).map(Player::getUsername).orElse(null);
     }
 
     @Override
     public UUID getPlayerUUID(String name) {
-        return getServer().getPlayer(name).get().getUniqueId();
+        return getServer().getPlayer(name).map(Player::getUniqueId).orElse(null);
     }
 
     @Override

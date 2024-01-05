@@ -23,10 +23,8 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class MiraiEncryptServiceFactory implements EncryptService.Factory {
-    private final ConcurrentHashMap.KeySetView<Object, Boolean> created = ConcurrentHashMap.newKeySet();
     public static final String REQUEST_TOKEN_INTERVAL = "MiraiMC.EncryptService.REQUEST_TOKEN_INTERVAL";
     private static File config;
 

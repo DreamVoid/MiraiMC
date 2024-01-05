@@ -147,6 +147,7 @@ public class MiraiLoginSolver extends LoginSolver {
     @Nullable
     @Override
     @Deprecated
+    @SuppressWarnings("deprecation")
     public Object onSolveUnsafeDeviceLoginVerify(@NotNull Bot bot, @NotNull String verifyUrl, @NotNull Continuation<? super String> continuation){
         try {
             threads = new Thread(() -> {
