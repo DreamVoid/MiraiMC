@@ -32,7 +32,7 @@ public class VelocityConfig extends MiraiMCConfig {
         }
 
         Yaml yaml = new Yaml(new CustomClassLoaderConstructor(Utils.getClassLoader()));
-        String config = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8).replace("-", "__");
+        String config = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8).replace("-", "__").replace("__ ", "- ");
         ConfigSerializable serializable = yaml.loadAs(config, ConfigSerializable.class);
 
         General.AllowBStats = serializable.general.allow__bStats;
