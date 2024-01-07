@@ -27,7 +27,7 @@ public class MiraiLoader {
         try {
             return Info.init().mirai.get("stable");
         } catch (IOException e){
-            Utils.getLogger().warning("Fetching mirai stable version from remote failed, try to use latest. Reason: " + e);
+            Utils.getLogger().warning("Unable to get mirai stable version from remote server, try to use latest. Reason: " + e);
             return "latest";
         }
     }
@@ -56,7 +56,7 @@ public class MiraiLoader {
 
             return mirai;
         } catch (IOException e){
-            Utils.getLogger().warning("Fetching mirai stable version from remote failed, try to use latest. Reason: " + e);
+            Utils.getLogger().warning("Unable to get mirai stable version from remote server, try to use latest. Reason: " + e);
             return "latest";
         }
     }
