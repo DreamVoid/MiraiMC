@@ -50,18 +50,18 @@ public class BungeeConfig extends MiraiMCConfig {
         Bot.UpdateProtocolVersion = config.getBoolean("bot.update-protocol-version",false);
 
         Database.Type = config.getString("database.type","sqlite").toLowerCase();
-        Database.Settings.SQLite.Path = config.getString("database.settings.sqlite.path", "%plugin_folder%/database.db");
-        Database.Settings.MySQL.Address = config.getString("database.settings.mysql.address","localhost");
-        Database.Settings.MySQL.Username = config.getString("database.settings.mysql.username", "miraimc");
-        Database.Settings.MySQL.Password = config.getString("database.settings.mysql.password", "miraimc");
-        Database.Settings.MySQL.Database = config.getString("database.settings.mysql.database", "miraimc");
-        Database.Settings.MySQL.Parameters = config.getString("database.settings.mysql.parameters", "?useSSL=false");
-        Database.Pool.ConnectionTimeout = config.getInt("database.pool.connectionTimeout",30000);
-        Database.Pool.IdleTimeout = config.getInt("database.pool.connectionTimeout",600000);
-        Database.Pool.MaxLifetime = config.getInt("database.pool.maxLifetime",1800000);
-        Database.Pool.MaximumPoolSize = config.getInt("database.pool.maximumPoolSize",15);
-        Database.Pool.KeepaliveTime = config.getInt("database.pool.keepaliveTime",0);
-        Database.Pool.MinimumIdle = config.getInt("database.pool.minimumIdle",0);
+        Database.Drivers.SQLite.Path = config.getString("database.settings.sqlite.path", "%plugin_folder%/database.db");
+        Database.Drivers.MySQL.Address = config.getString("database.settings.mysql.address","localhost");
+        Database.Drivers.MySQL.Username = config.getString("database.settings.mysql.username", "miraimc");
+        Database.Drivers.MySQL.Password = config.getString("database.settings.mysql.password", "miraimc");
+        Database.Drivers.MySQL.Database = config.getString("database.settings.mysql.database", "miraimc");
+        Database.Drivers.MySQL.Parameters = config.getString("database.settings.mysql.parameters", "?useSSL=false");
+        Database.Settings.Pool.ConnectionTimeout = config.getInt("database.pool.connectionTimeout",30000);
+        Database.Settings.Pool.IdleTimeout = config.getInt("database.pool.connectionTimeout",600000);
+        Database.Settings.Pool.MaxLifetime = config.getInt("database.pool.maxLifetime",1800000);
+        Database.Settings.Pool.MaximumPoolSize = config.getInt("database.pool.maximumPoolSize",15);
+        Database.Settings.Pool.KeepaliveTime = config.getInt("database.pool.keepaliveTime",0);
+        Database.Settings.Pool.MinimumIdle = config.getInt("database.pool.minimumIdle",0);
 
         HttpApi.Url = config.getString("http-api.url", "http://localhost:8080");
         HttpApi.MessageFetch.Interval = config.getInt("http-api.message-fetch.interval", 10);

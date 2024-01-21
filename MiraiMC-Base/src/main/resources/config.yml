@@ -26,7 +26,7 @@ bot:
   update-protocol-version: false
 database:
   type: sqlite
-  settings:
+  drivers:
     sqlite:
       path: "%plugin_folder%/database.db"
     mysql:
@@ -35,13 +35,15 @@ database:
       password: miraimc
       database: miraimc
       parameters: "?useSSL=false"
-  pool:
-    connectionTimeout: 30000
-    idleTimeout: 600000
-    maxLifetime: 1800000
-    maximumPoolSize: 15
-    keepaliveTime: 0
-    minimumIdle: 5
+  settings:
+    prefix: "miraimc_"
+    pool:
+      connectionTimeout: 30000
+      idleTimeout: 600000
+      maxLifetime: 1800000
+      maximumPoolSize: 15
+      keepaliveTime: 0
+      minimumIdle: 5
 http-api:
   url: "http://localhost:8080"
   message-fetch:

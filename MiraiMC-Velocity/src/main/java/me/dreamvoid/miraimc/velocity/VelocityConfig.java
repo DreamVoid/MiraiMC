@@ -56,18 +56,18 @@ public class VelocityConfig extends MiraiMCConfig {
         Bot.UpdateProtocolVersion = serializable.bot.update__protocol__version;
 
         Database.Type = serializable.database.type;
-        Database.Settings.SQLite.Path = serializable.database.settings.sqlite.path;
-        Database.Settings.MySQL.Address = serializable.database.settings.mysql.address;
-        Database.Settings.MySQL.Username = serializable.database.settings.mysql.username;
-        Database.Settings.MySQL.Password = serializable.database.settings.mysql.password;
-        Database.Settings.MySQL.Database = serializable.database.settings.mysql.database;
-        Database.Settings.MySQL.Parameters = serializable.database.settings.mysql.parameters;
-        Database.Pool.ConnectionTimeout = serializable.database.pool.connectionTimeout;
-        Database.Pool.IdleTimeout = serializable.database.pool.idleTimeout;
-        Database.Pool.MaxLifetime = serializable.database.pool.maxLifetime;
-        Database.Pool.MaximumPoolSize = serializable.database.pool.maximumPoolSize;
-        Database.Pool.KeepaliveTime = serializable.database.pool.keepaliveTime;
-        Database.Pool.MinimumIdle = serializable.database.pool.minimumIdle;
+        Database.Drivers.SQLite.Path = serializable.database.drivers.sqlite.path;
+        Database.Drivers.MySQL.Address = serializable.database.drivers.mysql.address;
+        Database.Drivers.MySQL.Username = serializable.database.drivers.mysql.username;
+        Database.Drivers.MySQL.Password = serializable.database.drivers.mysql.password;
+        Database.Drivers.MySQL.Database = serializable.database.drivers.mysql.database;
+        Database.Drivers.MySQL.Parameters = serializable.database.drivers.mysql.parameters;
+        Database.Settings.Pool.ConnectionTimeout = serializable.database.settings.pool.connectionTimeout;
+        Database.Settings.Pool.IdleTimeout = serializable.database.settings.pool.idleTimeout;
+        Database.Settings.Pool.MaxLifetime = serializable.database.settings.pool.maxLifetime;
+        Database.Settings.Pool.MaximumPoolSize = serializable.database.settings.pool.maximumPoolSize;
+        Database.Settings.Pool.KeepaliveTime = serializable.database.settings.pool.keepaliveTime;
+        Database.Settings.Pool.MinimumIdle = serializable.database.settings.pool.minimumIdle;
 
         HttpApi.Url = serializable.http__api.url;
         HttpApi.MessageFetch.Interval = serializable.http__api.message__fetch.interval;

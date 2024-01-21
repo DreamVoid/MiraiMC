@@ -41,10 +41,10 @@ public class ConfigSerializable {
     
     public static class Database{
         public final String type = "sqlite";
+        public Drivers drivers;
         public Settings settings;
-        public Pool pool;
 
-        public static class Settings{
+        public static class Drivers {
             public SQLite sqlite;
             public MySQL mysql;
 
@@ -61,13 +61,18 @@ public class ConfigSerializable {
             }
         }
 
-        public static class Pool{
-            public final int connectionTimeout = 30000;
-            public final int idleTimeout = 600000;
-            public final int maxLifetime = 1800000;
-            public final int maximumPoolSize = 15;
-            public final int keepaliveTime = 0;
-            public final int minimumIdle = 5;
+        public static class Settings{
+            public final String prefix = "miraimc_";
+            public Pool pool;
+
+            public static class Pool{
+                public final int connectionTimeout = 30000;
+                public final int idleTimeout = 600000;
+                public final int maxLifetime = 1800000;
+                public final int maximumPoolSize = 15;
+                public final int keepaliveTime = 0;
+                public final int minimumIdle = 5;
+            }
         }
     }
 

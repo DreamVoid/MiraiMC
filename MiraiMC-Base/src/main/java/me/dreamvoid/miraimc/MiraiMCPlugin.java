@@ -2,7 +2,7 @@ package me.dreamvoid.miraimc;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.*;
-import me.dreamvoid.miraimc.internal.database.DatabaseManager;
+import me.dreamvoid.miraimc.internal.database.DatabaseHandler;
 import me.dreamvoid.miraimc.internal.database.MySQL;
 import me.dreamvoid.miraimc.internal.database.SQLite;
 import me.dreamvoid.miraimc.internal.webapi.Info;
@@ -124,16 +124,16 @@ public class MiraiMCPlugin {
                 case "sqlite":
                 default: {
                     logger.info("Initializing SQLite database.");
-                    DatabaseManager.setDatabase(new SQLite());
+                    DatabaseHandler.setDatabase(new SQLite());
                     break;
                 }
                 case "mysql": {
                     logger.info("Initializing MySQL database.");
-                    DatabaseManager.setDatabase(new MySQL());
+                    DatabaseHandler.setDatabase(new MySQL());
                     break;
                 }
             }
-            DatabaseManager.getDatabase().initialize();
+            DatabaseHandler.getDatabase().initialize();
         } catch (ClassNotFoundException e) {
             logger.warning("Failed to initialize database, reason: " + e);
         }
@@ -208,7 +208,7 @@ public class MiraiMCPlugin {
 
         // 停止数据库
         logger.info("Closing database.");
-        DatabaseManager.getDatabase().close();
+        DatabaseHandler.getDatabase().close();
 
         logger.info("Unload tasks finished. Thanks for use MiraiMC!");
     }
