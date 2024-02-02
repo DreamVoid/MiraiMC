@@ -60,6 +60,7 @@ public class SpongeConfig extends MiraiMCConfig {
         Database.Drivers.MySQL.Password = serializable.database.drivers.mysql.password;
         Database.Drivers.MySQL.Database = serializable.database.drivers.mysql.database;
         Database.Drivers.MySQL.Parameters = serializable.database.drivers.mysql.parameters;
+        Database.Settings.Prefix = serializable.database.settings.prefix;
         Database.Settings.Pool.ConnectionTimeout = serializable.database.settings.pool.connectionTimeout;
         Database.Settings.Pool.IdleTimeout = serializable.database.settings.pool.idleTimeout;
         Database.Settings.Pool.MaxLifetime = serializable.database.settings.pool.maxLifetime;

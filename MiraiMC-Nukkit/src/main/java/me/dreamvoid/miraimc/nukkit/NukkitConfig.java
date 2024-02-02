@@ -39,6 +39,7 @@ public class NukkitConfig extends MiraiMCConfig {
         Database.Drivers.MySQL.Password = plugin.getConfig().getString("database.settings.mysql.password", "miraimc");
         Database.Drivers.MySQL.Database = plugin.getConfig().getString("database.settings.mysql.database", "miraimc");
         Database.Drivers.MySQL.Parameters = plugin.getConfig().getString("database.settings.mysql.parameters", "?useSSL=false");
+        Database.Settings.Prefix = plugin.getConfig().getString("database.settings.prefix", "miraimc_");
         Database.Settings.Pool.ConnectionTimeout = plugin.getConfig().getInt("database.pool.connectionTimeout",30000);
         Database.Settings.Pool.IdleTimeout = plugin.getConfig().getInt("database.pool.connectionTimeout",600000);
         Database.Settings.Pool.MaxLifetime = plugin.getConfig().getInt("database.pool.maxLifetime",1800000);

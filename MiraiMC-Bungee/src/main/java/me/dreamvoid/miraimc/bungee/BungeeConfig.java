@@ -56,6 +56,7 @@ public class BungeeConfig extends MiraiMCConfig {
         Database.Drivers.MySQL.Password = config.getString("database.settings.mysql.password", "miraimc");
         Database.Drivers.MySQL.Database = config.getString("database.settings.mysql.database", "miraimc");
         Database.Drivers.MySQL.Parameters = config.getString("database.settings.mysql.parameters", "?useSSL=false");
+        Database.Settings.Prefix = config.getString("database.settings.prefix", "miraimc_");
         Database.Settings.Pool.ConnectionTimeout = config.getInt("database.pool.connectionTimeout",30000);
         Database.Settings.Pool.IdleTimeout = config.getInt("database.pool.connectionTimeout",600000);
         Database.Settings.Pool.MaxLifetime = config.getInt("database.pool.maxLifetime",1800000);
