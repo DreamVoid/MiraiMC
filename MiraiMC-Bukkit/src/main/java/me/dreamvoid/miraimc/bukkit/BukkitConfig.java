@@ -20,12 +20,13 @@ public class BukkitConfig extends MiraiMCConfig {
 
     @Override
     public void loadConfig() throws IOException {
-        try{
-            plugin.saveDefaultConfig();
+        plugin.saveDefaultConfig();
+        plugin.reloadConfig();
+
+        try(InputStream resource = plugin.getResource("config.yml")){
+            assert resource != null;
             YamlConfiguration y = new YamlConfiguration();
             y.options().pathSeparator('\\');
-            InputStream resource = plugin.getResource("config.yml");
-            assert resource != null;
             y.load(new InputStreamReader(resource, StandardCharsets.UTF_8));
             plugin.getConfig().setDefaults(y);
             plugin.getConfig().options().copyDefaults(true);
