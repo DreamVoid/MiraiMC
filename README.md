@@ -20,7 +20,7 @@ MiraiMC 是一个基于 [Mirai](https://github.com/mamoe/mirai) 的 Minecraft �
 
 - 本项目保证永久开源，欢迎提交 PR，但是请不要提交用于非法用途的功能。
 - 如果某功能被大量运用于非法用途或严重侵害插件使用者权益，那么该功能将会被移除。
-- 本模块完全免费开源，没有任何收费，请勿二次贩卖。
+- 本插件完全免费开源，没有任何收费，请勿二次贩卖。
 - 鉴于项目的特殊性，作者可能在任何时间**停止更新**或**删除项目**
 
 ## 下载
@@ -30,52 +30,41 @@ MiraiMC 是一个基于 [Mirai](https://github.com/mamoe/mirai) 的 Minecraft �
 * 开发版本
   * [GitHub Actions CI](https://github.com/DreamVoid/MiraiMC/actions/workflows/maven.yml?query=is%3Asuccess)
 
-## 开始使用
-### 服主
-<details>
-如果你是服主，正在被接入 QQ 机器人所困扰（尤其是 Linux 和面板服），那么只需要下载本插件即可方便快捷的接入并使用QQ机器人且无需使用额外的软件。
+## 开始使用（服务器）
+MiraiMC 是一个服务端插件，因此你只需按照安装插件的方式安装 MiraiMC 即可。
 
-请按下面的步骤开始使用 MiraiMC：
-1. 下载插件，并将插件文件放入 `plugins` 文件夹
-2. 下载基于 MiraiMC 开发的其他插件（如果有的话），并将这些插件放入 `plugins` 文件夹
-3. 启动服务端（如果尚未启动）
-4. 使用指令“**/mirai login <账号> <密码>**”登录你的机器人账号
-5. 如果你同时使用了基于 MiraiMC 开发的插件，请在这些插件的配置文件中调整有关 MiraiMC 的配置
-6. 享受优雅的 QQ 机器人服务！
+从“下载”部分下载适用的 MiraiMC 插件，并将插件文件放入插件/模组文件夹（取决于服务端类型）。
+
+如果服务端正在运行，请完全停止服务端。之后，启动服务端。
+
+如果你同时使用了基于 MiraiMC 开发的插件，请在这些插件的配置文件中调整有关 MiraiMC 的配置。
+
+最后，登录你的机器人账号即可开始享受优雅的 QQ 机器人服务！
 
 可以在这里找到更为详细的使用教程：https://docs.miraimc.dreamvoid.me/
-</details>
 
-### 开发者
-<details>
-如果你是插件开发者，正在考虑让自己的插件能够对接 QQ 机器人，那么只需要使用本插件提供的 API 即可方便快捷的实现需求而无需让服主进行额外的配置。
+## 开始使用（插件开发者）
+* 使用 MiraiMC 开发模板开发一个全新的插件:
+  - [Maven](https://github.com/MiraiMC/MiraiMC-Template)
+  - [Gradle KotlinDSL](https://github.com/MiraiMC/MiraiMC-Template-Gradle-KotlinDSL)
+* 查阅有关开发的知识：https://docs.miraimc.dreamvoid.me/
+* 查阅 Javadoc：https://jd.miraimc.dreamvoid.me
 
-你可以简单的使用 MiraiMC 开发模板来开始开发一个全新的插件:
+### 依赖
+#### Maven 
+```
+<dependency>
+    <groupId>io.github.dreamvoid</groupId>
+    <artifactId>MiraiMC-Integration</artifactId>
+    <version>1.8.2</version>
+    <scope>provided</scope>
+</dependency>
+```
 
-- [Maven](https://github.com/MiraiMC/MiraiMC-Template)
-- [Gradle KotlinDSL](https://github.com/MiraiMC/MiraiMC-Template-Gradle-KotlinDSL)
-
-你也可以为现有插件引入 MiraiMC，只需按照以下步骤即可接入 MiraiMC：
-
-1. 引入项目作为依赖库
-    * Maven
-    ```
-    <dependency>
-        <groupId>io.github.dreamvoid</groupId>
-        <artifactId>MiraiMC-Integration</artifactId>
-        <version>1.8.2</version>
-        <scope>provided</scope>
-    </dependency>
-    ```
-    * Gradle
-    ```
-    implementation 'io.github.dreamvoid:MiraiMC-Integration:1.8'
-    ```
-2. 参照 [Javadoc](https://jd.miraimc.dreamvoid.me) 或 [MiraiMC 开发模板](https://github.com/MiraiMC/MiraiMC-Template)编写相关的代码
-3. 发布你的插件
-
-可以在这里找到更为详细的开发教程：https://docs.miraimc.dreamvoid.me/
-</details>
+#### Gradle
+```
+implementation 'io.github.dreamvoid:MiraiMC-Integration:1.8.2'
+```
 
 ## 指令和权限
 ### 指令
