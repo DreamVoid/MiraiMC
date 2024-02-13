@@ -5,7 +5,19 @@ main: me.dreamvoid.miraimc.bukkit.BukkitPlugin
 version: ${project.version}
 api-version: 1.13
 webside: https://github.com/DreamVoid/MiraiMC
-folia-supported: true
+commands:
+  mirai:
+    description: MiraiMC Bot Command.
+    permission: miraimc.command.mirai
+    usage: For help, type /mirai help
+  miraimc:
+    description: MiraiMC Plugin Command.
+    permission: miraimc.command.miraimc
+    usage: For help, type /miraimc help
+  miraiverify:
+    description: MiraiMC LoginVerify Command.
+    permission: miraimc.command.miraiverify
+    usage: For help, type /mirai help
 permissions:
   miraimc.*:
     description: All permissions of MiraiMC
