@@ -56,14 +56,14 @@ MiraiMC 是一个服务端插件，因此你只需按照安装插件的方式安
 <dependency>
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC-Integration</artifactId>
-    <version>1.8.2</version>
+    <version>1.8.3</version>
     <scope>provided</scope>
 </dependency>
 ```
 
 #### Gradle
 ```
-implementation 'io.github.dreamvoid:MiraiMC-Integration:1.8.2'
+implementation 'io.github.dreamvoid:MiraiMC-Integration:1.8.3'
 ```
 
 ## 指令和权限
