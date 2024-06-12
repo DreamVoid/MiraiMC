@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.internal.loader;
 
 import com.google.common.base.Suppliers;
-import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.internal.Utils;
 import org.apache.maven.repository.internal.MavenRepositorySystemUtils;
 import org.eclipse.aether.DefaultRepositorySystemSession;
@@ -57,7 +56,7 @@ public class LibraryLoader {
 
 		this.session.setSystemProperties(System.getProperties());
 		this.session.setChecksumPolicy(RepositoryPolicy.CHECKSUM_POLICY_FAIL);
-		this.session.setLocalRepositoryManager(this.repository.newLocalRepositoryManager(this.session, new LocalRepository(new File(MiraiMCConfig.PluginDir, "libraries"))));
+		this.session.setLocalRepositoryManager(this.repository.newLocalRepositoryManager(this.session, new LocalRepository("libraries")));
 		this.session.setTransferListener(new AbstractTransferListener() {
 			@Override
 			public void transferInitiated(@NotNull TransferEvent event) throws TransferCancelledException {
