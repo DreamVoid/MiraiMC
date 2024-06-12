@@ -65,13 +65,17 @@ public class MiraiMCPlugin {
         logger.info("Mirai working dir: " + MiraiMCConfig.General.MiraiWorkingDir);
 
         // 加载 mirai 核心
-        logger.info("Selected mirai core version: " + MiraiMCConfig.General.MiraiCoreVersion);
-        if (MiraiMCConfig.General.MiraiCoreVersion.equalsIgnoreCase("latest")) {
-            MiraiLoader.loadMiraiCore();
-        } else if (MiraiMCConfig.General.MiraiCoreVersion.equalsIgnoreCase("stable")) {
-            MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion(getPlatform().getPluginVersion()));
+        if(System.getProperty("MiraiMC.do-not-load-mirai-core") == null){
+            logger.info("Selected mirai core version: " + MiraiMCConfig.General.MiraiCoreVersion);
+            if (MiraiMCConfig.General.MiraiCoreVersion.equalsIgnoreCase("latest")) {
+                MiraiLoader.loadMiraiCore();
+            } else if (MiraiMCConfig.General.MiraiCoreVersion.equalsIgnoreCase("stable")) {
+                MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion(getPlatform().getPluginVersion()));
+            } else {
+                MiraiLoader.loadMiraiCore(MiraiMCConfig.General.MiraiCoreVersion);
+            }
         } else {
-            MiraiLoader.loadMiraiCore(MiraiMCConfig.General.MiraiCoreVersion);
+            logger.info("MiraiMC will not load mirai core, please ensure you have custom mirai core loaded.");
         }
 
         // 加载 EncryptService
