@@ -11,15 +11,23 @@ import me.dreamvoid.miraimc.commands.ICommandSender;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
+import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+import java.net.URLClassLoader;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 public class PaperPlugin extends BukkitPlugin {
     private final ConcurrentHashMap<Integer, ScheduledTask> tasks = new ConcurrentHashMap<>();
+    private final LibraryLoader loader;
+
+    public PaperPlugin(){
+        super();
+        loader = new LibraryLoader((URLClassLoader) getClassLoader().getParent());
+    }
 
     @Override
     public void onEnable() {
@@ -110,5 +118,10 @@ public class PaperPlugin extends BukkitPlugin {
     @Override
     public ClassLoader getPluginClassLoader() {
         return getClassLoader().getParent();
+    }
+
+    @Override
+    public LibraryLoader getLibraryLoader() {
+        return loader;
     }
 }

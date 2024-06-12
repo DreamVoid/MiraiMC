@@ -17,11 +17,13 @@ import me.dreamvoid.miraimc.*;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
+import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import me.dreamvoid.miraimc.velocity.utils.Metrics;
 import me.dreamvoid.miraimc.velocity.utils.SpecialUtils;
 import org.slf4j.Logger;
 
 import java.io.File;
+import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +43,7 @@ public class VelocityPlugin implements Platform {
     private final MiraiMCPlugin lifeCycle;
     private final MiraiMCConfig platformConfig;
     private final java.util.logging.Logger VelocityLogger;
+    private final LibraryLoader loader;
 
     @Inject
     public VelocityPlugin(ProxyServer server, Logger logger, @DataDirectory Path dataDirectory, Metrics.Factory metricsFactory){
@@ -53,6 +56,7 @@ public class VelocityPlugin implements Platform {
         lifeCycle = new MiraiMCPlugin(this);
         lifeCycle.startUp(VelocityLogger);
         platformConfig = new VelocityConfig(this);
+        loader = new LibraryLoader((URLClassLoader) getClass().getClassLoader());
     }
 
     private final ProxyServer server;
@@ -210,5 +214,10 @@ public class VelocityPlugin implements Platform {
     @Override
     public MiraiMCConfig getPluginConfig() {
         return platformConfig;
+    }
+
+    @Override
+    public LibraryLoader getLibraryLoader() {
+        return loader;
     }
 }

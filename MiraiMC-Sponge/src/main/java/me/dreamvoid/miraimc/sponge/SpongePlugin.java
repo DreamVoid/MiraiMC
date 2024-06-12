@@ -5,6 +5,7 @@ import me.dreamvoid.miraimc.*;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
+import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import me.dreamvoid.miraimc.sponge.utils.Metrics;
 import me.dreamvoid.miraimc.sponge.utils.SpecialUtils;
 import org.slf4j.Logger;
@@ -28,6 +29,7 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.metric.MetricsConfigManager;
 
 import java.io.File;
+import java.net.URLClassLoader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -45,10 +47,12 @@ public class SpongePlugin implements Platform {
     private MiraiMCPlugin lifeCycle;
     private MiraiMCConfig platformConfig;
     private java.util.logging.Logger SpongeLogger;
+    private final LibraryLoader loader;
 
     public SpongePlugin(){
         lifeCycle = new MiraiMCPlugin(this);
         lifeCycle.startUp(new SpongeLogger("MiraiMC", LoggerFactory.getLogger("MiraiMC")));
+        loader = new LibraryLoader((URLClassLoader) getClass().getClassLoader());
     }
 
     @Inject
@@ -272,5 +276,10 @@ public class SpongePlugin implements Platform {
     @Override
     public MiraiMCConfig getPluginConfig() {
         return platformConfig;
+    }
+
+    @Override
+    public LibraryLoader getLibraryLoader() {
+        return loader;
     }
 }

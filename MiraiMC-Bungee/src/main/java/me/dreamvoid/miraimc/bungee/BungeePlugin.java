@@ -6,11 +6,13 @@ import me.dreamvoid.miraimc.bungee.utils.SpecialUtils;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
+import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.Plugin;
 
+import java.net.URLClassLoader;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -22,11 +24,13 @@ public class BungeePlugin extends Plugin implements Platform {
     private MiraiAutoLogin MiraiAutoLogin;
     private final MiraiMCPlugin lifeCycle;
     private final MiraiMCConfig platformConfig;
+    private final LibraryLoader loader;
 
     public BungeePlugin(){
         lifeCycle = new MiraiMCPlugin(this);
         lifeCycle.startUp(getLogger());
         platformConfig = new BungeeConfig(this);
+        loader = new LibraryLoader((URLClassLoader) this.getClass().getClassLoader());
     }
 
     @Override
@@ -145,6 +149,11 @@ public class BungeePlugin extends Plugin implements Platform {
     @Override
     public MiraiMCConfig getPluginConfig() {
         return platformConfig;
+    }
+
+    @Override
+    public LibraryLoader getLibraryLoader() {
+        return loader;
     }
 
     @Override

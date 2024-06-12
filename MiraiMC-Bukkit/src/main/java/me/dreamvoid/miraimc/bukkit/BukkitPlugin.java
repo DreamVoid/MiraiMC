@@ -11,6 +11,7 @@ import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.MiraiMCConfig;
+import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -19,6 +20,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.URLClassLoader;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -28,11 +30,13 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
     private MiraiAutoLogin MiraiAutoLogin;
     private final MiraiMCPlugin lifeCycle;
     private final MiraiMCConfig platformConfig;
+    private final LibraryLoader loader;
 
     public BukkitPlugin(){
         lifeCycle = new MiraiMCPlugin(this);
         lifeCycle.startUp(getLogger());
         platformConfig = new BukkitConfig(this);
+        loader = new LibraryLoader((URLClassLoader) this.getClassLoader());
     }
 
     @Override // 加载插件
@@ -283,5 +287,10 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
     @Override
     public MiraiMCConfig getPluginConfig() {
         return platformConfig;
+    }
+
+    @Override
+    public LibraryLoader getLibraryLoader() {
+        return loader;
     }
 }
