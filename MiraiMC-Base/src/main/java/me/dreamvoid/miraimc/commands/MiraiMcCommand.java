@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.commands;
 
-import me.dreamvoid.miraimc.MiraiMCPlugin;
+import me.dreamvoid.miraimc.LifeCycle;
 import me.dreamvoid.miraimc.api.MiraiMC;
 import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.internal.Utils;
@@ -13,7 +13,7 @@ public class MiraiMcCommand implements ICommandExecutor {
     @Override
     public boolean onCommand(ICommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage("This server is running "+ MiraiMCPlugin.getPlatform().getPluginName() +" version "+ MiraiMCPlugin.getPlatform().getPluginVersion()+" by "+ MiraiMCPlugin.getPlatform().getAuthors().toString().replace("[","").replace("]",""));
+            sender.sendMessage("This server is running "+ LifeCycle.getPlatform().getPluginName() +" version "+ LifeCycle.getPlatform().getPluginVersion()+" by "+ LifeCycle.getPlatform().getAuthors().toString().replace("[","").replace("]",""));
             if(Utils.isDeveloperMode()) sender.sendMessage("Developer mode is on.");
             return false;
         }
@@ -37,8 +37,8 @@ public class MiraiMcCommand implements ICommandExecutor {
                         switch (args[1].toLowerCase()) {
                             case "add": {
                                 if (args.length >= 4) {
-                                    MiraiMCPlugin.getPlatform().runTaskAsync(() -> {
-                                        UUID uuid = MiraiMCPlugin.getPlatform().getPlayerUUID(args[2]);
+                                    LifeCycle.getPlatform().runTaskAsync(() -> {
+                                        UUID uuid = LifeCycle.getPlatform().getPlayerUUID(args[2]);
                                         long qqid = Long.parseLong(args[3]);
                                         MiraiMC.addBind(uuid, qqid);
                                         sender.sendMessage("&a已添加绑定！");
@@ -49,8 +49,8 @@ public class MiraiMcCommand implements ICommandExecutor {
                             }
                             case "removeplayer": {
                                 if (args.length >= 3) {
-                                    MiraiMCPlugin.getPlatform().runTaskAsync(() -> {
-                                        UUID uuid = MiraiMCPlugin.getPlatform().getPlayerUUID(args[2]);
+                                    LifeCycle.getPlatform().runTaskAsync(() -> {
+                                        UUID uuid = LifeCycle.getPlatform().getPlayerUUID(args[2]);
                                         MiraiMC.removeBind(uuid);
                                         sender.sendMessage("&a已移除相应绑定！");
                                     });
@@ -60,7 +60,7 @@ public class MiraiMcCommand implements ICommandExecutor {
                             }
                             case "removeqq": {
                                 if (args.length >= 3) {
-                                    MiraiMCPlugin.getPlatform().runTaskAsync(() -> {
+                                    LifeCycle.getPlatform().runTaskAsync(() -> {
                                         long qqid = Long.parseLong(args[2]);
                                         MiraiMC.removeBind(qqid);
                                         sender.sendMessage("&a已移除相应绑定！");
@@ -71,8 +71,8 @@ public class MiraiMcCommand implements ICommandExecutor {
                             }
                             case "getplayer": {
                                 if (args.length >= 3) {
-                                    MiraiMCPlugin.getPlatform().runTaskAsync(() -> {
-                                        UUID uuid = MiraiMCPlugin.getPlatform().getPlayerUUID(args[2]);
+                                    LifeCycle.getPlatform().runTaskAsync(() -> {
+                                        UUID uuid = LifeCycle.getPlatform().getPlayerUUID(args[2]);
                                         long qqId = MiraiMC.getBind(uuid);
                                         if (qqId != 0) {
                                             sender.sendMessage("&a绑定的QQ号：" + qqId);
@@ -85,11 +85,11 @@ public class MiraiMcCommand implements ICommandExecutor {
                             }
                             case "getqq": {
                                 if (args.length >= 3) {
-                                    MiraiMCPlugin.getPlatform().runTaskAsync(() -> {
+                                    LifeCycle.getPlatform().runTaskAsync(() -> {
                                         long qqid = Long.parseLong(args[2]);
                                         UUID uuid = MiraiMC.getBind(qqid);
                                         if (uuid != null) {
-                                            sender.sendMessage("&a绑定的玩家名：" + MiraiMCPlugin.getPlatform().getPlayerName(uuid));
+                                            sender.sendMessage("&a绑定的玩家名：" + LifeCycle.getPlatform().getPlayerName(uuid));
                                         } else
                                             sender.sendMessage("&c未找到符合条件的记录！");
                                     });

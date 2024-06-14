@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import kotlin.coroutines.CoroutineContext;
 import kotlinx.coroutines.CoroutineScope;
-import me.dreamvoid.miraimc.MiraiMCPlugin;
+import me.dreamvoid.miraimc.LifeCycle;
 import me.dreamvoid.miraimc.internal.MiraiEncryptServiceFactory;
 import me.dreamvoid.miraimc.internal.MiraiEncryptServiceFactoryKt;
 import me.dreamvoid.miraimc.internal.Utils;
@@ -101,7 +101,7 @@ public class UnidbgFetchQsign implements EncryptService, CoroutineScope {
                     String response1 = Utils.Http.get(server + "/destroy?uin=" + uin + "&key=" + key);
                     DataWrapper body1 = new Gson().fromJson(response1, DataWrapper.class);
                     logger.info("Bot(" + uin + ") destroy, " + body1.message);
-                    MiraiMCPlugin.getPlatform().cancelTask(taskId);
+                    LifeCycle.getPlatform().cancelTask(taskId);
                 } catch (Throwable cause) {
                     logger.warning("Bot(" + uin + ") destroy", cause);
                 } finally {
@@ -168,7 +168,7 @@ public class UnidbgFetchQsign implements EncryptService, CoroutineScope {
                 long interval = Long.parseLong(System.getProperty(MiraiEncryptServiceFactory.REQUEST_TOKEN_INTERVAL, "2400000"));
                 if (interval > 0L) {
                     final boolean[] firstRun = {true};
-                    taskId = MiraiMCPlugin.getPlatform().runTaskTimerAsync(() -> {
+                    taskId = LifeCycle.getPlatform().runTaskTimerAsync(() -> {
                         if (interval < 600_000) logger.warning(MiraiEncryptServiceFactory.REQUEST_TOKEN_INTERVAL + "="+ interval +"< 600_000 (ms)");
                         if (firstRun[0]){
                             firstRun[0] = false;
@@ -229,7 +229,7 @@ public class UnidbgFetchQsign implements EncryptService, CoroutineScope {
     private void callback(long uin, List<RequestCallback> request){
         MiraiLogger logger = Bot.getInstance(uin).getLogger();
 
-        MiraiMCPlugin.getPlatform().runTaskAsync(() -> {
+        LifeCycle.getPlatform().runTaskAsync(() -> {
             for(RequestCallback callback : request){
                 logger.verbose("Bot(" + uin + ") sendMessage " + callback.cmd);
                 //ChannelResult result = MiraiEncryptServiceFactoryKt.channelSendMessage(channel0, "mobileqq.msf.security", callback.cmd, 0, hexToBytes(callback.body));

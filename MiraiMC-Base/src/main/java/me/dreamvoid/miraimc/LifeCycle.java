@@ -15,12 +15,15 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class MiraiMCPlugin {
-    public static MiraiMCPlugin INSTANCE;
+/**
+ * MiraiMC 生命周期
+ */
+public class LifeCycle {
+    public static LifeCycle INSTANCE;
     private static Platform platform;
     private Logger logger;
 
-    public MiraiMCPlugin(Platform plugin){
+    public LifeCycle(Platform plugin){
         INSTANCE = this;
         platform = plugin;
     }
@@ -31,7 +34,7 @@ public class MiraiMCPlugin {
 
     /**
      * 此方法应在插件实例化时调用，用于设置必要的运行环境，此时配置尚未初始化。
-     * @param logger Logger 实例。由于各平台初始化 Logger 的时机不一，因此需要一个 Logger 来辅助。
+     * @param logger {@link java.util.logging.Logger} 实例。由于各平台初始化 Logger 的时机不一，因此需要一个 Logger 来辅助。
      */
     public void startUp(Logger logger) {
         logger.info("Preparing MiraiMC start-up.");

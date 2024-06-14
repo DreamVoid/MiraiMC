@@ -22,12 +22,12 @@ import java.util.logging.Logger;
 public class BungeePlugin extends Plugin implements Platform {
     private MiraiEvent MiraiEvent;
     private MiraiAutoLogin MiraiAutoLogin;
-    private final MiraiMCPlugin lifeCycle;
+    private final LifeCycle lifeCycle;
     private final MiraiMCConfig platformConfig;
     private final LibraryLoader loader;
 
     public BungeePlugin(){
-        lifeCycle = new MiraiMCPlugin(this);
+        lifeCycle = new LifeCycle(this);
         lifeCycle.startUp(getLogger());
         platformConfig = new BungeeConfig(this);
         loader = new LibraryLoader((URLClassLoader) this.getClass().getClassLoader());

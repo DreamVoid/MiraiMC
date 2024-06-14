@@ -44,13 +44,13 @@ import java.util.concurrent.TimeUnit;
         authors = {"DreamVoid"}
 )
 public class SpongePlugin implements Platform {
-    private MiraiMCPlugin lifeCycle;
+    private LifeCycle lifeCycle;
     private MiraiMCConfig platformConfig;
     private java.util.logging.Logger SpongeLogger;
     private final LibraryLoader loader;
 
     public SpongePlugin(){
-        lifeCycle = new MiraiMCPlugin(this);
+        lifeCycle = new LifeCycle(this);
         lifeCycle.startUp(new SpongeLogger("MiraiMC", LoggerFactory.getLogger("MiraiMC")));
         loader = new LibraryLoader((URLClassLoader) getClass().getClassLoader());
     }

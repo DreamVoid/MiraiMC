@@ -6,7 +6,7 @@ import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 import kotlinx.coroutines.CoroutineScope;
 import me.dreamvoid.miraimc.MiraiMCConfig;
-import me.dreamvoid.miraimc.MiraiMCPlugin;
+import me.dreamvoid.miraimc.LifeCycle;
 import me.dreamvoid.miraimc.internal.encryptservice.UnidbgFetchQsign;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.internal.spi.EncryptService;
@@ -32,7 +32,7 @@ public class MiraiEncryptServiceFactory implements EncryptService.Factory {
         MiraiEncryptServiceFactoryKt.install();
         config = new File(MiraiMCConfig.PluginDir, "services.json");
         if (!config.exists()) {
-            try (InputStream in = MiraiMCPlugin.class.getResourceAsStream("/services.json")) {
+            try (InputStream in = LifeCycle.class.getResourceAsStream("/services.json")) {
                 assert in != null;
                 Files.copy(in, config.toPath());
             } catch (IOException e) {

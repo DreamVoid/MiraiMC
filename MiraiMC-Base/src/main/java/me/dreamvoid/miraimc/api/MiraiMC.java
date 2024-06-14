@@ -1,6 +1,8 @@
 package me.dreamvoid.miraimc.api;
 
+import me.dreamvoid.miraimc.LifeCycle;
 import me.dreamvoid.miraimc.MiraiMCConfig;
+import me.dreamvoid.miraimc.Platform;
 import me.dreamvoid.miraimc.internal.database.DatabaseHandler;
 
 import javax.annotation.Nullable;
@@ -101,5 +103,13 @@ public class MiraiMC {
         } catch (SQLException e) {
             throw new RuntimeException("处理数据时出现异常，请检查MiraiMC数据库配置是否正确", e);
         }
+    }
+
+    /**
+     * 获取 MiraiMC 运行时实用方法实例
+     * @return MiraiMC 运行时实例
+     */
+    public Platform getPlatform(){
+        return LifeCycle.getPlatform();
     }
 }

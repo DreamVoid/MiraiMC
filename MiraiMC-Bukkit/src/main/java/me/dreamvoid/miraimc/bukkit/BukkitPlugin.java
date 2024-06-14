@@ -2,7 +2,7 @@ package me.dreamvoid.miraimc.bukkit;
 
 import me.dreamvoid.miraimc.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.IMiraiEvent;
-import me.dreamvoid.miraimc.MiraiMCPlugin;
+import me.dreamvoid.miraimc.LifeCycle;
 import me.dreamvoid.miraimc.Platform;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
@@ -28,12 +28,12 @@ import java.util.stream.Collectors;
 public class BukkitPlugin extends JavaPlugin implements Platform {
     private MiraiEvent MiraiEvent;
     private MiraiAutoLogin MiraiAutoLogin;
-    private final MiraiMCPlugin lifeCycle;
+    private final LifeCycle lifeCycle;
     private final MiraiMCConfig platformConfig;
     private final LibraryLoader loader;
 
     public BukkitPlugin(){
-        lifeCycle = new MiraiMCPlugin(this);
+        lifeCycle = new LifeCycle(this);
         lifeCycle.startUp(getLogger());
         platformConfig = new BukkitConfig(this);
         loader = new LibraryLoader((URLClassLoader) this.getClassLoader());

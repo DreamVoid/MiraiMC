@@ -1,7 +1,7 @@
 package me.dreamvoid.miraimc.internal;
 
 import me.dreamvoid.miraimc.MiraiMCConfig;
-import me.dreamvoid.miraimc.MiraiMCPlugin;
+import me.dreamvoid.miraimc.LifeCycle;
 import me.dreamvoid.miraimc.internal.webapi.Info;
 import me.dreamvoid.miraimc.internal.webapi.Version;
 import org.eclipse.aether.artifact.DefaultArtifact;
@@ -65,6 +65,6 @@ public class MiraiLoader {
      * @param version 版本
      */
     public static void loadMiraiCore(String version) throws RuntimeException, IOException, ParserConfigurationException, SAXException {
-        MiraiMCPlugin.getPlatform().getLibraryLoader().loadLibraryMaven(mavenCentral, new Dependency(new DefaultArtifact("net.mamoe:mirai-core-all:" + (version.equalsIgnoreCase("latest") ? MiraiMCPlugin.getPlatform().getLibraryLoader().getLibraryVersion(mavenCentral, "net.mamoe", "mirai-core-all") : version)), null));
+        LifeCycle.getPlatform().getLibraryLoader().loadLibraryMaven(mavenCentral, new Dependency(new DefaultArtifact("net.mamoe:mirai-core-all:" + (version.equalsIgnoreCase("latest") ? LifeCycle.getPlatform().getLibraryLoader().getLibraryVersion(mavenCentral, "net.mamoe", "mirai-core-all") : version)), null));
     }
 }

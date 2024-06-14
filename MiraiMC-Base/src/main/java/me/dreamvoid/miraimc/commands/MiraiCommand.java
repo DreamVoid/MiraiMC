@@ -2,7 +2,7 @@ package me.dreamvoid.miraimc.commands;
 
 import me.dreamvoid.miraimc.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.MiraiMCConfig;
-import me.dreamvoid.miraimc.MiraiMCPlugin;
+import me.dreamvoid.miraimc.LifeCycle;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.httpapi.MiraiHttpAPI;
 import me.dreamvoid.miraimc.httpapi.exception.AbnormalStatusException;
@@ -21,12 +21,12 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class MiraiCommand implements ICommandExecutor {
-    private final IMiraiAutoLogin MiraiAutoLogin = MiraiMCPlugin.getPlatform().getAutoLogin();
+    private final IMiraiAutoLogin MiraiAutoLogin = LifeCycle.getPlatform().getAutoLogin();
 
     @Override
     public boolean onCommand(ICommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage("This server is running "+ MiraiMCPlugin.getPlatform().getPluginName() +" version "+ MiraiMCPlugin.getPlatform().getPluginVersion()+" by "+ MiraiMCPlugin.getPlatform().getAuthors().toString().replace("[","").replace("]",""));
+            sender.sendMessage("This server is running "+ LifeCycle.getPlatform().getPluginName() +" version "+ LifeCycle.getPlatform().getPluginVersion()+" by "+ LifeCycle.getPlatform().getAuthors().toString().replace("[","").replace("]",""));
             if(Utils.isDeveloperMode()) sender.sendMessage("Developer mode is on.");
             return false;
         }
@@ -35,7 +35,7 @@ public class MiraiCommand implements ICommandExecutor {
             case "login": {
                 if(sender.hasPermission("miraimc.command.mirai.login")){
                     if(args.length >= 3) {
-                        MiraiMCPlugin.getPlatform().runTaskAsync(() -> {
+                        LifeCycle.getPlatform().runTaskAsync(() -> {
                             BotConfiguration.MiraiProtocol Protocol = null;
                             boolean useHttpApi = false;
                             if (args.length == 3) {

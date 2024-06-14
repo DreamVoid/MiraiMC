@@ -40,7 +40,7 @@ import java.util.concurrent.TimeUnit;
         authors = {"DreamVoid"}
 )
 public class VelocityPlugin implements Platform {
-    private final MiraiMCPlugin lifeCycle;
+    private final LifeCycle lifeCycle;
     private final MiraiMCConfig platformConfig;
     private final java.util.logging.Logger VelocityLogger;
     private final LibraryLoader loader;
@@ -53,7 +53,7 @@ public class VelocityPlugin implements Platform {
         this.metricsFactory = metricsFactory;
 
         VelocityLogger = new VelocityLogger("MiraiMC", this);
-        lifeCycle = new MiraiMCPlugin(this);
+        lifeCycle = new LifeCycle(this);
         lifeCycle.startUp(VelocityLogger);
         platformConfig = new VelocityConfig(this);
         loader = new LibraryLoader((URLClassLoader) getClass().getClassLoader());
