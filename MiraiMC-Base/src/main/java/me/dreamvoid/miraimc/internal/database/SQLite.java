@@ -2,12 +2,9 @@ package me.dreamvoid.miraimc.internal.database;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.LifeCycle;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.internal.Utils;
-import org.eclipse.aether.artifact.DefaultArtifact;
-import org.eclipse.aether.graph.Dependency;
-import org.eclipse.aether.repository.RemoteRepository;
 
 import java.io.File;
 import java.sql.Connection;
@@ -38,7 +35,12 @@ public class SQLite implements Database {
         if(Utils.findClass("org.sqlite.JDBC")){
             driver = "org.sqlite.JDBC";
         } else {
-            LifeCycle.getPlatform().getLibraryLoader().loadLibraryMaven(new RemoteRepository.Builder("central","default", MiraiMCConfig.General.MavenRepoUrl).build(), new Dependency(new DefaultArtifact("org.xerial:sqlite-jdbc:3.36.0.3"), null));
+            try {
+                LifeCycle.getPlatform().getLibraryLoader().loadLibraryMaven("org.xerial", "sqlite-jdbc", "3.36.0.3", MiraiMCConfig.General.MavenRepoUrl, MiraiMCConfig.PluginDir.toPath().resolve("libraries"));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
             initialize();
             return;
         }

@@ -1,23 +1,17 @@
 package me.dreamvoid.miraimc.internal;
 
-import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.LifeCycle;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.internal.webapi.Info;
 import me.dreamvoid.miraimc.internal.webapi.Version;
-import org.eclipse.aether.artifact.DefaultArtifact;
-import org.eclipse.aether.graph.Dependency;
-import org.eclipse.aether.repository.RemoteRepository;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
 public class MiraiLoader {
-    private static final RemoteRepository mavenCentral = new RemoteRepository.Builder("central","default", MiraiMCConfig.General.MavenRepoUrl).build();
     /**
      * 加载最新版Mirai Core
      */
-    public static void loadMiraiCore() throws RuntimeException, IOException, ParserConfigurationException, SAXException {
+    public static void loadMiraiCore() {
         loadMiraiCore("latest");
     }
 
@@ -54,7 +48,7 @@ public class MiraiLoader {
 
             return mirai;
         } catch (IOException e){
-            Utils.getLogger().warning("Unable to get mirai stable version from remote server, try to use latest. Reason: " + e);
+            Utils.getLogger().warning("Failed to get stable version, fallback to latest. Reason: " + e);
             return "latest";
         }
     }
@@ -64,7 +58,18 @@ public class MiraiLoader {
      * 加载指定版本的Mirai Core
      * @param version 版本
      */
-    public static void loadMiraiCore(String version) throws RuntimeException, IOException, ParserConfigurationException, SAXException {
-        LifeCycle.getPlatform().getLibraryLoader().loadLibraryMaven(mavenCentral, new Dependency(new DefaultArtifact("net.mamoe:mirai-core-all:" + (version.equalsIgnoreCase("latest") ? LifeCycle.getPlatform().getLibraryLoader().getLibraryVersion(mavenCentral, "net.mamoe", "mirai-core-all") : version)), null));
+    public static void loadMiraiCore(String version) {
+        try {
+            LifeCycle.getPlatform().getLibraryLoader().loadLibraryMaven(
+                    "net.mamoe",
+                    "mirai-core-all",
+                    (version.equalsIgnoreCase("latest") ? LifeCycle.getPlatform().getLibraryLoader().getLibraryVersion("net.mamoe", "mirai-core-all", MiraiMCConfig.General.MavenRepoUrl) : version),
+                    MiraiMCConfig.General.MavenRepoUrl,
+                    "-all.jar", // mirai 特性
+                    Utils.getMiraiDir().toPath().resolve("libs")
+            );
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

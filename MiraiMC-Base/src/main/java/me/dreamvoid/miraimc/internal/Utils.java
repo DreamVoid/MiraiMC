@@ -12,9 +12,14 @@ import org.apache.http.message.BasicHeader;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
@@ -174,10 +179,66 @@ public final class Utils {
                 return strber.toString();
             }
         }
+
+        /**
+         * 下载一个文件，覆盖已存在的文件
+         * @param url 链接
+         * @param saveFile 将要保存到的文件
+         */
+        public static void download(String url, File saveFile){
+            try (InputStream inputStream = new URL(url).openStream()){
+                logger.info("Downloading " + url);
+                Files.copy(inputStream, saveFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                logger.severe(String.format("Failed to download %s, reason: %s", url, e));
+            }
+        }
+
+        /**
+         * 测试链接可用性
+         * @param url 链接
+         * @return 服务器是否返回 HTTP 200 OK 状态码
+         * @throws IOException 连接出现任何异常时抛出
+         */
+        public static boolean test(String url) throws IOException {
+            URL obj = new URL(url.replace(" ", "%20"));
+            StringBuilder sb = new StringBuilder();
+            HttpURLConnection httpUrlConn = (HttpURLConnection) obj.openConnection();
+
+            httpUrlConn.setDoInput(true);
+            httpUrlConn.setRequestMethod("GET");
+            httpUrlConn.setRequestProperty("User-Agent", "Mozilla/5.0 DreamVoid MiraiMC");
+            httpUrlConn.setConnectTimeout(5000);
+            httpUrlConn.setReadTimeout(10000);
+
+            return httpUrlConn.getResponseCode() == HttpURLConnection.HTTP_OK;
+        }
     }
 
     @NotNull
     public static File getMiraiDir(){
         return MiraiMCConfig.General.MiraiWorkingDir.equals("default") ? new File(MiraiMCConfig.PluginDir,"MiraiBot") : new File(MiraiMCConfig.General.MiraiWorkingDir);
+    }
+
+    public static String getFileSha1(File file){
+        try(FileInputStream fis = new FileInputStream(file)){
+            byte[] buffer = new byte[1024];
+            MessageDigest digest = MessageDigest.getInstance("SHA");
+            int numRead;
+
+            do {
+                numRead = fis.read(buffer);
+                if (numRead > 0) {
+                    digest.update(buffer, 0, numRead);
+                }
+            } while (numRead != -1);
+
+            fis.close();
+            byte[] bytes = digest.digest();
+            BigInteger b = new BigInteger(1, bytes);
+            return String.format("%0" + (bytes.length << 1) + "x", b);
+        } catch (NoSuchAlgorithmException | IOException e) {
+            return null;
+        }
     }
 }

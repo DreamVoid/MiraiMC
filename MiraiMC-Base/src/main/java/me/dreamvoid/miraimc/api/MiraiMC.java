@@ -1,8 +1,6 @@
 package me.dreamvoid.miraimc.api;
 
-import me.dreamvoid.miraimc.LifeCycle;
 import me.dreamvoid.miraimc.MiraiMCConfig;
-import me.dreamvoid.miraimc.Platform;
 import me.dreamvoid.miraimc.internal.database.DatabaseHandler;
 
 import javax.annotation.Nullable;

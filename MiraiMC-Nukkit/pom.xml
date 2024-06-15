@@ -60,38 +60,13 @@
                             <pattern>org.apache</pattern>
                             <shadedPattern>me.dreamvoid.miraimc.libraries.org.apache</shadedPattern>
                         </relocation>
-                        <relocation>
-                            <pattern>org.eclipse</pattern>
-                            <shadedPattern>me.dreamvoid.miraimc.libraries.org.eclipse</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>org.aopalliance</pattern>
-                            <shadedPattern>me.dreamvoid.miraimc.libraries.org.aopalliance</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>org.checkerframework</pattern>
-                            <shadedPattern>me.dreamvoid.miraimc.libraries.org.checkerframework</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>org.codehaus</pattern>
-                            <shadedPattern>me.dreamvoid.miraimc.libraries.org.codehaus</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>org.objectweb</pattern>
-                            <shadedPattern>me.dreamvoid.miraimc.libraries.org.objectweb</shadedPattern>
-                        </relocation>
                     </relocations>
                     <filters>
                         <filter>
                             <artifact>*:*</artifact>
                             <excludes>
-                                <exclude>META-INF/**</exclude>
+                                <exclude>META-INF/*</exclude>
                                 <exclude>mozilla/public-suffix-list.txt</exclude>
-                                <exclude>**/*.TXT</exclude>
-                                <exclude>**/*.html</exclude>
-                                <exclude>beans.xsd</exclude>
-                                <exclude>plugin.xml</exclude>
-                                <exclude>javax/**</exclude>
                             </excludes>
                         </filter>
                     </filters>

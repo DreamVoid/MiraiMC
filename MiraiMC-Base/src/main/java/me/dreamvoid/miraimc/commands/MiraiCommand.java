@@ -1,18 +1,16 @@
 package me.dreamvoid.miraimc.commands;
 
 import me.dreamvoid.miraimc.IMiraiAutoLogin;
-import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.LifeCycle;
+import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.httpapi.MiraiHttpAPI;
 import me.dreamvoid.miraimc.httpapi.exception.AbnormalStatusException;
-import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.MiraiLoader;
+import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -305,11 +303,7 @@ public class MiraiCommand implements ICommandExecutor {
                     }
                     switch (args[1].toLowerCase()){
                         case "load":{
-                            try {
-                                MiraiLoader.loadMiraiCore();
-                            } catch (IOException | SAXException | ParserConfigurationException e) {
-                                throw new RuntimeException(e);
-                            }
+                            MiraiLoader.loadMiraiCore();
                             break;
                         }
                         case "unload":{
@@ -330,13 +324,9 @@ public class MiraiCommand implements ICommandExecutor {
                             break;
                         }
                         case "change":{
-                            try {
-                                //JarLoader.unloadJar();
-                                MiraiLoader.loadMiraiCore(args[2]);
-                                sender.sendMessage("Success");
-                            } catch (IOException | ParserConfigurationException | SAXException e) {
-                                throw new RuntimeException(e);
-                            }
+                            //JarLoader.unloadJar();
+                            MiraiLoader.loadMiraiCore(args[2]);
+                            sender.sendMessage("Success");
                             break;
                         }
                     }
