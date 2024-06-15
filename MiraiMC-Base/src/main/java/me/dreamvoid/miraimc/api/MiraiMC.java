@@ -104,12 +104,4 @@ public class MiraiMC {
             throw new RuntimeException("处理数据时出现异常，请检查MiraiMC数据库配置是否正确", e);
         }
     }
-
-    /**
-     * 获取 MiraiMC 运行时实用方法实例
-     * @return MiraiMC 运行时实例
-     */
-    public Platform getPlatform(){
-        return LifeCycle.getPlatform();
-    }
 }
