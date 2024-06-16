@@ -65,7 +65,7 @@ public class LibraryLoader {
 	 * @param repo 仓库地址
 	 * @param savePath 保存路径
 	 */
-	public void loadLibraryMaven(String groupId, String artifactId, String version, String repo, Path savePath) throws Exception {
+	public void loadLibraryMaven(String groupId, String artifactId, String version, String repo, Path savePath) throws ParserConfigurationException, IOException, SAXException {
 		loadLibraryMaven(groupId, artifactId, version, repo, ".jar", savePath);
 	}
 
@@ -79,7 +79,7 @@ public class LibraryLoader {
 	 * @param archiveSuffix 文件后缀（通常为.jar）
 	 * @param savePath 保存路径
 	 */
-	public void loadLibraryMaven(String groupId, String artifactId, String version, String repo, String archiveSuffix, Path savePath) throws Exception {
+	public void loadLibraryMaven(String groupId, String artifactId, String version, String repo, String archiveSuffix, Path savePath) throws ParserConfigurationException, IOException, SAXException {
 		String filename = artifactId + "-" + version + archiveSuffix; // 文件名
 		String sha1Filename = filename + ".sha1"; // sha1文件名
 		File file = savePath.resolve(filename).toFile();
@@ -158,7 +158,7 @@ public class LibraryLoader {
         }
     }
 
-	private static String getJarUrl(String groupId, String artifactId, String version, String repo, String archiveSuffix) throws Exception {
+	private static String getJarUrl(String groupId, String artifactId, String version, String repo, String archiveSuffix) throws ParserConfigurationException, IOException, SAXException {
 		if(version.endsWith("-SNAPSHOT")){
 			String base = repo + (repo.endsWith("/") ? "" : "/") + groupId.replace(".", "/") + "/" + artifactId + "/" + version + "/";
 			return getSnapshotJarUrl(base, artifactId, version, archiveSuffix);
@@ -168,7 +168,7 @@ public class LibraryLoader {
 		}
 	}
 
-	private static String getSnapshotJarUrl(String baseUrl, String packageName, String packageVersion, String archiveSuffix) throws Exception {
+	private static String getSnapshotJarUrl(String baseUrl, String packageName, String packageVersion, String archiveSuffix) throws ParserConfigurationException, IOException, SAXException {
 		String content = Utils.Http.get(baseUrl + "maven-metadata.xml");
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);

@@ -2,9 +2,13 @@ package me.dreamvoid.miraimc.internal.database;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import me.dreamvoid.miraimc.LifeCycle;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.config.PluginConfig;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -13,6 +17,14 @@ public class MySQL implements Database {
 
     @Override
     public void initialize() throws ClassNotFoundException {
+        if(!Utils.findClass("com.zaxxer.hikari.HikariDataSource")){
+            try {
+                LifeCycle.getPlatform().getLibraryLoader().loadLibraryMaven("com.zaxxer", "HikariCP", Utils.getJavaVersion() >= 11 ? "5.1.0" : "4.0.3", PluginConfig.General.MavenRepoUrl, PluginConfig.PluginDir.toPath().resolve("libraries"));
+            } catch (ParserConfigurationException | SAXException | IOException e) {
+                throw new ClassNotFoundException("Couldn't find HikariCP library both local and remote.");
+            }
+        }
+
         String driver;
         if (Utils.findClass("com.mysql.cj.jdbc.Driver")){
             driver = "com.mysql.cj.jdbc.Driver";
