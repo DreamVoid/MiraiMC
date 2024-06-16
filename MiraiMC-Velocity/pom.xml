@@ -22,10 +22,6 @@
                     <minimizeJar>false</minimizeJar>
                     <relocations>
                         <relocation>
-                            <pattern>MIRAIMC.VERSION</pattern>
-                            <shadedPattern>${project.version}</shadedPattern>
-                        </relocation>
-                        <relocation>
                             <pattern>com.zaxxer</pattern>
                             <shadedPattern>me.dreamvoid.miraimc.libraries.com.zaxxer</shadedPattern>
                         </relocation>

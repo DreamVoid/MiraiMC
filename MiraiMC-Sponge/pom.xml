@@ -57,10 +57,6 @@
                     <minimizeJar>true</minimizeJar>
                     <relocations>
                         <relocation>
-                            <pattern>MIRAIMC.VERSION</pattern>
-                            <shadedPattern>${project.version}</shadedPattern>
-                        </relocation>
-                        <relocation>
                             <pattern>org.apache</pattern>
                             <shadedPattern>me.dreamvoid.miraimc.libraries.org.apache</shadedPattern>
                         </relocation>

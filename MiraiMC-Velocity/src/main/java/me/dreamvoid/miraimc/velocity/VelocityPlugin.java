@@ -38,7 +38,7 @@ import java.util.concurrent.TimeUnit;
 @Plugin(
         id = "miraimc",
         name = "MiraiMC",
-        version = "MIRAIMC.VERSION",
+        version = "1.9-pre1",
         description = "MiraiBot for Minecraft server",
         url = "https://github.com/DreamVoid/MiraiMC",
         authors = {"DreamVoid"}
