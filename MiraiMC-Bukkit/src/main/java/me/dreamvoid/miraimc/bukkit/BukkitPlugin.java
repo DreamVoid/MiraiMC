@@ -47,7 +47,6 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
             // 加载mirai核心完成，开始加载附属功能
             MiraiAutoLogin = new MiraiAutoLogin(this);
             MiraiEvent = new MiraiEvent();
-            throw new RuntimeException("Test exception", new RuntimeException("Test cause"));
         } catch (Exception e) {
             Utils.resolveException(e, getLogger(), "加载 MiraiMC 阶段 1 时出现异常！");
         }
