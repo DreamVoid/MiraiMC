@@ -190,19 +190,20 @@ public final class Utils {
     public static void resolveException(Exception exception, Logger logger, String reason) {
         if(!reason.isEmpty()) logger.severe(reason);
         logger.severe("如果你确信这是 MiraiMC 的错误，前往 GitHub 报告 issue 并附上完整服务器日志。");
-        logger.severe(exception.toString());
 
-        Throwable t = exception;
-        while(t != null){
-            if(t != exception){
-                logger.severe("Caused by: " + t);
+        Throwable throwable = exception;
+        while(throwable != null){
+            if (throwable == exception) {
+                logger.severe(exception.toString());
+            } else {
+                logger.severe("Caused by: " + throwable);
             }
 
-            for(StackTraceElement element : t.getStackTrace()){
+            for(StackTraceElement element : throwable.getStackTrace()){
                 getLogger().severe(String.format("\tat %s.%s(%s:%d)", element.getClassName(), element.getMethodName(), element.getFileName(), element.getLineNumber()));
             }
 
-            t = t.getCause();
+            throwable = throwable.getCause();
         }
     }
 }
