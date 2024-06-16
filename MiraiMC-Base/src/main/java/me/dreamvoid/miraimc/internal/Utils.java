@@ -180,23 +180,23 @@ public final class Utils {
         return PluginConfig.General.MiraiWorkingDir.equals("default") ? new File(PluginConfig.PluginDir,"MiraiBot") : new File(PluginConfig.General.MiraiWorkingDir);
     }
 
-    public static void resolveException(Exception exception, Logger logger, String reason) {
+    public static void resolveException(Throwable throwable, Logger logger, String reason) {
         if(!reason.isEmpty()) logger.severe(reason);
         logger.severe("如果你确信这是 MiraiMC 的错误，前往 GitHub 报告 issue 并附上完整服务器日志。");
 
-        Throwable throwable = exception;
-        while(throwable != null){
-            if (throwable == exception) {
-                logger.severe(exception.toString());
+        Throwable t = throwable;
+        while(t != null){
+            if (t == throwable) {
+                logger.severe(throwable.toString());
             } else {
-                logger.severe("Caused by: " + throwable);
+                logger.severe("Caused by: " + t);
             }
 
-            for(StackTraceElement element : throwable.getStackTrace()){
+            for(StackTraceElement element : t.getStackTrace()){
                 getLogger().severe(String.format("\tat %s.%s(%s:%d)", element.getClassName(), element.getMethodName(), element.getFileName(), element.getLineNumber()));
             }
 
-            throwable = throwable.getCause();
+            t = t.getCause();
         }
     }
 

@@ -42,21 +42,25 @@ public class SQLite implements Database {
             return;
         }
 
-        HikariConfig config = new HikariConfig();
-        config.setDriverClassName(driver);
-        config.setPoolName("MiraiMC-SQLite");
-        config.setJdbcUrl("jdbc:sqlite:" + new File(PluginConfig.Database.Drivers.SQLite.Path.replace("%plugin_folder%", PluginConfig.PluginDir.toPath().toString())).toPath());
-        config.setConnectionTimeout(PluginConfig.Database.Settings.Pool.ConnectionTimeout);
-        config.setIdleTimeout(PluginConfig.Database.Settings.Pool.IdleTimeout);
-        config.setMaxLifetime(PluginConfig.Database.Settings.Pool.MaxLifetime);
-        config.setMaximumPoolSize(PluginConfig.Database.Settings.Pool.MaximumPoolSize);
-        config.setKeepaliveTime(PluginConfig.Database.Settings.Pool.KeepaliveTime);
-        config.setMinimumIdle(PluginConfig.Database.Settings.Pool.MinimumIdle);
-        config.addDataSourceProperty("cachePrepStmts", "true" );
-        config.addDataSourceProperty("prepStmtCacheSize", "250" );
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048" );
+        try {
+            HikariConfig config = new HikariConfig();
+            config.setDriverClassName(driver);
+            config.setPoolName("MiraiMC-SQLite");
+            config.setJdbcUrl("jdbc:sqlite:" + new File(PluginConfig.Database.Drivers.SQLite.Path.replace("%plugin_folder%", PluginConfig.PluginDir.toPath().toString())).toPath());
+            config.setConnectionTimeout(PluginConfig.Database.Settings.Pool.ConnectionTimeout);
+            config.setIdleTimeout(PluginConfig.Database.Settings.Pool.IdleTimeout);
+            config.setMaxLifetime(PluginConfig.Database.Settings.Pool.MaxLifetime);
+            config.setMaximumPoolSize(PluginConfig.Database.Settings.Pool.MaximumPoolSize);
+            config.setKeepaliveTime(PluginConfig.Database.Settings.Pool.KeepaliveTime);
+            config.setMinimumIdle(PluginConfig.Database.Settings.Pool.MinimumIdle);
+            config.addDataSourceProperty("cachePrepStmts", "true");
+            config.addDataSourceProperty("prepStmtCacheSize", "250");
+            config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
 
-        ds = new HikariDataSource(config);
+            ds = new HikariDataSource(config);
+        } catch (AbstractMethodError error){
+            Utils.resolveException(error, Utils.getLogger(), "发生了一个意料之中的问题，请查阅文档了解更多信息：https://docs.miraimc.dreamvoid.me/troubleshoot/faq");
+        }
     }
 
     @Override
