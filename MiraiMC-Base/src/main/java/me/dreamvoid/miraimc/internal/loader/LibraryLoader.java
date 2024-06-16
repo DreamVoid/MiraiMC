@@ -105,7 +105,8 @@ public class LibraryLoader {
 		}
 
 		if(needDownload){
-			if (!file.getParentFile().mkdirs()) logger.warning("Failed to create folder " + file.getParent());
+			if (!file.getParentFile().exists() && !file.getParentFile().mkdirs())
+				logger.warning("Failed to create folder " + file.getParent());
 			Utils.Http.download(url, file);
 		}
 
