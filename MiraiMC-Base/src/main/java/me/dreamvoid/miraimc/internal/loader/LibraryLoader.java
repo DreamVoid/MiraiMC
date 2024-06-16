@@ -7,10 +7,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import javax.annotation.Nullable;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -147,14 +149,14 @@ public class LibraryLoader {
 	@Nullable
 	private static Document fetchMavenMetadata(String groupId, String artifactId, String repo) {
 		try {
-			String content = Utils.Http.get(repo + "/" + groupId.replace(".", "/") + artifactId + "/maven-metadata.xml");
+			String content = Utils.Http.get(repo + "/" + groupId.replace(".", "/") + "/" + artifactId + "/maven-metadata.xml");
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 			return factory.newDocumentBuilder().parse(new InputSource(new StringReader(content)));
-		} catch (Exception e) {
-			return null;
-		}
-	}
+		} catch (IOException | ParserConfigurationException | SAXException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 	private static String getJarUrl(String groupId, String artifactId, String version, String repo, String archiveSuffix) throws Exception {
 		if(version.endsWith("-SNAPSHOT")){
