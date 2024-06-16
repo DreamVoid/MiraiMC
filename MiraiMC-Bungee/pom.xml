@@ -56,6 +56,7 @@
                 <version>3.6.0</version>
                 <configuration>
                     <minimizeJar>false</minimizeJar>
+                    <!--
                     <relocations>
                         <relocation>
                             <pattern>org.apache</pattern>
@@ -71,6 +72,7 @@
                             </excludes>
                         </filter>
                     </filters>
+                    -->
                 </configuration>
                 <executions>
                     <execution>
