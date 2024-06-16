@@ -80,18 +80,6 @@ public class LifeCycle {
             logger.info("MiraiMC will not load mirai core, please ensure you have custom mirai core loaded.");
         }
 
-        // 加载 EncryptService
-        if(PluginConfig.Bot.RegisterEncryptService){
-            logger.info("Registering Mirai Encrypt Service.");
-            try{
-                MiraiEncryptServiceFactory.install();
-            } catch (NoClassDefFoundError error){
-                logger.severe("Failed to register encrypt service, please use mirai 2.15.0-dev-105 or later.");
-            } catch (Throwable cause){
-                logger.severe("Failed to register encrypt service: " + cause);
-            }
-        }
-
         // 加载来自 cssxsh 的 fix-protocol-version
         if(PluginConfig.Bot.UpdateProtocolVersion){
             logger.info("Updating mirai protocol version. (Author: cssxsh)");

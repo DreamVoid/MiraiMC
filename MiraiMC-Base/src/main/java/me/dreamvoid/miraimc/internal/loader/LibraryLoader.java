@@ -1,7 +1,6 @@
 package me.dreamvoid.miraimc.internal.loader;
 
 import com.google.common.base.Suppliers;
-import me.dreamvoid.miraimc.internal.SemVer;
 import me.dreamvoid.miraimc.internal.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
