@@ -102,6 +102,7 @@ public class LibraryLoader {
 		}
 
 		if(needDownload){
+			file.getParentFile().mkdirs();
 			Utils.Http.download(url, file);
 		}
 
@@ -180,7 +181,7 @@ public class LibraryLoader {
 			String suffix = (classifier.isEmpty() ? "" : ("-" + classifier)) + "." + extension;
 
 			String real = baseUrl + packageName + "-" + value + suffix;
-			versions.put(suffix, packageName + "-" + packageVersion + suffix + "|" + real);
+			versions.put(suffix, real);
 		}
 
         return versions.get(archiveSuffix);
