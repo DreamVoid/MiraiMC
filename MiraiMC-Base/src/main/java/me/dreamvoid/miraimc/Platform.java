@@ -1,5 +1,6 @@
 package me.dreamvoid.miraimc;
 
+import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public interface Platform {
 
     IMiraiEvent getMiraiEvent();
 
-    MiraiMCConfig getPluginConfig();
+    PluginConfig getPluginConfig();
 
     LibraryLoader getLibraryLoader();
 }

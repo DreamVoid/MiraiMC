@@ -1,7 +1,7 @@
 package me.dreamvoid.miraimc.internal;
 
 import com.google.gson.JsonObject;
-import me.dreamvoid.miraimc.MiraiMCConfig;
+import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpPost;
@@ -217,7 +217,7 @@ public final class Utils {
 
     @NotNull
     public static File getMiraiDir(){
-        return MiraiMCConfig.General.MiraiWorkingDir.equals("default") ? new File(MiraiMCConfig.PluginDir,"MiraiBot") : new File(MiraiMCConfig.General.MiraiWorkingDir);
+        return PluginConfig.General.MiraiWorkingDir.equals("default") ? new File(PluginConfig.PluginDir,"MiraiBot") : new File(PluginConfig.General.MiraiWorkingDir);
     }
 
     public static String getFileSha1(File file){

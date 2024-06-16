@@ -4,7 +4,7 @@ import kotlin.Unit;
 import kotlin.coroutines.Continuation;
 import kotlin.coroutines.CoroutineContext;
 import kotlinx.coroutines.Dispatchers;
-import me.dreamvoid.miraimc.MiraiMCConfig;
+import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.auth.QRCodeLoginListener;
 import net.mamoe.mirai.network.CustomLoginFailedException;
@@ -50,7 +50,7 @@ public class MiraiLoginSolver extends LoginSolver {
     @Override
     public String onSolvePicCaptcha(@NotNull Bot bot, byte[] imageData, @NotNull Continuation<? super String> continuation) {
         // 建立机器人账号文件夹
-        File ImageDir = new File(MiraiMCConfig.PluginDir,"verify-image");
+        File ImageDir = new File(PluginConfig.PluginDir,"verify-image");
         if(!ImageDir.exists() &&!ImageDir.mkdirs()) {
             throw new RuntimeException("Failed to create folder " + ImageDir.getPath());
         }
@@ -305,7 +305,7 @@ public class MiraiLoginSolver extends LoginSolver {
             @Override
             public void onFetchQRCode(@NotNull Bot bot, @NotNull byte[] bytes) {
                 // 建立扫码文件夹
-                File ImageDir = new File(MiraiMCConfig.PluginDir,"qrcode-image");
+                File ImageDir = new File(PluginConfig.PluginDir,"qrcode-image");
                 if(!ImageDir.exists() &&!ImageDir.mkdirs()) {
                     throw new RuntimeException("Failed to create folder " + ImageDir.getPath());
                 }
@@ -333,7 +333,7 @@ public class MiraiLoginSolver extends LoginSolver {
 
                 deviceVerifyWait.add(bot);
 
-                if(saveSuccess && MiraiMCConfig.General.AutoOpenQRCodeFile){
+                if(saveSuccess && PluginConfig.General.AutoOpenQRCodeFile){
                     try {
                         Runtime.getRuntime().exec("explorer " + imageFile.getPath());
                         bot.getLogger().info("已尝试使用系统方式直接打开二维码图片");

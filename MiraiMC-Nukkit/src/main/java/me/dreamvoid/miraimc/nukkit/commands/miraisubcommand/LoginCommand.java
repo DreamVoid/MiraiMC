@@ -6,10 +6,10 @@ import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.scheduler.AsyncTask;
 import cn.nukkit.utils.TextFormat;
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.MiraiMCConfig;
-import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.httpapi.MiraiHttpAPI;
 import me.dreamvoid.miraimc.httpapi.exception.AbnormalStatusException;
+import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.nukkit.commands.base.BaseSubCommand;
 import net.mamoe.mirai.utils.BotConfiguration;
 
@@ -61,8 +61,8 @@ public class LoginCommand extends BaseSubCommand {
                         if(!useHttpApi){
                             MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
                         } else {
-                            if(MiraiMCConfig.General.EnableHttpApi) {
-                                MiraiHttpAPI httpAPI = new MiraiHttpAPI(MiraiMCConfig.HttpApi.Url);
+                            if(PluginConfig.General.EnableHttpApi) {
+                                MiraiHttpAPI httpAPI = new MiraiHttpAPI(PluginConfig.HttpApi.Url);
                                 httpAPI.bind(httpAPI.verify(args[2]).session, Long.parseLong(args[1]));
                                 sender.sendMessage(TextFormat.GREEN + args[1] + " HTTP-API登录成功！");
                             } else sender.sendMessage(TextFormat.RED + "此服务器没有启用HTTP-API模式，请检查配置文件！");

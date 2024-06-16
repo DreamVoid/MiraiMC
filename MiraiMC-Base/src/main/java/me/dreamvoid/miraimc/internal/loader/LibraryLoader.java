@@ -32,7 +32,7 @@ public class LibraryLoader {
 	public LibraryLoader(URLClassLoader urlClassLoader) {
 		loader = () -> Suppliers.memoize(() -> URLClassLoaderAccess.create(urlClassLoader)).get();
 		logger = Logger.getLogger("MiraiMC-LibraryLoader");
-		logger.setParent(Utils.getLogger());
+		//logger.setParent(Utils.getLogger());
 	}
 
 	/**

@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.api;
 
-import me.dreamvoid.miraimc.MiraiMCConfig;
+import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.internal.database.DatabaseHandler;
 
 import javax.annotation.Nullable;
@@ -13,7 +13,7 @@ import java.util.UUID;
  */
 @SuppressWarnings("unused")
 public class MiraiMC {
-    private static final String prefix = MiraiMCConfig.Database.Settings.Prefix;
+    private static final String prefix = PluginConfig.Database.Settings.Prefix;
 
     static {
         try {

@@ -1,28 +1,139 @@
 package me.dreamvoid.miraimc.velocity;
 
-import me.dreamvoid.miraimc.MiraiMCConfig;
-import me.dreamvoid.miraimc.internal.ConfigSerializable;
-import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.CustomClassLoaderConstructor;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.HashMap;
 
-public class VelocityConfig extends MiraiMCConfig {
+public class VelocityConfig extends PluginConfig {
     private final VelocityPlugin plugin;
+    private static HashMap<String, Object> map;
 
     public VelocityConfig(VelocityPlugin plugin){
         this.plugin = plugin;
-        PluginDir = plugin.getDataFolder();
+        PluginConfig.PluginDir = plugin.getDataFolder();
         INSTANCE = this;
     }
 
+    private static String getString(String path, String defaults){
+        String[] args = path.split("\\.");
+        HashMap<String, Object> maps = map;
+
+        for(int i = 0; i < args.length; i++){
+            if(i != args.length - 1) {
+                Object o = maps.get(args[i]);
+
+                if(o == null){
+                    return defaults;
+                }
+
+                if(o instanceof HashMap<?, ?>){
+                    maps = (HashMap<String, Object>) o;
+                }
+            } else {
+                Object o = maps.get(args[i]);
+                if(o instanceof String){
+                    return (String) o;
+                } else {
+                    return String.valueOf(o);
+                }
+            }
+        }
+        return defaults;
+    }
+
+    private static int getInt(String path, int defaults){
+        String[] args = path.split("\\.");
+        HashMap<String, Object> maps = map;
+
+        for(int i = 0; i < args.length; i++){
+            if(i != args.length - 1) {
+                Object o = maps.get(args[i]);
+
+                if(o == null){
+                    return defaults;
+                }
+
+                if(o instanceof HashMap<?, ?>){
+                    maps = (HashMap<String, Object>) o;
+                }
+            } else {
+                Object o = maps.get(args[i]);
+                if(o instanceof Integer){
+                    return (int) o;
+                } else {
+                    throw new IllegalStateException(path + " is not a integer value");
+                }
+            }
+        }
+        return defaults;
+    }
+
+    private static long getLong(String path, long defaults){
+        String[] args = path.split("\\.");
+        HashMap<String, Object> maps = map;
+
+        for(int i = 0; i < args.length; i++){
+            if(i != args.length - 1) {
+                Object o = maps.get(args[i]);
+
+                if(o == null){
+                    return defaults;
+                }
+
+                if(o instanceof HashMap<?, ?>){
+                    maps = (HashMap<String, Object>) o;
+                }
+            } else {
+                Object o = maps.get(args[i]);
+                if(o instanceof Long){
+                    return (long) o;
+                } else if(o instanceof Integer){
+                    return Long.parseLong(String.valueOf(o));
+                } else if (o instanceof String){
+                    return Long.parseLong((String) o);
+                } else {
+                    throw new IllegalStateException(path + " is not a long value");
+                }
+            }
+        }
+        return defaults;
+    }
+
+    private static boolean getBoolean(String path, boolean defaults){
+        String[] args = path.split("\\.");
+        HashMap<String, Object> maps = map;
+
+        for(int i = 0; i < args.length; i++){
+            if(i != args.length - 1) {
+                Object o = maps.get(args[i]);
+
+                if(o == null){
+                    return defaults;
+                }
+
+                if(o instanceof HashMap<?, ?>){
+                    maps = (HashMap<String, Object>) o;
+                }
+            } else {
+                Object o = maps.get(args[i]);
+                if(o instanceof Boolean){
+                    return (boolean) o;
+                } else {
+                    throw new IllegalStateException(path + " is not a boolean value");
+                }
+            }
+        }
+        return defaults;
+    }
+
     public void loadConfig() throws IOException {
-        if(!PluginDir.exists() && !PluginDir.mkdirs()) throw new RuntimeException("Failed to create data folder!");
+        if(!PluginConfig.PluginDir.exists() && !PluginConfig.PluginDir.mkdirs()) throw new RuntimeException("Failed to create data folder!");
         File file = new File(plugin.getDataFolder(), "config.yml");
         if (!file.exists()) {
             try (InputStream is = plugin.getClass().getResourceAsStream("/config.yml")) {
@@ -31,47 +142,46 @@ public class VelocityConfig extends MiraiMCConfig {
             }
         }
 
-        Yaml yaml = new Yaml(new CustomClassLoaderConstructor(Utils.getClassLoader()));
-        String config = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8).replace("-", "__").replace("__ ", "- ");
-        ConfigSerializable serializable = yaml.loadAs(config, ConfigSerializable.class);
+        Yaml yaml = new Yaml();
+        map = yaml.loadAs(new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8), HashMap.class);
 
-        General.AllowBStats = serializable.general.allow__bStats;
-        General.CheckUpdate = serializable.general.check__update;
-        General.DisableSafeWarningMessage = serializable.general.disable__safe__warning__message;
-        General.MiraiWorkingDir = serializable.general.mirai__working__dir;
-        General.MiraiCoreVersion = serializable.general.mirai__core__version;
-        General.MavenRepoUrl = serializable.general.maven__repo__url;
-        General.EnableHttpApi = serializable.general.enable__http__api;
-        General.AutoOpenQRCodeFile = serializable.general.auto__open__qrcode__file;
-        General.LogEvents = serializable.general.log__events;
+        General.AllowBStats = getBoolean("general.allow-bStats", General.AllowBStats);
+        General.CheckUpdate = getBoolean("general.check-update", General.CheckUpdate);
+        General.DisableSafeWarningMessage = getBoolean("general.disable-safe-warning-message",General.DisableSafeWarningMessage);
+        General.MiraiWorkingDir = getString("general.mirai-working-dir",General.MiraiWorkingDir);
+        General.MiraiCoreVersion = getString("general.mirai-core-version",General.MiraiCoreVersion);
+        General.MavenRepoUrl = getString("general.maven-repo-url",General.MavenRepoUrl);
+        General.EnableHttpApi = getBoolean("general.enable-http-api",General.EnableHttpApi);
+        General.AutoOpenQRCodeFile = getBoolean("general.auto-open-qrcode-file",General.AutoOpenQRCodeFile);
+        General.LogEvents = getBoolean("general.log-events",General.LogEvents);
 
-        Bot.DisableNetworkLogs = serializable.bot.disable__network__logs;
-        Bot.DisableBotLogs = serializable.bot.disable__bot__logs;
-        Bot.UseMinecraftLogger.BotLogs = serializable.bot.use__minecraft__logger.bot__logs;
-        Bot.UseMinecraftLogger.NetworkLogs = serializable.bot.use__minecraft__logger.network__logs;
-        Bot.ContactCache.EnableFriendListCache = serializable.bot.contact__cache.enable__friend__list__cache;
-        Bot.ContactCache.EnableGroupMemberListCache = serializable.bot.contact__cache.enable__group__member__list__cache;
-        Bot.ContactCache.SaveIntervalMillis = serializable.bot.contact__cache.save__interval__millis;
-        Bot.RegisterEncryptService = serializable.bot.register__encrypt__service;
-        Bot.UpdateProtocolVersion = serializable.bot.update__protocol__version;
+        Bot.DisableNetworkLogs = getBoolean("bot.disable-network-logs",Bot.DisableNetworkLogs);
+        Bot.DisableBotLogs = getBoolean("bot.disable-bot-logs",Bot.DisableBotLogs);
+        Bot.UseMinecraftLogger.BotLogs = getBoolean("bot.use-minecraft-logger.bot-logs",Bot.UseMinecraftLogger.BotLogs);
+        Bot.UseMinecraftLogger.NetworkLogs = getBoolean("bot.use-minecraft-logger.network-logs",Bot.UseMinecraftLogger.NetworkLogs);
+        Bot.ContactCache.EnableFriendListCache = getBoolean("bot.contact-cache.enable-friend-list-cache",Bot.ContactCache.EnableFriendListCache);
+        Bot.ContactCache.EnableGroupMemberListCache = getBoolean("bot.contact-cache.enable-group-member-list-cache",Bot.ContactCache.EnableGroupMemberListCache);
+        Bot.ContactCache.SaveIntervalMillis = getLong("bot.contact-cache.save-interval-millis",Bot.ContactCache.SaveIntervalMillis);
+        Bot.RegisterEncryptService = getBoolean("bot.register-encrypt-service",Bot.RegisterEncryptService);
+        Bot.UpdateProtocolVersion = getBoolean("bot.update-protocol-version",Bot.UpdateProtocolVersion);
 
-        Database.Type = serializable.database.type;
-        Database.Drivers.SQLite.Path = serializable.database.drivers.sqlite.path;
-        Database.Drivers.MySQL.Address = serializable.database.drivers.mysql.address;
-        Database.Drivers.MySQL.Username = serializable.database.drivers.mysql.username;
-        Database.Drivers.MySQL.Password = serializable.database.drivers.mysql.password;
-        Database.Drivers.MySQL.Database = serializable.database.drivers.mysql.database;
-        Database.Drivers.MySQL.Parameters = serializable.database.drivers.mysql.parameters;
-        Database.Settings.Prefix = serializable.database.settings.prefix;
-        Database.Settings.Pool.ConnectionTimeout = serializable.database.settings.pool.connectionTimeout;
-        Database.Settings.Pool.IdleTimeout = serializable.database.settings.pool.idleTimeout;
-        Database.Settings.Pool.MaxLifetime = serializable.database.settings.pool.maxLifetime;
-        Database.Settings.Pool.MaximumPoolSize = serializable.database.settings.pool.maximumPoolSize;
-        Database.Settings.Pool.KeepaliveTime = serializable.database.settings.pool.keepaliveTime;
-        Database.Settings.Pool.MinimumIdle = serializable.database.settings.pool.minimumIdle;
+        Database.Type = getString("database.type",Database.Type).toLowerCase();
+        Database.Drivers.SQLite.Path = getString("database.settings.sqlite.path", Database.Drivers.SQLite.Path);
+        Database.Drivers.MySQL.Address = getString("database.settings.mysql.address",Database.Drivers.MySQL.Address);
+        Database.Drivers.MySQL.Username = getString("database.settings.mysql.username", Database.Drivers.MySQL.Username);
+        Database.Drivers.MySQL.Password = getString("database.settings.mysql.password", Database.Drivers.MySQL.Password);
+        Database.Drivers.MySQL.Database = getString("database.settings.mysql.database", Database.Drivers.MySQL.Database);
+        Database.Drivers.MySQL.Parameters = getString("database.settings.mysql.parameters", Database.Drivers.MySQL.Parameters);
+        Database.Settings.Prefix = getString("database.settings.prefix", Database.Settings.Prefix);
+        Database.Settings.Pool.ConnectionTimeout = getInt("database.pool.connectionTimeout", Database.Settings.Pool.ConnectionTimeout);
+        Database.Settings.Pool.IdleTimeout = getInt("database.pool.connectionTimeout", Database.Settings.Pool.IdleTimeout);
+        Database.Settings.Pool.MaxLifetime = getInt("database.pool.maxLifetime", Database.Settings.Pool.MaxLifetime);
+        Database.Settings.Pool.MaximumPoolSize = getInt("database.pool.maximumPoolSize", Database.Settings.Pool.MaximumPoolSize);
+        Database.Settings.Pool.KeepaliveTime = getInt("database.pool.keepaliveTime", Database.Settings.Pool.KeepaliveTime);
+        Database.Settings.Pool.MinimumIdle = getInt("database.pool.minimumIdle", Database.Settings.Pool.MinimumIdle);
 
-        HttpApi.Url = serializable.http__api.url;
-        HttpApi.MessageFetch.Interval = serializable.http__api.message__fetch.interval;
-        HttpApi.MessageFetch.Count = serializable.http__api.message__fetch.count;
+        HttpApi.Url = getString("http-api.url", HttpApi.Url);
+        HttpApi.MessageFetch.Interval = getInt("http-api.message-fetch.interval", HttpApi.MessageFetch.Interval);
+        HttpApi.MessageFetch.Count = getInt("http-api.message-fetch.count", HttpApi.MessageFetch.Count);
     }
 }

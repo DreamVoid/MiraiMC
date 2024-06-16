@@ -2,12 +2,12 @@ package me.dreamvoid.miraimc.commands;
 
 import me.dreamvoid.miraimc.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.LifeCycle;
-import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.httpapi.MiraiHttpAPI;
 import me.dreamvoid.miraimc.httpapi.exception.AbnormalStatusException;
 import me.dreamvoid.miraimc.internal.MiraiLoader;
 import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
 
@@ -52,8 +52,8 @@ public class MiraiCommand implements ICommandExecutor {
                                 if(!useHttpApi){
                                     MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
                                 } else {
-                                    if(MiraiMCConfig.General.EnableHttpApi) {
-                                        MiraiHttpAPI httpAPI = new MiraiHttpAPI(MiraiMCConfig.HttpApi.Url);
+                                    if(PluginConfig.General.EnableHttpApi) {
+                                        MiraiHttpAPI httpAPI = new MiraiHttpAPI(PluginConfig.HttpApi.Url);
                                         httpAPI.bind(httpAPI.verify(args[2]).session, Long.parseLong(args[1]));
                                         sender.sendMessage("&a" + args[1] + " HTTP-API登录成功！");
                                     } else sender.sendMessage("&c此服务器没有启用HTTP-API模式，请检查配置文件！");
@@ -79,9 +79,9 @@ public class MiraiCommand implements ICommandExecutor {
                             MiraiBot.getBot(Long.parseLong(args[1])).close();
                             sender.sendMessage( "&a已退出指定机器人！");
                         } catch (NoSuchElementException e){
-                            if(MiraiMCConfig.General.EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
+                            if(PluginConfig.General.EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
                                 try {
-                                    new MiraiHttpAPI(MiraiMCConfig.HttpApi.Url).release(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])),Long.parseLong(args[1]));
+                                    new MiraiHttpAPI(PluginConfig.HttpApi.Url).release(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])),Long.parseLong(args[1]));
                                     sender.sendMessage( "&a已退出指定机器人！");
                                 } catch (IOException ex) {
                                     Utils.getLogger().warning("退出机器人时出现异常，原因: " + ex);
@@ -115,7 +115,7 @@ public class MiraiCommand implements ICommandExecutor {
                         try {
                             MiraiBot.getBot(Long.parseLong(args[1])).getGroup(Long.parseLong(args[2])).sendMessageMirai(text);
                         } catch (NoSuchElementException e){
-                            if(MiraiMCConfig.General.EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
+                            if(PluginConfig.General.EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
                                 try {
                                     MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])), Long.parseLong(args[2]), text);
                                 } catch (IOException ex) {
@@ -145,7 +145,7 @@ public class MiraiCommand implements ICommandExecutor {
                         try {
                             MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendMessageMirai(text);
                         } catch (NoSuchElementException e){
-                            if(MiraiMCConfig.General.EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
+                            if(PluginConfig.General.EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
                                 try {
                                     MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])), Long.parseLong(args[2]), text);
                                 } catch (IOException ex) {
@@ -258,7 +258,7 @@ public class MiraiCommand implements ICommandExecutor {
             case "uploadimage":{
                 if(sender.hasPermission("miraimc.command.mirai.uploadimage")) {
                     if (args.length >= 3) {
-                        File ImageDir = new File(MiraiMCConfig.PluginDir, "images");
+                        File ImageDir = new File(PluginConfig.PluginDir, "images");
                         if(!ImageDir.exists() && !ImageDir.mkdir()) sender.sendMessage("&c图片文件夹创建失败，是否有目录的读写权限？");
                         File image = new File(ImageDir, args[2]);
 

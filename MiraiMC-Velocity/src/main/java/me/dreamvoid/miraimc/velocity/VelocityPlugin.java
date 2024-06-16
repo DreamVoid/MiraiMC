@@ -13,10 +13,14 @@ import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.scheduler.ScheduledTask;
-import me.dreamvoid.miraimc.*;
+import me.dreamvoid.miraimc.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.IMiraiEvent;
+import me.dreamvoid.miraimc.LifeCycle;
+import me.dreamvoid.miraimc.Platform;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
+import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import me.dreamvoid.miraimc.velocity.utils.Metrics;
 import me.dreamvoid.miraimc.velocity.utils.SpecialUtils;
@@ -41,7 +45,7 @@ import java.util.concurrent.TimeUnit;
 )
 public class VelocityPlugin implements Platform {
     private final LifeCycle lifeCycle;
-    private final MiraiMCConfig platformConfig;
+    private final PluginConfig platformConfig;
     private final java.util.logging.Logger VelocityLogger;
     private final LibraryLoader loader;
 
@@ -98,22 +102,22 @@ public class VelocityPlugin implements Platform {
         manager.register(miraiverify, (SimpleCommand) invocation -> new MiraiVerifyCommand().onCommand(SpecialUtils.getSender(invocation.source()), invocation.arguments()));
 
         // 监听事件
-        if(MiraiMCConfig.General.LogEvents){
+        if(PluginConfig.General.LogEvents){
             getLogger().info("Registering events.");
             server.getEventManager().register(this, new Events());
         }
 
         // bStats统计
-        if(MiraiMCConfig.General.AllowBStats) {
+        if(PluginConfig.General.AllowBStats) {
             getLogger().info("Initializing bStats metrics.");
             int pluginId = 13887;
             metricsFactory.make(this, pluginId);
         }
 
         // HTTP API
-        if(MiraiMCConfig.General.EnableHttpApi){
+        if(PluginConfig.General.EnableHttpApi){
             getLogger().info("Initializing HttpAPI async task.");
-            getServer().getScheduler().buildTask(this, new MiraiHttpAPIResolver(this)).repeat(MiraiMCConfig.HttpApi.MessageFetch.Interval * 20, TimeUnit.MILLISECONDS).schedule();
+            getServer().getScheduler().buildTask(this, new MiraiHttpAPIResolver(this)).repeat(PluginConfig.HttpApi.MessageFetch.Interval * 20, TimeUnit.MILLISECONDS).schedule();
         }
     }
 
@@ -212,7 +216,7 @@ public class VelocityPlugin implements Platform {
     }
 
     @Override
-    public MiraiMCConfig getPluginConfig() {
+    public PluginConfig getPluginConfig() {
         return platformConfig;
     }
 

@@ -1,10 +1,14 @@
 package me.dreamvoid.miraimc.sponge;
 
 import com.google.inject.Inject;
-import me.dreamvoid.miraimc.*;
+import me.dreamvoid.miraimc.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.IMiraiEvent;
+import me.dreamvoid.miraimc.LifeCycle;
+import me.dreamvoid.miraimc.Platform;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
+import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import me.dreamvoid.miraimc.sponge.utils.Metrics;
 import me.dreamvoid.miraimc.sponge.utils.SpecialUtils;
@@ -45,7 +49,7 @@ import java.util.concurrent.TimeUnit;
 )
 public class SpongePlugin implements Platform {
     private LifeCycle lifeCycle;
-    private MiraiMCConfig platformConfig;
+    private PluginConfig platformConfig;
     private java.util.logging.Logger SpongeLogger;
     private final LibraryLoader loader;
 
@@ -98,13 +102,13 @@ public class SpongePlugin implements Platform {
         lifeCycle.postLoad();
 
         // 监听事件
-        if(MiraiMCConfig.General.LogEvents){
+        if(PluginConfig.General.LogEvents){
             getLogger().info("Registering events.");
             Sponge.getEventManager().registerListeners(this, new Events());
         }
 
         // bStats统计
-        if(MiraiMCConfig.General.AllowBStats) {
+        if(PluginConfig.General.AllowBStats) {
             if(this.metricsConfigManager.getCollectionState(this.pluginContainer).asBoolean()){
                 getLogger().info("Initializing bStats metrics.");
                 int pluginId = 12847;
@@ -117,12 +121,12 @@ public class SpongePlugin implements Platform {
         }
 
         // HTTP API
-        if(MiraiMCConfig.General.EnableHttpApi){
+        if(PluginConfig.General.EnableHttpApi){
             getLogger().info("Initializing HttpAPI async task.");
             Sponge.getScheduler().createTaskBuilder()
                     .async()
                     .execute(new MiraiHttpAPIResolver(this))
-                    .intervalTicks(MiraiMCConfig.HttpApi.MessageFetch.Interval)
+                    .intervalTicks(PluginConfig.HttpApi.MessageFetch.Interval)
                     .name("MiraiMC-HttpApi")
                     .submit(this);
         }
@@ -274,7 +278,7 @@ public class SpongePlugin implements Platform {
     }
 
     @Override
-    public MiraiMCConfig getPluginConfig() {
+    public PluginConfig getPluginConfig() {
         return platformConfig;
     }
 

@@ -2,8 +2,8 @@ package me.dreamvoid.miraimc.internal.database;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import me.dreamvoid.miraimc.MiraiMCConfig;
 import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.internal.config.PluginConfig;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -28,7 +28,7 @@ public class MySQL implements Database {
             e.printStackTrace();
         }
         */
-        
+
         String driver;
         if (Utils.findClass("com.mysql.cj.jdbc.Driver")){
             driver = "com.mysql.cj.jdbc.Driver";
@@ -39,15 +39,15 @@ public class MySQL implements Database {
         HikariConfig config = new HikariConfig();
         config.setDriverClassName(driver);
         config.setPoolName("MiraiMC-MySQL");
-        config.setJdbcUrl("jdbc:mysql://" + MiraiMCConfig.Database.Drivers.MySQL.Address + "/" + MiraiMCConfig.Database.Drivers.MySQL.Database + MiraiMCConfig.Database.Drivers.MySQL.Parameters);
-        config.setUsername(MiraiMCConfig.Database.Drivers.MySQL.Username);
-        config.setPassword(MiraiMCConfig.Database.Drivers.MySQL.Password);
-        config.setConnectionTimeout(MiraiMCConfig.Database.Settings.Pool.ConnectionTimeout);
-        config.setIdleTimeout(MiraiMCConfig.Database.Settings.Pool.IdleTimeout);
-        config.setMaxLifetime(MiraiMCConfig.Database.Settings.Pool.MaxLifetime);
-        config.setMaximumPoolSize(MiraiMCConfig.Database.Settings.Pool.MaximumPoolSize);
-        config.setKeepaliveTime(MiraiMCConfig.Database.Settings.Pool.KeepaliveTime);
-        config.setMinimumIdle(MiraiMCConfig.Database.Settings.Pool.MinimumIdle);
+        config.setJdbcUrl("jdbc:mysql://" + PluginConfig.Database.Drivers.MySQL.Address + "/" + PluginConfig.Database.Drivers.MySQL.Database + PluginConfig.Database.Drivers.MySQL.Parameters);
+        config.setUsername(PluginConfig.Database.Drivers.MySQL.Username);
+        config.setPassword(PluginConfig.Database.Drivers.MySQL.Password);
+        config.setConnectionTimeout(PluginConfig.Database.Settings.Pool.ConnectionTimeout);
+        config.setIdleTimeout(PluginConfig.Database.Settings.Pool.IdleTimeout);
+        config.setMaxLifetime(PluginConfig.Database.Settings.Pool.MaxLifetime);
+        config.setMaximumPoolSize(PluginConfig.Database.Settings.Pool.MaximumPoolSize);
+        config.setKeepaliveTime(PluginConfig.Database.Settings.Pool.KeepaliveTime);
+        config.setMinimumIdle(PluginConfig.Database.Settings.Pool.MinimumIdle);
         config.addDataSourceProperty("cachePrepStmts", "true" );
         config.addDataSourceProperty("prepStmtCacheSize", "250" );
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048" );

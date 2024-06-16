@@ -2,7 +2,11 @@ package me.dreamvoid.miraimc.nukkit;
 
 import cn.nukkit.Server;
 import cn.nukkit.plugin.PluginBase;
-import me.dreamvoid.miraimc.*;
+import me.dreamvoid.miraimc.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.IMiraiEvent;
+import me.dreamvoid.miraimc.LifeCycle;
+import me.dreamvoid.miraimc.Platform;
+import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiMcCommand;
@@ -20,7 +24,7 @@ public class NukkitPlugin extends PluginBase implements Platform {
     private MiraiEvent MiraiEvent;
     private MiraiAutoLogin MiraiAutoLogin;
     private final LifeCycle lifeCycle;
-    private MiraiMCConfig platformConfig;
+    private PluginConfig platformConfig;
     private Logger NukkitLogger;
     private final LibraryLoader loader;
 
@@ -61,22 +65,22 @@ public class NukkitPlugin extends PluginBase implements Platform {
         getServer().getCommandMap().register("", new MiraiVerifyCommand());
 
         // 监听事件
-        if(MiraiMCConfig.General.LogEvents){
+        if(PluginConfig.General.LogEvents){
             getLogger().info("Registering events.");
             this.getServer().getPluginManager().registerEvents(new Events(this), this);
         }
 
         // bStats统计
-        if(MiraiMCConfig.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
+        if(PluginConfig.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
             getLogger().info("Initializing bStats metrics.");
             int pluginId = 12744;
             new MetricsLite(this, pluginId);
         }
 
         // HTTP API
-        if(MiraiMCConfig.General.EnableHttpApi){
+        if(PluginConfig.General.EnableHttpApi){
             getLogger().info("Initializing HttpAPI async task.");
-            getServer().getScheduler().scheduleRepeatingTask(this, new MiraiHttpAPIResolver(this), Math.toIntExact(MiraiMCConfig.HttpApi.MessageFetch.Interval * 20), true);
+            getServer().getScheduler().scheduleRepeatingTask(this, new MiraiHttpAPIResolver(this), Math.toIntExact(PluginConfig.HttpApi.MessageFetch.Interval * 20), true);
         }
     }
 
@@ -151,7 +155,7 @@ public class NukkitPlugin extends PluginBase implements Platform {
     }
 
     @Override
-    public MiraiMCConfig getPluginConfig() {
+    public PluginConfig getPluginConfig() {
         return platformConfig;
     }
 

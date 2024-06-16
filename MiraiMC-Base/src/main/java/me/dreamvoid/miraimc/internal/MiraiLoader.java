@@ -1,7 +1,7 @@
 package me.dreamvoid.miraimc.internal;
 
 import me.dreamvoid.miraimc.LifeCycle;
-import me.dreamvoid.miraimc.MiraiMCConfig;
+import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.internal.webapi.Info;
 import me.dreamvoid.miraimc.internal.webapi.Version;
 
@@ -63,8 +63,8 @@ public class MiraiLoader {
             LifeCycle.getPlatform().getLibraryLoader().loadLibraryMaven(
                     "net.mamoe",
                     "mirai-core-all",
-                    (version.equalsIgnoreCase("latest") ? LifeCycle.getPlatform().getLibraryLoader().getLibraryVersion("net.mamoe", "mirai-core-all", MiraiMCConfig.General.MavenRepoUrl) : version),
-                    MiraiMCConfig.General.MavenRepoUrl,
+                    (version.equalsIgnoreCase("latest") ? LifeCycle.getPlatform().getLibraryLoader().getLibraryVersion("net.mamoe", "mirai-core-all", PluginConfig.General.MavenRepoUrl) : version),
+                    PluginConfig.General.MavenRepoUrl,
                     "-all.jar", // mirai 特性
                     Utils.getMiraiDir().toPath().resolve("libs")
             );

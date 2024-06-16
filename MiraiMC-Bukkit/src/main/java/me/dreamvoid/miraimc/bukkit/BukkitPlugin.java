@@ -10,7 +10,7 @@ import me.dreamvoid.miraimc.commands.ICommandSender;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
-import me.dreamvoid.miraimc.MiraiMCConfig;
+import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -29,7 +29,7 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
     private MiraiEvent MiraiEvent;
     private MiraiAutoLogin MiraiAutoLogin;
     private final LifeCycle lifeCycle;
-    private final MiraiMCConfig platformConfig;
+    private final PluginConfig platformConfig;
     private final LibraryLoader loader;
 
     public BukkitPlugin(){
@@ -57,22 +57,22 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
         lifeCycle.postLoad();
 
         // 监听事件
-        if(MiraiMCConfig.General.LogEvents){
+        if(PluginConfig.General.LogEvents){
             getLogger().info("Registering events.");
             Bukkit.getPluginManager().registerEvents(new Events(), this);
         }
 
         // bStats统计
-        if(MiraiMCConfig.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
+        if(PluginConfig.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
             getLogger().info("Initializing bStats metrics.");
             int pluginId = 11534;
             new Metrics(this, pluginId);
         }
 
         // HTTP API
-        if(MiraiMCConfig.General.EnableHttpApi){
+        if(PluginConfig.General.EnableHttpApi){
             getLogger().info("Initializing HttpAPI async task.");
-            getServer().getScheduler().runTaskTimerAsynchronously(this, new MiraiHttpAPIResolver(this), 0, MiraiMCConfig.HttpApi.MessageFetch.Interval);
+            getServer().getScheduler().runTaskTimerAsynchronously(this, new MiraiHttpAPIResolver(this), 0, PluginConfig.HttpApi.MessageFetch.Interval);
         }
     }
 
@@ -285,7 +285,7 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
     }
 
     @Override
-    public MiraiMCConfig getPluginConfig() {
+    public PluginConfig getPluginConfig() {
         return platformConfig;
     }
 
