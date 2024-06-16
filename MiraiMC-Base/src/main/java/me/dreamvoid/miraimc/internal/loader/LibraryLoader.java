@@ -9,16 +9,18 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import javax.annotation.Nullable;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
+import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.function.Supplier;
@@ -96,7 +98,7 @@ public class LibraryLoader {
 				Files.write(savePath.resolve(sha1Filename), os.toByteArray()); // 写入sha1文件
                 String checksum = os.toString().trim().replace(" ", "").toLowerCase();
 
-                needDownload = !Utils.getFileSha1(file).equals(checksum);
+                needDownload = !checksum.equals(getFileSha1(file));
 			} catch (IOException e) {
 				logger.warning("Failed to check file's checksum, reason: " + e);
 				needDownload = false; // 由于文件已经存在，无法检测完整性只可能是网络问题，所以继续下载也不可能成功，不如直接不下载
@@ -104,7 +106,7 @@ public class LibraryLoader {
 		}
 
 		if(needDownload){
-			file.getParentFile().mkdirs();
+			if (!file.getParentFile().mkdirs()) logger.warning("Failed to create folder " + file.getParent());
 			Utils.Http.download(url, file);
 		}
 
@@ -146,7 +148,6 @@ public class LibraryLoader {
         return data.getElementsByTagName("release").item(0).getTextContent();
 	}
 
-	@Nullable
 	private static Document fetchMavenMetadata(String groupId, String artifactId, String repo) {
 		try {
 			String content = Utils.Http.get(repo + "/" + groupId.replace(".", "/") + "/" + artifactId + "/maven-metadata.xml");
@@ -197,5 +198,30 @@ public class LibraryLoader {
 			}
 		}
 		return defValue;
+	}
+
+	private String getFileSha1(File file){
+		try(FileInputStream fis = new FileInputStream(file)){
+			byte[] buffer = new byte[1024];
+			MessageDigest digest = MessageDigest.getInstance("SHA");
+			int numRead;
+
+			do {
+				numRead = fis.read(buffer);
+				if (numRead > 0) {
+					digest.update(buffer, 0, numRead);
+				}
+			} while (numRead != -1);
+
+			fis.close();
+			byte[] bytes = digest.digest();
+			BigInteger b = new BigInteger(1, bytes);
+			return String.format("%0" + (bytes.length << 1) + "x", b);
+		} catch (NoSuchAlgorithmException e) {
+			return null;
+		} catch (IOException e) {
+			Utils.resolveException(e, logger, "读取 sha1 文件时出现异常！");
+			return null;
+		}
 	}
 }

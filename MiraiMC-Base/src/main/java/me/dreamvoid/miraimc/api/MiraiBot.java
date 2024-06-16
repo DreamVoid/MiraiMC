@@ -368,7 +368,6 @@ public class MiraiBot {
             bot.login();
             logger.info(bot.getNick()+"("+bot.getId()+") 登录成功");
         } catch (Exception e){
-            if(Utils.isDeveloperMode()) e.printStackTrace();
             logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
         }
     }

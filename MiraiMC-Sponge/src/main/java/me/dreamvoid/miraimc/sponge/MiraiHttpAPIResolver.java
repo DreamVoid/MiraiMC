@@ -54,9 +54,9 @@ public class MiraiHttpAPIResolver implements Runnable {
                         }
                     }
 
-                } else plugin.getLogger().warn("Unable to fetch " + account + "'s message, reason: " + fetchMessage.msg);
+                } else plugin.getLogger().warn("Unable to fetch {}'s message, reason: {}", account, fetchMessage.msg);
             } catch (Exception e) {
-                plugin.getLogger().warn("An error occurred while fetching message for " + account + ": " + e);
+                plugin.getLogger().warn("An error occurred while fetching message for {}: {}", account, e.toString());
             }
         }
     }

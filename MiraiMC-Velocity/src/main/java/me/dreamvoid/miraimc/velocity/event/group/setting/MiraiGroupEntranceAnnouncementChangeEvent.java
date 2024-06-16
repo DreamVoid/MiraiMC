@@ -7,7 +7,7 @@ import net.mamoe.mirai.event.events.GroupEntranceAnnouncementChangeEvent;
  * @deprecated
  */
 @Deprecated
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "DeprecatedIsStillUsed"})
 public class MiraiGroupEntranceAnnouncementChangeEvent extends AbstractGroupSettingChangeEvent {
     public MiraiGroupEntranceAnnouncementChangeEvent(GroupEntranceAnnouncementChangeEvent event) {
         super(event);

@@ -12,19 +12,17 @@ import org.apache.http.message.BasicHeader;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
-import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
 public final class Utils {
     static {
+        Logger logger = Logger.getLogger("MiraiMC Preload Checker");
         // 此处放置插件自检代码
         if (!Boolean.getBoolean("MiraiMC.StandWithNpp") && System.getProperty("os.name").toLowerCase().contains("windows") && findProcess("notepad++.exe")) {
             Arrays.asList("========================================",
@@ -33,26 +31,20 @@ public final class Utils {
                     "Sublime: https://www.sublimetext.com/",
                     "不要向MiraiMC作者寻求任何帮助。",
                     "进程将在20秒后继续运行",
-                    "========================================").forEach(s -> Logger.getLogger("MiraiMC Preload Checker").severe(s));
+                    "========================================").forEach(logger::severe);
             try {
                 Thread.sleep(20000);
             } catch (InterruptedException ignored) {}
         }
         if(Boolean.getBoolean("MiraiMC.StandWithNpp")){
-            Logger.getLogger("MiraiMC Preload Checker").severe("不要向MiraiMC作者寻求任何帮助。");
+            logger.severe("不要向MiraiMC作者寻求任何帮助。");
         }
 
         if(findClass("cpw.mods.modlauncher.Launcher") || findClass("net.minecraftforge.server.console.TerminalHandler")) { // 抛弃Forge用户，别问为什么
-            Logger.getLogger("MiraiMC Preload Checker").severe("任何Forge服务端均不受MiraiMC支持，请尽量更换其他服务端使用！");
-            Logger.getLogger("MiraiMC Preload Checker").severe("作者不会处理任何使用了Forge服务端导致的问题。");
-            Logger.getLogger("MiraiMC Preload Checker").severe("兼容性报告: https://docs.miraimc.dreamvoid.me/troubleshoot/compatibility-report");
+            logger.severe("任何Forge服务端均不受MiraiMC支持，请尽量更换其他服务端使用！");
+            logger.severe("作者不会处理任何使用了Forge服务端导致的问题。");
+            logger.severe("兼容性报告: https://docs.miraimc.dreamvoid.me/troubleshoot/compatibility-report");
         }
-
-        if(Boolean.getBoolean("MiraiMC.DeveloperMode")){
-            developerMode = true;
-            Logger.getLogger("MiraiMC Preload Checker").warning("MiraiMC 开发者模式已启用！");
-            Logger.getLogger("MiraiMC Preload Checker").warning("除非你知道你正在做什么，否则请不要启用开发者模式。");
-        } else developerMode = false;
     }
 
     private static boolean findProcess(String processName) {
@@ -89,7 +81,6 @@ public final class Utils {
 
     private static Logger logger;
     private static ClassLoader classLoader;
-    private static final boolean developerMode;
 
     public static void setLogger(Logger logger){
         Utils.logger = logger;
@@ -105,10 +96,6 @@ public final class Utils {
     
     public static ClassLoader getClassLoader(){
         return classLoader;
-    }
-
-    public static boolean isDeveloperMode(){
-        return developerMode;
     }
 
     /**
@@ -193,26 +180,6 @@ public final class Utils {
                 logger.severe(String.format("Failed to download %s, reason: %s", url, e));
             }
         }
-
-        /**
-         * 测试链接可用性
-         * @param url 链接
-         * @return 服务器是否返回 HTTP 200 OK 状态码
-         * @throws IOException 连接出现任何异常时抛出
-         */
-        public static boolean test(String url) throws IOException {
-            URL obj = new URL(url.replace(" ", "%20"));
-            StringBuilder sb = new StringBuilder();
-            HttpURLConnection httpUrlConn = (HttpURLConnection) obj.openConnection();
-
-            httpUrlConn.setDoInput(true);
-            httpUrlConn.setRequestMethod("GET");
-            httpUrlConn.setRequestProperty("User-Agent", "Mozilla/5.0 DreamVoid MiraiMC");
-            httpUrlConn.setConnectTimeout(5000);
-            httpUrlConn.setReadTimeout(10000);
-
-            return httpUrlConn.getResponseCode() == HttpURLConnection.HTTP_OK;
-        }
     }
 
     @NotNull
@@ -220,25 +187,22 @@ public final class Utils {
         return PluginConfig.General.MiraiWorkingDir.equals("default") ? new File(PluginConfig.PluginDir,"MiraiBot") : new File(PluginConfig.General.MiraiWorkingDir);
     }
 
-    public static String getFileSha1(File file){
-        try(FileInputStream fis = new FileInputStream(file)){
-            byte[] buffer = new byte[1024];
-            MessageDigest digest = MessageDigest.getInstance("SHA");
-            int numRead;
+    public static void resolveException(Exception exception, Logger logger, String reason) {
+        if(!reason.isEmpty()) logger.severe(reason);
+        logger.severe("如果你确信这是 MiraiMC 的错误，前往 GitHub 报告 issue 并附上完整服务器日志。");
+        logger.severe(exception.toString());
 
-            do {
-                numRead = fis.read(buffer);
-                if (numRead > 0) {
-                    digest.update(buffer, 0, numRead);
-                }
-            } while (numRead != -1);
+        Throwable t = exception;
+        while(t != null){
+            if(t != exception){
+                logger.severe("Caused by: " + t);
+            }
 
-            fis.close();
-            byte[] bytes = digest.digest();
-            BigInteger b = new BigInteger(1, bytes);
-            return String.format("%0" + (bytes.length << 1) + "x", b);
-        } catch (NoSuchAlgorithmException | IOException e) {
-            return null;
+            for(StackTraceElement element : t.getStackTrace()){
+                getLogger().severe(String.format("\tat %s.%s(%s:%d)", element.getClassName(), element.getMethodName(), element.getFileName(), element.getLineNumber()));
+            }
+
+            t = t.getCause();
         }
     }
 }

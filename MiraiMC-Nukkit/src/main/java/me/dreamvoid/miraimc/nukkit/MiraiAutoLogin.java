@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+@SuppressWarnings("rawtypes")
 public class MiraiAutoLogin implements IMiraiAutoLogin {
 
     public MiraiAutoLogin(NukkitPlugin plugin) {
@@ -52,7 +53,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
                     out.flush();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                Utils.resolveException(e, logger, "创建自动登录文件时出现异常！");
             }
         }
     }
@@ -121,7 +122,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
         try {
             data.save(AutoLoginFile);
         } catch (Exception e) {
-            e.printStackTrace();
+            Utils.resolveException(e, logger, "保存自动登录文件时出现异常！");
             return false;
         }
         return true;
@@ -144,7 +145,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
         try {
             data.save(AutoLoginFile);
         } catch (Exception e) {
-            e.printStackTrace();
+            Utils.resolveException(e, logger, "保存自动登录文件时出现异常！");
             return false;
         }
         return true;

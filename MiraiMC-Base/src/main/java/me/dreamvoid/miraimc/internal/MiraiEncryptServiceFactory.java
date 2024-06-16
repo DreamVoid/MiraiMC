@@ -81,21 +81,6 @@ public class MiraiEncryptServiceFactory implements EncryptService.Factory {
 
                         return new UnidbgFetchQsign(server.base, server.key, scope.getCoroutineContext());
                     }
-                    case "kiliokuara/magic-signer-guide": case "kiliokuara": case "magic-signer-guide": case "vivo50":{
-                        /*try {
-                            String about = Utils.Http.get(server.base);
-                            logger.info("magic-signer-guide by "+server.base+" about \n" + about);
-                            if(about.trim().equals("void")){
-                                logger.warning("请更新 magic-signer-guide 的 docker 镜像");
-                            }
-                            if(!about.contains(version)){
-                                throw new IllegalStateException("magic-signer-guide by "+server.base+" 与 "+protocol+"("+version+") 似乎不匹配");
-                            }
-                        } catch (IOException cause) {
-                            throw new RuntimeException("请检查 magic-signer-guide by "+server.base+" 的可用性", cause);
-                        }*/
-                        throw new UnsupportedOperationException(server.type); // 部署困难，不打算支持
-                    }
                     default:throw new UnsupportedOperationException(server.type);
                 }
             }

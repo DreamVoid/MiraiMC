@@ -9,6 +9,7 @@ import me.dreamvoid.miraimc.bungee.utils.SpecialUtils;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
+import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import net.md_5.bungee.api.CommandSender;
@@ -45,53 +46,56 @@ public class BungeePlugin extends Plugin implements Platform {
             MiraiAutoLogin = new MiraiAutoLogin(this);
             MiraiEvent = new MiraiEvent();
         } catch (Exception e) {
-            getLogger().warning("An error occurred while loading plugin.");
-            e.printStackTrace();
+            Utils.resolveException(e, getLogger(), "加载 MiraiMC 阶段 1 时出现异常！");
         }
     }
 
     @Override
     public void onEnable() {
-        lifeCycle.postLoad();
+        try {
+            lifeCycle.postLoad();
 
-        // 注册命令
-        getLogger().info("Registering commands.");
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new Command("mirai","miraimc.command.mirai") {
-            @Override
-            public void execute(CommandSender sender, String[] strings) {
-                new MiraiCommand().onCommand(SpecialUtils.getSender(sender), strings);
+            // 注册命令
+            getLogger().info("Registering commands.");
+            ProxyServer.getInstance().getPluginManager().registerCommand(this, new Command("mirai", "miraimc.command.mirai") {
+                @Override
+                public void execute(CommandSender sender, String[] strings) {
+                    new MiraiCommand().onCommand(SpecialUtils.getSender(sender), strings);
+                }
+            });
+            ProxyServer.getInstance().getPluginManager().registerCommand(this, new Command("miraimc", "miraimc.command.miraimc") {
+                @Override
+                public void execute(CommandSender sender, String[] strings) {
+                    new MiraiMcCommand().onCommand(SpecialUtils.getSender(sender), strings);
+                }
+            });
+            ProxyServer.getInstance().getPluginManager().registerCommand(this, new Command("miraiverify", "miraimc.command.miraiverify") {
+                @Override
+                public void execute(CommandSender sender, String[] strings) {
+                    new MiraiVerifyCommand().onCommand(SpecialUtils.getSender(sender), strings);
+                }
+            });
+
+            // 监听事件
+            if (PluginConfig.General.LogEvents) {
+                getLogger().info("Registering events.");
+                getProxy().getPluginManager().registerListener(this, new Events());
             }
-        });
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new Command("miraimc","miraimc.command.miraimc") {
-            @Override
-            public void execute(CommandSender sender, String[] strings) {
-                new MiraiMcCommand().onCommand(SpecialUtils.getSender(sender), strings);
+
+            // bStats统计
+            if (PluginConfig.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
+                getLogger().info("Initializing bStats metrics.");
+                int pluginId = 12154;
+                new Metrics(this, pluginId);
             }
-        });
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new Command("miraiverify","miraimc.command.miraiverify") {
-            @Override
-            public void execute(CommandSender sender, String[] strings) {
-                new MiraiVerifyCommand().onCommand(SpecialUtils.getSender(sender), strings);
+
+            // HTTP API
+            if (PluginConfig.General.EnableHttpApi) {
+                getLogger().info("Initializing HttpAPI async task.");
+                getProxy().getScheduler().schedule(this, new MiraiHttpAPIResolver(this), 0, PluginConfig.HttpApi.MessageFetch.Interval * 20L, TimeUnit.MILLISECONDS);
             }
-        });
-
-        // 监听事件
-        if(PluginConfig.General.LogEvents){
-            getLogger().info("Registering events.");
-            getProxy().getPluginManager().registerListener(this, new Events());
-        }
-
-        // bStats统计
-        if(PluginConfig.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
-            getLogger().info("Initializing bStats metrics.");
-            int pluginId = 12154;
-            new Metrics(this, pluginId);
-        }
-
-        // HTTP API
-        if(PluginConfig.General.EnableHttpApi){
-            getLogger().info("Initializing HttpAPI async task.");
-            getProxy().getScheduler().schedule(this, new MiraiHttpAPIResolver(this), 0, PluginConfig.HttpApi.MessageFetch.Interval * 20L, TimeUnit.MILLISECONDS);
+        } catch (Exception e){
+            Utils.resolveException(e, getLogger(), "加载 MiraiMC 阶段 2 时出现异常！");
         }
     }
 

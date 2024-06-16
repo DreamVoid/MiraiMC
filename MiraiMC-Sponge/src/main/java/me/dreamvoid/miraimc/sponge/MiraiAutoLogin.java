@@ -28,6 +28,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     }
 
     private final SpongePlugin plugin;
+    @SuppressWarnings("SpongeLogging")
     private final Logger logger;
     private static File AutoLoginFile;
 
@@ -52,7 +53,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
                     out.flush();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                Utils.resolveException(e, logger, "创建自动登录文件时出现异常！");
             }
         }
     }
@@ -148,7 +149,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
                 out.flush();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Utils.resolveException(e, logger, "保存自动登录文件时出现异常！");
             return false;
         }
         return true;
@@ -182,7 +183,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
                 out.flush();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Utils.resolveException(e, logger, "保存自动登录文件时出现异常！");
             return false;
         }
         return true;

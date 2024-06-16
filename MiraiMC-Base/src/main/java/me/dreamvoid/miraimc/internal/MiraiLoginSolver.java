@@ -220,7 +220,7 @@ public class MiraiLoginSolver extends LoginSolver {
                                     @NotNull
                                     @Override
                                     public CoroutineContext getContext() {
-                                        return (CoroutineContext) Dispatchers.getIO();
+                                        return Dispatchers.getIO();
                                     }
 
                                     @Override

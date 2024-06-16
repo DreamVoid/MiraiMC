@@ -8,9 +8,7 @@ import me.dreamvoid.miraimc.internal.database.MySQL;
 import me.dreamvoid.miraimc.internal.database.SQLite;
 import me.dreamvoid.miraimc.internal.webapi.Info;
 import net.mamoe.mirai.utils.BotConfiguration;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -52,7 +50,7 @@ public class LifeCycle {
     /**
      * 此方法应在插件各项准备工作均已完成时调用。此时插件已经准备就绪，可以开始初始化配置文件，加载 mirai 核心。
      */
-    public void preLoad() throws IOException, ParserConfigurationException, SAXException {
+    public void preLoad() throws IOException {
         logger = platform.getPluginLogger();
         Utils.setLogger(logger);
         Utils.setClassLoader(platform.getPluginClassLoader());

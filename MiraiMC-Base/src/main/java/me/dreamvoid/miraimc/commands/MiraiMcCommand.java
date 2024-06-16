@@ -14,7 +14,6 @@ public class MiraiMcCommand implements ICommandExecutor {
     public boolean onCommand(ICommandSender sender, String[] args) {
         if (args.length == 0) {
             sender.sendMessage("This server is running "+ LifeCycle.getPlatform().getPluginName() +" version "+ LifeCycle.getPlatform().getPluginVersion()+" by "+ LifeCycle.getPlatform().getAuthors().toString().replace("[","").replace("]",""));
-            if(Utils.isDeveloperMode()) sender.sendMessage("Developer mode is on.");
             return false;
         }
 

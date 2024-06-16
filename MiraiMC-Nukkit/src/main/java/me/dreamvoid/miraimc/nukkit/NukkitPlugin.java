@@ -6,6 +6,7 @@ import me.dreamvoid.miraimc.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.IMiraiEvent;
 import me.dreamvoid.miraimc.LifeCycle;
 import me.dreamvoid.miraimc.Platform;
+import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiCommand;
@@ -49,38 +50,41 @@ public class NukkitPlugin extends PluginBase implements Platform {
             MiraiAutoLogin = new MiraiAutoLogin(this);
             MiraiEvent = new MiraiEvent(this);
         } catch (Exception e) {
-            getLogger().warning("An error occurred while loading plugin." );
-            e.printStackTrace();
+            Utils.resolveException(e, NukkitLogger, "加载 MiraiMC 阶段 1 时出现异常！");
         }
     }
 
     @Override
     public void onEnable() {
-        lifeCycle.postLoad();
+        try {
+            lifeCycle.postLoad();
 
-        // 注册命令 // TODO: 把Nukkit的注册命令并入主代码
-        getLogger().info("Registering commands.");
-        getServer().getCommandMap().register("", new MiraiCommand());
-        getServer().getCommandMap().register("", new MiraiMcCommand());
-        getServer().getCommandMap().register("", new MiraiVerifyCommand());
+            // 注册命令 // TODO: 把Nukkit的注册命令并入主代码
+            getLogger().info("Registering commands.");
+            getServer().getCommandMap().register("", new MiraiCommand());
+            getServer().getCommandMap().register("", new MiraiMcCommand());
+            getServer().getCommandMap().register("", new MiraiVerifyCommand());
 
-        // 监听事件
-        if(PluginConfig.General.LogEvents){
-            getLogger().info("Registering events.");
-            this.getServer().getPluginManager().registerEvents(new Events(this), this);
-        }
+            // 监听事件
+            if (PluginConfig.General.LogEvents) {
+                getLogger().info("Registering events.");
+                this.getServer().getPluginManager().registerEvents(new Events(this), this);
+            }
 
-        // bStats统计
-        if(PluginConfig.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
-            getLogger().info("Initializing bStats metrics.");
-            int pluginId = 12744;
-            new MetricsLite(this, pluginId);
-        }
+            // bStats统计
+            if (PluginConfig.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
+                getLogger().info("Initializing bStats metrics.");
+                int pluginId = 12744;
+                new MetricsLite(this, pluginId);
+            }
 
-        // HTTP API
-        if(PluginConfig.General.EnableHttpApi){
-            getLogger().info("Initializing HttpAPI async task.");
-            getServer().getScheduler().scheduleRepeatingTask(this, new MiraiHttpAPIResolver(this), Math.toIntExact(PluginConfig.HttpApi.MessageFetch.Interval * 20), true);
+            // HTTP API
+            if (PluginConfig.General.EnableHttpApi) {
+                getLogger().info("Initializing HttpAPI async task.");
+                getServer().getScheduler().scheduleRepeatingTask(this, new MiraiHttpAPIResolver(this), Math.toIntExact(PluginConfig.HttpApi.MessageFetch.Interval * 20L), true);
+            }
+        } catch (Exception e){
+            Utils.resolveException(e, NukkitLogger, "加载 MiraiMC 阶段 2 时出现异常！");
         }
     }
 

@@ -10,6 +10,7 @@ import me.dreamvoid.miraimc.commands.ICommandSender;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
+import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import org.bukkit.Bukkit;
@@ -46,33 +47,37 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
             // 加载mirai核心完成，开始加载附属功能
             MiraiAutoLogin = new MiraiAutoLogin(this);
             MiraiEvent = new MiraiEvent();
+            throw new RuntimeException("Test exception", new RuntimeException("Test cause"));
         } catch (Exception e) {
-            getLogger().warning("An error occurred while loading plugin.");
-            e.printStackTrace();
+            Utils.resolveException(e, getLogger(), "加载 MiraiMC 阶段 1 时出现异常！");
         }
     }
 
     @Override // 启用插件
     public void onEnable() {
-        lifeCycle.postLoad();
+        try {
+            lifeCycle.postLoad();
 
-        // 监听事件
-        if(PluginConfig.General.LogEvents){
-            getLogger().info("Registering events.");
-            Bukkit.getPluginManager().registerEvents(new Events(), this);
-        }
+            // 监听事件
+            if(PluginConfig.General.LogEvents){
+                getLogger().info("Registering events.");
+                Bukkit.getPluginManager().registerEvents(new Events(), this);
+            }
 
-        // bStats统计
-        if(PluginConfig.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
-            getLogger().info("Initializing bStats metrics.");
-            int pluginId = 11534;
-            new Metrics(this, pluginId);
-        }
+            // bStats统计
+            if(PluginConfig.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
+                getLogger().info("Initializing bStats metrics.");
+                int pluginId = 11534;
+                new Metrics(this, pluginId);
+            }
 
-        // HTTP API
-        if(PluginConfig.General.EnableHttpApi){
-            getLogger().info("Initializing HttpAPI async task.");
-            getServer().getScheduler().runTaskTimerAsynchronously(this, new MiraiHttpAPIResolver(this), 0, PluginConfig.HttpApi.MessageFetch.Interval);
+            // HTTP API
+            if(PluginConfig.General.EnableHttpApi){
+                getLogger().info("Initializing HttpAPI async task.");
+                getServer().getScheduler().runTaskTimerAsynchronously(this, new MiraiHttpAPIResolver(this), 0, PluginConfig.HttpApi.MessageFetch.Interval);
+            }
+        } catch (Exception e){
+            Utils.resolveException(e, getLogger(), "加载 MiraiMC 阶段 2 时出现异常！");
         }
     }
 

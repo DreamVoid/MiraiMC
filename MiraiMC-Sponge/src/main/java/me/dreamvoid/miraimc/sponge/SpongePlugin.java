@@ -8,6 +8,7 @@ import me.dreamvoid.miraimc.Platform;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
+import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import me.dreamvoid.miraimc.sponge.utils.Metrics;
@@ -28,6 +29,7 @@ import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
+import org.spongepowered.api.scheduler.SpongeExecutorService;
 import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.metric.MetricsConfigManager;
@@ -48,8 +50,9 @@ import java.util.concurrent.TimeUnit;
         authors = {"DreamVoid"}
 )
 public class SpongePlugin implements Platform {
-    private LifeCycle lifeCycle;
+    private final LifeCycle lifeCycle;
     private PluginConfig platformConfig;
+    @SuppressWarnings("SpongeLogging")
     private java.util.logging.Logger SpongeLogger;
     private final LibraryLoader loader;
 
@@ -89,8 +92,7 @@ public class SpongePlugin implements Platform {
             MiraiAutoLogin = new MiraiAutoLogin(this);
             MiraiEvent = new MiraiEvent(this);
         } catch (Exception ex) {
-            getLogger().warn("An error occurred while loading plugin.");
-            ex.printStackTrace();
+            Utils.resolveException(ex, SpongeLogger, "加载 MiraiMC 阶段 1 时出现异常！");
         }
     }
 
@@ -99,36 +101,40 @@ public class SpongePlugin implements Platform {
      */
     @Listener
     public void onEnable(GameInitializationEvent e) {
-        lifeCycle.postLoad();
+        try {
+            lifeCycle.postLoad();
 
-        // 监听事件
-        if(PluginConfig.General.LogEvents){
-            getLogger().info("Registering events.");
-            Sponge.getEventManager().registerListeners(this, new Events());
-        }
-
-        // bStats统计
-        if(PluginConfig.General.AllowBStats) {
-            if(this.metricsConfigManager.getCollectionState(this.pluginContainer).asBoolean()){
-                getLogger().info("Initializing bStats metrics.");
-                int pluginId = 12847;
-                new Metrics(this.pluginContainer,getLogger(), getDataFolder().toPath(), pluginId);
-            } else {
-                getLogger().warn("你在配置文件中启用了bStats，但是MetricsConfigManager告知MiraiMC不允许收集信息，因此bStats已关闭");
-                getLogger().warn("要启用bStats，请执行命令 /sponge metrics miraimc enable");
-                getLogger().warn("或者在配置文件中禁用bStats隐藏此警告");
+            // 监听事件
+            if (PluginConfig.General.LogEvents) {
+                getLogger().info("Registering events.");
+                Sponge.getEventManager().registerListeners(this, new Events());
             }
-        }
 
-        // HTTP API
-        if(PluginConfig.General.EnableHttpApi){
-            getLogger().info("Initializing HttpAPI async task.");
-            Sponge.getScheduler().createTaskBuilder()
-                    .async()
-                    .execute(new MiraiHttpAPIResolver(this))
-                    .intervalTicks(PluginConfig.HttpApi.MessageFetch.Interval)
-                    .name("MiraiMC-HttpApi")
-                    .submit(this);
+            // bStats统计
+            if (PluginConfig.General.AllowBStats) {
+                if (this.metricsConfigManager.getCollectionState(this.pluginContainer).asBoolean()) {
+                    getLogger().info("Initializing bStats metrics.");
+                    int pluginId = 12847;
+                    new Metrics(this.pluginContainer, getLogger(), getDataFolder().toPath(), pluginId);
+                } else {
+                    getLogger().warn("你在配置文件中启用了bStats，但是MetricsConfigManager告知MiraiMC不允许收集信息，因此bStats已关闭");
+                    getLogger().warn("要启用bStats，请执行命令 /sponge metrics miraimc enable");
+                    getLogger().warn("或者在配置文件中禁用bStats隐藏此警告");
+                }
+            }
+
+            // HTTP API
+            if (PluginConfig.General.EnableHttpApi) {
+                getLogger().info("Initializing HttpAPI async task.");
+                Sponge.getScheduler().createTaskBuilder()
+                        .async()
+                        .execute(new MiraiHttpAPIResolver(this))
+                        .intervalTicks(PluginConfig.HttpApi.MessageFetch.Interval)
+                        .name("MiraiMC-HttpApi")
+                        .submit(this);
+            }
+        } catch (Exception ex){
+            Utils.resolveException(ex, SpongeLogger, "加载 MiraiMC 阶段 2 时出现异常！");
         }
     }
 
@@ -216,12 +222,16 @@ public class SpongePlugin implements Platform {
 
     @Override
     public void runTaskAsync(Runnable task) {
-        Sponge.getScheduler().createAsyncExecutor(this).execute(task);
+        try(SpongeExecutorService service = Sponge.getScheduler().createAsyncExecutor(this)){
+            service.execute(task);
+        }
     }
 
     @Override
     public void runTaskLaterAsync(Runnable task, long delay) {
-        Sponge.getScheduler().createAsyncExecutor(this).schedule(task, delay * 50, TimeUnit.MILLISECONDS);
+        try(SpongeExecutorService service = Sponge.getScheduler().createAsyncExecutor(this)){
+            service.schedule(task, delay * 50, TimeUnit.MILLISECONDS);
+        }
     }
 
     private final HashMap<Integer, Task> tasks = new HashMap<>();

@@ -20,6 +20,7 @@ import me.dreamvoid.miraimc.Platform;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
+import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import me.dreamvoid.miraimc.velocity.utils.Metrics;
@@ -84,40 +85,43 @@ public class VelocityPlugin implements Platform {
             MiraiEvent = new MiraiEvent(this);
             MiraiAutoLogin = new MiraiAutoLogin(this);
         } catch (Exception e) {
-            getLogger().warn("An error occurred while loading plugin.");
-            e.printStackTrace();
+            Utils.resolveException(e, VelocityLogger, "加载 MiraiMC 阶段 1 时出现异常！");
         }
 
         // enable
-        lifeCycle.postLoad();
+        try {
+            lifeCycle.postLoad();
 
-        // 注册命令
-        getLogger().info("Registering commands.");
-        CommandManager manager = server.getCommandManager();
-        CommandMeta mirai = manager.metaBuilder("mirai").build();
-        CommandMeta miraimc = manager.metaBuilder("miraimc").build();
-        CommandMeta miraiverify = manager.metaBuilder("miraiverify").build();
-        manager.register(mirai, (SimpleCommand) invocation -> new MiraiCommand().onCommand(SpecialUtils.getSender(invocation.source()), invocation.arguments()));
-        manager.register(miraimc, (SimpleCommand) invocation -> new MiraiMcCommand().onCommand(SpecialUtils.getSender(invocation.source()), invocation.arguments()));
-        manager.register(miraiverify, (SimpleCommand) invocation -> new MiraiVerifyCommand().onCommand(SpecialUtils.getSender(invocation.source()), invocation.arguments()));
+            // 注册命令
+            getLogger().info("Registering commands.");
+            CommandManager manager = server.getCommandManager();
+            CommandMeta mirai = manager.metaBuilder("mirai").build();
+            CommandMeta miraimc = manager.metaBuilder("miraimc").build();
+            CommandMeta miraiverify = manager.metaBuilder("miraiverify").build();
+            manager.register(mirai, (SimpleCommand) invocation -> new MiraiCommand().onCommand(SpecialUtils.getSender(invocation.source()), invocation.arguments()));
+            manager.register(miraimc, (SimpleCommand) invocation -> new MiraiMcCommand().onCommand(SpecialUtils.getSender(invocation.source()), invocation.arguments()));
+            manager.register(miraiverify, (SimpleCommand) invocation -> new MiraiVerifyCommand().onCommand(SpecialUtils.getSender(invocation.source()), invocation.arguments()));
 
-        // 监听事件
-        if(PluginConfig.General.LogEvents){
-            getLogger().info("Registering events.");
-            server.getEventManager().register(this, new Events());
-        }
+            // 监听事件
+            if (PluginConfig.General.LogEvents) {
+                getLogger().info("Registering events.");
+                server.getEventManager().register(this, new Events());
+            }
 
-        // bStats统计
-        if(PluginConfig.General.AllowBStats) {
-            getLogger().info("Initializing bStats metrics.");
-            int pluginId = 13887;
-            metricsFactory.make(this, pluginId);
-        }
+            // bStats统计
+            if (PluginConfig.General.AllowBStats) {
+                getLogger().info("Initializing bStats metrics.");
+                int pluginId = 13887;
+                metricsFactory.make(this, pluginId);
+            }
 
-        // HTTP API
-        if(PluginConfig.General.EnableHttpApi){
-            getLogger().info("Initializing HttpAPI async task.");
-            getServer().getScheduler().buildTask(this, new MiraiHttpAPIResolver(this)).repeat(PluginConfig.HttpApi.MessageFetch.Interval * 20, TimeUnit.MILLISECONDS).schedule();
+            // HTTP API
+            if (PluginConfig.General.EnableHttpApi) {
+                getLogger().info("Initializing HttpAPI async task.");
+                getServer().getScheduler().buildTask(this, new MiraiHttpAPIResolver(this)).repeat(PluginConfig.HttpApi.MessageFetch.Interval * 20L, TimeUnit.MILLISECONDS).schedule();
+            }
+        } catch (Exception ex){
+            Utils.resolveException(ex, VelocityLogger, "加载 MiraiMC 阶段 2 时出现异常！");
         }
     }
 

@@ -5,7 +5,6 @@ import me.dreamvoid.miraimc.LifeCycle;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.httpapi.MiraiHttpAPI;
 import me.dreamvoid.miraimc.httpapi.exception.AbnormalStatusException;
-import me.dreamvoid.miraimc.internal.MiraiLoader;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import net.mamoe.mirai.Bot;
@@ -25,7 +24,6 @@ public class MiraiCommand implements ICommandExecutor {
     public boolean onCommand(ICommandSender sender, String[] args) {
         if (args.length == 0) {
             sender.sendMessage("This server is running "+ LifeCycle.getPlatform().getPluginName() +" version "+ LifeCycle.getPlatform().getPluginVersion()+" by "+ LifeCycle.getPlatform().getAuthors().toString().replace("[","").replace("]",""));
-            if(Utils.isDeveloperMode()) sender.sendMessage("Developer mode is on.");
             return false;
         }
 
@@ -292,44 +290,6 @@ public class MiraiCommand implements ICommandExecutor {
                         "&6/mirai autologin list:&r 查看自动登录账号列表",
                         "&6/mirai autologin remove <账号>:&r 删除一个自动登录账号")) {
                     sender.sendMessage(s);
-                }
-                break;
-            }
-            case "dev":{
-                if(Utils.isDeveloperMode()) {
-                    if (args.length == 1) {
-                        sender.sendMessage("&6&lMiraiMC&r &b开发者模式已启用");
-                        break;
-                    }
-                    switch (args[1].toLowerCase()){
-                        case "load":{
-                            MiraiLoader.loadMiraiCore();
-                            break;
-                        }
-                        case "unload":{
-                            /*try {
-                                JarLoader.unloadJar();
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }*/
-                            break;
-                        }
-                        case "testclass":{
-                            try {
-                                Class.forName("net.mamoe.mirai.utils.BotConfiguration");
-                                sender.sendMessage("Success");
-                            } catch (ClassNotFoundException e) {
-                                throw new RuntimeException(e);
-                            }
-                            break;
-                        }
-                        case "change":{
-                            //JarLoader.unloadJar();
-                            MiraiLoader.loadMiraiCore(args[2]);
-                            sender.sendMessage("Success");
-                            break;
-                        }
-                    }
                 }
                 break;
             }

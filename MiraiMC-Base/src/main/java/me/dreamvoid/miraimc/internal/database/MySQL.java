@@ -13,22 +13,6 @@ public class MySQL implements Database {
 
     @Override
     public void initialize() throws ClassNotFoundException {
-        /*
-        try {
-            Class<HikariDataSource> clazz = HikariDataSource.class;
-            Field field = clazz.getDeclaredField("LOGGER");
-            field.setAccessible(true);
-
-            Field modifiersField = Field.class.getDeclaredField("modifiers");
-            modifiersField.setAccessible(true);
-            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-
-            field.set(ds, Utils.getLogger());
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        */
-
         String driver;
         if (Utils.findClass("com.mysql.cj.jdbc.Driver")){
             driver = "com.mysql.cj.jdbc.Driver";
