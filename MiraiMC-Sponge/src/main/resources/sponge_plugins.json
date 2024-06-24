@@ -1,0 +1,34 @@
+{
+  "loader": {
+    "name": "java_plain",
+    "version": "1.0"
+  },
+  "license": "AGPL v3",
+  "global": {
+    "version": "8.0.0",
+    "links": {
+      "source": "https://github.com/DreamVoid/MiraiMC",
+      "issues": "https://github.com/DreamVoid/MiraiMC/issues"
+    },
+    "contributors": [
+      {
+        "name": "DreamVoid",
+        "description": "Lead Developer"
+      }
+    ],
+    "dependencies": [
+      {
+        "id": "spongeapi",
+        "version": "8.0.0"
+      }
+    ]
+  },
+  "plugins": [
+    {
+      "id": "miraimc",
+      "name": "DreamVoid",
+      "entrypoint": "me.dreamvoid.miraimc.sponge.SpongePlugin",
+      "description": "Mirai for Minecraft server"
+    }
+  ]
+}

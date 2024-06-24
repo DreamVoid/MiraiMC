@@ -2,7 +2,7 @@ package me.dreamvoid.miraimc.sponge.event.message;
 
 import org.jetbrains.annotations.NotNull;
 import net.mamoe.mirai.event.events.BeforeImageUploadEvent;
-import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
@@ -73,7 +73,7 @@ public class MiraiBeforeImageUploadEvent extends AbstractEvent {
     }
 
     @Override
-    public @NotNull Cause getCause() {
+    public @NotNull Cause cause() {
         return cause;
     }
 }

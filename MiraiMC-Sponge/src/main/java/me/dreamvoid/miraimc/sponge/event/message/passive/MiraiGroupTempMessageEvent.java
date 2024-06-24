@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.sponge.event.message.passive;
 import me.dreamvoid.miraimc.api.bot.group.MiraiNormalMember;
 import me.dreamvoid.miraimc.httpapi.response.FetchMessage;
 import net.mamoe.mirai.event.events.GroupTempMessageEvent;
-import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.Cause;
 
 /**
  * (Sponge) 消息 - 被动收到消息 - 群临时会话消息

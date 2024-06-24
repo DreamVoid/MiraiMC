@@ -5,10 +5,10 @@ import me.dreamvoid.miraimc.httpapi.response.FetchMessage;
 import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.sponge.event.message.passive.*;
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.cause.EventContext;
-import org.spongepowered.api.event.cause.EventContextKeys;
-import org.spongepowered.api.plugin.PluginContainer;
+import org.spongepowered.api.event.Cause;
+import org.spongepowered.api.event.EventContext;
+import org.spongepowered.api.event.EventContextKeys;
+import org.spongepowered.plugin.PluginContainer;
 
 import static me.dreamvoid.miraimc.httpapi.MiraiHttpAPI.Bots;
 
@@ -37,19 +37,19 @@ public class MiraiHttpAPIResolver implements Runnable {
                         // 准备广播事件
                         switch (type) {
                             case "FriendMessage":
-                                Sponge.getEventManager().post(new MiraiFriendMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
+                                Sponge.eventManager().post(new MiraiFriendMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
                                 break;
                             case "GroupMessage":
-                                Sponge.getEventManager().post(new MiraiGroupMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
+                                Sponge.eventManager().post(new MiraiGroupMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
                                 break;
                             case "TempMessage":
-                                Sponge.getEventManager().post(new MiraiGroupTempMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
+                                Sponge.eventManager().post(new MiraiGroupTempMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
                                 break;
                             case "StrangerMessage":
-                                Sponge.getEventManager().post(new MiraiStrangerMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
+                                Sponge.eventManager().post(new MiraiStrangerMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
                                 break;
                             case "OtherClientMessage":
-                                Sponge.getEventManager().post(new MiraiOtherClientMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
+                                Sponge.eventManager().post(new MiraiOtherClientMessageEvent(account, data, Cause.of(eventContext, pluginContainer)));
                                 break;
                         }
                     }

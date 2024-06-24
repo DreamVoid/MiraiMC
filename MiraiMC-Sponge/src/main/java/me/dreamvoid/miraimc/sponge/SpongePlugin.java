@@ -7,59 +7,53 @@ import me.dreamvoid.miraimc.LifeCycle;
 import me.dreamvoid.miraimc.Platform;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
-import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import me.dreamvoid.miraimc.sponge.utils.Metrics;
 import me.dreamvoid.miraimc.sponge.utils.SpecialUtils;
+import net.kyori.adventure.text.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spongepowered.api.Server;
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.command.Command;
 import org.spongepowered.api.command.CommandResult;
-import org.spongepowered.api.command.args.ArgumentParseException;
-import org.spongepowered.api.command.args.GenericArguments;
-import org.spongepowered.api.command.spec.CommandSpec;
+import org.spongepowered.api.command.parameter.Parameter;
 import org.spongepowered.api.config.ConfigDir;
-import org.spongepowered.api.entity.living.player.User;
+import org.spongepowered.api.entity.living.player.server.ServerPlayer;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.game.state.GameInitializationEvent;
-import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
-import org.spongepowered.api.event.game.state.GameStartingServerEvent;
-import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
-import org.spongepowered.api.plugin.Plugin;
-import org.spongepowered.api.plugin.PluginContainer;
-import org.spongepowered.api.scheduler.SpongeExecutorService;
+import org.spongepowered.api.event.lifecycle.*;
 import org.spongepowered.api.scheduler.Task;
-import org.spongepowered.api.text.Text;
+import org.spongepowered.api.util.Ticks;
 import org.spongepowered.api.util.metric.MetricsConfigManager;
+import org.spongepowered.plugin.PluginContainer;
+import org.spongepowered.plugin.builtin.jvm.Plugin;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URLClassLoader;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
-@Plugin(id = "miraimc",
-        name = "MiraiMC",
-        description = "MiraiBot for Minecraft server",
-        version = "1.9-pre1",
-        url = "https://github.com/DreamVoid/MiraiMC",
-        authors = {"DreamVoid"}
-)
+@Plugin(value = "miraimc")
 public class SpongePlugin implements Platform {
     private final LifeCycle lifeCycle;
     private PluginConfig platformConfig;
     @SuppressWarnings("SpongeLogging")
     private java.util.logging.Logger SpongeLogger;
     private final LibraryLoader loader;
+    private final Metrics.Factory metricsFactory;
 
-    public SpongePlugin(){
+    @Inject
+    public SpongePlugin(Metrics.Factory factory){
         lifeCycle = new LifeCycle(this);
         lifeCycle.startUp(new SpongeLogger("MiraiMC", LoggerFactory.getLogger("MiraiMC")));
         loader = new LibraryLoader((URLClassLoader) getClass().getClassLoader());
+
+        metricsFactory = factory;
     }
 
     @Inject
@@ -79,10 +73,10 @@ public class SpongePlugin implements Platform {
     private MiraiAutoLogin MiraiAutoLogin;
 
     /**
-     * 触发 GamePreInitializationEvent 时，插件准备进行初始化，这时默认的 Logger 已经准备好被调用，同时你也可以开始引用配置文件中的内容。
+     * StartingEngineEvent 将在指定的 Engine 启动时触发。此时该引擎的任何内容都尚未初始化，世界将不存在，并且引擎范围的注册表此时尚未准备好。
      */
     @Listener
-    public void onLoad(GamePreInitializationEvent e) {
+    public void onLoad(StartingEngineEvent<Server> e) {
         SpongeLogger = new SpongeLogger("MiraiMC", this.getLogger());
 
         try {
@@ -97,25 +91,25 @@ public class SpongePlugin implements Platform {
     }
 
     /**
-     * 触发 GameInitializationEvent 时，插件应该完成他所需功能的所有应该完成的准备工作，你应该在这个事件发生时注册监听事件。
+     * StartedEngineEvent 将在指定的 Engine 完成初始化时触发。具体来说，这意味着注册表已被填充，对于服务器引擎来说，世界已被创建。
      */
     @Listener
-    public void onEnable(GameInitializationEvent e) {
+    public void onEnable(StartedEngineEvent<Server> e) {
         try {
             lifeCycle.postLoad();
 
             // 监听事件
             if (PluginConfig.General.LogEvents) {
                 getLogger().info("Registering events.");
-                Sponge.getEventManager().registerListeners(this, new Events());
+                Sponge.eventManager().registerListeners(this.pluginContainer, new Events());
             }
 
             // bStats统计
             if (PluginConfig.General.AllowBStats) {
-                if (this.metricsConfigManager.getCollectionState(this.pluginContainer).asBoolean()) {
+                if (this.metricsConfigManager.collectionState(this.pluginContainer).asBoolean()) {
                     getLogger().info("Initializing bStats metrics.");
                     int pluginId = 12847;
-                    new Metrics(this.pluginContainer, getLogger(), getDataFolder().toPath(), pluginId);
+                    metricsFactory.make(pluginId);
                 } else {
                     getLogger().warn("你在配置文件中启用了bStats，但是MetricsConfigManager告知MiraiMC不允许收集信息，因此bStats已关闭");
                     getLogger().warn("要启用bStats，请执行命令 /sponge metrics miraimc enable");
@@ -126,12 +120,7 @@ public class SpongePlugin implements Platform {
             // HTTP API
             if (PluginConfig.General.EnableHttpApi) {
                 getLogger().info("Initializing HttpAPI async task.");
-                Sponge.getScheduler().createTaskBuilder()
-                        .async()
-                        .execute(new MiraiHttpAPIResolver(this))
-                        .intervalTicks(PluginConfig.HttpApi.MessageFetch.Interval)
-                        .name("MiraiMC-HttpApi")
-                        .submit(this);
+                runTaskTimerAsync(new MiraiHttpAPIResolver(this), PluginConfig.HttpApi.MessageFetch.Interval);
             }
         } catch (Exception ex){
             Utils.resolveException(ex, SpongeLogger, "加载 MiraiMC 阶段 2 时出现异常！");
@@ -142,60 +131,58 @@ public class SpongePlugin implements Platform {
      * 触发 GameStartingServerEvent 时，服务器初始化和世界载入都已经完成，你应该在这时注册插件命令。
      */
     @Listener
-    public void onServerLoaded(GameStartingServerEvent e) {
+    public void onRegisterCommand(RegisterCommandEvent<Command.Parameterized> e) {
         getLogger().info("Registering commands.");
 
-        CommandSpec mirai = CommandSpec.builder()
-                .description(Text.of("MiraiMC Bot Command."))
-                .permission("miraimc.command.mirai")
-                .executor((src, arg) -> {
-                    if(arg.<String>getOne("args").isPresent()){
-                        String argo = arg.<String>getOne("args").get();
-                        String[] args = argo.split("\\s+");
-                        new MiraiCommand().onCommand(SpecialUtils.getSender(src), args);
-                        return CommandResult.builder().successCount(1).build();
-                    } else throw new ArgumentParseException(Text.of("isPresent() returned false!"),"MiraiMC",0);
-                })
-                .arguments(GenericArguments.remainingJoinedStrings((Text.of("args"))))
-                .build();
-        CommandSpec miraimc = CommandSpec.builder()
-                .description(Text.of("MiraiMC Plugin Command."))
-                .permission("miraimc.command.miraimc")
-                .executor((src, arg) -> {
-                    if(arg.<String>getOne("args").isPresent()){
-                        String argo = arg.<String>getOne("args").get();
-                        String[] args = argo.split("\\s+");
-                        new MiraiMcCommand().onCommand(SpecialUtils.getSender(src), args);
-                        return CommandResult.builder().successCount(1).build();
-                    } else throw new ArgumentParseException(Text.of("isPresent() returned false!"),"MiraiMC",0);
-                })
-                .arguments(GenericArguments.remainingJoinedStrings((Text.of("args"))))
-                .build();
-        CommandSpec miraiverify = CommandSpec.builder()
-                .description(Text.of("MiraiMC LoginVerify Command."))
-                .permission("miraimc.command.miraiverify")
-                .executor((src, arg) -> {
-                    if(arg.<String>getOne("args").isPresent()){
-                        String argo = arg.<String>getOne("args").get();
-                        String[] args = argo.split("\\s+");
-                        new MiraiVerifyCommand().onCommand(SpecialUtils.getSender(src), args);
-                        return CommandResult.builder().successCount(1).build();
-                    } else throw new ArgumentParseException(Text.of("isPresent() returned false!"),"MiraiMC",0);
-                })
-                .arguments(GenericArguments.remainingJoinedStrings((Text.of("args"))))
-                .build();
+        final Parameter.Key<String> argsKey = Parameter.key("args", String.class);
 
-        Sponge.getCommandManager().register(this, mirai, "mirai");
-        Sponge.getCommandManager().register(this, miraimc, "miraimc");
-        Sponge.getCommandManager().register(this, miraiverify, "miraiverify");
+        e.register(this.pluginContainer, Command.builder()
+                .shortDescription(Component.text("MiraiMC Bot Command."))
+                .permission("miraimc.command.mirai")
+                .executor(context1 -> {
+                    String[] args1 = context1.requireOne(argsKey).split(" ");
+                    new MiraiCommand().onCommand(SpecialUtils.getSender(context1), args1);
+                    return CommandResult.success();
+                })
+                .build(), "mirai");
+        e.register(this.pluginContainer, Command.builder()
+                .shortDescription(Component.text("MiraiMC Plugin Command."))
+                .permission("miraimc.command.miraimc")
+                .executor(context1 -> {
+                    String[] args1 = context1.requireOne(argsKey).split(" ");
+                    new MiraiMcCommand().onCommand(SpecialUtils.getSender(context1), args1);
+                    return CommandResult.success();
+                })
+                .build(), "miraimc");
+        e.register(this.pluginContainer, Command.builder()
+                .shortDescription(Component.text("MiraiMC LoginVerify Command."))
+                .permission("miraimc.command.miraiverify")
+                .executor(context -> {
+                    String[] args = context.requireOne(argsKey).split(" ");
+                    new MiraiMcCommand().onCommand(SpecialUtils.getSender(context), args);
+                    return CommandResult.success();
+                })
+                .build(), "miraiverify");
     }
 
     /**
-     * 触发 GameStoppingServerEvent 时，服务器会进入最后一个 Tick，紧接着就会开始保存世界。
+     * 当引擎被告知关闭并且即将关闭它负责的所有内容时，StoppingEngineEvent 将触发。如果游戏异常终止，可能不会触发。
      */
     @Listener
-    public void onServerStopping(GameStoppingServerEvent event){
+    public void onServerStopping(StoppingEngineEvent<Server> event){
         lifeCycle.unload();
+    }
+
+    /**
+     * RefreshGameEvent 可以响应于用户请求刷新所有配置而被激发。插件应该侦听此事件并重新加载其配置作为响应。
+     */
+    @Listener
+    public void onRefresh(RefreshGameEvent event){
+        try {
+            platformConfig.loadConfig();
+        } catch (IOException e) {
+            Utils.resolveException(e, SpongeLogger, "重新加载配置时出现异常！");
+        }
     }
 
     public Logger getLogger() {
@@ -212,59 +199,60 @@ public class SpongePlugin implements Platform {
 
     @Override
     public String getPlayerName(UUID uuid) {
-        return Sponge.getServer().getPlayer(uuid).map(User::getName).orElse(null);
+        return Sponge.server().player(uuid).map(ServerPlayer::name).orElse(null);
     }
 
     @Override
     public UUID getPlayerUUID(String name) {
-        return Sponge.getServer().getPlayer(name).map(User::getUniqueId).orElse(null);
+        return Sponge.server().player(name).map(ServerPlayer::uniqueId).orElse(null);
     }
 
     @Override
     public void runTaskAsync(Runnable task) {
-        try(SpongeExecutorService service = Sponge.getScheduler().createAsyncExecutor(this)){
-            service.execute(task);
-        }
+        Sponge.asyncScheduler().submit(Task.builder()
+                .plugin(this.pluginContainer)
+                .execute(task)
+                .build());
     }
 
     @Override
     public void runTaskLaterAsync(Runnable task, long delay) {
-        try(SpongeExecutorService service = Sponge.getScheduler().createAsyncExecutor(this)){
-            service.schedule(task, delay * 50, TimeUnit.MILLISECONDS);
-        }
+        Sponge.asyncScheduler().submit(Task.builder()
+                .plugin(this.pluginContainer)
+                .delay(Ticks.of(delay))
+                .execute(task)
+                .build());
     }
 
     private final HashMap<Integer, Task> tasks = new HashMap<>();
 
     @Override
     public int runTaskTimerAsync(Runnable task, long period) {
-        Task task1 = Sponge.getScheduler().createTaskBuilder().async().execute(task).intervalTicks(period).submit(this);
-        int taskId; // 谁让sponge的任务id是uuid呢
-        do {
-            taskId = new Random().nextInt();
-        } while(tasks.containsKey(taskId));
-        tasks.put(taskId, task1);
-        return taskId;
+        return Sponge.asyncScheduler().submit(Task.builder()
+                .plugin(this.pluginContainer)
+                .interval(Ticks.of(period))
+                .execute(task)
+                .build()).hashCode();
     }
 
     @Override
     public void cancelTask(int taskId) {
-        tasks.get(taskId).cancel();
+        tasks.get(taskId);
     }
 
     @Override
     public String getPluginName() {
-        return getPluginContainer().getName();
+        return "MiraiMC";
     }
 
     @Override
     public String getPluginVersion() {
-        return getPluginContainer().getVersion().orElse("reserved");
+        return getPluginContainer().metadata().version().getQualifier();
     }
 
     @Override
     public List<String> getAuthors() {
-        return getPluginContainer().getAuthors();
+        return Collections.singletonList("DreamVoid");
     }
 
     @Override

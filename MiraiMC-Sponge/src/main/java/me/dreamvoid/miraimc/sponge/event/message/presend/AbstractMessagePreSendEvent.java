@@ -4,7 +4,7 @@ import net.mamoe.mirai.event.events.MessagePreSendEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.event.Cancellable;
-import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
@@ -113,7 +113,7 @@ abstract class AbstractMessagePreSendEvent extends AbstractEvent implements Canc
 	}
 
 	@Override
-	public @NotNull Cause getCause() {
+	public @NotNull Cause cause() {
 		return cause;
 	}
 }

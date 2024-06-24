@@ -2,7 +2,7 @@ package me.dreamvoid.miraimc.sponge.event.group;
 
 import me.dreamvoid.miraimc.sponge.event.bot.AbstractBotEvent;
 import net.mamoe.mirai.event.events.SignEvent;
-import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.Cause;
 
 /**
  * (Sponge) 群 - 打卡事件

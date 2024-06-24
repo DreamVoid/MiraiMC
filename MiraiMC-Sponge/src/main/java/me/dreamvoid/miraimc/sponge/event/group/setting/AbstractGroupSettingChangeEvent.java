@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.sponge.event.group.setting;
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
 import net.mamoe.mirai.event.events.GroupSettingChangeEvent;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
@@ -60,7 +60,7 @@ abstract class AbstractGroupSettingChangeEvent extends AbstractEvent {
 	}
 
 	@Override
-	public @NotNull Cause getCause() {
+	public @NotNull Cause cause() {
 		return cause;
 	}
 }

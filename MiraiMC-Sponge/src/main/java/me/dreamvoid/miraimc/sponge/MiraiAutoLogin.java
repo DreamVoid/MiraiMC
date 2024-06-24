@@ -5,7 +5,6 @@ import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.sponge.utils.AutoLoginObject;
 import net.mamoe.mirai.utils.BotConfiguration;
-import org.spongepowered.api.scheduler.Task;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.CustomClassLoaderConstructor;
@@ -103,7 +102,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
                 logger.warning("登录机器人时出现异常，原因: " + e);
             }
         };
-        Task.builder().async().name("MiraiMC Autologin Task").execute(thread).submit(plugin);
+        plugin.runTaskAsync(thread);
     }
 
     @Override

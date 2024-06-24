@@ -7,7 +7,7 @@ import me.dreamvoid.miraimc.httpapi.exception.AbnormalStatusException;
 import me.dreamvoid.miraimc.httpapi.response.FetchMessage;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
-import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.Cause;
 
 import java.io.IOException;
 

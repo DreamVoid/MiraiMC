@@ -3,7 +3,7 @@ package me.dreamvoid.miraimc.sponge.event.bot;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import net.mamoe.mirai.event.events.BotEvent;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
@@ -60,7 +60,7 @@ public abstract class AbstractBotEvent extends AbstractEvent {
 	}
 
 	@Override
-	public @NotNull Cause getCause() {
+	public @NotNull Cause cause() {
 		return cause;
 	}
 }

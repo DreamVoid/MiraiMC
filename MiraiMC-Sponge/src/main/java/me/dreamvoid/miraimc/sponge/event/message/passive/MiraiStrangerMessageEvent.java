@@ -1,7 +1,7 @@
 package me.dreamvoid.miraimc.sponge.event.message.passive;
 
 import me.dreamvoid.miraimc.httpapi.response.FetchMessage;
-import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.Cause;
 import net.mamoe.mirai.event.events.StrangerMessageEvent;
 
 /**

@@ -1,7 +1,7 @@
 package me.dreamvoid.miraimc.sponge.event.bot;
 
 import net.mamoe.mirai.event.events.BotAvatarChangedEvent;
-import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.Cause;
 
 /**
  * (Sponge) Bot - Bot 头像改变

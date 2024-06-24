@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.sponge.event.bot;
 
-import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.Cause;
 import net.mamoe.mirai.event.events.BotOfflineEvent;
 
 /**

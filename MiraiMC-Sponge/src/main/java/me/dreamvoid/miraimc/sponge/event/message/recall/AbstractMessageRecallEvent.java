@@ -2,7 +2,7 @@ package me.dreamvoid.miraimc.sponge.event.message.recall;
 
 import net.mamoe.mirai.event.events.MessageRecallEvent;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.Cause;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
 /**
@@ -60,7 +60,7 @@ abstract class AbstractMessageRecallEvent extends AbstractEvent {
 	}
 
 	@Override
-	public @NotNull Cause getCause() {
+	public @NotNull Cause cause() {
 		return cause;
 	}
 }
