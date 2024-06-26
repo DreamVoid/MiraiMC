@@ -1,6 +1,6 @@
-# CSDN/GitCode 你妈死了，请大家认准唯一发布地址 https://github.com/DreamVoid/MiraiMC
-# CSDN/GitCode 你妈死了，请大家认准唯一发布地址 https://github.com/DreamVoid/MiraiMC
-# CSDN/GitCode 你妈死了，请大家认准唯一发布地址 https://github.com/DreamVoid/MiraiMC
+# CSDN/GitCode 你妈死了，请大家认准唯一发布地址 https[://]github[.]com[/]DreamVoid[/]MiraiMC
+# CSDN/GitCode 你妈死了，请大家认准唯一发布地址 https[://]github[.]com[/]DreamVoid[/]MiraiMC
+# CSDN/GitCode 你妈死了，请大家认准唯一发布地址 https[://]github[.]com[/]DreamVoid[/]MiraiMC
 
 <div align="center">
     <h1> MiraiMC </h1>
