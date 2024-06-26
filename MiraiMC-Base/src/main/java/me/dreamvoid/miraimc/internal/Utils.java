@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -86,6 +87,10 @@ public final class Utils {
 
     public static void setClassLoader(ClassLoader classLoader) {
         Utils.classLoader = classLoader;
+        for(URL u : ((URLClassLoader) classLoader).getURLs()){
+            logger.info(u.getPath());
+        }
+        logger.info(classLoader.getParent().getClass().getPackage().getName());
     }
     
     public static ClassLoader getClassLoader(){

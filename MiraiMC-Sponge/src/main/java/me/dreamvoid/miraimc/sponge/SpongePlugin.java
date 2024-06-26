@@ -13,8 +13,7 @@ import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import me.dreamvoid.miraimc.sponge.utils.Metrics;
 import me.dreamvoid.miraimc.sponge.utils.SpecialUtils;
 import net.kyori.adventure.text.Component;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
 import org.spongepowered.api.Server;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.Command;
@@ -32,7 +31,10 @@ import org.spongepowered.plugin.builtin.jvm.Plugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -40,35 +42,46 @@ import java.util.UUID;
 
 @Plugin(value = "miraimc")
 public class SpongePlugin implements Platform {
+    // MiraiMC 主代码
     private final LifeCycle lifeCycle;
     private PluginConfig platformConfig;
     @SuppressWarnings("SpongeLogging")
-    private java.util.logging.Logger SpongeLogger;
-    private final LibraryLoader loader;
-    private final Metrics.Factory metricsFactory;
+    private final java.util.logging.Logger SpongeLogger;
+    private LibraryLoader loader;
 
     @Inject
-    public SpongePlugin(Metrics.Factory factory){
-        lifeCycle = new LifeCycle(this);
-        lifeCycle.startUp(new SpongeLogger("MiraiMC", LoggerFactory.getLogger("MiraiMC")));
-        loader = new LibraryLoader((URLClassLoader) getClass().getClassLoader());
+    public SpongePlugin(@ConfigDir(sharedRoot = false) Path dataFolder, final PluginContainer container, final org.apache.logging.log4j.Logger logger, final Metrics.Factory factory, final MetricsConfigManager metricsConfigManager){
+        this.pluginContainer = container;
+        this.logger = logger;
+        this.dataFolder = dataFolder.toFile();
+        this.metricsFactory = factory;
+        this.metricsConfigManager = metricsConfigManager;
 
-        metricsFactory = factory;
+        SpongeLogger = new SpongeLogger("MiraiMC", logger);
+
+        lifeCycle = new LifeCycle(this);
+        lifeCycle.startUp(SpongeLogger);
+
+        if(getClass().getClassLoader() instanceof URLClassLoader){
+            loader = new LibraryLoader((URLClassLoader) getClass().getClassLoader());
+        } else {
+            logger.warn("Plugin's ClassLoader not an instance of URLClassLoader, some functions will broken!");
+            try{
+                loader = new LibraryLoader(new URLClassLoader(new URL[]{dataFolder.resolve("libraries").toUri().toURL(), dataFolder.resolve("MiraiBot").resolve("libs").toUri().toURL()}));
+            } catch (MalformedURLException e) {
+                Utils.resolveException(e, SpongeLogger, "");
+            }
+        }
     }
 
-    @Inject
-    private Logger logger;
+    // Sponge 内部
+    private final PluginContainer pluginContainer;
+    private final Logger logger;
+    private final Metrics.Factory metricsFactory;
+    private final File dataFolder;
+    private final MetricsConfigManager metricsConfigManager;
 
-    @Inject
-    @ConfigDir(sharedRoot = false)
-    private File dataFolder;
-
-    @Inject
-    private PluginContainer pluginContainer;
-
-    @Inject
-    private MetricsConfigManager metricsConfigManager;
-
+    // Sponge 专有
     private MiraiEvent MiraiEvent;
     private MiraiAutoLogin MiraiAutoLogin;
 
@@ -77,8 +90,6 @@ public class SpongePlugin implements Platform {
      */
     @Listener
     public void onLoad(StartingEngineEvent<Server> e) {
-        SpongeLogger = new SpongeLogger("MiraiMC", this.getLogger());
-
         try {
             platformConfig = new SpongeConfig(this);
             lifeCycle.preLoad();
@@ -247,7 +258,7 @@ public class SpongePlugin implements Platform {
 
     @Override
     public String getPluginVersion() {
-        return getPluginContainer().metadata().version().getQualifier();
+        return getPluginContainer().metadata().version().toString();
     }
 
     @Override

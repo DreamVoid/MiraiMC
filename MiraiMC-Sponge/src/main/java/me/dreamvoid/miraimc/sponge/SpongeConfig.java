@@ -91,8 +91,12 @@ public class SpongeConfig extends PluginConfig {
                 }
             } else {
                 Object o = maps.get(args[i]);
-                if(o instanceof Long){
+                if(o instanceof Long) {
                     return (long) o;
+                } else if(o instanceof Integer) {
+                    return Long.parseLong(String.valueOf(o));
+                } else if(o instanceof String){
+                    return Long.parseLong((String) o);
                 } else {
                     throw new IllegalStateException(path + " is not a long value");
                 }

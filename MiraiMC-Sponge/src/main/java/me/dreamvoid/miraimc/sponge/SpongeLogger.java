@@ -7,7 +7,7 @@ import java.util.logging.*;
 
 @SuppressWarnings("deprecation")
 public class SpongeLogger extends Logger {
-    private final org.slf4j.Logger logger;
+    private final org.apache.logging.log4j.Logger logger;
     /**
      * Protected method to construct a logger for a named subsystem.
      * <p>
@@ -22,7 +22,7 @@ public class SpongeLogger extends Logger {
      * @throws MissingResourceException if the resourceBundleName is non-null and
      *                                  no corresponding resource can be found.
      */
-    protected SpongeLogger(String name, org.slf4j.Logger logger) {
+    protected SpongeLogger(String name, org.apache.logging.log4j.Logger logger) {
         super(name, null);
         this.logger = logger;
     }
