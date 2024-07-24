@@ -1,7 +1,3 @@
-# CSDN/GitCode 你妈死了，请大家认准唯一发布地址 https[://]github[.]com[/]DreamVoid[/]MiraiMC
-# CSDN/GitCode 你妈死了，请大家认准唯一发布地址 https[://]github[.]com[/]DreamVoid[/]MiraiMC
-# CSDN/GitCode 你妈死了，请大家认准唯一发布地址 https[://]github[.]com[/]DreamVoid[/]MiraiMC
-
 <div align="center">
     <h1> MiraiMC </h1>
 
@@ -124,6 +120,10 @@ implementation 'io.github.dreamvoid:MiraiMC-Integration:1.8.3'
 * [brettwooldridge/HikariCP](https://github.com/brettwooldridge/HikariCP)：高效的 SQL 连接池，为 MiraiMC 提供数据库连接方案。
 * [LT_Name](https://github.com/lt-name)：为 MiraiMC 优化了大量 Nukkit 代码，也为 MiraiMC 和我本人提供了很多帮助。
 * 你。
+
+## 风险提示
+
+MiraiMC 的源码仅托管于 Git‎Hub (https[://]github[.]com/DreamVoid/MiraiMC)，任何其他平台的源代码如 GitCode 等平台并非本人发布或控制，谨防恶意后门。
 
 ## 下一步的目标
 - [X] 初步实现 CoreAPI 的基础功能
