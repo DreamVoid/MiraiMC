@@ -123,7 +123,9 @@ implementation 'io.github.dreamvoid:MiraiMC-Integration:1.8.3'
 
 ## 风险提示
 
-MiraiMC 的源码仅托管于 Git‎Hub (https[://]github[.]com/DreamVoid/MiraiMC)，任何其他平台的源代码如 GitCode 等平台并非本人发布或控制，谨防恶意后门。
+MiraiMC 的源码仅托管于 Git‎Hub (https‎://‎github‎.‎com/DreamVoid/MiraiMC)，任何其他平台的源代码如 GitCode 等平台并非本人发布或控制，**谨防恶意后门**。
+
+作者不对上文列出的下载地址以外的插件来源负责。
 
 ## 下一步的目标
 - [X] 初步实现 CoreAPI 的基础功能
