@@ -23,8 +23,8 @@ public class MiraiVerifyCommand implements ICommandExecutor {
                 }
                 case "captcha": {
                     if (args.length >= 3) {
-                        sender.sendMessage("&a已将验证码提交到服务器");
                         MiraiLoginSolver.solve(Long.parseLong(args[1]), args[2]);
+                        sender.sendMessage("&a已将验证码提交到服务器");
                     } else sender.sendMessage("&c无效的参数！用法：/miraiverify captcha <账号> <验证码>");
                     break;
                 }
