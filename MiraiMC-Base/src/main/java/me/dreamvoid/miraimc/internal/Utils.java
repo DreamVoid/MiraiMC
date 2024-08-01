@@ -77,6 +77,10 @@ public final class Utils {
     private static Logger logger;
     private static ClassLoader classLoader;
 
+    public static boolean isDebugMode(){
+        return Boolean.getBoolean("MiraiMC.debug");
+    }
+
     public static void setLogger(Logger logger){
         Utils.logger = logger;
     }
@@ -87,10 +91,16 @@ public final class Utils {
 
     public static void setClassLoader(ClassLoader classLoader) {
         Utils.classLoader = classLoader;
-        for(URL u : ((URLClassLoader) classLoader).getURLs()){
-            logger.info(u.getPath());
+        if(isDebugMode()){
+            logger.info("ClassLoader type: " + classLoader.getParent().getClass().getPackage().getName());
+            logger.info("Is an instance of URLClassLoader: " + (classLoader instanceof URLClassLoader));
+            if (classLoader instanceof URLClassLoader) {
+                logger.info("Paths: ");
+                for(URL u : ((URLClassLoader) classLoader).getURLs()){
+                    logger.info("- " + u.getPath());
+                }
+            }
         }
-        logger.info(classLoader.getParent().getClass().getPackage().getName());
     }
     
     public static ClassLoader getClassLoader(){
