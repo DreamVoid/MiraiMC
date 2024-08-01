@@ -45,7 +45,7 @@ public final class Utils {
     private static boolean findProcess(String processName) {
         BufferedReader bufferedReader = null;
         try {
-            Process proc = Runtime.getRuntime().exec("tasklist /FI \"IMAGENAME eq " + processName + "\"");
+            Process proc = Runtime.getRuntime().exec(new String[]{"tasklist", "/FI", "\"IMAGENAME", "eq", processName, "\""});
             bufferedReader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
