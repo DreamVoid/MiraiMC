@@ -69,12 +69,6 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
                 int pluginId = 11534;
                 new Metrics(this, pluginId);
             }
-
-            // HTTP API
-            if(PluginConfig.General.EnableHttpApi){
-                getLogger().info("Initializing HttpAPI async task.");
-                getServer().getScheduler().runTaskTimerAsynchronously(this, new MiraiHttpAPIResolver(this), 0, PluginConfig.HttpApi.MessageFetch.Interval);
-            }
         } catch (Exception e){
             Utils.resolveException(e, getLogger(), "加载 MiraiMC 阶段 2 时出现异常！");
         }
@@ -244,16 +238,6 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
     }
 
     @Override
-    public int runTaskTimerAsync(Runnable task, long period) {
-        return getServer().getScheduler().runTaskTimerAsynchronously(this, task, 0, period).getTaskId();
-    }
-
-    @Override
-    public void cancelTask(int taskId) {
-        getServer().getScheduler().cancelTask(taskId);
-    }
-
-    @Override
     public String getPluginName() {
         return getDescription().getName();
     }
@@ -286,11 +270,6 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
     @Override
     public IMiraiEvent getMiraiEvent() {
         return MiraiEvent;
-    }
-
-    @Override
-    public PluginConfig getPluginConfig() {
-        return platformConfig;
     }
 
     @Override

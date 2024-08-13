@@ -77,12 +77,6 @@ public class NukkitPlugin extends PluginBase implements Platform {
                 int pluginId = 12744;
                 new MetricsLite(this, pluginId);
             }
-
-            // HTTP API
-            if (PluginConfig.General.EnableHttpApi) {
-                getLogger().info("Initializing HttpAPI async task.");
-                getServer().getScheduler().scheduleRepeatingTask(this, new MiraiHttpAPIResolver(this), Math.toIntExact(PluginConfig.HttpApi.MessageFetch.Interval * 20L), true);
-            }
         } catch (Exception e){
             Utils.resolveException(e, NukkitLogger, "加载 MiraiMC 阶段 2 时出现异常！");
         }
@@ -111,16 +105,6 @@ public class NukkitPlugin extends PluginBase implements Platform {
     @Override
     public void runTaskLaterAsync(Runnable task, long delay) {
         getServer().getScheduler().scheduleDelayedTask(this, task, Integer.parseInt(String.valueOf(delay)),true);
-    }
-
-    @Override
-    public int runTaskTimerAsync(Runnable task, long period) {
-        return getServer().getScheduler().scheduleRepeatingTask(this, task, Integer.parseInt(String.valueOf(period)), true).getTaskId();
-    }
-
-    @Override
-    public void cancelTask(int taskId) {
-        getServer().getScheduler().cancelTask(taskId);
     }
 
     @Override
@@ -156,11 +140,6 @@ public class NukkitPlugin extends PluginBase implements Platform {
     @Override
     public IMiraiEvent getMiraiEvent() {
         return MiraiEvent;
-    }
-
-    @Override
-    public PluginConfig getPluginConfig() {
-        return platformConfig;
     }
 
     @Override

@@ -22,7 +22,6 @@ public abstract class PluginConfig {
         public static String MiraiWorkingDir = "default";
         public static String MiraiCoreVersion = "stable";
         public static String MavenRepoUrl = "https://repo.huaweicloud.com/repository/maven/";
-        public static boolean EnableHttpApi = false;
         public static boolean AutoOpenQRCodeFile = false;
         public static boolean LogEvents = true;
     }

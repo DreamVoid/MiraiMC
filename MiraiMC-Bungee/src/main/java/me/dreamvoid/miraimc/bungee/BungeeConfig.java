@@ -35,7 +35,6 @@ public class BungeeConfig extends PluginConfig {
         General.MiraiWorkingDir = config.getString("general.mirai-working-dir",General.MiraiWorkingDir);
         General.MiraiCoreVersion = config.getString("general.mirai-core-version",General.MiraiCoreVersion);
         General.MavenRepoUrl = config.getString("general.maven-repo-url",General.MavenRepoUrl);
-        General.EnableHttpApi = config.getBoolean("general.enable-http-api",General.EnableHttpApi);
         General.AutoOpenQRCodeFile = config.getBoolean("general.auto-open-qrcode-file",General.AutoOpenQRCodeFile);
         General.LogEvents = config.getBoolean("general.log-events",General.LogEvents);
 

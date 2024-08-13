@@ -3,9 +3,6 @@ package me.dreamvoid.miraimc.commands;
 import me.dreamvoid.miraimc.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.LifeCycle;
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.httpapi.MiraiHttpAPI;
-import me.dreamvoid.miraimc.httpapi.exception.AbnormalStatusException;
-import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
@@ -32,37 +29,18 @@ public class MiraiCommand implements ICommandExecutor {
                 if(sender.hasPermission("miraimc.command.mirai.login")){
                     if(args.length >= 3) {
                         LifeCycle.getPlatform().runTaskAsync(() -> {
-                            BotConfiguration.MiraiProtocol Protocol = null;
-                            boolean useHttpApi = false;
+                            BotConfiguration.MiraiProtocol Protocol;
                             if (args.length == 3) {
                                 Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
-                            } else if (args[3].equalsIgnoreCase("HTTPAPI")) {
-                                useHttpApi = true;
                             } else try {
                                 Protocol = BotConfiguration.MiraiProtocol.valueOf(args[3].toUpperCase());
                             } catch (IllegalArgumentException ignored) {
                                 sender.sendMessage("&e无效的协议类型，请检查输入！");
-                                sender.sendMessage("&e可用的协议类型: " + MiraiBot.getAvailableProtocol(true).toString().replace("[", "").replace("]", ""));
+                                sender.sendMessage("&e可用的协议类型: " + MiraiBot.getAvailableProtocol().toString().replace("[", "").replace("]", ""));
                                 return;
                             }
 
-                            try {
-                                if(!useHttpApi){
-                                    MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
-                                } else {
-                                    if(PluginConfig.General.EnableHttpApi) {
-                                        MiraiHttpAPI httpAPI = new MiraiHttpAPI(PluginConfig.HttpApi.Url);
-                                        httpAPI.bind(httpAPI.verify(args[2]).session, Long.parseLong(args[1]));
-                                        sender.sendMessage("&a" + args[1] + " HTTP-API登录成功！");
-                                    } else sender.sendMessage("&c此服务器没有启用HTTP-API模式，请检查配置文件！");
-                                }
-                            } catch (IOException e) {
-                                Utils.getLogger().warning("登录机器人时出现异常，原因: " + e);
-                                sender.sendMessage("&c登录机器人时出现异常，请检查控制台输出！");
-                            } catch (AbnormalStatusException e) {
-                                Utils.getLogger().warning("使用HTTPAPI登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getMessage());
-                                sender.sendMessage("&c登录机器人时出现异常，状态码："+e.getCode()+"，原因: " + e.getMessage());
-                            }
+                            MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
                         });
                     } else {
                         sender.sendMessage("&c无效的参数！用法: /mirai login <账号> <密码> [协议]");
@@ -75,24 +53,9 @@ public class MiraiCommand implements ICommandExecutor {
                     if(args.length >= 2) {
                         try {
                             MiraiBot.getBot(Long.parseLong(args[1])).close();
-                            sender.sendMessage( "&a已退出指定机器人！");
+                            sender.sendMessage("&a已退出指定机器人！");
                         } catch (NoSuchElementException e){
-                            if(PluginConfig.General.EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
-                                try {
-                                    new MiraiHttpAPI(PluginConfig.HttpApi.Url).release(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])),Long.parseLong(args[1]));
-                                    sender.sendMessage( "&a已退出指定机器人！");
-                                } catch (IOException ex) {
-                                    Utils.getLogger().warning("退出机器人时出现异常，原因: " + ex);
-                                    sender.sendMessage("&c退出机器人时出现异常，请检查控制台输出！");
-                                } catch (AbnormalStatusException ex) {
-                                    if(ex.getCode() == 2){
-                                        sender.sendMessage( "&c指定的机器人不存在！");
-                                    } else {
-                                        Utils.getLogger().warning("退出机器人时出现异常，状态码："+ex.getCode()+"，原因: "+ex.getMessage());
-                                        sender.sendMessage("&c退出机器人时出现异常，状态码："+ex.getCode()+"，原因: "+ex.getMessage());
-                                    }
-                                }
-                            } else sender.sendMessage( "&c指定的机器人不存在！");
+                            sender.sendMessage( "&c指定的机器人不存在！");
                         }
                     } else {
                         sender.sendMessage("&c无效的参数！用法: /mirai logout <账号>");
@@ -113,16 +76,7 @@ public class MiraiCommand implements ICommandExecutor {
                         try {
                             MiraiBot.getBot(Long.parseLong(args[1])).getGroup(Long.parseLong(args[2])).sendMessageMirai(text);
                         } catch (NoSuchElementException e){
-                            if(PluginConfig.General.EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
-                                try {
-                                    MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])), Long.parseLong(args[2]), text);
-                                } catch (IOException ex) {
-                                    Utils.getLogger().warning("发送群消息时出现异常，原因: "+ e);
-                                    sender.sendMessage("&c发送群消息时出现异常，请检查控制台了解更多信息！");
-                                } catch (AbnormalStatusException ex) {
-                                    sender.sendMessage("&c发送群消息时出现异常，状态码: " + ex.getCode()+"，原因: "+ex.getMessage());
-                                }
-                            }
+                            sender.sendMessage("&c指定的机器人不存在！");
                         }
                     } else {
                         sender.sendMessage("&c无效的参数！用法: /mirai sendgroupmessage <账号> <群号> <消息>");
@@ -143,16 +97,7 @@ public class MiraiCommand implements ICommandExecutor {
                         try {
                             MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendMessageMirai(text);
                         } catch (NoSuchElementException e){
-                            if(PluginConfig.General.EnableHttpApi && MiraiHttpAPI.Bots.containsKey(Long.parseLong(args[1]))){
-                                try {
-                                    MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(Long.parseLong(args[1])), Long.parseLong(args[2]), text);
-                                } catch (IOException ex) {
-                                    Utils.getLogger().warning("发送好友消息时出现异常，原因: "+ e);
-                                    sender.sendMessage("&c发送好友消息时出现异常，请检查控制台了解更多信息！");
-                                } catch (AbnormalStatusException ex) {
-                                    sender.sendMessage("&c发送好友消息时出现异常，状态码: " + ex.getCode()+"，原因: "+ex.getMessage());
-                                }
-                            }
+                            sender.sendMessage("&c指定的机器人不存在！");
                         }
                     } else {
                         sender.sendMessage("&c无效的参数！用法: /mirai sendfriendmessage <账号> <好友> <消息>");
@@ -182,11 +127,6 @@ public class MiraiCommand implements ICommandExecutor {
                         } else {
                             sender.sendMessage("&b" + bot.getId() + "&r &7-&r &c离线");
                         }
-                    }
-
-                    // HTTP API
-                    for (long botWithHttp : MiraiHttpAPI.Bots.keySet()){
-                        sender.sendMessage("&b"+botWithHttp + "&r &7-&r &eHTTP API");
                     }
                 } else sender.sendMessage("&c你没有足够的权限执行此命令！");
                 break;

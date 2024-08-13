@@ -127,12 +127,6 @@ public class SpongePlugin implements Platform {
                     getLogger().warn("或者在配置文件中禁用bStats隐藏此警告");
                 }
             }
-
-            // HTTP API
-            if (PluginConfig.General.EnableHttpApi) {
-                getLogger().info("Initializing HttpAPI async task.");
-                runTaskTimerAsync(new MiraiHttpAPIResolver(this), PluginConfig.HttpApi.MessageFetch.Interval);
-            }
         } catch (Exception ex){
             Utils.resolveException(ex, SpongeLogger, "加载 MiraiMC 阶段 2 时出现异常！");
         }
@@ -238,20 +232,6 @@ public class SpongePlugin implements Platform {
     private final HashMap<Integer, Task> tasks = new HashMap<>();
 
     @Override
-    public int runTaskTimerAsync(Runnable task, long period) {
-        return Sponge.asyncScheduler().submit(Task.builder()
-                .plugin(this.pluginContainer)
-                .interval(Ticks.of(period))
-                .execute(task)
-                .build()).hashCode();
-    }
-
-    @Override
-    public void cancelTask(int taskId) {
-        tasks.get(taskId);
-    }
-
-    @Override
     public String getPluginName() {
         return "MiraiMC";
     }
@@ -284,11 +264,6 @@ public class SpongePlugin implements Platform {
     @Override
     public IMiraiEvent getMiraiEvent() {
         return MiraiEvent;
-    }
-
-    @Override
-    public PluginConfig getPluginConfig() {
-        return platformConfig;
     }
 
     @Override

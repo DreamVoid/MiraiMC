@@ -32,7 +32,6 @@ import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -114,12 +113,6 @@ public class VelocityPlugin implements Platform {
                 int pluginId = 13887;
                 metricsFactory.make(this, pluginId);
             }
-
-            // HTTP API
-            if (PluginConfig.General.EnableHttpApi) {
-                getLogger().info("Initializing HttpAPI async task.");
-                getServer().getScheduler().buildTask(this, new MiraiHttpAPIResolver(this)).repeat(PluginConfig.HttpApi.MessageFetch.Interval * 20L, TimeUnit.MILLISECONDS).schedule();
-            }
         } catch (Exception ex){
             Utils.resolveException(ex, VelocityLogger, "加载 MiraiMC 阶段 2 时出现异常！");
         }
@@ -169,22 +162,6 @@ public class VelocityPlugin implements Platform {
     private final HashMap<Integer, ScheduledTask> tasks = new HashMap<>();
 
     @Override
-    public int runTaskTimerAsync(Runnable task, long period) {
-        ScheduledTask task1 = getServer().getScheduler().buildTask(this, task).repeat(period * 50, TimeUnit.MILLISECONDS).schedule();
-        int taskId; // 谁让velocity没有任务id呢
-        do {
-            taskId = new Random().nextInt();
-        } while(tasks.containsKey(taskId));
-        tasks.put(taskId, task1);
-        return taskId;
-    }
-
-    @Override
-    public void cancelTask(int taskId) {
-        tasks.get(taskId).cancel();
-    }
-
-    @Override
     public String getPluginName() {
         return getPluginContainer().getDescription().getName().orElse("MiraiMC");
     }
@@ -217,11 +194,6 @@ public class VelocityPlugin implements Platform {
     @Override
     public IMiraiEvent getMiraiEvent() {
         return MiraiEvent;
-    }
-
-    @Override
-    public PluginConfig getPluginConfig() {
-        return platformConfig;
     }
 
     @Override

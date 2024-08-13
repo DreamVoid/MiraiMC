@@ -103,19 +103,6 @@ public class PaperPlugin extends BukkitPlugin {
     }
 
     @Override
-    public int runTaskTimerAsync(Runnable task, long period) {
-        ScheduledTask task1 = getServer().getAsyncScheduler().runAtFixedRate(this, scheduledTask -> task.run(), 0, period * 50, TimeUnit.MILLISECONDS);
-        tasks.put(task1.hashCode(), task1);
-        return task1.hashCode();
-    }
-
-    @Override
-    public void cancelTask(int taskId) {
-        tasks.get(taskId).cancel();
-        tasks.remove(taskId);
-    }
-
-    @Override
     public ClassLoader getPluginClassLoader() {
         return getClassLoader().getParent();
     }

@@ -88,12 +88,6 @@ public class BungeePlugin extends Plugin implements Platform {
                 int pluginId = 12154;
                 new Metrics(this, pluginId);
             }
-
-            // HTTP API
-            if (PluginConfig.General.EnableHttpApi) {
-                getLogger().info("Initializing HttpAPI async task.");
-                getProxy().getScheduler().schedule(this, new MiraiHttpAPIResolver(this), 0, PluginConfig.HttpApi.MessageFetch.Interval * 20L, TimeUnit.MILLISECONDS);
-            }
         } catch (Exception e){
             Utils.resolveException(e, getLogger(), "加载 MiraiMC 阶段 2 时出现异常！");
         }
@@ -155,11 +149,6 @@ public class BungeePlugin extends Plugin implements Platform {
     }
 
     @Override
-    public PluginConfig getPluginConfig() {
-        return platformConfig;
-    }
-
-    @Override
     public LibraryLoader getLibraryLoader() {
         return loader;
     }
@@ -174,13 +163,4 @@ public class BungeePlugin extends Plugin implements Platform {
         getProxy().getScheduler().schedule(this,task, delay * 50, TimeUnit.MILLISECONDS);
     }
 
-    @Override
-    public int runTaskTimerAsync(Runnable task, long period) {
-        return getProxy().getScheduler().schedule(this, task,0, period * 50,TimeUnit.MILLISECONDS).getId();
-    }
-
-    @Override
-    public void cancelTask(int taskId) {
-        getProxy().getScheduler().cancel(taskId);
-    }
 }

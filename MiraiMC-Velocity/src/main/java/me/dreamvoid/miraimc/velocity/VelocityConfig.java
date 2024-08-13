@@ -151,7 +151,6 @@ public class VelocityConfig extends PluginConfig {
         General.MiraiWorkingDir = getString("general.mirai-working-dir",General.MiraiWorkingDir);
         General.MiraiCoreVersion = getString("general.mirai-core-version",General.MiraiCoreVersion);
         General.MavenRepoUrl = getString("general.maven-repo-url",General.MavenRepoUrl);
-        General.EnableHttpApi = getBoolean("general.enable-http-api",General.EnableHttpApi);
         General.AutoOpenQRCodeFile = getBoolean("general.auto-open-qrcode-file",General.AutoOpenQRCodeFile);
         General.LogEvents = getBoolean("general.log-events",General.LogEvents);
 

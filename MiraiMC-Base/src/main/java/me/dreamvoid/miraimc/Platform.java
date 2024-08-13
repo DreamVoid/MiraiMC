@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc;
 
-import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 
 import java.util.List;
@@ -16,10 +15,6 @@ public interface Platform {
 
     void runTaskLaterAsync(Runnable task, long delay);
 
-    int runTaskTimerAsync(Runnable task, long period);
-
-    void cancelTask(int taskId);
-
     String getPluginName();
 
     String getPluginVersion();
@@ -33,8 +28,6 @@ public interface Platform {
     IMiraiAutoLogin getAutoLogin();
 
     IMiraiEvent getMiraiEvent();
-
-    PluginConfig getPluginConfig();
 
     LibraryLoader getLibraryLoader();
 

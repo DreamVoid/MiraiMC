@@ -81,18 +81,7 @@ public class MiraiBot {
      * @return 协议列表
      */
     public static List<String> getAvailableProtocol(){
-        return getAvailableProtocol(false);
-    }
-
-    /**
-     * 获取可用的 mirai 协议列表用于登录
-     * @param addHttpAPI 是否添加HTTPAPI到协议列表
-     * @return 协议列表
-     */
-    public static List<String> getAvailableProtocol(boolean addHttpAPI){
-        List<String> result = Arrays.stream(BotConfiguration.MiraiProtocol.values()).map(Enum::name).collect(Collectors.toList());
-        if(addHttpAPI) result.add("HTTPAPI");
-        return result;
+        return Arrays.stream(BotConfiguration.MiraiProtocol.values()).map(Enum::name).collect(Collectors.toList());
     }
 
     /**

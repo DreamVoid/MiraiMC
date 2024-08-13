@@ -22,7 +22,6 @@ public class BukkitConfig extends PluginConfig {
         General.MiraiWorkingDir = plugin.getConfig().getString("general.mirai-working-dir",General.MiraiWorkingDir);
         General.MiraiCoreVersion = plugin.getConfig().getString("general.mirai-core-version",General.MiraiCoreVersion);
         General.MavenRepoUrl = plugin.getConfig().getString("general.maven-repo-url",General.MavenRepoUrl);
-        General.EnableHttpApi = plugin.getConfig().getBoolean("general.enable-http-api",General.EnableHttpApi);
         General.AutoOpenQRCodeFile = plugin.getConfig().getBoolean("general.auto-open-qrcode-file",General.AutoOpenQRCodeFile);
         General.LogEvents = plugin.getConfig().getBoolean("general.log-events",General.LogEvents);
 

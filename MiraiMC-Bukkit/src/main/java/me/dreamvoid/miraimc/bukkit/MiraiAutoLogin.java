@@ -39,7 +39,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
         if(!AutoLoginFile.exists()) {
             try {
                 if(!AutoLoginFile.createNewFile()){ throw new RuntimeException("Failed to create folder " + AutoLoginFile.getPath()); }
-                String defaultText = "accounts: "+System.getProperty("line.separator");
+                String defaultText = "accounts: "+ System.lineSeparator();
                 File writeName = AutoLoginFile;
                 try (FileWriter writer = new FileWriter(writeName);
                      BufferedWriter out = new BufferedWriter(writer)
