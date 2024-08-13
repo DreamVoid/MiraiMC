@@ -2,7 +2,7 @@ package me.dreamvoid.miraimc.internal.database;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import me.dreamvoid.miraimc.LifeCycle;
+import me.dreamvoid.miraimc.api.MiraiMC;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
@@ -19,7 +19,7 @@ public class SQLite implements Database {
 
     @Override
     public void initialize() throws ClassNotFoundException {
-        LibraryLoader loader = LifeCycle.getPlatform().getLibraryLoader();
+        LibraryLoader loader = MiraiMC.getPlatform().getLibraryLoader();
         if(!Utils.findClass("com.zaxxer.hikari.HikariDataSource")){
             try {
                 loader.loadLibraryMaven("com.zaxxer", "HikariCP", Utils.getJavaVersion() >= 11 ? "5.1.0" : "4.0.3", PluginConfig.General.MavenRepoUrl, PluginConfig.PluginDir.toPath().resolve("libraries"));

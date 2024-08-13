@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 /**
  * MiraiMC 生命周期
  */
-public class LifeCycle {
+public final class LifeCycle {
     public static LifeCycle INSTANCE;
     private static Platform platform;
     private Logger logger;
@@ -72,7 +72,7 @@ public class LifeCycle {
             if (PluginConfig.General.MiraiCoreVersion.equalsIgnoreCase("latest")) {
                 MiraiLoader.loadMiraiCore();
             } else if (PluginConfig.General.MiraiCoreVersion.equalsIgnoreCase("stable")) {
-                MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion(getPlatform().getPluginVersion()));
+                MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion(platform.getPluginVersion()));
             } else {
                 MiraiLoader.loadMiraiCore(PluginConfig.General.MiraiCoreVersion);
             }

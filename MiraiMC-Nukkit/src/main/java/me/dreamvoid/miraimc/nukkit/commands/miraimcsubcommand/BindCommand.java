@@ -40,7 +40,7 @@ public class BindCommand extends BaseSubCommand {
                             public void onRun() {
                                 UUID uuid = plugin.getServer().getOfflinePlayer(args[2]).getUniqueId();
                                 long qqid = Long.parseLong(args[3]);
-                                MiraiMC.addBind(uuid,qqid);
+                                MiraiMC.Bind.addBind(uuid,qqid);
                                 sender.sendMessage(TextFormat.colorize('&',"&a已添加绑定！"));
                             }
                         });
@@ -53,7 +53,7 @@ public class BindCommand extends BaseSubCommand {
                             @Override
                             public void onRun() {
                                 UUID uuid = plugin.getServer().getOfflinePlayer(args[2]).getUniqueId();
-                                MiraiMC.removeBind(uuid);
+                                MiraiMC.Bind.removeBind(uuid);
                                 sender.sendMessage(TextFormat.colorize('&',"&a已移除相应绑定！"));
                             }
                         });
@@ -66,7 +66,7 @@ public class BindCommand extends BaseSubCommand {
                             @Override
                             public void onRun() {
                                 long qqid = Long.parseLong(args[2]);
-                                MiraiMC.removeBind(qqid);
+                                MiraiMC.Bind.removeBind(qqid);
                                 sender.sendMessage(TextFormat.colorize('&',"&a已移除相应绑定！"));
                             }
                         });
@@ -79,7 +79,7 @@ public class BindCommand extends BaseSubCommand {
                             @Override
                             public void onRun() {
                                 UUID uuid = plugin.getServer().getOfflinePlayer(args[2]).getUniqueId();
-                                long qqId = MiraiMC.getBind(uuid);
+                                long qqId = MiraiMC.Bind.getBind(uuid);
                                 if(qqId!=0){
                                     sender.sendMessage(TextFormat.colorize('&',"&a绑定的QQ号："+qqId));
                                 } else sender.sendMessage(TextFormat.colorize('&',"&c未找到符合条件的记录！"));
@@ -94,7 +94,7 @@ public class BindCommand extends BaseSubCommand {
                             @Override
                             public void onRun() {
                                 long qqid = Long.parseLong(args[2]);
-                                UUID uuid = MiraiMC.getBind(qqid);
+                                UUID uuid = MiraiMC.Bind.getBind(qqid);
                                 if(uuid != null){
                                     OfflinePlayer player = (OfflinePlayer) plugin.getServer().getOfflinePlayer(uuid); // 对于此方法来说，任何玩家都存在. 亲测是真的
                                     sender.sendMessage(TextFormat.colorize('&',"&a绑定的玩家名："+player.getName()));

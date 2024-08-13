@@ -1,8 +1,8 @@
 package me.dreamvoid.miraimc.commands;
 
 import me.dreamvoid.miraimc.IMiraiAutoLogin;
-import me.dreamvoid.miraimc.LifeCycle;
 import me.dreamvoid.miraimc.api.MiraiBot;
+import me.dreamvoid.miraimc.api.MiraiMC;
 import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
@@ -15,12 +15,12 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class MiraiCommand implements ICommandExecutor {
-    private final IMiraiAutoLogin MiraiAutoLogin = LifeCycle.getPlatform().getAutoLogin();
+    private final IMiraiAutoLogin MiraiAutoLogin = MiraiMC.getPlatform().getAutoLogin();
 
     @Override
     public boolean onCommand(ICommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage("This server is running "+ LifeCycle.getPlatform().getPluginName() +" version "+ LifeCycle.getPlatform().getPluginVersion()+" by "+ LifeCycle.getPlatform().getAuthors().toString().replace("[","").replace("]",""));
+            sender.sendMessage("This server is running "+ MiraiMC.getPlatform().getPluginName() +" version "+ MiraiMC.getPlatform().getPluginVersion()+" by "+ MiraiMC.getPlatform().getAuthors().toString().replace("[","").replace("]",""));
             return false;
         }
 
@@ -28,7 +28,7 @@ public class MiraiCommand implements ICommandExecutor {
             case "login": {
                 if(sender.hasPermission("miraimc.command.mirai.login")){
                     if(args.length >= 3) {
-                        LifeCycle.getPlatform().runTaskAsync(() -> {
+                        MiraiMC.getPlatform().runTaskAsync(() -> {
                             BotConfiguration.MiraiProtocol Protocol;
                             if (args.length == 3) {
                                 Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
