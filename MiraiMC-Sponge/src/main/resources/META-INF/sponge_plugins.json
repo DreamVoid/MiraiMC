@@ -5,7 +5,7 @@
   },
   "license": "AGPL v3",
   "global": {
-    "version": "8.0.0",
+    "version": "PROJECT.VERSION",
     "links": {
       "source": "https://github.com/DreamVoid/MiraiMC",
       "issues": "https://github.com/DreamVoid/MiraiMC/issues"

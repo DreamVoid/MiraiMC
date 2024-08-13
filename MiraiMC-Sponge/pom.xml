@@ -99,6 +99,31 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <version>1.5.3</version>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <basedir>${project.build.directory}</basedir>
+                    <includes>
+                        <include>classes/META-INF/sponge_plugins.json</include>
+                    </includes>
+                    <replacements>
+                        <replacement>
+                            <token>PROJECT\.VERSION\"</token>
+                            <value>${project.parent.version}\"</value>
+                        </replacement>
+                    </replacements>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

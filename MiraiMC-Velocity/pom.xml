@@ -20,13 +20,13 @@
                 <version>3.6.0</version>
                 <configuration>
                     <minimizeJar>false</minimizeJar>
-                    <!--
                     <relocations>
                         <relocation>
-                            <pattern>org.apache</pattern>
-                            <shadedPattern>me.dreamvoid.miraimc.libraries.org.apache</shadedPattern>
+                            <pattern>PROJECT.VERSION</pattern>
+                            <shadedPattern>${project.parent.version}</shadedPattern>
                         </relocation>
                     </relocations>
+                    <!--
                     <filters>
                         <filter>
                             <artifact>*:*</artifact>
@@ -64,6 +64,31 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <version>1.5.3</version>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <basedir>${project.build.directory}</basedir>
+                    <includes>
+                        <include>classes/velocity-plugin.json</include>
+                    </includes>
+                    <replacements>
+                        <replacement>
+                            <token>PROJECT\.VERSION\"</token>
+                            <value>${project.parent.version}\"</value>
+                        </replacement>
+                    </replacements>
+                </configuration>
             </plugin>
         </plugins>
     </build>
