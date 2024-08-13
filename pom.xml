@@ -7,7 +7,7 @@
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
     <packaging>pom</packaging>
-    <version>1.9-pre1</version> <!-- 提醒：记得去Sponge和Velocity手动修改 -->
+    <version>1.9-pre1</version>
     <modules>
         <module>MiraiMC-Base</module>
         <module>MiraiMC-Bukkit</module>
@@ -32,7 +32,7 @@
     <developers>
         <developer>
             <name>DreamVoid</name>
-            <email>45266046+DreamVoid@users.noreply.github.com</email>
+            <email>i@dreamvoid.me</email>
             <organization>DreamVoid</organization>
             <organizationUrl>https://github.com/DreamVoid</organizationUrl>
         </developer>
