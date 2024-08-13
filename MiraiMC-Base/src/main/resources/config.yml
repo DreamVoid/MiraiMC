@@ -9,7 +9,6 @@ general:
   mirai-working-dir: default
   mirai-core-version: "stable"
   maven-repo-url: "https://repo.huaweicloud.com/repository/maven/"
-  enable-http-api: false
   auto-open-qrcode-file: false
   log-events: true
 bot:
@@ -22,7 +21,6 @@ bot:
     enable-friend-list-cache: false
     enable-group-member-list-cache: false
     save-interval-millis: 60000
-  register-encrypt-service: false
   update-protocol-version: false
 database:
   type: sqlite
@@ -44,8 +42,3 @@ database:
       maximumPoolSize: 15
       keepaliveTime: 0
       minimumIdle: 5
-http-api:
-  url: "http://localhost:8080"
-  message-fetch:
-    interval: 10
-    count: 10

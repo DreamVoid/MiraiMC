@@ -76,13 +76,4 @@ public abstract class PluginConfig {
             }
         }
     }
-
-    public static class HttpApi{
-        public static String Url = "http://localhost:8080";
-
-        public static class MessageFetch{
-            public static int Interval = 10;
-            public static int Count = 10;
-        }
-    }
 }
