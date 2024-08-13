@@ -297,4 +297,9 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
     public LibraryLoader getLibraryLoader() {
         return loader;
     }
+
+    @Override
+    public String getType() {
+        return "Bukkit";
+    }
 }

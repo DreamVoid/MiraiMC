@@ -167,4 +167,9 @@ public class NukkitPlugin extends PluginBase implements Platform {
     public LibraryLoader getLibraryLoader() {
         return loader;
     }
+
+    @Override
+    public String getType() {
+        return "Nukkit";
+    }
 }

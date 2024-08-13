@@ -295,4 +295,9 @@ public class SpongePlugin implements Platform {
     public LibraryLoader getLibraryLoader() {
         return loader;
     }
+
+    @Override
+    public String getType() {
+        return "Sponge";
+    }
 }

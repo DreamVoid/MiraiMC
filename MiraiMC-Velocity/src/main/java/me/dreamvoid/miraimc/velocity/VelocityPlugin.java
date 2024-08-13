@@ -228,4 +228,9 @@ public class VelocityPlugin implements Platform {
     public LibraryLoader getLibraryLoader() {
         return loader;
     }
+
+    @Override
+    public String getType() {
+        return "Velocity";
+    }
 }

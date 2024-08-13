@@ -165,6 +165,11 @@ public class BungeePlugin extends Plugin implements Platform {
     }
 
     @Override
+    public String getType() {
+        return "BungeeCord";
+    }
+
+    @Override
     public void runTaskLaterAsync(Runnable task, long delay) {
         getProxy().getScheduler().schedule(this,task, delay * 50, TimeUnit.MILLISECONDS);
     }

@@ -124,4 +124,9 @@ public class PaperPlugin extends BukkitPlugin {
     public LibraryLoader getLibraryLoader() {
         return loader;
     }
+
+    @Override
+    public String getType() {
+        return "Paper";
+    }
 }

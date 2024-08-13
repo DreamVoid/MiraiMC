@@ -37,4 +37,6 @@ public interface Platform {
     PluginConfig getPluginConfig();
 
     LibraryLoader getLibraryLoader();
+
+    String getType();
 }
