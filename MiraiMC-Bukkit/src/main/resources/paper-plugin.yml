@@ -64,3 +64,4 @@ permissions:
           miraimc.command.miraiverify:
             description: Allow use /miraiverify
             default: op
+folia-supported: true
