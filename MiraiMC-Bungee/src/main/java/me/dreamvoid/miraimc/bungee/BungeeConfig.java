@@ -62,9 +62,5 @@ public class BungeeConfig extends PluginConfig {
         Database.Settings.Pool.MaximumPoolSize = config.getInt("database.pool.maximumPoolSize", Database.Settings.Pool.MaximumPoolSize);
         Database.Settings.Pool.KeepaliveTime = config.getInt("database.pool.keepaliveTime", Database.Settings.Pool.KeepaliveTime);
         Database.Settings.Pool.MinimumIdle = config.getInt("database.pool.minimumIdle", Database.Settings.Pool.MinimumIdle);
-
-        HttpApi.Url = config.getString("http-api.url", HttpApi.Url);
-        HttpApi.MessageFetch.Interval = config.getInt("http-api.message-fetch.interval", HttpApi.MessageFetch.Interval);
-        HttpApi.MessageFetch.Count = config.getInt("http-api.message-fetch.count", HttpApi.MessageFetch.Count);
     }
 }

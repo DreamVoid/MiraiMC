@@ -36,7 +36,7 @@ public class MiraiGroupMessagePreSendEvent extends AbstractMessagePreSendEvent {
     public String getGroupName(){ return event.getTarget().getName(); }
 
     /**
-     * 返回机器人解除禁言的剩余时间(如果已被禁言)
+     * 返回机器人解除禁言的剩余时间(如果已被禁言)<br>
      * 此方法会同时判断目标群是否开启全员禁言，如果开启，则返回 -1
      * @return 禁言时间(秒) - 全员禁言返回 -1
      */

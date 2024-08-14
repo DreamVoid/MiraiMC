@@ -1,7 +1,5 @@
 package me.dreamvoid.miraimc.bukkit.event.message.passive;
 
-import me.dreamvoid.miraimc.event.EventType;
-import me.dreamvoid.miraimc.httpapi.response.FetchMessage;
 import net.mamoe.mirai.event.events.MessageEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
 import net.mamoe.mirai.message.data.MessageChainBuilder;
@@ -22,54 +20,10 @@ abstract class AbstractMessageEvent extends Event {
 		super(true);
 		this.event = event;
 
-		type = EventType.CORE;
-		BotID = event.getBot().getId();
-
-		SenderID = event.getSender().getId();
-		SenderName = event.getSenderName();
-
-		MessageContent = event.getMessage().contentToString();
-		MessageMiraiCode = event.getMessage().serializeToMiraiCode();
-		Time = event.getTime();
-	}
-
-	public AbstractMessageEvent(long BotID, FetchMessage.Data data) {
-		super(true);
-
-		type = EventType.HTTPAPI;
-		this.BotID = BotID;
-
-		SenderID = data.sender.id;
-		SenderName = data.sender.nickname + data.sender.memberName;
-
-		for(FetchMessage.Data.MessageChain chain : data.messageChain){
-			switch (chain.type){
-				case "Source":
-					Time = chain.time;
-					break;
-				case "Code":
-					MessageMiraiCode = chain.code;
-					break;
-				case "Plain":
-					MessageContent = String.format("%s%s", MessageContent, chain.text);
-					break;
-				default:
-					MessageContent = String.format("%s[%s]", MessageContent, chain.type);
-					break;
-			}
-		}
 	}
 
 	private static final HandlerList handlers = new HandlerList();
-	private MessageEvent event;
-
-	private final EventType type;
-	private final long BotID;
-	private final long SenderID;
-	private final String SenderName;
-	private String MessageContent;
-	private String MessageMiraiCode;
-	private int Time;
+	private final MessageEvent event;
 
 	public @NotNull HandlerList getHandlers() { return handlers; }
 	public static HandlerList getHandlerList() { return handlers; }
@@ -79,7 +33,7 @@ abstract class AbstractMessageEvent extends Event {
 	 * @return 机器人ID
 	 */
 	public long getBotID(){
-		return BotID;
+		return event.getBot().getId();
 	}
 
 	/**
@@ -87,7 +41,7 @@ abstract class AbstractMessageEvent extends Event {
 	 * @return 发送者ID
 	 */
 	public long getSenderID(){
-		return SenderID;
+		return event.getSender().getId();
 	}
 
 	/**
@@ -95,7 +49,7 @@ abstract class AbstractMessageEvent extends Event {
 	 * @return 发送者昵称
 	 */
 	public String getSenderName(){
-		return SenderName;
+		return event.getSenderName();
 	}
 
 	/**
@@ -117,7 +71,7 @@ abstract class AbstractMessageEvent extends Event {
 	 * @return 转换字符串后的消息内容
 	 */
 	public String getMessage(){
-		return MessageContent;
+		return event.getMessage().contentToString();
 	}
 
 	/**
@@ -152,7 +106,7 @@ abstract class AbstractMessageEvent extends Event {
 	 * @return 带Mirai Code的消息内容
 	 */
 	public String getMessageToMiraiCode(){
-		return MessageMiraiCode;
+		return event.getMessage().serializeToMiraiCode();
 	}
 
 	/**
@@ -160,7 +114,7 @@ abstract class AbstractMessageEvent extends Event {
 	 * @return 发送时间
 	 */
 	public int getTime() {
-		return Time;
+		return event.getTime();
 	}
 
 	/**
@@ -274,11 +228,4 @@ abstract class AbstractMessageEvent extends Event {
 		return !Objects.isNull(quoteReply) ? quoteReply.getSource().getOriginalMessage().serializeToMiraiCode() : null;
 	}
 
-	/**
-	 * 获取事件类型（用于判断机器人工作模式）
-	 * @return 事件类型
-	 */
-	public EventType getType() {
-		return type;
-	}
 }

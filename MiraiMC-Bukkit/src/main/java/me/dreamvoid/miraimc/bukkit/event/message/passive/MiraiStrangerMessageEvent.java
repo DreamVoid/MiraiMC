@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.bukkit.event.message.passive;
 
-import me.dreamvoid.miraimc.httpapi.response.FetchMessage;
 import net.mamoe.mirai.event.events.StrangerMessageEvent;
 
 /**
@@ -12,7 +11,4 @@ public class MiraiStrangerMessageEvent extends AbstractMessageEvent {
         super(event);
     }
 
-    public MiraiStrangerMessageEvent(long BotID, FetchMessage.Data data) {
-        super(BotID, data);
-    }
 }

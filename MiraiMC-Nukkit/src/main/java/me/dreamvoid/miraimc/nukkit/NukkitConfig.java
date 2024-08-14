@@ -48,9 +48,5 @@ public class NukkitConfig extends PluginConfig {
         Database.Settings.Pool.MaximumPoolSize = plugin.getConfig().getInt("database.pool.maximumPoolSize", Database.Settings.Pool.MaximumPoolSize);
         Database.Settings.Pool.KeepaliveTime = plugin.getConfig().getInt("database.pool.keepaliveTime", Database.Settings.Pool.KeepaliveTime);
         Database.Settings.Pool.MinimumIdle = plugin.getConfig().getInt("database.pool.minimumIdle", Database.Settings.Pool.MinimumIdle);
-
-        HttpApi.Url = plugin.getConfig().getString("http-api.url", HttpApi.Url);
-        HttpApi.MessageFetch.Interval = plugin.getConfig().getInt("http-api.message-fetch.interval", HttpApi.MessageFetch.Interval);
-        HttpApi.MessageFetch.Count = plugin.getConfig().getInt("http-api.message-fetch.count", HttpApi.MessageFetch.Count);
     }
 }

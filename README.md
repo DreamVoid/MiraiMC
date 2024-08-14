@@ -139,7 +139,7 @@ MiraiMC 的源码仅托管于 Git‎Hub (https‎://‎github‎.‎com/DreamVoi
 - [X] 支持 Sponge
 - [X] 支持 NukkitX
 - [X] 支持 PlaceholderAPI
-- [X] 引入 Mirai-Http-API 模式来连接到 mirai-console
+- [X] ~~引入 Mirai-Http-API 模式来连接到 mirai-console~~
 - [X] 支持 Folia
 - [ ] 像 mirai console 一样加载 mirai console 插件（遥遥无期，欢迎 PR）
 

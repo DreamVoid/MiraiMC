@@ -30,13 +30,12 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
     private MiraiEvent MiraiEvent;
     private MiraiAutoLogin MiraiAutoLogin;
     private final LifeCycle lifeCycle;
-    private final PluginConfig platformConfig;
     private final LibraryLoader loader;
 
     public BukkitPlugin(){
         lifeCycle = new LifeCycle(this);
         lifeCycle.startUp(getLogger());
-        platformConfig = new BukkitConfig(this);
+        new BukkitConfig(this);
         loader = new LibraryLoader((URLClassLoader) this.getClassLoader());
     }
 

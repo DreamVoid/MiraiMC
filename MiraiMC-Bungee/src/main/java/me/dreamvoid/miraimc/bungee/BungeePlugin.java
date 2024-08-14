@@ -28,13 +28,12 @@ public class BungeePlugin extends Plugin implements Platform {
     private MiraiEvent MiraiEvent;
     private MiraiAutoLogin MiraiAutoLogin;
     private final LifeCycle lifeCycle;
-    private final BungeeConfig platformConfig;
     private final LibraryLoader loader;
 
     public BungeePlugin(){
         lifeCycle = new LifeCycle(this);
         lifeCycle.startUp(getLogger());
-        platformConfig = new BungeeConfig(this);
+        new BungeeConfig(this);
         loader = new LibraryLoader((URLClassLoader) this.getClass().getClassLoader());
     }
 

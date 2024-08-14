@@ -178,9 +178,5 @@ public class VelocityConfig extends PluginConfig {
         Database.Settings.Pool.MaximumPoolSize = getInt("database.pool.maximumPoolSize", Database.Settings.Pool.MaximumPoolSize);
         Database.Settings.Pool.KeepaliveTime = getInt("database.pool.keepaliveTime", Database.Settings.Pool.KeepaliveTime);
         Database.Settings.Pool.MinimumIdle = getInt("database.pool.minimumIdle", Database.Settings.Pool.MinimumIdle);
-
-        HttpApi.Url = getString("http-api.url", HttpApi.Url);
-        HttpApi.MessageFetch.Interval = getInt("http-api.message-fetch.interval", HttpApi.MessageFetch.Interval);
-        HttpApi.MessageFetch.Count = getInt("http-api.message-fetch.count", HttpApi.MessageFetch.Count);
     }
 }

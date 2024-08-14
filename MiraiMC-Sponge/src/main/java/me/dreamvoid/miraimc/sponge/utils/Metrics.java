@@ -43,6 +43,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPOutputStream;
 
+@SuppressWarnings("ALL")
 public class Metrics {
 
   /** A factory to create new Metrics classes. */

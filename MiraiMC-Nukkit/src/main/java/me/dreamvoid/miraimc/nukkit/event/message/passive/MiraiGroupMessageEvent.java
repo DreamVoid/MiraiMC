@@ -1,17 +1,11 @@
 package me.dreamvoid.miraimc.nukkit.event.message.passive;
 
 import me.dreamvoid.miraimc.api.bot.MiraiGroup;
-import me.dreamvoid.miraimc.event.EventType;
-import me.dreamvoid.miraimc.httpapi.MiraiHttpAPI;
-import me.dreamvoid.miraimc.httpapi.exception.AbnormalStatusException;
-import me.dreamvoid.miraimc.httpapi.response.FetchMessage;
-import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.contact.ContactList;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
 import net.mamoe.mirai.message.data.MessageSource;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,69 +17,16 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
     public MiraiGroupMessageEvent(GroupMessageEvent event) {
         super(event);
         this.event = event;
-
-        BotID = event.getBot().getId();
-
-        MemberName = event.getSender().getNameCard();
-        Permission = event.getSender().getPermission().getLevel();
-
-        GroupID = event.getGroup().getId();
-        GroupName = event.getGroup().getName();
-        GroupPermission = event.getGroup().getBotPermission().getLevel();
     }
 
-    public MiraiGroupMessageEvent(long BotID, FetchMessage.Data data) {
-        super(BotID, data);
-
-        this.BotID = BotID;
-
-        MemberName = data.sender.memberName;
-        switch(data.sender.permission){
-            case "OWNER":
-                Permission=2;
-                break;
-            case "ADMINISTRATOR":
-                Permission=1;
-                break;
-            case "MEMBER":
-            default:
-                Permission=0;
-                break;
-        }
-
-        GroupID = data.sender.group.id;
-        GroupName = data.sender.group.name;
-        switch(data.sender.group.permission){
-            case "OWNER":
-                GroupPermission=2;
-                break;
-            case "ADMINISTRATOR":
-                GroupPermission=1;
-                break;
-            case "MEMBER":
-            default:
-                GroupPermission=0;
-                break;
-        }
-    }
-
-    private GroupMessageEvent event;
-
-    private final long BotID;
-
-    private final String MemberName;
-    private final int Permission;
-
-    private final long GroupID;
-    private final String GroupName;
-    private final int GroupPermission;
+    private final GroupMessageEvent event;
 
     /**
      * 返回接收到这条信息的群号
      * @return 群号
      */
     public long getGroupID(){
-        return GroupID;
+        return event.getGroup().getId();
     }
 
     /**
@@ -93,7 +34,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
      * @return 群名称
      */
     public String getGroupName(){
-        return GroupName;
+        return event.getGroup().getName();
     }
 
     /**
@@ -101,7 +42,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
      * @return 发送者群名片
      */
     public String getSenderNameCard(){
-        return MemberName;
+        return event.getSender().getNameCard();
     }
 
     /**
@@ -109,11 +50,11 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
      * @return 0 - 普通成员 | 1 - 管理员 | 2 - 群主
      */
     public int getSenderPermission(){
-        return Permission;
+        return event.getSender().getPermission().getLevel();
     }
 
     /**
-     * 返回机器人解除禁言的剩余时间(如果已被禁言)
+     * 返回机器人解除禁言的剩余时间(如果已被禁言)<br>
      * 此方法会同时判断目标群是否开启全员禁言，如果开启，则返回 -1
      * @return 禁言时间(秒) - 全员禁言返回 -1
      */
@@ -140,7 +81,7 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
      * @return 0 - 普通成员 | 1 - 管理员 | 2 - 群主
      */
     public int getBotPermission(){
-        return GroupPermission;
+        return event.getGroup().getBotPermission().getLevel();
     }
 
     /**
@@ -189,40 +130,6 @@ public class MiraiGroupMessageEvent extends AbstractMessageEvent {
      */
     public void recall(long delayTime){
         MessageSource.recallIn(event.getMessage(), delayTime);
-    }
-
-    /**
-     * 向发送来源发送消息（HTTPAPI下支持 Mirai Code）
-     * @param message 消息内容
-     */
-    @Override
-    public void sendMessage(String message) {
-        if(getType() == EventType.CORE){
-            super.sendMessage(message);
-        } else if(getType() == EventType.HTTPAPI){
-            try {
-                MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(BotID), GroupID, message);
-            } catch (IOException | AbnormalStatusException e) {
-                Utils.getLogger().warning("发送消息时出现异常，原因: " + e);
-            }
-        }
-    }
-
-    /**
-     * 向发送来源发送消息（支持 Mirai Code）
-     * @param message 消息内容
-     */
-    @Override
-    public void sendMessageMirai(String message) {
-        if(getType() == EventType.CORE){
-            super.sendMessageMirai(message);
-        } else if(getType() == EventType.HTTPAPI){
-            try {
-                MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(BotID), GroupID, message);
-            } catch (IOException | AbnormalStatusException e) {
-                Utils.getLogger().warning("发送消息时出现异常，原因: " + e);
-            }
-        }
     }
 
     /**
