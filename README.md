@@ -51,6 +51,9 @@ MiraiMC 是一个服务端插件，因此你只需按照安装插件的方式安
 * 查阅 Javadoc：https://jd.miraimc.dreamvoid.me
 
 ### 依赖
+
+以下默认添加全平台的 MiraiMC 依赖。如果你只需要特定平台的 MiraiMC 依赖，请将 `Integration` 更改为对应平台的名称，如 `Bukkit` 和 `Velocity`。
+
 #### Maven 
 ```
 <dependency>
