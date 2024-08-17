@@ -4,7 +4,7 @@ import kotlin.Unit;
 import kotlin.coroutines.Continuation;
 import kotlin.coroutines.CoroutineContext;
 import kotlinx.coroutines.Dispatchers;
-import me.dreamvoid.miraimc.internal.config.PluginConfig;
+import me.dreamvoid.miraimc.api.MiraiMC;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.auth.QRCodeLoginListener;
 import net.mamoe.mirai.network.CustomLoginFailedException;
@@ -48,7 +48,7 @@ public class MiraiLoginSolver extends LoginSolver {
         locks.put(bot, this);
 
         // 建立机器人账号文件夹
-        File ImageDir = new File(PluginConfig.PluginDir, "verify-image");
+        File ImageDir = new File(MiraiMC.getConfig().PluginDir, "verify-image");
         if (!ImageDir.exists() && !ImageDir.mkdirs()) {
             bot.getLogger().warning("无法建立验证码文件夹: " + ImageDir.getPath());
         }
@@ -255,7 +255,7 @@ public class MiraiLoginSolver extends LoginSolver {
             @Override
             public void onFetchQRCode(@NotNull Bot bot, @NotNull byte[] bytes) {
                 // 建立扫码文件夹
-                File ImageDir = new File(PluginConfig.PluginDir,"qrcode-image");
+                File ImageDir = new File(MiraiMC.getConfig().PluginDir,"qrcode-image");
                 if(!ImageDir.exists() &&!ImageDir.mkdirs()) {
                     bot.getLogger().warning("无法建立验证码文件夹: " + ImageDir.getPath());
                 }
@@ -281,7 +281,7 @@ public class MiraiLoginSolver extends LoginSolver {
                 bot.getLogger().warning("如需取消登录，请输入指令 /miraiverify cancel " + bot.getId() + "，5秒内将会取消登录");
                 bot.getLogger().warning("如需帮助，请参阅: https://docs.miraimc.dreamvoid.me/troubleshoot/verify-guide#qrcode");
 
-                if (saveSuccess && PluginConfig.General.AutoOpenQRCodeFile) {
+                if (saveSuccess && MiraiMC.getConfig().General_AutoOpenQRCodeFile) {
                     try {
                         Runtime.getRuntime().exec(new String[]{"explorer", imageFile.getPath()});
                         bot.getLogger().info("已尝试使用系统方式直接打开二维码图片");

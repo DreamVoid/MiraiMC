@@ -1,9 +1,8 @@
 package me.dreamvoid.miraimc.commands;
 
-import me.dreamvoid.miraimc.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.api.MiraiMC;
-import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.BotConfiguration;
 
@@ -196,7 +195,7 @@ public class MiraiCommand implements ICommandExecutor {
             case "uploadimage":{
                 if(sender.hasPermission("miraimc.command.mirai.uploadimage")) {
                     if (args.length >= 3) {
-                        File ImageDir = new File(PluginConfig.PluginDir, "images");
+                        File ImageDir = new File(MiraiMC.getConfig().PluginDir, "images");
                         if(!ImageDir.exists() && !ImageDir.mkdir()) sender.sendMessage("&c图片文件夹创建失败，是否有目录的读写权限？");
                         File image = new File(ImageDir, args[2]);
 
@@ -206,7 +205,7 @@ public class MiraiCommand implements ICommandExecutor {
                         }
 
                         try {
-                            sender.sendMessage( "&a图片上传成功，可使用Mirai Code发送图片：[mirai:image:" + MiraiBot.getBot(Long.parseLong(args[1])).uploadImage(image) + "]");
+                            sender.sendMessage("&a图片上传成功，可使用Mirai Code发送图片：[mirai:image:" + MiraiBot.getBot(Long.parseLong(args[1])).uploadImage(image) + "]");
                         } catch (NoSuchElementException e){
                             sender.sendMessage("&c指定的机器人不存在！");
                             break;

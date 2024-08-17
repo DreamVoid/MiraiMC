@@ -1,16 +1,16 @@
 package me.dreamvoid.miraimc.bungee;
 
-import me.dreamvoid.miraimc.IMiraiAutoLogin;
-import me.dreamvoid.miraimc.IMiraiEvent;
+import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
 import me.dreamvoid.miraimc.LifeCycle;
-import me.dreamvoid.miraimc.Platform;
+import me.dreamvoid.miraimc.interfaces.Platform;
 import me.dreamvoid.miraimc.bungee.utils.Metrics;
 import me.dreamvoid.miraimc.bungee.utils.SpecialUtils;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.config.PluginConfig;
+import me.dreamvoid.miraimc.interfaces.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
@@ -28,12 +28,13 @@ public class BungeePlugin extends Plugin implements Platform {
     private MiraiEvent MiraiEvent;
     private MiraiAutoLogin MiraiAutoLogin;
     private final LifeCycle lifeCycle;
+    private final PluginConfig config;
     private final LibraryLoader loader;
 
     public BungeePlugin(){
         lifeCycle = new LifeCycle(this);
         lifeCycle.startUp(getLogger());
-        new BungeeConfig(this);
+        config = new BungeeConfig(this);
         loader = new LibraryLoader((URLClassLoader) this.getClass().getClassLoader());
     }
 
@@ -76,13 +77,13 @@ public class BungeePlugin extends Plugin implements Platform {
             });
 
             // 监听事件
-            if (PluginConfig.General.LogEvents) {
+            if (config.General_LogEvents) {
                 getLogger().info("Registering events.");
                 getProxy().getPluginManager().registerListener(this, new Events());
             }
 
             // bStats统计
-            if (PluginConfig.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
+            if (config.General_AllowBStats && !getDescription().getVersion().contains("dev")) {
                 getLogger().info("Initializing bStats metrics.");
                 int pluginId = 12154;
                 new Metrics(this, pluginId);
@@ -155,6 +156,11 @@ public class BungeePlugin extends Plugin implements Platform {
     @Override
     public String getType() {
         return "BungeeCord";
+    }
+
+    @Override
+    public PluginConfig getPlatformConfig() {
+        return config;
     }
 
     @Override

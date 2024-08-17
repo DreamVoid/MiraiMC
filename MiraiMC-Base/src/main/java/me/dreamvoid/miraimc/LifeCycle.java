@@ -1,8 +1,8 @@
 package me.dreamvoid.miraimc;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
+import me.dreamvoid.miraimc.interfaces.Platform;
 import me.dreamvoid.miraimc.internal.*;
-import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.internal.database.DatabaseHandler;
 import me.dreamvoid.miraimc.internal.database.MySQL;
 import me.dreamvoid.miraimc.internal.database.SQLite;
@@ -18,12 +18,10 @@ import java.util.logging.Logger;
  * MiraiMC 生命周期
  */
 public final class LifeCycle {
-    public static LifeCycle INSTANCE;
     private static Platform platform;
     private Logger logger;
 
     public LifeCycle(Platform plugin){
-        INSTANCE = this;
         platform = plugin;
     }
 
@@ -59,36 +57,36 @@ public final class LifeCycle {
 
         // 加载配置
         logger.info("Loading config.");
-        PluginConfig.reloadConfig();
-        if(platform.getPluginVersion().contains("dev-") && PluginConfig.General.MiraiCoreVersion.equalsIgnoreCase("stable")) {
-            PluginConfig.General.MiraiCoreVersion = "latest"; // Fix dev version
+        platform.getPlatformConfig().loadConfig();
+        if(platform.getPluginVersion().contains("dev-") && platform.getPlatformConfig().General_MiraiCoreVersion.equalsIgnoreCase("stable")) {
+            platform.getPlatformConfig().General_MiraiCoreVersion = "latest"; // Fix dev version
         }
 
-        logger.info("Mirai working dir: " + PluginConfig.General.MiraiWorkingDir);
+        logger.info("Mirai working dir: " + platform.getPlatformConfig().General_MiraiWorkingDir);
 
         // 加载 mirai 核心
         if(System.getProperty("MiraiMC.do-not-load-mirai-core") == null){
-            logger.info("Selected mirai core version: " + PluginConfig.General.MiraiCoreVersion);
-            if (PluginConfig.General.MiraiCoreVersion.equalsIgnoreCase("latest")) {
+            logger.info("Selected mirai core version: " + platform.getPlatformConfig().General_MiraiCoreVersion);
+            if (platform.getPlatformConfig().General_MiraiCoreVersion.equalsIgnoreCase("latest")) {
                 MiraiLoader.loadMiraiCore();
-            } else if (PluginConfig.General.MiraiCoreVersion.equalsIgnoreCase("stable")) {
+            } else if (platform.getPlatformConfig().General_MiraiCoreVersion.equalsIgnoreCase("stable")) {
                 MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion(platform.getPluginVersion()));
             } else {
-                MiraiLoader.loadMiraiCore(PluginConfig.General.MiraiCoreVersion);
+                MiraiLoader.loadMiraiCore(platform.getPlatformConfig().General_MiraiCoreVersion);
             }
         } else {
             logger.info("MiraiMC will not load mirai core, please ensure you have custom mirai core loaded.");
         }
 
         // 加载来自 cssxsh 的 fix-protocol-version
-        if(PluginConfig.Bot.UpdateProtocolVersion){
+        if(platform.getPlatformConfig().Bot_UpdateProtocolVersion){
             logger.info("Updating mirai protocol version. (Author: cssxsh)");
 
             logger.info("协议版本检查更新...");
             try {
                 FixProtocolVersion.update();
                 for (BotConfiguration.MiraiProtocol protocol : BotConfiguration.MiraiProtocol.values()) {
-                    File file = new File(new File(PluginConfig.PluginDir, "protocol"), protocol.name().toLowerCase() + ".json");
+                    File file = new File(new File(platform.getPlatformConfig().PluginDir, "protocol"), protocol.name().toLowerCase() + ".json");
                     if (file.exists()) {
                         logger.info(protocol + " load from " + file.toPath().toUri());
                         FixProtocolVersion.load(protocol);
@@ -114,7 +112,7 @@ public final class LifeCycle {
 
         // 数据库
         try {
-            switch (PluginConfig.Database.Type.toLowerCase()){
+            switch (platform.getPlatformConfig().Database_Type.toLowerCase()){
                 case "sqlite":
                 default: {
                     logger.info("Initializing SQLite database.");
@@ -142,7 +140,7 @@ public final class LifeCycle {
         platform.getAutoLogin().doStartUpAutoLogin();
 
         // 安全警告
-        if(!(PluginConfig.General.DisableSafeWarningMessage)){
+        if(!(platform.getPlatformConfig().General_DisableSafeWarningMessage)){
             logger.warning("确保您正在使用开源的 MiraiMC 插件，未知来源的插件可能会盗取您的账号！");
             logger.warning("请始终从 GitHub 或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
@@ -160,7 +158,7 @@ public final class LifeCycle {
         }, 40);
 
         // 检查更新
-        if(PluginConfig.General.CheckUpdate && !platform.getPluginVersion().contains("dev")){
+        if(platform.getPlatformConfig().General_CheckUpdate && !platform.getPluginVersion().contains("dev")){
             platform.runTaskAsync(() -> {
                 logger.info("正在检查更新...");
                 try {

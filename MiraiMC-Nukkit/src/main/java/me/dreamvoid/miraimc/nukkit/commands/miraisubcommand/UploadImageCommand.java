@@ -5,7 +5,7 @@ import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.utils.TextFormat;
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.internal.config.PluginConfig;
+import me.dreamvoid.miraimc.api.MiraiMC;
 import me.dreamvoid.miraimc.nukkit.commands.base.BaseSubCommand;
 
 import java.io.File;
@@ -29,7 +29,7 @@ public class UploadImageCommand extends BaseSubCommand {
 	@Override
 	public boolean execute(CommandSender sender, String label, String[] args) {
 		if (args.length >= 3) {
-			File ImageDir = new File(PluginConfig.PluginDir, "images");
+			File ImageDir = new File(MiraiMC.getConfig().PluginDir, "images");
 			if(!ImageDir.exists() && !ImageDir.mkdir()) sender.sendMessage("&c图片文件夹创建失败，是否有目录的读写权限？");
 			File image = new File(ImageDir, args[2]);
 

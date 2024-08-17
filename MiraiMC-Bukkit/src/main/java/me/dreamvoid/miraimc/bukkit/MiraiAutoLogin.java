@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.bukkit;
 
-import me.dreamvoid.miraimc.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.utils.BotConfiguration;

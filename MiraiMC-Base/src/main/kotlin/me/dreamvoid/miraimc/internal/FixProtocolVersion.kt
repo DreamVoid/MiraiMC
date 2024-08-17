@@ -1,7 +1,7 @@
 package me.dreamvoid.miraimc.internal
 
 import kotlinx.serialization.json.*
-import me.dreamvoid.miraimc.internal.config.PluginConfig
+import me.dreamvoid.miraimc.api.MiraiMC
 import net.mamoe.mirai.internal.utils.*
 import net.mamoe.mirai.utils.*
 import java.io.*
@@ -270,14 +270,14 @@ object FixProtocolVersion {
     fun fetch(protocol: BotConfiguration.MiraiProtocol, version: String) {
         val (file, url) = when (protocol) {
             BotConfiguration.MiraiProtocol.ANDROID_PHONE -> {
-                File(File(PluginConfig.PluginDir,"protocol"),"android_phone.json") to
+                File(File(MiraiMC.getConfig().PluginDir,"protocol"),"android_phone.json") to
                     when (version) {
                         "", "latest" -> URL("https://raw.githubusercontent.com/RomiChan/protocol-versions/master/android_phone.json")
                         else -> URL("https://raw.githubusercontent.com/RomiChan/protocol-versions/master/android_phone/${version}.json")
                     }
             }
             BotConfiguration.MiraiProtocol.ANDROID_PAD -> {
-                File(File(PluginConfig.PluginDir,"protocol"),"android_pad.json") to
+                File(File(MiraiMC.getConfig().PluginDir,"protocol"),"android_pad.json") to
                     when (version) {
                         "", "latest" -> URL("https://raw.githubusercontent.com/RomiChan/protocol-versions/master/android_pad.json")
                         else -> URL("https://raw.githubusercontent.com/RomiChan/protocol-versions/master/android_pad/${version}.json")
@@ -331,7 +331,7 @@ object FixProtocolVersion {
      */
     @JvmStatic
     fun load(protocol: BotConfiguration.MiraiProtocol) {
-        val file = File(File(PluginConfig.PluginDir,"protocol"),"${protocol.name.lowercase()}.json")
+        val file = File(File(MiraiMC.getConfig().PluginDir,"protocol"),"${protocol.name.lowercase()}.json")
         val json: JsonObject = Json.parseToJsonElement(file.readText()).jsonObject
 
         store(protocol, json)

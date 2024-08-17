@@ -1,14 +1,14 @@
 package me.dreamvoid.miraimc.sponge;
 
 import com.google.inject.Inject;
-import me.dreamvoid.miraimc.IMiraiAutoLogin;
-import me.dreamvoid.miraimc.IMiraiEvent;
+import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
 import me.dreamvoid.miraimc.LifeCycle;
-import me.dreamvoid.miraimc.Platform;
+import me.dreamvoid.miraimc.interfaces.Platform;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.config.PluginConfig;
+import me.dreamvoid.miraimc.interfaces.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import me.dreamvoid.miraimc.sponge.utils.Metrics;
 import me.dreamvoid.miraimc.sponge.utils.SpecialUtils;
@@ -44,9 +44,9 @@ import java.util.UUID;
 public class SpongePlugin implements Platform {
     // MiraiMC 主代码
     private final LifeCycle lifeCycle;
-    private PluginConfig platformConfig;
     @SuppressWarnings("SpongeLogging")
     private final java.util.logging.Logger SpongeLogger;
+    private PluginConfig config;
     private LibraryLoader loader;
 
     @Inject
@@ -91,7 +91,7 @@ public class SpongePlugin implements Platform {
     @Listener
     public void onLoad(StartingEngineEvent<Server> e) {
         try {
-            platformConfig = new SpongeConfig(this);
+            config = new SpongeConfig(this);
             lifeCycle.preLoad();
 
             MiraiAutoLogin = new MiraiAutoLogin(this);
@@ -110,13 +110,13 @@ public class SpongePlugin implements Platform {
             lifeCycle.postLoad();
 
             // 监听事件
-            if (PluginConfig.General.LogEvents) {
+            if (config.General_LogEvents) {
                 getLogger().info("Registering events.");
                 Sponge.eventManager().registerListeners(this.pluginContainer, new Events());
             }
 
             // bStats统计
-            if (PluginConfig.General.AllowBStats) {
+            if (config.General_AllowBStats) {
                 if (this.metricsConfigManager.collectionState(this.pluginContainer).asBoolean()) {
                     getLogger().info("Initializing bStats metrics.");
                     int pluginId = 12847;
@@ -184,7 +184,7 @@ public class SpongePlugin implements Platform {
     @Listener
     public void onRefresh(RefreshGameEvent event){
         try {
-            platformConfig.loadConfig();
+            config.loadConfig();
         } catch (IOException e) {
             Utils.resolveException(e, SpongeLogger, "重新加载配置时出现异常！");
         }
@@ -274,5 +274,10 @@ public class SpongePlugin implements Platform {
     @Override
     public String getType() {
         return "Sponge";
+    }
+
+    @Override
+    public PluginConfig getPlatformConfig() {
+        return config;
     }
 }

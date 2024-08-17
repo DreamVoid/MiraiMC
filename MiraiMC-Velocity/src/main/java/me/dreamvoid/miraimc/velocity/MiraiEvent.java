@@ -1,7 +1,7 @@
 package me.dreamvoid.miraimc.velocity;
 
 import com.velocitypowered.api.proxy.ProxyServer;
-import me.dreamvoid.miraimc.IMiraiEvent;
+import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.velocity.event.bot.*;
 import me.dreamvoid.miraimc.velocity.event.friend.*;

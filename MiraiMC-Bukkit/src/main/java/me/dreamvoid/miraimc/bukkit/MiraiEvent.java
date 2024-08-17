@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.bukkit;
 
-import me.dreamvoid.miraimc.IMiraiEvent;
+import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
 import me.dreamvoid.miraimc.bukkit.event.bot.*;
 import me.dreamvoid.miraimc.bukkit.event.friend.*;
 import me.dreamvoid.miraimc.bukkit.event.group.*;

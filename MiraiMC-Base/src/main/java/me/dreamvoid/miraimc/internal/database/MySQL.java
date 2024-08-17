@@ -4,7 +4,6 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import me.dreamvoid.miraimc.api.MiraiMC;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -19,7 +18,7 @@ public class MySQL implements Database {
     public void initialize() throws ClassNotFoundException {
         if(!Utils.findClass("com.zaxxer.hikari.HikariDataSource")){
             try {
-                MiraiMC.getPlatform().getLibraryLoader().loadLibraryMaven("com.zaxxer", "HikariCP", Utils.getJavaVersion() >= 11 ? "5.1.0" : "4.0.3", PluginConfig.General.MavenRepoUrl, PluginConfig.PluginDir.toPath().resolve("libraries"));
+                MiraiMC.getPlatform().getLibraryLoader().loadLibraryMaven("com.zaxxer", "HikariCP", Utils.getJavaVersion() >= 11 ? "5.1.0" : "4.0.3", MiraiMC.getConfig().General_MavenRepoUrl, MiraiMC.getConfig().PluginDir.toPath().resolve("libraries"));
             } catch (ParserConfigurationException | SAXException | IOException e) {
                 throw new ClassNotFoundException("Couldn't find HikariCP library both local and remote.");
             }
@@ -35,15 +34,15 @@ public class MySQL implements Database {
         HikariConfig config = new HikariConfig();
         config.setDriverClassName(driver);
         config.setPoolName("MiraiMC-MySQL");
-        config.setJdbcUrl("jdbc:mysql://" + PluginConfig.Database.Drivers.MySQL.Address + "/" + PluginConfig.Database.Drivers.MySQL.Database + PluginConfig.Database.Drivers.MySQL.Parameters);
-        config.setUsername(PluginConfig.Database.Drivers.MySQL.Username);
-        config.setPassword(PluginConfig.Database.Drivers.MySQL.Password);
-        config.setConnectionTimeout(PluginConfig.Database.Settings.Pool.ConnectionTimeout);
-        config.setIdleTimeout(PluginConfig.Database.Settings.Pool.IdleTimeout);
-        config.setMaxLifetime(PluginConfig.Database.Settings.Pool.MaxLifetime);
-        config.setMaximumPoolSize(PluginConfig.Database.Settings.Pool.MaximumPoolSize);
-        config.setKeepaliveTime(PluginConfig.Database.Settings.Pool.KeepaliveTime);
-        config.setMinimumIdle(PluginConfig.Database.Settings.Pool.MinimumIdle);
+        config.setJdbcUrl("jdbc:mysql://" + MiraiMC.getConfig().Database_Drivers_MySQL_Address + "/" + MiraiMC.getConfig().Database_Drivers_MySQL_Database + MiraiMC.getConfig().Database_Drivers_MySQL_Parameters);
+        config.setUsername(MiraiMC.getConfig().Database_Drivers_MySQL_Username);
+        config.setPassword(MiraiMC.getConfig().Database_Drivers_MySQL_Password);
+        config.setConnectionTimeout(MiraiMC.getConfig().Database_Settings_Pool_ConnectionTimeout);
+        config.setIdleTimeout(MiraiMC.getConfig().Database_Settings_Pool_IdleTimeout);
+        config.setMaxLifetime(MiraiMC.getConfig().Database_Settings_Pool_MaxLifetime);
+        config.setMaximumPoolSize(MiraiMC.getConfig().Database_Settings_Pool_MaximumPoolSize);
+        config.setKeepaliveTime(MiraiMC.getConfig().Database_Settings_Pool_KeepaliveTime);
+        config.setMinimumIdle(MiraiMC.getConfig().Database_Settings_Pool_MinimumIdle);
         config.addDataSourceProperty("cachePrepStmts", "true" );
         config.addDataSourceProperty("prepStmtCacheSize", "250" );
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048" );

@@ -1,8 +1,8 @@
 package me.dreamvoid.miraimc.api;
 
 import me.dreamvoid.miraimc.LifeCycle;
-import me.dreamvoid.miraimc.Platform;
-import me.dreamvoid.miraimc.internal.config.PluginConfig;
+import me.dreamvoid.miraimc.interfaces.Platform;
+import me.dreamvoid.miraimc.interfaces.PluginConfig;
 import me.dreamvoid.miraimc.internal.database.DatabaseHandler;
 
 import javax.annotation.Nullable;
@@ -16,10 +16,29 @@ import java.util.UUID;
 @SuppressWarnings("unused")
 public class MiraiMC {
     /**
+     * 获取 MiraiMC 用于适配不同平台的桥接接口<br>
+     * 开发者可利用此接口为 MiraiMC 强关联的功能兼容不同的平台<br>
+     * 在 Paper 和 Folia 中非常有用
+     *
+     * @return MiraiMC 桥接接口
+     */
+    public static Platform getPlatform() {
+        return LifeCycle.getPlatform();
+    }
+
+    /**
+     * 获取 MiraiMC 的配置
+     * @return MiraiMC 配置
+     */
+    public static PluginConfig getConfig() {
+        return LifeCycle.getPlatform().getPlatformConfig();
+    }
+
+    /**
      * MiraiMC 绑定管理
      */
     public static class Bind {
-        private static final String prefix = PluginConfig.Database.Settings.Prefix;
+        private static final String prefix = getConfig().Database_Settings_Prefix;
 
         static {
             try {
@@ -181,16 +200,5 @@ public class MiraiMC {
     public static UUID getBind(long account) {
         getPlatform().getPluginLogger().warning("正在调用一个弃用的 MiraiMC 方法，请通知开发者尽快更新插件以避免未来出现问题！");
         return Bind.getBind(account);
-    }
-
-    /**
-     * 获取 MiraiMC 用于适配不同平台的桥接接口<br>
-     * 开发者可利用此接口为 MiraiMC 强关联的功能兼容不同的平台<br>
-     * 在 Paper 和 Folia 中非常有用
-     *
-     * @return MiraiMC 桥接接口
-     */
-    public static Platform getPlatform() {
-        return LifeCycle.getPlatform();
     }
 }

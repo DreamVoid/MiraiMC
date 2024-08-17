@@ -1,4 +1,4 @@
-package me.dreamvoid.miraimc;
+package me.dreamvoid.miraimc.interfaces;
 
 public interface IMiraiEvent {
     void startListenEvent();

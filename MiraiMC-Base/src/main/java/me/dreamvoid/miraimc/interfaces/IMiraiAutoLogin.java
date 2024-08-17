@@ -1,4 +1,4 @@
-package me.dreamvoid.miraimc;
+package me.dreamvoid.miraimc.interfaces;
 
 import java.io.IOException;
 import java.util.List;

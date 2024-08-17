@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.nukkit;
 
-import me.dreamvoid.miraimc.IMiraiEvent;
+import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.nukkit.event.bot.*;
 import me.dreamvoid.miraimc.nukkit.event.friend.*;

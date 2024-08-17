@@ -1,4 +1,4 @@
-package me.dreamvoid.miraimc;
+package me.dreamvoid.miraimc.interfaces;
 
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 
@@ -32,4 +32,6 @@ public interface Platform {
     LibraryLoader getLibraryLoader();
 
     String getType();
+
+    PluginConfig getPlatformConfig();
 }

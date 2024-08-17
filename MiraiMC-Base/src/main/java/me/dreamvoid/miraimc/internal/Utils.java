@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.internal;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import me.dreamvoid.miraimc.api.MiraiMC;
-import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -193,7 +192,7 @@ public final class Utils {
 
     @NotNull
     public static File getMiraiDir(){
-        return PluginConfig.General.MiraiWorkingDir.equals("default") ? new File(PluginConfig.PluginDir,"MiraiBot") : new File(PluginConfig.General.MiraiWorkingDir);
+        return MiraiMC.getConfig().General_MiraiWorkingDir.equals("default") ? new File(MiraiMC.getConfig().PluginDir,"MiraiBot") : new File(MiraiMC.getConfig().General_MiraiWorkingDir);
     }
 
     public static void resolveException(Throwable throwable, Logger logger, String reason) {

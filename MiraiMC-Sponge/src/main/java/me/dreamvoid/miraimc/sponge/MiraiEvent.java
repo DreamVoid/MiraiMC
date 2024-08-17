@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.sponge;
 
-import me.dreamvoid.miraimc.IMiraiEvent;
+import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.sponge.event.bot.*;
 import me.dreamvoid.miraimc.sponge.event.friend.*;

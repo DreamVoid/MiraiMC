@@ -1,9 +1,9 @@
 package me.dreamvoid.miraimc.bukkit;
 
-import me.dreamvoid.miraimc.IMiraiAutoLogin;
-import me.dreamvoid.miraimc.IMiraiEvent;
+import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
 import me.dreamvoid.miraimc.LifeCycle;
-import me.dreamvoid.miraimc.Platform;
+import me.dreamvoid.miraimc.interfaces.Platform;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
 import me.dreamvoid.miraimc.commands.ICommandSender;
@@ -11,7 +11,7 @@ import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.config.PluginConfig;
+import me.dreamvoid.miraimc.interfaces.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -30,12 +30,13 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
     private MiraiEvent MiraiEvent;
     private MiraiAutoLogin MiraiAutoLogin;
     private final LifeCycle lifeCycle;
+    private final PluginConfig config;
     private final LibraryLoader loader;
 
     public BukkitPlugin(){
         lifeCycle = new LifeCycle(this);
         lifeCycle.startUp(getLogger());
-        new BukkitConfig(this);
+        config = new BukkitConfig(this);
         loader = new LibraryLoader((URLClassLoader) this.getClassLoader());
     }
 
@@ -57,13 +58,13 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
             lifeCycle.postLoad();
 
             // 监听事件
-            if(PluginConfig.General.LogEvents){
+            if(config.General_LogEvents){
                 getLogger().info("Registering events.");
                 Bukkit.getPluginManager().registerEvents(new Events(), this);
             }
 
             // bStats统计
-            if(PluginConfig.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
+            if(config.General_AllowBStats && !getDescription().getVersion().contains("dev")) {
                 getLogger().info("Initializing bStats metrics.");
                 int pluginId = 11534;
                 new Metrics(this, pluginId);
@@ -279,5 +280,10 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
     @Override
     public String getType() {
         return "Bukkit";
+    }
+
+    @Override
+    public PluginConfig getPlatformConfig() {
+        return config;
     }
 }

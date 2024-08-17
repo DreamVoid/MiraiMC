@@ -4,7 +4,6 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import me.dreamvoid.miraimc.api.MiraiMC;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.config.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import org.xml.sax.SAXException;
 
@@ -22,7 +21,7 @@ public class SQLite implements Database {
         LibraryLoader loader = MiraiMC.getPlatform().getLibraryLoader();
         if(!Utils.findClass("com.zaxxer.hikari.HikariDataSource")){
             try {
-                loader.loadLibraryMaven("com.zaxxer", "HikariCP", Utils.getJavaVersion() >= 11 ? "5.1.0" : "4.0.3", PluginConfig.General.MavenRepoUrl, PluginConfig.PluginDir.toPath().resolve("libraries"));
+                loader.loadLibraryMaven("com.zaxxer", "HikariCP", Utils.getJavaVersion() >= 11 ? "5.1.0" : "4.0.3", MiraiMC.getConfig().General_MavenRepoUrl, MiraiMC.getConfig().PluginDir.toPath().resolve("libraries"));
             } catch (ParserConfigurationException | SAXException | IOException e) {
                 throw new ClassNotFoundException("Couldn't find HikariCP library both local and remote.");
             }
@@ -33,7 +32,7 @@ public class SQLite implements Database {
             driver = "org.sqlite.JDBC";
         } else {
             try {
-                loader.loadLibraryMaven("org.xerial", "sqlite-jdbc", "3.36.0.3", PluginConfig.General.MavenRepoUrl, PluginConfig.PluginDir.toPath().resolve("libraries"));
+                loader.loadLibraryMaven("org.xerial", "sqlite-jdbc", "3.36.0.3", MiraiMC.getConfig().General_MavenRepoUrl, MiraiMC.getConfig().PluginDir.toPath().resolve("libraries"));
             } catch (Exception e) {
                 throw new ClassNotFoundException("Couldn't find SQLite library both local and remote.");
             }
@@ -46,13 +45,13 @@ public class SQLite implements Database {
             HikariConfig config = new HikariConfig();
             config.setDriverClassName(driver);
             config.setPoolName("MiraiMC-SQLite");
-            config.setJdbcUrl("jdbc:sqlite:" + new File(PluginConfig.Database.Drivers.SQLite.Path.replace("%plugin_folder%", PluginConfig.PluginDir.toPath().toString())).toPath());
-            config.setConnectionTimeout(PluginConfig.Database.Settings.Pool.ConnectionTimeout);
-            config.setIdleTimeout(PluginConfig.Database.Settings.Pool.IdleTimeout);
-            config.setMaxLifetime(PluginConfig.Database.Settings.Pool.MaxLifetime);
-            config.setMaximumPoolSize(PluginConfig.Database.Settings.Pool.MaximumPoolSize);
-            config.setKeepaliveTime(PluginConfig.Database.Settings.Pool.KeepaliveTime);
-            config.setMinimumIdle(PluginConfig.Database.Settings.Pool.MinimumIdle);
+            config.setJdbcUrl("jdbc:sqlite:" + new File(MiraiMC.getConfig().Database_Drivers_SQLite_Path.replace("%plugin_folder%", MiraiMC.getConfig().PluginDir.toPath().toString())).toPath());
+            config.setConnectionTimeout(MiraiMC.getConfig().Database_Settings_Pool_ConnectionTimeout);
+            config.setIdleTimeout(MiraiMC.getConfig().Database_Settings_Pool_IdleTimeout);
+            config.setMaxLifetime(MiraiMC.getConfig().Database_Settings_Pool_MaxLifetime);
+            config.setMaximumPoolSize(MiraiMC.getConfig().Database_Settings_Pool_MaximumPoolSize);
+            config.setKeepaliveTime(MiraiMC.getConfig().Database_Settings_Pool_KeepaliveTime);
+            config.setMinimumIdle(MiraiMC.getConfig().Database_Settings_Pool_MinimumIdle);
             config.addDataSourceProperty("cachePrepStmts", "true");
             config.addDataSourceProperty("prepStmtCacheSize", "250");
             config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");

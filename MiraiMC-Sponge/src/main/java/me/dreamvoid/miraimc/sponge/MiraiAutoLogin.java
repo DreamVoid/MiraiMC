@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.sponge;
 
-import me.dreamvoid.miraimc.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.sponge.utils.AutoLoginObject;

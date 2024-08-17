@@ -2,12 +2,12 @@ package me.dreamvoid.miraimc.nukkit;
 
 import cn.nukkit.Server;
 import cn.nukkit.plugin.PluginBase;
-import me.dreamvoid.miraimc.IMiraiAutoLogin;
-import me.dreamvoid.miraimc.IMiraiEvent;
+import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
 import me.dreamvoid.miraimc.LifeCycle;
-import me.dreamvoid.miraimc.Platform;
+import me.dreamvoid.miraimc.interfaces.Platform;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.config.PluginConfig;
+import me.dreamvoid.miraimc.interfaces.PluginConfig;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiMcCommand;
@@ -26,6 +26,7 @@ public class NukkitPlugin extends PluginBase implements Platform {
     private MiraiAutoLogin MiraiAutoLogin;
     private final LifeCycle lifeCycle;
     private Logger NukkitLogger;
+    private PluginConfig config;
     private final LibraryLoader loader;
 
     public static NukkitPlugin getInstance() {
@@ -43,7 +44,7 @@ public class NukkitPlugin extends PluginBase implements Platform {
         nukkitPlugin = this;
         try {
             NukkitLogger = new NukkitLogger("MiraiMC-Nukkit", getLogger());
-            new NukkitConfig(this);
+            config = new NukkitConfig(this);
             lifeCycle.preLoad();
 
             MiraiAutoLogin = new MiraiAutoLogin(this);
@@ -65,13 +66,13 @@ public class NukkitPlugin extends PluginBase implements Platform {
             getServer().getCommandMap().register("", new MiraiVerifyCommand());
 
             // 监听事件
-            if (PluginConfig.General.LogEvents) {
+            if (config.General_LogEvents) {
                 getLogger().info("Registering events.");
                 this.getServer().getPluginManager().registerEvents(new Events(this), this);
             }
 
             // bStats统计
-            if (PluginConfig.General.AllowBStats && !getDescription().getVersion().contains("dev")) {
+            if (config.General_AllowBStats && !getDescription().getVersion().contains("dev")) {
                 getLogger().info("Initializing bStats metrics.");
                 int pluginId = 12744;
                 new MetricsLite(this, pluginId);
@@ -149,5 +150,10 @@ public class NukkitPlugin extends PluginBase implements Platform {
     @Override
     public String getType() {
         return "Nukkit";
+    }
+
+    @Override
+    public PluginConfig getPlatformConfig() {
+        return config;
     }
 }

@@ -2,7 +2,7 @@ package me.dreamvoid.miraimc.nukkit;
 
 import cn.nukkit.scheduler.AsyncTask;
 import cn.nukkit.utils.Config;
-import me.dreamvoid.miraimc.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.utils.BotConfiguration;

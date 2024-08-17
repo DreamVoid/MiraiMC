@@ -1,6 +1,6 @@
 package me.dreamvoid.miraimc.bungee;
 
-import me.dreamvoid.miraimc.IMiraiEvent;
+import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
 import me.dreamvoid.miraimc.bungee.event.bot.*;
 import me.dreamvoid.miraimc.bungee.event.friend.*;
 import me.dreamvoid.miraimc.bungee.event.group.*;
