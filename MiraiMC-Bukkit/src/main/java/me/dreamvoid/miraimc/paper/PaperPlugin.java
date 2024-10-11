@@ -1,10 +1,9 @@
 package me.dreamvoid.miraimc.paper;
 
-import cloud.commandframework.CommandTree;
-import cloud.commandframework.arguments.standard.StringArrayArgument;
-import cloud.commandframework.execution.AsynchronousCommandExecutionCoordinator;
-import cloud.commandframework.execution.CommandExecutionCoordinator;
-import cloud.commandframework.paper.PaperCommandManager;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
+import io.papermc.paper.command.brigadier.Commands;
+import io.papermc.paper.plugin.lifecycle.event.LifecycleEventManager;
+import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import me.dreamvoid.miraimc.bukkit.BukkitPlugin;
 import me.dreamvoid.miraimc.commands.ICommandSender;
@@ -13,12 +12,11 @@ import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.Plugin;
 
 import java.net.URLClassLoader;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
 public class PaperPlugin extends BukkitPlugin {
     private final ConcurrentHashMap<Integer, ScheduledTask> tasks = new ConcurrentHashMap<>();
@@ -29,67 +27,41 @@ public class PaperPlugin extends BukkitPlugin {
         loader = new LibraryLoader((URLClassLoader) getClassLoader().getParent());
     }
 
+    @SuppressWarnings("UnstableApiUsage")
     @Override
     public void onEnable() {
         super.onEnable();
 
         getLogger().info("Registering commands for paper.");
-        final Function<CommandTree<CommandSender>, CommandExecutionCoordinator<CommandSender>> executionCoordinatorFunction =
-                AsynchronousCommandExecutionCoordinator.<CommandSender>builder().build();
-        Function<CommandSender, CommandSender> mapperFunction = Function.identity();
-        PaperCommandManager<CommandSender> manager;
-        try {
-            manager = new PaperCommandManager<>(
-                    /* Owning plugin */ this,
-                    /* Coordinator function */ executionCoordinatorFunction,
-                    /* Command Sender -> C */ mapperFunction,
-                    /* C -> Command Sender */ mapperFunction
-            );
-            manager.command(manager.commandBuilder("mirai")
-                    .argument(StringArrayArgument.of("args", (commandSenderCommandContext, s) -> null))
-                    .handler(context -> new MiraiCommand().onCommand(new ICommandSender() {
+        LifecycleEventManager<Plugin> manager = this.getLifecycleManager();
+        manager.registerEventHandler(LifecycleEvents.COMMANDS, event -> {
+            // 一步到位
+            class Sender{
+                private final CommandSourceStack stack;
+                private Sender(CommandSourceStack stack){
+                    this.stack = stack;
+                }
+
+                private ICommandSender get(){
+                    return new ICommandSender() {
                         @Override
                         public void sendMessage(String message) {
-                            context.getSender().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+                            stack.getSender().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
                         }
 
                         @Override
                         public boolean hasPermission(String permission) {
-                            return context.getSender().hasPermission(permission);
+                            return stack.getSender().hasPermission(permission);
                         }
-                    }, context.get("args")))
-            );
-            manager.command(manager.commandBuilder("miraimc")
-                    .argument(StringArrayArgument.of("args", (commandSenderCommandContext, s) -> null))
-                    .handler(context -> new MiraiMcCommand().onCommand(new ICommandSender() {
-                        @Override
-                        public void sendMessage(String message) {
-                            context.getSender().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
-                        }
+                    };
+                }
+            }
 
-                        @Override
-                        public boolean hasPermission(String permission) {
-                            return context.getSender().hasPermission(permission);
-                        }
-                    }, context.get("args")))
-            );
-            manager.command(manager.commandBuilder("miraiverify")
-                    .argument(StringArrayArgument.of("args", (commandSenderCommandContext, s) -> null))
-                    .handler(context -> new MiraiVerifyCommand().onCommand(new ICommandSender() {
-                        @Override
-                        public void sendMessage(String message) {
-                            context.getSender().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
-                        }
-
-                        @Override
-                        public boolean hasPermission(String permission) {
-                            return context.getSender().hasPermission(permission);
-                        }
-                    }, context.get("args")))
-            );
-        } catch (final Exception e) {
-            this.getLogger().severe("Failed to initialize the command this.manager");
-        }
+            final Commands commands = event.registrar();
+            commands.register("mirai", "MiraiMC Bot Command.", (stack, args) -> new MiraiCommand().onCommand(new Sender(stack).get(), args));
+            commands.register("miraimc", "MiraiMC Plugin Command.", (stack, args) -> new MiraiMcCommand().onCommand(new Sender(stack).get(), args));
+            commands.register("miraiverify", "MiraiMC LoginVerify Command.", (stack, args) -> new MiraiVerifyCommand().onCommand(new Sender(stack).get(), args));
+        });
     }
 
     @Override
