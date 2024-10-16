@@ -14,6 +14,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class SQLite implements Database {
+    private static boolean triedLibrary = false;
+
     private static HikariDataSource ds; // SQLite
 
     @Override
@@ -30,15 +32,17 @@ public class SQLite implements Database {
         String driver;
         if(Utils.findClass("org.sqlite.JDBC")){
             driver = "org.sqlite.JDBC";
-        } else {
+        } else if (!triedLibrary){
             try {
                 loader.loadLibraryMaven("org.xerial", "sqlite-jdbc", "3.36.0.3", MiraiMC.getConfig().General_MavenRepoUrl, MiraiMC.getConfig().PluginDir.toPath().resolve("libraries"));
+                triedLibrary = true;
+                initialize();
+                return;
             } catch (Exception e) {
                 throw new ClassNotFoundException("Couldn't find SQLite library both local and remote.");
             }
-
-            initialize();
-            return;
+        } else {
+            throw new ClassNotFoundException("Couldn't find SQLite library both local and remote.");
         }
 
         try {

@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class MySQL implements Database {
+    private static boolean triedLibrary = false;
+
     private static HikariDataSource ds; // MySQL
 
     @Override
@@ -29,7 +31,18 @@ public class MySQL implements Database {
             driver = "com.mysql.cj.jdbc.Driver";
         } else if (Utils.findClass("com.mysql.jdbc.Driver")){
             driver = "com.mysql.jdbc.Driver";
-        } else throw new ClassNotFoundException("Both \"com.mysql.cj.jdbc.Driver\" and \"com.mysql.jdbc.Driver\" not found.");
+        } else if(!triedLibrary){
+            try {
+                MiraiMC.getPlatform().getLibraryLoader().loadLibraryMaven("com.mysql", "mysql-connector-j", "9.1.0", MiraiMC.getConfig().General_MavenRepoUrl, MiraiMC.getConfig().PluginDir.toPath().resolve("libraries"));
+                triedLibrary = true;
+                initialize();
+                return;
+            } catch (ParserConfigurationException | IOException | SAXException e) {
+                throw new ClassNotFoundException("Couldn't find \"com.mysql.cj.jdbc.Driver\" and \"com.mysql.jdbc.Driver\" both local and remote.");
+            }
+        } else {
+            throw new ClassNotFoundException("Couldn't find \"com.mysql.cj.jdbc.Driver\" and \"com.mysql.jdbc.Driver\" both local and remote.");
+        }
 
         HikariConfig config = new HikariConfig();
         config.setDriverClassName(driver);
@@ -43,9 +56,9 @@ public class MySQL implements Database {
         config.setMaximumPoolSize(MiraiMC.getConfig().Database_Settings_Pool_MaximumPoolSize);
         config.setKeepaliveTime(MiraiMC.getConfig().Database_Settings_Pool_KeepaliveTime);
         config.setMinimumIdle(MiraiMC.getConfig().Database_Settings_Pool_MinimumIdle);
-        config.addDataSourceProperty("cachePrepStmts", "true" );
-        config.addDataSourceProperty("prepStmtCacheSize", "250" );
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048" );
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
 
         ds = new HikariDataSource(config);
     }
