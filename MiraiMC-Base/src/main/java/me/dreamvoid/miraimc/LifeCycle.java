@@ -2,14 +2,15 @@ package me.dreamvoid.miraimc;
 
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.interfaces.Platform;
-import me.dreamvoid.miraimc.internal.*;
+import me.dreamvoid.miraimc.internal.MiraiLoader;
+import me.dreamvoid.miraimc.internal.MiraiLoginSolver;
+import me.dreamvoid.miraimc.internal.PluginUpdate;
+import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.database.DatabaseHandler;
 import me.dreamvoid.miraimc.internal.database.MySQL;
 import me.dreamvoid.miraimc.internal.database.SQLite;
 import me.dreamvoid.miraimc.internal.webapi.Info;
-import net.mamoe.mirai.utils.BotConfiguration;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
@@ -78,28 +79,6 @@ public final class LifeCycle {
             logger.info("MiraiMC will not load mirai core, please ensure you have custom mirai core loaded.");
         }
 
-        // 加载来自 cssxsh 的 fix-protocol-version
-        if(platform.getPlatformConfig().Bot_UpdateProtocolVersion){
-            logger.info("Updating mirai protocol version. (Author: cssxsh)");
-
-            logger.info("协议版本检查更新...");
-            try {
-                FixProtocolVersion.update();
-                for (BotConfiguration.MiraiProtocol protocol : BotConfiguration.MiraiProtocol.values()) {
-                    File file = new File(new File(platform.getPlatformConfig().PluginDir, "protocol"), protocol.name().toLowerCase() + ".json");
-                    if (file.exists()) {
-                        logger.info(protocol + " load from " + file.toPath().toUri());
-                        FixProtocolVersion.load(protocol);
-                    }
-                }
-            } catch (Throwable cause){
-                logger.severe("协议版本升级失败: " + cause);
-            }
-
-            logger.info("当前各登录协议版本日期: ");
-            FixProtocolVersion.info().values().forEach(s -> logger.info(s));
-        }
-
         logger.info("Pre-load tasks finished.");
     }
 
@@ -135,7 +114,7 @@ public final class LifeCycle {
         platform.getMiraiEvent().startListenEvent();
 
         // 自动登录机器人
-        logger.info("Starting Auto-Login bot.");
+        logger.info("Starting auto-login bot.");
         platform.getAutoLogin().loadFile();
         platform.getAutoLogin().doStartUpAutoLogin();
 
@@ -192,9 +171,7 @@ public final class LifeCycle {
         // 取消所有的待验证机器人和已登录机器人进程
         logger.info("Closing all bots");
         MiraiLoginSolver.cancelAll();
-        for (long bots : MiraiBot.getOnlineBots()){
-            MiraiBot.getBot(bots).close();
-        }
+        MiraiBot.getOnlineBots().forEach(l -> MiraiBot.getBot(l).close());
 
         // 停止事件监听
         logger.info("Stopping bot event listener.");

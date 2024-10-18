@@ -27,7 +27,6 @@ public abstract class PluginConfig {
         Bot_ContactCache_EnableFriendListCache = getBoolean("bot.contact-cache.enable-friend-list-cache", Bot_ContactCache_EnableFriendListCache);
         Bot_ContactCache_EnableGroupMemberListCache = getBoolean("bot.contact-cache.enable-group-member-list-cache", Bot_ContactCache_EnableGroupMemberListCache);
         Bot_ContactCache_SaveIntervalMillis = getLong("bot.contact-cache.save-interval-millis", Bot_ContactCache_SaveIntervalMillis);
-        Bot_UpdateProtocolVersion = getBoolean("bot.update-protocol-version", Bot_UpdateProtocolVersion);
 
         // database
         Database_Type = getString("database.type", Database_Type).toLowerCase();
@@ -78,7 +77,6 @@ public abstract class PluginConfig {
     public boolean Bot_ContactCache_EnableFriendListCache = false;
     public boolean Bot_ContactCache_EnableGroupMemberListCache = false;
     public long Bot_ContactCache_SaveIntervalMillis = 60000;
-    public boolean Bot_UpdateProtocolVersion = false;
 
     public String Database_Type = "sqlite";
     public String Database_Drivers_SQLite_Path = "%plugin_folder%/database.db";
