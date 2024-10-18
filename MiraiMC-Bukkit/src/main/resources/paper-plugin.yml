@@ -3,7 +3,6 @@ authors:
   - DreamVoid
 version: ${project.version}
 main: me.dreamvoid.miraimc.paper.PaperPlugin
-loader: me.dreamvoid.miraimc.paper.PaperPluginLoader
 description: MiraiBot for Minecraft server
 api-version: '1.20'
 website: https://github.com/DreamVoid/MiraiMC

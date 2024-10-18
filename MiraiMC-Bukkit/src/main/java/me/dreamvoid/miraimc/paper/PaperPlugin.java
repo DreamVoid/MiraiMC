@@ -1,17 +1,15 @@
 package me.dreamvoid.miraimc.paper;
 
-import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.LifecycleEventManager;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import me.dreamvoid.miraimc.bukkit.BukkitPlugin;
-import me.dreamvoid.miraimc.commands.ICommandSender;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
-import org.bukkit.ChatColor;
+import me.dreamvoid.miraimc.paper.utils.SenderUtils;
 import org.bukkit.plugin.Plugin;
 
 import java.net.URLClassLoader;
@@ -35,32 +33,10 @@ public class PaperPlugin extends BukkitPlugin {
         getLogger().info("Registering commands for paper.");
         LifecycleEventManager<Plugin> manager = this.getLifecycleManager();
         manager.registerEventHandler(LifecycleEvents.COMMANDS, event -> {
-            // 一步到位
-            class Sender{
-                private final CommandSourceStack stack;
-                private Sender(CommandSourceStack stack){
-                    this.stack = stack;
-                }
-
-                private ICommandSender get(){
-                    return new ICommandSender() {
-                        @Override
-                        public void sendMessage(String message) {
-                            stack.getSender().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
-                        }
-
-                        @Override
-                        public boolean hasPermission(String permission) {
-                            return stack.getSender().hasPermission(permission);
-                        }
-                    };
-                }
-            }
-
             final Commands commands = event.registrar();
-            commands.register("mirai", "MiraiMC Bot Command.", (stack, args) -> new MiraiCommand().onCommand(new Sender(stack).get(), args));
-            commands.register("miraimc", "MiraiMC Plugin Command.", (stack, args) -> new MiraiMcCommand().onCommand(new Sender(stack).get(), args));
-            commands.register("miraiverify", "MiraiMC LoginVerify Command.", (stack, args) -> new MiraiVerifyCommand().onCommand(new Sender(stack).get(), args));
+            commands.register("mirai", "MiraiMC Bot Command.", (stack, args) -> new MiraiCommand().onCommand(SenderUtils.getSender(stack), args));
+            commands.register("miraimc", "MiraiMC Plugin Command.", (stack, args) -> new MiraiMcCommand().onCommand(SenderUtils.getSender(stack), args));
+            commands.register("miraiverify", "MiraiMC LoginVerify Command.", (stack, args) -> new MiraiVerifyCommand().onCommand(SenderUtils.getSender(stack), args));
         });
     }
 
