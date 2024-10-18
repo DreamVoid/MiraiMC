@@ -8,7 +8,8 @@ public abstract class PluginConfig {
 
     public final void loadConfig() throws IOException {
         saveDefaultConfig();
-        
+
+        // general
         General_AllowBStats = getBoolean("general.allow-bStats", General_AllowBStats);
         General_CheckUpdate = getBoolean("general.check-update", General_CheckUpdate);
         General_DisableSafeWarningMessage = getBoolean("general.disable-safe-warning-message",General_DisableSafeWarningMessage);
@@ -18,6 +19,7 @@ public abstract class PluginConfig {
         General_AutoOpenQRCodeFile = getBoolean("general.auto-open-qrcode-file",General_AutoOpenQRCodeFile);
         General_LogEvents = getBoolean("general.log-events",General_LogEvents);
 
+        // bot
         Bot_DisableNetworkLogs = getBoolean("bot.disable-network-logs",Bot_DisableNetworkLogs);
         Bot_DisableBotLogs = getBoolean("bot.disable-bot-logs",Bot_DisableBotLogs);
         Bot_UseMinecraftLogger_BotLogs = getBoolean("bot.use-minecraft-logger.bot-logs",Bot_UseMinecraftLogger_BotLogs);
@@ -27,14 +29,19 @@ public abstract class PluginConfig {
         Bot_ContactCache_SaveIntervalMillis = getLong("bot.contact-cache.save-interval-millis",Bot_ContactCache_SaveIntervalMillis);
         Bot_UpdateProtocolVersion = getBoolean("bot.update-protocol-version",Bot_UpdateProtocolVersion);
 
+        // database
         Database_Type = getString("database.type",Database_Type).toLowerCase();
-        Database_Drivers_SQLite_Path = getString("database.settings.sqlite.path", Database_Drivers_SQLite_Path);
-        Database_Drivers_MySQL_Address = getString("database.settings.mysql.address",Database_Drivers_MySQL_Address);
-        Database_Drivers_MySQL_Username = getString("database.settings.mysql.username", Database_Drivers_MySQL_Username);
-        Database_Drivers_MySQL_Password = getString("database.settings.mysql.password", Database_Drivers_MySQL_Password);
-        Database_Drivers_MySQL_Database = getString("database.settings.mysql.database", Database_Drivers_MySQL_Database);
-        Database_Drivers_MySQL_Parameters = getString("database.settings.mysql.parameters", Database_Drivers_MySQL_Parameters);
+        // database.drivers.sqlite
+        Database_Drivers_SQLite_Path = getString("database.drivers.sqlite.path", Database_Drivers_SQLite_Path);
+        // database.drivers.mysql
+        Database_Drivers_MySQL_Address = getString("database.drivers.mysql.address",Database_Drivers_MySQL_Address);
+        Database_Drivers_MySQL_Username = getString("database.drivers.mysql.username", Database_Drivers_MySQL_Username);
+        Database_Drivers_MySQL_Password = getString("database.drivers.mysql.password", Database_Drivers_MySQL_Password);
+        Database_Drivers_MySQL_Database = getString("database.drivers.mysql.database", Database_Drivers_MySQL_Database);
+        Database_Drivers_MySQL_Parameters = getString("database.drivers.mysql.parameters", Database_Drivers_MySQL_Parameters);
+        // database.settings
         Database_Settings_Prefix = getString("database.settings.prefix", Database_Settings_Prefix);
+        // database.settings.pool
         Database_Settings_Pool_ConnectionTimeout = getInt("database.pool.connectionTimeout", Database_Settings_Pool_ConnectionTimeout);
         Database_Settings_Pool_IdleTimeout = getInt("database.pool.connectionTimeout", Database_Settings_Pool_IdleTimeout);
         Database_Settings_Pool_MaxLifetime = getInt("database.pool.maxLifetime", Database_Settings_Pool_MaxLifetime);
