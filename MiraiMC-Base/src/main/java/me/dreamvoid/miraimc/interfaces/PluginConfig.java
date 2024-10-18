@@ -42,12 +42,12 @@ public abstract class PluginConfig {
         // database.settings
         Database_Settings_Prefix = getString("database.settings.prefix", Database_Settings_Prefix);
         // database.settings.pool
-        Database_Settings_Pool_ConnectionTimeout = getInt("database.pool.connectionTimeout", Database_Settings_Pool_ConnectionTimeout);
-        Database_Settings_Pool_IdleTimeout = getInt("database.pool.connectionTimeout", Database_Settings_Pool_IdleTimeout);
-        Database_Settings_Pool_MaxLifetime = getInt("database.pool.maxLifetime", Database_Settings_Pool_MaxLifetime);
-        Database_Settings_Pool_MaximumPoolSize = getInt("database.pool.maximumPoolSize", Database_Settings_Pool_MaximumPoolSize);
-        Database_Settings_Pool_KeepaliveTime = getInt("database.pool.keepaliveTime", Database_Settings_Pool_KeepaliveTime);
-        Database_Settings_Pool_MinimumIdle = getInt("database.pool.minimumIdle", Database_Settings_Pool_MinimumIdle);
+        Database_Settings_Pool_ConnectionTimeout = getInt("database.settings.pool.connectionTimeout", Database_Settings_Pool_ConnectionTimeout);
+        Database_Settings_Pool_IdleTimeout = getInt("database.settings.pool.connectionTimeout", Database_Settings_Pool_IdleTimeout);
+        Database_Settings_Pool_MaxLifetime = getInt("database.settings.pool.maxLifetime", Database_Settings_Pool_MaxLifetime);
+        Database_Settings_Pool_MaximumPoolSize = getInt("database.settings.pool.maximumPoolSize", Database_Settings_Pool_MaximumPoolSize);
+        Database_Settings_Pool_KeepaliveTime = getInt("database.settings.pool.keepaliveTime", Database_Settings_Pool_KeepaliveTime);
+        Database_Settings_Pool_MinimumIdle = getInt("database.settings.pool.minimumIdle", Database_Settings_Pool_MinimumIdle);
     }
     
     protected abstract void saveDefaultConfig() throws IOException;
