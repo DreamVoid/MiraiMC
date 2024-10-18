@@ -264,11 +264,9 @@ public class MiraiLoginSolver extends LoginSolver {
 
                 boolean saveSuccess = false;
 
-                try {
-                    OutputStream os = Files.newOutputStream(imageFile.toPath());
+                try(OutputStream os = Files.newOutputStream(imageFile.toPath())) {
                     os.write(bytes, 0, bytes.length);
                     os.flush();
-                    os.close();
                     saveSuccess = true;
                 } catch (IOException e) {
                     bot.getLogger().warning("保存二维码图片文件时出现异常，原因: "+e);

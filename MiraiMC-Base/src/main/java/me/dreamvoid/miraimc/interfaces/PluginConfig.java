@@ -12,29 +12,29 @@ public abstract class PluginConfig {
         // general
         General_AllowBStats = getBoolean("general.allow-bStats", General_AllowBStats);
         General_CheckUpdate = getBoolean("general.check-update", General_CheckUpdate);
-        General_DisableSafeWarningMessage = getBoolean("general.disable-safe-warning-message",General_DisableSafeWarningMessage);
-        General_MiraiWorkingDir = getString("general.mirai-working-dir",General_MiraiWorkingDir);
-        General_MiraiCoreVersion = getString("general.mirai-core-version",General_MiraiCoreVersion);
-        General_MavenRepoUrl = getString("general.maven-repo-url",General_MavenRepoUrl);
-        General_AutoOpenQRCodeFile = getBoolean("general.auto-open-qrcode-file",General_AutoOpenQRCodeFile);
-        General_LogEvents = getBoolean("general.log-events",General_LogEvents);
+        General_DisableSafeWarningMessage = getBoolean("general.disable-safe-warning-message", General_DisableSafeWarningMessage);
+        General_MiraiWorkingDir = getString("general.mirai-working-dir", General_MiraiWorkingDir);
+        General_MiraiCoreVersion = getString("general.mirai-core-version", General_MiraiCoreVersion);
+        General_MavenRepoUrl = getString("general.maven-repo-url", General_MavenRepoUrl);
+        General_AutoOpenQRCodeFile = getBoolean("general.auto-open-qrcode-file", General_AutoOpenQRCodeFile);
+        General_LogEvents = getBoolean("general.log-events", General_LogEvents);
 
         // bot
-        Bot_DisableNetworkLogs = getBoolean("bot.disable-network-logs",Bot_DisableNetworkLogs);
-        Bot_DisableBotLogs = getBoolean("bot.disable-bot-logs",Bot_DisableBotLogs);
-        Bot_UseMinecraftLogger_BotLogs = getBoolean("bot.use-minecraft-logger.bot-logs",Bot_UseMinecraftLogger_BotLogs);
-        Bot_UseMinecraftLogger_NetworkLogs = getBoolean("bot.use-minecraft-logger.network-logs",Bot_UseMinecraftLogger_NetworkLogs);
-        Bot_ContactCache_EnableFriendListCache = getBoolean("bot.contact-cache.enable-friend-list-cache",Bot_ContactCache_EnableFriendListCache);
-        Bot_ContactCache_EnableGroupMemberListCache = getBoolean("bot.contact-cache.enable-group-member-list-cache",Bot_ContactCache_EnableGroupMemberListCache);
-        Bot_ContactCache_SaveIntervalMillis = getLong("bot.contact-cache.save-interval-millis",Bot_ContactCache_SaveIntervalMillis);
-        Bot_UpdateProtocolVersion = getBoolean("bot.update-protocol-version",Bot_UpdateProtocolVersion);
+        Bot_DisableNetworkLogs = getBoolean("bot.disable-network-logs", Bot_DisableNetworkLogs);
+        Bot_DisableBotLogs = getBoolean("bot.disable-bot-logs", Bot_DisableBotLogs);
+        Bot_UseMinecraftLogger_BotLogs = getBoolean("bot.use-minecraft-logger.bot-logs", Bot_UseMinecraftLogger_BotLogs);
+        Bot_UseMinecraftLogger_NetworkLogs = getBoolean("bot.use-minecraft-logger.network-logs", Bot_UseMinecraftLogger_NetworkLogs);
+        Bot_ContactCache_EnableFriendListCache = getBoolean("bot.contact-cache.enable-friend-list-cache", Bot_ContactCache_EnableFriendListCache);
+        Bot_ContactCache_EnableGroupMemberListCache = getBoolean("bot.contact-cache.enable-group-member-list-cache", Bot_ContactCache_EnableGroupMemberListCache);
+        Bot_ContactCache_SaveIntervalMillis = getLong("bot.contact-cache.save-interval-millis", Bot_ContactCache_SaveIntervalMillis);
+        Bot_UpdateProtocolVersion = getBoolean("bot.update-protocol-version", Bot_UpdateProtocolVersion);
 
         // database
-        Database_Type = getString("database.type",Database_Type).toLowerCase();
+        Database_Type = getString("database.type", Database_Type).toLowerCase();
         // database.drivers.sqlite
         Database_Drivers_SQLite_Path = getString("database.drivers.sqlite.path", Database_Drivers_SQLite_Path);
         // database.drivers.mysql
-        Database_Drivers_MySQL_Address = getString("database.drivers.mysql.address",Database_Drivers_MySQL_Address);
+        Database_Drivers_MySQL_Address = getString("database.drivers.mysql.address", Database_Drivers_MySQL_Address);
         Database_Drivers_MySQL_Username = getString("database.drivers.mysql.username", Database_Drivers_MySQL_Username);
         Database_Drivers_MySQL_Password = getString("database.drivers.mysql.password", Database_Drivers_MySQL_Password);
         Database_Drivers_MySQL_Database = getString("database.drivers.mysql.database", Database_Drivers_MySQL_Database);
