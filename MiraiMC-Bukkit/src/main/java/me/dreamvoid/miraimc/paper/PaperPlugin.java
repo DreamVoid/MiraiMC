@@ -3,7 +3,6 @@ package me.dreamvoid.miraimc.paper;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.LifecycleEventManager;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
-import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import me.dreamvoid.miraimc.bukkit.BukkitPlugin;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
@@ -13,11 +12,9 @@ import me.dreamvoid.miraimc.paper.utils.SpecialUtils;
 import org.bukkit.plugin.Plugin;
 
 import java.net.URLClassLoader;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 public class PaperPlugin extends BukkitPlugin {
-    private final ConcurrentHashMap<Integer, ScheduledTask> tasks = new ConcurrentHashMap<>();
     private final LibraryLoader loader;
 
     public PaperPlugin(){
