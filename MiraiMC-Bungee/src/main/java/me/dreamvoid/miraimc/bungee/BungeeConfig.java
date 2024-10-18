@@ -13,7 +13,7 @@ public class BungeeConfig extends PluginConfig {
     private final BungeePlugin plugin;
     private Configuration config;
 
-    public BungeeConfig(BungeePlugin plugin) {
+    protected BungeeConfig(BungeePlugin plugin) {
         this.plugin = plugin;
         PluginDir = plugin.getDataFolder();
     }

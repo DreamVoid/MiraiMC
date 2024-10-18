@@ -15,7 +15,7 @@ public class SpongeConfig extends PluginConfig {
     private final SpongePlugin plugin;
     private static HashMap<String, Object> map;
 
-    public SpongeConfig(SpongePlugin plugin){
+    protected SpongeConfig(SpongePlugin plugin){
         this.plugin = plugin;
         PluginDir = plugin.getDataFolder();
     }
@@ -68,8 +68,10 @@ public class SpongeConfig extends PluginConfig {
                 Object o = maps.get(args[i]);
                 if(o instanceof Integer){
                     return (int) o;
+                } else if (o instanceof String){
+                    return Integer.parseInt((String) o);
                 } else {
-                    throw new IllegalStateException(path + " is not a integer value");
+                    return Integer.parseInt(String.valueOf(o));
                 }
             }
         }
@@ -96,12 +98,10 @@ public class SpongeConfig extends PluginConfig {
                 Object o = maps.get(args[i]);
                 if(o instanceof Long) {
                     return (long) o;
-                } else if(o instanceof Integer) {
-                    return Long.parseLong(String.valueOf(o));
-                } else if(o instanceof String){
+                } else if(o instanceof String) {
                     return Long.parseLong((String) o);
                 } else {
-                    throw new IllegalStateException(path + " is not a long value");
+                    return Long.parseLong(String.valueOf(o));
                 }
             }
         }
@@ -128,8 +128,10 @@ public class SpongeConfig extends PluginConfig {
                 Object o = maps.get(args[i]);
                 if(o instanceof Boolean){
                     return (boolean) o;
+                }  else if(o instanceof String){
+                    return Boolean.parseBoolean((String) o);
                 } else {
-                    throw new IllegalStateException(path + " is not a boolean value");
+                    return Boolean.parseBoolean(String.valueOf(o));
                 }
             }
         }

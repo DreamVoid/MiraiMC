@@ -5,7 +5,7 @@ import me.dreamvoid.miraimc.interfaces.PluginConfig;
 public class NukkitConfig extends PluginConfig {
     private final NukkitPlugin plugin;
 
-    public NukkitConfig(NukkitPlugin plugin){
+    protected NukkitConfig(NukkitPlugin plugin){
         this.plugin = plugin;
         PluginDir = plugin.getDataFolder();
     }

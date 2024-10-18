@@ -5,7 +5,7 @@ import me.dreamvoid.miraimc.interfaces.PluginConfig;
 public class BukkitConfig extends PluginConfig {
     private final BukkitPlugin plugin;
 
-    public BukkitConfig(BukkitPlugin plugin){
+    protected BukkitConfig(BukkitPlugin plugin){
         this.plugin = plugin;
         PluginDir = plugin.getDataFolder();
     }
