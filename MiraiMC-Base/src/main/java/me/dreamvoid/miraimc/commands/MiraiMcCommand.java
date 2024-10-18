@@ -11,7 +11,7 @@ public class MiraiMcCommand implements ICommandExecutor {
     @Override
     public boolean onCommand(ICommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage("This server is running "+ MiraiMC.getPlatform().getPluginName() +" version "+ MiraiMC.getPlatform().getPluginVersion()+" by "+ MiraiMC.getPlatform().getAuthors().toString().replace("[","").replace("]",""));
+            sender.sendMessage("This server is running " + MiraiMC.getPlatform().getPluginName() + " version " + MiraiMC.getPlatform().getPluginVersion() + " by " + MiraiMC.getPlatform().getAuthors().toString().replace("[", "").replace("]", ""));
             return false;
         }
 
@@ -22,7 +22,7 @@ public class MiraiMcCommand implements ICommandExecutor {
                         MiraiMC.getConfig().loadConfig();
                         sender.sendMessage("&a配置文件已经重新加载，部分配置可能需要重新启动服务器才能生效！");
                     } catch (IOException e) {
-                        Utils.getLogger().warning("加载配置文件时出现问题，原因："+e);
+                        Utils.resolveException(e, Utils.getLogger(), "加载配置文件时出现问题！");
                         sender.sendMessage("&c重新配置文件时出现问题，请查看控制台了解更多信息！");
                     }
                 } else sender.sendMessage("&c你没有足够的权限执行此命令！");
@@ -100,24 +100,24 @@ public class MiraiMcCommand implements ICommandExecutor {
                             }
                         }
                     } else {
-                        for (String s : Arrays.asList("&6&lMiraiMC&r &b插件帮助菜单&r &a玩家绑定",
+                        Arrays.asList(
+                                "&6&lMiraiMC&r &b插件帮助菜单&r &a玩家绑定",
                                 "&6/miraimc bind add <玩家名> <QQ号>:&r 为玩家和QQ号添加绑定",
                                 "&6/miraimc bind getplayer <玩家名>:&r 获取指定玩家名绑定的QQ号",
                                 "&6/miraimc bind getqq <QQ号>:&r 获取指定QQ号绑定的玩家名",
                                 "&6/miraimc bind removeplayer <玩家名>:&r 删除一个玩家的绑定",
-                                "&6/miraimc bind removeqq <QQ号>:&r 删除一个QQ号的绑定")) {
-                            sender.sendMessage(s);
-                        }
+                                "&6/miraimc bind removeqq <QQ号>:&r 删除一个QQ号的绑定"
+                        ).forEach(sender::sendMessage);
                     }
                 } else sender.sendMessage("&c你没有足够的权限执行此命令！");
                 break;
             }
             case "help": {
-                for (String s : Arrays.asList("&6&lMiraiMC&r &b插件帮助菜单",
+                Arrays.asList(
+                        "&6&lMiraiMC&r &b插件帮助菜单",
                         "&6/miraimc bind:&r 玩家绑定帮助菜单",
-                        "&6/miraimc reload:&r 重新加载插件")) {
-                    sender.sendMessage(s);
-                }
+                        "&6/miraimc reload:&r 重新加载插件"
+                ).forEach(sender::sendMessage);
                 break;
             }
             default:{

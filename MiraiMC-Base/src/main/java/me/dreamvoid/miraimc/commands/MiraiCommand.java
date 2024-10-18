@@ -19,204 +19,231 @@ public class MiraiCommand implements ICommandExecutor {
     @Override
     public boolean onCommand(ICommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage("This server is running "+ MiraiMC.getPlatform().getPluginName() +" version "+ MiraiMC.getPlatform().getPluginVersion()+" by "+ MiraiMC.getPlatform().getAuthors().toString().replace("[","").replace("]",""));
+            sender.sendMessage("This server is running " + MiraiMC.getPlatform().getPluginName() + " version " + MiraiMC.getPlatform().getPluginVersion() + " by " + MiraiMC.getPlatform().getAuthors().toString().replace("[", "").replace("]", ""));
             return false;
         }
 
-        switch (args[0].toLowerCase()){
+        switch (args[0].toLowerCase()) {
             case "login": {
-                if(sender.hasPermission("miraimc.command.mirai.login")){
-                    if(args.length >= 3) {
+                if (sender.hasPermission("miraimc.command.mirai.login")) {
+                    if (args.length >= 3) {
                         MiraiMC.getPlatform().runTaskAsync(() -> {
                             BotConfiguration.MiraiProtocol Protocol;
                             if (args.length == 3) {
                                 Protocol = BotConfiguration.MiraiProtocol.ANDROID_PHONE;
-                            } else try {
-                                Protocol = BotConfiguration.MiraiProtocol.valueOf(args[3].toUpperCase());
-                            } catch (IllegalArgumentException ignored) {
-                                sender.sendMessage("&e无效的协议类型，请检查输入！");
-                                sender.sendMessage("&e可用的协议类型: " + MiraiBot.getAvailableProtocol().toString().replace("[", "").replace("]", ""));
-                                return;
+                            } else {
+                                try {
+                                    Protocol = BotConfiguration.MiraiProtocol.valueOf(args[3].toUpperCase());
+                                } catch (IllegalArgumentException ignored) {
+                                    sender.sendMessage("&e无效的协议类型，请检查输入！");
+                                    sender.sendMessage("&e可用的协议类型: " + MiraiBot.getAvailableProtocol().toString().replace("[", "").replace("]", ""));
+                                    return;
+                                }
                             }
 
-                            MiraiBot.doBotLogin(Long.parseLong(args[1]),args[2], Protocol);
+                            MiraiBot.doBotLogin(Long.parseLong(args[1]), args[2], Protocol);
                         });
                     } else {
                         sender.sendMessage("&c无效的参数！用法: /mirai login <账号> <密码> [协议]");
                     }
-                } else sender.sendMessage("&c你没有足够的权限执行此命令！");
+                } else {
+                    sender.sendMessage("&c你没有足够的权限执行此命令！");
+                }
                 break;
             }
-            case "logout":{
-                if(sender.hasPermission("miraimc.command.mirai.logout")){
-                    if(args.length >= 2) {
+            case "logout": {
+                if (sender.hasPermission("miraimc.command.mirai.logout")) {
+                    if (args.length >= 2) {
                         try {
                             MiraiBot.getBot(Long.parseLong(args[1])).close();
                             sender.sendMessage("&a已退出指定机器人！");
-                        } catch (NoSuchElementException e){
-                            sender.sendMessage( "&c指定的机器人不存在！");
+                        } catch (NoSuchElementException e) {
+                            sender.sendMessage("&c指定的机器人不存在！");
                         }
                     } else {
                         sender.sendMessage("&c无效的参数！用法: /mirai logout <账号>");
                     }
-                } else sender.sendMessage("&c你没有足够的权限执行此命令！");
+                } else {
+                    sender.sendMessage("&c你没有足够的权限执行此命令！");
+                }
                 break;
             }
-            case "sendgroupmessage":{
-                if(sender.hasPermission("miraimc.command.mirai.sendgroupmessage")){
-                    if(args.length >= 4){
+            case "sendgroupmessage": {
+                if (sender.hasPermission("miraimc.command.mirai.sendgroupmessage")) {
+                    if (args.length >= 4) {
                         StringBuilder message = new StringBuilder();
-                        for (int i = 0; i < args.length; i++) {
-                            if(i >= 3){
-                                message.append(args[i]).append(" ");
-                            }
+                        for (int i = 3; i < args.length; i++) {
+                            message.append(args[i]).append(" ");
                         }
-                        String text = message.toString().replace("\\n",System.lineSeparator());
+                        String text = message.toString().replace("\\n", System.lineSeparator());
                         try {
                             MiraiBot.getBot(Long.parseLong(args[1])).getGroup(Long.parseLong(args[2])).sendMessageMirai(text);
-                        } catch (NoSuchElementException e){
+                        } catch (NoSuchElementException e) {
                             sender.sendMessage("&c指定的机器人不存在！");
                         }
                     } else {
                         sender.sendMessage("&c无效的参数！用法: /mirai sendgroupmessage <账号> <群号> <消息>");
                     }
-                } else sender.sendMessage("&c你没有足够的权限执行此命令！");
+                } else {
+                    sender.sendMessage("&c你没有足够的权限执行此命令！");
+                }
                 break;
             }
-            case "sendfriendmessage":{
-                if(sender.hasPermission("miraimc.command.mirai.sendfriendmessage")){
-                    if(args.length >= 4){
+            case "sendfriendmessage": {
+                if (sender.hasPermission("miraimc.command.mirai.sendfriendmessage")) {
+                    if (args.length >= 4) {
                         StringBuilder message = new StringBuilder();
-                        for (int i = 0; i < args.length; i++) {
-                            if(i >= 3){
-                                message.append(args[i]).append(" ");
-                            }
+                        for (int i = 3; i < args.length; i++) {
+                            message.append(args[i]).append(" ");
                         }
-                        String text = message.toString().replace("\\n",System.lineSeparator());
+                        String text = message.toString().replace("\\n", System.lineSeparator());
                         try {
                             MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).sendMessageMirai(text);
-                        } catch (NoSuchElementException e){
+                        } catch (NoSuchElementException e) {
                             sender.sendMessage("&c指定的机器人不存在！");
                         }
                     } else {
                         sender.sendMessage("&c无效的参数！用法: /mirai sendfriendmessage <账号> <好友> <消息>");
                     }
-                } else sender.sendMessage("&c你没有足够的权限执行此命令！");
+                } else {
+                    sender.sendMessage("&c你没有足够的权限执行此命令！");
+                }
                 break;
             }
-            case "sendfriendnudge":{
-                if(sender.hasPermission("miraimc.command.mirai.sendfriendnudge")){
-                    if(args.length >= 3){
+            case "sendfriendnudge": {
+                if (sender.hasPermission("miraimc.command.mirai.sendfriendnudge")) {
+                    if (args.length >= 3) {
                         MiraiBot.getBot(Long.parseLong(args[1])).getFriend(Long.parseLong(args[2])).nudge();
                     } else {
                         sender.sendMessage("&c无效的参数！用法: /mirai sendfriendnudge <账号> <好友>");
                     }
-                } else sender.sendMessage("&c你没有足够的权限执行此命令！");
+                } else {
+                    sender.sendMessage("&c你没有足够的权限执行此命令！");
+                }
                 break;
             }
-            case "list":{
-                if(sender.hasPermission("miraimc.command.mirai.list")){
+            case "list": {
+                if (sender.hasPermission("miraimc.command.mirai.list")) {
                     sender.sendMessage("&a存在的机器人: ");
-
-                    // Core
-                    for (Long bots : MiraiBot.getOnlineBots()) {
+                    MiraiBot.getOnlineBots().forEach(bots -> {
                         Bot bot = Bot.getInstance(bots);
                         if (bot.isOnline()) {
-                            sender.sendMessage("&b" + bot.getId() + "&r &7-&r &6" + Bot.getInstance(bots).getNick());
+                            sender.sendMessage("&b" + bot.getId() + "&r &7-&r &6" + bot.getNick());
                         } else {
                             sender.sendMessage("&b" + bot.getId() + "&r &7-&r &c离线");
                         }
-                    }
-                } else sender.sendMessage("&c你没有足够的权限执行此命令！");
+                    });
+                } else {
+                    sender.sendMessage("&c你没有足够的权限执行此命令！");
+                }
                 break;
             }
-            case "checkonline":{
-                if(sender.hasPermission("miraimc.command.mirai.checkonline")){
-                    if(args.length >= 2){
+            case "checkonline": {
+                if (sender.hasPermission("miraimc.command.mirai.checkonline")) {
+                    if (args.length >= 2) {
                         try {
                             if (MiraiBot.getBot(Long.parseLong(args[1])).isOnline()) {
                                 sender.sendMessage("&a当前机器人在线");
-                            } else sender.sendMessage("&e当前机器人不在线");
-                        } catch (NoSuchElementException e){
+                            } else {
+                                sender.sendMessage("&e当前机器人不在线");
+                            }
+                        } catch (NoSuchElementException e) {
                             sender.sendMessage("&e当前机器人不存在");
                         }
-                    } else sender.sendMessage("&c无效的参数！用法: /mirai checkonline <账号>");
-                } else sender.sendMessage("&c你没有足够的权限执行此命令！");
+                    } else {
+                        sender.sendMessage("&c无效的参数！用法: /mirai checkonline <账号>");
+                    }
+                } else {
+                    sender.sendMessage("&c你没有足够的权限执行此命令！");
+                }
                 break;
             }
-            case "autologin":{
-                if(sender.hasPermission("miraimc.command.mirai.autologin")){
-                    if(args.length>=2){
-                        switch (args[1]){
-                            case "add":{
-                                boolean result;
-                                if(args.length>=4){
-                                    if(args.length == 5){
-                                        result = MiraiAutoLogin.addAutoLoginBot(Long.parseLong(args[2]), args[3], args[4]);
-                                    } else result = MiraiAutoLogin.addAutoLoginBot(Long.parseLong(args[2]), args[3], "ANDROID_PHONE");
-                                    if(result){
+            case "autologin": {
+                if (sender.hasPermission("miraimc.command.mirai.autologin")) {
+                    if (args.length >= 2) {
+                        switch (args[1]) {
+                            case "add": {
+                                if (args.length >= 4) {
+                                    if (args.length == 5 ? MiraiAutoLogin.addAutoLoginBot(Long.parseLong(args[2]), args[3], args[4]) : MiraiAutoLogin.addAutoLoginBot(Long.parseLong(args[2]), args[3], "ANDROID_PHONE")) {
                                         sender.sendMessage("&a新的自动登录机器人添加成功！");
-                                    } else sender.sendMessage("&c新的自动登录机器人添加失败，请检查控制台错误输出！");
-                                } else sender.sendMessage("&c无效的参数！用法: /mirai autologin add <账号> <密码> [协议]");
+                                    } else {
+                                        sender.sendMessage("&c新的自动登录机器人添加失败，请检查控制台错误输出！");
+                                    }
+                                } else {
+                                    sender.sendMessage("&c无效的参数！用法: /mirai autologin add <账号> <密码> [协议]");
+                                }
                                 break;
                             }
-                            case "remove":{
-                                boolean result;
-                                if(args.length>=3){
-                                    result = MiraiAutoLogin.delAutoLoginBot(Long.parseLong(args[2]));
-                                    if(result){
+                            case "remove": {
+                                if (args.length >= 3) {
+                                    if (MiraiAutoLogin.delAutoLoginBot(Long.parseLong(args[2]))) {
                                         sender.sendMessage("&a删除自动登录机器人成功！");
-                                    } else sender.sendMessage("&c删除自动登录机器人失败，请检查控制台错误输出！");
-                                } else sender.sendMessage("&c无效的参数！用法: /mirai autologin remove <账号>");
+                                    } else {
+                                        sender.sendMessage("&c删除自动登录机器人失败，请检查控制台错误输出！");
+                                    }
+                                } else {
+                                    sender.sendMessage("&c无效的参数！用法: /mirai autologin remove <账号>");
+                                }
                                 break;
                             }
-                            case "list":{
+                            case "list": {
                                 sender.sendMessage("&a存在的自动登录机器人: ");
                                 try {
-                                    List<Map<?,?>> AutoLoginBotList = MiraiAutoLogin.loadAutoLoginList();
-                                    for (Map<?,?> bots : AutoLoginBotList){
-                                        sender.sendMessage("&b"+bots.get("account"));
+                                    List<Map<?, ?>> AutoLoginBotList = MiraiAutoLogin.loadAutoLoginList();
+                                    for (Map<?, ?> bots : AutoLoginBotList) {
+                                        sender.sendMessage("&b" + bots.get("account"));
                                     }
                                 } catch (IOException e) {
-                                    sender.sendMessage("&c执行自动登录命令时出现异常，原因: "+e);
+                                    sender.sendMessage("&c执行自动登录命令时出现异常，原因: " + e);
                                 }
 
                                 break;
                             }
-                            default:{
+                            default: {
                                 sender.sendMessage("&c未知或不完整的命令，请输入 /mirai help 查看帮助！");
                                 break;
                             }
                         }
-                    } else sender.sendMessage("&c未知或不完整的命令，请输入 /mirai help 查看帮助！");
-                } else sender.sendMessage("&c你没有足够的权限执行此命令！");
+                    } else {
+                        sender.sendMessage("&c未知或不完整的命令，请输入 /mirai help 查看帮助！");
+                    }
+                } else {
+                    sender.sendMessage("&c你没有足够的权限执行此命令！");
+                }
                 break;
             }
-            case "uploadimage":{
-                if(sender.hasPermission("miraimc.command.mirai.uploadimage")) {
+            case "uploadimage": {
+                if (sender.hasPermission("miraimc.command.mirai.uploadimage")) {
                     if (args.length >= 3) {
                         File ImageDir = new File(MiraiMC.getConfig().PluginDir, "images");
-                        if(!ImageDir.exists() && !ImageDir.mkdir()) sender.sendMessage("&c图片文件夹创建失败，是否有目录的读写权限？");
+                        if (!ImageDir.exists() && !ImageDir.mkdir()) {
+                            sender.sendMessage("&c图片文件夹创建失败，是否有目录的读写权限？");
+                        }
                         File image = new File(ImageDir, args[2]);
 
-                        if(!image.exists() || image.isDirectory()) {
-                            sender.sendMessage("&c指定的图片文件不存在，请检查是否存在文件" + image.getPath()+"！");
+                        if (!image.exists() || image.isDirectory()) {
+                            sender.sendMessage("&c指定的图片文件不存在，请检查是否存在文件" + image.getPath() + "！");
                             break;
                         }
 
                         try {
                             sender.sendMessage("&a图片上传成功，可使用Mirai Code发送图片：[mirai:image:" + MiraiBot.getBot(Long.parseLong(args[1])).uploadImage(image) + "]");
-                        } catch (NoSuchElementException e){
+                        } catch (NoSuchElementException e) {
                             sender.sendMessage("&c指定的机器人不存在！");
                             break;
                         }
 
-                    } else sender.sendMessage("&c未知或不完整的命令，请输入 /mirai help 查看帮助！");
-                } else sender.sendMessage("&c你没有足够的权限执行此命令！");
+                    } else {
+                        sender.sendMessage("&c未知或不完整的命令，请输入 /mirai help 查看帮助！");
+                    }
+                } else {
+                    sender.sendMessage("&c你没有足够的权限执行此命令！");
+                }
                 break;
             }
-            case "help":{
-                for (String s : Arrays.asList("&6&lMiraiMC&r &b机器人帮助菜单",
+            case "help": {
+                Arrays.asList(
+                        "&6&lMiraiMC&r &b机器人帮助菜单",
                         "&6/mirai login <账号> <密码> [协议]:&r 登录一个机器人",
                         "&6/mirai logout <账号>:&r 退出一个机器人",
                         "&6/mirai list:&r 查看当前存在的机器人",
@@ -227,12 +254,11 @@ public class MiraiCommand implements ICommandExecutor {
                         "&6/mirai checkonline <账号>:&r 检查指定的机器人是否在线",
                         "&6/mirai autologin add <账号> <密码> [协议]:&r 添加一个自动登录账号",
                         "&6/mirai autologin list:&r 查看自动登录账号列表",
-                        "&6/mirai autologin remove <账号>:&r 删除一个自动登录账号")) {
-                    sender.sendMessage(s);
-                }
+                        "&6/mirai autologin remove <账号>:&r 删除一个自动登录账号"
+                ).forEach(sender::sendMessage);
                 break;
             }
-            default:{
+            default: {
                 sender.sendMessage("&c未知或不完整的命令，请输入 /mirai help 查看帮助！");
                 break;
             }
