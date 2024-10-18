@@ -1,14 +1,14 @@
 package me.dreamvoid.miraimc.sponge;
 
 import com.google.inject.Inject;
-import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
-import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
 import me.dreamvoid.miraimc.LifeCycle;
-import me.dreamvoid.miraimc.interfaces.Platform;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
-import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
+import me.dreamvoid.miraimc.interfaces.Platform;
 import me.dreamvoid.miraimc.interfaces.PluginConfig;
+import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import me.dreamvoid.miraimc.sponge.utils.Metrics;
 import me.dreamvoid.miraimc.sponge.utils.SpecialUtils;
@@ -36,7 +36,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -228,8 +227,6 @@ public class SpongePlugin implements Platform {
                 .execute(task)
                 .build());
     }
-
-    private final HashMap<Integer, Task> tasks = new HashMap<>();
 
     @Override
     public String getPluginName() {

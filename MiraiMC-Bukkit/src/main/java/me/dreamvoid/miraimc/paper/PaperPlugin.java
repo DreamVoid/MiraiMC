@@ -9,7 +9,7 @@ import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
-import me.dreamvoid.miraimc.paper.utils.SenderUtils;
+import me.dreamvoid.miraimc.paper.utils.SpecialUtils;
 import org.bukkit.plugin.Plugin;
 
 import java.net.URLClassLoader;
@@ -34,9 +34,9 @@ public class PaperPlugin extends BukkitPlugin {
         LifecycleEventManager<Plugin> manager = this.getLifecycleManager();
         manager.registerEventHandler(LifecycleEvents.COMMANDS, event -> {
             final Commands commands = event.registrar();
-            commands.register("mirai", "MiraiMC Bot Command.", (stack, args) -> new MiraiCommand().onCommand(SenderUtils.getSender(stack), args));
-            commands.register("miraimc", "MiraiMC Plugin Command.", (stack, args) -> new MiraiMcCommand().onCommand(SenderUtils.getSender(stack), args));
-            commands.register("miraiverify", "MiraiMC LoginVerify Command.", (stack, args) -> new MiraiVerifyCommand().onCommand(SenderUtils.getSender(stack), args));
+            commands.register("mirai", "MiraiMC Bot Command.", (stack, args) -> new MiraiCommand().onCommand(SpecialUtils.getSender(stack), args));
+            commands.register("miraimc", "MiraiMC Plugin Command.", (stack, args) -> new MiraiMcCommand().onCommand(SpecialUtils.getSender(stack), args));
+            commands.register("miraiverify", "MiraiMC LoginVerify Command.", (stack, args) -> new MiraiVerifyCommand().onCommand(SpecialUtils.getSender(stack), args));
         });
     }
 

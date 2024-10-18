@@ -5,7 +5,7 @@ import me.dreamvoid.miraimc.commands.ICommandSender;
 import org.bukkit.ChatColor;
 
 @SuppressWarnings({"UnstableApiUsage", "deprecation"})
-public class SenderUtils {
+public class SpecialUtils {
     public static ICommandSender getSender(CommandSourceStack stack){
         return new ICommandSender() {
             @Override
