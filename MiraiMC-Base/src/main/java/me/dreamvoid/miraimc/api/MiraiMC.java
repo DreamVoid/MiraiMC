@@ -3,12 +3,15 @@ package me.dreamvoid.miraimc.api;
 import me.dreamvoid.miraimc.LifeCycle;
 import me.dreamvoid.miraimc.interfaces.Platform;
 import me.dreamvoid.miraimc.interfaces.PluginConfig;
-import me.dreamvoid.miraimc.internal.database.DatabaseHandler;
 
 import javax.annotation.Nullable;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.UUID;
+
+import static me.dreamvoid.miraimc.internal.database.DatabaseHandler.getDatabase;
 
 /**
  * MiraiMC 插件接口
@@ -41,8 +44,8 @@ public class MiraiMC {
         private static final String prefix = getConfig().Database_Settings_Prefix;
 
         static {
-            try {
-                DatabaseHandler.executeUpdate("CREATE TABLE IF NOT EXISTS " + prefix + "bind (uuid TINYTEXT NOT NULL, qqid long NOT NULL)");
+            try (Statement stmt = getDatabase().getConnection().createStatement()) {
+                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS " + prefix + "bind (uuid TINYTEXT NOT NULL, qqid long NOT NULL)");
             } catch (SQLException e) {
                 throw new RuntimeException("处理数据时出现异常，请检查MiraiMC数据库配置是否正确", e);
             }
@@ -56,15 +59,32 @@ public class MiraiMC {
          * @param account 玩家QQ号
          */
         public static void addBind(UUID uuid, long account) {
-            try (ResultSet resultSetUUID = DatabaseHandler.executeQuery("SELECT * FROM " + prefix + "bind WHERE uuid=? LIMIT 1", uuid);
-                 ResultSet resultSetAccount = DatabaseHandler.executeQuery("SELECT * FROM " + prefix + "bind WHERE qqid=? LIMIT 1", account)) {
+            try(PreparedStatement pstmt = getDatabase().getConnection().prepareStatement("SELECT * FROM " + prefix + "bind WHERE uuid=? LIMIT 1");
+                PreparedStatement pstmt1 = getDatabase().getConnection().prepareStatement("SELECT * FROM " + prefix + "bind WHERE qqid=? LIMIT 1")){
+                pstmt.setString(1, uuid.toString());
+                pstmt1.setLong(1, account);
 
-                if (!resultSetUUID.isBeforeFirst() && resultSetAccount.isBeforeFirst()) {
-                    DatabaseHandler.executeUpdate("UPDATE " + prefix + "bind SET uuid=? WHERE qqid=?", uuid, account);
-                } else if (resultSetUUID.isBeforeFirst() && !resultSetAccount.isBeforeFirst()) {
-                    DatabaseHandler.executeUpdate("UPDATE " + prefix + "bind SET qqid=? WHERE uuid=?", account, uuid);
-                } else if (!resultSetUUID.isBeforeFirst() && !resultSetAccount.isBeforeFirst()) {
-                    DatabaseHandler.executeUpdate("INSERT INTO " + prefix + "bind VALUES(?,?)", uuid, account);
+                try (ResultSet resultSetUUID = pstmt.executeQuery();
+                     ResultSet resultSetAccount = pstmt1.executeQuery()) {
+                    if (!resultSetUUID.isBeforeFirst() && resultSetAccount.isBeforeFirst()) {
+                        try (PreparedStatement pstmt3 = getDatabase().getConnection().prepareStatement("UPDATE " + prefix + "bind SET uuid=? WHERE qqid=?")) {
+                            pstmt3.setString(1, uuid.toString());
+                            pstmt3.setLong(2, account);
+                            pstmt3.executeUpdate();
+                        }
+                    } else if (resultSetUUID.isBeforeFirst() && !resultSetAccount.isBeforeFirst()) {
+                        try (PreparedStatement pstmt3 = getDatabase().getConnection().prepareStatement("UPDATE " + prefix + "bind SET qqid=? WHERE uuid=?")) {
+                            pstmt3.setLong(1, account);
+                            pstmt3.setString(2, uuid.toString());
+                            pstmt3.executeUpdate();
+                        }
+                    } else if (!resultSetUUID.isBeforeFirst() && !resultSetAccount.isBeforeFirst()) {
+                        try (PreparedStatement pstmt3 = getDatabase().getConnection().prepareStatement("INSERT INTO " + prefix + "bind VALUES(?,?)")) {
+                            pstmt3.setString(1, uuid.toString());
+                            pstmt3.setLong(2, account);
+                            pstmt3.executeUpdate();
+                        }
+                    }
                 }
             } catch (SQLException e) {
                 throw new RuntimeException("处理数据时出现异常，请检查MiraiMC数据库配置是否正确", e);
@@ -77,9 +97,15 @@ public class MiraiMC {
          * @param uuid 玩家UUID
          */
         public static void removeBind(UUID uuid) {
-            try (ResultSet resultSet = DatabaseHandler.executeQuery("SELECT * FROM " + prefix + "bind WHERE uuid=? LIMIT 1", uuid)) {
-                if (resultSet.next()) {
-                    DatabaseHandler.executeUpdate("DELETE FROM " + prefix + "bind WHERE uuid=?", uuid);
+            try (PreparedStatement pstmt = getDatabase().getConnection().prepareStatement("SELECT * FROM " + prefix + "bind WHERE uuid=? LIMIT 1")) {
+                pstmt.setString(1, uuid.toString());
+                try (ResultSet resultSet = pstmt.executeQuery()) {
+                    if (resultSet.next()) {
+                        try (PreparedStatement pstmt1 = getDatabase().getConnection().prepareStatement("DELETE FROM " + prefix + "bind WHERE uuid=?")) {
+                            pstmt1.setString(1, uuid.toString());
+                            pstmt1.executeUpdate();
+                        }
+                    }
                 }
             } catch (SQLException e) {
                 throw new RuntimeException("处理数据时出现异常，请检查MiraiMC数据库配置是否正确", e);
@@ -92,9 +118,15 @@ public class MiraiMC {
          * @param account 玩家QQ号
          */
         public static void removeBind(long account) {
-            try (ResultSet resultSet = DatabaseHandler.executeQuery("SELECT * FROM " + prefix + "bind WHERE qqid=? LIMIT 1", account)) {
-                if (resultSet.next()) {
-                    DatabaseHandler.executeUpdate("DELETE FROM " + prefix + "bind WHERE qqid=?", account);
+            try (PreparedStatement pstmt = getDatabase().getConnection().prepareStatement("SELECT * FROM " + prefix + "bind WHERE qqid=? LIMIT 1")) {
+                pstmt.setLong(1, account);
+                try (ResultSet resultSet = pstmt.executeQuery()) {
+                    if (resultSet.next()) {
+                        try (PreparedStatement pstmt1 = getDatabase().getConnection().prepareStatement("DELETE FROM " + prefix + "bind WHERE qqid=?")) {
+                            pstmt1.setLong(1, account);
+                            pstmt1.executeUpdate();
+                        }
+                    }
                 }
             } catch (SQLException e) {
                 throw new RuntimeException("处理数据时出现异常，请检查MiraiMC数据库配置是否正确", e);
@@ -109,8 +141,11 @@ public class MiraiMC {
          * @return QQ号
          */
         public static long getBind(UUID uuid) {
-            try (ResultSet resultSet = DatabaseHandler.executeQuery("SELECT * FROM " + prefix + "bind WHERE uuid=? LIMIT 1", uuid)) {
-                return resultSet.next() ? resultSet.getLong("qqid") : 0L;
+            try(PreparedStatement pstmt = getDatabase().getConnection().prepareStatement("SELECT * FROM " + prefix + "bind WHERE uuid=? LIMIT 1")){
+                pstmt.setString(1, String.valueOf(uuid));
+                try(ResultSet resultSet = pstmt.executeQuery()){
+                    return resultSet.next() ? resultSet.getLong("qqid") : 0L;
+                }
             } catch (SQLException e) {
                 throw new RuntimeException("处理数据时出现异常，请检查MiraiMC数据库配置是否正确", e);
             }
@@ -126,8 +161,11 @@ public class MiraiMC {
          */
         @Nullable
         public static UUID getBind(long account) {
-            try (ResultSet resultSet = DatabaseHandler.executeQuery("SELECT * FROM " + prefix + "bind WHERE qqid=? LIMIT 1", account)) {
-                return resultSet.next() ? UUID.fromString(resultSet.getString("uuid")) : null;
+            try(PreparedStatement pstmt = getDatabase().getConnection().prepareStatement("SELECT * FROM " + prefix + "bind WHERE qqid=? LIMIT 1")){
+                pstmt.setLong(1, account);
+                try(ResultSet resultSet = pstmt.executeQuery()){
+                    return resultSet.next() ? UUID.fromString(resultSet.getString("uuid")) : null;
+                }
             } catch (SQLException e) {
                 throw new RuntimeException("处理数据时出现异常，请检查MiraiMC数据库配置是否正确", e);
             }
