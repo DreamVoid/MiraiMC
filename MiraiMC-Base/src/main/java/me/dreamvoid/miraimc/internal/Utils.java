@@ -123,7 +123,7 @@ public final class Utils {
 
             connection.setDoInput(true);
             connection.setRequestMethod("GET");
-            connection.setRequestProperty("User-Agent", String.format("MiraiMC/%s (%s; %s)", MiraiMC.getPlatform().getPluginVersion(), MiraiMC.getPlatform().getType(), System.getProperty("os.name")));
+            connection.setRequestProperty("User-Agent", String.format("MiraiMCHttp/1.0 (%s; Java %s)", System.getProperty("os.name"), Utils.getJavaVersion()));
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(10000);
 
@@ -152,7 +152,7 @@ public final class Utils {
 
             connection.setDoInput(true);
             connection.setRequestMethod("POST");
-            connection.setRequestProperty("User-Agent", String.format("MiraiMC/%s (%s; %s)", MiraiMC.getPlatform().getPluginVersion(), MiraiMC.getPlatform().getType(), System.getProperty("os.name")));
+            connection.setRequestProperty("User-Agent", String.format("MiraiMCHttp/1.0 (%s; Java %s)", System.getProperty("os.name"), Utils.getJavaVersion()));
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Authorization", "Basic YWRtaW46");
             connection.setConnectTimeout(5000);
