@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import me.dreamvoid.miraimc.api.MiraiMC;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -42,6 +43,7 @@ public final class Utils {
         }
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static boolean findProcess(String processName) {
         BufferedReader bufferedReader = null;
         try {
@@ -190,13 +192,24 @@ public final class Utils {
         }
     }
 
+    /**
+     * 解析 mirai 工作目录
+     * @return mirai 工作目录
+     */
     @NotNull
     public static File getMiraiDir(){
         return MiraiMC.getConfig().General_MiraiWorkingDir.equals("default") ? new File(MiraiMC.getConfig().PluginDir,"MiraiBot") : new File(MiraiMC.getConfig().General_MiraiWorkingDir);
     }
 
-    public static void resolveException(Throwable throwable, Logger logger, String reason) {
-        if(!reason.isEmpty()) logger.severe(reason);
+    /**
+     * 处理异常和错误<br>
+     * [!] 此方法不应当由 MiraiMC 以外的代码调用
+     * @param throwable 抛出的异常或错误
+     * @param logger 用于输出日志的 {@link Logger}
+     * @param reason 自定义异常的原因，空字符串或 null 则不输出
+     */
+    public static void resolveException(Throwable throwable, Logger logger, @Nullable String reason) {
+        if(reason != null && !reason.isEmpty()) logger.severe(reason);
         logger.severe("如果你确信这是 MiraiMC 的错误，前往 GitHub 报告 issue 并附上完整服务器日志。");
 
         Throwable t = throwable;
@@ -215,6 +228,10 @@ public final class Utils {
         }
     }
 
+    /**
+     * 获取当前运行插件的 Java 版本
+     * @return 数字格式的 Java 版本
+     */
     public static int getJavaVersion() {
         String[] versionElements = System.getProperty("java.version").split("\\.");
         int discard = Integer.parseInt(versionElements[0]);

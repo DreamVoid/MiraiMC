@@ -103,25 +103,13 @@ public class NukkitLogger extends Logger {
     @Override
     public void log(Level level, String msg, Object param1) {
         logger.debug("Unsupported method \"log(Level level, String msg, Object param1)\" is being called.");
-        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
-            logger.info(msg);
-        } else if(level == Level.SEVERE) {
-            logger.error(msg);
-        } else {
-            logger.log(LogLevel.valueOf(level.getName()), msg);
-        }
+        log(level, msg);
     }
 
     @Override
     public void log(Level level, String msg, Object[] params) {
         logger.debug("Unsupported method \"log(Level level, String msg, Object[] params)\" is being called.");
-        if(level != Level.INFO && level != Level.WARNING && level != Level.SEVERE){
-            logger.info(msg);
-        } else if(level == Level.SEVERE) {
-            logger.error(msg);
-        } else {
-            logger.log(LogLevel.valueOf(level.getName()), msg);
-        }
+        log(level, msg);
     }
 
     @Override

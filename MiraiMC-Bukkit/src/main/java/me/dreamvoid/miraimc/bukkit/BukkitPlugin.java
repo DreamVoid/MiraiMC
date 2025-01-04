@@ -64,6 +64,7 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
             }
 
             // bStats统计
+            //noinspection deprecation
             if(config.General_AllowBStats && !getDescription().getVersion().contains("dev")) {
                 getLogger().info("Initializing bStats metrics.");
                 int pluginId = 11534;
@@ -84,6 +85,7 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
         ICommandSender sender1 = new ICommandSender() {
             @Override
             public void sendMessage(String message) {
+                //noinspection deprecation
                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
             }
 
@@ -239,16 +241,19 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
 
     @Override
     public String getPluginName() {
+        //noinspection deprecation
         return getDescription().getName();
     }
 
     @Override
     public String getPluginVersion() {
+        //noinspection deprecation
         return getDescription().getVersion();
     }
 
     @Override
     public List<String> getAuthors() {
+        //noinspection deprecation
         return getDescription().getAuthors();
     }
 

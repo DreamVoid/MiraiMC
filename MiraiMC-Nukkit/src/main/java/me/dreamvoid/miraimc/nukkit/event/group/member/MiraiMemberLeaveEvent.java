@@ -39,7 +39,7 @@ public class MiraiMemberLeaveEvent extends AbstractGroupMemberEvent {
          * @return 操作者ID
          */
         public long getOperator() {
-            return event.getOperator().getId();
+            return event.getOperator() != null ? event.getOperator().getId() : 0L;
         }
     }
 

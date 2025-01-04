@@ -144,18 +144,14 @@
                     </additionalJOptions>
                     <show>protected</show>
                     <excludePackageNames>
-                        me.dreamvoid.miraimc.webapi:
-                        me.dreamvoid.miraimc.webapi.*:
+                        me.dreamvoid.miraimc.commands:
+                        me.dreamvoid.miraimc.commands.*:
                         me.dreamvoid.miraimc.internal:
                         me.dreamvoid.miraimc.internal.*:
                         me.dreamvoid.miraimc.bukkit:
-                        me.dreamvoid.miraimc.bukkit.commands:
-                        me.dreamvoid.miraimc.bukkit.commands.*:
                         me.dreamvoid.miraimc.bukkit.utils:
                         me.dreamvoid.miraimc.bukkit.utils.*:
                         me.dreamvoid.miraimc.bungee:
-                        me.dreamvoid.miraimc.bungee.commands:
-                        me.dreamvoid.miraimc.bungee.commands.*:
                         me.dreamvoid.miraimc.bungee.utils:
                         me.dreamvoid.miraimc.bungee.utils.*:
                         me.dreamvoid.miraimc.nukkit:
@@ -164,13 +160,9 @@
                         me.dreamvoid.miraimc.nukkit.utils:
                         me.dreamvoid.miraimc.nukkit.utils.*:
                         me.dreamvoid.miraimc.sponge:
-                        me.dreamvoid.miraimc.sponge.commands:
-                        me.dreamvoid.miraimc.sponge.commands.*:
                         me.dreamvoid.miraimc.sponge.utils:
                         me.dreamvoid.miraimc.sponge.utils.*:
                         me.dreamvoid.miraimc.velocity:
-                        me.dreamvoid.miraimc.velocity.commands:
-                        me.dreamvoid.miraimc.velocity.commands.*:
                         me.dreamvoid.miraimc.velocity.utils:
                         me.dreamvoid.miraimc.velocity.utils.*
                     </excludePackageNames>

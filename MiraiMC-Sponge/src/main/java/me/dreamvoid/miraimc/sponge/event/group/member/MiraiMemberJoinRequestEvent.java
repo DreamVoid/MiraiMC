@@ -111,6 +111,7 @@ public class MiraiMemberJoinRequestEvent extends AbstractBotEvent {
      * @return MiraiGroup 实例
      */
     public MiraiGroup getGroup(){
-        return new MiraiGroup(event.getBot(), event.getGroup().getId());
+        return event.getGroup() != null ? new MiraiGroup(event.getBot(), event.getGroup().getId()) : null;
+
     }
 }

@@ -48,15 +48,20 @@ public abstract class PluginConfig {
         Database_Settings_Pool_KeepaliveTime = getInt("database.settings.pool.keepaliveTime", Database_Settings_Pool_KeepaliveTime);
         Database_Settings_Pool_MinimumIdle = getInt("database.settings.pool.minimumIdle", Database_Settings_Pool_MinimumIdle);
     }
-    
+
+    @SuppressWarnings("SameParameterValue")
     protected abstract void saveDefaultConfig() throws IOException;
-    
+
+    @SuppressWarnings("SameParameterValue")
     protected abstract String getString(String path, String defaults);
 
+    @SuppressWarnings("SameParameterValue")
     protected abstract int getInt(String path, int defaults);
 
+    @SuppressWarnings("SameParameterValue")
     protected abstract long getLong(String path, long defaults);
 
+    @SuppressWarnings("SameParameterValue")
     protected abstract boolean getBoolean(String path, boolean defaults);
 
     // 配置部分
