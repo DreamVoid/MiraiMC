@@ -26,21 +26,18 @@ MiraiMC 是一个基于 [Mirai](https://github.com/mamoe/mirai) 的 Minecraft �
 
 ## 下载
 * 稳定版本
+  * [Modrinth](https://modrinth.com/plugin/miraimc/versions)
   * [GitHub 发布页](https://github.com/DreamVoid/MiraiMC/releases)
-  * [Modrinth](https://modrinth.com/plugin/miraimc)
 * 开发版本
   * [GitHub Actions CI](https://github.com/DreamVoid/MiraiMC/actions/workflows/maven.yml?query=is%3Asuccess)
 
 ## 开始使用（服务器）
 MiraiMC 是一个服务端插件，因此你只需按照安装插件的方式安装 MiraiMC 即可。
 
-从“下载”部分下载适用的 MiraiMC 插件，并将插件文件放入插件/模组文件夹（取决于服务端类型）。
-
-如果服务端正在运行，请完全停止服务端。之后，启动服务端。
-
-如果你同时使用了基于 MiraiMC 开发的插件，请在这些插件的配置文件中调整有关 MiraiMC 的配置。
-
-最后，登录你的机器人账号即可开始享受优雅的 QQ 机器人服务！
+1. 从“下载”部分下载适用的 MiraiMC 插件，并将插件文件放入插件/模组文件夹（取决于服务端类型）。
+2. 如果服务端正在运行，请完全停止服务端。之后，启动服务端。
+3. 如果你同时使用了基于 MiraiMC 开发的插件，请在这些插件的配置文件中调整有关 MiraiMC 的配置。
+4. 最后，登录你的机器人账号即可开始享受优雅的 QQ 机器人服务！
 
 可以在这里找到更为详细的使用教程：https://docs.miraimc.dreamvoid.me/
 
@@ -48,26 +45,26 @@ MiraiMC 是一个服务端插件，因此你只需按照安装插件的方式安
 * 使用 MiraiMC 开发模板开发一个全新的插件:
   - [Maven](https://github.com/MiraiMC/MiraiMC-Template)
   - [Gradle KotlinDSL](https://github.com/MiraiMC/MiraiMC-Template-Gradle-KotlinDSL)
-* 查阅有关开发的知识：https://docs.miraimc.dreamvoid.me/
+* 查阅有关 MiraiMC 开发的知识：https://docs.miraimc.dreamvoid.me/
 * 查阅 Javadoc：https://jd.miraimc.dreamvoid.me
 
 ### 依赖
 
-以下默认添加全平台的 MiraiMC 依赖。如果你只需要特定平台的 MiraiMC 依赖，请将 `Integration` 更改为对应平台的名称，如 `Bukkit` 和 `Velocity`。
+以下列出的配置默认添加全平台的 MiraiMC 依赖。如果你只需要特定平台的 MiraiMC 依赖，请将 `Integration` 更改为对应平台的名称，如 `Bukkit` 和 `Velocity`。
 
 #### Maven 
 ```
 <dependency>
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC-Integration</artifactId>
-    <version>1.8.3</version>
+    <version>1.9</version>
     <scope>provided</scope>
 </dependency>
 ```
 
 #### Gradle
 ```
-implementation 'io.github.dreamvoid:MiraiMC-Integration:1.8.3'
+implementation 'io.github.dreamvoid:MiraiMC-Integration:1.9'
 ```
 
 ## 指令和权限
@@ -145,6 +142,8 @@ MiraiMC 的源码仅托管于 Git‎Hub (https‎://‎github‎.‎com/DreamVoi
 - [X] 支持 PlaceholderAPI
 - [X] ~~引入 Mirai-Http-API 模式来连接到 mirai-console~~
 - [X] 支持 Folia
+- [ ] 插件所有文本支持多语言
+- [ ] 做一个图形界面
 - [ ] 像 mirai console 一样加载 mirai console 插件（遥遥无期，欢迎 PR）
 
 [DreamVoid](https://github.com/DreamVoid) 与 [MiraiMC](https://github.com/MiraiMC)，用 ❤ 制作。

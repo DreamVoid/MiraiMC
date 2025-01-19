@@ -7,7 +7,7 @@
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
     <packaging>pom</packaging>
-    <version>1.9-rc2</version>
+    <version>1.9</version>
     <modules>
         <module>MiraiMC-Base</module>
         <module>MiraiMC-Bukkit</module>
