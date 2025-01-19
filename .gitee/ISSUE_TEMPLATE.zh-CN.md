@@ -1,13 +1,13 @@
 <!--
 【填写前注意】
 
-发Issue前请先看看Issue列表里有没有你的问题，包括已关闭的问题。如有，请关注相关Issue而不是重复发问。
+发 Issue 前请先看看 Issue 列表里有没有你的问题，包括已关闭的问题。如有，请关注相关Issue而不是重复发问。
 请不要删除模板中的任何内容，只填写你应该填写的。
 标题和内容不必加敬词，所有人都是平等的。
 请勿在标题中增加如“帮帮我”、“急急急”、“大神”之类的无意义词汇，我可能会反感从而选择性忽略你的问题。
 
 【Gitee用户注意】
-Gitee Issue Tracker不接受有关新功能/特性的建议，请前往Github提交：https://github.com/DreamVoid/DreamVoid/issues
+Gitee Issue Tracker 不接受有关新功能/特性的建议，请前往 GitHub 提交：https://github.com/DreamVoid/DreamVoid/issues
 不再接受从 Gitee 提交的任何 issue。
 -->
 

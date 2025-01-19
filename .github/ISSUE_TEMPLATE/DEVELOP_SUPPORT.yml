@@ -76,7 +76,7 @@ body:
       description: 还有什么要补充的吗？
       placeholder: |
         提示：
-        你可以提供系统环境、Java版本
+        你可以提供系统环境、Java版本、你的代码仓库链接
         你还可以提供截图和文件（直接拖动文件到编辑框）
   - type: checkboxes
     id: agreement

@@ -9,9 +9,9 @@ public interface IMiraiAutoLogin {
 
     List<Map<?, ?>> loadAutoLoginList() throws IOException;
 
-    void doStartUpAutoLogin();
+    void startAutoLogin();
 
     boolean addAutoLoginBot(long Account, String Password, String Protocol);
 
-    boolean delAutoLoginBot(long Account);
+    boolean deleteAutoLoginBot(long Account);
 }

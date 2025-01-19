@@ -34,7 +34,7 @@ public class MiraiMC {
      * @return MiraiMC 配置
      */
     public static PluginConfig getConfig() {
-        return LifeCycle.getPlatform().getPlatformConfig();
+        return LifeCycle.getPlatform().getPluginConfig();
     }
 
     /**

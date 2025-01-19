@@ -182,12 +182,10 @@ public final class Utils {
          * @param url 链接
          * @param saveFile 将要保存到的文件
          */
-        public static void download(String url, File saveFile){
+        public static void download(String url, File saveFile) throws IOException {
             try (InputStream inputStream = new URL(url).openStream()){
                 logger.info("Downloading " + url);
                 Files.copy(inputStream, saveFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                logger.severe(String.format("Failed to download %s, reason: %s", url, e));
             }
         }
     }

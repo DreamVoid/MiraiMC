@@ -240,6 +240,11 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
     }
 
     @Override
+    public void runTaskTimerAsync(Runnable task, long delay, long period) {
+        getServer().getScheduler().runTaskTimerAsynchronously(this, task, delay, period);
+    }
+
+    @Override
     public String getPluginName() {
         //noinspection deprecation
         return getDescription().getName();
@@ -288,7 +293,7 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
     }
 
     @Override
-    public PluginConfig getPlatformConfig() {
+    public PluginConfig getPluginConfig() {
         return config;
     }
 }

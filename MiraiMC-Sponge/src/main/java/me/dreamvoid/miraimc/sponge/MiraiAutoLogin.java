@@ -79,7 +79,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     }
 
     @Override
-    public void doStartUpAutoLogin() {
+    public void startAutoLogin() {
         Runnable thread = () -> {
             try {
                 logger.info("Starting auto login task.");
@@ -155,7 +155,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     }
 
     @Override
-    public boolean delAutoLoginBot(long Account){
+    public boolean deleteAutoLoginBot(long Account){
         try {
             // 获取现有的机器人列表
             Yaml yaml = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader()));

@@ -176,7 +176,7 @@ public class MiraiCommand implements ICommandExecutor {
                             }
                             case "remove": {
                                 if (args.length >= 3) {
-                                    if (MiraiAutoLogin.delAutoLoginBot(Long.parseLong(args[2]))) {
+                                    if (MiraiAutoLogin.deleteAutoLoginBot(Long.parseLong(args[2]))) {
                                         sender.sendMessage("&a删除自动登录机器人成功！");
                                     } else {
                                         sender.sendMessage("&c删除自动登录机器人失败，请检查控制台错误输出！");

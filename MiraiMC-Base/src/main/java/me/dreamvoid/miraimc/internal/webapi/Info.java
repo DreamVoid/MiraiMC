@@ -1,6 +1,8 @@
 package me.dreamvoid.miraimc.internal.webapi;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import me.dreamvoid.miraimc.api.MiraiMC;
 import me.dreamvoid.miraimc.internal.Utils;
@@ -12,22 +14,48 @@ import java.util.*;
 
 public final class Info {
 	private static Info INSTANCE = null;
+	/**
+	 * 最后更新时间戳
+	 */
+	public long lastUpdate;
 
-	@SerializedName("mirai")
-	public HashMap<String, String> mirai;
-
-	@SerializedName("announcement")
-	public List<String> announcement;
-
-	@SerializedName("apis")
-	public List<String> apis;
-
-	public static Info init() throws IOException {
-		return init(Collections.singletonList("https://api.miraimc.dreamvoid.me/"), true);
+	private Info(){
+		lastUpdate = System.currentTimeMillis();
 	}
 
-	public static Info init(List<String> apis, boolean localCache) throws IOException {
-		if(INSTANCE != null) {
+	/**
+	 * MiraiMC 版本对应的 mirai 版本映射表
+	 */
+	@SerializedName("mirai")
+	@Expose
+	public HashMap<String, String> mirai;
+	/**
+	 * 公告板信息
+	 */
+	@SerializedName("announcement")
+	@Expose
+	public List<String> announcement;
+	/**
+	 * 可用的 API 地址列表
+	 */
+	@SerializedName("apis")
+	@Expose
+	public List<String> apis;
+
+	public static Info get(boolean force) throws IOException {
+		return get(Collections.singletonList("https://api.miraimc.dreamvoid.me/"), true, force);
+	}
+
+	/**
+	 * @param apis API 列表
+	 * @param localCache 使用本地缓存
+	 * @param force 强制更新
+	 * @return {@link Info} 实例
+	 * @throws IOException 所有 API 请求失败时抛出
+	 */
+	public static Info get(List<String> apis, boolean localCache, boolean force) throws IOException {
+		// 具有实例 且不是强制获取 且最后更新时间距离现在小于1天
+		if((INSTANCE != null) && !force && ((System.currentTimeMillis() - INSTANCE.lastUpdate) < MiraiMC.getConfig().General_WebAPITimeout)) {
 			return INSTANCE;
 		}
 
@@ -51,36 +79,25 @@ public final class Info {
 			} catch (Exception ignored) {}
 		}
 
-		List<IOException> exceptions = new ArrayList<>();
-
-		for(String s : list){
+        for(String s : list){
 			if(!s.endsWith("/")) s += "/";
 			try {
-				INSTANCE = new Gson().fromJson(Utils.Http.get(s + "info.json"), Info.class);
+				INSTANCE = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().fromJson(Utils.Http.get(s + "info.json"), Info.class);
 				break;
 			} catch (IOException e) {
-				//Utils.getLogger().warning("Failed to get " + s +", reason: " + e);
-				exceptions.add(e);
+				Utils.getLogger().warning(s + " - " + e);
 			}
 		}
 
 		if(INSTANCE != null){
 			// API数据保存到本地
-			FileOutputStream fos = new FileOutputStream(cache);
-			fos.write(new Gson().toJson(INSTANCE.apis.toArray(), String[].class).getBytes(StandardCharsets.UTF_8));
-			fos.close();
+            try (FileOutputStream fos = new FileOutputStream(cache)) {
+                fos.write(new Gson().toJson(INSTANCE.apis.toArray(), String[].class).getBytes(StandardCharsets.UTF_8));
+            }
 
-			return INSTANCE;
+            return INSTANCE;
 		} else {
-			Utils.getLogger().warning("所有API均请求失败，请检查您的互联网连接。");
-
-			for(int i = 0; i < list.size(); i++){
-				String s = list.get(i);
-				if(!s.endsWith("/")) s += "/";
-				Utils.getLogger().warning(s + " - " + exceptions.get(i));
-			}
-
-			throw new IOException("All api fetching failed.");
+			throw new IOException("所有API均请求失败，请检查您的互联网连接！");
 		}
 	}
 }

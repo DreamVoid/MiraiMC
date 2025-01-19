@@ -99,12 +99,17 @@ public class NukkitPlugin extends PluginBase implements Platform {
 
     @Override
     public void runTaskAsync(Runnable task) {
-        getServer().getScheduler().scheduleTask(this,task,true);
+        getServer().getScheduler().scheduleTask(this, task, true);
     }
 
     @Override
     public void runTaskLaterAsync(Runnable task, long delay) {
-        getServer().getScheduler().scheduleDelayedTask(this, task, Integer.parseInt(String.valueOf(delay)),true);
+        getServer().getScheduler().scheduleDelayedTask(this, task, Integer.parseInt(String.valueOf(delay)), true);
+    }
+
+    @Override
+    public void runTaskTimerAsync(Runnable task, long delay, long period) {
+        getServer().getScheduler().scheduleDelayedRepeatingTask(this, task, Integer.parseInt(String.valueOf(delay)), Integer.parseInt(String.valueOf(period)), true);
     }
 
     @Override
@@ -153,7 +158,7 @@ public class NukkitPlugin extends PluginBase implements Platform {
     }
 
     @Override
-    public PluginConfig getPlatformConfig() {
+    public PluginConfig getPluginConfig() {
         return config;
     }
 }

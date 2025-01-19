@@ -67,7 +67,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     }
 
     @Override
-    public void doStartUpAutoLogin() {
+    public void startAutoLogin() {
         plugin.getServer().getScheduler().scheduleAsyncTask(plugin, new AsyncTask() {
             @Override
             public void onRun() {
@@ -129,7 +129,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     }
 
     @Override
-    public boolean delAutoLoginBot(long Account){
+    public boolean deleteAutoLoginBot(long Account){
         // 获取自动登录文件
         Config data = new Config(AutoLoginFile, Config.YAML);
         List<Map> list = data.getMapList("accounts");

@@ -58,22 +58,22 @@ public final class LifeCycle {
 
         // 加载配置
         logger.info("Loading config.");
-        platform.getPlatformConfig().loadConfig();
-        if(platform.getPluginVersion().contains("dev-") && platform.getPlatformConfig().General_MiraiCoreVersion.equalsIgnoreCase("stable")) {
-            platform.getPlatformConfig().General_MiraiCoreVersion = "latest"; // Fix dev version
+        platform.getPluginConfig().loadConfig();
+        if(platform.getPluginVersion().contains("dev-") && platform.getPluginConfig().General_MiraiCoreVersion.equalsIgnoreCase("stable")) {
+            platform.getPluginConfig().General_MiraiCoreVersion = "latest"; // Fix dev version
         }
 
-        logger.info("Mirai working dir: " + platform.getPlatformConfig().General_MiraiWorkingDir);
+        logger.info("Mirai working dir: " + platform.getPluginConfig().General_MiraiWorkingDir);
 
         // 加载 mirai 核心
         if(System.getProperty("MiraiMC.do-not-load-mirai-core") == null){
-            logger.info("Selected mirai core version: " + platform.getPlatformConfig().General_MiraiCoreVersion);
-            if (platform.getPlatformConfig().General_MiraiCoreVersion.equalsIgnoreCase("latest")) {
+            logger.info("Selected mirai core version: " + platform.getPluginConfig().General_MiraiCoreVersion);
+            if (platform.getPluginConfig().General_MiraiCoreVersion.equalsIgnoreCase("latest")) {
                 MiraiLoader.loadMiraiCore();
-            } else if (platform.getPlatformConfig().General_MiraiCoreVersion.equalsIgnoreCase("stable")) {
+            } else if (platform.getPluginConfig().General_MiraiCoreVersion.equalsIgnoreCase("stable")) {
                 MiraiLoader.loadMiraiCore(MiraiLoader.getStableVersion(platform.getPluginVersion()));
             } else {
-                MiraiLoader.loadMiraiCore(platform.getPlatformConfig().General_MiraiCoreVersion);
+                MiraiLoader.loadMiraiCore(platform.getPluginConfig().General_MiraiCoreVersion);
             }
         } else {
             logger.info("MiraiMC will not load mirai core, please ensure you have custom mirai core loaded.");
@@ -86,12 +86,13 @@ public final class LifeCycle {
      * 此方法应在 mirai 核心加载完毕、服务端准备就绪后调用。<br>
      * 此方法调用完成后，可以继续执行HTTP API监听等未完成的任务。
      */
+    @SuppressWarnings("DefaultNotLastCaseInSwitch")
     public void postLoad() {
         logger.info("Preparing MiraiMC post-load.");
 
         // 数据库
         try {
-            switch (platform.getPlatformConfig().Database_Type.toLowerCase()){
+            switch (platform.getPluginConfig().Database_Type.toLowerCase()){
                 case "sqlite":
                 default: {
                     logger.info("Initializing SQLite database.");
@@ -116,10 +117,10 @@ public final class LifeCycle {
         // 自动登录机器人
         logger.info("Starting auto-login bot.");
         platform.getAutoLogin().loadFile();
-        platform.getAutoLogin().doStartUpAutoLogin();
+        platform.getAutoLogin().startAutoLogin();
 
         // 安全警告
-        if(!(platform.getPlatformConfig().General_DisableSafeWarningMessage)){
+        if(!(platform.getPluginConfig().General_DisableSafeWarningMessage)){
             logger.warning("确保您正在使用开源的 MiraiMC 插件，未知来源的插件可能会盗取您的账号！");
             logger.warning("请始终从 GitHub 或作者指定的其他途径下载插件: https://github.com/DreamVoid/MiraiMC");
         }
@@ -127,7 +128,7 @@ public final class LifeCycle {
         // 公告板
         platform.runTaskLaterAsync(() -> {
             try {
-                List<String> announcement = Info.init().announcement;
+                List<String> announcement = Info.get(false).announcement;
                 if(announcement != null && !announcement.isEmpty()){
                     logger.info("========== [ MiraiMC 公告版 ] ==========");
                     announcement.forEach(logger::info);
@@ -137,8 +138,8 @@ public final class LifeCycle {
         }, 40);
 
         // 检查更新
-        if(platform.getPlatformConfig().General_CheckUpdate && !platform.getPluginVersion().contains("dev")){
-            platform.runTaskAsync(() -> {
+        if(platform.getPluginConfig().General_CheckUpdate && !platform.getPluginVersion().contains("dev")){
+            platform.runTaskTimerAsync(() -> {
                 logger.info("正在检查更新...");
                 try {
                     PluginUpdate fetch = new PluginUpdate();
@@ -158,7 +159,7 @@ public final class LifeCycle {
                 } catch (IOException e) {
                     logger.warning("An error occurred while fetching the latest version, reason: " + e);
                 }
-            });
+            },0, platform.getPluginConfig().General_CheckUpdatePeriod);
         }
 
         logger.info("Some initialization tasks will continue to run afterwards.");

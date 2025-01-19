@@ -229,6 +229,16 @@ public class SpongePlugin implements Platform {
     }
 
     @Override
+    public void runTaskTimerAsync(Runnable task, long delay, long period) {
+        Sponge.asyncScheduler().submit(Task.builder()
+                .plugin(this.pluginContainer)
+                .delay(Ticks.of(delay))
+                .interval(Ticks.of(period))
+                .execute(task)
+                .build());
+    }
+
+    @Override
     public String getPluginName() {
         return "MiraiMC";
     }
@@ -274,7 +284,7 @@ public class SpongePlugin implements Platform {
     }
 
     @Override
-    public PluginConfig getPlatformConfig() {
+    public PluginConfig getPluginConfig() {
         return config;
     }
 }

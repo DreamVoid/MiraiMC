@@ -48,6 +48,11 @@ public class PaperPlugin extends BukkitPlugin {
     }
 
     @Override
+    public void runTaskTimerAsync(Runnable task, long delay, long period) {
+        getServer().getAsyncScheduler().runAtFixedRate(this, scheduledTask -> task.run(), delay * 50, period * 50, TimeUnit.MILLISECONDS);
+    }
+
+    @Override
     public ClassLoader getPluginClassLoader() {
         return getClassLoader().getParent();
     }

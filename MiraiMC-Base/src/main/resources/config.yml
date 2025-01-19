@@ -5,12 +5,14 @@
 general:
   allow-bStats: true
   check-update: true
+  check-update-period: 1728000
   disable-safe-warning-message: false
   mirai-working-dir: default
   mirai-core-version: "stable"
   maven-repo-url: "https://repo.huaweicloud.com/repository/maven/"
   auto-open-qrcode-file: false
   log-events: true
+  webapi-timeout: 43200000
 bot:
   disable-network-logs: false
   disable-bot-logs: false

@@ -48,7 +48,7 @@ public class AutoLoginCommand extends BaseSubCommand {
                 case "remove":{
                     boolean result;
                     if(args.length>=3){
-                        result = MiraiAutoLogin.delAutoLoginBot(Long.parseLong(args[2]));
+                        result = MiraiAutoLogin.deleteAutoLoginBot(Long.parseLong(args[2]));
                         if(result){
                             sender.sendMessage(TextFormat.colorize('&',"&a删除自动登录机器人成功！"));
                         } else sender.sendMessage(TextFormat.colorize('&',"&c删除自动登录机器人失败，请检查控制台错误输出！"));

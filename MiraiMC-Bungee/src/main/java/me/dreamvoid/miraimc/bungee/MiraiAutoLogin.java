@@ -62,7 +62,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     }
 
     @Override
-    public void doStartUpAutoLogin() {
+    public void startAutoLogin() {
         Runnable thread = () -> {
             logger.info("Starting auto login task.");
 
@@ -128,7 +128,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     }
 
     @Override
-    public boolean delAutoLoginBot(long Account){
+    public boolean deleteAutoLoginBot(long Account){
         try {
             // 获取自动登录文件
             Configuration data = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(AutoLoginFile);

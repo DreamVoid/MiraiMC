@@ -54,9 +54,9 @@ public class VelocityPlugin implements Platform {
         this.dataDirectory = dataDirectory;
         this.metricsFactory = metricsFactory;
 
-        VelocityLogger = new VelocityLogger("MiraiMC", this);
+        //VelocityLogger = new VelocityLogger("MiraiMC", logger);
         lifeCycle = new LifeCycle(this);
-        lifeCycle.startUp(VelocityLogger);
+        lifeCycle.startUp(VelocityLogger = new VelocityLogger("MiraiMC", logger));
         config = new VelocityConfig(this);
         loader = new LibraryLoader((URLClassLoader) getClass().getClassLoader());
     }
@@ -154,7 +154,12 @@ public class VelocityPlugin implements Platform {
 
     @Override
     public void runTaskLaterAsync(Runnable task, long delay) {
-        getServer().getScheduler().buildTask(this,task).delay(delay * 50, TimeUnit.MILLISECONDS).schedule();
+        getServer().getScheduler().buildTask(this, task).delay(delay * 50, TimeUnit.MILLISECONDS).schedule();
+    }
+
+    @Override
+    public void runTaskTimerAsync(Runnable task, long delay, long period) {
+        getServer().getScheduler().buildTask(this, task).delay(delay * 50, TimeUnit.MILLISECONDS).repeat(period * 50, TimeUnit.MILLISECONDS).schedule();
     }
 
     @Override
@@ -203,7 +208,7 @@ public class VelocityPlugin implements Platform {
     }
 
     @Override
-    public PluginConfig getPlatformConfig() {
+    public PluginConfig getPluginConfig() {
         return config;
     }
 }

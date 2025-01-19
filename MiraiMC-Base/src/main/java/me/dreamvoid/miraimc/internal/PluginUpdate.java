@@ -12,13 +12,13 @@ public class PluginUpdate {
     private final Version version;
 
     public PluginUpdate() throws IOException {
-        version = Version.init();
+        version = Version.get(false);
 
         latestRelease = version.latest;
         latestReleaseNo = version.versions.get(version.latest);
 
-        latestPreRelease = version.latest_pre;
-        latestPreReleaseNo = version.versions.get(version.latest_pre);
+        latestPreRelease = version.latestUnstable;
+        latestPreReleaseNo = version.versions.get(version.latestUnstable);
     }
 
     public String getLatestRelease() {

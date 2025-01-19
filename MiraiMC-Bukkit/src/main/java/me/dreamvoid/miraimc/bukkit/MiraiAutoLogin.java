@@ -60,7 +60,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     }
 
     @Override
-    public void doStartUpAutoLogin() {
+    public void startAutoLogin() {
         Runnable thread = () -> {
             logger.info("Starting auto login task.");
             for(Map<?,?> map : loadAutoLoginList()){
@@ -119,7 +119,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     }
 
     @Override
-    public boolean delAutoLoginBot(long Account){
+    public boolean deleteAutoLoginBot(long Account){
         FileConfiguration data = YamlConfiguration.loadConfiguration(AutoLoginFile);
         List<Map<?, ?>> list = data.getMapList("accounts");
 

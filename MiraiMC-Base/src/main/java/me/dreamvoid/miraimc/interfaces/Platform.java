@@ -15,6 +15,8 @@ public interface Platform {
 
     void runTaskLaterAsync(Runnable task, long delay);
 
+    void runTaskTimerAsync(Runnable task, long delay, long period);
+
     String getPluginName();
 
     String getPluginVersion();
@@ -33,5 +35,6 @@ public interface Platform {
 
     String getType();
 
-    PluginConfig getPlatformConfig();
+    PluginConfig getPluginConfig();
+
 }

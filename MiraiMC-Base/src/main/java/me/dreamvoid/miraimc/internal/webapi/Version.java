@@ -1,7 +1,9 @@
 package me.dreamvoid.miraimc.internal.webapi;
 
-import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import me.dreamvoid.miraimc.api.MiraiMC;
 import me.dreamvoid.miraimc.internal.Utils;
 
 import java.io.IOException;
@@ -11,51 +13,57 @@ import java.util.List;
 
 public final class Version {
 	private static Version INSTANCE;
+	/**
+	 * 最后更新时间戳
+	 */
+	public final long lastUpdate;
 
+	private Version() {
+		lastUpdate = System.currentTimeMillis();
+	}
+
+	/**
+	 * 最新版本名称
+	 */
 	@SerializedName("latest")
-	public String latest;
-
-	@SerializedName("latest-pre")
-	public String latest_pre;
-
+	@Expose public String latest;
+	/**
+	 * 最新不稳定版本名称
+	 */
+	@SerializedName(value = "latest-pre", alternate = {"latest-unstable"})
+	@Expose public String latestUnstable;
+	/**
+	 * 版本号映射表
+	 */
 	@SerializedName("versions")
-	public HashMap<String, Integer> versions;
-
+	@Expose public HashMap<String, Integer> versions;
+	/**
+	 * 停止支持的版本号列表
+	 */
 	@SerializedName("blocked")
-	public List<Integer> blocked;
+	@Expose public List<Integer> blocked;
 
-	public static Version init() throws IOException {
-		if (INSTANCE != null) {
+	public static Version get(boolean force) throws IOException {
+		if (INSTANCE != null && !force && ((System.currentTimeMillis() - INSTANCE.lastUpdate) < MiraiMC.getConfig().General_WebAPITimeout)) {
 			return INSTANCE;
 		}
 
-		List<String> list = new ArrayList<>(Info.init().apis);
-
-		//IOException e = null; // 用于所有API都炸掉的时候抛出的
-		ArrayList<IOException> ex = new ArrayList<>();
+		List<String> list = new ArrayList<>(Info.get(false).apis);
 
 		for (String s : list) {
 			if (!s.endsWith("/")) s += "/";
 			try {
-				INSTANCE = new Gson().fromJson(Utils.Http.get(s + "version.json"), Version.class);
+				INSTANCE = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().fromJson(Utils.Http.get(s + "version.json"), Version.class);
 				break;
 			} catch (IOException e) {
-				ex.add(e);
+				Utils.getLogger().warning(s + " - " + e);
 			}
 		}
 
 		if (INSTANCE != null) {
 			return INSTANCE;
 		} else {
-			Utils.getLogger().warning("所有API均请求失败，请检查您的互联网连接。");
-
-			for(int i = 0; i < list.size(); i++){
-				String s = list.get(i);
-				if(!s.endsWith("/")) s += "/";
-				Utils.getLogger().warning(s + " - " + ex.get(i));
-			}
-
-			throw new IOException("All api fetching failed.");
+			throw new IOException("所有API均请求失败，请检查您的互联网连接！");
 		}
 	}
 }

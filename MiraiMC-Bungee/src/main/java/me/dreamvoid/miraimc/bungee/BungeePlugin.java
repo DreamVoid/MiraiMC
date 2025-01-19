@@ -159,13 +159,17 @@ public class BungeePlugin extends Plugin implements Platform {
     }
 
     @Override
-    public PluginConfig getPlatformConfig() {
+    public PluginConfig getPluginConfig() {
         return config;
     }
 
     @Override
     public void runTaskLaterAsync(Runnable task, long delay) {
-        getProxy().getScheduler().schedule(this,task, delay * 50, TimeUnit.MILLISECONDS);
+        getProxy().getScheduler().schedule(this, task, delay * 50, TimeUnit.MILLISECONDS);
     }
 
+    @Override
+    public void runTaskTimerAsync(Runnable task, long delay, long period) {
+        getProxy().getScheduler().schedule(this, task, delay * 50, period * 50, TimeUnit.MILLISECONDS);
+    }
 }

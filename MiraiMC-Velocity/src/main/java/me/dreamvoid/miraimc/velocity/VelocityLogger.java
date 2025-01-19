@@ -22,9 +22,9 @@ public class VelocityLogger extends Logger {
      * @throws MissingResourceException if the resourceBundleName is non-null and
      *                                  no corresponding resource can be found.
      */
-    protected VelocityLogger(String name, VelocityPlugin plugin) {
+    protected VelocityLogger(String name, org.slf4j.Logger logger) {
         super(name, null);
-        this.logger = plugin.getLogger();
+        this.logger = logger;
     }
 
     @Override

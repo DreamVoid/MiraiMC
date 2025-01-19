@@ -16,7 +16,7 @@ public class MiraiLoader {
 
     public static String getStableVersion() {
         try {
-            return Info.init().mirai.get("stable");
+            return Info.get(false).mirai.get("stable");
         } catch (IOException e){
             Utils.getLogger().warning("Unable to get mirai stable version from remote server, try to use latest. Reason: " + e);
             return "latest";
@@ -25,20 +25,20 @@ public class MiraiLoader {
 
     public static String getStableVersion(String PluginVersion) {
         try {
-            String mirai = Info.init().mirai.get("stable"); // 最终获取到的 mirai 版本，先用stable占位
+            String mirai = Info.get(false).mirai.get("stable"); // 最终获取到的 mirai 版本，先用stable占位
 
             try {
-                int ver = Version.init().versions.getOrDefault(PluginVersion, 0); // 插件当前版本号
+                int ver = Version.get(false).versions.getOrDefault(PluginVersion, 0); // 插件当前版本号
                 int temp = -1; // 用于取最大值
 
-                for (String s : Info.init().mirai.keySet()) {
+                for (String s : Info.get(false).mirai.keySet()) {
                     if (s.equalsIgnoreCase("stable")) {
                         continue;
                     }
 
                     if (ver <= Integer.parseInt(s)) {
                         if(Integer.parseInt(s) > temp) {
-                            mirai = Info.init().mirai.get(s);
+                            mirai = Info.get(false).mirai.get(s);
                             temp = Integer.parseInt(s);
                         }
                     }

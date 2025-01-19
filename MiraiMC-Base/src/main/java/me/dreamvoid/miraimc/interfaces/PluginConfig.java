@@ -12,12 +12,14 @@ public abstract class PluginConfig {
         // general
         General_AllowBStats = getBoolean("general.allow-bStats", General_AllowBStats);
         General_CheckUpdate = getBoolean("general.check-update", General_CheckUpdate);
+        General_CheckUpdatePeriod = getLong("general.check-update-period", General_CheckUpdatePeriod);
         General_DisableSafeWarningMessage = getBoolean("general.disable-safe-warning-message", General_DisableSafeWarningMessage);
         General_MiraiWorkingDir = getString("general.mirai-working-dir", General_MiraiWorkingDir);
         General_MiraiCoreVersion = getString("general.mirai-core-version", General_MiraiCoreVersion);
         General_MavenRepoUrl = getString("general.maven-repo-url", General_MavenRepoUrl);
         General_AutoOpenQRCodeFile = getBoolean("general.auto-open-qrcode-file", General_AutoOpenQRCodeFile);
         General_LogEvents = getBoolean("general.log-events", General_LogEvents);
+        General_WebAPITimeout = getLong("general.webapi-timeout", General_WebAPITimeout);
 
         // bot
         Bot_DisableNetworkLogs = getBoolean("bot.disable-network-logs", Bot_DisableNetworkLogs);
@@ -68,12 +70,14 @@ public abstract class PluginConfig {
 
     public boolean General_AllowBStats = true;
     public boolean General_CheckUpdate = true;
+    public long General_CheckUpdatePeriod = 1728000;
     public boolean General_DisableSafeWarningMessage = false;
     public String General_MiraiWorkingDir = "default";
     public String General_MiraiCoreVersion = "stable";
     public String General_MavenRepoUrl = "https://repo.huaweicloud.com/repository/maven/";
     public boolean General_AutoOpenQRCodeFile = false;
     public boolean General_LogEvents = true;
+    public long General_WebAPITimeout = 43200000;
 
     public boolean Bot_DisableNetworkLogs = false;
     public boolean Bot_DisableBotLogs = false;
