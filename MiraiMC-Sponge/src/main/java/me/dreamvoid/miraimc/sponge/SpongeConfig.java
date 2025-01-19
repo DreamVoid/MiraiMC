@@ -38,8 +38,10 @@ public class SpongeConfig extends PluginConfig {
                 }
             } else {
                 Object o = maps.get(args[i]);
-                if(o instanceof String){
+                if(o instanceof String) {
                     return (String) o;
+                } else if(o == null){
+                    return defaults;
                 } else {
                     return String.valueOf(o);
                 }
@@ -68,8 +70,10 @@ public class SpongeConfig extends PluginConfig {
                 Object o = maps.get(args[i]);
                 if(o instanceof Integer){
                     return (int) o;
-                } else if (o instanceof String){
+                } else if (o instanceof String) {
                     return Integer.parseInt((String) o);
+                } else if(o == null){
+                    return defaults;
                 } else {
                     return Integer.parseInt(String.valueOf(o));
                 }
@@ -100,6 +104,8 @@ public class SpongeConfig extends PluginConfig {
                     return (long) o;
                 } else if(o instanceof String) {
                     return Long.parseLong((String) o);
+                } else if(o == null){
+                    return defaults;
                 } else {
                     return Long.parseLong(String.valueOf(o));
                 }
@@ -128,8 +134,10 @@ public class SpongeConfig extends PluginConfig {
                 Object o = maps.get(args[i]);
                 if(o instanceof Boolean){
                     return (boolean) o;
-                }  else if(o instanceof String){
+                }  else if(o instanceof String) {
                     return Boolean.parseBoolean((String) o);
+                } else if(o == null){
+                    return defaults;
                 } else {
                     return Boolean.parseBoolean(String.valueOf(o));
                 }
