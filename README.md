@@ -92,7 +92,7 @@ implementation 'io.github.dreamvoid:MiraiMC-Integration:1.9'
 
 ### 权限
 | 权限节点                                    | 描述                            | 默认 |
-|-----------------------------------------|-------------------------------|----|
+|-----------------------------------------|-------------------------------|:--:|
 | miraimc.command.mirai                   | 允许使用 /mirai                   | OP |
 | miraimc.command.mirai.*                 | 允许使用 /mirai 的所有子命令            | OP |
 | miraimc.command.mirai.login             | 允许使用 /mirai login             | OP |

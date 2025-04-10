@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 
 /**
  * MiraiMC 生命周期
+ * 负责管理插件的整个生命周期，包括启动、加载和卸载等关键阶段
  */
 public final class LifeCycle {
     private static Platform platform;
@@ -26,6 +27,10 @@ public final class LifeCycle {
         platform = plugin;
     }
 
+    /**
+     * 获取当前平台实例
+     * @return Platform 实例
+     */
     public static Platform getPlatform() {
         return platform;
     }
@@ -37,9 +42,11 @@ public final class LifeCycle {
     public void startUp(Logger logger) {
         logger.info("Preparing MiraiMC start-up.");
 
+        // 设置Mirai相关系统属性
         System.setProperty("mirai.no-desktop", "MiraiMC");
         System.setProperty("mirai.slider.captcha.supported", "MiraiMC");
 
+        // 初始化工具类
         Utils.setLogger(logger);
         Utils.setClassLoader(this.getClass().getClassLoader());
 
@@ -59,8 +66,11 @@ public final class LifeCycle {
         // 加载配置
         logger.info("Loading config.");
         platform.getPluginConfig().loadConfig();
-        if(platform.getPluginVersion().contains("dev-") && platform.getPluginConfig().General_MiraiCoreVersion.equalsIgnoreCase("stable")) {
-            platform.getPluginConfig().General_MiraiCoreVersion = "latest"; // Fix dev version
+        
+        // 开发版本强制使用最新核心
+        if (platform.getPluginVersion().contains("dev-") && 
+            platform.getPluginConfig().General_MiraiCoreVersion.equalsIgnoreCase("stable")) {
+            platform.getPluginConfig().General_MiraiCoreVersion = "latest";
         }
 
         logger.info("Mirai working dir: " + platform.getPluginConfig().General_MiraiWorkingDir);

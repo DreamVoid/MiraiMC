@@ -38,9 +38,9 @@ public class MiraiBot {
     }
 
     /**
-     * 初始化
+     * 通过账号初始化机器人实例
      * @param account 机器人账号
-     * @throws NoSuchElementException 不存在机器人抛出
+     * @throws NoSuchElementException 当机器人不存在时抛出
      */
     private MiraiBot(long account) throws NoSuchElementException {
         logger = Utils.getLogger();
@@ -84,10 +84,10 @@ public class MiraiBot {
     }
 
     /**
-     * 获取所有在线的机器人
+     * 获取所有在线机器人
      * @return 机器人账号列表
      */
-    public static List<Long> getOnlineBots(){
+    public static List<Long> getOnlineBots() {
         return Bot.getInstances().stream().map(Bot::getId).collect(Collectors.toList());
     }
 
@@ -95,10 +95,15 @@ public class MiraiBot {
      * 获取机器人指定好友的实例
      * @param friendAccount 好友QQ号
      * @return MiraiMC 好友实例
+     * @throws IllegalArgumentException 当 friendAccount 无效时抛出
      */
-    public MiraiFriend getFriend(long friendAccount){
+    public MiraiFriend getFriend(long friendAccount) {
+        if (friendAccount <= 0) {
+            throw new IllegalArgumentException("Invalid friend account: " + friendAccount);
+        }
         return new MiraiFriend(bot, friendAccount);
     }
+
     /**
      * 获取机器人指定群的实例
      * @param groupID 群号
@@ -136,8 +141,8 @@ public class MiraiBot {
      * [!] 不建议插件开发者调用此方法，建议引导用户通过MiraiMC指令登录机器人
      * @param account 机器人账号
      * @param password 机器人密码MD5
-     * @param protocol 协议类型
-     * @throws IllegalArgumentException 协议不存在时抛出
+     * @param protocol 协议名称
+     * @throws IllegalArgumentException 当参数无效或协议不存在时抛出
      * @since 1.7
      */
     public static void doBotLogin(long account, byte[] password, String protocol) throws IllegalArgumentException{
@@ -150,23 +155,23 @@ public class MiraiBot {
      * @param account 机器人账号
      * @param password 机器人密码
      * @param protocol 协议类型
+     * @throws IllegalArgumentException 当参数无效时抛出
      * @since 1.7
      */
     public static void doBotLogin(long account, String password, BotConfiguration.MiraiProtocol protocol) {
         try {
-            MessageDigest m = MessageDigest.getInstance("MD5");
-            m.update(password.getBytes(StandardCharsets.UTF_8));
-            byte[] md5 = m.digest();
-            doBotLogin(account, md5, protocol);
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes(StandardCharsets.UTF_8));
+            doBotLogin(account, md.digest(), protocol);
         } catch (NoSuchAlgorithmException e) {
             logger.warning("加密密码时出现异常，原因: " + e);
         }
     }
 
     /**
-     * 尝试设置为在线状态
+     * 尝试将机器人设置为在线状态
      */
-    public void doOnline(){
+    public void doOnline() {
         bot.join();
     }
 
@@ -188,18 +193,20 @@ public class MiraiBot {
     }
 
     /**
-     * 判断机器人是否在线
+     * 检查机器人是否在线
      * @return 在线返回true，离线返回false
      */
-    public boolean isOnline(){
+    public boolean isOnline() {
         return bot.isOnline();
     }
 
     /**
-     * 判断机器人是否存在
+     * 检查机器人是否存在
      * @return 存在返回true，不存在返回false
      */
-    public boolean isExist() { return !(Objects.equals(bot, null)); }
+    public boolean isExist() {
+        return bot != null;
+    }
 
     /**
      * 获取机器人昵称
@@ -210,7 +217,7 @@ public class MiraiBot {
     }
 
     /**
-     * 获取机器人QQ号
+     * 获取机器人账号
      * @return QQ号
      */
     public long getID() {
@@ -222,11 +229,9 @@ public class MiraiBot {
      * @return 好友QQ号列表
      */
     public List<Long> getFriendList() {
-        List<Long> result = new ArrayList<>();
-        for(Friend friend : bot.getFriends()){
-            result.add(friend.getId());
-        }
-        return result;
+        return bot.getFriends().stream()
+                .map(Friend::getId)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -234,11 +239,9 @@ public class MiraiBot {
      * @return 群号列表
      */
     public List<Long> getGroupList() {
-        List<Long> result = new ArrayList<>();
-        for(Group group : bot.getGroups()){
-            result.add(group.getId());
-        }
-        return result;
+        return bot.getGroups().stream()
+                .map(Group::getId)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -246,11 +249,9 @@ public class MiraiBot {
      * @return 陌生人QQ号列表
      */
     public List<Long> getStrangersList() {
-        List<Long> result = new ArrayList<>();
-        for(Stranger stranger : bot.getStrangers()){
-            result.add(stranger.getId());
-        }
-        return result;
+        return bot.getStrangers().stream()
+                .map(Stranger::getId)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -273,8 +274,8 @@ public class MiraiBot {
     /**
      * 获取指定的机器人登录的其他客户端
      * @param otherClient 其他客户端ID
-     * @return {@link MiraiOtherClient} 实例
-     * @throws NoSuchElementException 不存在指定客户端时抛出
+     * @return MiraiMC其他客户端实例
+     * @throws NoSuchElementException 当客户端不存在时抛出
      */
     public MiraiOtherClient getOtherClient(long otherClient) throws NoSuchElementException{
         return new MiraiOtherClient(bot.getOtherClients().getOrFail(otherClient));
