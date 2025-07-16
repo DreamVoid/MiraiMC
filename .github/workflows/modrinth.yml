@@ -8,14 +8,21 @@ jobs:
   upload-mirai-to-modrinth:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code (for gh cli context)
+        uses: actions/checkout@v4
+
       - name: Download release assets (using gh cli)
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p release-assets
-          gh release view "$GITHUB_REF_NAME" --json assets -q '.assets[].name' | grep -E 'MiraiMC-(Bukkit|Bungee|Sponge|Velocity)\.jar' | while read filename; do
+          # 确保 TAG 变量存在
+          TAG="${GITHUB_REF_NAME}"
+          # 强制指定仓库，避免 .git 缺失问题
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets -q '.assets[].name' | grep -E 'MiraiMC-(Bukkit|Bungee|Sponge|Velocity)\.jar' | while read filename; do
             echo "Downloading $filename"
-            gh release download "$GITHUB_REF_NAME" -p "$filename" -D release-assets
+            # 同样强制指定仓库，否则 gh 会找不到
+            gh release download "$TAG" --repo "$GITHUB_REPOSITORY" -p "$filename" -D release-assets
           done
           echo "Downloaded files:"
           ls -lh release-assets/
@@ -29,7 +36,7 @@ jobs:
           NEXT_VERSION_NUM=$((VERSION_NUM + 1))
           echo "next_version_num=$NEXT_VERSION_NUM" >> $GITHUB_OUTPUT
 
-      - name: Get all Minecraft versions from Modrinth (include all, no dash filtering)
+      - name: Get all Minecraft versions from Modrinth
         id: mc_versions
         run: |
           curl -s 'https://api.modrinth.com/v2/tag/game_version' > mc_versions.json
@@ -44,7 +51,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # 重点修正：多行 changelog 用环境变量传递
       - name: Upload each asset to Modrinth
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
