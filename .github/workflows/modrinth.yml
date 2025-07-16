@@ -1,4 +1,4 @@
-name: Upload release to Modrinth
+name: Upload MiraiMC Release Assets to Modrinth
 
 on:
   release:
@@ -51,6 +51,16 @@ jobs:
           NEXT_VERSION_NUM=$((VERSION_NUM + 1))
           echo "next_version_num=$NEXT_VERSION_NUM" >> $GITHUB_OUTPUT
 
+      - name: Get all Minecraft versions from Modrinth
+        id: mc_versions
+        run: |
+          curl -s 'https://api.modrinth.com/v2/tag/game_version' > mc_versions.json
+          # Extract version numbers from 1.0 upwards and join as a JSON array
+          jq -r '[.[] | select(.version | test("^[1-9][0-9]*\\.[0-9]+")) | .version] | map(select(. >= "1.0"))' mc_versions.json > filtered_mc_versions.json
+          echo "Filtered game versions:"
+          cat filtered_mc_versions.json
+          echo "game_versions=$(cat filtered_mc_versions.json)" >> $GITHUB_OUTPUT
+
       - name: Set up Java (for upload tool if needed)
         uses: actions/setup-java@v4
         with:
@@ -68,7 +78,6 @@ jobs:
           changelog="$(jq -r .body <<<"${{ toJson(github.event.release) }}")"
           next_version_num="${{ steps.version.outputs.next_version_num }}"
           gh_title="${{ github.event.release.name }}"
-          
           # Set Modrinth channel based on title
           lower_title="$(echo "$gh_title" | tr '[:upper:]' '[:lower:]')"
           if echo "$lower_title" | grep -q "pre"; then
@@ -78,6 +87,9 @@ jobs:
           else
             release_type="release"
           fi
+
+          # Prepare game_versions from filtered_mc_versions.json
+          game_versions="$(cat filtered_mc_versions.json)"
 
           for file in release-assets/*; do
             filename=$(basename "$file")
@@ -116,7 +128,7 @@ jobs:
               -F "version_type=$release_type" \
               -F "changelog=$changelog" \
               -F "files=@$file" \
-              -F "game_versions=[\"1.20.1\"]" \
+              -F "game_versions=$game_versions" \
               -F "loaders=$loaders" \
               --fail
 
@@ -127,4 +139,4 @@ jobs:
           done
 
       - name: Clean up assets
-        run: rm -rf release-assets version.json
+        run: rm -rf release-assets version.json mc_versions.json filtered_mc_versions.json
