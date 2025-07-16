@@ -1,0 +1,130 @@
+name: Upload release to Modrinth
+
+on:
+  release:
+    types: [published, prereleased]
+
+jobs:
+  upload-mirai-to-modrinth:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download release assets
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const fetch = require('node-fetch');
+
+            const assetList = [
+              "MiraiMC-Bukkit.jar",
+              "MiraiMC-Bungee.jar",
+              "MiraiMC-Sponge.jar",
+              "MiraiMC-Velocity.jar"
+            ];
+
+            const assets = context.payload.release.assets;
+            fs.mkdirSync('release-assets', { recursive: true });
+            for (const asset of assets) {
+              if (assetList.includes(asset.name)) {
+                const res = await fetch(asset.browser_download_url, {
+                  headers: { Authorization: `token ${process.env.GITHUB_TOKEN}` }
+                });
+                if (!res.ok) throw new Error(`Failed to download ${asset.name}: ${res.statusText}`);
+                const dest = path.join('release-assets', asset.name);
+                const fileStream = fs.createWriteStream(dest);
+                await new Promise((resolve, reject) => {
+                  res.body.pipe(fileStream);
+                  res.body.on("error", reject);
+                  fileStream.on("finish", resolve);
+                });
+                core.info(`Downloaded: ${asset.name}`);
+              }
+            }
+
+      - name: Get current version info and calculate next version
+        id: version
+        run: |
+          curl -s https://api.miraimc.dreamvoid.me/version.json > version.json
+          LATEST_UNSTABLE=$(jq -r '.["latest-unstable"]' version.json)
+          VERSION_NUM=$(jq --arg v "$LATEST_UNSTABLE" -r '.versions[$v]' version.json)
+          NEXT_VERSION_NUM=$((VERSION_NUM + 1))
+          echo "next_version_num=$NEXT_VERSION_NUM" >> $GITHUB_OUTPUT
+
+      - name: Set up Java (for upload tool if needed)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Upload each asset to Modrinth
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          MODRINTH_PROJECT_ID: ${{ secrets.MODRINTH_PROJECT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+
+          changelog="$(jq -r .body <<<"${{ toJson(github.event.release) }}")"
+          next_version_num="${{ steps.version.outputs.next_version_num }}"
+          gh_title="${{ github.event.release.name }}"
+          
+          # Set Modrinth channel based on title
+          lower_title="$(echo "$gh_title" | tr '[:upper:]' '[:lower:]')"
+          if echo "$lower_title" | grep -q "pre"; then
+            release_type="alpha"
+          elif echo "$lower_title" | grep -q "rc"; then
+            release_type="beta"
+          else
+            release_type="release"
+          fi
+
+          for file in release-assets/*; do
+            filename=$(basename "$file")
+            case "$filename" in
+              MiraiMC-Bukkit.jar)
+                variant="Bukkit"
+                loaders='["Bukkit","Folia","Paper","Purpur","Spigot"]'
+                ;;
+              MiraiMC-Bungee.jar)
+                variant="Bungee"
+                loaders='["BungeeCord","Waterfall"]'
+                ;;
+              MiraiMC-Sponge.jar)
+                variant="Sponge"
+                loaders='["Sponge"]'
+                ;;
+              MiraiMC-Velocity.jar)
+                variant="Velocity"
+                loaders='["Velocity"]'
+                ;;
+              *)
+                echo "Skip $filename"
+                continue
+                ;;
+            esac
+
+            version_number="${next_version_num}-${variant}"
+
+            echo "Uploading $filename as $version_number to Modrinth, channel: $release_type ..."
+
+            curl -X POST "https://api.modrinth.com/v2/version" \
+              -H "Authorization: $MODRINTH_TOKEN" \
+              -F "project_id=$MODRINTH_PROJECT_ID" \
+              -F "version_number=$version_number" \
+              -F "name=$version_number" \
+              -F "version_type=$release_type" \
+              -F "changelog=$changelog" \
+              -F "files=@$file" \
+              -F "game_versions=[\"1.20.1\"]" \
+              -F "loaders=$loaders" \
+              --fail
+
+            if [ $? -ne 0 ]; then
+              echo "Failed to upload $filename to Modrinth"
+              exit 1
+            fi
+          done
+
+      - name: Clean up assets
+        run: rm -rf release-assets version.json
