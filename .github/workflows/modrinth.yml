@@ -44,15 +44,17 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      # 重点修正：多行 changelog 用环境变量传递
       - name: Upload each asset to Modrinth
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
           MODRINTH_PROJECT_ID: ${{ secrets.MODRINTH_PROJECT_ID }}
+          CHANGELOG: ${{ github.event.release.body }}
         run: |
           set -e
           shopt -s nullglob
 
-          changelog="${{ github.event.release.body }}"
+          changelog="$CHANGELOG"
           next_version_num="${{ steps.version.outputs.next_version_num }}"
           gh_title="${{ github.event.release.name }}"
           lower_title="$(echo "$gh_title" | tr '[:upper:]' '[:lower:]')"
