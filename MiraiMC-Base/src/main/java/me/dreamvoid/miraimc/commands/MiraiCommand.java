@@ -19,7 +19,7 @@ public class MiraiCommand implements ICommandExecutor {
     @Override
     public boolean onCommand(ICommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage("This server is running " + MiraiMC.getPlatform().getPluginName() + " version " + MiraiMC.getPlatform().getPluginVersion() + " by " + MiraiMC.getPlatform().getAuthors().toString().replace("[", "").replace("]", ""));
+            sender.sendMessage("This server is running " + MiraiMC.getPlatform().getPluginName() + " version " + MiraiMC.getPlatform().getPluginVersion() + " by " + String.join(", ", MiraiMC.getPlatform().getAuthors()));
             return false;
         }
 

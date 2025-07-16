@@ -212,11 +212,7 @@ public final class Utils {
 
         Throwable t = throwable;
         while(t != null){
-            if (t == throwable) {
-                logger.severe(throwable.toString());
-            } else {
-                logger.severe("Caused by: " + t);
-            }
+            logger.severe(t == throwable ? throwable.toString() : "Caused by: " + t);
 
             for(StackTraceElement element : t.getStackTrace()){
                 getLogger().severe(String.format("\tat %s.%s(%s:%d)", element.getClassName(), element.getMethodName(), element.getFileName(), element.getLineNumber()));

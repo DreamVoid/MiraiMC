@@ -157,7 +157,6 @@ public class VelocityConfig extends PluginConfig {
             }
         }
 
-        Yaml yaml = new Yaml();
-        map = yaml.loadAs(new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8), HashMap.class);
+        map = new Yaml().loadAs(new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8), HashMap.class);
     }
 }
