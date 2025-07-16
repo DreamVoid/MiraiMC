@@ -17,6 +17,8 @@ jobs:
             echo "Downloading $filename"
             gh release download "$GITHUB_REF_NAME" -p "$filename" -D release-assets
           done
+          echo "Downloaded files:"
+          ls -lh release-assets/
 
       - name: Get current version info and calculate next version
         id: version
@@ -31,7 +33,6 @@ jobs:
         id: mc_versions
         run: |
           curl -s 'https://api.modrinth.com/v2/tag/game_version' > mc_versions.json
-          # 提取1.0及以上的所有游戏版本（包括带-的预发布、rc等）
           jq -r '[.[] | select(.version | test("^[1-9][0-9]*\\.[0-9]+")) | .version] | map(select(. >= "1.0"))' mc_versions.json | jq -c . > filtered_mc_versions.json
           echo "Filtered game versions:"
           cat filtered_mc_versions.json
@@ -47,14 +48,13 @@ jobs:
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
           MODRINTH_PROJECT_ID: ${{ secrets.MODRINTH_PROJECT_ID }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
+          shopt -s nullglob
 
-          changelog="$(jq -r .body <<<"${{ toJson(github.event.release) }}")"
+          changelog="${{ github.event.release.body }}"
           next_version_num="${{ steps.version.outputs.next_version_num }}"
           gh_title="${{ github.event.release.name }}"
-          # Set Modrinth channel based on title
           lower_title="$(echo "$gh_title" | tr '[:upper:]' '[:lower:]')"
           if echo "$lower_title" | grep -q "pre"; then
             release_type="alpha"
@@ -64,7 +64,6 @@ jobs:
             release_type="release"
           fi
 
-          # Prepare game_versions from filtered_mc_versions.json
           game_versions="$(cat filtered_mc_versions.json)"
 
           for file in release-assets/*; do
