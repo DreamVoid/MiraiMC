@@ -2,7 +2,7 @@ name: Upload MiraiMC Release Assets to Modrinth
 
 on:
   release:
-    types: [published, prereleased]
+    types: [published]
 
 jobs:
   upload-mirai-to-modrinth:
