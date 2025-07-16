@@ -8,39 +8,15 @@ jobs:
   upload-mirai-to-modrinth:
     runs-on: ubuntu-latest
     steps:
-      - name: Download release assets
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const path = require('path');
-            const fetch = require('node-fetch');
-
-            const assetList = [
-              "MiraiMC-Bukkit.jar",
-              "MiraiMC-Bungee.jar",
-              "MiraiMC-Sponge.jar",
-              "MiraiMC-Velocity.jar"
-            ];
-
-            const assets = context.payload.release.assets;
-            fs.mkdirSync('release-assets', { recursive: true });
-            for (const asset of assets) {
-              if (assetList.includes(asset.name)) {
-                const res = await fetch(asset.browser_download_url, {
-                  headers: { Authorization: `token ${process.env.GITHUB_TOKEN}` }
-                });
-                if (!res.ok) throw new Error(`Failed to download ${asset.name}: ${res.statusText}`);
-                const dest = path.join('release-assets', asset.name);
-                const fileStream = fs.createWriteStream(dest);
-                await new Promise((resolve, reject) => {
-                  res.body.pipe(fileStream);
-                  res.body.on("error", reject);
-                  fileStream.on("finish", resolve);
-                });
-                core.info(`Downloaded: ${asset.name}`);
-              }
-            }
+      - name: Download release assets (using gh cli)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p release-assets
+          gh release view "$GITHUB_REF_NAME" --json assets -q '.assets[].name' | grep -E 'MiraiMC-(Bukkit|Bungee|Sponge|Velocity)\.jar' | while read filename; do
+            echo "Downloading $filename"
+            gh release download "$GITHUB_REF_NAME" -p "$filename" -D release-assets
+          done
 
       - name: Get current version info and calculate next version
         id: version
