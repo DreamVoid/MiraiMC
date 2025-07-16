@@ -2,7 +2,7 @@ name: Upload MiraiMC Release Assets to Modrinth
 
 on:
   release:
-    types: [published, prereleased]
+    types: [published]
 
 jobs:
   upload-mirai-to-modrinth:
@@ -27,12 +27,12 @@ jobs:
           NEXT_VERSION_NUM=$((VERSION_NUM + 1))
           echo "next_version_num=$NEXT_VERSION_NUM" >> $GITHUB_OUTPUT
 
-      - name: Get all stable Minecraft versions from Modrinth (exclude pre-releases/rc/snapshots with -)
+      - name: Get all Minecraft versions from Modrinth (include all, no dash filtering)
         id: mc_versions
         run: |
           curl -s 'https://api.modrinth.com/v2/tag/game_version' > mc_versions.json
-          # 1. 选出以数字点数字开头（如1.0、1.7.10），2. 且不包含连字符（-），3. 且 >= 1.0
-          jq -r '[.[] | select(.version | test("^[1-9][0-9]*\\.[0-9]+$")) | .version] | map(select(. >= "1.0"))' mc_versions.json > filtered_mc_versions.json
+          # 提取1.0及以上的所有游戏版本（包括带-的预发布、rc等）
+          jq -r '[.[] | select(.version | test("^[1-9][0-9]*\\.[0-9]+")) | .version] | map(select(. >= "1.0"))' mc_versions.json | jq -c . > filtered_mc_versions.json
           echo "Filtered game versions:"
           cat filtered_mc_versions.json
           echo "game_versions=$(cat filtered_mc_versions.json)" >> $GITHUB_OUTPUT
