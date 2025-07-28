@@ -114,7 +114,7 @@ jobs:
               -F "primary_file=MiraiMC-${variant}.jar" \
               -F "game_versions=$game_versions" \
               -F "loaders=$loaders" \
-              --fail
+              --fail-with-body
 
             if [ $? -ne 0 ]; then
               echo "Failed to upload $filename to Modrinth"
