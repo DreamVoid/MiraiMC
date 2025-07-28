@@ -68,7 +68,7 @@ public final class LifeCycle {
         platform.getPluginConfig().loadConfig();
         
         // 开发版本强制使用最新核心
-        if (platform.getPluginVersion().contains("dev-") && 
+        if (platform.getPluginVersion().contains("+") &&
             platform.getPluginConfig().General_MiraiCoreVersion.equalsIgnoreCase("stable")) {
             platform.getPluginConfig().General_MiraiCoreVersion = "latest";
         }
