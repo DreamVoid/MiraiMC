@@ -37,7 +37,7 @@ jobs:
         id: mc_versions
         run: |
           curl -s 'https://api.modrinth.com/v2/tag/game_version' > mc_versions.json
-          jq -r '[.[] | select(.version | test("^[1-9][0-9]*\\.[0-9]+$")) | .version] | map(select(. >= "1.0"))' mc_versions.json > filtered_mc_versions.json
+          jq -c '[.[] | select(.version | test("^[1-9][0-9]*\\.[0-9]+$")) | .version] | map(select(. >= "1.0"))' mc_versions.json > filtered_mc_versions.json
           echo "版本号列表："
           cat filtered_mc_versions.json
           echo "game_versions=$(cat filtered_mc_versions.json)" >> $GITHUB_OUTPUT
