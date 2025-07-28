@@ -22,7 +22,9 @@ jobs:
         distribution: 'zulu'
 
     - name: Update version
-      run: mvn versions:set -DnewVersion=${project.version}+github#${{ github.run_number }} -DprocessAllModules=true -DgenerateBackupPoms=false
+      env:
+        RUN_NUMBER: ${{ github.run_number }}
+      run: mvn versions:set -DnewVersion="${project.version}+github#$RUN_NUMBER" -DprocessAllModules=true -DgenerateBackupPoms=false
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
