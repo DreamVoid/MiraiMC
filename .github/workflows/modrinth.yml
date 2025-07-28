@@ -103,14 +103,15 @@ jobs:
 
             echo "Uploading $filename as $version_number to Modrinth, channel: $release_type ..."
 
-            curl -X POST "https://api.modrinth.com/v2/version" \
+            curl -v -X POST "https://api.modrinth.com/v2/version" \
               -H "Authorization: $MODRINTH_TOKEN" \
               -F "project_id=$MODRINTH_PROJECT_ID" \
               -F "version_number=$version_number" \
               -F "name=$version_number" \
               -F "version_type=$release_type" \
               -F "changelog=$changelog" \
-              -F "files=@$file" \
+              -F "file_parts=@$file" \
+              -F "primary_file=MiraiMC-${variant}.jar" \
               -F "game_versions=$game_versions" \
               -F "loaders=$loaders" \
               --fail
