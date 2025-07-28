@@ -67,7 +67,7 @@ jobs:
           # The changelog for this version.
           changelog: ${{ github.event.release.body }}
           # The mod loaders that this version supports, separated by new line, or as JSON string array. In case of resource packs, use `minecraft`.
-          loaders: ["Bukkit","Folia","Paper","Purpur","Spigot"]
+          loaders: '["Bukkit","Folia","Paper","Purpur","Spigot"]'
           # A list of versions of Minecraft that this version supports, separated by new line, or as JSON string array. You can also use e.g. `1.20.x`, `1.21.x`, ….
           game-versions: [] # optional, default is []
           # A list of file paths to upload, separated by new line, or as JSON string array. There must be at least one file, unless the new version’s status is `draft`. The allowed file extensions are `.mrpack`, `.jar`, `.zip`, and `.litemod`.
