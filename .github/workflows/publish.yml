@@ -1,0 +1,115 @@
+name: Publish release version
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  modrinth-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p release-assets
+          TAG="${GITHUB_REF_NAME}"
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets -q '.assets[].name' | grep -E 'MiraiMC-(Bukkit|Bungee|Sponge|Velocity)\.jar' | while read filename; do
+            echo "正在下载 $filename"
+            gh release download "$TAG" --repo "$GITHUB_REPOSITORY" -p "$filename" -D release-assets
+          done
+          echo "附件下载完成"
+          ls -lh release-assets/
+
+      - name: Get current version info and calculate next version
+        id: version
+        run: |
+          curl -s https://api.miraimc.dreamvoid.me/version.json > version.json
+          LATEST_UNSTABLE=$(jq -r '.["latest-unstable"]' version.json)
+          VERSION_NUM=$(jq --arg v "$LATEST_UNSTABLE" -r '.versions[$v]' version.json)
+          NEXT_VERSION_NUM=$((VERSION_NUM + 1))
+          echo "next_version_num=$NEXT_VERSION_NUM" >> $GITHUB_OUTPUT
+
+      - name: Get all Minecraft versions from Modrinth
+        id: mc_versions
+        run: |
+          curl -s 'https://api.modrinth.com/v2/tag/game_version' > mc_versions.json
+          jq -r '[.[] | select(.version | test("^[1-9][0-9]*\\.[0-9]+$")) | .version] | map(select(. >= "1.0"))' mc_versions.json > filtered_mc_versions.json
+          echo "版本号列表："
+          cat filtered_mc_versions.json
+          echo "game_versions=$(cat filtered_mc_versions.json)" >> $GITHUB_OUTPUT
+
+      - name: Set release type
+        id: set_type
+        run: |
+          gh_title="${{ github.event.release.name }}"
+          lower_title="$(echo "$gh_title" | tr '[:upper:]' '[:lower:]')"
+          if echo "$lower_title" | grep -q "pre"; then
+            echo "release_type=alpha" >> $GITHUB_OUTPUT
+          elif echo "$lower_title" | grep -q "rc"; then
+            echo "release_type=beta" >> $GITHUB_OUTPUT
+          else
+            echo "release_type=release" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Modrinth Publish - Bukkit
+        uses: cloudnode-pro/modrinth-publish@v2.1.3
+        with:
+          token: ${{ secrets.MODRINTH_TOKEN }}
+          project: ${{ secrets.MODRINTH_PROJECT_ID }}
+          name: ${{ github.event.release.name }}
+          version: ${{ steps.version.outputs.next_version_num }}-Bukkit
+          channel: ${{ steps.set_type.outputs.release_type }}
+          changelog: ${{ github.event.release.body }}
+          loaders: '["bukkit","folia","paper","purpur","spigot"]'
+          files: release-assets/MiraiMC-Bukkit.jar
+          game-versions: ${{ steps.mc_versions.outputs.game_versions }}
+          primary-file: 'MiraiMC-Bukkit.jar'
+          
+      - name: Modrinth Publish - Bungee
+        uses: cloudnode-pro/modrinth-publish@v2.1.3
+        with:
+          token: ${{ secrets.MODRINTH_TOKEN }}
+          project: ${{ secrets.MODRINTH_PROJECT_ID }}
+          name: ${{ github.event.release.name }}
+          version: ${{ steps.version.outputs.next_version_num }}-Bungee
+          channel: ${{ steps.set_type.outputs.release_type }}
+          changelog: ${{ github.event.release.body }}
+          loaders: '["bungeecord","waterfall"]'
+          files: release-assets/MiraiMC-Bungee.jar
+          game-versions: ${{ steps.mc_versions.outputs.game_versions }}
+          primary-file: 'MiraiMC-Bungee.jar'
+
+      - name: Modrinth Publish - Sponge
+        uses: cloudnode-pro/modrinth-publish@v2.1.3
+        with:
+          token: ${{ secrets.MODRINTH_TOKEN }}
+          project: ${{ secrets.MODRINTH_PROJECT_ID }}
+          name: ${{ github.event.release.name }}
+          version: ${{ steps.version.outputs.next_version_num }}-Sponge
+          channel: ${{ steps.set_type.outputs.release_type }}
+          changelog: ${{ github.event.release.body }}
+          loaders: '["sponge"]'
+          files: release-assets/MiraiMC-Sponge.jar
+          game-versions: ${{ steps.mc_versions.outputs.game_versions }}
+          primary-file: 'MiraiMC-Sponge.jar'
+      
+      - name: Modrinth Publish - Velocity
+        uses: cloudnode-pro/modrinth-publish@v2.1.3
+        with:
+          token: ${{ secrets.MODRINTH_TOKEN }}
+          project: ${{ secrets.MODRINTH_PROJECT_ID }}
+          name: ${{ github.event.release.name }}
+          version: ${{ steps.version.outputs.next_version_num }}-Velocity
+          channel: ${{ steps.set_type.outputs.release_type }}
+          changelog: ${{ github.event.release.body }}
+          loaders: '["velocity"]'
+          files: release-assets/MiraiMC-Velocity.jar
+          game-versions: ${{ steps.mc_versions.outputs.game_versions }}
+          primary-file: 'MiraiMC-Velocity.jar'
+
+      - name: Clean up
+        run: rm -rf release-assets version.json mc_versions.json filtered_mc_versions.json
