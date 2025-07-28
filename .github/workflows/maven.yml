@@ -21,10 +21,13 @@ jobs:
         java-version: '21'
         distribution: 'zulu'
 
+    - name: Set variable
+      id: variables
+      run: |
+        echo "PROJECT_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)" >> "$GITHUB_OUTPUT"
+
     - name: Update version
-      env:
-        RUN_NUMBER: ${{ github.run_number }}
-      run: mvn versions:set -DnewVersion="${project.version}+github#$RUN_NUMBER" -DprocessAllModules=true -DgenerateBackupPoms=false
+      run: mvn versions:set -DnewVersion="${{ steps.variables.outputs.PROJECT_VERSION }}+github#${{ github.run_number }}" -DprocessAllModules=true -DgenerateBackupPoms=false
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
