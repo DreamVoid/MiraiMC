@@ -65,6 +65,7 @@ jobs:
           loaders: '["bukkit","folia","paper","purpur","spigot"]'
           # A list of file paths to upload, separated by new line, or as JSON string array. There must be at least one file, unless the new version’s status is `draft`. The allowed file extensions are `.mrpack`, `.jar`, `.zip`, and `.litemod`.
           files: release-assets/MiraiMC-Bukkit.jar
+          game-versions: $game_versions
           # The name (not path) from `files` to be set as the primary file.
           primary-file: 'MiraiMC-Bukkit.jar' # optional
           
