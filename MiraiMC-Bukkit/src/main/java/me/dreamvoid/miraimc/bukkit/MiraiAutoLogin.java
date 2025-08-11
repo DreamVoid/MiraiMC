@@ -82,6 +82,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
         plugin.runTaskAsync(thread);
     }
 
+    @SuppressWarnings("ExtractMethodRecommender")
     @Override
     public boolean addAutoLoginBot(long Account, String Password, String Protocol){
         // 获取现有的机器人列表

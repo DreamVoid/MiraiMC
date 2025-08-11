@@ -8,6 +8,7 @@ import net.mamoe.mirai.utils.ExternalResource;
 
 import org.jetbrains.annotations.Nullable;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * MiraiMC 其他客户端
@@ -78,9 +79,12 @@ public class MiraiOtherClient {
 	/**
 	 * 发送闪照
 	 * @param image 图片文件
+	 * @exception IOException 上传文件发生异常时抛出
 	 */
-	public void sendFlashImage(File image) {
-		client.sendMessage(FlashImage.from(client.uploadImage(ExternalResource.create(image).toAutoCloseable())));
+	public void sendFlashImage(File image) throws IOException {
+		try (ExternalResource resource = ExternalResource.create(image).toAutoCloseable()) {
+			client.sendMessage(FlashImage.from(client.uploadImage(resource)));
+		}
 	}
 
 	/**
@@ -96,9 +100,13 @@ public class MiraiOtherClient {
 	 * @param thumbnailFile 短视频封面图
 	 * @param videoFile 视频资源，目前仅支持上传 mp4 格式的视频
 	 * @param fileName 文件名，若为 null 则根据 video 自动生成.
+	 * @exception IOException 上传文件发生异常时抛出
 	 */
-	public void sendShortVideo(File thumbnailFile, File videoFile, @Nullable String fileName){
-		ShortVideo shortVideo = client.uploadShortVideo(ExternalResource.create(thumbnailFile).toAutoCloseable(), ExternalResource.create(videoFile).toAutoCloseable(), fileName);
-		client.sendMessage(shortVideo);
+	public void sendShortVideo(File thumbnailFile, File videoFile, @Nullable String fileName) throws IOException {
+		try (ExternalResource thumbnailResource = ExternalResource.create(thumbnailFile).toAutoCloseable();
+			 ExternalResource videoResource = ExternalResource.create(videoFile).toAutoCloseable()) {
+			ShortVideo shortVideo = client.uploadShortVideo(thumbnailResource, videoResource, fileName);
+			client.sendMessage(shortVideo);
+		}
 	}
 }

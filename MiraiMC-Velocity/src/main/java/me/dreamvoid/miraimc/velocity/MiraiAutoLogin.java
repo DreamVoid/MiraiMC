@@ -104,6 +104,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
         plugin.getServer().getScheduler().buildTask(plugin, thread).schedule();
     }
 
+    @SuppressWarnings("ExtractMethodRecommender")
     @Override
     public boolean addAutoLoginBot(long Account, String Password, String Protocol){
         try {

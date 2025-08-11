@@ -11,7 +11,7 @@
 
     <artifactId>MiraiMC-Bukkit</artifactId>
 
-    <name>${artifactId}</name>
+    <name>${project.artifactId}</name>
     <description>Mirai for Minecraft server</description>
     <url>https://github.com/DreamVoid/MiraiMC</url>
 
@@ -38,8 +38,8 @@
     </scm>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <repositories>

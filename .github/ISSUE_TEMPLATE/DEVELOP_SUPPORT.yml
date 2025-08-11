@@ -24,7 +24,7 @@ body:
     attributes: 
       label: 复现方法
       description: 在下方的代码编辑框描述如何触发这个问题
-      placeholder: 
+      placeholder: 描述如何使用代码触发此问题
       render: java
     validations:
       required: true

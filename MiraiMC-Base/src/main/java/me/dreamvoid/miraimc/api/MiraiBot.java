@@ -17,6 +17,7 @@ import net.mamoe.mirai.utils.ExternalResource;
 import net.mamoe.mirai.utils.LoggerAdapters;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -266,9 +267,12 @@ public class MiraiBot {
      * 上传指定图片，获取图片 ID 用于发送消息
      * @param image 图片文件
      * @return 图片ID
+     * @exception IOException 上传文件发生异常时抛出
      */
-    public String uploadImage(File image){
-        return bot.getAsFriend().uploadImage(ExternalResource.create(image).toAutoCloseable()).getImageId();
+    public String uploadImage(File image) throws IOException {
+        try(ExternalResource resource = ExternalResource.create(image).toAutoCloseable()){
+            return bot.getAsFriend().uploadImage(resource).getImageId();
+        }
     }
 
     /**

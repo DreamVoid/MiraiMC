@@ -92,6 +92,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
         });
     }
 
+    @SuppressWarnings("ExtractMethodRecommender")
     @Override
     public boolean addAutoLoginBot(long Account, String Password, String Protocol){
         // 获取自动登录文件

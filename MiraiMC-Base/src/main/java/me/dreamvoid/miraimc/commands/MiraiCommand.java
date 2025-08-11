@@ -231,6 +231,9 @@ public class MiraiCommand implements ICommandExecutor {
                         } catch (NoSuchElementException e) {
                             sender.sendMessage("&c指定的机器人不存在！");
                             break;
+                        } catch (IOException e) {
+                            sender.sendMessage("&c上传图片时出现异常: " + e);
+                            break;
                         }
 
                     } else {

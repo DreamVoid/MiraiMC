@@ -7,7 +7,6 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.HashMap;
 
@@ -34,6 +33,7 @@ public class SpongeConfig extends PluginConfig {
                 }
 
                 if(o instanceof HashMap<?, ?>){
+                    //noinspection unchecked
                     maps = (HashMap<String, Object>) o;
                 }
             } else {
@@ -64,6 +64,7 @@ public class SpongeConfig extends PluginConfig {
                 }
 
                 if(o instanceof HashMap<?, ?>){
+                    //noinspection unchecked
                     maps = (HashMap<String, Object>) o;
                 }
             } else {
@@ -96,6 +97,7 @@ public class SpongeConfig extends PluginConfig {
                 }
 
                 if(o instanceof HashMap<?, ?>){
+                    //noinspection unchecked
                     maps = (HashMap<String, Object>) o;
                 }
             } else {
@@ -128,6 +130,7 @@ public class SpongeConfig extends PluginConfig {
                 }
 
                 if(o instanceof HashMap<?, ?>){
+                    //noinspection unchecked
                     maps = (HashMap<String, Object>) o;
                 }
             } else {
@@ -158,6 +161,7 @@ public class SpongeConfig extends PluginConfig {
         }
 
         Yaml yaml = new Yaml();
-        map = yaml.loadAs(new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8), HashMap.class);
+        //noinspection unchecked
+        map = yaml.loadAs(Files.readString(file.toPath()), HashMap.class);
     }
 }

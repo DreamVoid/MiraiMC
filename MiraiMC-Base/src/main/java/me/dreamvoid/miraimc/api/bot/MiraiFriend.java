@@ -8,6 +8,7 @@ import net.mamoe.mirai.utils.ExternalResource;
 
 import org.jetbrains.annotations.Nullable;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * MiraiMC 好友
@@ -156,17 +157,23 @@ public class MiraiFriend {
     /**
      * 发送语音消息
      * @param audio 语音文件
+     * @exception IOException 上传文件发生异常时抛出
      */
-    public void sendAudio(File audio) {
-        friend.sendMessage(friend.uploadAudio(ExternalResource.create(audio).toAutoCloseable()));
+    public void sendAudio(File audio) throws IOException {
+        try(ExternalResource resource = ExternalResource.create(audio).toAutoCloseable()){
+            friend.sendMessage(friend.uploadAudio(resource));
+        }
     }
 
     /**
      * 发送闪照
      * @param image 图片文件
+     * @exception IOException 上传文件发生异常时抛出
      */
-    public void sendFlashImage(File image) {
-        friend.sendMessage(FlashImage.from(friend.uploadImage(ExternalResource.create(image).toAutoCloseable())));
+    public void sendFlashImage(File image) throws IOException {
+        try(ExternalResource resource = ExternalResource.create(image).toAutoCloseable()){
+            friend.sendMessage(FlashImage.from(friend.uploadImage(resource)));
+        }
     }
 
     /**
@@ -190,9 +197,13 @@ public class MiraiFriend {
      * @param thumbnailFile 短视频封面图
      * @param videoFile 视频资源，目前仅支持上传 mp4 格式的视频
      * @param fileName 文件名，若为 null 则根据 video 自动生成.
+     * @exception IOException 上传文件发生异常时抛出
      */
-    public void sendShortVideo(File thumbnailFile, File videoFile, @Nullable String fileName){
-        ShortVideo shortVideo = friend.uploadShortVideo(ExternalResource.create(thumbnailFile).toAutoCloseable(), ExternalResource.create(videoFile).toAutoCloseable(), fileName);
-        friend.sendMessage(shortVideo);
+    public void sendShortVideo(File thumbnailFile, File videoFile, @Nullable String fileName) throws IOException {
+        try(ExternalResource thumbnailResource = ExternalResource.create(thumbnailFile).toAutoCloseable();
+            ExternalResource videoResource = ExternalResource.create(videoFile).toAutoCloseable()) {
+            ShortVideo shortVideo = friend.uploadShortVideo(thumbnailResource, videoResource, fileName);
+            friend.sendMessage(shortVideo);
+        }
     }
 }

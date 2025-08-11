@@ -18,8 +18,7 @@ public class MiraiFriendMessageRecallEvent extends AbstractMessageRecallEvent {
     /**
      * 获取被撤回信息的发送者昵称
      * @return 发送者昵称
-     * @deprecated
-     * @see #getAuthorNick()
+     * @deprecated 请改用 {@link #getAuthorNick()}
      */
     @Deprecated
     public String getSenderNick() { return event.getAuthor().getNick(); }
@@ -27,9 +26,9 @@ public class MiraiFriendMessageRecallEvent extends AbstractMessageRecallEvent {
     /**
      * 获取被撤回信息的发送者ID
      * @return 发送者ID
-     * @deprecated
-     * @see #getAuthorID()
+     * @deprecated 请改用 {@link #getAuthorID()}
      */
+    @Deprecated
     public long getSenderID() { return event.getAuthor().getId(); }
 
     /**

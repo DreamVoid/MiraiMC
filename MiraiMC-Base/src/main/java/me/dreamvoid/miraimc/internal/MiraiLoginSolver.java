@@ -1,6 +1,5 @@
 package me.dreamvoid.miraimc.internal;
 
-import kotlin.Unit;
 import kotlin.coroutines.Continuation;
 import kotlin.coroutines.CoroutineContext;
 import kotlinx.coroutines.Dispatchers;
@@ -174,7 +173,7 @@ public class MiraiLoginSolver extends LoginSolver {
                 switch(code){
                     case "sms":{
                         if (requests.getSms() != null) {
-                            requests.getSms().requestSms(new Continuation<Unit>() {
+                            requests.getSms().requestSms(new Continuation<>() {
                                 @NotNull
                                 @Override
                                 public CoroutineContext getContext() {

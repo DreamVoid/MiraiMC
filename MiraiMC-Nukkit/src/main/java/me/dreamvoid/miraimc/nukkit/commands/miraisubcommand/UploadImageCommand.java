@@ -9,6 +9,7 @@ import me.dreamvoid.miraimc.api.MiraiMC;
 import me.dreamvoid.miraimc.nukkit.commands.base.BaseSubCommand;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.NoSuchElementException;
 
 public class UploadImageCommand extends BaseSubCommand {
@@ -43,9 +44,12 @@ public class UploadImageCommand extends BaseSubCommand {
 			} catch (NoSuchElementException e){
 				sender.sendMessage(TextFormat.colorize('&', "&c指定的机器人不存在！"));
 				return true;
-			}
+			} catch (IOException e) {
+                sender.sendMessage(TextFormat.colorize('&', "&c上传文件时出现异常: " + e));
+				return true;
+            }
 
-		} else sender.sendMessage(TextFormat.colorize('&',"&c未知或不完整的命令，请输入 /mirai help 查看帮助！"));
+        } else sender.sendMessage(TextFormat.colorize('&',"&c未知或不完整的命令，请输入 /mirai help 查看帮助！"));
 
 		return false;
 	}

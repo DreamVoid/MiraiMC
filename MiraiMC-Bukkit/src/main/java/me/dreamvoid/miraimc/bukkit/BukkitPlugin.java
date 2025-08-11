@@ -1,17 +1,17 @@
 package me.dreamvoid.miraimc.bukkit;
 
-import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
-import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
 import me.dreamvoid.miraimc.LifeCycle;
-import me.dreamvoid.miraimc.interfaces.Platform;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bukkit.utils.Metrics;
 import me.dreamvoid.miraimc.commands.ICommandSender;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
-import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
+import me.dreamvoid.miraimc.interfaces.Platform;
 import me.dreamvoid.miraimc.interfaces.PluginConfig;
+import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,7 +24,6 @@ import org.jetbrains.annotations.NotNull;
 import java.net.URLClassLoader;
 import java.util.*;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 public class BukkitPlugin extends JavaPlugin implements Platform {
     private MiraiEvent MiraiEvent;
@@ -95,12 +94,12 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
             }
         };
 
-        switch (command.getName().toLowerCase()){
-            case "mirai":return new MiraiCommand().onCommand(sender1, args);
-            case "miraimc":return new MiraiMcCommand().onCommand(sender1, args);
-            case "miraiverify":return new MiraiVerifyCommand().onCommand(sender1, args);
-            default:return super.onCommand(sender, command, label, args);
-        }
+        return switch (command.getName().toLowerCase()) {
+            case "mirai" -> new MiraiCommand().onCommand(sender1, args);
+            case "miraimc" -> new MiraiMcCommand().onCommand(sender1, args);
+            case "miraiverify" -> new MiraiVerifyCommand().onCommand(sender1, args);
+            default -> super.onCommand(sender, command, label, args);
+        };
     }
 
     @Override
@@ -165,7 +164,7 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
 
                         // 2
                         if ("remove".equalsIgnoreCase(args[1])) {
-                            List<String> accounts = MiraiAutoLogin.loadAutoLoginList().stream().map(map -> String.valueOf(map.get("account"))).collect(Collectors.toList());
+                            List<String> accounts = MiraiAutoLogin.loadAutoLoginList().stream().map(map -> String.valueOf(map.get("account"))).toList();
                             for(String s : accounts){
                                 if(s.startsWith(args[2])) result.add(s);
                             }
