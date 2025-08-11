@@ -52,17 +52,17 @@
                             <shadedPattern>${project.parent.version}</shadedPattern>
                         </relocation>
                     </relocations>
-                    <!--
                     <filters>
                         <filter>
                             <artifact>*:*</artifact>
                             <excludes>
-                                <exclude>META-INF/*</exclude>
-                                <exclude>mozilla/public-suffix-list.txt</exclude>
+                                <exclude>META-INF/DEPENDENCIES</exclude>
+                                <exclude>META-INF/LICENSE*</exclude>
+                                <exclude>META-INF/NOTICE*</exclude>
+                                <exclude>META-INF/MANIFEST*</exclude>
                             </excludes>
                         </filter>
                     </filters>
-                    -->
                 </configuration>
                 <executions>
                     <execution>

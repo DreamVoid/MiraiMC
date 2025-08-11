@@ -125,7 +125,7 @@ public final class LifeCycle {
         platform.getMiraiEvent().startListenEvent();
 
         // 自动登录机器人
-        logger.info("正在启动自动登录机器人任务.");
+        logger.info("正在初始化自动登录机器人任务.");
         platform.getAutoLogin().loadFile();
         platform.getAutoLogin().startAutoLogin();
 
