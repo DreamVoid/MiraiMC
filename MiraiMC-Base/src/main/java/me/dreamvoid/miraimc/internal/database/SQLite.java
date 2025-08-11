@@ -36,7 +36,7 @@ public class SQLite implements Database {
         } else if (!triedLibrary){
             try {
                 triedLibrary = true;
-                loader.loadLibraryMaven("org.xerial", "sqlite-jdbc", "3.36.0.3", MiraiMC.getConfig().General_MavenRepoUrl, MiraiMC.getConfig().PluginDir.toPath().resolve("libraries"));
+                loader.loadLibraryMaven("org.xerial", "sqlite-jdbc", "3.50.3.0", MiraiMC.getConfig().General_MavenRepoUrl, MiraiMC.getConfig().PluginDir.toPath().resolve("libraries"));
                 initialize();
                 return;
             } catch (Exception e) {
