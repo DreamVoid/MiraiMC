@@ -33,23 +33,25 @@ public class MySQL implements Database {
             driver = "com.mysql.jdbc.Driver";
         } else if(!triedLibrary){
             try {
-                MiraiMC.getPlatform().getLibraryLoader().loadLibraryMaven("com.mysql", "mysql-connector-j", "9.1.0", MiraiMC.getConfig().General_MavenRepoUrl, MiraiMC.getConfig().PluginDir.toPath().resolve("libraries"));
                 triedLibrary = true;
+                MiraiMC.getPlatform().getLibraryLoader().loadLibraryMaven("com.mysql", "mysql-connector-j", "9.1.0", MiraiMC.getConfig().General_MavenRepoUrl, MiraiMC.getConfig().PluginDir.toPath().resolve("libraries"));
                 initialize();
                 return;
             } catch (ParserConfigurationException | IOException | SAXException e) {
-                throw new ClassNotFoundException("Couldn't find \"com.mysql.cj.jdbc.Driver\" and \"com.mysql.jdbc.Driver\" both local and remote.");
+                throw new ClassNotFoundException("无法从Maven仓库下载MySQL依赖库", e);
             }
         } else {
-            throw new ClassNotFoundException("Couldn't find \"com.mysql.cj.jdbc.Driver\" and \"com.mysql.jdbc.Driver\" both local and remote.");
+            throw new ClassNotFoundException("无法加载MySQL依赖库，不再尝试");
         }
 
         HikariConfig config = new HikariConfig();
         config.setDriverClassName(driver);
         config.setPoolName("MiraiMC-MySQL");
+
         config.setJdbcUrl("jdbc:mysql://" + MiraiMC.getConfig().Database_Drivers_MySQL_Address + "/" + MiraiMC.getConfig().Database_Drivers_MySQL_Database + MiraiMC.getConfig().Database_Drivers_MySQL_Parameters);
         config.setUsername(MiraiMC.getConfig().Database_Drivers_MySQL_Username);
         config.setPassword(MiraiMC.getConfig().Database_Drivers_MySQL_Password);
+
         config.setConnectionTimeout(MiraiMC.getConfig().Database_Settings_Pool_ConnectionTimeout);
         config.setIdleTimeout(MiraiMC.getConfig().Database_Settings_Pool_IdleTimeout);
         config.setMaxLifetime(MiraiMC.getConfig().Database_Settings_Pool_MaxLifetime);
