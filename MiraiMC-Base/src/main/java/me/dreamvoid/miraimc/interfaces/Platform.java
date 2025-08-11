@@ -1,11 +1,14 @@
 package me.dreamvoid.miraimc.interfaces;
 
-import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
+import me.dreamvoid.miraimc.loader.LibraryLoader;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+/**
+ * MiraiMC 平台接口
+ */
 public interface Platform {
     String getPlayerName(UUID uuid);
 

@@ -4,7 +4,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import me.dreamvoid.miraimc.api.MiraiMC;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
+import me.dreamvoid.miraimc.loader.LibraryLoader;
 import org.sqlite.SQLiteDataSource;
 import org.xml.sax.SAXException;
 

@@ -3,6 +3,7 @@ package me.dreamvoid.miraimc.velocity;
 import com.google.inject.Inject;
 import com.velocitypowered.api.command.CommandManager;
 import com.velocitypowered.api.command.CommandMeta;
+import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
@@ -13,6 +14,7 @@ import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import me.dreamvoid.miraimc.LifeCycle;
+import me.dreamvoid.miraimc.commands.ICommandSender;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
@@ -20,10 +22,9 @@ import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
 import me.dreamvoid.miraimc.interfaces.Platform;
 import me.dreamvoid.miraimc.interfaces.PluginConfig;
-import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
+import me.dreamvoid.miraimc.loader.LibraryLoader;
 import me.dreamvoid.miraimc.velocity.utils.Metrics;
-import me.dreamvoid.miraimc.velocity.utils.SpecialUtils;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -82,7 +83,7 @@ public class VelocityPlugin implements Platform {
             MiraiEvent = new MiraiEvent(this);
             MiraiAutoLogin = new MiraiAutoLogin(this);
         } catch (Exception e) {
-            Utils.resolveException(e, VelocityLogger, "加载 MiraiMC 阶段 1 时出现异常！");
+            me.dreamvoid.miraimc.internal.Utils.resolveException(e, VelocityLogger, "加载 MiraiMC 阶段 1 时出现异常！");
         }
 
         // enable
@@ -95,24 +96,24 @@ public class VelocityPlugin implements Platform {
             CommandMeta mirai = manager.metaBuilder("mirai").build();
             CommandMeta miraimc = manager.metaBuilder("miraimc").build();
             CommandMeta miraiverify = manager.metaBuilder("miraiverify").build();
-            manager.register(mirai, (SimpleCommand) invocation -> new MiraiCommand().onCommand(SpecialUtils.getSender(invocation.source()), invocation.arguments()));
-            manager.register(miraimc, (SimpleCommand) invocation -> new MiraiMcCommand().onCommand(SpecialUtils.getSender(invocation.source()), invocation.arguments()));
-            manager.register(miraiverify, (SimpleCommand) invocation -> new MiraiVerifyCommand().onCommand(SpecialUtils.getSender(invocation.source()), invocation.arguments()));
+            manager.register(mirai, (SimpleCommand) invocation -> new MiraiCommand().onCommand(getSender(invocation.source()), invocation.arguments()));
+            manager.register(miraimc, (SimpleCommand) invocation -> new MiraiMcCommand().onCommand(getSender(invocation.source()), invocation.arguments()));
+            manager.register(miraiverify, (SimpleCommand) invocation -> new MiraiVerifyCommand().onCommand(getSender(invocation.source()), invocation.arguments()));
 
             // 监听事件
             if (config.General_LogEvents) {
-                getLogger().info("Registering events.");
+                getLogger().info("正在注册事件监听器.");
                 server.getEventManager().register(this, new Events());
             }
 
             // bStats统计
             if (config.General_AllowBStats) {
-                getLogger().info("Initializing bStats metrics.");
+                getLogger().info("正在初始化 bStats 统计.");
                 int pluginId = 13887;
                 metricsFactory.make(this, pluginId);
             }
         } catch (Exception ex){
-            Utils.resolveException(ex, VelocityLogger, "加载 MiraiMC 阶段 2 时出现异常！");
+            me.dreamvoid.miraimc.internal.Utils.resolveException(ex, VelocityLogger, "加载 MiraiMC 阶段 2 时出现异常！");
         }
     }
 
@@ -210,5 +211,19 @@ public class VelocityPlugin implements Platform {
     @Override
     public PluginConfig getPluginConfig() {
         return config;
+    }
+
+    private static ICommandSender getSender(CommandSource sender){
+        return new ICommandSender() {
+            @Override
+            public void sendMessage(String message) {
+                sender.sendMessage(LegacyComponentSerializer.legacyAmpersand().deserialize(message));
+            }
+
+            @Override
+            public boolean hasPermission(String permission) {
+                return sender.hasPermission(permission);
+            }
+        };
     }
 }

@@ -8,6 +8,7 @@ import net.mamoe.mirai.utils.BotConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class MiraiCommand implements ICommandExecutor {
     @Override
     public boolean onCommand(ICommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage("This server is running " + MiraiMC.getPlatform().getPluginName() + " version " + MiraiMC.getPlatform().getPluginVersion() + " by " + String.join(", ", MiraiMC.getPlatform().getAuthors()));
+            sender.sendMessage(MessageFormat.format("This server is running {0} version {1} by {2}", MiraiMC.getPlatform().getPluginName(), MiraiMC.getPlatform().getPluginVersion(), String.join(", ", MiraiMC.getPlatform().getAuthors())));
             return false;
         }
 

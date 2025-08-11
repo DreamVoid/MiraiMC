@@ -184,7 +184,7 @@ public final class Utils {
          */
         public static void download(String url, File saveFile) throws IOException {
             try (InputStream inputStream = new URL(url).openStream()){
-                logger.info("Downloading " + url);
+                logger.info("正在下载 " + url);
                 Files.copy(inputStream, saveFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             }
         }

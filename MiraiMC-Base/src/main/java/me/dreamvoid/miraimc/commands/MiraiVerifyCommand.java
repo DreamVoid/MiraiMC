@@ -8,7 +8,7 @@ public class MiraiVerifyCommand implements ICommandExecutor {
     @Override
     public boolean onCommand(ICommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage("This command should not run directly.");
+            sender.sendMessage("此命令用于处理机器人登录验证请求。");
             return true;
         }
 

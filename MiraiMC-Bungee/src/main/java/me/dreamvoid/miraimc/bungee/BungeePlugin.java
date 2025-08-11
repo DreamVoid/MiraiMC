@@ -1,19 +1,21 @@
 package me.dreamvoid.miraimc.bungee;
 
-import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
-import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
 import me.dreamvoid.miraimc.LifeCycle;
-import me.dreamvoid.miraimc.interfaces.Platform;
 import me.dreamvoid.miraimc.bungee.utils.Metrics;
-import me.dreamvoid.miraimc.bungee.utils.SpecialUtils;
+import me.dreamvoid.miraimc.commands.ICommandSender;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
-import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
+import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
+import me.dreamvoid.miraimc.interfaces.Platform;
 import me.dreamvoid.miraimc.interfaces.PluginConfig;
-import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
+import me.dreamvoid.miraimc.internal.Utils;
+import me.dreamvoid.miraimc.loader.LibraryLoader;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.Plugin;
 
@@ -56,35 +58,35 @@ public class BungeePlugin extends Plugin implements Platform {
             lifeCycle.postLoad();
 
             // 注册命令
-            getLogger().info("Registering commands.");
+            getLogger().info("正在注册命令.");
             ProxyServer.getInstance().getPluginManager().registerCommand(this, new Command("mirai", "miraimc.command.mirai") {
                 @Override
                 public void execute(CommandSender sender, String[] strings) {
-                    new MiraiCommand().onCommand(SpecialUtils.getSender(sender), strings);
+                    new MiraiCommand().onCommand(getSender(sender), strings);
                 }
             });
             ProxyServer.getInstance().getPluginManager().registerCommand(this, new Command("miraimc", "miraimc.command.miraimc") {
                 @Override
                 public void execute(CommandSender sender, String[] strings) {
-                    new MiraiMcCommand().onCommand(SpecialUtils.getSender(sender), strings);
+                    new MiraiMcCommand().onCommand(getSender(sender), strings);
                 }
             });
             ProxyServer.getInstance().getPluginManager().registerCommand(this, new Command("miraiverify", "miraimc.command.miraiverify") {
                 @Override
                 public void execute(CommandSender sender, String[] strings) {
-                    new MiraiVerifyCommand().onCommand(SpecialUtils.getSender(sender), strings);
+                    new MiraiVerifyCommand().onCommand(getSender(sender), strings);
                 }
             });
 
             // 监听事件
             if (config.General_LogEvents) {
-                getLogger().info("Registering events.");
+                getLogger().info("正在注册事件监听器.");
                 getProxy().getPluginManager().registerListener(this, new Events());
             }
 
             // bStats统计
             if (config.General_AllowBStats && !getDescription().getVersion().contains("dev")) {
-                getLogger().info("Initializing bStats metrics.");
+                getLogger().info("正在初始化 bStats 统计.");
                 int pluginId = 12154;
                 new Metrics(this, pluginId);
             }
@@ -171,5 +173,19 @@ public class BungeePlugin extends Plugin implements Platform {
     @Override
     public void runTaskTimerAsync(Runnable task, long delay, long period) {
         getProxy().getScheduler().schedule(this, task, delay * 50, period * 50, TimeUnit.MILLISECONDS);
+    }
+
+    public static ICommandSender getSender(CommandSender sender){
+        return new ICommandSender() {
+            @Override
+            public void sendMessage(String message) {
+                sender.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', message)));
+            }
+
+            @Override
+            public boolean hasPermission(String permission) {
+                return sender.hasPermission(permission);
+            }
+        };
     }
 }

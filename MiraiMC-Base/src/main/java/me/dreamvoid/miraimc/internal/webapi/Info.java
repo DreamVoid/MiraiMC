@@ -61,7 +61,7 @@ public final class Info {
 
 		List<String> list = new ArrayList<>(apis);
 		File CacheDir = new File(MiraiMC.getConfig().PluginDir, "cache");
-		if(!CacheDir.exists() && !CacheDir.mkdirs()) throw new RuntimeException("Failed to create folder " + CacheDir.getPath());
+		if(!CacheDir.exists() && !CacheDir.mkdirs()) throw new RuntimeException("无法创建文件夹 " + CacheDir.getPath());
 		File cache = new File(CacheDir, "apis.json");
 
 		if(localCache){

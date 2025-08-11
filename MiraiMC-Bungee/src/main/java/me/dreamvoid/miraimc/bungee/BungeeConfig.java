@@ -20,7 +20,7 @@ public class BungeeConfig extends PluginConfig {
 
     @Override
     protected void saveDefaultConfig() throws IOException {
-        if (!plugin.getDataFolder().exists() && !plugin.getDataFolder().mkdirs()) throw new RuntimeException("Failed to create folder " + plugin.getDataFolder().getPath());
+        if (!plugin.getDataFolder().exists() && !plugin.getDataFolder().mkdirs()) throw new RuntimeException("无法创建文件夹 " + plugin.getDataFolder().getPath());
         File file = new File(plugin.getDataFolder(), "config.yml");
         if (!file.exists()) {
             try (InputStream in = plugin.getResourceAsStream("config.yml")) {

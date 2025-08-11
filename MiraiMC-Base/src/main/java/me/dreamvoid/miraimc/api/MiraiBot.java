@@ -324,7 +324,7 @@ public class MiraiBot {
 
         File BotConfig = new File(new File(Utils.getMiraiDir(), "bots"), String.valueOf(account)); // 当前机器人账号配置文件夹和相应的配置
 
-        if(!BotConfig.exists() && !BotConfig.mkdirs()) throw new RuntimeException("Failed to create folder " + BotConfig.getPath());
+        if(!BotConfig.exists() && !BotConfig.mkdirs()) throw new RuntimeException("无法创建文件夹 " + BotConfig.getPath());
 
         // 登录前的准备工作
         BotAuthorization authorization = Arrays.equals(new byte[]{-6, -127, 29, -75, 79, 68, 2, -7, -15, -24, 106, 21, -50, 23, 76, -88}, password) ? BotAuthorization.byQRCode() : BotAuthorization.byPassword(password);

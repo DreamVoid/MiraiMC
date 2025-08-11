@@ -2,6 +2,7 @@ package me.dreamvoid.miraimc.sponge;
 
 import com.google.inject.Inject;
 import me.dreamvoid.miraimc.LifeCycle;
+import me.dreamvoid.miraimc.commands.ICommandSender;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
@@ -9,15 +10,16 @@ import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
 import me.dreamvoid.miraimc.interfaces.Platform;
 import me.dreamvoid.miraimc.interfaces.PluginConfig;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
+import me.dreamvoid.miraimc.loader.LibraryLoader;
 import me.dreamvoid.miraimc.sponge.utils.Metrics;
-import me.dreamvoid.miraimc.sponge.utils.SpecialUtils;
+import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.text.Component;
 import org.apache.logging.log4j.Logger;
 import org.spongepowered.api.Server;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.Command;
 import org.spongepowered.api.command.CommandResult;
+import org.spongepowered.api.command.parameter.CommandContext;
 import org.spongepowered.api.command.parameter.Parameter;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.entity.living.player.server.ServerPlayer;
@@ -64,7 +66,7 @@ public class SpongePlugin implements Platform {
         if(getClass().getClassLoader() instanceof URLClassLoader){
             loader = new LibraryLoader((URLClassLoader) getClass().getClassLoader());
         } else {
-            logger.warn("Plugin's ClassLoader not an instance of URLClassLoader, some functions will broken!");
+            logger.warn("插件当前使用的 ClassLoader 不是 URLClassLoader 的实例，某些功能可能无法工作！");
             try{
                 loader = new LibraryLoader(new URLClassLoader(new URL[]{dataFolder.resolve("libraries").toUri().toURL(), dataFolder.resolve("MiraiBot").resolve("libs").toUri().toURL()}));
             } catch (MalformedURLException e) {
@@ -110,14 +112,14 @@ public class SpongePlugin implements Platform {
 
             // 监听事件
             if (config.General_LogEvents) {
-                getLogger().info("Registering events.");
+                getLogger().info("正在注册事件监听器.");
                 Sponge.eventManager().registerListeners(this.pluginContainer, new Events());
             }
 
             // bStats统计
             if (config.General_AllowBStats) {
                 if (this.metricsConfigManager.collectionState(this.pluginContainer).asBoolean()) {
-                    getLogger().info("Initializing bStats metrics.");
+                    getLogger().info("正在初始化 bStats 统计.");
                     int pluginId = 12847;
                     metricsFactory.make(pluginId);
                 } else {
@@ -145,7 +147,7 @@ public class SpongePlugin implements Platform {
                 .permission("miraimc.command.mirai")
                 .executor(context1 -> {
                     String[] args1 = context1.requireOne(argsKey).split(" ");
-                    new MiraiCommand().onCommand(SpecialUtils.getSender(context1), args1);
+                    new MiraiCommand().onCommand(getSender(context1), args1);
                     return CommandResult.success();
                 })
                 .build(), "mirai");
@@ -154,7 +156,7 @@ public class SpongePlugin implements Platform {
                 .permission("miraimc.command.miraimc")
                 .executor(context1 -> {
                     String[] args1 = context1.requireOne(argsKey).split(" ");
-                    new MiraiMcCommand().onCommand(SpecialUtils.getSender(context1), args1);
+                    new MiraiMcCommand().onCommand(getSender(context1), args1);
                     return CommandResult.success();
                 })
                 .build(), "miraimc");
@@ -163,7 +165,7 @@ public class SpongePlugin implements Platform {
                 .permission("miraimc.command.miraiverify")
                 .executor(context -> {
                     String[] args = context.requireOne(argsKey).split(" ");
-                    new MiraiMcCommand().onCommand(SpecialUtils.getSender(context), args);
+                    new MiraiMcCommand().onCommand(getSender(context), args);
                     return CommandResult.success();
                 })
                 .build(), "miraiverify");
@@ -286,5 +288,19 @@ public class SpongePlugin implements Platform {
     @Override
     public PluginConfig getPluginConfig() {
         return config;
+    }
+
+    private static ICommandSender getSender(CommandContext context){
+        return new ICommandSender() {
+            @Override
+            public void sendMessage(String message) {
+                context.sendMessage(Identity.nil(), Component.text(message));
+            }
+
+            @Override
+            public boolean hasPermission(String permission) {
+                return context.hasPermission(permission);
+            }
+        };
     }
 }

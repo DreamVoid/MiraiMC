@@ -36,13 +36,13 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
         // 建立文件夹
         File ConfigDir = new File(Utils.getMiraiDir(), "config");
         File ConsoleDir = new File(ConfigDir, "Console");
-        if(!ConsoleDir.exists() &&!ConsoleDir.mkdirs()) throw new RuntimeException("Failed to create folder " + ConsoleDir.getPath());
+        if(!ConsoleDir.exists() &&!ConsoleDir.mkdirs()) throw new RuntimeException("无法创建文件夹 " + ConsoleDir.getPath());
 
         // 建立自动登录文件
         AutoLoginFile = new File(ConsoleDir, "AutoLogin.yml");
         if(!AutoLoginFile.exists()) {
             try {
-                if(!AutoLoginFile.createNewFile()){ throw new RuntimeException("Failed to create folder " + AutoLoginFile.getPath()); }
+                if(!AutoLoginFile.createNewFile()){ throw new RuntimeException("无法创建文件夹 " + AutoLoginFile.getPath()); }
                 String defaultText = "accounts: "+ System.lineSeparator();
                 File writeName = AutoLoginFile;
                 try (FileWriter writer = new FileWriter(writeName);
@@ -82,7 +82,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     public void startAutoLogin() {
         Runnable thread = () -> {
             try {
-                logger.info("Starting auto login task.");
+                logger.info("正在启动自动登录机器人任务.");
                 for(AutoLoginObject.Accounts accounts : loadAutoLoginListSponge()){
                     AutoLoginObject.Password password = accounts.getPassword();
                     AutoLoginObject.Configuration configuration = accounts.getConfiguration();
@@ -91,7 +91,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
                         try {
                             String Password = password.getValue();
                             BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.getProtocol().toUpperCase());
-                            logger.info("Auto login bot account: " + Account + " Protocol: " + Protocol.name());
+                            logger.info(MessageFormat.format("自动登录机器人账号: {0} 协议: {1}", Account, Protocol.name()));
                             MiraiBot.doBotLogin(Account, Password, Protocol);
                         } catch (IllegalArgumentException ex){
                             logger.warning("读取自动登录文件时发现未知的协议类型，请修改: " + configuration.getProtocol());

@@ -3,6 +3,9 @@ package me.dreamvoid.miraimc.interfaces;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * MiraiMC 插件配置
+ */
 public abstract class PluginConfig {
     public File PluginDir;
 

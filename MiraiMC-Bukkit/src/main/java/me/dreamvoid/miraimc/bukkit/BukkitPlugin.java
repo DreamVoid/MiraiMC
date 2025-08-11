@@ -12,7 +12,7 @@ import me.dreamvoid.miraimc.interfaces.IMiraiEvent;
 import me.dreamvoid.miraimc.interfaces.Platform;
 import me.dreamvoid.miraimc.interfaces.PluginConfig;
 import me.dreamvoid.miraimc.internal.Utils;
-import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
+import me.dreamvoid.miraimc.loader.LibraryLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -58,14 +58,14 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
 
             // 监听事件
             if(config.General_LogEvents){
-                getLogger().info("Registering events.");
+                getLogger().info("正在注册事件监听器.");
                 Bukkit.getPluginManager().registerEvents(new Events(), this);
             }
 
             // bStats统计
             //noinspection deprecation
             if(config.General_AllowBStats && !getDescription().getVersion().contains("dev")) {
-                getLogger().info("Initializing bStats metrics.");
+                getLogger().info("正在初始化 bStats 统计.");
                 int pluginId = 11534;
                 new Metrics(this, pluginId);
             }

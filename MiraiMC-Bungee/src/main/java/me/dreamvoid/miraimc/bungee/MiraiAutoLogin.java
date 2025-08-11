@@ -1,8 +1,7 @@
 package me.dreamvoid.miraimc.bungee;
 
-import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.bungee.utils.SpecialUtils;
+import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.utils.BotConfiguration;
 import net.md_5.bungee.config.Configuration;
@@ -12,6 +11,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,13 +35,13 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
         // 建立控制台文件夹
         File ConfigDir = new File(Utils.getMiraiDir(), "config");
         File ConsoleDir = new File(ConfigDir, "Console");
-        if(!ConsoleDir.exists() &&!ConsoleDir.mkdirs()) throw new RuntimeException("Failed to create folder " + ConsoleDir.getPath());
+        if(!ConsoleDir.exists() &&!ConsoleDir.mkdirs()) throw new RuntimeException("无法创建文件夹 " + ConsoleDir.getPath());
 
         // 建立自动登录文件
         AutoLoginFile = new File(ConsoleDir, "AutoLogin.yml");
         if(!AutoLoginFile.exists()) {
             try {
-                if(!AutoLoginFile.createNewFile()){ throw new RuntimeException("Failed to create folder " + AutoLoginFile.getPath()); }
+                if(!AutoLoginFile.createNewFile()){ throw new RuntimeException("无法创建文件夹 " + AutoLoginFile.getPath()); }
                 String defaultText = "accounts: "+ System.lineSeparator();
                 File writeName = AutoLoginFile;
                 try (FileWriter writer = new FileWriter(writeName);
@@ -58,13 +59,13 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     @Override
     public List<Map<?, ?>> loadAutoLoginList() throws IOException{
         Configuration data = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(AutoLoginFile);
-        return SpecialUtils.getMapList(data.getList("accounts"));
+        return getMapList(data.getList("accounts"));
     }
 
     @Override
     public void startAutoLogin() {
         Runnable thread = () -> {
-            logger.info("Starting auto login task.");
+            logger.info("正在启动自动登录机器人任务.");
 
             try {
                 for(Object list : loadAutoLoginList()){
@@ -75,7 +76,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
                         try {
                             String Password = data.getString("password.value");
                             BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(data.getString("configuration.protocol").toUpperCase());
-                            logger.info("Auto login bot account: " + Account + " Protocol: " + Protocol.name());
+                            logger.info(MessageFormat.format("自动登录机器人账号: {0} 协议: {1}", Account, Protocol.name()));
                             MiraiBot.doBotLogin(Account, Password, Protocol);
                         } catch (IllegalArgumentException ignored) {
                             logger.warning("读取自动登录文件时发现未知的协议类型，请修改: " + data.getString("configuration.protocol"));
@@ -94,7 +95,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
         try {
             // 获取自动登录文件
             Configuration data = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(AutoLoginFile);
-            List<Map<?, ?>> list = SpecialUtils.getMapList(data.getList("accounts"));
+            List<Map<?, ?>> list = getMapList(data.getList("accounts"));
 
             data.get("accounts", list);
             // 新建用于添加进去的Map
@@ -153,5 +154,19 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
             return false;
         }
         return true;
+    }
+
+    private static List<Map<?, ?>> getMapList(List<?> list) {
+        List<Map<?, ?>> result = new ArrayList<>();
+        if (list != null) {
+
+            for (Object object : list) {
+                if (object instanceof Map) {
+                    result.add((Map<?,?>) object);
+                }
+            }
+
+        }
+        return result;
     }
 }

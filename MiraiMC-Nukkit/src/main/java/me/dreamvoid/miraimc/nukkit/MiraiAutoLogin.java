@@ -2,8 +2,8 @@ package me.dreamvoid.miraimc.nukkit;
 
 import cn.nukkit.scheduler.AsyncTask;
 import cn.nukkit.utils.Config;
-import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.api.MiraiBot;
+import me.dreamvoid.miraimc.interfaces.IMiraiAutoLogin;
 import me.dreamvoid.miraimc.internal.Utils;
 import net.mamoe.mirai.utils.BotConfiguration;
 
@@ -11,6 +11,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,13 +38,13 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
         // 建立控制台文件夹
         File ConfigDir = new File(Utils.getMiraiDir(), "config");
         File ConsoleDir = new File(ConfigDir, "Console");
-        if(!ConsoleDir.exists() &&!ConsoleDir.mkdirs()) throw new RuntimeException("Failed to create folder " + ConsoleDir.getPath());
+        if(!ConsoleDir.exists() &&!ConsoleDir.mkdirs()) throw new RuntimeException("无法创建文件夹 " + ConsoleDir.getPath());
 
         // 建立自动登录文件
         AutoLoginFile = new File(ConsoleDir, "AutoLogin.yml");
         if(!AutoLoginFile.exists()) {
             try {
-                if(!AutoLoginFile.createNewFile()){ throw new RuntimeException("Failed to create folder " + AutoLoginFile.getPath()); }
+                if(!AutoLoginFile.createNewFile()){ throw new RuntimeException("无法创建文件夹 " + AutoLoginFile.getPath()); }
                 String defaultText = "accounts: "+ System.lineSeparator();
                 File writeName = AutoLoginFile;
                 try (FileWriter writer = new FileWriter(writeName);
@@ -71,7 +72,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
         plugin.getServer().getScheduler().scheduleAsyncTask(plugin, new AsyncTask() {
             @Override
             public void onRun() {
-                logger.info("Starting auto login task.");
+                logger.info("正在启动自动登录机器人任务.");
 
                 for(Map<?,?> map : loadAutoLoginList()){
                     Map<?,?> password = (Map<?, ?>) map.get("password");
@@ -81,7 +82,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
                         try {
                             String Password = password.get("value").toString();
                             BotConfiguration.MiraiProtocol Protocol = BotConfiguration.MiraiProtocol.valueOf(configuration.get("protocol").toString().toUpperCase());
-                            logger.info("Auto login bot account: " + Account + " Protocol: " + Protocol.name());
+                            logger.info(MessageFormat.format("自动登录机器人账号: {0} 协议: {1}", Account, Protocol.name()));
                             MiraiBot.doBotLogin(Account, Password, Protocol);
                         } catch (IllegalArgumentException ignored) {
                             logger.warning("读取自动登录文件时发现未知的协议类型，请修改: " + configuration.get("protocol"));

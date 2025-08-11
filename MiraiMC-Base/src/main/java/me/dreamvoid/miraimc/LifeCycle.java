@@ -40,7 +40,7 @@ public final class LifeCycle {
      * @param logger {@link java.util.logging.Logger} 实例。由于各平台初始化 Logger 的时机不一，因此需要一个 Logger 来辅助。
      */
     public void startUp(Logger logger) {
-        logger.info("Preparing MiraiMC start-up.");
+        logger.info("准备 MiraiMC 初始化.");
 
         // 设置Mirai相关系统属性
         System.setProperty("mirai.no-desktop", "MiraiMC");
@@ -50,7 +50,7 @@ public final class LifeCycle {
         Utils.setLogger(logger);
         Utils.setClassLoader(this.getClass().getClassLoader());
 
-        logger.info("Start-up tasks finished.");
+        logger.info("初始化任务完成.");
     }
 
     /**
@@ -61,10 +61,10 @@ public final class LifeCycle {
         Utils.setLogger(logger);
         Utils.setClassLoader(platform.getPluginClassLoader());
 
-        logger.info("Preparing MiraiMC pre-load.");
+        logger.info("准备 MiraiMC 预加载.");
 
         // 加载配置
-        logger.info("Loading config.");
+        logger.info("正在加载配置文件.");
         platform.getPluginConfig().loadConfig();
         
         // 开发版本强制使用最新核心
@@ -73,11 +73,11 @@ public final class LifeCycle {
             platform.getPluginConfig().General_MiraiCoreVersion = "latest";
         }
 
-        logger.info("Mirai working dir: " + platform.getPluginConfig().General_MiraiWorkingDir);
+        logger.info("Mirai 工作目录: " + platform.getPluginConfig().General_MiraiWorkingDir);
 
         // 加载 mirai 核心
         if(System.getProperty("MiraiMC.do-not-load-mirai-core") == null){
-            logger.info("Selected mirai core version: " + platform.getPluginConfig().General_MiraiCoreVersion);
+            logger.info("使用的 mirai 核心版本: " + platform.getPluginConfig().General_MiraiCoreVersion);
             if (platform.getPluginConfig().General_MiraiCoreVersion.equalsIgnoreCase("latest")) {
                 MiraiLoader.loadMiraiCore();
             } else if (platform.getPluginConfig().General_MiraiCoreVersion.equalsIgnoreCase("stable")) {
@@ -86,10 +86,10 @@ public final class LifeCycle {
                 MiraiLoader.loadMiraiCore(platform.getPluginConfig().General_MiraiCoreVersion);
             }
         } else {
-            logger.info("MiraiMC will not load mirai core, please ensure you have custom mirai core loaded.");
+            logger.info("MiraiMC 不会加载 mirai 核心, 请确保有其他插件能够加载 mirai 核心.");
         }
 
-        logger.info("Pre-load tasks finished.");
+        logger.info("预加载任务完成.");
     }
 
     /**
@@ -98,34 +98,34 @@ public final class LifeCycle {
      */
     @SuppressWarnings("DefaultNotLastCaseInSwitch")
     public void postLoad() {
-        logger.info("Preparing MiraiMC post-load.");
+        logger.info("准备 MiraiMC 后加载.");
 
         // 数据库
         try {
             switch (platform.getPluginConfig().Database_Type.toLowerCase()){
                 case "sqlite":
                 default: {
-                    logger.info("Initializing SQLite database.");
+                    logger.info("初始化 SQLite 数据库.");
                     DatabaseHandler.setDatabase(new SQLite());
                     break;
                 }
                 case "mysql": {
-                    logger.info("Initializing MySQL database.");
+                    logger.info("初始化 MySQL 数据库.");
                     DatabaseHandler.setDatabase(new MySQL());
                     break;
                 }
             }
             DatabaseHandler.getDatabase().initialize();
         } catch (ClassNotFoundException e) {
-            logger.warning("Failed to initialize database, reason: " + e);
+            logger.warning("无法初始化数据库，原因: " + e);
         }
 
         // 接入 mirai 事件
-        logger.info("Starting Mirai-Event listener.");
+        logger.info("正在启动 Mirai 事件监听器.");
         platform.getMiraiEvent().startListenEvent();
 
         // 自动登录机器人
-        logger.info("Starting auto-login bot.");
+        logger.info("正在启动自动登录机器人任务.");
         platform.getAutoLogin().loadFile();
         platform.getAutoLogin().startAutoLogin();
 
@@ -168,31 +168,31 @@ public final class LifeCycle {
                         logger.info("你使用的是最新版本的 MiraiMC！");
                     }
                 } catch (IOException e) {
-                    logger.warning("An error occurred while fetching the latest version, reason: " + e);
+                    logger.warning("检查更新时出现了一个异常: " + e);
                 }
             },0, platform.getPluginConfig().General_CheckUpdatePeriod);
         }
 
-        logger.info("Some initialization tasks will continue to run afterwards.");
-        logger.info("Post-load tasks finished. Welcome to use MiraiMC!");
+        logger.info("某些加载任务将在之后继续。");
+        logger.info("后加载任务完成. 欢迎使用 MiraiMC！");
     }
 
     public void unload() {
-        logger.info("Preparing MiraiMC unload.");
+        logger.info("准备 MiraiMC 卸载.");
 
         // 取消所有的待验证机器人和已登录机器人进程
-        logger.info("Closing all bots");
+        logger.info("正在关闭所有机器人.");
         MiraiLoginSolver.cancelAll();
         MiraiBot.getOnlineBots().forEach(l -> MiraiBot.getBot(l).close());
 
         // 停止事件监听
-        logger.info("Stopping bot event listener.");
+        logger.info("正在停止事件监听器.");
         platform.getMiraiEvent().stopListenEvent();
 
         // 停止数据库
-        logger.info("Closing database.");
+        logger.info("正在关闭数据库.");
         DatabaseHandler.getDatabase().close();
 
-        logger.info("Unload tasks finished. Thanks for use MiraiMC!");
+        logger.info("卸载任务完成. 感谢使用 MiraiMC！");
     }
 }

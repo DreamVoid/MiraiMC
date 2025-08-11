@@ -1,4 +1,4 @@
-package me.dreamvoid.miraimc.internal.loader;
+package me.dreamvoid.miraimc.loader;
 
 import com.google.common.base.Suppliers;
 import me.dreamvoid.miraimc.internal.Utils;
@@ -20,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.function.Supplier;
@@ -46,13 +47,13 @@ public class LibraryLoader {
 	public void loadLibraryLocal(File file) {
 		try{
 			if(file.exists()){
-				logger.info("Loading library " + file);
+				logger.info("正在加载依赖 " + file);
 				loader.get().addURL(file.toURI().toURL());
 			} else {
-				logger.severe("Could not find library at " + file.getPath());
+				logger.severe("无法加载依赖 " + file.getPath());
 			}
 		} catch (MalformedURLException e) {
-			throw new RuntimeException("Error resolving libraries", e);
+			throw new RuntimeException("解析依赖时发生异常", e);
 		}
 	}
 
@@ -106,7 +107,7 @@ public class LibraryLoader {
 
 		if(needDownload){
 			if (!file.getParentFile().exists() && !file.getParentFile().mkdirs())
-				logger.warning("Failed to create folder " + file.getParent());
+				logger.warning("无法创建文件夹 " + file.getParent());
 			Utils.Http.download(url, file);
 		}
 
@@ -136,11 +137,11 @@ public class LibraryLoader {
                     continue;
                 }
 
-                logger.warning("Failed to parse version \"" + ver + "\" for \"" + groupId + ":" + artifactId + "\"");
+                logger.warning(MessageFormat.format("Failed to parse version \"{0}\" for \"{1}:{2}\"", ver, groupId, artifactId));
             }
         }
         if (map.isEmpty()) {
-            logger.warning("Cannot find any version matches channel \"stable\" for \"" + groupId + ":" + artifactId + "\", using default version.");
+            logger.warning(MessageFormat.format("Cannot find any version matches channel \"stable\" for \"{0}:{1}\", using default version.", groupId, artifactId));
         } else {
             return map.lastEntry().getValue();
         }

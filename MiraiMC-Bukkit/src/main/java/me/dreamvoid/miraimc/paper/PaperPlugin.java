@@ -7,7 +7,7 @@ import me.dreamvoid.miraimc.bukkit.BukkitPlugin;
 import me.dreamvoid.miraimc.commands.MiraiCommand;
 import me.dreamvoid.miraimc.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.commands.MiraiVerifyCommand;
-import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
+import me.dreamvoid.miraimc.loader.LibraryLoader;
 import me.dreamvoid.miraimc.paper.utils.SpecialUtils;
 import org.bukkit.plugin.Plugin;
 
@@ -27,7 +27,7 @@ public class PaperPlugin extends BukkitPlugin {
     public void onEnable() {
         super.onEnable();
 
-        getLogger().info("Registering commands for paper.");
+        getLogger().info("正在向 Paper 注册命令.");
         LifecycleEventManager<Plugin> manager = this.getLifecycleManager();
         manager.registerEventHandler(LifecycleEvents.COMMANDS, event -> {
             final Commands commands = event.registrar();

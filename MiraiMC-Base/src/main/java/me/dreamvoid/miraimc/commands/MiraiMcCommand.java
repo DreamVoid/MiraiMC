@@ -4,6 +4,7 @@ import me.dreamvoid.miraimc.api.MiraiMC;
 import me.dreamvoid.miraimc.internal.Utils;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -11,7 +12,7 @@ public class MiraiMcCommand implements ICommandExecutor {
     @Override
     public boolean onCommand(ICommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage("This server is running " + MiraiMC.getPlatform().getPluginName() + " version " + MiraiMC.getPlatform().getPluginVersion() + " by " + String.join(", ", MiraiMC.getPlatform().getAuthors()));
+            sender.sendMessage(MessageFormat.format("This server is running {0} version {1} by {2}", MiraiMC.getPlatform().getPluginName(), MiraiMC.getPlatform().getPluginVersion(), String.join(", ", MiraiMC.getPlatform().getAuthors())));
             return false;
         }
 

@@ -8,7 +8,7 @@ import me.dreamvoid.miraimc.LifeCycle;
 import me.dreamvoid.miraimc.interfaces.Platform;
 import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.interfaces.PluginConfig;
-import me.dreamvoid.miraimc.internal.loader.LibraryLoader;
+import me.dreamvoid.miraimc.loader.LibraryLoader;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiMcCommand;
 import me.dreamvoid.miraimc.nukkit.commands.MiraiVerifyCommand;
@@ -60,20 +60,20 @@ public class NukkitPlugin extends PluginBase implements Platform {
             lifeCycle.postLoad();
 
             // 注册命令 // TODO: 把Nukkit的注册命令并入主代码
-            getLogger().info("Registering commands.");
+            getLogger().info("正在注册命令.");
             getServer().getCommandMap().register("", new MiraiCommand());
             getServer().getCommandMap().register("", new MiraiMcCommand());
             getServer().getCommandMap().register("", new MiraiVerifyCommand());
 
             // 监听事件
             if (config.General_LogEvents) {
-                getLogger().info("Registering events.");
+                getLogger().info("正在注册事件监听器.");
                 this.getServer().getPluginManager().registerEvents(new Events(this), this);
             }
 
             // bStats统计
             if (config.General_AllowBStats && !getDescription().getVersion().contains("dev")) {
-                getLogger().info("Initializing bStats metrics.");
+                getLogger().info("正在初始化 bStats 统计.");
                 int pluginId = 12744;
                 new MetricsLite(this, pluginId);
             }

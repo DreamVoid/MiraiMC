@@ -1,4 +1,4 @@
-package me.dreamvoid.miraimc.internal.loader;
+package me.dreamvoid.miraimc.loader;
 
 import java.util.Objects;
 
