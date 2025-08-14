@@ -154,6 +154,9 @@ public class LibraryLoader {
 			String content = Utils.Http.get(repo + "/" + groupId.replace(".", "/") + "/" + artifactId + "/maven-metadata.xml");
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+			factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+			factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+			factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
 			return factory.newDocumentBuilder().parse(new InputSource(new StringReader(content)));
 		} catch (IOException | ParserConfigurationException | SAXException e) {
             throw new RuntimeException(e);
@@ -174,6 +177,9 @@ public class LibraryLoader {
 		String content = Utils.Http.get(baseUrl + "maven-metadata.xml");
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+		factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+		factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+		factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
 		Document document = factory.newDocumentBuilder().parse(new InputSource(new StringReader(content)));
 		NodeList elements = document.getElementsByTagName("snapshotVersion");
 		HashMap<String,String> versions = new HashMap<>();
