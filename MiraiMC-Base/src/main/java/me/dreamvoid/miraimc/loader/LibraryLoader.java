@@ -81,6 +81,9 @@ public class LibraryLoader {
 	 * @param savePath 保存路径
 	 */
 	public void loadLibraryMaven(String groupId, String artifactId, String version, String repo, String archiveSuffix, Path savePath) throws ParserConfigurationException, IOException, SAXException {
+		validatePathComponent(artifactId, "artifactId");
+		validatePathComponent(version, "version");
+		validatePathComponent(archiveSuffix, "archiveSuffix");
 		String filename = artifactId + "-" + version + archiveSuffix; // 文件名
 		String sha1Filename = filename + ".sha1"; // sha1文件名
 		File file = savePath.resolve(filename).toFile();
@@ -100,7 +103,7 @@ public class LibraryLoader {
 
                 needDownload = !checksum.equals(getFileSha1(file));
 			} catch (IOException e) {
-				logger.warning("Failed to check file's checksum, reason: " + e);
+				logger.warning("无法校验文件完整性，原因: " + e);
 				needDownload = false; // 由于文件已经存在，无法检测完整性只可能是网络问题，所以继续下载也不可能成功，不如直接不下载
 			}
 		}
@@ -229,6 +232,19 @@ public class LibraryLoader {
 		} catch (IOException e) {
 			Utils.resolveException(e, logger, "读取 sha1 文件时出现异常！");
 			return null;
+		}
+	}
+	/**
+	 * Validates that a path component does not contain path separators or parent directory references.
+	 * @param component The string to validate.
+	 * @param name The name of the component (for error messages).
+	 */
+	private static void validatePathComponent(String component, String name) {
+		if (component == null) {
+			throw new IllegalArgumentException("Path component '" + name + "' must not be null");
+		}
+		if (component.contains("..") || component.contains("/") || component.contains("\\") ) {
+			throw new IllegalArgumentException("Invalid path component for '" + name + "': " + component);
 		}
 	}
 }
