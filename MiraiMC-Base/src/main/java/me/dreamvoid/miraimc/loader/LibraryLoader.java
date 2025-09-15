@@ -16,6 +16,7 @@ import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
@@ -91,8 +92,10 @@ public class LibraryLoader {
 		boolean needDownload = true;
 
 		if(file.exists()){ // 如果文件已存在，联网验证完整性
-
-            try(InputStream is = new URL(url + ".sha1").openStream();
+            URLConnection connection = new URL(url + ".sha1").openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
+            try(InputStream is = connection.getInputStream();
 				ByteArrayOutputStream os = new ByteArrayOutputStream()){
 
 				int i;
