@@ -55,7 +55,7 @@ public class MiraiLoginSolver extends LoginSolver {
         }
 
         // 验证码保存到本地
-        File imageFile = new File(ImageDir, format("{0}-verify.png", bot.getId()));
+        File imageFile = new File(ImageDir, format("{0}-verify.png", String.valueOf(bot.getId())));
         try (OutputStream fos = Files.newOutputStream(imageFile.toPath())) {
             fos.write(imageData);
             fos.flush();
@@ -64,11 +64,11 @@ public class MiraiLoginSolver extends LoginSolver {
         }
 
         try {
-            bot.getLogger().warning(format("当前登录的QQ（{0}）需要文字验证码验证", bot.getId()));
+            bot.getLogger().warning(format("当前登录的QQ（{0}）需要文字验证码验证", String.valueOf(bot.getId())));
             bot.getLogger().warning("请找到下面的文件并识别文字验证码");
             bot.getLogger().warning(imageFile.getPath());
-            bot.getLogger().warning(format("识别完成后，请输入指令 /miraiverify captcha {0} <验证码>", bot.getId()));
-            bot.getLogger().warning(format("如需取消登录，请输入指令 /miraiverify cancel {0}", bot.getId()));
+            bot.getLogger().warning(format("识别完成后，请输入指令 /miraiverify captcha {0} <验证码>", String.valueOf(bot.getId())));
+            bot.getLogger().warning(format("如需取消登录，请输入指令 /miraiverify cancel {0}", String.valueOf(bot.getId())));
             bot.getLogger().warning("如需帮助，请参阅: https://docs.miraimc.dreamvoid.me/troubleshoot/verify-guide#word-captcha");
             wait();
         } catch (InterruptedException ignored) {} // 不需要处理
@@ -95,11 +95,11 @@ public class MiraiLoginSolver extends LoginSolver {
     public synchronized String onSolveSliderCaptcha(@NotNull Bot bot, @NotNull String verifyUrl, @NotNull Continuation<? super String> continuation) {
         locks.put(bot, this);
         try {
-            bot.getLogger().warning(format("当前登录的QQ（{0}）需要滑动验证码验证", bot.getId()));
+            bot.getLogger().warning(format("当前登录的QQ（{0}）需要滑动验证码验证", String.valueOf(bot.getId())));
             bot.getLogger().warning("请打开以下链接进行验证");
             bot.getLogger().warning(verifyUrl);
-            bot.getLogger().warning(format("验证完成后，请输入指令 /miraiverify captcha {0} <ticket>", bot.getId()));
-            bot.getLogger().warning(format("如需取消登录，请输入指令 /miraiverify cancel {0}", bot.getId()));
+            bot.getLogger().warning(format("验证完成后，请输入指令 /miraiverify captcha {0} <ticket>", String.valueOf(bot.getId())));
+            bot.getLogger().warning(format("如需取消登录，请输入指令 /miraiverify cancel {0}", String.valueOf(bot.getId())));
             bot.getLogger().warning("如需帮助，请参阅: https://docs.miraimc.dreamvoid.me/troubleshoot/verify-guide#slide-captcha");
             wait();
         } catch (InterruptedException ignored) {} // 不需要处理
@@ -131,11 +131,11 @@ public class MiraiLoginSolver extends LoginSolver {
     public synchronized Object onSolveUnsafeDeviceLoginVerify(@NotNull Bot bot, @NotNull String verifyUrl, @NotNull Continuation<? super String> continuation){
         locks.put(bot, this);
         try {
-            bot.getLogger().warning(format("当前登录的QQ（{0}）需要设备锁验证", bot.getId()));
+            bot.getLogger().warning(format("当前登录的QQ（{0}）需要设备锁验证", String.valueOf(bot.getId())));
             bot.getLogger().warning("请打开以下链接进行验证");
             bot.getLogger().warning(verifyUrl);
-            bot.getLogger().warning(format("验证完成后，请输入指令 /miraiverify unsafedevice {0}", bot.getId()));
-            bot.getLogger().warning(format("如需取消登录，请输入指令 /miraiverify cancel {0}", bot.getId()));
+            bot.getLogger().warning(format("验证完成后，请输入指令 /miraiverify unsafedevice {0}", String.valueOf(bot.getId())));
+            bot.getLogger().warning(format("如需取消登录，请输入指令 /miraiverify cancel {0}", String.valueOf(bot.getId())));
             bot.getLogger().warning("如需帮助，请参阅: https://docs.miraimc.dreamvoid.me/troubleshoot/verify-guide#device-locker");
             wait();
         } catch (InterruptedException ignored) {} // 不需要处理
@@ -155,13 +155,13 @@ public class MiraiLoginSolver extends LoginSolver {
     public synchronized Object onSolveDeviceVerification(@NotNull Bot bot, @NotNull DeviceVerificationRequests requests, @NotNull Continuation<? super DeviceVerificationResult> $completion) {
         locks.put(bot, this);
         try {
-            bot.getLogger().warning(format("当前登录的QQ（{0}）需要完成设备验证", bot.getId()));
+            bot.getLogger().warning(format("当前登录的QQ（{0}）需要完成设备验证", String.valueOf(bot.getId())));
             bot.getLogger().warning(format("短信验证方式{0}", requests.getSms() != null ? "可用" : "不可用，请勿使用此方式"));
             bot.getLogger().warning(format("其他验证方式{0}", requests.getFallback() != null ? "可用" : "不可用，请勿使用此方式"));
             if (requests.getPreferSms()) bot.getLogger().warning("服务器要求使用短信验证码验证，但仍可以尝试其他验证方式");
-            bot.getLogger().warning(format("如需使用短信验证方式，请输入指令 /miraiverify deviceverify {0} sms", bot.getId()));
-            bot.getLogger().warning(format("如需使用其他验证方式，请输入指令 /miraiverify deviceverify {0} fallback", bot.getId()));
-            bot.getLogger().warning(format("如需取消登录，请输入指令 /miraiverify cancel {0}", bot.getId()));
+            bot.getLogger().warning(format("如需使用短信验证方式，请输入指令 /miraiverify deviceverify {0} sms", String.valueOf(bot.getId())));
+            bot.getLogger().warning(format("如需使用其他验证方式，请输入指令 /miraiverify deviceverify {0} fallback", String.valueOf(bot.getId())));
+            bot.getLogger().warning(format("如需取消登录，请输入指令 /miraiverify cancel {0}", String.valueOf(bot.getId())));
             bot.getLogger().warning("如需帮助，请参阅: https://docs.miraimc.dreamvoid.me/troubleshoot/verify-guide#device-verify");
             wait();
         } catch (InterruptedException ignored) {} // 不需要处理
@@ -184,13 +184,13 @@ public class MiraiLoginSolver extends LoginSolver {
                                 public void resumeWith(@NotNull Object o) {
                                 }
                             });
-                            bot.getLogger().warning(format("当前登录的QQ（{0}）将使用短信验证码验证", bot.getId()));
+                            bot.getLogger().warning(format("当前登录的QQ（{0}）将使用短信验证码验证", String.valueOf(bot.getId())));
                             bot.getLogger().warning(format("一条包含验证码的短信将会发送到地区代码为{0}、号码为{1}的手机上", requests.getSms().getCountryCode(), requests.getSms().getPhoneNumber()));
-                            bot.getLogger().warning(format("收到验证码后，请输入指令 /miraiverify deviceverify {0} <验证码>", bot.getId()));
-                            bot.getLogger().warning(format("如需取消登录，请输入指令 /miraiverify cancel {0}，取消登录后需要等待至少1分钟才能重新登录", bot.getId()));
+                            bot.getLogger().warning(format("收到验证码后，请输入指令 /miraiverify deviceverify {0} <验证码>", String.valueOf(bot.getId())));
+                            bot.getLogger().warning(format("如需取消登录，请输入指令 /miraiverify cancel {0}，取消登录后需要等待至少1分钟才能重新登录", String.valueOf(bot.getId())));
                             wait();
                         } else {
-                            bot.getLogger().warning("当前登录的QQ（" + bot.getId() + "）不支持使用短信验证方式");
+                            bot.getLogger().warning(format("当前登录的QQ（{0}）不支持使用短信验证方式", String.valueOf(bot.getId())));
                             bot.getLogger().warning("登录可能会失败，请尝试重新登录");
                             throw new UnsupportedOperationException();
                         }
@@ -198,14 +198,14 @@ public class MiraiLoginSolver extends LoginSolver {
                     }
                     case "fallback":{
                         if(requests.getFallback() != null){
-                            bot.getLogger().warning(format("当前登录的QQ（{0}）将使用其他验证方式", bot.getId()));
+                            bot.getLogger().warning(format("当前登录的QQ（{0}）将使用其他验证方式", String.valueOf(bot.getId())));
                             bot.getLogger().warning("请打开以下链接进行验证");
                             bot.getLogger().warning(requests.getFallback().getUrl());
-                            bot.getLogger().warning(format("验证完成后，请输入指令 /miraiverify deviceverify {0}", bot.getId()));
-                            bot.getLogger().warning(format("如需取消登录，请输入指令 /miraiverify cancel {0}", bot.getId()));
+                            bot.getLogger().warning(format("验证完成后，请输入指令 /miraiverify deviceverify {0}", String.valueOf(bot.getId())));
+                            bot.getLogger().warning(format("如需取消登录，请输入指令 /miraiverify cancel {0}", String.valueOf(bot.getId())));
                             wait();
                         } else {
-                            bot.getLogger().warning(format("当前登录的QQ（{0}）不支持使用其他验证方式", bot.getId()));
+                            bot.getLogger().warning(format("当前登录的QQ（{0}）不支持使用其他验证方式", String.valueOf(bot.getId())));
                             bot.getLogger().warning("登录可能会失败，请尝试重新登录");
                             throw new UnsupportedOperationException();
                         }
@@ -245,7 +245,7 @@ public class MiraiLoginSolver extends LoginSolver {
         return new QRCodeLoginListener() {
             @Override
             public void onStateChanged(@NotNull Bot bot, @NotNull QRCodeLoginListener.State state) {
-                bot.getLogger().info(format("当前登录的QQ（{0}）的二维码状态已更新：{1}", bot.getId(), state.name()));
+                bot.getLogger().info(format("当前登录的QQ（{0}）的二维码状态已更新：{1}", String.valueOf(bot.getId()), state.name()));
 
                 if (state == State.CONFIRMED) {
                     codes.remove(bot);
@@ -273,11 +273,11 @@ public class MiraiLoginSolver extends LoginSolver {
                     bot.getLogger().warning(format("保存二维码图片文件时出现异常，原因: {0}", e));
                 }
 
-                bot.getLogger().warning(format("当前登录的QQ（{0}）的登录二维码已准备好", bot.getId()));
+                bot.getLogger().warning(format("当前登录的QQ（{0}）的登录二维码已准备好", String.valueOf(bot.getId())));
                 bot.getLogger().warning("请找到下面的文件并使用登录当前QQ的客户端识别二维码");
                 bot.getLogger().warning(imageFile.getPath());
                 bot.getLogger().warning("识别完成后，请在客户端完成验证流程");
-                bot.getLogger().warning(format("如需取消登录，请输入指令 /miraiverify cancel {0}，5秒内将会取消登录", bot.getId()));
+                bot.getLogger().warning(format("如需取消登录，请输入指令 /miraiverify cancel {0}，5秒内将会取消登录", String.valueOf(bot.getId())));
                 bot.getLogger().warning("如需帮助，请参阅: https://docs.miraimc.dreamvoid.me/troubleshoot/verify-guide#qrcode");
 
                 if (saveSuccess && MiraiMC.getConfig().General_AutoOpenQRCodeFile) {

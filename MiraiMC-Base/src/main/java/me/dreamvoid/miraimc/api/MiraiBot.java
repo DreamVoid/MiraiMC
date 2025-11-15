@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.MessageFormat;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -359,7 +360,7 @@ public class MiraiBot {
         // 开始登录
         try{
             bot.login();
-            logger.info(bot.getNick()+"("+bot.getId()+") 登录成功");
+            logger.info(MessageFormat.format("{0}({1}) 登录成功", bot.getNick(), String.valueOf(bot.getId())));
         } catch (Exception e){
             logger.warning("登录机器人时出现异常，原因: " + e.getLocalizedMessage());
         }
