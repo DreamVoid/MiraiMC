@@ -295,4 +295,9 @@ public class BukkitPlugin extends JavaPlugin implements Platform {
     public PluginConfig getPluginConfig() {
         return config;
     }
+
+    @Override
+    public String getUpdateName() {
+        return "Bukkit";
+    }
 }

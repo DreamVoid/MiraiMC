@@ -159,11 +159,11 @@ public final class LifeCycle {
                         logger.severe("当前版本已停用，继续使用将不会得到作者的任何支持！");
                         logger.severe("请立刻更新到最新版本: " + version);
                         logger.severe("从 GitHub 下载更新: https://github.com/DreamVoid/MiraiMC/releases/tag/v" + version);
-                        logger.severe("从 Modrinth 下载更新: https://modrinth.com/plugin/miraimc/version/" + versionCode);
+                        logger.severe("从 Modrinth 下载更新: https://modrinth.com/plugin/miraimc/version/" + versionCode + "-" + platform.getUpdateName());
                     } else if (!platform.getPluginVersion().equals(version)) {
                         logger.warning("已找到新的插件更新，最新版本: " + version);
                         logger.warning("从 GitHub 下载更新: https://github.com/DreamVoid/MiraiMC/releases/tag/v" + version);
-                        logger.warning("从 Modrinth 下载更新: https://modrinth.com/plugin/miraimc/version/" + versionCode);
+                        logger.warning("从 Modrinth 下载更新: https://modrinth.com/plugin/miraimc/version/" + versionCode + "-" + platform.getUpdateName());
                     } else {
                         logger.info("你使用的是最新版本的 MiraiMC！");
                     }

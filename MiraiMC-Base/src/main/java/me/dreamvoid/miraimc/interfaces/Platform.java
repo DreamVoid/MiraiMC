@@ -40,4 +40,7 @@ public interface Platform {
 
     PluginConfig getPluginConfig();
 
+    default String getUpdateName(){
+        return getType();
+    }
 }

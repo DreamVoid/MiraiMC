@@ -161,6 +161,11 @@ public class BungeePlugin extends Plugin implements Platform {
     }
 
     @Override
+    public String getUpdateName() {
+        return "Bungee";
+    }
+
+    @Override
     public PluginConfig getPluginConfig() {
         return config;
     }
