@@ -54,50 +54,58 @@ public final class Info {
 	 * @throws IOException 所有 API 请求失败时抛出
 	 */
 	public static Info get(List<String> apis, boolean localCache, boolean force) throws IOException {
-		// 具有实例 且不是强制获取 且最后更新时间距离现在小于1天
+		// 第一次检查，避免大多数调用进入同步块（提升性能）
 		if((INSTANCE != null) && !force && ((System.currentTimeMillis() - INSTANCE.lastUpdate) < MiraiMC.getConfig().General_WebAPITimeout)) {
 			return INSTANCE;
 		}
 
-		List<String> list = new ArrayList<>(apis);
-		File CacheDir = new File(MiraiMC.getConfig().PluginDir, "cache");
-		if(!CacheDir.exists() && !CacheDir.mkdirs()) throw new RuntimeException("无法创建文件夹 " + CacheDir.getPath());
-		File cache = new File(CacheDir, "apis.json");
-
-		if(localCache){
-			try {
-				if (!cache.exists()) {
-					try (InputStream in = Info.class.getResourceAsStream("/apis.json")) {
-						assert in != null;
-						Files.copy(in, cache.toPath());
-					}
-				}
-				String[] localString = new Gson().fromJson(new FileReader(cache), String[].class);
-				List<String> local = new ArrayList<>(Arrays.asList(localString)); // 这里不双重调用下面的removeAll就不能用
-				local.removeAll(list);
-				list.addAll(local);
-			} catch (Exception ignored) {}
-		}
-
-        for(String s : list){
-			if(!s.endsWith("/")) s += "/";
-			try {
-				INSTANCE = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().fromJson(Utils.Http.get(s + "info.json"), Info.class);
-				break;
-			} catch (IOException e) {
-				Utils.getLogger().warning(s + " - " + e);
+		// 同步块，确保只有一个线程能够初始化
+		synchronized (Info.class) {
+			// 第二次检查，其他线程在同步块外等待时，INSTANCE 可能已被其他线程初始化
+			if((INSTANCE != null) && !force && ((System.currentTimeMillis() - INSTANCE.lastUpdate) < MiraiMC.getConfig().General_WebAPITimeout)) {
+				return INSTANCE;
 			}
-		}
 
-		if(INSTANCE != null){
-			// API数据保存到本地
-            try (FileOutputStream fos = new FileOutputStream(cache)) {
-                fos.write(new Gson().toJson(INSTANCE.apis.toArray(), String[].class).getBytes(StandardCharsets.UTF_8));
-            }
+			List<String> list = new ArrayList<>(apis);
+			File CacheDir = new File(MiraiMC.getConfig().PluginDir, "cache");
+			if(!CacheDir.exists() && !CacheDir.mkdirs()) throw new RuntimeException("无法创建文件夹 " + CacheDir.getPath());
+			File cache = new File(CacheDir, "apis.json");
 
-            return INSTANCE;
-		} else {
-			throw new IOException("所有API均请求失败，请检查您的互联网连接！");
+			if(localCache){
+				try {
+					if (!cache.exists()) {
+						try (InputStream in = Info.class.getResourceAsStream("/apis.json")) {
+							assert in != null;
+							Files.copy(in, cache.toPath());
+						}
+					}
+					String[] localString = new Gson().fromJson(new FileReader(cache), String[].class);
+					List<String> local = new ArrayList<>(Arrays.asList(localString)); // 这里不双重调用下面的removeAll就不能用
+					local.removeAll(list);
+					list.addAll(local);
+				} catch (Exception ignored) {}
+			}
+
+	        for(String s : list){
+				if(!s.endsWith("/")) s += "/";
+				try {
+					INSTANCE = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().fromJson(Utils.Http.get(s + "info.json"), Info.class);
+					break;
+				} catch (IOException e) {
+					Utils.getLogger().warning(s + " - " + e);
+				}
+			}
+
+			if(INSTANCE != null){
+				// API数据保存到本地
+	            try (FileOutputStream fos = new FileOutputStream(cache)) {
+	                fos.write(new Gson().toJson(INSTANCE.apis.toArray(), String[].class).getBytes(StandardCharsets.UTF_8));
+	            }
+
+	            return INSTANCE;
+			} else {
+				throw new IOException("所有API均请求失败，请检查您的互联网连接！");
+			}
 		}
 	}
 }
