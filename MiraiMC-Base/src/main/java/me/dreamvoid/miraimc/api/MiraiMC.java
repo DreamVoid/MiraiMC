@@ -59,30 +59,32 @@ public class MiraiMC {
          * @param account 玩家QQ号
          */
         public static void addBind(UUID uuid, long account) {
-            try(PreparedStatement pstmt = getDatabase().getConnection().prepareStatement("SELECT * FROM " + prefix + "bind WHERE uuid=? LIMIT 1");
-                PreparedStatement pstmt1 = getDatabase().getConnection().prepareStatement("SELECT * FROM " + prefix + "bind WHERE qqid=? LIMIT 1")){
-                pstmt.setString(1, uuid.toString());
-                pstmt1.setLong(1, account);
+            try (java.sql.Connection conn = getDatabase().getConnection()) {
+                try(PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM " + prefix + "bind WHERE uuid=? LIMIT 1");
+                    PreparedStatement pstmt1 = conn.prepareStatement("SELECT * FROM " + prefix + "bind WHERE qqid=? LIMIT 1")){
+                    pstmt.setString(1, uuid.toString());
+                    pstmt1.setLong(1, account);
 
-                try (ResultSet resultSetUUID = pstmt.executeQuery();
-                     ResultSet resultSetAccount = pstmt1.executeQuery()) {
-                    if (!resultSetUUID.isBeforeFirst() && resultSetAccount.isBeforeFirst()) {
-                        try (PreparedStatement pstmt3 = getDatabase().getConnection().prepareStatement("UPDATE " + prefix + "bind SET uuid=? WHERE qqid=?")) {
-                            pstmt3.setString(1, uuid.toString());
-                            pstmt3.setLong(2, account);
-                            pstmt3.executeUpdate();
-                        }
-                    } else if (resultSetUUID.isBeforeFirst() && !resultSetAccount.isBeforeFirst()) {
-                        try (PreparedStatement pstmt3 = getDatabase().getConnection().prepareStatement("UPDATE " + prefix + "bind SET qqid=? WHERE uuid=?")) {
-                            pstmt3.setLong(1, account);
-                            pstmt3.setString(2, uuid.toString());
-                            pstmt3.executeUpdate();
-                        }
-                    } else if (!resultSetUUID.isBeforeFirst() && !resultSetAccount.isBeforeFirst()) {
-                        try (PreparedStatement pstmt3 = getDatabase().getConnection().prepareStatement("INSERT INTO " + prefix + "bind VALUES(?,?)")) {
-                            pstmt3.setString(1, uuid.toString());
-                            pstmt3.setLong(2, account);
-                            pstmt3.executeUpdate();
+                    try (ResultSet resultSetUUID = pstmt.executeQuery();
+                         ResultSet resultSetAccount = pstmt1.executeQuery()) {
+                        if (!resultSetUUID.isBeforeFirst() && resultSetAccount.isBeforeFirst()) {
+                            try (PreparedStatement pstmt3 = conn.prepareStatement("UPDATE " + prefix + "bind SET uuid=? WHERE qqid=?")) {
+                                pstmt3.setString(1, uuid.toString());
+                                pstmt3.setLong(2, account);
+                                pstmt3.executeUpdate();
+                            }
+                        } else if (resultSetUUID.isBeforeFirst() && !resultSetAccount.isBeforeFirst()) {
+                            try (PreparedStatement pstmt3 = conn.prepareStatement("UPDATE " + prefix + "bind SET qqid=? WHERE uuid=?")) {
+                                pstmt3.setLong(1, account);
+                                pstmt3.setString(2, uuid.toString());
+                                pstmt3.executeUpdate();
+                            }
+                        } else if (!resultSetUUID.isBeforeFirst() && !resultSetAccount.isBeforeFirst()) {
+                            try (PreparedStatement pstmt3 = conn.prepareStatement("INSERT INTO " + prefix + "bind VALUES(?,?)")) {
+                                pstmt3.setString(1, uuid.toString());
+                                pstmt3.setLong(2, account);
+                                pstmt3.executeUpdate();
+                            }
                         }
                     }
                 }
@@ -97,13 +99,15 @@ public class MiraiMC {
          * @param uuid 玩家UUID
          */
         public static void removeBind(UUID uuid) {
-            try (PreparedStatement pstmt = getDatabase().getConnection().prepareStatement("SELECT * FROM " + prefix + "bind WHERE uuid=? LIMIT 1")) {
-                pstmt.setString(1, uuid.toString());
-                try (ResultSet resultSet = pstmt.executeQuery()) {
-                    if (resultSet.next()) {
-                        try (PreparedStatement pstmt1 = getDatabase().getConnection().prepareStatement("DELETE FROM " + prefix + "bind WHERE uuid=?")) {
-                            pstmt1.setString(1, uuid.toString());
-                            pstmt1.executeUpdate();
+            try (java.sql.Connection conn = getDatabase().getConnection()) {
+                try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM " + prefix + "bind WHERE uuid=? LIMIT 1")) {
+                    pstmt.setString(1, uuid.toString());
+                    try (ResultSet resultSet = pstmt.executeQuery()) {
+                        if (resultSet.next()) {
+                            try (PreparedStatement pstmt1 = conn.prepareStatement("DELETE FROM " + prefix + "bind WHERE uuid=?")) {
+                                pstmt1.setString(1, uuid.toString());
+                                pstmt1.executeUpdate();
+                            }
                         }
                     }
                 }
@@ -118,13 +122,15 @@ public class MiraiMC {
          * @param account 玩家QQ号
          */
         public static void removeBind(long account) {
-            try (PreparedStatement pstmt = getDatabase().getConnection().prepareStatement("SELECT * FROM " + prefix + "bind WHERE qqid=? LIMIT 1")) {
-                pstmt.setLong(1, account);
-                try (ResultSet resultSet = pstmt.executeQuery()) {
-                    if (resultSet.next()) {
-                        try (PreparedStatement pstmt1 = getDatabase().getConnection().prepareStatement("DELETE FROM " + prefix + "bind WHERE qqid=?")) {
-                            pstmt1.setLong(1, account);
-                            pstmt1.executeUpdate();
+            try (java.sql.Connection conn = getDatabase().getConnection()) {
+                try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM " + prefix + "bind WHERE qqid=? LIMIT 1")) {
+                    pstmt.setLong(1, account);
+                    try (ResultSet resultSet = pstmt.executeQuery()) {
+                        if (resultSet.next()) {
+                            try (PreparedStatement pstmt1 = conn.prepareStatement("DELETE FROM " + prefix + "bind WHERE qqid=?")) {
+                                pstmt1.setLong(1, account);
+                                pstmt1.executeUpdate();
+                            }
                         }
                     }
                 }
@@ -141,7 +147,8 @@ public class MiraiMC {
          * @return QQ号
          */
         public static long getBind(UUID uuid) {
-            try(PreparedStatement pstmt = getDatabase().getConnection().prepareStatement("SELECT * FROM " + prefix + "bind WHERE uuid=? LIMIT 1")){
+            try(java.sql.Connection conn = getDatabase().getConnection();
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM " + prefix + "bind WHERE uuid=? LIMIT 1")){
                 pstmt.setString(1, String.valueOf(uuid));
                 try(ResultSet resultSet = pstmt.executeQuery()){
                     return resultSet.next() ? resultSet.getLong("qqid") : 0L;
@@ -161,7 +168,8 @@ public class MiraiMC {
          */
         @Nullable
         public static UUID getBind(long account) {
-            try(PreparedStatement pstmt = getDatabase().getConnection().prepareStatement("SELECT * FROM " + prefix + "bind WHERE qqid=? LIMIT 1")){
+            try(java.sql.Connection conn = getDatabase().getConnection();
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM " + prefix + "bind WHERE qqid=? LIMIT 1")){
                 pstmt.setLong(1, account);
                 try(ResultSet resultSet = pstmt.executeQuery()){
                     return resultSet.next() ? UUID.fromString(resultSet.getString("uuid")) : null;

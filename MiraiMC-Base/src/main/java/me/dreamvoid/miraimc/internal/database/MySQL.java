@@ -58,6 +58,9 @@ public class MySQL implements Database {
         config.setMaximumPoolSize(MiraiMC.getConfig().Database_Settings_Pool_MaximumPoolSize);
         config.setKeepaliveTime(MiraiMC.getConfig().Database_Settings_Pool_KeepaliveTime);
         config.setMinimumIdle(MiraiMC.getConfig().Database_Settings_Pool_MinimumIdle);
+        config.setLeakDetectionThreshold(60000); // 60秒内未关闭的连接将被记录
+        config.setConnectionTestQuery("SELECT 1");
+        config.setAutoCommit(true);
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
