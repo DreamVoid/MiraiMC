@@ -169,7 +169,7 @@
                 <configuration>
                     <publishingServerId>central</publishingServerId>
                     <autoPublish>true</autoPublish>
-                    <excludeArtifacts>MiraiMC-Base</excludeArtifacts>
+                    <excludeArtifacts>MiraiMC-Base,MiraiMC-Bukkit,MiraiMC-Nukkit,MiraiMC-Velocity</excludeArtifacts>
                 </configuration>
             </plugin>
         </plugins>
