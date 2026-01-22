@@ -42,6 +42,10 @@ public final class LifeCycle {
     public void startUp(Logger logger) {
         logger.info("准备 MiraiMC 初始化.");
 
+        if(Utils.isDebugMode()){
+            logger.info("此服务器正在运行 MiraiMC 版本: " + Utils.getVersion());
+        }
+
         // 设置Mirai相关系统属性
         System.setProperty("mirai.no-desktop", "MiraiMC");
         System.setProperty("mirai.slider.captcha.supported", "MiraiMC");

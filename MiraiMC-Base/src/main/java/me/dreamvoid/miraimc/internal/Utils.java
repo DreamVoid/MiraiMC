@@ -17,6 +17,8 @@ import java.util.Arrays;
 import java.util.logging.Logger;
 
 public final class Utils {
+    private static final String version = "PROJECT.VERSION";
+
     static {
         Logger logger = Logger.getLogger("MiraiMC Preload Checker");
         // 此处放置插件自检代码
@@ -95,12 +97,12 @@ public final class Utils {
         Utils.classLoader = classLoader;
         if(isDebugMode()){
             logger.info("ClassLoader type: " + classLoader.getParent().getClass().getPackage().getName());
-            logger.info("Is an instance of URLClassLoader: " + (classLoader instanceof URLClassLoader));
-            if (classLoader instanceof URLClassLoader) {
+            if (classLoader instanceof URLClassLoader urlClassLoader) {
+                logger.info((classLoader) + "is an instance of URLClassLoader." );
                 logger.info("Paths: ");
-                for(URL u : ((URLClassLoader) classLoader).getURLs()){
-                    logger.info("- " + u.getPath());
-                }
+                Arrays.stream(urlClassLoader.getURLs()).forEach(u -> logger.info("- " + u.getPath()));
+            } else {
+                logger.info((classLoader) + "is NOT an instance of URLClassLoader." );
             }
         }
     }
@@ -125,7 +127,7 @@ public final class Utils {
 
             connection.setDoInput(true);
             connection.setRequestMethod("GET");
-            connection.setRequestProperty("User-Agent", String.format("MiraiMCHttp/1.0 (%s; Java %s)", System.getProperty("os.name"), Utils.getJavaVersion()));
+            connection.setRequestProperty("User-Agent", String.format("MiraiMC/%s (%s; Java %s)", version, System.getProperty("os.name"), Utils.getJavaVersion()));
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(10000);
 
@@ -154,7 +156,7 @@ public final class Utils {
 
             connection.setDoInput(true);
             connection.setRequestMethod("POST");
-            connection.setRequestProperty("User-Agent", String.format("MiraiMCHttp/1.0 (%s; Java %s)", System.getProperty("os.name"), Utils.getJavaVersion()));
+            connection.setRequestProperty("User-Agent", String.format("MiraiMC/%s (%s; Java %s)", version, System.getProperty("os.name"), Utils.getJavaVersion()));
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Authorization", "Basic YWRtaW46");
             connection.setConnectTimeout(5000);
@@ -235,6 +237,14 @@ public final class Utils {
         } else {
             version = discard;
         }
+        return version;
+    }
+
+    /**
+     * 获取插件版本
+     * @return 版本
+     */
+    public static String getVersion() {
         return version;
     }
 }
