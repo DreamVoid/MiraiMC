@@ -12,10 +12,10 @@
 
 ---
 
-MiraiMC 是适用于 Minecraft 服务器的 Mirai 机器人
+MiraiMC 是适用于 Minecraft 服务器的 mirai 机器人
 
 ## 介绍
-MiraiMC 是一个基于 [Mirai](https://github.com/mamoe/mirai) 的 Minecraft 服务端插件，能够让你在 Minecraft 服务器上使用 Mirai QQ 机器人程序，同时提供一些 API 帮助开发者简单的调用机器人接口为自己的插件实现多样的功能。
+MiraiMC 是一个基于 [mirai](https://github.com/mamoe/mirai) 的 Minecraft 服务端插件，能够让你在 Minecraft 服务器上使用 mirai QQ 机器人程序，同时提供一些 API 帮助开发者简单的调用机器人接口为自己的插件实现多样的功能。
 
 ## 一切开发旨在学习，请勿用于非法用途
 
@@ -133,7 +133,7 @@ MiraiMC 的源码仅托管于 Git‎Hub (https‎://‎github‎.‎com/DreamVoi
 - [X] 初步完善指令和权限系统
 - [X] 初步完善 API 接口供其他插件开发者调用
 - [X] 加入自动登录机器人的功能
-- [X] 添加剩余未添加的 Mirai 事件
+- [X] 添加剩余未添加的 mirai 事件
 - [X] 重写登录流程以适应 Bukkit（和未来支持的 Bungee，甚至 Sponge）
 - [X] 支持 BungeeCord
 - [X] 完全兼容 mirai console 的结构供已在使用 mirai 的服主使用
