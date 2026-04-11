@@ -6,6 +6,7 @@ import me.dreamvoid.miraimc.internal.Utils;
 import me.dreamvoid.miraimc.velocity.utils.AutoLoginObject;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.yaml.snakeyaml.DumperOptions;
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.CustomClassLoaderConstructor;
 import org.yaml.snakeyaml.nodes.Tag;
@@ -69,7 +70,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     }
 
     public List<AutoLoginObject.Accounts> loadAutoLoginListVelocity() throws IOException {
-        Yaml yaml = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader()));
+        Yaml yaml = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader(), new LoaderOptions()));
         InputStream inputStream = Files.newInputStream(AutoLoginFile.toPath());
         AutoLoginObject data = yaml.loadAs(inputStream, AutoLoginObject.class);
         if(data.getAccounts() == null){
@@ -110,7 +111,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     public boolean addAutoLoginBot(long Account, String Password, String Protocol){
         try {
             // 获取现有的机器人列表
-            Yaml yaml = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader()));
+            Yaml yaml = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader(), new LoaderOptions()));
             InputStream inputStream = Files.newInputStream(AutoLoginFile.toPath());
             AutoLoginObject data = yaml.loadAs(inputStream, AutoLoginObject.class);
             if(data.getAccounts() == null){
@@ -139,7 +140,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
             List<AutoLoginObject.Accounts> accounts = data.getAccounts();
             accounts.add(account);
             data.setAccounts(accounts);
-            Yaml yaml1 = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader()));
+            Yaml yaml1 = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader(), new LoaderOptions()));
 
             File writeName = AutoLoginFile;
             try (FileWriter writer = new FileWriter(writeName);
@@ -159,7 +160,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
     public boolean deleteAutoLoginBot(long Account){
         try {
             // 获取现有的机器人列表
-            Yaml yaml = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader()));
+            Yaml yaml = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader(), new LoaderOptions()));
             InputStream inputStream = Files.newInputStream(AutoLoginFile.toPath());
             AutoLoginObject data = yaml.loadAs(inputStream, AutoLoginObject.class);
             if(data.getAccounts() == null){
@@ -173,7 +174,7 @@ public class MiraiAutoLogin implements IMiraiAutoLogin {
                 }
             }
 
-            Yaml yaml1 = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader()));
+            Yaml yaml1 = new Yaml(new CustomClassLoaderConstructor(MiraiAutoLogin.class.getClassLoader(), new LoaderOptions()));
 
             File writeName = AutoLoginFile;
             try (FileWriter writer = new FileWriter(writeName);

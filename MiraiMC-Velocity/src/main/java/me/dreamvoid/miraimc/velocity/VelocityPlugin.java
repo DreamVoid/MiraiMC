@@ -80,9 +80,6 @@ public class VelocityPlugin implements Platform {
         try {
             lifeCycle.preLoad();
 
-            // Velocity 自 3.5.0 起不再包含 snakeyaml
-            getLibraryLoader().loadLibraryMaven("org.yaml", "snakeyaml", "2.6", config.General_MavenRepoUrl, dataDirectory.resolve("libraries"));
-
             MiraiEvent = new MiraiEvent(this);
             MiraiAutoLogin = new MiraiAutoLogin(this);
         } catch (Exception e) {
