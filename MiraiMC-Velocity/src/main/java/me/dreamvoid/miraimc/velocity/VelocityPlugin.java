@@ -80,6 +80,9 @@ public class VelocityPlugin implements Platform {
         try {
             lifeCycle.preLoad();
 
+            // Velocity 自 3.5.0 起不再包含 snakeyaml
+            getLibraryLoader().loadLibraryMaven("org.yaml", "snakeyaml", "2.6", config.General_MavenRepoUrl, dataDirectory.resolve("libraries"));
+
             MiraiEvent = new MiraiEvent(this);
             MiraiAutoLogin = new MiraiAutoLogin(this);
         } catch (Exception e) {
@@ -91,7 +94,7 @@ public class VelocityPlugin implements Platform {
             lifeCycle.postLoad();
 
             // 注册命令
-            getLogger().info("Registering commands.");
+            getLogger().info("正在注册命令.");
             CommandManager manager = server.getCommandManager();
             CommandMeta mirai = manager.metaBuilder("mirai").build();
             CommandMeta miraimc = manager.metaBuilder("miraimc").build();
