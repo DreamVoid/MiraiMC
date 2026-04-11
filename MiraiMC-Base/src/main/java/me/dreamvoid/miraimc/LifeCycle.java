@@ -12,6 +12,7 @@ import me.dreamvoid.miraimc.internal.database.SQLite;
 import me.dreamvoid.miraimc.internal.webapi.Info;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -80,7 +81,8 @@ public final class LifeCycle {
         logger.info("Mirai 工作目录: " + platform.getPluginConfig().General_MiraiWorkingDir);
 
         // 加载 mirai 核心
-        if(System.getProperty("MiraiMC.do-not-load-mirai-core") == null){
+        String property = System.getProperty("MiraiMC.CoreType");
+        if(property == null){
             logger.info("使用的 mirai 核心版本: " + platform.getPluginConfig().General_MiraiCoreVersion);
             if (platform.getPluginConfig().General_MiraiCoreVersion.equalsIgnoreCase("latest")) {
                 MiraiLoader.loadMiraiCore();
@@ -90,7 +92,7 @@ public final class LifeCycle {
                 MiraiLoader.loadMiraiCore(platform.getPluginConfig().General_MiraiCoreVersion);
             }
         } else {
-            logger.info("MiraiMC 不会加载 mirai 核心, 请确保有其他插件能够加载 mirai 核心.");
+            logger.info(MessageFormat.format("mirai 核心将由 {0} 加载.", property));
         }
 
         logger.info("预加载任务完成.");

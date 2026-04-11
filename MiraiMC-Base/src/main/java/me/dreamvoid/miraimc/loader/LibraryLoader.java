@@ -14,10 +14,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.net.URLClassLoader;
-import java.net.URLConnection;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -45,16 +42,13 @@ public class LibraryLoader {
 	 * [!] 请勿使用此方法加载与 MiraiMC 无关的依赖
 	 * @param file Jar 文件
 	 */
-	public void loadLibraryLocal(File file) {
-		try{
-			if(file.exists()){
-				logger.info("正在加载依赖 " + file);
-				loader.get().addURL(file.toURI().toURL());
-			} else {
-				logger.severe("无法加载依赖 " + file.getPath());
-			}
-		} catch (MalformedURLException e) {
-			throw new RuntimeException("解析依赖时发生异常", e);
+	public void loadLibraryLocal(File file) throws MalformedURLException, FileNotFoundException {
+		if (file.exists()) {
+			logger.info("正在加载依赖 " + file);
+			loader.get().addURL(file.toURI().toURL());
+		} else {
+			logger.severe("依赖文件 " + file.getPath() + " 不存在");
+			throw new FileNotFoundException("依赖文件 " + file.getPath() + " 不存在");
 		}
 	}
 
@@ -85,35 +79,43 @@ public class LibraryLoader {
 		validatePathComponent(artifactId, "artifactId");
 		validatePathComponent(version, "version");
 		validatePathComponent(archiveSuffix, "archiveSuffix");
+
 		String filename = artifactId + "-" + version + archiveSuffix; // 文件名
-		String sha1Filename = filename + ".sha1"; // sha1文件名
+//		String sha1Filename = filename + ".sha1"; // sha1文件名
 		File file = savePath.resolve(filename).toFile();
 		String url = getJarUrl(groupId, artifactId, version, repo, archiveSuffix);
 		boolean needDownload = true;
 
 		if(file.exists()){ // 如果文件已存在，联网验证完整性
-            URLConnection connection = new URL(url + ".sha1").openConnection();
-            connection.setConnectTimeout(5000);
-            connection.setReadTimeout(5000);
-            try(InputStream is = connection.getInputStream();
-				ByteArrayOutputStream os = new ByteArrayOutputStream()){
-
-				int i;
-				while ((i = is.read()) != -1) os.write(i);
-
-				Files.write(savePath.resolve(sha1Filename), os.toByteArray()); // 写入sha1文件
-                String checksum = os.toString().trim().replace(" ", "").toLowerCase();
-
-                needDownload = !checksum.equals(getFileSha1(file));
+			try {
+				String checksum = Utils.Http.get(url + ".sha1").trim().replace(" ", "").toLowerCase(); // 先下载sha1文件
+				needDownload = !checksum.equals(getFileSha1(file));
 			} catch (IOException e) {
 				logger.warning("无法校验文件完整性，原因: " + e);
 				needDownload = false; // 由于文件已经存在，无法检测完整性只可能是网络问题，所以继续下载也不可能成功，不如直接不下载
 			}
+
+//			URLConnection connection = new URL(url + ".sha1").openConnection();
+//            connection.setConnectTimeout(5000);
+//            connection.setReadTimeout(5000);
+//            try(InputStream is = connection.getInputStream();
+//				ByteArrayOutputStream os = new ByteArrayOutputStream()){
+//
+//				int i;
+//				while ((i = is.read()) != -1) os.write(i);
+//
+//				Files.write(savePath.resolve(sha1Filename), os.toByteArray()); // 写入sha1文件
+//                String checksum = os.toString().trim().replace(" ", "").toLowerCase();
+//
+//                needDownload = !checksum.equals(getFileSha1(file));
+//			} catch (IOException e) {
+//				logger.warning("无法校验文件完整性，原因: " + e);
+//				needDownload = false; // 由于文件已经存在，无法检测完整性只可能是网络问题，所以继续下载也不可能成功，不如直接不下载
+//			}
 		}
 
 		if(needDownload){
-			if (!file.getParentFile().exists() && !file.getParentFile().mkdirs())
-				logger.warning("无法创建文件夹 " + file.getParent());
+			if (!file.getParentFile().exists() && !file.getParentFile().mkdirs()) logger.warning("无法创建文件夹 " + file.getParent());
 			Utils.Http.download(url, file);
 		}
 
