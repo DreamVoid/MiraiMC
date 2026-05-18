@@ -3,6 +3,7 @@ package me.dreamvoid.miraimc.internal;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import me.dreamvoid.miraimc.api.MiraiMC;
+import me.dreamvoid.universalpluginupdater.BuildConstants;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,8 +18,6 @@ import java.util.Arrays;
 import java.util.logging.Logger;
 
 public final class Utils {
-    private static final String version = "PROJECT.VERSION";
-
     static {
         Logger logger = Logger.getLogger("MiraiMC Preload Checker");
         // 此处放置插件自检代码
@@ -127,7 +126,7 @@ public final class Utils {
 
             connection.setDoInput(true);
             connection.setRequestMethod("GET");
-            connection.setRequestProperty("User-Agent", String.format("MiraiMC/%s (%s; Java %s)", version, System.getProperty("os.name"), Utils.getJavaVersion()));
+            connection.setRequestProperty("User-Agent", String.format("MiraiMC/%s (%s; Java %s)", BuildConstants.VERSION, System.getProperty("os.name"), Utils.getJavaVersion()));
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(10000);
 
@@ -156,7 +155,7 @@ public final class Utils {
 
             connection.setDoInput(true);
             connection.setRequestMethod("POST");
-            connection.setRequestProperty("User-Agent", String.format("MiraiMC/%s (%s; Java %s)", version, System.getProperty("os.name"), Utils.getJavaVersion()));
+            connection.setRequestProperty("User-Agent", String.format("MiraiMC/%s (%s; Java %s)", BuildConstants.VERSION, System.getProperty("os.name"), Utils.getJavaVersion()));
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Authorization", "Basic YWRtaW46");
             connection.setConnectTimeout(5000);
@@ -241,10 +240,21 @@ public final class Utils {
     }
 
     /**
-     * 获取插件版本
+     * 获取插件版本名
      * @return 版本
      */
     public static String getVersion() {
-        return version;
+        return BuildConstants.VERSION;
     }
+
+    /**
+     * 获取插件版本号
+     *
+     * @return 版本号
+     */
+    public static int getVersionCode() {
+        return Integer.parseInt(BuildConstants.VERSION_CODE);
+    }
+
+
 }

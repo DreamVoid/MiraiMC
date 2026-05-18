@@ -24,6 +24,7 @@ import me.dreamvoid.miraimc.interfaces.Platform;
 import me.dreamvoid.miraimc.interfaces.PluginConfig;
 import me.dreamvoid.miraimc.loader.LibraryLoader;
 import me.dreamvoid.miraimc.velocity.utils.Metrics;
+import me.dreamvoid.universalpluginupdater.BuildConstants;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.slf4j.Logger;
 
@@ -37,7 +38,7 @@ import java.util.concurrent.TimeUnit;
 @Plugin(
         id = "miraimc",
         name = "MiraiMC",
-        version = "PROJECT.VERSION",
+        version = BuildConstants.VERSION,
         description = "MiraiBot for Minecraft server",
         url = "https://github.com/DreamVoid/MiraiMC",
         authors = {"DreamVoid"}
