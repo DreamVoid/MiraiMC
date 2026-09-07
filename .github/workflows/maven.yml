@@ -27,10 +27,10 @@ jobs:
         echo "version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)" >> "$GITHUB_OUTPUT"
 
     - name: Update debug build version
-      run: mvn versions:set -DnewVersion="${{ steps.variables.outputs.version }}+github#${{ github.run_number }}" -DprocessAllModules=true -DgenerateBackupPoms=false
+      run: mvn -q versions:set -DnewVersion="${{ steps.variables.outputs.version }}+github#${{ github.run_number }}" -DprocessAllModules=true -DgenerateBackupPoms=false
 
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -q -B package --file pom.xml
 
     # MiraiMC-Bukkit.jar
     - name: Upload a Build Artifact - MiraiMC Bukkit
