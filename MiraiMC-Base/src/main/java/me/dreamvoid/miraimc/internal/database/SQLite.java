@@ -62,7 +62,6 @@ public class SQLite implements Database {
             config.setKeepaliveTime(MiraiMC.getConfig().Database_Settings_Pool_KeepaliveTime);
             config.setMinimumIdle(MiraiMC.getConfig().Database_Settings_Pool_MinimumIdle);
             config.setLeakDetectionThreshold(60000); // 60秒内未关闭的连接将被记录
-            config.setConnectionTestQuery("SELECT 1");
             config.setAutoCommit(true);
             config.addDataSourceProperty("cachePrepStmts", "true");
             config.addDataSourceProperty("prepStmtCacheSize", "250");
@@ -70,6 +69,7 @@ public class SQLite implements Database {
             config.addDataSourceProperty("journal_mode", "WAL");
             config.addDataSourceProperty("busy_timeout", "5000"); // 5秒
 
+            close(); // 若此前已初始化过连接池，先关闭旧池以避免连接泄漏
             ds = new HikariDataSource(config);
         } catch (AbstractMethodError error){
             Utils.resolveException(error, Utils.getLogger(), "发生了一个意料之中的问题，请查阅文档了解更多信息：https://docs.miraimc.dreamvoid.me/troubleshoot/faq");
@@ -78,7 +78,10 @@ public class SQLite implements Database {
 
     @Override
     public void close() {
-        ds.close();
+        if (ds != null) {
+            ds.close();
+            ds = null;
+        }
     }
 
     @Override

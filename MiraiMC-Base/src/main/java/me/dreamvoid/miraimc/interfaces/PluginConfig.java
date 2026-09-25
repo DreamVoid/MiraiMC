@@ -47,7 +47,7 @@ public abstract class PluginConfig {
         Database_Settings_Prefix = getString("database.settings.prefix", Database_Settings_Prefix);
         // database.settings.pool
         Database_Settings_Pool_ConnectionTimeout = getInt("database.settings.pool.connectionTimeout", Database_Settings_Pool_ConnectionTimeout);
-        Database_Settings_Pool_IdleTimeout = getInt("database.settings.pool.connectionTimeout", Database_Settings_Pool_IdleTimeout);
+        Database_Settings_Pool_IdleTimeout = getInt("database.settings.pool.idleTimeout", Database_Settings_Pool_IdleTimeout);
         Database_Settings_Pool_MaxLifetime = getInt("database.settings.pool.maxLifetime", Database_Settings_Pool_MaxLifetime);
         Database_Settings_Pool_MaximumPoolSize = getInt("database.settings.pool.maximumPoolSize", Database_Settings_Pool_MaximumPoolSize);
         Database_Settings_Pool_KeepaliveTime = getInt("database.settings.pool.keepaliveTime", Database_Settings_Pool_KeepaliveTime);
