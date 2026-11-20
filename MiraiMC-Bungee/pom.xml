@@ -83,6 +83,7 @@
                 <version>3.6.2</version>
                 <configuration>
                     <minimizeJar>false</minimizeJar>
+                    <generateUniqueDependencyReducedPom>false</generateUniqueDependencyReducedPom>
                     <filters>
                         <filter>
                             <artifact>*:*</artifact>
