@@ -7,7 +7,7 @@
     <groupId>io.github.dreamvoid</groupId>
     <artifactId>MiraiMC</artifactId>
     <packaging>pom</packaging>
-    <version>1.10-pre1</version>
+    <version>1.10-pre2</version>
     <modules>
         <module>MiraiMC-Base</module>
         <module>MiraiMC-Bukkit</module>
@@ -48,7 +48,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <versionCode>23</versionCode>
+        <versionCode>24</versionCode>
     </properties>
 
     <dependencies>
@@ -170,7 +170,6 @@
                 <configuration>
                     <publishingServerId>central</publishingServerId>
                     <autoPublish>true</autoPublish>
-                    <excludeArtifacts>MiraiMC-Base,MiraiMC-Bukkit,MiraiMC-Nukkit,MiraiMC-Velocity</excludeArtifacts>
                 </configuration>
             </plugin>
         </plugins>

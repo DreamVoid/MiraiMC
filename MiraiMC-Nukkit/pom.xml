@@ -5,7 +5,7 @@
     <parent>
         <artifactId>MiraiMC</artifactId>
         <groupId>io.github.dreamvoid</groupId>
-        <version>1.10-pre1</version>
+        <version>1.10-pre2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -40,13 +40,11 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <!-- nukkit 上游只发布 SNAPSHOT，这里固定为其仓库保存的时间戳快照版本，避免 Maven Central 拒绝快照依赖 -->
+        <nukkit.version>1.0-20261109.225602-1253</nukkit.version>
     </properties>
 
     <repositories>
-        <repository>
-            <id>opencollab-repo-release</id>
-            <url>https://repo.opencollab.dev/maven-releases</url>
-        </repository>
         <repository>
             <id>opencollab-repo-snapshot</id>
             <url>https://repo.opencollab.dev/maven-snapshots</url>
@@ -63,7 +61,7 @@
         <dependency>
             <groupId>cn.nukkit</groupId>
             <artifactId>nukkit</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${nukkit.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
